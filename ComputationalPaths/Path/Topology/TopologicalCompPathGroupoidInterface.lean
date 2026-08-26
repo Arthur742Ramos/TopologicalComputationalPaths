@@ -353,7 +353,7 @@ theorem strongPairMap_surjective :
 theorem strongPairMap_isQuotient :
     Topology.IsQuotientMap (strongPairMap S :
       ComposableHomotopyClass S → StrongComposablePair S) :=
-  ⟨strongPairMap_surjective S, rfl⟩
+  ⟨⟨rfl⟩, strongPairMap_surjective S⟩
 
 noncomputable def strongPairToOrdinary :
     StrongComposablePair S → ComposablePair S :=

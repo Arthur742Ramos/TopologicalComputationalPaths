@@ -332,7 +332,8 @@ end DepContext
     {A : Type u} {B : Type v} {C : A → B → Type w}
     (f : (a : A) → (b : B) → C a b) (a : A) (b : B) :
     map2Dep f (Path.refl a) (Path.refl b) = Path.refl (f a b) := by
-  simp [map2Dep]
+  simp only [map2Dep, mapLeftDep, mapRightDep, Path.refl, Context.map]
+  congr
 
 /-- A binary context whose codomain may depend on the left hole. -/
 structure DepBiContext (A : Type u) (B : Type v)

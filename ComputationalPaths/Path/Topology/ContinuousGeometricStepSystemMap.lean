@@ -96,9 +96,17 @@ theorem mapTrace_length (M : ContinuousGeometricStepSystemMap S T)
   induction t with
   | refl a => rfl
   | single s =>
-      simpa [mapTrace] using
-        (castTrace_length (S := T) (M.map_src s).symm (M.map_tgt s).symm
-          (GeometricTrace.single (S := T.toGeometricStepSystem) (M.stepMap s)))
+      change GeometricTrace.traceLength
+          (castTrace (M.map_src s).symm (M.map_tgt s).symm
+            (GeometricTrace.single (S := T.toGeometricStepSystem) (M.stepMap s))) =
+        GeometricTrace.traceLength (GeometricTrace.single s)
+      calc
+        _ = GeometricTrace.traceLength
+            (GeometricTrace.single (S := T.toGeometricStepSystem) (M.stepMap s)) :=
+          castTrace_length (S := T) (M.map_src s).symm (M.map_tgt s).symm
+            (GeometricTrace.single (S := T.toGeometricStepSystem) (M.stepMap s))
+        _ = 1 := rfl
+        _ = GeometricTrace.traceLength (GeometricTrace.single s) := rfl
   | trans p q ihp ihq => simp [mapTrace, GeometricTrace.traceLength, ihp, ihq]
   | symm p ih => simp [mapTrace, GeometricTrace.traceLength, ih]
 

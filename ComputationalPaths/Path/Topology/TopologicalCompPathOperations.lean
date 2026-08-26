@@ -246,7 +246,10 @@ theorem continuous_totalTrans :
     have h := GeometricTrace.continuous_nat_add.comp
       ((TotalComposable.continuous_leftTraceLength S).prodMk
         (TotalComposable.continuous_rightTraceLength S))
-    simpa [GeometricTrace.traceLength] using h
+    change Continuous (fun c : TotalComposable A Step S =>
+      GeometricTrace.traceLength c.left.trace +
+        GeometricTrace.traceLength c.right.trace) at h
+    exact h
   have htraceFamily :
       Continuous ↿(fun c : TotalComposable A Step S =>
         _root_.Path.trans (GeometricTrace.realize c.left.trace)

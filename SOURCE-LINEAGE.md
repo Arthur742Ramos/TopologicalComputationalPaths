@@ -23,6 +23,6 @@ remain supporting candidates.  They are not silently treated as part of the
 minimal publication claim until their dependency closure and theorem scope
 have been checked in this repository.
 
-The parent worktree is not a submodule of this repository.  A later release
-will record the exact focused source commit and any theorem-statement changes
-made during the port.
+The parent worktree is not a submodule of this repository.  The exact focused
+source commit is recorded in the submission receipt, together with any
+theorem-statement changes made during the port.

@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Topological Semantics of Computational Paths"
+  description: >-
+    A Lean formalization of topological semantics for endpoint-varying
+    computational paths.  It constructs the quotient arrow space and the
+    canonical final topology on composable representatives, proves continuity
+    of source, target, identity, inverse, and composition together with the
+    groupoid laws, and characterizes exactly when the ordinary pullback domain
+    is compatible through quotient-map, inverse-continuity, and induced-topology
+    criteria.
+  authors:
+    - "Arthur Freitas Ramos"
+    - "Ruy de Queiroz"
+    - "Anjolina de Oliveira"
+    - "Tiago Veras"
+  license: "MIT"
+  responsible_maintainers:
+    - "Arthur Freitas Ramos"
+
+classification:
+  arxiv: ["math.AT", "math.GN", "cs.LO"]
+  msc2020: ["03B35", "18B40", "54B15", "54C05"]
+
+sources:
+  - title: "A modular Seifert–van Kampen theorem for computational paths"
+    authors:
+      - "Arthur F. Ramos"
+      - "Tiago M. L. de Veras"
+      - "Ruy J. G. B. de Queiroz"
+      - "Anjolina G. de Oliveira"
+    type: "paper"
+    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/topological-paper-v12/paper/svk/main.tex"
+    location: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/topological-paper-v12/paper/svk/main.tex"
+    relationship: "adapts"
+    note: >-
+      The focused repository extracts and ports the manuscript's
+      quotient-compatible topological groupoid section, while leaving the
+      circle, torus, and realization layers outside this first package.
+
+related_formalizations:
+  - id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/2a2baa1f31c68f0e696021db91f8381dd2854652"
+    relationship: "adapts"
+    note: >-
+      The focused repository extracts the audited topological-semantics source
+      boundary at the topological-paper-v12 snapshot and ports it to Lean
+      4.32.0.  The parent repository remains the broader development tree.
+
+status:
+  scope: >-
+    The package formalizes the scoped geometric rewrite quotient and its
+    unconditional final-domain topological groupoid certificate, including
+    continuity and endpoint, unit, inverse, and associativity laws.  It also
+    formalizes the exact comparison between the final and ordinary composable
+    domains.  Circle and torus examples, realization comparisons, and the
+    externally transferred Hawaiian-earring obstruction are intentionally not
+    part of this focused release.  The Challenge file contains the one
+    deliberate statement-side sorry allowed by the Palomar protocol; the
+    proof development and Solution contain none.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent-assisted proof development and review"
+      models: ["Codex"]
+      framework: "Lean 4.32.0 and Lake"
+      tool_setup: >-
+        AI-assisted extraction, compatibility repair, and proof review; every
+        submitted theorem is checked by the Lean kernel.
+      cost:
+        wall_time: "multi-session local development"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "Focused extraction, dependency audit, and Palomar packaging."
+  spend_usd: "not tracked"
+  notes: >-
+    The focused repository was extracted from a pinned parent snapshot, ported
+    to the supported toolchain, and checked with targeted and full Lake builds.
+
+fidelity:
+  divergences: >-
+    The mathematical scope is unchanged for the extracted topological groupoid
+    layer, but the focused repository adds a statement-safe Palomar interface
+    and a generic final-domain comparison adapter.  The toolchain is ported
+    from Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are omitted
+    from this release rather than implied by the package.
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "none"
+  notes: >-
+    Source lineage, dependency closure, theorem boundaries, quotient-map
+    hypotheses, and the final-versus-ordinary topology distinction were
+    audited.  Kernel builds and the Palomar-shaped Challenge/Solution boundary
+    were checked locally; no independent peer review is claimed.
+
+alignment:
+  namespace: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite"
+  statements:
+    - source: "Unconditional quotient-compatible topological groupoid certificate"
+      lean: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite.scopedFinalTopologicalGroupoidCertificate"
+      module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
+      status: "proved"
+      note: "Continuity and groupoid laws on the canonical final composable domain."
+    - source: "Exact final/ordinary composable-domain comparison"
+      lean: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite.scopedProductCompatibility_iff_four_way"
+      module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
+      status: "proved"
+      note: "The ordinary-pair criterion is retained as a separate conditional theorem."
+    - source: "Palomar statement-surface theorem"
+      lean: "TopologicalComputationalPaths.main_result"
+      module: "Solution.lean"
+      status: "adapted"
+      note: "The statement-safe generic quotient/final-domain certificate is proved and connected to the extracted construction by scopedFinalPairData."
+
+acknowledgements: >-
+  Thanks to the authors and contributors of the Calculus of Computational Paths,
+  Lean 4, Mathlib, and the Palomar Registry tooling.

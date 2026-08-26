@@ -105,8 +105,14 @@ noncomputable def constantRealizationModel {A : Type u} [TopologicalSpace A] :
         exact isEmptyElim p
     | inr h =>
         let p₀ : ComputationalPaths.Path a b := Classical.choice h
-        convert (continuous_const :
-          Continuous (fun _ : ComputationalPaths.Path a b => constantRealize p₀)) using 1
+        exact Continuous.congr
+          (continuous_const :
+            Continuous (fun _ : ComputationalPaths.Path a b => constantRealize p₀))
+          (fun p => by
+            cases p with
+            | mk steps proof =>
+                cases proof
+                simp [constantRealize])
 
 /-! ## Geometric paths carrying computational traces -/
 

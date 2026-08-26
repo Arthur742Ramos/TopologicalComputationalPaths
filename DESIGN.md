@@ -34,7 +34,7 @@ The last item depends on an externally supplied non-quotient theorem.  If it
 is retained, the repository will label it as a transfer theorem and will not
 present the external topological input as newly formalized here.
 
-## Palomar shape
+## Palomar package
 
 The focused project will use a dedicated Lean package rather than importing
 the parent repository wholesale.  Its submission surface is intended to be:
@@ -43,26 +43,30 @@ the parent repository wholesale.  Its submission surface is intended to be:
 TopologicalComputationalPaths/
 ├── Challenge.lean
 ├── Solution.lean
-├── Comparator.lean
 ├── comparator.json
 ├── formalization.yaml
-├── lakefile.lean
+├── lakefile.toml
 ├── lake-manifest.json
 ├── lean-toolchain
+├── LICENSE
 ├── README.md
-└── TopologicalComputationalPaths/
-    ├── Core.lean
-    ├── Quotient.lean
-    ├── Groupoid.lean
-    └── Examples.lean
+└── ComputationalPaths/
+    └── Path/Topology/...
 ```
 
-`Challenge.lean` will be deliberately small and statement-oriented.  The
-definitions used by the statement will live in the focused package's
-statement-safe core, not in the parent monorepo.  `Solution.lean` will import
-that same statement surface and provide the checked proof through the pinned
-focused sources.  This keeps the Challenge/Solution type identity transparent
-to the independent comparator.
+`Challenge.lean` is deliberately small and statement-oriented.  Its
+definitions are duplicated in the challenge and solution so that the
+challenge has no local-project import.  `Solution.lean` imports the same
+statement-side library plus the pinned focused sources, then provides the
+checked proof and a concrete adapter to the scoped quotient construction.  This
+keeps the Challenge/Solution type identity transparent to the independent
+comparator while respecting Palomar's challenge import boundary.
+
+The checked-in `comparator.json` selects
+`TopologicalComputationalPaths.main_result`; it does not expose the concrete
+adapter as a second challenge theorem.  The adapter and the extracted
+groupoid certificate remain available in the solution source for provenance
+and downstream inspection.
 
 ## Non-goals for the first submission
 

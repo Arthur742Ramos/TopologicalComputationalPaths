@@ -56,7 +56,7 @@ noncomputable def codeSymm : TotalPathCode A → TotalPathCode A
 
 noncomputable def codeTrans : ComposableCode A → TotalPathCode A
   | ⟨a, _, c, pq⟩ =>
-      ⟨a, c, _root_.Path.Homotopic.Quotient.comp pq.1 pq.2⟩
+      ⟨a, c, _root_.Path.Homotopic.Quotient.trans pq.1 pq.2⟩
 
 noncomputable def totalTransTraceLengthPath
     (c : TotalComposable A Step S) :

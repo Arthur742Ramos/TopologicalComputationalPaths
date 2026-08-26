@@ -30,27 +30,37 @@ dependency boundary and independently checked.
 
 The starting implementation is the topological layer at the immutable source
 snapshot `topological-paper-v12` of the parent repository.  This focused repo
-is a new publication-oriented extraction; it is not yet a Palomar submission.
-The parent repository remains the canonical broad development tree until the
-extraction is complete.
+is the publication-oriented extraction of that layer.  The parent repository
+remains the canonical broad development tree for the other topological and
+geometric constructions.
 
 ## Publication boundary
 
-The eventual Palomar package will contain one pinned Lean project with a small
-`Challenge.lean`, a matching `Solution.lean`, and an explicit Comparator
-configuration.  The challenge will state the result using only the permitted
-statement-side imports; the solution may use the pinned focused development.
+This repository now contains one pinned Lean project with a small
+`Challenge.lean`, a matching `Solution.lean`, and an explicit `comparator.json`.
+The challenge states the result using only the permitted statement-side
+imports; the solution uses the pinned focused development and connects the
+generic statement to the extracted quotient construction.
 
-Before submission, the package must pass the current Palomar toolchain and
-dependency checks, contain no `sorry`, `admit`, custom axioms, or
-`native_decide`, and have a research-interest statement that accurately
-separates the formalized theorem from the surrounding mathematical program.
+Before submission, the solution and substantive development must pass the
+current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
+custom axioms, or `native_decide`, and have a research-interest statement that
+accurately separates the formalized theorem from the surrounding mathematical
+program.  Palomar permits the single deliberate statement-side `sorry` in the
+Challenge file.
 
 ## Status
 
-The initial 30-file core extraction is present and builds successfully with
-the parent v4.24.0 toolchain.  The Palomar harness and the supported-toolchain
-port are still pending.
+The focused 30-file core, the Palomar statement boundary, and the Lean 4.32.0
+port are complete.  `lake build` succeeds for the core, Challenge, and
+Solution targets.  The only `sorry` is the deliberate statement-side hole in
+`Challenge.lean`; `Solution.lean` and the extracted development contain no
+`sorry`, `admit`, custom axioms, or `native_decide`.
+
+The repository has been checked against Palomar's current metadata, layout,
+toolchain, and pinned-manifest rules.  A registry submission still requires a
+public GitHub repository and immutable commit, followed by Palomar's hosted
+Comparator/NanoDa run and editorial review.
 
 ## Reproduce the baseline
 
@@ -60,5 +70,13 @@ From the repository root:
 lake build
 ```
 
-The extraction is intentionally committed before the toolchain port, so any
-later Lean-version changes can be reviewed separately from source selection.
+Useful local contract checks are:
+
+```text
+rg "\\bsorry\\b|\\badmit\\b|^axiom |native_decide" -g "*.lean" -g "!.lake/**"
+git diff --check
+```
+
+The checked-in `lake-manifest.json` records the complete dependency closure;
+the `lakefile.toml` and `lean-toolchain` are the only project controls needed
+to reproduce the build.

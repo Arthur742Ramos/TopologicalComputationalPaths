@@ -64,7 +64,7 @@ theorem scopedQuotientMk_surjective :
 theorem scopedQuotientMk_isQuotient :
     Topology.IsQuotientMap (scopedQuotientMk P :
       ScopedRawPath (S := S) → ScopedClass P) :=
-  ⟨scopedQuotientMk_surjective P, rfl⟩
+  ⟨⟨rfl⟩, scopedQuotientMk_surjective P⟩
 
 theorem continuous_scopedQuotientMk :
     Continuous (scopedQuotientMk P : ScopedRawPath (S := S) → ScopedClass P) :=
@@ -221,7 +221,7 @@ theorem scopedComposableMk_surjective :
 theorem scopedComposableMk_isQuotient :
     Topology.IsQuotientMap (scopedComposableMk P :
       ScopedComposableRaw (S := S) → ScopedComposableClass P) :=
-  ⟨scopedComposableMk_surjective P, rfl⟩
+  ⟨⟨rfl⟩, scopedComposableMk_surjective P⟩
 
 theorem continuous_scopedComposableMk :
     Continuous (scopedComposableMk P :
@@ -311,7 +311,7 @@ noncomputable instance scopedStrongComposablePairTopologicalSpace :
 theorem scopedPairMap_isQuotient :
     Topology.IsQuotientMap (scopedPairMap P :
       ScopedComposableClass P → ScopedStrongComposablePair P) :=
-  ⟨scopedPairMap_surjective P, rfl⟩
+  ⟨⟨rfl⟩, scopedPairMap_surjective P⟩
 
 theorem continuous_scopedPairMap :
     Continuous (scopedPairMap P :
@@ -334,14 +334,16 @@ theorem continuous_scopedStrongToOrdinary :
       scopedQuotientMk P (leftRaw c)) :=
     continuous_scopedQuotientMk P |>.comp
       (by
-        simpa [leftRaw] using
-          (TotalOpenGeometricCompPath.continuous_leftTotal S))
+        convert (TotalOpenGeometricCompPath.continuous_leftTotal S) using 1
+        funext c
+        rfl)
   have hright : Continuous (fun c : ScopedComposableRaw (S := S) =>
       scopedQuotientMk P (rightRaw c)) :=
     continuous_scopedQuotientMk P |>.comp
       (by
-        simpa [rightRaw] using
-          (TotalOpenGeometricCompPath.continuous_rightTotal S))
+        convert (TotalOpenGeometricCompPath.continuous_rightTotal S) using 1
+        funext c
+        rfl)
   exact (hleft.prodMk hright).subtype_mk (by intro c; rfl)
 
 noncomputable def scopedCompositionOnStrong

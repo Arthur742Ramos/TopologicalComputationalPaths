@@ -63,7 +63,8 @@ theorem scopedEquivalent_geometric
   have hr' : _root_.Path.Homotopy
       (GeometricTrace.realize p_path.trace)
       (GeometricTrace.realize q_path.trace) := by
-    simpa [castScopedTrace] using hr
+    simpa [castScopedTrace, ContinuousGeometricStepSystemMap.castTrace,
+      TotalOpenGeometricCompPath.trace] using hr
   have hgeom : _root_.Path.Homotopic p_path.geometric q_path.geometric :=
     ⟨hp.trans (hr'.trans hq.symm)⟩
   change totalCode S
@@ -232,9 +233,17 @@ theorem scopedComposableEquivalent_geometric
     TotalOpenGeometricCompPath.composableCode S d
   apply TotalOpenGeometricCompPath.composableCode_ext_of_component_codes
   · have hleft := scopedEquivalent_geometric P h.1
-    simpa [leftRaw, TotalOpenGeometricCompPath.leftTotal] using hleft
+    change totalCode S (TotalOpenGeometricCompPath.leftTotal S c) =
+      totalCode S (TotalOpenGeometricCompPath.leftTotal S d) at hleft
+    rw [TotalOpenGeometricCompPath.totalCode_leftTotal S c,
+      TotalOpenGeometricCompPath.totalCode_leftTotal S d] at hleft
+    exact hleft
   · have hright := scopedEquivalent_geometric P h.2
-    simpa [rightRaw, TotalOpenGeometricCompPath.rightTotal] using hright
+    change totalCode S (TotalOpenGeometricCompPath.rightTotal S c) =
+      totalCode S (TotalOpenGeometricCompPath.rightTotal S d) at hright
+    rw [TotalOpenGeometricCompPath.totalCode_rightTotal S c,
+      TotalOpenGeometricCompPath.totalCode_rightTotal S d] at hright
+    exact hright
 
 noncomputable def toGeometricComposableClass :
     ScopedComposableClass P →

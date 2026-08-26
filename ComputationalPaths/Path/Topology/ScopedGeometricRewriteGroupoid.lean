@@ -110,14 +110,10 @@ theorem scopedPairMap_injective :
   apply Quotient.sound
   have hleft :
       scopedQuotientMk P (leftRaw c) = scopedQuotientMk P (leftRaw d) := by
-    change scopedQuotientMk P (leftRaw c) =
-      scopedQuotientMk P (leftRaw d)
     exact _root_.congrArg
       (fun z : ScopedStrongComposablePair P => z.val.val.1) h
   have hright :
       scopedQuotientMk P (rightRaw c) = scopedQuotientMk P (rightRaw d) := by
-    change scopedQuotientMk P (rightRaw c) =
-      scopedQuotientMk P (rightRaw d)
     exact _root_.congrArg
       (fun z : ScopedStrongComposablePair P => z.val.val.2) h
   exact ⟨Quotient.exact hleft, Quotient.exact hright⟩
@@ -285,8 +281,8 @@ theorem scopedProductCompatibility_iff_topology_agreement :
   · intro H
     exact H.pair_map_is_quotient.eq_coinduced.symm
   · intro htop
-    refine ⟨Topology.IsQuotientMap.mk
-      (scopedPairToOrdinary_surjective P) ?_⟩
+    refine ⟨Topology.IsQuotientMap.mk ⟨?_⟩
+      (scopedPairToOrdinary_surjective P)⟩
     exact htop.symm
 
 theorem scopedProductCompatibility_of_open_pair_map
@@ -302,7 +298,7 @@ theorem scopedProductCompatibility_of_compact_final_t2
     [CompactSpace (ScopedComposableClass P)]
     [T2Space (ScopedComposablePair P)] :
     ProductQuotientCompatibility P := by
-  exact ⟨IsQuotientMap.of_surjective_continuous
+  exact ⟨Topology.IsQuotientMap.of_surjective_continuous
     (scopedPairToOrdinary_surjective P)
     (continuous_scopedPairToOrdinary P)⟩
 

@@ -157,7 +157,7 @@ theorem geometricClass_quotientTrans {a b c : A}
     (p : HomotopyClass S (a := a) (b := b))
     (q : HomotopyClass S (a := b) (b := c)) :
     geometricClass S (quotientTrans S p q) =
-      _root_.Path.Homotopic.Quotient.comp (geometricClass S p)
+      _root_.Path.Homotopic.Quotient.trans (geometricClass S p)
         (geometricClass S q) := by
   refine Quotient.inductionOn₂ p q ?_
   intro p q
