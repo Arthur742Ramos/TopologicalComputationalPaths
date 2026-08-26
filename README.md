@@ -51,3 +51,14 @@ separates the formalized theorem from the surrounding mathematical program.
 The initial 30-file core extraction is present and builds successfully with
 the parent v4.24.0 toolchain.  The Palomar harness and the supported-toolchain
 port are still pending.
+
+## Reproduce the baseline
+
+From the repository root:
+
+```text
+lake build
+```
+
+The extraction is intentionally committed before the toolchain port, so any
+later Lean-version changes can be reviewed separately from source selection.
