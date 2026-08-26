@@ -17,6 +17,11 @@ The first result package concerns a scoped geometric rewrite presentation:
    the relevant pair map is a quotient map, with compact-Hausdorff and discrete
    sufficient conditions.
 
+The Palomar-selected declaration is item 3.  Items 1 and 2 supply the spaces
+and continuous final-domain operation needed to formulate and prove that
+comparison; their largely structural laws are not presented as the research
+contribution.
+
 The package will keep the final-domain statement distinct from the stronger
 ordinary-topological-groupoid statement.  That distinction is part of the
 mathematical result, not merely an implementation detail.
@@ -38,15 +43,20 @@ geometric constructions.
 
 This repository now contains one pinned Lean project with a focused
 `Challenge.lean`, a matching `Solution.lean`, and an explicit `comparator.json`.
-The compared `main_result` directly states the scoped geometric rewrite
-quotient's final-domain topological groupoid certificate: continuity of all
-structural operations, the unit, inverse, and associativity laws, rewrite
-soundness for geometric realization, and explicit trace-level `Path` and
-`ScopedRwEq` witnesses.  `Challenge.lean` duplicates only the statement-facing
-definitions needed for that type using Lean core and Mathlib; it does not import
-the project library.  `Solution.lean` imports the extracted, checked groupoid
-construction and supplies the fields.  The generic final-domain/comparison
-interface and its quotient-descent adapter remain supporting material.
+The compared `main_result` states the exact final-versus-ordinary topology
+comparison.  The canonical map from the final composable quotient to the
+ordinary pullback is always a continuous bijection.  The theorem identifies
+when it is quotient, when it upgrades to a homeomorphism, when the final
+topology is induced from the ordinary domain, and when multiplication is
+continuous on the ordinary pullback.  It also formalizes discontinuity of
+ordinary multiplication as an obstruction and proves compact--Hausdorff and
+discrete sufficient cases.  These are the publication-facing claims; the
+automatic final-domain groupoid laws remain supporting infrastructure.
+
+`Challenge.lean` duplicates only the statement-facing definitions needed for
+that theorem using Lean core and Mathlib; it does not import the project
+library.  `Solution.lean` imports the extracted, checked comparison theory and
+supplies the certificate.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
@@ -61,14 +71,14 @@ The focused 30-file core, the Palomar statement boundary, and the Lean 4.32.0
 port are complete.  `lake build` succeeds for the core, Challenge, and
 Solution targets.  The only `sorry` is the deliberate statement-side hole in
 `Challenge.lean`; `Solution.lean` and the extracted development contain no
-`sorry`, `admit`, custom axioms, or `native_decide`.  The concrete solution
-also proves that its canonically descended operation agrees with the scoped
-quotient composition from the extracted development.
+`sorry`, `admit`, custom axioms, or `native_decide`.  The selected solution
+packages the exact quotient-map/homeomorphism/topology-agreement comparison,
+its ordinary-composition consequence and obstruction, and both positive
+sufficient-condition theorems.
 
 The repository has been checked against Palomar's current metadata, layout,
-toolchain, and pinned-manifest rules.  A registry submission still requires a
-public GitHub repository and immutable commit, followed by Palomar's hosted
-Comparator/NanoDa run and editorial review.
+toolchain, and pinned-manifest rules.  Registration still requires a hosted
+Comparator/NanoDa run and editorial approval of the revised comparison result.
 
 ## Reproduce the baseline
 

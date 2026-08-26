@@ -4,11 +4,12 @@ import ComputationalPaths
 /-!
 # Solution: topological semantics of computational paths
 
-The selected theorem is the concrete scoped geometric rewrite quotient result:
-its final-domain operations form a topological groupoid, the rewrite relation
-is sound for geometric realization, and explicit trace witnesses remain
-available.  The generic final-domain/comparison interface below is retained as
-supporting notation for the extraction adapter.
+The selected theorem is the exact comparison between the canonical final
+composable topology and the ordinary pullback topology.  It identifies the
+quotient-map, homeomorphism, and induced-topology criteria; transfers
+continuity to ordinary composition; and proves compact--Hausdorff and discrete
+sufficient cases.  The generic final-domain interface below remains supporting
+notation for the extraction adapter.
 -/
 
 namespace TopologicalComputationalPaths
@@ -18,50 +19,68 @@ universe u v w
 open ComputationalPaths.Path.GeometricTopology
 open ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
 
-/-! The publication-facing certificate keeps the concrete quotient groupoid
-and its computational-path witnesses visible in the theorem type. -/
+/-! ## The ordinary/final topology comparison -/
 
-structure ScopedTopologicalComputationalPathCertificate
+noncomputable def finalToOrdinary
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposableClass P → ScopedComposablePair P :=
+  fun c => (scopedPairMap P c).val
+
+noncomputable def rawToOrdinary
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposableRaw (S := S) → ScopedComposablePair P :=
+  fun c => finalToOrdinary P (scopedComposableMk P c)
+
+noncomputable def ordinaryComposition
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposablePair P → ScopedClass P :=
+  fun pq => scopedCompositionOnStrong P ⟨pq⟩
+
+structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
     (S : ContinuousGeometricStepSystem A Step)
     (P : ScopedGeometricRewritePresentation S) : Prop where
-  source_continuous : Continuous (scopedSrc P)
-  target_continuous : Continuous (scopedTgt P)
-  identity_continuous : Continuous (scopedRefl P)
-  inverse_continuous : Continuous (scopedSymm P)
-  final_composition_continuous :
-    Continuous (scopedCompositionOnStrong P :
-      ScopedStrongComposablePair P → ScopedClass P)
-  left_unit : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongLeftUnitPair P p) = p
-  right_unit : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongRightUnitPair P p) = p
-  right_inverse : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongRightInversePair P p) =
-      scopedRefl P (scopedSrc P p)
-  left_inverse : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongLeftInversePair P p) =
-      scopedRefl P (scopedTgt P p)
-  associativity : ∀ t : ScopedComposableTriple P,
-    scopedCompositionOnStrong P (tripleLeftPair P t) =
-      scopedCompositionOnStrong P (tripleRightPair P t)
-  rewrite_sound :
-    ∀ {p q : ScopedRawPath (S := S)},
-      scopedEquivalent P p q →
-        ∃ hs : q.src = p.src, ∃ ht : q.tgt = p.tgt,
-          _root_.Path.Homotopic
-            (GeometricTrace.realize (castScopedTrace hs ht))
-            (GeometricTrace.realize q.trace)
-  trace_composition : ∀ c : ScopedComposableRaw (S := S),
-    GeometricTrace.traceLength
-        (GeometricTrace.trans c.left.trace c.right.trace) =
-      GeometricTrace.traceLength c.left.trace +
-        GeometricTrace.traceLength c.right.trace
-  trace_unit_rewrite : ∀ p : ScopedRawPath (S := S),
-    ScopedRwEq P
-      (GeometricTrace.trans (GeometricTrace.refl p.src) p.trace)
-      p.trace
+  canonical_bijection : Function.Bijective (finalToOrdinary P)
+  canonical_map_continuous : Continuous (finalToOrdinary P)
+  raw_quotient_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      Topology.IsQuotientMap (rawToOrdinary P)
+  homeomorphism_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      ∃ e : ScopedComposableClass P ≃ₜ ScopedComposablePair P,
+        (e : ScopedComposableClass P → ScopedComposablePair P) =
+          finalToOrdinary P
+  topology_agreement_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      (inferInstance : TopologicalSpace (ScopedComposableClass P)) =
+        TopologicalSpace.induced (finalToOrdinary P)
+          (inferInstance : TopologicalSpace (ScopedComposablePair P))
+  ordinary_composition_of_quotient :
+    Topology.IsQuotientMap (finalToOrdinary P) →
+      Continuous (ordinaryComposition P)
+  discontinuity_obstructs_compatibility :
+    ¬ Continuous (ordinaryComposition P) →
+      ¬ Topology.IsQuotientMap (finalToOrdinary P)
+  compact_hausdorff_recovers_ordinary :
+    ∀ [CompactSpace (ScopedComposableClass P)]
+      [T2Space (ScopedComposablePair P)],
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
+  discrete_recovers_ordinary :
+    ∀ [DiscreteTopology (ScopedClass P)]
+      [DiscreteTopology (ScopedComposableClass P)],
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
 
 /-! The statement and solution use the same final topology on quotient domains. -/
 noncomputable instance quotientFinalTopology
@@ -133,28 +152,57 @@ theorem main_result
     {Step : Type v} [TopologicalSpace Step]
     (S : ContinuousGeometricStepSystem A Step)
     (P : ScopedGeometricRewritePresentation S) :
-    ScopedTopologicalComputationalPathCertificate S P := by
-  let G := scopedFinalTopologicalGroupoidCertificate P
+    OrdinaryTopologyComparisonCertificate S P := by
+  have hBijective : Function.Bijective (finalToOrdinary P) :=
+    ⟨scopedPairToOrdinary_injective P,
+      scopedPairToOrdinary_surjective P⟩
+  have hContinuous : Continuous (finalToOrdinary P) :=
+    continuous_scopedPairToOrdinary P
+  have hComposition :
+      Topology.IsQuotientMap (finalToOrdinary P) →
+        Continuous (ordinaryComposition P) := by
+    intro h
+    exact continuous_scopedCompositionOnProduct P ⟨h⟩
   exact
-    { source_continuous := G.source_continuous
-      target_continuous := G.target_continuous
-      identity_continuous := G.identity_continuous
-      inverse_continuous := G.inverse_continuous
-      final_composition_continuous := G.final_composition_continuous
-      left_unit := G.left_unit
-      right_unit := G.right_unit
-      right_inverse := G.right_inverse
-      left_inverse := G.left_inverse
-      associativity := G.associativity
-      rewrite_sound := by
-        intro p q h
-        exact scopedEquivalent_sound P h
-      trace_composition := by
-        intro c
-        rfl
-      trace_unit_rewrite := by
-        intro p
-        exact ScopedRwEq.refl_trans p.trace }
+    { canonical_bijection := hBijective
+      canonical_map_continuous := hContinuous
+      raw_quotient_criterion := by
+        constructor
+        · intro h
+          exact
+            (scopedProductCompatibility_iff_raw_pair_map_quotient P).1 ⟨h⟩
+        · intro h
+          exact
+            ((scopedProductCompatibility_iff_raw_pair_map_quotient P).2 h).pair_map_is_quotient
+      homeomorphism_criterion := by
+        constructor
+        · intro h
+          exact ⟨scopedFinalOrdinaryHomeomorph P ⟨h⟩, rfl⟩
+        · rintro ⟨e, he⟩
+          simpa [he] using e.isQuotientMap
+      topology_agreement_criterion := by
+        constructor
+        · intro h
+          exact
+            (scopedProductCompatibility_iff_final_topology_agreement P).1 ⟨h⟩
+        · intro h
+          exact
+            ((scopedProductCompatibility_iff_final_topology_agreement P).2 h).pair_map_is_quotient
+      ordinary_composition_of_quotient := hComposition
+      discontinuity_obstructs_compatibility := by
+        intro hnot hquot
+        exact hnot (hComposition hquot)
+      compact_hausdorff_recovers_ordinary := by
+        intro _ _
+        let h := scopedProductCompatibility_of_compact_final_t2 P
+        exact ⟨h.pair_map_is_quotient,
+          continuous_scopedCompositionOnProduct P h⟩
+      discrete_recovers_ordinary := by
+        intro _ _
+        let h :=
+          scopedProductCompatibility_of_discrete_arrow_and_final_domain P
+        exact ⟨h.pair_map_is_quotient,
+          continuous_scopedCompositionOnProduct P h⟩ }
 
 /-! The substantive repository contains the scoped quotient construction.  The
  following adapter makes the statement-side interface concrete: its raw

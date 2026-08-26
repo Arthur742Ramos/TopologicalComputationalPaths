@@ -2,17 +2,16 @@
 version: "v0.4"
 
 project:
-  name: "Topological Semantics of Computational Paths"
+  name: "Final and Ordinary Topologies for Computational Paths"
   description: >-
     A Lean formalization of topological semantics for endpoint-varying
-    computational paths.  It constructs the quotient arrow space and the
-    canonical final topology on composable representatives, proves continuity
-    of source, target, identity, inverse, and composition together with the
-    groupoid laws, and characterizes exactly when the ordinary pullback domain
-    is compatible through quotient-map, inverse-continuity, and induced-topology
-    criteria.  The Palomar statement surface directly exposes the scoped
-    computational-path groupoid certificate, its rewrite-soundness witness,
-    and explicit trace-level Path/RwEq witnesses.
+    computational paths.  It constructs both the canonical final composable
+    quotient and the ordinary pullback of quotient arrows.  The selected result
+    proves that the canonical comparison is a continuous bijection and
+    characterizes exactly when it is quotient, a homeomorphism, and an induced
+    topology agreement; under these equivalent conditions ordinary composition
+    is continuous.  It also records discontinuity as an obstruction and proves
+    compact--Hausdorff and discrete sufficient cases.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy de Queiroz"
@@ -53,11 +52,12 @@ related_formalizations:
 
 status:
   scope: >-
-    The package formalizes the scoped geometric rewrite quotient and its
-    unconditional final-domain topological groupoid certificate, including
-    continuity and endpoint, unit, inverse, and associativity laws.  It also
-    formalizes the exact comparison between the final and ordinary composable
-    domains.  Circle and torus examples, realization comparisons, and the
+    The package formalizes the scoped geometric rewrite quotient and selects
+    the exact comparison between its final and ordinary composable domains:
+    quotient-map, homeomorphism, induced-topology, continuity-transfer, and
+    obstruction statements, together with compact--Hausdorff and discrete
+    sufficient conditions.  The unconditional final-domain groupoid laws are
+    supporting infrastructure.  Circle and torus examples, realization comparisons, and the
     externally transferred Hawaiian-earring obstruction are intentionally not
     part of this focused release.  The Challenge file contains the one
     deliberate statement-side sorry allowed by the Palomar protocol; the
@@ -88,9 +88,9 @@ fidelity:
   divergences: >-
     The mathematical scope is unchanged for the extracted topological groupoid
     layer, but the focused repository adds a statement-facing Palomar
-    certificate exposing the concrete scoped groupoid and computational
-    witnesses, a canonical quotient descent for the comparison adapter, and
-    the exact final-domain/ordinary-domain comparison.  The toolchain is
+    certificate that selects the exact final-domain/ordinary-domain comparison,
+    including its homeomorphism and ordinary-composition consequences and its
+    positive sufficient cases.  The toolchain is
     ported from Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are
     omitted from this release rather than implied by the package.
 
@@ -101,8 +101,11 @@ review:
   notes: >-
     Source lineage, dependency closure, theorem boundaries, quotient-map
     hypotheses, and the final-versus-ordinary topology distinction were
-    audited.  Kernel builds and the Palomar-shaped Challenge/Solution boundary
-    were checked locally; no independent peer review is claimed.
+    audited.  Following registry review, the selected declaration was changed
+    from the automatic final-domain groupoid certificate to the substantive
+    final-versus-ordinary comparison theorem.  Kernel builds and the
+    Palomar-shaped Challenge/Solution boundary were checked locally; no
+    independent peer review is claimed.
 
 alignment:
   namespace: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite"
@@ -116,12 +119,12 @@ alignment:
       lean: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite.scopedProductCompatibility_iff_four_way"
       module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
       status: "proved"
-      note: "The ordinary-pair criterion is retained as a separate conditional theorem."
-    - source: "Scoped topological computational-path groupoid certificate"
+      note: "This theorem and its compact--Hausdorff and discrete consequences are the core of the selected comparison certificate."
+    - source: "Ordinary/final computational-path topology comparison certificate"
       lean: "TopologicalComputationalPaths.main_result"
       module: "Challenge.lean and Solution.lean"
       status: "adapted"
-      note: "The compared theorem exposes continuity, unit, inverse, and associativity laws for the scoped quotient, rewrite soundness, and explicit Path/RwEq trace witnesses; Solution instantiates it from the extracted groupoid proofs."
+      note: "The compared theorem packages continuous bijectivity, exact quotient-map, homeomorphism, and induced-topology criteria, continuity of ordinary composition, its obstruction, and compact--Hausdorff and discrete sufficient cases."
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,

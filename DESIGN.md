@@ -59,28 +59,29 @@ Palomar challenge sandbox cannot import project-specific source, so it
 duplicates the small statement-facing definition layer from Lean core and
 Mathlib alone.  This lets the compared statement name the actual
 endpoint-varying computational-path quotient rather than hide the result
-behind a generic quotient interface.  Its publication-facing certificate
-lists the continuity and groupoid-law fields, rewrite soundness, and explicit
-trace-level `Path`/`ScopedRwEq` witnesses.  `Solution.lean` repeats the same
-statement-side declaration and fills it from the pinned, checked groupoid
-construction.  The generic quotient/comparison adapter remains supporting
-material for the exact final-versus-ordinary topology distinction.
+behind a generic quotient interface.  Its publication-facing certificate is
+the exact final-versus-ordinary topology comparison: continuous bijectivity,
+raw quotient-map equivalence, a homeomorphism criterion, induced-topology
+agreement, ordinary-composition continuity and its contrapositive obstruction,
+plus compact--Hausdorff and discrete sufficient cases.  `Solution.lean`
+repeats the same statement-side declaration and fills it from the pinned,
+checked comparison construction.
 
 The underlying result has three spaces: raw composable representatives, their
-quotient final domain, and the ordinary composable-pair domain.  The concrete
-certificate proves unconditional continuity on the final domain and all
-topological groupoid laws there; the supporting comparison layer records the
-exact quotient-map/inverse-continuity/topology equivalences for the ordinary
-operation.  It does not assert that the ordinary pullback is always the
-correct domain.
+quotient final domain, and the ordinary composable-pair domain.  The selected
+certificate compares the latter two exactly and isolates the missing
+topological condition needed to transfer composition from the final domain to
+the ordinary pullback.  It does not assert that the ordinary pullback is always
+the correct domain.
 
 The checked-in `comparator.json` selects
 `TopologicalComputationalPaths.main_result`.  This theorem is the concrete
-publication surface: its certificate exposes source, target, identity,
-inverse, and final-domain composition continuity; the unit, inverse, and
-associativity laws; rewrite soundness; and explicit computational `Path` and
-`ScopedRwEq` witnesses.  The generic quotient/comparison interface and its adapter
-remain available in the solution source as supporting material.
+publication surface: its certificate exposes the canonical continuous
+bijection, the raw quotient-map and homeomorphism criteria, equality of the
+final and induced topologies, transfer of continuity to ordinary composition,
+the discontinuity obstruction, and compact--Hausdorff and discrete sufficient
+conditions.  The automatic final-domain groupoid laws and the generic adapter
+remain supporting material.
 
 ## Non-goals for the first submission
 

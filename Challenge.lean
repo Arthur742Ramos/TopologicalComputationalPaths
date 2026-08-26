@@ -11,10 +11,11 @@ are defined here from Lean core and Mathlib alone.  The proof-side module
 contains the corresponding checked development and is compared against this
 surface by Comparator.
 
-The result is deliberately about the final composable topology: source,
-target, identity, inverse, and composition are continuous there and satisfy
-the groupoid laws.  The ordinary pullback topology is a separate comparison
-problem, not an unconditional replacement for the final domain.
+The selected result solves the comparison problem between the canonical final
+composable topology and the ordinary pullback topology.  It characterizes
+exactly when the canonical continuous bijection is a homeomorphism, derives
+ordinary composition continuity, records the corresponding obstruction, and
+proves compact--Hausdorff and discrete sufficient cases.
 -/
 
 namespace ComputationalPaths
@@ -722,57 +723,80 @@ open ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
 
 universe u v
 
-/-! The compared declaration exposes the concrete quotient groupoid, rewrite
-soundness, and two trace-level coherence witnesses. -/
+/-! ## The ordinary/final topology comparison
 
-structure ScopedTopologicalComputationalPathCertificate
+The canonical final composable domain is always mapped continuously and
+bijectively to the ordinary pullback of quotient arrows.  The substantive
+question is when its inverse is continuous, equivalently when the raw pair map
+is quotient and when the two topologies agree. -/
+
+noncomputable def finalToOrdinary
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposableClass P → ScopedComposablePair P :=
+  fun c => (scopedPairMap P c).val
+
+noncomputable def rawToOrdinary
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposableRaw (S := S) → ScopedComposablePair P :=
+  fun c => finalToOrdinary P (scopedComposableMk P c)
+
+noncomputable def ordinaryComposition
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    {S : ContinuousGeometricStepSystem A Step}
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedComposablePair P → ScopedClass P :=
+  fun pq => scopedCompositionOnStrong P ⟨pq⟩
+
+structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
     (S : ContinuousGeometricStepSystem A Step)
     (P : ScopedGeometricRewritePresentation S) : Prop where
-  source_continuous : Continuous (scopedSrc P)
-  target_continuous : Continuous (scopedTgt P)
-  identity_continuous : Continuous (scopedRefl P)
-  inverse_continuous : Continuous (scopedSymm P)
-  final_composition_continuous :
-    Continuous (scopedCompositionOnStrong P :
-      ScopedStrongComposablePair P → ScopedClass P)
-  left_unit : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongLeftUnitPair P p) = p
-  right_unit : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongRightUnitPair P p) = p
-  right_inverse : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongRightInversePair P p) =
-      scopedRefl P (scopedSrc P p)
-  left_inverse : ∀ p : ScopedClass P,
-    scopedCompositionOnStrong P (strongLeftInversePair P p) =
-      scopedRefl P (scopedTgt P p)
-  associativity : ∀ t : ScopedComposableTriple P,
-    scopedCompositionOnStrong P (tripleLeftPair P t) =
-      scopedCompositionOnStrong P (tripleRightPair P t)
-  rewrite_sound :
-    ∀ {p q : ScopedRawPath (S := S)},
-      scopedEquivalent P p q →
-        ∃ hs : q.src = p.src, ∃ ht : q.tgt = p.tgt,
-          _root_.Path.Homotopic
-            (GeometricTrace.realize (castScopedTrace hs ht))
-            (GeometricTrace.realize q.trace)
-  trace_composition : ∀ c : ScopedComposableRaw (S := S),
-    GeometricTrace.traceLength
-        (GeometricTrace.trans c.left.trace c.right.trace) =
-      GeometricTrace.traceLength c.left.trace +
-        GeometricTrace.traceLength c.right.trace
-  trace_unit_rewrite : ∀ p : ScopedRawPath (S := S),
-    ScopedRwEq P
-      (GeometricTrace.trans (GeometricTrace.refl p.src) p.trace)
-      p.trace
+  canonical_bijection : Function.Bijective (finalToOrdinary P)
+  canonical_map_continuous : Continuous (finalToOrdinary P)
+  raw_quotient_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      Topology.IsQuotientMap (rawToOrdinary P)
+  homeomorphism_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      ∃ e : ScopedComposableClass P ≃ₜ ScopedComposablePair P,
+        (e : ScopedComposableClass P → ScopedComposablePair P) =
+          finalToOrdinary P
+  topology_agreement_criterion :
+    Topology.IsQuotientMap (finalToOrdinary P) ↔
+      (inferInstance : TopologicalSpace (ScopedComposableClass P)) =
+        TopologicalSpace.induced (finalToOrdinary P)
+          (inferInstance : TopologicalSpace (ScopedComposablePair P))
+  ordinary_composition_of_quotient :
+    Topology.IsQuotientMap (finalToOrdinary P) →
+      Continuous (ordinaryComposition P)
+  discontinuity_obstructs_compatibility :
+    ¬ Continuous (ordinaryComposition P) →
+      ¬ Topology.IsQuotientMap (finalToOrdinary P)
+  compact_hausdorff_recovers_ordinary :
+    ∀ [CompactSpace (ScopedComposableClass P)]
+      [T2Space (ScopedComposablePair P)],
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
+  discrete_recovers_ordinary :
+    ∀ [DiscreteTopology (ScopedClass P)]
+      [DiscreteTopology (ScopedComposableClass P)],
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
 
 theorem main_result
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
     (S : ContinuousGeometricStepSystem A Step)
     (P : ScopedGeometricRewritePresentation S) :
-    ScopedTopologicalComputationalPathCertificate S P := by
+    OrdinaryTopologyComparisonCertificate S P := by
   sorry
 
 end TopologicalComputationalPaths
