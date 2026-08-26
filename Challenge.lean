@@ -1,16 +1,13 @@
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Path
 import Mathlib.Topology.Homotopy.Path
-
 /-!
 # Challenge: topological semantics of computational paths
-
 This is the statement-only surface of the result.  The endpoint-varying
 geometric trace, its scoped rewrite quotient, and the final composable domain
 are defined here from Lean core and Mathlib alone.  The proof-side module
 contains the corresponding checked development and is compared against this
 surface by Comparator.
-
 The selected result solves the comparison problem between the canonical final
 composable topology and the ordinary pullback topology.  It characterizes
 exactly when the canonical continuous bijection is a homeomorphism, derives
@@ -20,22 +17,16 @@ concrete integer-labelled one-object trace presentation with an inductive
 singleton normal form, together with a finite trace-sensitive topology
 obstruction.
 -/
-
 namespace ComputationalPaths
 namespace Path
 namespace GeometricTopology
-
 open scoped ContinuousMap Topology
-
 universe u v
-
 /-! ## Endpoint-varying geometric traces -/
-
 structure GeometricStepSystem (A : Type u) [TopologicalSpace A] (Step : Type v) where
   src : Step → A
   tgt : Step → A
   realize : (s : Step) → _root_.Path (src s) (tgt s)
-
 inductive GeometricTrace {A : Type u} [TopologicalSpace A] {Step : Type v}
     (S : GeometricStepSystem A Step) : A → A → Type (max u v) where
   | refl (a : A) : GeometricTrace S a a
@@ -43,32 +34,25 @@ inductive GeometricTrace {A : Type u} [TopologicalSpace A] {Step : Type v}
   | trans {a b c : A} :
       GeometricTrace S a b → GeometricTrace S b c → GeometricTrace S a c
   | symm {a b : A} : GeometricTrace S a b → GeometricTrace S b a
-
 namespace GeometricTrace
-
 variable {A : Type u} [TopologicalSpace A] {Step : Type v}
   {S : GeometricStepSystem A Step}
-
 noncomputable def realize {a b : A} : GeometricTrace S a b → _root_.Path a b
   | .refl a => _root_.Path.refl a
   | .single s => S.realize s
   | .trans p q => _root_.Path.trans (realize p) (realize q)
   | .symm p => _root_.Path.symm (realize p)
-
 def traceLength {a b : A} : GeometricTrace S a b → Nat
   | .refl _ => 0
   | .single _ => 1
   | .trans p q => traceLength p + traceLength q
   | .symm p => traceLength p
-
 end GeometricTrace
-
 structure OpenGeometricCompPath {A : Type u} [TopologicalSpace A]
     {Step : Type v} (S : GeometricStepSystem A Step) (a b : A) where
   trace : GeometricTrace S a b
   geometric : _root_.Path a b
   coherent : _root_.Path.Homotopic geometric (GeometricTrace.realize trace)
-
 noncomputable def openRefl {A : Type u} [TopologicalSpace A] {Step : Type v}
     (S : GeometricStepSystem A Step) (a : A) :
     OpenGeometricCompPath S a a :=
@@ -77,7 +61,6 @@ noncomputable def openRefl {A : Type u} [TopologicalSpace A] {Step : Type v}
     coherent := by
       change _root_.Path.Homotopic (_root_.Path.refl a) (_root_.Path.refl a)
       exact _root_.Path.Homotopic.refl _ }
-
 noncomputable def openTrans {A : Type u} [TopologicalSpace A] {Step : Type v}
     {a b c : A} (S : GeometricStepSystem A Step)
     (p : OpenGeometricCompPath S a b) (q : OpenGeometricCompPath S b c) :
@@ -88,7 +71,6 @@ noncomputable def openTrans {A : Type u} [TopologicalSpace A] {Step : Type v}
       rcases p.coherent with ⟨hp⟩
       rcases q.coherent with ⟨hq⟩
       exact ⟨hp.hcomp hq⟩ }
-
 noncomputable def openSymm {A : Type u} [TopologicalSpace A] {Step : Type v}
     {a b : A} (S : GeometricStepSystem A Step)
     (p : OpenGeometricCompPath S a b) :
@@ -98,9 +80,7 @@ noncomputable def openSymm {A : Type u} [TopologicalSpace A] {Step : Type v}
     coherent := by
       rcases p.coherent with ⟨hp⟩
       exact ⟨hp.symm₂⟩ }
-
 /-! ## Continuous systems and total carriers -/
-
 structure ContinuousGeometricStepSystem (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
     extends GeometricStepSystem A Step where
@@ -108,7 +88,6 @@ structure ContinuousGeometricStepSystem (A : Type u) [TopologicalSpace A]
   continuous_tgt : Continuous tgt
   continuous_realize :
     Continuous (fun s => (realize s).toContinuousMap)
-
 structure TotalOpenGeometricCompPath
     (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
@@ -116,50 +95,37 @@ structure TotalOpenGeometricCompPath
   src : A
   tgt : A
   path : OpenGeometricCompPath S.toGeometricStepSystem src tgt
-
 namespace TotalOpenGeometricCompPath
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   (S : ContinuousGeometricStepSystem A Step)
-
 def trace (p : TotalOpenGeometricCompPath A Step S) :
     GeometricTrace S.toGeometricStepSystem p.src p.tgt :=
   p.path.trace
-
 def geometricPath (p : TotalOpenGeometricCompPath A Step S) :
     _root_.Path p.src p.tgt :=
   p.path.geometric
-
 noncomputable def traceMap (p : TotalOpenGeometricCompPath A Step S) : C(unitInterval, A) :=
   (GeometricTrace.realize p.trace).toContinuousMap
-
 def geometricMap (p : TotalOpenGeometricCompPath A Step S) : C(unitInterval, A) :=
   p.geometricPath.toContinuousMap
-
 abbrev Observation :=
   A × (A × (Nat × (C(unitInterval, A) × C(unitInterval, A))))
-
 noncomputable def observation (p : TotalOpenGeometricCompPath A Step S) :
     Observation (A := A) :=
   (p.src, (p.tgt, (GeometricTrace.traceLength p.trace,
     (p.traceMap S, p.geometricMap S))))
-
 noncomputable instance instTopologicalSpace :
     TopologicalSpace (TotalOpenGeometricCompPath A Step S) :=
   TopologicalSpace.induced (observation S) inferInstance
-
 noncomputable def totalRefl (a : A) :
     TotalOpenGeometricCompPath A Step S :=
   ⟨a, a, openRefl S.toGeometricStepSystem a⟩
-
 noncomputable def totalSymm
     (p : TotalOpenGeometricCompPath A Step S) :
     TotalOpenGeometricCompPath A Step S :=
   ⟨p.tgt, p.src, openSymm S.toGeometricStepSystem p.path⟩
-
 end TotalOpenGeometricCompPath
-
 structure TotalComposable
     (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
@@ -169,77 +135,55 @@ structure TotalComposable
   tgt : A
   left : OpenGeometricCompPath S.toGeometricStepSystem src mid
   right : OpenGeometricCompPath S.toGeometricStepSystem mid tgt
-
 namespace TotalOpenGeometricCompPath
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   (S : ContinuousGeometricStepSystem A Step)
-
 noncomputable def totalTrans
     (c : TotalComposable A Step S) :
     TotalOpenGeometricCompPath A Step S :=
   ⟨c.src, c.tgt, openTrans S.toGeometricStepSystem c.left c.right⟩
-
 end TotalOpenGeometricCompPath
-
 namespace TotalComposable
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   (S : ContinuousGeometricStepSystem A Step)
-
 noncomputable def leftTraceMap (c : TotalComposable A Step S) : C(unitInterval, A) :=
   (GeometricTrace.realize c.left.trace).toContinuousMap
-
 noncomputable def rightTraceMap (c : TotalComposable A Step S) : C(unitInterval, A) :=
   (GeometricTrace.realize c.right.trace).toContinuousMap
-
 def leftGeometricMap (c : TotalComposable A Step S) : C(unitInterval, A) :=
   c.left.geometric.toContinuousMap
-
 def rightGeometricMap (c : TotalComposable A Step S) : C(unitInterval, A) :=
   c.right.geometric.toContinuousMap
-
 def leftTraceLength (c : TotalComposable A Step S) : Nat :=
   GeometricTrace.traceLength c.left.trace
-
 def rightTraceLength (c : TotalComposable A Step S) : Nat :=
   GeometricTrace.traceLength c.right.trace
-
 abbrev Observation :=
   A × (A × (A × (Nat × (Nat ×
     (C(unitInterval, A) × (C(unitInterval, A) ×
       (C(unitInterval, A) × C(unitInterval, A))))))))
-
 noncomputable def observation (c : TotalComposable A Step S) :
     Observation (A := A) :=
   (c.src, (c.mid, (c.tgt, (c.leftTraceLength, (c.rightTraceLength,
     (leftTraceMap S c, (rightTraceMap S c,
       (leftGeometricMap S c, rightGeometricMap S c))))))))
-
 noncomputable instance instTopologicalSpace :
     TopologicalSpace (TotalComposable A Step S) :=
   TopologicalSpace.induced (observation S) inferInstance
-
 end TotalComposable
-
 /-! ## Scoped rewrite presentations -/
-
 namespace ContinuousGeometricStepSystemMap
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   {S : ContinuousGeometricStepSystem A Step}
-
 noncomputable def castTrace
     {a b a' b' : A} (ha : a' = a) (hb : b' = b)
     (t : GeometricTrace S.toGeometricStepSystem a b) :
     GeometricTrace S.toGeometricStepSystem a' b' :=
   Eq.mp (by cases ha; cases hb; rfl) t
-
 end ContinuousGeometricStepSystemMap
-
 structure ScopedGeometricRewritePresentation
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -252,7 +196,6 @@ structure ScopedGeometricRewritePresentation
     rule p q →
       _root_.Path.Homotopic
         (GeometricTrace.realize p) (GeometricTrace.realize q)
-
 inductive ScopedRwEq
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -322,13 +265,11 @@ inductive ScopedRwEq
         (GeometricTrace.symm (GeometricTrace.trans p q))
         (GeometricTrace.trans (GeometricTrace.symm q)
           (GeometricTrace.symm p))
-
 abbrev ScopedRawPath
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
     {S : ContinuousGeometricStepSystem A Step} :=
   TotalOpenGeometricCompPath A Step S
-
 noncomputable def castScopedTrace
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -337,7 +278,6 @@ noncomputable def castScopedTrace
     (hs : q.src = p.src) (ht : q.tgt = p.tgt) :
     GeometricTrace S.toGeometricStepSystem q.src q.tgt :=
   ContinuousGeometricStepSystemMap.castTrace hs ht p.trace
-
 def scopedEquivalent
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -346,7 +286,6 @@ def scopedEquivalent
     (p q : ScopedRawPath (S := S)) : Prop :=
   ∃ hs : q.src = p.src, ∃ ht : q.tgt = p.tgt,
     ScopedRwEq P (castScopedTrace hs ht) q.trace
-
 noncomputable def scopedSetoid
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -376,14 +315,12 @@ noncomputable def scopedSetoid
       cases hs₂
       cases ht₂
       exact ⟨rfl, rfl, ScopedRwEq.trans h₁ h₂⟩
-
 abbrev ScopedClass
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
     {S : ContinuousGeometricStepSystem A Step}
     (P : ScopedGeometricRewritePresentation S) : Type _ :=
   Quotient (scopedSetoid P)
-
 noncomputable def scopedQuotientMk
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -391,61 +328,44 @@ noncomputable def scopedQuotientMk
     (P : ScopedGeometricRewritePresentation S)
     (p : ScopedRawPath (S := S)) : ScopedClass P :=
   Quotient.mk (scopedSetoid P) p
-
 end GeometricTopology
 end Path
 end ComputationalPaths
-
 namespace ComputationalPaths.Path.GeometricTopology
-
 open scoped ContinuousMap Topology
-
 universe u v
-
 namespace ScopedGeometricRewrite
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   {S : ContinuousGeometricStepSystem A Step}
   (P : ScopedGeometricRewritePresentation S)
-
 noncomputable instance scopedClassTopologicalSpace :
     TopologicalSpace (ScopedClass P) :=
   TopologicalSpace.coinduced (scopedQuotientMk P) inferInstance
-
 noncomputable def scopedSrc : ScopedClass P → A :=
   Quot.lift (fun p : ScopedRawPath (S := S) => p.src)
     (by
       intro p q h
       change scopedEquivalent P p q at h
       exact (Classical.choose h).symm)
-
 noncomputable def scopedTgt : ScopedClass P → A :=
   Quot.lift (fun p : ScopedRawPath (S := S) => p.tgt)
     (by
       intro p q h
       change scopedEquivalent P p q at h
       exact (Classical.choose (Classical.choose_spec h)).symm)
-
 @[simp] theorem scopedSrc_mk (p : ScopedRawPath (S := S)) :
     scopedSrc P (scopedQuotientMk P p) = p.src := rfl
-
 @[simp] theorem scopedTgt_mk (p : ScopedRawPath (S := S)) :
     scopedTgt P (scopedQuotientMk P p) = p.tgt := rfl
-
 noncomputable def scopedRefl (a : A) : ScopedClass P :=
   scopedQuotientMk P (TotalOpenGeometricCompPath.totalRefl S a)
-
 @[simp] theorem scopedSrc_refl (a : A) : scopedSrc P (scopedRefl P a) = a := rfl
-
 @[simp] theorem scopedTgt_refl (a : A) : scopedTgt P (scopedRefl P a) = a := rfl
-
 def leftRaw (c : TotalComposable A Step S) : ScopedRawPath (S := S) :=
   ⟨c.src, c.mid, c.left⟩
-
 def rightRaw (c : TotalComposable A Step S) : ScopedRawPath (S := S) :=
   ⟨c.mid, c.tgt, c.right⟩
-
 theorem scopedEquivalent_symm
     {p q : ScopedRawPath (S := S)}
     (h : scopedEquivalent P p q) :
@@ -458,7 +378,6 @@ theorem scopedEquivalent_symm
   cases hs
   cases ht
   exact ⟨rfl, rfl, ScopedRwEq.symm_congr h⟩
-
 noncomputable def scopedSymm (p : ScopedClass P) : ScopedClass P :=
   Quot.lift
     (fun p : ScopedRawPath (S := S) =>
@@ -468,11 +387,9 @@ noncomputable def scopedSymm (p : ScopedClass P) : ScopedClass P :=
       apply Quot.sound
       exact scopedEquivalent_symm P h)
     p
-
 @[simp] theorem scopedSymm_mk (p : ScopedRawPath (S := S)) :
     scopedSymm P (scopedQuotientMk P p) =
       scopedQuotientMk P (TotalOpenGeometricCompPath.totalSymm S p) := rfl
-
 theorem scopedEquivalent_totalTrans
     {c d : TotalComposable A Step S}
     (hl : scopedEquivalent P (leftRaw c) (leftRaw d))
@@ -489,18 +406,14 @@ theorem scopedEquivalent_totalTrans
   cases hrs
   cases hrt
   exact ⟨rfl, rfl, ScopedRwEq.trans_congr hl hr⟩
-
 abbrev ScopedComposablePair :=
   {pq : ScopedClass P × ScopedClass P //
     scopedTgt P pq.1 = scopedSrc P pq.2}
-
 abbrev ScopedComposableRaw := TotalComposable A Step S
-
 def scopedComposableEquivalent
     (c d : ScopedComposableRaw (S := S)) : Prop :=
   scopedEquivalent P (leftRaw c) (leftRaw d) ∧
     scopedEquivalent P (rightRaw c) (rightRaw d)
-
 noncomputable def scopedComposableSetoid :
     Setoid (ScopedComposableRaw (S := S)) where
   r := scopedComposableEquivalent P
@@ -515,21 +428,16 @@ noncomputable def scopedComposableSetoid :
     · intro c d e h₁ h₂
       exact ⟨(scopedSetoid P).iseqv.trans h₁.1 h₂.1,
         (scopedSetoid P).iseqv.trans h₁.2 h₂.2⟩
-
 abbrev ScopedComposableClass : Type _ :=
   Quotient (scopedComposableSetoid P)
-
 noncomputable def scopedComposableMk (c : ScopedComposableRaw (S := S)) :
     ScopedComposableClass P :=
   Quotient.mk (scopedComposableSetoid P) c
-
 noncomputable instance scopedComposableClassTopologicalSpace :
     TopologicalSpace (ScopedComposableClass P) :=
   TopologicalSpace.coinduced (scopedComposableMk P) inferInstance
-
 structure ScopedStrongComposablePair where
   val : ScopedComposablePair P
-
 noncomputable def scopedPairMap (c : ScopedComposableClass P) :
     ScopedStrongComposablePair P :=
   Quot.lift
@@ -548,12 +456,10 @@ noncomputable def scopedPairMap (c : ScopedComposableClass P) :
       · apply Quot.sound
         exact h.2)
     c
-
 @[simp] theorem scopedPairMap_mk (c : ScopedComposableRaw (S := S)) :
     scopedPairMap P (scopedComposableMk P c) =
       ⟨⟨scopedQuotientMk P (leftRaw c),
           scopedQuotientMk P (rightRaw c)⟩, rfl⟩ := rfl
-
 theorem scopedPairMap_surjective :
     Function.Surjective (scopedPairMap P :
       ScopedComposableClass P → ScopedStrongComposablePair P) := by
@@ -575,7 +481,6 @@ theorem scopedPairMap_surjective :
     ⟨p.src, p.tgt, q_tgt, p.path, q_path⟩
   refine ⟨scopedComposableMk P c, ?_⟩
   rfl
-
 noncomputable def scopedCompositionFromComposable
     (c : ScopedComposableClass P) : ScopedClass P :=
   Quot.lift
@@ -586,16 +491,13 @@ noncomputable def scopedCompositionFromComposable
       apply Quot.sound
       exact scopedEquivalent_totalTrans P h.1 h.2)
     c
-
 noncomputable instance scopedStrongComposablePairTopologicalSpace :
     TopologicalSpace (ScopedStrongComposablePair P) :=
   TopologicalSpace.coinduced (scopedPairMap P) inferInstance
-
 noncomputable def scopedCompositionOnStrong
     (c : ScopedStrongComposablePair P) : ScopedClass P :=
   scopedCompositionFromComposable P
     (Classical.choose (scopedPairMap_surjective P c))
-
 theorem scopedCompositionOnStrong_mk
     (c : ScopedComposableRaw (S := S)) :
     scopedCompositionOnStrong P (scopedPairMap P (scopedComposableMk P c)) =
@@ -624,53 +526,41 @@ theorem scopedCompositionOnStrong_mk
   have hcd : scopedComposableEquivalent P d c :=
     ⟨Quotient.exact hleft, Quotient.exact hright⟩
   exact Quotient.sound (scopedEquivalent_totalTrans P hcd.1 hcd.2)
-
 end ScopedGeometricRewrite
 end ComputationalPaths.Path.GeometricTopology
-
 namespace ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
-
 open scoped ContinuousMap Topology
-
 universe u v
-
 variable {A : Type u} [TopologicalSpace A]
   {Step : Type v} [TopologicalSpace Step]
   {S : ContinuousGeometricStepSystem A Step}
   (P : ScopedGeometricRewritePresentation S)
-
 theorem scopedSrc_symm (p : ScopedClass P) :
     scopedSrc P (scopedSymm P p) = scopedTgt P p := by
   refine Quotient.inductionOn p ?_
   intro p
   rfl
-
 theorem scopedTgt_symm (p : ScopedClass P) :
     scopedTgt P (scopedSymm P p) = scopedSrc P p := by
   refine Quotient.inductionOn p ?_
   intro p
   rfl
-
 noncomputable def strongLeftUnitPair (p : ScopedClass P) :
     ScopedStrongComposablePair P :=
   ⟨⟨scopedRefl P (scopedSrc P p), p⟩, by
     exact scopedTgt_refl P (scopedSrc P p)⟩
-
 noncomputable def strongRightUnitPair (p : ScopedClass P) :
     ScopedStrongComposablePair P :=
   ⟨⟨p, scopedRefl P (scopedTgt P p)⟩, by
     exact (scopedSrc_refl P (scopedTgt P p)).symm⟩
-
 noncomputable def strongRightInversePair (p : ScopedClass P) :
     ScopedStrongComposablePair P :=
   ⟨⟨p, scopedSymm P p⟩, by
     exact (scopedSrc_symm P p).symm⟩
-
 noncomputable def strongLeftInversePair (p : ScopedClass P) :
     ScopedStrongComposablePair P :=
   ⟨⟨scopedSymm P p, p⟩, by
     exact scopedTgt_symm P p⟩
-
 structure ScopedComposableTriple (P : ScopedGeometricRewritePresentation S) where
   src : A
   firstMid : A
@@ -679,27 +569,22 @@ structure ScopedComposableTriple (P : ScopedGeometricRewritePresentation S) wher
   first : OpenGeometricCompPath S.toGeometricStepSystem src firstMid
   second : OpenGeometricCompPath S.toGeometricStepSystem firstMid secondMid
   third : OpenGeometricCompPath S.toGeometricStepSystem secondMid tgt
-
 noncomputable def tripleFirstSecond (t : ScopedComposableTriple P) :
     ScopedComposableRaw (S := S) :=
   ⟨t.src, t.firstMid, t.secondMid, t.first, t.second⟩
-
 noncomputable def tripleSecondThird (t : ScopedComposableTriple P) :
     ScopedComposableRaw (S := S) :=
   ⟨t.firstMid, t.secondMid, t.tgt, t.second, t.third⟩
-
 noncomputable def tripleLeftRaw (t : ScopedComposableTriple P) :
     ScopedComposableRaw (S := S) :=
   ⟨t.src, t.secondMid, t.tgt,
     openTrans S.toGeometricStepSystem t.first t.second,
     t.third⟩
-
 noncomputable def tripleRightRaw (t : ScopedComposableTriple P) :
     ScopedComposableRaw (S := S) :=
   ⟨t.src, t.firstMid, t.tgt,
     t.first,
     openTrans S.toGeometricStepSystem t.second t.third⟩
-
 noncomputable def tripleLeftPair (t : ScopedComposableTriple P) :
     ScopedStrongComposablePair P :=
   ⟨⟨scopedCompositionOnStrong P
@@ -708,7 +593,6 @@ noncomputable def tripleLeftPair (t : ScopedComposableTriple P) :
         ⟨t.secondMid, t.tgt, t.third⟩⟩, by
         rw [scopedCompositionOnStrong_mk]
         rfl⟩
-
 noncomputable def tripleRightPair (t : ScopedComposableTriple P) :
     ScopedStrongComposablePair P :=
   ⟨⟨scopedQuotientMk P ⟨t.src, t.firstMid, t.first⟩,
@@ -716,16 +600,11 @@ noncomputable def tripleRightPair (t : ScopedComposableTriple P) :
         (scopedPairMap P (scopedComposableMk P (tripleSecondThird P t)))⟩, by
         rw [scopedCompositionOnStrong_mk]
         rfl⟩
-
 end ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
-
 namespace TopologicalComputationalPaths
-
 open ComputationalPaths.Path.GeometricTopology
 open ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
-
 universe u v
-
 /-! ## The ordinary/final topology comparison
 
 The canonical final composable domain is always mapped continuously and
