@@ -1,0 +1,2 @@
+import ComputationalPaths.Path.Topology.ScopedGeometricRewriteGroupoid
+import ComputationalPaths.Path.Topology.ScopedGeometricRewriteComparison

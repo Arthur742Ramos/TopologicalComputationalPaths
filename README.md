@@ -48,6 +48,6 @@ separates the formalized theorem from the surrounding mathematical program.
 
 ## Status
 
-This repository currently contains the extraction design only.  The Lean
-sources and Palomar harness will be added in small, independently buildable
-steps.
+The initial 30-file core extraction is present and builds successfully with
+the parent v4.24.0 toolchain.  The Palomar harness and the supported-toolchain
+port are still pending.
