@@ -39,8 +39,10 @@ geometric constructions.
 This repository now contains one pinned Lean project with a small
 `Challenge.lean`, a matching `Solution.lean`, and an explicit `comparator.json`.
 The challenge states the result using only the permitted statement-side
-imports; the solution uses the pinned focused development and connects the
-generic statement to the extracted quotient construction.
+imports.  Its data gives a raw operation that respects a quotient relation;
+the final-domain operation is then defined canonically by quotient descent.
+The solution proves the generic final-domain/comparison certificate and
+connects it to the extracted scoped quotient construction.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
@@ -55,7 +57,9 @@ The focused 30-file core, the Palomar statement boundary, and the Lean 4.32.0
 port are complete.  `lake build` succeeds for the core, Challenge, and
 Solution targets.  The only `sorry` is the deliberate statement-side hole in
 `Challenge.lean`; `Solution.lean` and the extracted development contain no
-`sorry`, `admit`, custom axioms, or `native_decide`.
+`sorry`, `admit`, custom axioms, or `native_decide`.  The concrete solution
+also proves that its canonically descended operation agrees with the scoped
+quotient composition from the extracted development.
 
 The repository has been checked against Palomar's current metadata, layout,
 toolchain, and pinned-manifest rules.  A registry submission still requires a

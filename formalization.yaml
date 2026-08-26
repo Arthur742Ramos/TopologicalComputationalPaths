@@ -10,7 +10,9 @@ project:
     of source, target, identity, inverse, and composition together with the
     groupoid laws, and characterizes exactly when the ordinary pullback domain
     is compatible through quotient-map, inverse-continuity, and induced-topology
-    criteria.
+    criteria.  The Palomar statement surface isolates the generic quotient
+    descent and comparison certificate; the solution instantiates it with the
+    scoped computational-path construction.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy de Queiroz"
@@ -65,7 +67,7 @@ status:
 
 automation:
   methods:
-    - method: "agent-assisted proof development and review"
+    - method: "agent"
       models: ["Codex"]
       framework: "Lean 4.32.0 and Lake"
       tool_setup: >-
@@ -84,10 +86,11 @@ automation:
 fidelity:
   divergences: >-
     The mathematical scope is unchanged for the extracted topological groupoid
-    layer, but the focused repository adds a statement-safe Palomar interface
-    and a generic final-domain comparison adapter.  The toolchain is ported
-    from Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are omitted
-    from this release rather than implied by the package.
+    layer, but the focused repository adds a statement-safe Palomar interface,
+    a canonical quotient descent in that interface, and a generic final-domain
+    comparison adapter.  The toolchain is ported from Lean 4.24.0 to Lean
+    4.32.0.  The other manuscript modules are omitted from this release rather
+    than implied by the package.
 
 review:
   status: "self-assessed"
@@ -116,7 +119,7 @@ alignment:
       lean: "TopologicalComputationalPaths.main_result"
       module: "Solution.lean"
       status: "adapted"
-      note: "The statement-safe generic quotient/final-domain certificate is proved and connected to the extracted construction by scopedFinalPairData."
+      note: "The generic certificate derives the final operation by quotient descent and is connected to the extracted construction by scopedFinalPairData and scoped_final_operation_agrees."
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,
