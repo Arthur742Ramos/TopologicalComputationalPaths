@@ -16,20 +16,26 @@ The first result package concerns a scoped geometric rewrite presentation:
 3. the ordinary pullback topology agrees with that final topology exactly when
    the relevant pair map is a quotient map, with compact-Hausdorff and discrete
    sufficient conditions.
+4. the selected certificate includes a concrete one-object trace presentation:
+   integer-labelled primitive loops normalize inductively to singleton traces,
+   the quotient is bijectively coded by `Int`, and composition adds codes; and
+5. it includes a finite trace-sensitive obstruction in which two labels remain
+   distinct in the trace carrier but are identified by an observable code, so
+   the forward identity is continuous while the reverse identity is not.
 
-The Palomar-selected declaration is item 3.  Items 1 and 2 supply the spaces
-and continuous final-domain operation needed to formulate and prove that
-comparison; their largely structural laws are not presented as the research
-contribution.
+The Palomar-selected declaration is the comparison in item 3 together with
+the concrete formalized instances in items 4 and 5.  Items 1 and 2 supply the
+spaces and continuous final-domain operation needed to formulate and prove
+that comparison; their largely structural laws are not presented as the
+research contribution.
 
 The package will keep the final-domain statement distinct from the stronger
 ordinary-topological-groupoid statement.  That distinction is part of the
 mathematical result, not merely an implementation detail.
 
-The circle and torus constructions, geometric comparison, functoriality, and
-the finite separation/obstruction examples are planned as supporting modules.
-They will be included only after they have been ported into the focused
-dependency boundary and independently checked.
+The circle and torus constructions, geometric comparison, and functoriality
+remain planned supporting modules.  The finite obstruction selected above is
+already included and independently checked in this focused boundary.
 
 ## Source lineage
 
@@ -53,10 +59,11 @@ ordinary multiplication as an obstruction and proves compact--Hausdorff and
 discrete sufficient cases.  These are the publication-facing claims; the
 automatic final-domain groupoid laws remain supporting infrastructure.
 
-`Challenge.lean` duplicates only the statement-facing definitions needed for
-that theorem using Lean core and Mathlib; it does not import the project
-library.  `Solution.lean` imports the extracted, checked comparison theory and
-supplies the certificate.
+`Challenge.lean` duplicates the statement-facing definitions needed for that
+theorem using Lean core, Mathlib, and the shared computational-path rewrite
+kernel; it does not import the extracted topological implementation.
+`Solution.lean` imports the extracted, checked comparison theory and supplies
+the certificate.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
@@ -78,7 +85,8 @@ sufficient-condition theorems.
 
 The repository has been checked against Palomar's current metadata, layout,
 toolchain, and pinned-manifest rules.  Registration still requires a hosted
-Comparator/NanoDa run and editorial approval of the revised comparison result.
+Comparator/NanoDa run and editorial approval of this revised, concrete
+comparison result.
 
 ## Reproduce the baseline
 

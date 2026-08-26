@@ -27,7 +27,6 @@ part of the minimal extraction until they compile against the focused core:
 - the geometric comparison/completeness criterion;
 - the realized fundamental-groupoid bridge;
 - the circle normal-form certificate and product-torus winding certificate;
-- the finite trace-sensitive separation certificate; and
 - the Hawaiian-earring obstruction transfer.
 
 The last item depends on an externally supplied non-quotient theorem.  If it
@@ -80,8 +79,11 @@ publication surface: its certificate exposes the canonical continuous
 bijection, the raw quotient-map and homeomorphism criteria, equality of the
 final and induced topologies, transfer of continuity to ordinary composition,
 the discontinuity obstruction, and compact--Hausdorff and discrete sufficient
-conditions.  The automatic final-domain groupoid laws and the generic adapter
-remain supporting material.
+conditions.  It also selects and proves two concrete test cases: an
+integer-labelled one-object trace presentation with singleton normal forms and
+additive quotient code, and a finite two-label trace-sensitive obstruction.
+The automatic final-domain groupoid laws and the generic adapter remain
+supporting material.
 
 ## Non-goals for the first submission
 

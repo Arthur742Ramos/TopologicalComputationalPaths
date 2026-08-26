@@ -11,7 +11,9 @@ project:
     characterizes exactly when it is quotient, a homeomorphism, and an induced
     topology agreement; under these equivalent conditions ordinary composition
     is continuous.  It also records discontinuity as an obstruction and proves
-    compact--Hausdorff and discrete sufficient cases.
+    compact--Hausdorff and discrete sufficient cases.  The certificate includes
+    an inductively normalized integer-labelled one-object trace presentation
+    and a finite trace-sensitive topology obstruction.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy de Queiroz"
@@ -59,7 +61,9 @@ status:
     sufficient conditions.  The unconditional final-domain groupoid laws are
     supporting infrastructure.  Circle and torus examples, realization comparisons, and the
     externally transferred Hawaiian-earring obstruction are intentionally not
-    part of this focused release.  The Challenge file contains the one
+    part of this focused release.  The selected certificate additionally
+    contains an integer-labelled one-object normal-form application and a
+    finite trace-sensitive obstruction.  The Challenge file contains the one
     deliberate statement-side sorry allowed by the Palomar protocol; the
     proof development and Solution contain none.
   sorry_count: 0
@@ -124,7 +128,12 @@ alignment:
       lean: "TopologicalComputationalPaths.main_result"
       module: "Challenge.lean and Solution.lean"
       status: "adapted"
-      note: "The compared theorem packages continuous bijectivity, exact quotient-map, homeomorphism, and induced-topology criteria, continuity of ordinary composition, its obstruction, and compact--Hausdorff and discrete sufficient cases."
+      note: >-
+        The compared theorem packages continuous bijectivity, exact
+        quotient-map, homeomorphism, and induced-topology criteria, continuity
+        of ordinary composition, its obstruction, compact--Hausdorff and
+        discrete sufficient cases, an integer-labelled one-object normal-form
+        application, and a finite trace-sensitive obstruction.
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,

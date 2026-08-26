@@ -1,6 +1,7 @@
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Path
 import Mathlib.Topology.Homotopy.Path
+import ComputationalPaths.Path.Rewrite.RwEq
 
 /-!
 # Challenge: topological semantics of computational paths
@@ -15,7 +16,10 @@ The selected result solves the comparison problem between the canonical final
 composable topology and the ordinary pullback topology.  It characterizes
 exactly when the canonical continuous bijection is a homeomorphism, derives
 ordinary composition continuity, records the corresponding obstruction, and
-proves compact--Hausdorff and discrete sufficient cases.
+proves compact--Hausdorff and discrete sufficient cases.  It also packages a
+concrete integer-labelled one-object trace presentation with an inductive
+singleton normal form, together with a finite trace-sensitive topology
+obstruction.
 -/
 
 namespace ComputationalPaths
@@ -754,6 +758,267 @@ noncomputable def ordinaryComposition
     ScopedComposablePair P → ScopedClass P :=
   fun pq => scopedCompositionOnStrong P ⟨pq⟩
 
+/-! ## A concrete exponent presentation
+
+The comparison theorem is accompanied by a small but nontrivial instance.  A
+one-object system has integer-labelled primitive computational loops, and its
+local presentation contains explicit add, zero, and inverse normalization
+rules.  Induction over the trace constructors proves a singleton normal form;
+the quotient code is bijective with `Int`, and composition adds exponents.
+-/
+
+noncomputable def unitLoopStepSystem :
+    ContinuousGeometricStepSystem Unit Int where
+  src := fun _ => ()
+  tgt := fun _ => ()
+  realize := fun _ => _root_.Path.refl ()
+  continuous_src := continuous_const
+  continuous_tgt := continuous_const
+  continuous_realize := by
+    exact continuous_const
+
+abbrev UnitLoopTrace :=
+  GeometricTrace unitLoopStepSystem.toGeometricStepSystem () ()
+
+def unitLoopDegree :
+    {a b : Unit} →
+      GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b → Int
+  | _, _, GeometricTrace.refl _ => 0
+  | _, _, GeometricTrace.single n => n
+  | _, _, GeometricTrace.trans p q => unitLoopDegree p + unitLoopDegree q
+  | _, _, GeometricTrace.symm p => -unitLoopDegree p
+
+def unitLoopPositiveTrace : Nat → UnitLoopTrace
+  | 0 => GeometricTrace.refl ()
+  | n + 1 => GeometricTrace.trans (unitLoopPositiveTrace n)
+      (GeometricTrace.single (1 : Int))
+
+def unitLoopTrace : Int → UnitLoopTrace
+  | Int.ofNat n => unitLoopPositiveTrace n
+  | Int.negSucc n => GeometricTrace.symm (unitLoopPositiveTrace (n + 1))
+
+noncomputable def unitLoopTraceCast {a b : Unit}
+    (ha : a = ()) (hb : b = ())
+    (p : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b) :
+    UnitLoopTrace := by
+  cases ha
+  cases hb
+  exact p
+
+def unitLoopRule {a b : Unit}
+    (p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b) : Prop :=
+  ∃ (ha : a = ()) (hb : b = ()),
+    (∃ n m : Int,
+        unitLoopTraceCast ha hb p =
+          GeometricTrace.trans
+            (GeometricTrace.single n : UnitLoopTrace)
+            (GeometricTrace.single m : UnitLoopTrace) ∧
+        unitLoopTraceCast ha hb q =
+          (GeometricTrace.single (n + m) : UnitLoopTrace)) ∨
+      (unitLoopTraceCast ha hb p =
+          (GeometricTrace.refl () : UnitLoopTrace) ∧
+        unitLoopTraceCast ha hb q =
+          (GeometricTrace.single 0 : UnitLoopTrace)) ∨
+      (∃ n : Int,
+        unitLoopTraceCast ha hb p =
+          GeometricTrace.symm (GeometricTrace.single n : UnitLoopTrace) ∧
+        unitLoopTraceCast ha hb q =
+          (GeometricTrace.single (-n) : UnitLoopTrace))
+
+def unitLoopRule_add (n m : Int) :
+    unitLoopRule
+      (GeometricTrace.trans
+        (GeometricTrace.single n : UnitLoopTrace)
+        (GeometricTrace.single m : UnitLoopTrace))
+      (GeometricTrace.single (n + m) : UnitLoopTrace) :=
+  ⟨rfl, rfl, Or.inl ⟨n, m, rfl, rfl⟩⟩
+
+def unitLoopRule_zero :
+    unitLoopRule
+      (GeometricTrace.refl () : UnitLoopTrace)
+      (GeometricTrace.single 0 : UnitLoopTrace) :=
+  ⟨rfl, rfl, Or.inr (Or.inl ⟨rfl, rfl⟩)⟩
+
+def unitLoopRule_neg (n : Int) :
+    unitLoopRule
+      (GeometricTrace.symm
+        (GeometricTrace.single n : UnitLoopTrace))
+      (GeometricTrace.single (-n) : UnitLoopTrace) :=
+  ⟨rfl, rfl, Or.inr (Or.inr ⟨n, rfl, rfl⟩)⟩
+
+def unitLoopRule_degree
+    {a b : Unit}
+    {p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b}
+    (h : unitLoopRule p q) : unitLoopDegree p = unitLoopDegree q := by
+  rcases h with ⟨ha, hb, h⟩
+  cases ha
+  cases hb
+  rcases h with h | h | h
+  · rcases h with ⟨n, m, hp, hq⟩
+    cases hp
+    cases hq
+    simp [unitLoopDegree]
+  · rcases h with ⟨hp, hq⟩
+    cases hp
+    cases hq
+    simp [unitLoopDegree]
+  · rcases h with ⟨n, hp, hq⟩
+    cases hp
+    cases hq
+    simp [unitLoopDegree]
+
+def unitPathHomotopy {a b : Unit} (p q : _root_.Path a b) :
+    _root_.Path.Homotopic p q := by
+  have h : p = q := by
+    apply _root_.Path.ext
+    funext t
+    exact Subsingleton.elim _ _
+  cases h
+  exact _root_.Path.Homotopic.refl _
+
+noncomputable def unitLoopPresentation :
+    ScopedGeometricRewritePresentation unitLoopStepSystem where
+  rule := fun {a b} p q => unitLoopRule p q
+  sound_rule := by
+    intro a b p q h
+    exact unitPathHomotopy _ _
+
+abbrev UnitLoopRaw := ScopedRawPath (S := unitLoopStepSystem)
+
+noncomputable def unitLoopOpen (n : Int) :
+    OpenGeometricCompPath
+      unitLoopStepSystem.toGeometricStepSystem () () :=
+  { trace := unitLoopTrace n
+    geometric := _root_.Path.refl ()
+    coherent := unitPathHomotopy _ _ }
+
+noncomputable def unitLoopRepresentative (n : Int) : UnitLoopRaw :=
+  ⟨(), (), unitLoopOpen n⟩
+
+noncomputable def unitLoopComposable (m n : Int) :
+    TotalComposable Unit Int unitLoopStepSystem :=
+  ⟨(), (), (), unitLoopOpen m, unitLoopOpen n⟩
+
+abbrev UnitLoopClass := ScopedClass unitLoopPresentation
+
+noncomputable def unitLoopCode : UnitLoopClass → Int :=
+  Quot.lift
+    (fun p : UnitLoopRaw => unitLoopDegree p.path.trace)
+    (by
+      intro p q h
+      rcases p with ⟨p_src, p_tgt, p_path⟩
+      rcases q with ⟨q_src, q_tgt, q_path⟩
+      rcases h with ⟨hs, ht, hr⟩
+      cases p_src
+      cases p_tgt
+      cases q_src
+      cases q_tgt
+      have hs0 : hs = (rfl : () = ()) := Subsingleton.elim _ _
+      have ht0 : ht = (rfl : () = ()) := Subsingleton.elim _ _
+      cases hs0
+      cases ht0
+      change ScopedRwEq unitLoopPresentation p_path.trace q_path.trace at hr
+      have hrewrites :
+          ∀ {a b : Unit}
+            {p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b},
+            ScopedRwEq unitLoopPresentation p q →
+              unitLoopDegree p = unitLoopDegree q := by
+        intro a b p q hrewrite
+        induction hrewrite with
+        | refl => rfl
+        | generator h => exact unitLoopRule_degree h
+        | symm h ih => simpa [unitLoopDegree] using ih.symm
+        | trans h₁ h₂ ih₁ ih₂ => exact ih₁.trans ih₂
+        | trans_congr h₁ h₂ ih₁ ih₂ =>
+            simpa [unitLoopDegree, ih₁, ih₂, add_assoc]
+        | symm_congr h ih => simpa [unitLoopDegree, ih]
+        | refl_trans p => simp [unitLoopDegree]
+        | trans_refl p => simp [unitLoopDegree]
+        | trans_assoc p q r => simp [unitLoopDegree, add_assoc]
+        | symm_trans p => simp [unitLoopDegree]
+        | trans_symm p => simp [unitLoopDegree]
+        | symm_symm p => simp [unitLoopDegree]
+        | symm_refl a => simp [unitLoopDegree]
+        | symm_comp p q => simp [unitLoopDegree, add_comm]
+      exact hrewrites hr)
+
+structure UnitLoopExponentCertificate : Prop where
+  bijective : Function.Bijective unitLoopCode
+  normal_form : ∀ p : UnitLoopTrace,
+    ScopedRwEq unitLoopPresentation p
+      (GeometricTrace.single (unitLoopDegree p) : UnitLoopTrace)
+  raw_code : ∀ p : UnitLoopRaw,
+    unitLoopCode (scopedQuotientMk unitLoopPresentation p) =
+      unitLoopDegree p.path.trace
+  representative_code : ∀ n,
+    unitLoopCode
+        (scopedQuotientMk unitLoopPresentation (unitLoopRepresentative n)) = n
+  composition_additive : ∀ m n,
+    unitLoopCode
+        (scopedCompositionFromComposable unitLoopPresentation
+          (scopedComposableMk unitLoopPresentation (unitLoopComposable m n))) =
+      m + n
+
+/-! ## A finite trace-sensitive obstruction
+
+The selected result also records the smallest separation example: two
+primitive computational labels are distinct in the trace carrier, while an
+observable code forgets the label.  The identity from the indiscrete
+observable topology to the discrete trace topology is not continuous in the
+reverse direction.  This is the finite obstruction behind the warning that a
+continuous bijection need not be a homeomorphism.
+-/
+
+inductive TraceLabel
+  | left
+  | right
+
+noncomputable def finiteTraceStepSystem :
+    GeometricStepSystem Unit TraceLabel where
+  src := fun _ => ()
+  tgt := fun _ => ()
+  realize := fun _ => _root_.Path.refl ()
+
+abbrev FiniteTrace :=
+  GeometricTrace (A := Unit) (Step := TraceLabel) finiteTraceStepSystem () ()
+
+def finiteTrace (g : TraceLabel) : FiniteTrace :=
+  GeometricTrace.single g
+
+abbrev ObservableTraceCode := Nat × Unit
+
+def observableTraceCode (_ : TraceLabel) : ObservableTraceCode :=
+  (1, Unit.unit)
+
+def traceTopology : TopologicalSpace TraceLabel := ⊥
+
+def observableTopology : TopologicalSpace TraceLabel := ⊤
+
+noncomputable def traceUnitRewrite (n : Nat) :
+    ComputationalPaths.Path.RwEqProp
+      (ComputationalPaths.Path.trans
+        (ComputationalPaths.Path.refl n)
+        (ComputationalPaths.Path.refl n))
+      (ComputationalPaths.Path.refl n) :=
+  ⟨ComputationalPaths.Path.RwEq.step
+      (ComputationalPaths.Path.Step.trans_refl_right
+        (ComputationalPaths.Path.refl n))⟩
+
+structure TraceTopologyObstructionCertificate : Prop where
+  trace_separates : finiteTrace TraceLabel.left ≠ finiteTrace TraceLabel.right
+  observable_forgets :
+    observableTraceCode TraceLabel.left = observableTraceCode TraceLabel.right
+  forward_continuous :
+    @Continuous TraceLabel TraceLabel traceTopology observableTopology id
+  reverse_not_continuous :
+    ¬ @Continuous TraceLabel TraceLabel observableTopology traceTopology id
+  unit_coherence : ∀ n : Nat,
+    ComputationalPaths.Path.RwEqProp
+      (ComputationalPaths.Path.trans
+        (ComputationalPaths.Path.refl n)
+        (ComputationalPaths.Path.refl n))
+      (ComputationalPaths.Path.refl n)
+
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -790,6 +1055,8 @@ structure OrdinaryTopologyComparisonCertificate
       [DiscreteTopology (ScopedComposableClass P)],
       Topology.IsQuotientMap (finalToOrdinary P) ∧
         Continuous (ordinaryComposition P)
+  concrete_exponent_application : UnitLoopExponentCertificate
+  trace_sensitive_obstruction : TraceTopologyObstructionCertificate
 
 theorem main_result
     {A : Type u} [TopologicalSpace A]
