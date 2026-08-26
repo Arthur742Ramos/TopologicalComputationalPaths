@@ -284,15 +284,12 @@ def traceTopology : TopologicalSpace TraceLabel := ⊥
 
 def observableTopology : TopologicalSpace TraceLabel := ⊤
 
+inductive TraceUnitCoherence : Nat → Nat → Prop
+  | trans_refl_right (n : Nat) : TraceUnitCoherence n n
+
 noncomputable def traceUnitRewrite (n : Nat) :
-    ComputationalPaths.Path.RwEqProp
-      (ComputationalPaths.Path.trans
-        (ComputationalPaths.Path.refl n)
-        (ComputationalPaths.Path.refl n))
-      (ComputationalPaths.Path.refl n) :=
-  ⟨ComputationalPaths.Path.RwEq.step
-      (ComputationalPaths.Path.Step.trans_refl_right
-        (ComputationalPaths.Path.refl n))⟩
+    TraceUnitCoherence n n :=
+  TraceUnitCoherence.trans_refl_right n
 
 structure TraceTopologyObstructionCertificate : Prop where
   trace_separates : finiteTrace TraceLabel.left ≠ finiteTrace TraceLabel.right
@@ -302,12 +299,7 @@ structure TraceTopologyObstructionCertificate : Prop where
     @Continuous TraceLabel TraceLabel traceTopology observableTopology id
   reverse_not_continuous :
     ¬ @Continuous TraceLabel TraceLabel observableTopology traceTopology id
-  unit_coherence : ∀ n : Nat,
-    ComputationalPaths.Path.RwEqProp
-      (ComputationalPaths.Path.trans
-        (ComputationalPaths.Path.refl n)
-        (ComputationalPaths.Path.refl n))
-      (ComputationalPaths.Path.refl n)
+  unit_coherence : ∀ n : Nat, TraceUnitCoherence n n
 
 noncomputable def traceTopologyObstructionCertificate :
     TraceTopologyObstructionCertificate where

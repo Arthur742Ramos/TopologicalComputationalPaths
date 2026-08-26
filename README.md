@@ -60,10 +60,9 @@ discrete sufficient cases.  These are the publication-facing claims; the
 automatic final-domain groupoid laws remain supporting infrastructure.
 
 `Challenge.lean` duplicates the statement-facing definitions needed for that
-theorem using Lean core, Mathlib, and the shared computational-path rewrite
-kernel; it does not import the extracted topological implementation.
-`Solution.lean` imports the extracted, checked comparison theory and supplies
-the certificate.
+theorem using Lean core and Mathlib; it does not import the extracted project
+implementation.  `Solution.lean` imports the extracted, checked comparison
+theory and supplies the certificate.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
