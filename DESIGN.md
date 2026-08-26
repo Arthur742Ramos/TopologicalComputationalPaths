@@ -54,15 +54,17 @@ TopologicalComputationalPaths/
     └── Path/Topology/...
 ```
 
-`Challenge.lean` is deliberately compact and statement-oriented.  It imports
-the focused groupoid API so that the compared statement names the actual
-endpoint-varying computational-path quotient, rather than hiding the result
+`Challenge.lean` is deliberately statement-oriented and self-contained.  The
+Palomar challenge sandbox cannot import project-specific source, so it
+duplicates the small statement-facing definition layer from Lean core and
+Mathlib alone.  This lets the compared statement name the actual
+endpoint-varying computational-path quotient rather than hide the result
 behind a generic quotient interface.  Its publication-facing certificate
 lists the continuity and groupoid-law fields, rewrite soundness, and explicit
-`Path`/`RwEq` witnesses.  `Solution.lean` repeats the same statement-side
-declaration and fills it from the pinned, checked groupoid construction.  The
-generic quotient/comparison adapter remains supporting material for the exact
-final-versus-ordinary topology distinction.
+trace-level `Path`/`ScopedRwEq` witnesses.  `Solution.lean` repeats the same
+statement-side declaration and fills it from the pinned, checked groupoid
+construction.  The generic quotient/comparison adapter remains supporting
+material for the exact final-versus-ordinary topology distinction.
 
 The underlying result has three spaces: raw composable representatives, their
 quotient final domain, and the ordinary composable-pair domain.  The concrete
@@ -77,7 +79,7 @@ The checked-in `comparator.json` selects
 publication surface: its certificate exposes source, target, identity,
 inverse, and final-domain composition continuity; the unit, inverse, and
 associativity laws; rewrite soundness; and explicit computational `Path` and
-`RwEq` witnesses.  The generic quotient/comparison interface and its adapter
+`ScopedRwEq` witnesses.  The generic quotient/comparison interface and its adapter
 remain available in the solution source as supporting material.
 
 ## Non-goals for the first submission

@@ -53,20 +53,15 @@ structure ScopedTopologicalComputationalPathCertificate
           _root_.Path.Homotopic
             (GeometricTrace.realize (castScopedTrace hs ht))
             (GeometricTrace.realize q.trace)
-  composition_trace_path : ∀ c : ScopedComposableRaw (S := S),
-    Nonempty (ComputationalPaths.Path
-      (GeometricTrace.traceLength
-        (GeometricTrace.trans c.left.trace c.right.trace))
-      (GeometricTrace.traceLength c.left.trace +
-        GeometricTrace.traceLength c.right.trace))
+  trace_composition : ∀ c : ScopedComposableRaw (S := S),
+    GeometricTrace.traceLength
+        (GeometricTrace.trans c.left.trace c.right.trace) =
+      GeometricTrace.traceLength c.left.trace +
+        GeometricTrace.traceLength c.right.trace
   trace_unit_rewrite : ∀ p : ScopedRawPath (S := S),
-    Nonempty (ComputationalPaths.Path.RwEq
-      (ComputationalPaths.Path.trans
-        (ComputationalPaths.Path.refl
-          (GeometricTrace.traceLength p.trace))
-        (ComputationalPaths.Path.refl
-          (GeometricTrace.traceLength p.trace)))
-      (ComputationalPaths.Path.refl (GeometricTrace.traceLength p.trace)))
+    ScopedRwEq P
+      (GeometricTrace.trans (GeometricTrace.refl p.src) p.trace)
+      p.trace
 
 /-! The statement and solution use the same final topology on quotient domains. -/
 noncomputable instance quotientFinalTopology
@@ -154,15 +149,12 @@ theorem main_result
       rewrite_sound := by
         intro p q h
         exact scopedEquivalent_sound P h
-      composition_trace_path := by
+      trace_composition := by
         intro c
-        exact ⟨scopedGroupoidCompositionTracePath c⟩
+        rfl
       trace_unit_rewrite := by
         intro p
-        exact ⟨ComputationalPaths.Path.RwEq.step
-          (ComputationalPaths.Path.Step.trans_refl_right
-            (ComputationalPaths.Path.refl
-              (GeometricTrace.traceLength p.trace)))⟩ }
+        exact ScopedRwEq.refl_trans p.trace }
 
 /-! The substantive repository contains the scoped quotient construction.  The
  following adapter makes the statement-side interface concrete: its raw

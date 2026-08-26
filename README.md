@@ -41,10 +41,12 @@ This repository now contains one pinned Lean project with a focused
 The compared `main_result` directly states the scoped geometric rewrite
 quotient's final-domain topological groupoid certificate: continuity of all
 structural operations, the unit, inverse, and associativity laws, rewrite
-soundness for geometric realization, and explicit computational `Path`/`RwEq`
-witnesses.  The solution supplies those fields from the extracted, checked
-groupoid construction.  The generic final-domain/comparison interface and its
-quotient-descent adapter remain as supporting material.
+soundness for geometric realization, and explicit trace-level `Path` and
+`ScopedRwEq` witnesses.  `Challenge.lean` duplicates only the statement-facing
+definitions needed for that type using Lean core and Mathlib; it does not import
+the project library.  `Solution.lean` imports the extracted, checked groupoid
+construction and supplies the fields.  The generic final-domain/comparison
+interface and its quotient-descent adapter remain supporting material.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
