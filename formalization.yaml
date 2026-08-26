@@ -10,9 +10,9 @@ project:
     of source, target, identity, inverse, and composition together with the
     groupoid laws, and characterizes exactly when the ordinary pullback domain
     is compatible through quotient-map, inverse-continuity, and induced-topology
-    criteria.  The Palomar statement surface isolates the generic quotient
-    descent and comparison certificate; the solution instantiates it with the
-    scoped computational-path construction.
+    criteria.  The Palomar statement surface directly exposes the scoped
+    computational-path groupoid certificate, its rewrite-soundness witness,
+    and explicit trace-level Path/RwEq witnesses.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy de Queiroz"
@@ -87,11 +87,12 @@ automation:
 fidelity:
   divergences: >-
     The mathematical scope is unchanged for the extracted topological groupoid
-    layer, but the focused repository adds a statement-safe Palomar interface,
-    a canonical quotient descent in that interface, and a generic final-domain
-    comparison adapter.  The toolchain is ported from Lean 4.24.0 to Lean
-    4.32.0.  The other manuscript modules are omitted from this release rather
-    than implied by the package.
+    layer, but the focused repository adds a statement-facing Palomar
+    certificate exposing the concrete scoped groupoid and computational
+    witnesses, a canonical quotient descent for the comparison adapter, and
+    the exact final-domain/ordinary-domain comparison.  The toolchain is
+    ported from Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are
+    omitted from this release rather than implied by the package.
 
 review:
   status: "self-assessed"
@@ -116,11 +117,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
       status: "proved"
       note: "The ordinary-pair criterion is retained as a separate conditional theorem."
-    - source: "Palomar statement-surface theorem"
+    - source: "Scoped topological computational-path groupoid certificate"
       lean: "TopologicalComputationalPaths.main_result"
-      module: "Solution.lean"
+      module: "Challenge.lean and Solution.lean"
       status: "adapted"
-      note: "The generic certificate derives the final operation by quotient descent and is connected to the extracted construction by scopedFinalPairData and scoped_final_operation_agrees."
+      note: "The compared theorem exposes continuity, unit, inverse, and associativity laws for the scoped quotient, rewrite soundness, and explicit Path/RwEq trace witnesses; Solution instantiates it from the extracted groupoid proofs."
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,

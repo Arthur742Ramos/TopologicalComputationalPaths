@@ -2,17 +2,71 @@ import Mathlib.Topology.Constructions
 import ComputationalPaths
 
 /-!
-# Solution: final-domain topological semantics
+# Solution: topological semantics of computational paths
 
-The proof is written against the statement-only interface and uses only
-quotient-map and topological-equivalence facts.  The focused computational-path
-development supplies the corresponding scoped quotient construction; see the
-bridge theorem below for the concrete connection.
+The selected theorem is the concrete scoped geometric rewrite quotient result:
+its final-domain operations form a topological groupoid, the rewrite relation
+is sound for geometric realization, and explicit trace witnesses remain
+available.  The generic final-domain/comparison interface below is retained as
+supporting notation for the extraction adapter.
 -/
 
 namespace TopologicalComputationalPaths
 
 universe u v w
+
+open ComputationalPaths.Path.GeometricTopology
+open ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
+
+/-! The publication-facing certificate keeps the concrete quotient groupoid
+and its computational-path witnesses visible in the theorem type. -/
+
+structure ScopedTopologicalComputationalPathCertificate
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    (S : ContinuousGeometricStepSystem A Step)
+    (P : ScopedGeometricRewritePresentation S) : Prop where
+  source_continuous : Continuous (scopedSrc P)
+  target_continuous : Continuous (scopedTgt P)
+  identity_continuous : Continuous (scopedRefl P)
+  inverse_continuous : Continuous (scopedSymm P)
+  final_composition_continuous :
+    Continuous (scopedCompositionOnStrong P :
+      ScopedStrongComposablePair P → ScopedClass P)
+  left_unit : ∀ p : ScopedClass P,
+    scopedCompositionOnStrong P (strongLeftUnitPair P p) = p
+  right_unit : ∀ p : ScopedClass P,
+    scopedCompositionOnStrong P (strongRightUnitPair P p) = p
+  right_inverse : ∀ p : ScopedClass P,
+    scopedCompositionOnStrong P (strongRightInversePair P p) =
+      scopedRefl P (scopedSrc P p)
+  left_inverse : ∀ p : ScopedClass P,
+    scopedCompositionOnStrong P (strongLeftInversePair P p) =
+      scopedRefl P (scopedTgt P p)
+  associativity : ∀ t : ScopedComposableTriple P,
+    scopedCompositionOnStrong P (tripleLeftPair P t) =
+      scopedCompositionOnStrong P (tripleRightPair P t)
+  rewrite_sound :
+    ∀ {p q : ScopedRawPath (S := S)},
+      scopedEquivalent P p q →
+        ∃ hs : q.src = p.src, ∃ ht : q.tgt = p.tgt,
+          _root_.Path.Homotopic
+            (GeometricTrace.realize (castScopedTrace hs ht))
+            (GeometricTrace.realize q.trace)
+  composition_trace_path : ∀ c : ScopedComposableRaw (S := S),
+    Nonempty (ComputationalPaths.Path
+      (GeometricTrace.traceLength
+        (GeometricTrace.trans c.left.trace c.right.trace))
+      (GeometricTrace.traceLength c.left.trace +
+        GeometricTrace.traceLength c.right.trace))
+  trace_unit_rewrite : ∀ p : ScopedRawPath (S := S),
+    Nonempty (ComputationalPaths.Path.RwEq
+      (ComputationalPaths.Path.trans
+        (ComputationalPaths.Path.refl
+          (GeometricTrace.traceLength p.trace))
+        (ComputationalPaths.Path.refl
+          (GeometricTrace.traceLength p.trace)))
+      (ComputationalPaths.Path.refl (GeometricTrace.traceLength p.trace)))
 
 /-! The statement and solution use the same final topology on quotient domains. -/
 noncomputable instance quotientFinalTopology
@@ -80,73 +134,35 @@ structure ScopedFinalSemanticsCertificate
     Continuous D.comparison.invFun → Continuous D.ordinaryOperation
 
 theorem main_result
-    {RawPair : Type u} {OrdinaryPair : Type v} {Arrow : Type w}
-    [TopologicalSpace RawPair]
-    [TopologicalSpace OrdinaryPair] [TopologicalSpace Arrow]
-    (D : ScopedFinalPairData RawPair OrdinaryPair Arrow) :
-    ScopedFinalSemanticsCertificate D := by
-  let q := D.quotient
-  let e := D.comparison
-  have hq : Topology.IsQuotientMap q := by
-    exact ScopedFinalPairData.quotient_is_quotient D
-  have he : Continuous e := D.comparison_continuous
-  have hq_continuous : Continuous q := hq.continuous
-  have hfinal : Continuous D.finalOperation := by
-    apply hq.continuous_iff.2
-    convert D.rawOperation_continuous using 1
-    funext r
-    rfl
-  have hpair_iff_comparison :
-      Topology.IsQuotientMap (e ∘ q) ↔ Topology.IsQuotientMap e := by
-    constructor
-    · intro hcomp
-      apply Topology.IsQuotientMap.of_comp hq_continuous he hcomp
-    · intro hcomparison
-      exact hcomparison.comp hq
-  have hcomparison_iff_inverse :
-      Topology.IsQuotientMap e ↔ Continuous e.invFun := by
-    constructor
-    · intro hcomparison
-      apply hcomparison.continuous_iff.2
-      have hcomp : e.invFun ∘ e = id := by
-        funext x
-        exact e.left_inv x
-      rw [hcomp]
-      exact continuous_id
-    · intro hinverse
-      let E : Quotient D.relation ≃ₜ OrdinaryPair :=
-        { toEquiv := e
-          continuous_toFun := he
-          continuous_invFun := hinverse }
-      exact E.isQuotientMap
-  have hinverse_iff_topology :
-      Continuous e.invFun ↔ D.topologyAgreement := by
-    constructor
-    · intro hinverse
-      let E : Quotient D.relation ≃ₜ OrdinaryPair :=
-        { toEquiv := e
-          continuous_toFun := he
-          continuous_invFun := hinverse }
-      exact E.isInducing.eq_induced
-    · intro htop
-      have hinducing : Topology.IsInducing e := Topology.IsInducing.mk htop
-      have hcomparison : Topology.IsQuotientMap e :=
-        hinducing.isQuotientMap_of_surjective e.surjective
-      exact hcomparison_iff_inverse.mp hcomparison
-  have hordinary : Continuous e.invFun → Continuous D.ordinaryOperation := by
-    intro hinverse
-    have hdesc : Continuous (D.ordinaryOperation ∘ e) := by
-      apply hq.continuous_iff.2
-      convert D.rawOperation_continuous using 1
-      funext r
-      exact D.ordinary_factor r
-    simpa [Function.comp_def] using hdesc.comp hinverse
+    {A : Type u} [TopologicalSpace A]
+    {Step : Type v} [TopologicalSpace Step]
+    (S : ContinuousGeometricStepSystem A Step)
+    (P : ScopedGeometricRewritePresentation S) :
+    ScopedTopologicalComputationalPathCertificate S P := by
+  let G := scopedFinalTopologicalGroupoidCertificate P
   exact
-    { final_operation_continuous := hfinal
-      pair_map_quotient_iff_comparison_quotient := hpair_iff_comparison
-      comparison_quotient_iff_inverse_continuous := hcomparison_iff_inverse
-      inverse_continuous_iff_topology_agreement := hinverse_iff_topology
-      ordinary_operation_continuous_of_inverse := hordinary }
+    { source_continuous := G.source_continuous
+      target_continuous := G.target_continuous
+      identity_continuous := G.identity_continuous
+      inverse_continuous := G.inverse_continuous
+      final_composition_continuous := G.final_composition_continuous
+      left_unit := G.left_unit
+      right_unit := G.right_unit
+      right_inverse := G.right_inverse
+      left_inverse := G.left_inverse
+      associativity := G.associativity
+      rewrite_sound := by
+        intro p q h
+        exact scopedEquivalent_sound P h
+      composition_trace_path := by
+        intro c
+        exact ⟨scopedGroupoidCompositionTracePath c⟩
+      trace_unit_rewrite := by
+        intro p
+        exact ⟨ComputationalPaths.Path.RwEq.step
+          (ComputationalPaths.Path.Step.trans_refl_right
+            (ComputationalPaths.Path.refl
+              (GeometricTrace.traceLength p.trace)))⟩ }
 
 /-! The substantive repository contains the scoped quotient construction.  The
  following adapter makes the statement-side interface concrete: its raw

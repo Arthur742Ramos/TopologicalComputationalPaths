@@ -36,13 +36,15 @@ geometric constructions.
 
 ## Publication boundary
 
-This repository now contains one pinned Lean project with a small
+This repository now contains one pinned Lean project with a focused
 `Challenge.lean`, a matching `Solution.lean`, and an explicit `comparator.json`.
-The challenge states the result using only the permitted statement-side
-imports.  Its data gives a raw operation that respects a quotient relation;
-the final-domain operation is then defined canonically by quotient descent.
-The solution proves the generic final-domain/comparison certificate and
-connects it to the extracted scoped quotient construction.
+The compared `main_result` directly states the scoped geometric rewrite
+quotient's final-domain topological groupoid certificate: continuity of all
+structural operations, the unit, inverse, and associativity laws, rewrite
+soundness for geometric realization, and explicit computational `Path`/`RwEq`
+witnesses.  The solution supplies those fields from the extracted, checked
+groupoid construction.  The generic final-domain/comparison interface and its
+quotient-descent adapter remain as supporting material.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
