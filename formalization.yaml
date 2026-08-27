@@ -11,38 +11,61 @@ project:
     characterizes exactly when it is quotient, a homeomorphism, and an induced
     topology agreement; under these equivalent conditions ordinary composition
     is continuous.  It also records discontinuity as an obstruction and proves
-    compact--Hausdorff and discrete sufficient cases.  The certificate includes
-    an inductively normalized integer-labelled one-object trace presentation
-    and a finite trace-sensitive topology obstruction.
+    compact--Hausdorff and discrete sufficient cases.  It also formalizes the
+    observable based fiber of the universal continuous-path presentation, its
+    homeomorphism to the standard based loop quotient, the final/ordinary pair
+    comparison, and the source-backed Hawaiian-earring transfer: the
+    non-quotient square and discontinuous multiplication force failure of the
+    scoped ordinary-pair quotient, topology agreement, and ordinary
+    multiplication continuity under the comparison.
   authors:
     - "Arthur Freitas Ramos"
-    - "Ruy de Queiroz"
-    - "Anjolina de Oliveira"
-    - "Tiago Veras"
+    - "Ruy J. G. B. de Queiroz"
+    - "Anjolina Grisi de Oliveira"
+    - "Tiago M. L. de Veras"
     - "David Barros Hulak"
   license: "MIT"
   responsible_maintainers:
     - "Arthur Freitas Ramos"
 
+repository:
+  role: "substantive-development"
+
 classification:
-  arxiv: ["math.AT", "math.GN", "cs.LO"]
-  msc2020: ["03B35", "18B40", "54B15", "54C05"]
+  arxiv: ["math.AT", "math.GN"]
+  msc2020: ["22A22", "54B15", "03B38", "55Q05", "68V20", "54B30"]
 
 sources:
-  - title: "A modular Seifert–van Kampen theorem for computational paths"
+  - title: "Topological Semantics for Scoped Computational Paths"
     authors:
-      - "Arthur F. Ramos"
-      - "Tiago M. L. de Veras"
+      - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
-      - "Anjolina G. de Oliveira"
+      - "Anjolina Grisi de Oliveira"
+      - "Tiago M. L. de Veras"
     type: "paper"
-    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/topological-paper-v12/paper/svk/main.tex"
-    location: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/topological-paper-v12/paper/svk/main.tex"
+    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
+    location: "Sections 4 and 10: final/ordinary composable-pair topologies and the Lean artifact"
     relationship: "adapts"
     note: >-
       The focused repository extracts and ports the manuscript's
-      quotient-compatible topological groupoid section, while leaving the
-      circle, torus, and realization layers outside this first package.
+      quotient-compatible topological groupoid and final/ordinary comparison
+      sections, the focused observable based-fiber construction, and its
+      Hawaiian-earring obstruction-transfer argument, while
+      leaving the circle, torus, and realization layers outside this first
+      package.  The source is pinned to the immutable parent commit recorded in
+      related_formalizations.
+  - title: "Multiplication Is Discontinuous in the Hawaiian Earring Group (with the Quotient Topology)"
+    authors:
+      - "Paul Fabel"
+    type: "paper"
+    id: "https://doi.org/10.4064/ba59-1-9"
+    location: "The non-quotient square and multiplication of the loop quotient"
+    relationship: "background"
+    note: >-
+      Fabel's non-quotient square and discontinuous multiplication are
+      supplied as explicit hypotheses; this repository formally checks their
+      transfer to the scoped final-versus-ordinary comparison and does not
+      reprove Fabel's theorems.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/2a2baa1f31c68f0e696021db91f8381dd2854652"
@@ -59,19 +82,30 @@ status:
     quotient-map, homeomorphism, induced-topology, continuity-transfer, and
     obstruction statements, together with compact--Hausdorff and discrete
     sufficient conditions.  The unconditional final-domain groupoid laws are
-    supporting infrastructure.  Circle and torus examples, realization comparisons, and the
-    externally transferred Hawaiian-earring obstruction are intentionally not
-    part of this focused release.  The selected certificate additionally
-    contains an integer-labelled one-object normal-form application and a
-    finite trace-sensitive obstruction.  The Challenge file contains the one
-    deliberate statement-side sorry allowed by the Palomar protocol; the
-    proof development and Solution contain none.
+    supporting infrastructure.  Circle, torus, and realization calculations
+    are intentionally outside this focused release.  The selected certificate
+    additionally contains the source-backed Hawaiian-earring obstruction
+    observable based-fiber quotient comparison and source-backed transfer,
+    including transferred multiplication discontinuity; Fabel's external
+    theorems remain explicit inputs.  The
+    Challenge file contains the one deliberate statement-side sorry allowed by
+    the Palomar protocol; the proof development and Solution contain none.
   sorry_count: 0
   sorry_in_definitions: 0
-  axioms: []
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "TopologicalComputationalPaths.main_result"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
 
 automation:
   methods:
+    - method: "manual"
+      tool_setup: >-
+        Human mathematical design, scope selection, source-lineage, attribution,
+        and final metadata review.
     - method: "agent"
       models: ["Codex"]
       framework: "Lean 4.32.0 and Lake"
@@ -93,23 +127,27 @@ fidelity:
     The mathematical scope is unchanged for the extracted topological groupoid
     layer, but the focused repository adds a statement-facing Palomar
     certificate that selects the exact final-domain/ordinary-domain comparison,
-    including its homeomorphism and ordinary-composition consequences and its
-    positive sufficient cases.  The toolchain is
-    ported from Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are
-    omitted from this release rather than implied by the package.
+    including its homeomorphism and ordinary-composition consequences, its
+    positive sufficient cases, the observable based-fiber quotient comparison,
+    and the transfer of the Hawaiian-earring obstruction.  The classical
+    external non-quotient theorem is a stated hypothesis, not reproved by this
+    repository.  The toolchain is ported from
+    Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are omitted from
+    this release rather than implied by the package.
 
 review:
   status: "self-assessed"
-  reviewers:
-    - "none"
+  reviewers: []
   notes: >-
     Source lineage, dependency closure, theorem boundaries, quotient-map
     hypotheses, and the final-versus-ordinary topology distinction were
-    audited.  Following registry review, the selected declaration was changed
-    from the automatic final-domain groupoid certificate to the substantive
-    final-versus-ordinary comparison theorem.  Kernel builds and the
-    Palomar-shaped Challenge/Solution boundary were checked locally; no
-    independent peer review is claimed.
+    audited.  Following earlier Palomar feedback, the selected declaration was
+    changed from the automatic final-domain groupoid certificate to the
+    substantive final-versus-ordinary comparison theorem with its concrete
+    observable based-fiber construction and source-backed Hawaiian-earring
+    obstruction transfer.  Kernel builds and the Palomar-shaped
+    Challenge/Solution boundary were checked locally; no independent peer
+    review is claimed.
 
 alignment:
   namespace: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite"
@@ -132,8 +170,10 @@ alignment:
         The compared theorem packages continuous bijectivity, exact
         quotient-map, homeomorphism, and induced-topology criteria, continuity
         of ordinary composition, its obstruction, compact--Hausdorff and
-        discrete sufficient cases, an integer-labelled one-object normal-form
-        application, and a finite trace-sensitive obstruction.
+        discrete sufficient cases, the observable based-fiber quotient
+        comparison, and the source-backed transfer of a Hawaiian-earring
+        non-quotient and discontinuous-multiplication obstruction.  The
+        external Hawaiian-earring theorems are not claimed as reproved here.
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,
