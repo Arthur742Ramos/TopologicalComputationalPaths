@@ -131,6 +131,24 @@ theorem winding_trans (γ δ : Loop) :
     rw [coordinateSnd_trans, windingPath_trans]
     rfl
 
+theorem winding_identity :
+    winding (_root_.Path.refl base) = (0, 0) := by
+  apply Prod.ext
+  · change windingPath (coordinateFst (_root_.Path.refl base)) = 0
+    rw [show coordinateFst (_root_.Path.refl base) =
+      _root_.Path.refl (0 : TopologicalCircle) by
+        apply _root_.Path.ext
+        funext t
+        rfl]
+    exact windingPath_refl
+  · change windingPath (coordinateSnd (_root_.Path.refl base)) = 0
+    rw [show coordinateSnd (_root_.Path.refl base) =
+      _root_.Path.refl (0 : TopologicalCircle) by
+        apply _root_.Path.ext
+        funext t
+        rfl]
+    exact windingPath_refl
+
 noncomputable def firstFactorLoop (m : ℤ) : Loop :=
   (ConcreteCircleWinding.standardLoop m).prod
     (_root_.Path.refl (0 : TopologicalCircle))
@@ -206,6 +224,22 @@ abbrev LoopQuot : Type :=
 
 noncomputable def encode : LoopQuot → ℤ × ℤ :=
   Quotient.lift winding (fun _ _ h => winding_eq_of_homotopic h)
+
+theorem encode_identity :
+    encode (Quotient.mk' (_root_.Path.refl base)) = (0, 0) := by
+  change winding (_root_.Path.refl base) = (0, 0)
+  exact winding_identity
+
+theorem encode_trans (x y : LoopQuot) :
+    encode (_root_.Path.Homotopic.Quotient.trans x y) =
+      ((encode x).1 + (encode y).1,
+        (encode x).2 + (encode y).2) := by
+  induction x using Quotient.ind with
+  | _ γ =>
+      induction y using Quotient.ind with
+      | _ δ =>
+          change winding (γ.trans δ) = _
+          exact winding_trans γ δ
 
 noncomputable def decode (z : ℤ × ℤ) : LoopQuot :=
   Quotient.mk' (standardLoop z.1 z.2)

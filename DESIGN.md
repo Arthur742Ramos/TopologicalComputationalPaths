@@ -79,9 +79,11 @@ raw quotient-map equivalence, a homeomorphism criterion, induced-topology
 agreement, ordinary-composition continuity and its contrapositive obstruction,
 plus compact--Hausdorff and discrete sufficient cases.  It also exposes the
 concrete based-fiber carrier, its quotient homeomorphism, and the two pair
-topologies in the Hawaiian-earring application.  `Solution.lean` repeats the
-same statement-side declaration and fills it from the pinned, checked
-comparison construction.
+topologies in the Hawaiian-earring application.  The genuine circle and torus
+fields are full additive-classification certificates, requiring identity and
+composition additivity together with explicit standard representatives and
+inverse laws.  `Solution.lean` repeats the same statement-side declaration and
+fills it from the pinned, checked comparison construction.
 
 The underlying result has three spaces: raw composable representatives, their
 quotient final domain, and the ordinary composable-pair domain.  The selected
@@ -99,10 +101,10 @@ the discontinuity obstruction, and compact--Hausdorff and discrete sufficient
 conditions.  It also selects and proves the concrete observable based-fiber
 construction and its comparison with the standard based loop quotient; under
 that homeomorphism, both Fabel obstructions transfer to the scoped ordinary
-pair.  The selected result additionally proves the genuine additive-circle
-and product-torus winding classifications by universal-cover lifting and
-standard representatives.  The external Fabel facts are hypotheses, not
-silently reproved claims.
+pair.  The selected result additionally requires full additive-classification
+certificates for the genuine additive circle and product torus, supplied by
+the universal-cover and coordinatewise proofs.  The external Fabel facts are
+hypotheses, not silently reproved claims.
 The automatic final-domain groupoid laws and the generic adapter remain
 supporting material.
 

@@ -34,7 +34,10 @@ hypotheses rather than silently reproved.
 The circle module is the standalone covering/lifting portion of the parent's
 `CircleTopologicalRealization.lean`; the torus module is the genuine product
 loop portion of `TopologicalTorusScoped.lean`.  The focused versions are
-ported to Lean 4.32.0 without importing the parent project.
+ported to Lean 4.32.0 without importing the parent project.  The selected
+statement now exposes these as additive-classification certificates, including
+identity, composition additivity, explicit standard representatives, and both
+directions of the classification.
 
 The parent worktree is not a submodule of this repository.  The exact focused
 source commit is recorded above and in `formalization.yaml`, together with the

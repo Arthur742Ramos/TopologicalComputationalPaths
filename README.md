@@ -33,6 +33,11 @@ The first result package concerns a scoped geometric rewrite presentation:
    multiplication, then the corresponding based-fiber and scoped ordinary
    failures follow under the stated comparison maps.
 
+At the statement boundary, items 4--5 are full additive-classification
+certificates rather than bare equivalence witnesses: each exposes the
+invariant, its value on the identity, additivity under quotient composition,
+an explicit standard-representative map, and both inverse/completeness laws.
+
 The mathematical point is the exact separation between the canonical topology
 forced by explicitly composable representatives and the ordinary pullback
 topology on quotient arrows.  This is relevant to work on quotient
@@ -99,16 +104,19 @@ additionally prove the actual loop-quotient classifications described above by
 an explicit covering/lifting argument.  These are the publication-facing
 claims; the automatic final-domain groupoid laws remain supporting
 infrastructure.
-The selected witnesses are
-`ConcreteCircleWinding.topologicalLoopQuotEquivInt` and
-`TopologicalTorus.equivIntProd`, so the result names actual quotient loop
+The selected circle and torus fields are full additive-classification
+certificates, instantiated by
+`ConcreteCircleWinding.topologicalWinding`/`decodeTopologicalWinding` and
+`TopologicalTorus.encode`/`decode`.  Their checked laws include identity,
+composition additivity, standard-representative completeness, and both
+directions of the classification, so the result names actual quotient loop
 spaces rather than an abstract placeholder for a classification.
 
 `Challenge.lean` duplicates the statement-facing definitions needed for that
 theorem using Lean core and Mathlib; it does not import the extracted project
 implementation.  `Solution.lean` imports the extracted, checked comparison
-implementation.  `Solution.lean` imports the extracted, checked comparison
-theory and supplies the certificate, including the based-fiber proofs.
+theory and supplies the complete certificate, including the additive
+classification and based-fiber proofs.
 
 Before submission, the solution and substantive development must pass the
 current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
@@ -129,7 +137,9 @@ its ordinary-composition consequence and obstruction, both positive
 sufficient-condition theorems, and the concrete observable based-fiber
 formalization with its transferred Hawaiian-earring obstruction, including
 transferred discontinuity of ordinary multiplication.  It does not claim to
-reprove the external Hawaiian-earring theorems.
+reprove the external Hawaiian-earring theorems.  The circle and torus portions
+are selected through full additive-classification certificates: identity,
+composition additivity, explicit standard representatives, and inverse laws.
 
 The repository has been checked against Palomar's current metadata, layout,
 toolchain, and pinned-manifest rules.  Registration still requires a hosted

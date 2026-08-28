@@ -2,20 +2,13 @@ import Mathlib.Topology.Constructions
 import Mathlib.Topology.Path
 import Mathlib.Topology.Homotopy.Path
 import Mathlib.Topology.Instances.AddCircle.Real
-/-!
-# Challenge: topological semantics of computational paths
-This statement-only surface defines the trace, scoped quotient, and final composable domain.
-The selected result compares canonical final and ordinary topologies, gives continuity criteria,
-and selects unconditional winding classifications for the genuine additive circle and torus.
-The Hawaiian transfer is conditional on Fabel's external inputs; Comparator checks the realization.
--/
+/-! Challenge: topological semantics of computational paths; the selected result compares final and ordinary topologies and exposes genuine additive circle/torus classifications. -/
 namespace ComputationalPaths
 namespace Path
 namespace GeometricTopology
 open scoped ContinuousMap Topology
 attribute [local instance] _root_.Path.Homotopic.setoid
 universe u v w
-/-! ## Endpoint-varying geometric traces -/
 structure GeometricStepSystem (A : Type u) [TopologicalSpace A] (Step : Type v) where
   src : Step → A
   tgt : Step → A
@@ -73,7 +66,6 @@ noncomputable def openSymm {A : Type u} [TopologicalSpace A] {Step : Type v}
     coherent := by
       rcases p.coherent with ⟨hp⟩
       exact ⟨hp.symm₂⟩ }
-/-! ## Continuous systems and total carriers -/
 structure ContinuousGeometricStepSystem (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
     extends GeometricStepSystem A Step where
@@ -937,6 +929,15 @@ abbrev GenuineCircleLoopQuotient := _root_.Path.Homotopic.Quotient (0 : AddCircl
 abbrev GenuineTorusLoopQuotient :=
   _root_.Path.Homotopic.Quotient ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
     ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+structure AdditiveLoopClassification (Q : Type u) (K : Type v) [AddMonoid K] (compose : Q → Q → Q) (identity : Q) where
+  invariant : Q → K
+  standard : K → Q
+  invariant_identity : invariant identity = 0
+  invariant_compose : ∀ x y, invariant (compose x y) = invariant x + invariant y
+  invariant_standard : ∀ k, invariant (standard k) = k
+  standard_invariant : ∀ x, standard (invariant x) = x
+abbrev GenuineCircleWindingClassification := AdditiveLoopClassification GenuineCircleLoopQuotient Int _root_.Path.Homotopic.Quotient.trans (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl (0 : AddCircle (1 : ℝ))))
+abbrev GenuineTorusWindingClassification := AdditiveLoopClassification GenuineTorusLoopQuotient (Int × Int) _root_.Path.Homotopic.Quotient.trans (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))))
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -987,8 +988,8 @@ structure OrdinaryTopologyComparisonCertificate
       ¬ Continuous (ordinaryComposition P)
   hawaiian_based_fiber :
     ∀ F : FabelHawaiianEarringFacts, HawaiianBasedFiberCertificate F
-  genuine_circle_winding : Nonempty (GenuineCircleLoopQuotient ≃ Int)
-  genuine_torus_winding : Nonempty (GenuineTorusLoopQuotient ≃ (Int × Int))
+  genuine_circle_winding : Nonempty GenuineCircleWindingClassification
+  genuine_torus_winding : Nonempty GenuineTorusWindingClassification
 theorem main_result
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]

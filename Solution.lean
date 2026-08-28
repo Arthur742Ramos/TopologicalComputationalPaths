@@ -8,11 +8,12 @@ import ComputationalPaths
 The selected theorem compares the canonical final and ordinary topologies,
 identifies quotient-map and homeomorphism criteria, transfers composition
 continuity, and proves standard sufficient cases.  It also includes genuine,
-unconditional winding classifications for the additive circle and torus,
-proved by universal-cover lifting and explicit standard representatives.  The
-Hawaiian-earring based-fiber transfer remains conditional on externally supplied
-Fabel facts; the generic final-domain interface below supports the extraction
-adapter.
+unconditional additive-classification certificates for the circle and torus,
+with identity, composition-additivity, explicit standard representatives, and
+inverse laws proved by universal-cover lifting and coordinatewise arguments.
+The Hawaiian-earring based-fiber transfer remains conditional on externally
+supplied Fabel facts; the generic final-domain interface below supports the
+extraction adapter.
 -/
 
 namespace TopologicalComputationalPaths
@@ -632,6 +633,25 @@ abbrev GenuineTorusLoopQuotient :=
   _root_.Path.Homotopic.Quotient ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
     ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
 
+structure AdditiveLoopClassification
+    (Q : Type u) (K : Type v) [AddMonoid K]
+    (compose : Q → Q → Q) (identity : Q) where
+  invariant : Q → K
+  standard : K → Q
+  invariant_identity : invariant identity = 0
+  invariant_compose : ∀ x y, invariant (compose x y) = invariant x + invariant y
+  invariant_standard : ∀ k, invariant (standard k) = k
+  standard_invariant : ∀ x, standard (invariant x) = x
+abbrev GenuineCircleWindingClassification :=
+  AdditiveLoopClassification GenuineCircleLoopQuotient Int
+    _root_.Path.Homotopic.Quotient.trans
+    (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl (0 : AddCircle (1 : ℝ))))
+abbrev GenuineTorusWindingClassification :=
+  AdditiveLoopClassification GenuineTorusLoopQuotient (Int × Int)
+    _root_.Path.Homotopic.Quotient.trans
+    (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl
+      ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))))
+
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -682,8 +702,8 @@ structure OrdinaryTopologyComparisonCertificate
       ¬ Continuous (ordinaryComposition P)
   hawaiian_based_fiber :
     ∀ F : FabelHawaiianEarringFacts, HawaiianBasedFiberCertificate F
-  genuine_circle_winding : Nonempty (GenuineCircleLoopQuotient ≃ Int)
-  genuine_torus_winding : Nonempty (GenuineTorusLoopQuotient ≃ (Int × Int))
+  genuine_circle_winding : Nonempty GenuineCircleWindingClassification
+  genuine_torus_winding : Nonempty GenuineTorusWindingClassification
 
 /-! The statement and solution use the same final topology on quotient domains. -/
 noncomputable instance quotientFinalTopology
@@ -749,6 +769,9 @@ structure ScopedFinalSemanticsCertificate
     Continuous D.comparison.invFun ↔ D.topologyAgreement
   ordinary_operation_continuous_of_inverse :
     Continuous D.comparison.invFun → Continuous D.ordinaryOperation
+
+open ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding
+open ComputationalPaths.Path.GeometricTopology.TopologicalTorus
 
 theorem main_result
     {A : Type u} [TopologicalSpace A]
@@ -845,10 +868,22 @@ theorem main_result
         exact ⟨hraw, hfinal, htop, hordinary⟩
       hawaiian_based_fiber := fun F =>
         hawaiianBasedFiberCertificate_of_facts F
-      genuine_circle_winding := ⟨
-        ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotEquivInt⟩
-      genuine_torus_winding := ⟨
-        ComputationalPaths.Path.GeometricTopology.TopologicalTorus.equivIntProd⟩ }
+      genuine_circle_winding := by
+        exact ⟨
+          { invariant := topologicalWinding
+            standard := decodeTopologicalWinding
+            invariant_identity := topologicalWinding_identity
+            invariant_compose := topologicalWinding_comp
+            invariant_standard := topologicalWinding_decode
+            standard_invariant := decode_topologicalWinding }⟩
+      genuine_torus_winding := by
+        exact ⟨
+          { invariant := encode
+            standard := decode
+            invariant_identity := encode_identity
+            invariant_compose := encode_trans
+            invariant_standard := encode_decode
+            standard_invariant := decode_encode }⟩ }
 
 /-! The substantive repository contains the scoped quotient construction.  The
  following adapter makes the statement-side interface concrete: its raw

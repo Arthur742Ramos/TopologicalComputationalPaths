@@ -152,8 +152,10 @@ review:
     audited.  Following earlier Palomar feedback, the selected declaration was
     changed from the automatic final-domain groupoid certificate to the
     substantive final-versus-ordinary comparison theorem, with unconditional
-    genuine circle/torus winding classifications as its non-transport
-    mathematical core.  The observable based-fiber construction and
+    genuine circle/torus full additive-classification certificates as its
+    non-transport mathematical core.  These certificates expose identity,
+    composition additivity, explicit standard representatives, and inverse
+    laws, not merely equivalence witnesses.  The observable based-fiber construction and
     source-backed Hawaiian-earring obstruction transfer remain conditional
     secondary material.  Kernel builds and the Palomar-shaped
     Challenge/Solution boundary were checked locally; no independent peer
@@ -184,19 +186,20 @@ alignment:
         of ordinary composition, its obstruction, compact--Hausdorff and
         discrete sufficient cases, the genuine circle and product-torus
         winding classifications, the observable based-fiber quotient
-        comparison, and the source-backed transfer of a Hawaiian-earring
+        comparison, the full additive circle and product-torus classification
+        certificates, and the source-backed transfer of a Hawaiian-earring
         non-quotient and discontinuous-multiplication obstruction.  The
         external Hawaiian-earring theorems are not claimed as reproved here.
     - source: "Genuine additive-circle winding classification"
       lean: "ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotEquivInt"
       module: "ComputationalPaths/Path/Topology/ConcreteCircleWinding.lean"
       status: "proved"
-      note: "Based continuous loops in AddCircle (1 : ℝ), modulo endpoint-fixed homotopy, are classified by the lifted endpoint winding number."
+      note: "The selected certificate exposes the lifted-endpoint invariant, identity value, composition additivity, explicit standard representatives, and both inverse laws for based continuous loops in AddCircle (1 : ℝ) modulo endpoint-fixed homotopy."
     - source: "Genuine product-torus winding classification"
       lean: "ComputationalPaths.Path.GeometricTopology.TopologicalTorus.equivIntProd"
       module: "ComputationalPaths/Path/Topology/ConcreteTorusWinding.lean"
       status: "proved"
-      note: "Based continuous loops in the product of two additive circles are classified coordinatewise by ℤ × ℤ."
+      note: "The selected certificate exposes the coordinatewise invariant, identity value, composition additivity, explicit standard representatives, and both inverse laws for based continuous loops in the product of two additive circles."
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,

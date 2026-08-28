@@ -612,6 +612,12 @@ theorem windingPath_refl :
   rw [← h]
   exact windingPath_standardLoop 0
 
+theorem topologicalWinding_identity :
+    topologicalWinding
+        (Quotient.mk' (_root_.Path.refl (0 : TopologicalCircle))) = 0 := by
+  change windingPath (_root_.Path.refl (0 : TopologicalCircle)) = 0
+  exact windingPath_refl
+
 end
 end ConcreteCircleWinding
 end GeometricTopology
