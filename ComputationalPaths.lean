@@ -1,2 +1,4 @@
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteGroupoid
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteComparison
+import ComputationalPaths.Path.Topology.ConcreteCircleWinding
+import ComputationalPaths.Path.Topology.ConcreteTorusWinding

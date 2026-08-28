@@ -1,19 +1,13 @@
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Path
 import Mathlib.Topology.Homotopy.Path
+import Mathlib.Topology.Instances.AddCircle.Real
 /-!
 # Challenge: topological semantics of computational paths
-This is the statement-only surface of the result.  The endpoint-varying
-geometric trace, its scoped rewrite quotient, and the final composable domain
-are defined here from Lean core and Mathlib alone.  The proof-side module
-contains the corresponding checked development and is compared against this surface by Comparator.
-The selected result solves the comparison problem between the canonical final
-composable topology and the ordinary pullback topology.  It characterizes
-exactly when the canonical continuous bijection is a homeomorphism, derives
-ordinary composition continuity, and proves compact--Hausdorff and discrete
-sufficient cases.  It also formalizes the based-fiber obstruction transfer;
-the statement names its universal carrier, endpoint-fixed quotient, and
-final/ordinary comparison, while Fabel's inputs force the corresponding ordinary failures.
+This statement-only surface defines the trace, scoped quotient, and final composable domain.
+The selected result compares canonical final and ordinary topologies, gives continuity criteria,
+and selects unconditional winding classifications for the genuine additive circle and torus.
+The Hawaiian transfer is conditional on Fabel's external inputs; Comparator checks the realization.
 -/
 namespace ComputationalPaths
 namespace Path
@@ -939,6 +933,10 @@ structure HawaiianEarringObstructionTransfer
     arrowComparison ∘ sourceOperation =
       hawaiianLoopQuotientMultiplication ∘ comparison
   external_facts : FabelHawaiianEarringFacts
+abbrev GenuineCircleLoopQuotient := _root_.Path.Homotopic.Quotient (0 : AddCircle (1 : ℝ)) 0
+abbrev GenuineTorusLoopQuotient :=
+  _root_.Path.Homotopic.Quotient ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+    ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -989,6 +987,8 @@ structure OrdinaryTopologyComparisonCertificate
       ¬ Continuous (ordinaryComposition P)
   hawaiian_based_fiber :
     ∀ F : FabelHawaiianEarringFacts, HawaiianBasedFiberCertificate F
+  genuine_circle_winding : Nonempty (GenuineCircleLoopQuotient ≃ Int)
+  genuine_torus_winding : Nonempty (GenuineTorusLoopQuotient ≃ (Int × Int))
 theorem main_result
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]

@@ -17,7 +17,10 @@ the parent repository:
   presentation, its standard based-loop quotient homeomorphism, and its
   final/ordinary pair comparison; and
 - the source-backed Hawaiian-earring transfer against the actual based loop
-  quotient and quotient multiplication.
+  quotient and quotient multiplication; and
+- the genuine additive-circle winding classification and coordinatewise
+  product-torus classification, proved from explicit covering and lifting
+  constructions.
 
 These declarations form one coherent result: the canonical final-domain
 semantics is unconditional, while ordinary multiplication requires a precise
@@ -30,8 +33,7 @@ part of the minimal extraction until they compile against the focused core:
 
 - presentation functoriality;
 - the geometric comparison/completeness criterion;
-- the realized fundamental-groupoid bridge;
-- the circle normal-form certificate and product-torus winding certificate.
+- the realized fundamental-groupoid bridge.
 
 The Hawaiian-earring item now has two explicit layers.  First, the statement
 constructs the based fiber of the universal continuous-path step system,
@@ -97,7 +99,10 @@ the discontinuity obstruction, and compact--Hausdorff and discrete sufficient
 conditions.  It also selects and proves the concrete observable based-fiber
 construction and its comparison with the standard based loop quotient; under
 that homeomorphism, both Fabel obstructions transfer to the scoped ordinary
-pair.  The external facts are hypotheses, not silently reproved claims.
+pair.  The selected result additionally proves the genuine additive-circle
+and product-torus winding classifications by universal-cover lifting and
+standard representatives.  The external Fabel facts are hypotheses, not
+silently reproved claims.
 The automatic final-domain groupoid laws and the generic adapter remain
 supporting material.
 

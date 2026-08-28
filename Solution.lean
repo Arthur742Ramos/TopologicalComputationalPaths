@@ -5,16 +5,14 @@ import ComputationalPaths
 /-!
 # Solution: topological semantics of computational paths
 
-The selected theorem is the exact comparison between the canonical final
-composable topology and the ordinary pullback topology.  It identifies the
-quotient-map, homeomorphism, and induced-topology criteria; transfers
-continuity to ordinary composition; and proves compact--Hausdorff and discrete
-sufficient cases.  Its application field formalizes the source-backed
-Hawaiian-earring based-fiber construction, its standard quotient comparison,
-and the source-backed transfer: the non-quotient square and discontinuous
-multiplication of the standard based loop quotient force the corresponding
-ordinary failures.  The generic final-domain interface below remains
-supporting notation for the extraction adapter.
+The selected theorem compares the canonical final and ordinary topologies,
+identifies quotient-map and homeomorphism criteria, transfers composition
+continuity, and proves standard sufficient cases.  It also includes genuine,
+unconditional winding classifications for the additive circle and torus,
+proved by universal-cover lifting and explicit standard representatives.  The
+Hawaiian-earring based-fiber transfer remains conditional on externally supplied
+Fabel facts; the generic final-domain interface below supports the extraction
+adapter.
 -/
 
 namespace TopologicalComputationalPaths
@@ -629,6 +627,11 @@ theorem not_source_operation_continuous
 
 end HawaiianEarringObstructionTransfer
 
+abbrev GenuineCircleLoopQuotient := _root_.Path.Homotopic.Quotient (0 : AddCircle (1 : ℝ)) 0
+abbrev GenuineTorusLoopQuotient :=
+  _root_.Path.Homotopic.Quotient ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+    ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -679,6 +682,8 @@ structure OrdinaryTopologyComparisonCertificate
       ¬ Continuous (ordinaryComposition P)
   hawaiian_based_fiber :
     ∀ F : FabelHawaiianEarringFacts, HawaiianBasedFiberCertificate F
+  genuine_circle_winding : Nonempty (GenuineCircleLoopQuotient ≃ Int)
+  genuine_torus_winding : Nonempty (GenuineTorusLoopQuotient ≃ (Int × Int))
 
 /-! The statement and solution use the same final topology on quotient domains. -/
 noncomputable instance quotientFinalTopology
@@ -839,7 +844,11 @@ theorem main_result
           exact hcontinuous
         exact ⟨hraw, hfinal, htop, hordinary⟩
       hawaiian_based_fiber := fun F =>
-        hawaiianBasedFiberCertificate_of_facts F }
+        hawaiianBasedFiberCertificate_of_facts F
+      genuine_circle_winding := ⟨
+        ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotEquivInt⟩
+      genuine_torus_winding := ⟨
+        ComputationalPaths.Path.GeometricTopology.TopologicalTorus.equivIntProd⟩ }
 
 /-! The substantive repository contains the scoped quotient construction.  The
  following adapter makes the statement-side interface concrete: its raw

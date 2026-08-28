@@ -11,7 +11,11 @@ project:
     characterizes exactly when it is quotient, a homeomorphism, and an induced
     topology agreement; under these equivalent conditions ordinary composition
     is continuous.  It also records discontinuity as an obstruction and proves
-    compact--Hausdorff and discrete sufficient cases.  It also formalizes the
+    compact--Hausdorff and discrete sufficient cases.  The selected certificate
+    additionally proves the genuine based-loop classifications of
+    `AddCircle (1 : ℝ)` by `ℤ` and its product torus by `ℤ × ℤ`, using explicit
+    covering-map lifts, winding invariance, additivity, and standard
+    representatives.  It also formalizes the
     observable based fiber of the universal continuous-path presentation, its
     homeomorphism to the standard based loop quotient, the final/ordinary pair
     comparison, and the source-backed Hawaiian-earring transfer: the
@@ -44,16 +48,15 @@ sources:
       - "Tiago M. L. de Veras"
     type: "paper"
     id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Sections 4 and 10: final/ordinary composable-pair topologies and the Lean artifact"
+    location: "Sections 4, 8, and 10: final/ordinary topologies, circle/torus validation, and the Lean artifact"
     relationship: "adapts"
     note: >-
       The focused repository extracts and ports the manuscript's
       quotient-compatible topological groupoid and final/ordinary comparison
-      sections, the focused observable based-fiber construction, and its
-      Hawaiian-earring obstruction-transfer argument, while
-      leaving the circle, torus, and realization layers outside this first
-      package.  The source is pinned to the immutable parent commit recorded in
-      related_formalizations.
+      sections, the circle and torus winding validation cases, the focused
+      observable based-fiber construction, and its Hawaiian-earring
+      obstruction-transfer argument.  The source is pinned to the immutable
+      parent commit recorded in related_formalizations.
   - title: "Multiplication Is Discontinuous in the Hawaiian Earring Group (with the Quotient Topology)"
     authors:
       - "Paul Fabel"
@@ -82,9 +85,11 @@ status:
     quotient-map, homeomorphism, induced-topology, continuity-transfer, and
     obstruction statements, together with compact--Hausdorff and discrete
     sufficient conditions.  The unconditional final-domain groupoid laws are
-    supporting infrastructure.  Circle, torus, and realization calculations
-    are intentionally outside this focused release.  The selected certificate
-    additionally contains the source-backed Hawaiian-earring obstruction
+    supporting infrastructure.  The selected certificate also contains the
+    genuine additive-circle winding classification and coordinatewise
+    product-torus classification, proved by explicit covering-map lifting and
+    standard representatives.  It additionally contains the source-backed
+    Hawaiian-earring obstruction
     observable based-fiber quotient comparison and source-backed transfer,
     including transferred multiplication discontinuity; Fabel's external
     theorems remain explicit inputs.  The
@@ -128,9 +133,12 @@ fidelity:
     layer, but the focused repository adds a statement-facing Palomar
     certificate that selects the exact final-domain/ordinary-domain comparison,
     including its homeomorphism and ordinary-composition consequences, its
-    positive sufficient cases, the observable based-fiber quotient comparison,
-    and the transfer of the Hawaiian-earring obstruction.  The classical
-    external non-quotient theorem is a stated hypothesis, not reproved by this
+    positive sufficient cases, the genuine additive-circle and product-torus
+    winding classifications from explicit covering lifts, the observable
+    based-fiber quotient comparison, and the transfer of the Hawaiian-earring
+    obstruction.  The circle and torus classifications are classical
+    validation theorems rather than novelty claims.  The external
+    non-quotient theorem is a stated hypothesis, not reproved by this
     repository.  The toolchain is ported from
     Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are omitted from
     this release rather than implied by the package.
@@ -143,11 +151,15 @@ review:
     hypotheses, and the final-versus-ordinary topology distinction were
     audited.  Following earlier Palomar feedback, the selected declaration was
     changed from the automatic final-domain groupoid certificate to the
-    substantive final-versus-ordinary comparison theorem with its concrete
-    observable based-fiber construction and source-backed Hawaiian-earring
-    obstruction transfer.  Kernel builds and the Palomar-shaped
+    substantive final-versus-ordinary comparison theorem, with unconditional
+    genuine circle/torus winding classifications as its non-transport
+    mathematical core.  The observable based-fiber construction and
+    source-backed Hawaiian-earring obstruction transfer remain conditional
+    secondary material.  Kernel builds and the Palomar-shaped
     Challenge/Solution boundary were checked locally; no independent peer
-    review is claimed.
+    review, approval, or endorsement is claimed.  Any Palomar editorial step
+    is an automated review identifying no blocking problem, not mathematical
+    approval.
 
 alignment:
   namespace: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite"
@@ -170,10 +182,21 @@ alignment:
         The compared theorem packages continuous bijectivity, exact
         quotient-map, homeomorphism, and induced-topology criteria, continuity
         of ordinary composition, its obstruction, compact--Hausdorff and
-        discrete sufficient cases, the observable based-fiber quotient
+        discrete sufficient cases, the genuine circle and product-torus
+        winding classifications, the observable based-fiber quotient
         comparison, and the source-backed transfer of a Hawaiian-earring
         non-quotient and discontinuous-multiplication obstruction.  The
         external Hawaiian-earring theorems are not claimed as reproved here.
+    - source: "Genuine additive-circle winding classification"
+      lean: "ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotEquivInt"
+      module: "ComputationalPaths/Path/Topology/ConcreteCircleWinding.lean"
+      status: "proved"
+      note: "Based continuous loops in AddCircle (1 : ℝ), modulo endpoint-fixed homotopy, are classified by the lifted endpoint winding number."
+    - source: "Genuine product-torus winding classification"
+      lean: "ComputationalPaths.Path.GeometricTopology.TopologicalTorus.equivIntProd"
+      module: "ComputationalPaths/Path/Topology/ConcreteTorusWinding.lean"
+      status: "proved"
+      note: "Based continuous loops in the product of two additive circles are classified coordinatewise by ℤ × ℤ."
 
 acknowledgements: >-
   Thanks to the authors and contributors of the Calculus of Computational Paths,

@@ -16,11 +16,19 @@ The first result package concerns a scoped geometric rewrite presentation:
 3. the ordinary pullback topology agrees with that final topology exactly when
    the relevant pair map is a quotient map, with compact-Hausdorff and discrete
    sufficient conditions.
-4. the Hawaiian-earring application uses an explicit based fiber of the
+4. the selected certificate classifies based continuous loops in the genuine
+   additive circle `AddCircle (1 : ℝ)` by their integer winding number.  The
+   proof constructs the covering charts, lifts loops to `ℝ`, proves winding
+   invariance and additivity, and straightens every loop to an explicit
+   standard representative.
+5. the same genuine topological argument, coordinatewise on the product
+   torus, classifies based torus loops by `ℤ × ℤ` and proves the corresponding
+   standard representatives are complete.
+6. the Hawaiian-earring application uses an explicit based fiber of the
    universal continuous-path presentation: its observable geometric fiber,
    endpoint-fixed homotopy quotient, quotient square, and final/ordinary pair
    comparison are all named in the formalization.
-5. the selected certificate transfers the source-backed obstruction: if the
+7. the selected certificate transfers the source-backed obstruction: if the
    standard based loop quotient has a non-quotient square and discontinuous
    multiplication, then the corresponding based-fiber and scoped ordinary
    failures follow under the stated comparison maps.
@@ -35,25 +43,32 @@ observable based fiber deliberately retains the universal computational-path
 trace and coherence witness while using the induced topology of its geometric
 loop observation; this makes the comparison with the standard based loop
 quotient explicit without conflating trace-sensitive and observable topologies.
-Synthetic integer and finite-trace examples are deliberately not used as the
-relevance evidence for the selected result.
+The selected result's substantive non-transport core is the universal-cover
+classification of actual topological loop spaces: the lift endpoint is a
+well-defined complete invariant, and the torus result is obtained from genuine
+coordinate paths.  These are classical winding theorems, so this repository
+does not claim a new fundamental-group calculation; the plausible specialist
+note contribution is the kernel-checked realization of those theorems inside
+the computational-path quotient/final-topology semantics.  Synthetic integer
+and finite-trace examples are not used as the relevance evidence.
 
-The Palomar-selected declaration is the comparison in item 3, the concrete
-based-fiber construction in item 4, and the source-backed transfer in item 5.
-Items 1 and 2 supply the spaces and continuous final-domain operation needed
-to formulate and prove that comparison; their largely structural laws are not
-presented as the research contribution.  The external Hawaiian-earring
-non-quotient and discontinuity theorems are explicit inputs, not claims
-reproved by this repository.
+The Palomar-selected declaration is the comparison in item 3, the genuine
+circle and torus classifications in items 4--5, and the concrete based-fiber
+construction in items 6--7.  Items 1 and 2 supply the spaces and continuous
+final-domain operation needed to formulate and prove that comparison; their
+largely structural laws are not presented as the research contribution.  The
+external Hawaiian-earring non-quotient and discontinuity theorems are explicit
+inputs, not claims reproved by this repository.
 
 The package will keep the final-domain statement distinct from the stronger
 ordinary-topological-groupoid statement.  That distinction is part of the
 mathematical result, not merely an implementation detail.
 
-The circle and torus constructions, geometric comparison, and functoriality
-remain planned supporting modules in this focused boundary.  The
-Hawaiian-earring based fiber and its transfer are included as a conditional,
-independently checked application of the comparison theorem.
+The concrete circle and torus winding modules are included in this focused
+boundary as the unconditional mathematical validation cases.  Geometric
+comparison and functoriality remain supporting modules.  The Hawaiian-earring
+based fiber and its transfer are a conditional, independently checked
+application of the comparison theorem.
 
 ## Source lineage
 
@@ -79,9 +94,15 @@ ordinary multiplication as an obstruction and proves compact--Hausdorff and
 discrete sufficient cases.  Its Hawaiian-earring portion now includes the
 observable based universal fiber, its homeomorphism to the standard
 endpoint-fixed loop quotient, the final-versus-ordinary pair comparison, and
-the source-backed obstruction transfer.  These are the publication-facing
+the source-backed obstruction transfer.  The concrete circle and torus modules
+additionally prove the actual loop-quotient classifications described above by
+an explicit covering/lifting argument.  These are the publication-facing
 claims; the automatic final-domain groupoid laws remain supporting
 infrastructure.
+The selected witnesses are
+`ConcreteCircleWinding.topologicalLoopQuotEquivInt` and
+`TopologicalTorus.equivIntProd`, so the result names actual quotient loop
+spaces rather than an abstract placeholder for a classification.
 
 `Challenge.lean` duplicates the statement-facing definitions needed for that
 theorem using Lean core and Mathlib; it does not import the extracted project
@@ -112,8 +133,9 @@ reprove the external Hawaiian-earring theorems.
 
 The repository has been checked against Palomar's current metadata, layout,
 toolchain, and pinned-manifest rules.  Registration still requires a hosted
-Comparator/NanoDa run and editorial approval of this revised, concrete
-comparison result.
+Comparator/NanoDa run and an automated editorial review identifying no blocking
+problem.  That review is a gate, not approval or endorsement of the
+mathematics; registration remains a separate request.
 
 ## Reproduce the baseline
 
@@ -128,7 +150,8 @@ For the independent proof replay, run `./scripts/verify-comparator.sh`.  It
 fetches the exact pinned Comparator, Lean exporter, Landrun, and NanoDa
 revisions into the ignored `.cache/` directory, checks the toolchain match, and
 replays the selected theorem.  This local replay and CI do not replace
-Palomar's hosted verification or editorial review.
+Palomar's hosted verification or automated editorial review; neither is
+mathematical approval or endorsement.
 
 Useful local contract checks are:
 

@@ -20,14 +20,21 @@ ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean
 ComputationalPaths/Path/Topology/ScopedGeometricRewriteComparison.lean
 ```
 
-The functoriality, fundamental-groupoid, circle, and torus modules remain
-supporting candidates.  The selected claim now includes a focused
-observable-based-fiber construction built from the parent's universal
+The functoriality and fundamental-groupoid modules remain supporting
+candidates.  The selected claim now includes standalone genuine circle and
+torus winding classifications, built from explicit universal-cover lifting and
+standard representatives, plus a focused observable-based-fiber construction
+built from the parent's universal
 continuous-path presentation.  It names the standard based loop quotient,
 proves the quotient homeomorphism and final/ordinary pair comparison, and
 then performs the Hawaiian-earring obstruction transfer.  Fabel's
 non-quotient-square and discontinuity facts are recorded as explicit
 hypotheses rather than silently reproved.
+
+The circle module is the standalone covering/lifting portion of the parent's
+`CircleTopologicalRealization.lean`; the torus module is the genuine product
+loop portion of `TopologicalTorusScoped.lean`.  The focused versions are
+ported to Lean 4.32.0 without importing the parent project.
 
 The parent worktree is not a submodule of this repository.  The exact focused
 source commit is recorded above and in `formalization.yaml`, together with the
