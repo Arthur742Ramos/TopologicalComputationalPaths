@@ -12,10 +12,11 @@ project:
     topology agreement; under these equivalent conditions ordinary composition
     is continuous.  It also records discontinuity as an obstruction and proves
     compact--Hausdorff and discrete sufficient cases.  The selected certificate
-    additionally proves the genuine based-loop classifications of
-    `AddCircle (1 : ℝ)` by `ℤ` and its product torus by `ℤ × ℤ`, using explicit
-    covering-map lifts, winding invariance, additivity, and standard
-    representatives.  It also formalizes the
+    additionally requires full additive classifications of the genuine
+    based-loop spaces `AddCircle (1 : ℝ)` by `ℤ` and its product torus by
+    `ℤ × ℤ`: the invariant, identity value, composition additivity, explicit
+    standard representatives, and both inverse laws are checked using
+    covering-map lifts and coordinatewise arguments.  It also formalizes the
     observable based fiber of the universal continuous-path presentation, its
     homeomorphism to the standard based loop quotient, the final/ordinary pair
     comparison, and the source-backed Hawaiian-earring transfer: the
