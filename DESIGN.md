@@ -12,7 +12,15 @@ the parent repository:
 - `scopedFinalTopologicalGroupoidCertificate`;
 - `scopedProductCompatibility_iff_four_way` and the associated final/ordinary
   comparison theorem; and
-- the compact-Hausdorff and discrete sufficient conditions.
+- the compact-Hausdorff and discrete sufficient conditions; and
+- the concrete observable based fiber of the universal continuous-path
+  presentation, its standard based-loop quotient homeomorphism, and its
+  final/ordinary pair comparison; and
+- the source-backed Hawaiian-earring transfer against the actual based loop
+  quotient and quotient multiplication; and
+- the genuine additive-circle winding classification and coordinatewise
+  product-torus classification, proved from explicit covering and lifting
+  constructions.
 
 These declarations form one coherent result: the canonical final-domain
 semantics is unconditional, while ordinary multiplication requires a precise
@@ -25,13 +33,20 @@ part of the minimal extraction until they compile against the focused core:
 
 - presentation functoriality;
 - the geometric comparison/completeness criterion;
-- the realized fundamental-groupoid bridge;
-- the circle normal-form certificate and product-torus winding certificate;
-- the Hawaiian-earring obstruction transfer.
+- the realized fundamental-groupoid bridge.
 
-The last item depends on an externally supplied non-quotient theorem.  If it
-is retained, the repository will label it as a transfer theorem and will not
-present the external topological input as newly formalized here.
+The Hawaiian-earring item now has two explicit layers.  First, the statement
+constructs the based fiber of the universal continuous-path step system,
+retains its computational trace and coherence witness, equips the observable
+fiber with the geometric induced topology, and proves that its endpoint-fixed
+homotopy quotient is homeomorphic to the standard based-loop quotient.  It
+then constructs both the final pair quotient and the ordinary pair of
+quotients, proves the canonical map is a continuous bijection but not a
+quotient map under Fabel's input, and proves final-operation continuity versus
+ordinary-operation discontinuity.  Second, the generic transfer connects
+those concrete facts to the scoped presentation.  Fabel's non-quotient and
+discontinuity facts remain explicit hypotheses; the Lean artifact proves only
+their formal consequences.
 
 ## Palomar package
 
@@ -62,9 +77,13 @@ behind a generic quotient interface.  Its publication-facing certificate is
 the exact final-versus-ordinary topology comparison: continuous bijectivity,
 raw quotient-map equivalence, a homeomorphism criterion, induced-topology
 agreement, ordinary-composition continuity and its contrapositive obstruction,
-plus compact--Hausdorff and discrete sufficient cases.  `Solution.lean`
-repeats the same statement-side declaration and fills it from the pinned,
-checked comparison construction.
+plus compact--Hausdorff and discrete sufficient cases.  It also exposes the
+concrete based-fiber carrier, its quotient homeomorphism, and the two pair
+topologies in the Hawaiian-earring application.  The genuine circle and torus
+fields are full additive-classification certificates, requiring identity and
+composition additivity together with explicit standard representatives and
+inverse laws.  `Solution.lean` repeats the same statement-side declaration and
+fills it from the pinned, checked comparison construction.
 
 The underlying result has three spaces: raw composable representatives, their
 quotient final domain, and the ordinary composable-pair domain.  The selected
@@ -79,11 +98,36 @@ publication surface: its certificate exposes the canonical continuous
 bijection, the raw quotient-map and homeomorphism criteria, equality of the
 final and induced topologies, transfer of continuity to ordinary composition,
 the discontinuity obstruction, and compact--Hausdorff and discrete sufficient
-conditions.  It also selects and proves two concrete test cases: an
-integer-labelled one-object trace presentation with singleton normal forms and
-additive quotient code, and a finite two-label trace-sensitive obstruction.
+conditions.  It also selects and proves the concrete observable based-fiber
+construction and its comparison with the standard based loop quotient; under
+that homeomorphism, both Fabel obstructions transfer to the scoped ordinary
+pair.  The selected result additionally requires full additive-classification
+certificates for the genuine additive circle and product torus, supplied by
+the universal-cover and coordinatewise proofs.  The external Fabel facts are
+hypotheses, not silently reproved claims.
 The automatic final-domain groupoid laws and the generic adapter remain
 supporting material.
+
+## Follow-up package
+
+The follow-up has its own non-destructive Comparator and metadata surface.  It
+does not present the classical identity `π₁(Tⁿ) ≅ ℤⁿ` as a new result.  Its
+publication-facing center is the arbitrary-space quotient-topological
+fundamental-group theory in
+`ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean`:
+
+- inversion and both one-variable translations are continuous;
+- translation homeomorphisms make the quotient homogeneous;
+- discreteness is equivalent to openness of the null-homotopy class; and
+- in the discrete case, the projection is open, its square is quotient, and
+  multiplication is jointly continuous.
+
+The all-finite-dimensional torus theorem is the concrete positive family.  It
+proves the null-class hypothesis by explicit winding and supplies standard
+representatives, completeness, additivity, and a continuous integer-lattice
+classifier.  This architecture gives a direct positive counterpart to the
+accepted package's failure of the product-quotient condition without erasing
+the crucial distinction between separate and joint continuity.
 
 ## Non-goals for the first submission
 

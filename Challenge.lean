@@ -1,28 +1,14 @@
 import Mathlib.Topology.Constructions
 import Mathlib.Topology.Path
 import Mathlib.Topology.Homotopy.Path
-/-!
-# Challenge: topological semantics of computational paths
-This is the statement-only surface of the result.  The endpoint-varying
-geometric trace, its scoped rewrite quotient, and the final composable domain
-are defined here from Lean core and Mathlib alone.  The proof-side module
-contains the corresponding checked development and is compared against this
-surface by Comparator.
-The selected result solves the comparison problem between the canonical final
-composable topology and the ordinary pullback topology.  It characterizes
-exactly when the canonical continuous bijection is a homeomorphism, derives
-ordinary composition continuity, records the corresponding obstruction, and
-proves compact--Hausdorff and discrete sufficient cases.  It also packages a
-concrete integer-labelled one-object trace presentation with an inductive
-singleton normal form, together with a finite trace-sensitive topology
-obstruction.
--/
+import Mathlib.Topology.Instances.AddCircle.Real
+/-! Challenge: topological semantics of computational paths; the selected result compares final and ordinary topologies and exposes genuine additive circle/torus classifications. -/
 namespace ComputationalPaths
 namespace Path
 namespace GeometricTopology
 open scoped ContinuousMap Topology
-universe u v
-/-! ## Endpoint-varying geometric traces -/
+attribute [local instance] _root_.Path.Homotopic.setoid
+universe u v w
 structure GeometricStepSystem (A : Type u) [TopologicalSpace A] (Step : Type v) where
   src : Step → A
   tgt : Step → A
@@ -80,7 +66,6 @@ noncomputable def openSymm {A : Type u} [TopologicalSpace A] {Step : Type v}
     coherent := by
       rcases p.coherent with ⟨hp⟩
       exact ⟨hp.symm₂⟩ }
-/-! ## Continuous systems and total carriers -/
 structure ContinuousGeometricStepSystem (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
     extends GeometricStepSystem A Step where
@@ -88,6 +73,22 @@ structure ContinuousGeometricStepSystem (A : Type u) [TopologicalSpace A]
   continuous_tgt : Continuous tgt
   continuous_realize :
     Continuous (fun s => (realize s).toContinuousMap)
+abbrev ContinuousPathStep (A : Type u) [TopologicalSpace A] :=
+  C(unitInterval, A)
+noncomputable def continuousPathStepSystem
+    (A : Type u) [TopologicalSpace A] :
+    ContinuousGeometricStepSystem A (ContinuousPathStep A) where
+  src γ := γ 0
+  tgt γ := γ 1
+  realize γ :=
+    { toContinuousMap := γ
+      source' := rfl
+      target' := rfl }
+  continuous_src := continuous_eval_const 0
+  continuous_tgt := continuous_eval_const 1
+  continuous_realize := by
+    change Continuous (fun γ : ContinuousPathStep A => γ)
+    exact continuous_id
 structure TotalOpenGeometricCompPath
     (A : Type u) [TopologicalSpace A]
     (Step : Type v) [TopologicalSpace Step]
@@ -183,6 +184,14 @@ noncomputable def castTrace
     (t : GeometricTrace S.toGeometricStepSystem a b) :
     GeometricTrace S.toGeometricStepSystem a' b' :=
   Eq.mp (by cases ha; cases hb; rfl) t
+theorem castTrace_realize
+    {a b a' b' : A} (ha : a' = a) (hb : b' = b)
+    (t : GeometricTrace S.toGeometricStepSystem a b) :
+    GeometricTrace.realize (castTrace ha hb t) =
+      (GeometricTrace.realize t).cast ha hb := by
+  cases ha
+  cases hb
+  rfl
 end ContinuousGeometricStepSystemMap
 structure ScopedGeometricRewritePresentation
     {A : Type u} [TopologicalSpace A]
@@ -601,17 +610,41 @@ noncomputable def tripleRightPair (t : ScopedComposableTriple P) :
         rw [scopedCompositionOnStrong_mk]
         rfl⟩
 end ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
+namespace ComputationalPaths.Path.GeometricTopology.UniversalCompPathHomotopyEquivalence
+variable {A : Type u} [TopologicalSpace A]
+noncomputable abbrev UniversalSystem := continuousPathStepSystem A
+abbrev UniversalOpen {a b : A} :=
+  OpenGeometricCompPath UniversalSystem.toGeometricStepSystem a b
+noncomputable def universalOpenSection {a b : A} (γ : _root_.Path a b) :
+    UniversalOpen (A := A) (a := a) (b := b) :=
+  { trace :=
+      ContinuousGeometricStepSystemMap.castTrace
+        (S := UniversalSystem) γ.source.symm γ.target.symm
+        (GeometricTrace.single
+          (S := UniversalSystem.toGeometricStepSystem) γ.toContinuousMap)
+    geometric := γ
+    coherent := by
+      have hrealize :
+          GeometricTrace.realize
+              (ContinuousGeometricStepSystemMap.castTrace
+                (S := UniversalSystem) γ.source.symm γ.target.symm
+                (GeometricTrace.single
+                  (S := UniversalSystem.toGeometricStepSystem) γ.toContinuousMap)) =
+            γ := by
+        rw [ContinuousGeometricStepSystemMap.castTrace_realize]
+        ext t
+        rfl
+      rw [hrealize] }
+end ComputationalPaths.Path.GeometricTopology.UniversalCompPathHomotopyEquivalence
 namespace TopologicalComputationalPaths
 open ComputationalPaths.Path.GeometricTopology
 open ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
 universe u v
 /-! ## The ordinary/final topology comparison
-
 The canonical final composable domain is always mapped continuously and
 bijectively to the ordinary pullback of quotient arrows.  The substantive
 question is when its inverse is continuous, equivalently when the raw pair map
 is quotient and when the two topologies agree. -/
-
 noncomputable def finalToOrdinary
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -619,7 +652,6 @@ noncomputable def finalToOrdinary
     (P : ScopedGeometricRewritePresentation S) :
     ScopedComposableClass P → ScopedComposablePair P :=
   fun c => (scopedPairMap P c).val
-
 noncomputable def rawToOrdinary
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -627,7 +659,6 @@ noncomputable def rawToOrdinary
     (P : ScopedGeometricRewritePresentation S) :
     ScopedComposableRaw (S := S) → ScopedComposablePair P :=
   fun c => finalToOrdinary P (scopedComposableMk P c)
-
 noncomputable def ordinaryComposition
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -635,260 +666,278 @@ noncomputable def ordinaryComposition
     (P : ScopedGeometricRewritePresentation S) :
     ScopedComposablePair P → ScopedClass P :=
   fun pq => scopedCompositionOnStrong P ⟨pq⟩
-
-/-! ## A concrete exponent presentation
-
-The comparison theorem is accompanied by a small but nontrivial instance.  A
-one-object system has integer-labelled primitive computational loops, and its
-local presentation contains explicit add, zero, and inverse normalization
-rules.  Induction over the trace constructors proves a singleton normal form;
-the quotient code is bijective with `Int`, and composition adds exponents.
--/
-
-noncomputable def unitLoopStepSystem :
-    ContinuousGeometricStepSystem Unit Int where
-  src := fun _ => ()
-  tgt := fun _ => ()
-  realize := fun _ => _root_.Path.refl ()
-  continuous_src := continuous_const
-  continuous_tgt := continuous_const
-  continuous_realize := by
-    exact continuous_const
-
-abbrev UnitLoopTrace :=
-  GeometricTrace unitLoopStepSystem.toGeometricStepSystem () ()
-
-def unitLoopDegree :
-    {a b : Unit} →
-      GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b → Int
-  | _, _, GeometricTrace.refl _ => 0
-  | _, _, GeometricTrace.single n => n
-  | _, _, GeometricTrace.trans p q => unitLoopDegree p + unitLoopDegree q
-  | _, _, GeometricTrace.symm p => -unitLoopDegree p
-
-def unitLoopPositiveTrace : Nat → UnitLoopTrace
-  | 0 => GeometricTrace.refl ()
-  | n + 1 => GeometricTrace.trans (unitLoopPositiveTrace n)
-      (GeometricTrace.single (1 : Int))
-
-def unitLoopTrace : Int → UnitLoopTrace
-  | Int.ofNat n => unitLoopPositiveTrace n
-  | Int.negSucc n => GeometricTrace.symm (unitLoopPositiveTrace (n + 1))
-
-noncomputable def unitLoopTraceCast {a b : Unit}
-    (ha : a = ()) (hb : b = ())
-    (p : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b) :
-    UnitLoopTrace := by
-  cases ha
-  cases hb
-  exact p
-
-def unitLoopRule {a b : Unit}
-    (p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b) : Prop :=
-  ∃ (ha : a = ()) (hb : b = ()),
-    (∃ n m : Int,
-        unitLoopTraceCast ha hb p =
-          GeometricTrace.trans
-            (GeometricTrace.single n : UnitLoopTrace)
-            (GeometricTrace.single m : UnitLoopTrace) ∧
-        unitLoopTraceCast ha hb q =
-          (GeometricTrace.single (n + m) : UnitLoopTrace)) ∨
-      (unitLoopTraceCast ha hb p =
-          (GeometricTrace.refl () : UnitLoopTrace) ∧
-        unitLoopTraceCast ha hb q =
-          (GeometricTrace.single 0 : UnitLoopTrace)) ∨
-      (∃ n : Int,
-        unitLoopTraceCast ha hb p =
-          GeometricTrace.symm (GeometricTrace.single n : UnitLoopTrace) ∧
-        unitLoopTraceCast ha hb q =
-          (GeometricTrace.single (-n) : UnitLoopTrace))
-
-def unitLoopRule_add (n m : Int) :
-    unitLoopRule
-      (GeometricTrace.trans
-        (GeometricTrace.single n : UnitLoopTrace)
-        (GeometricTrace.single m : UnitLoopTrace))
-      (GeometricTrace.single (n + m) : UnitLoopTrace) :=
-  ⟨rfl, rfl, Or.inl ⟨n, m, rfl, rfl⟩⟩
-
-def unitLoopRule_zero :
-    unitLoopRule
-      (GeometricTrace.refl () : UnitLoopTrace)
-      (GeometricTrace.single 0 : UnitLoopTrace) :=
-  ⟨rfl, rfl, Or.inr (Or.inl ⟨rfl, rfl⟩)⟩
-
-def unitLoopRule_neg (n : Int) :
-    unitLoopRule
-      (GeometricTrace.symm
-        (GeometricTrace.single n : UnitLoopTrace))
-      (GeometricTrace.single (-n) : UnitLoopTrace) :=
-  ⟨rfl, rfl, Or.inr (Or.inr ⟨n, rfl, rfl⟩)⟩
-
-def unitLoopRule_degree
-    {a b : Unit}
-    {p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b}
-    (h : unitLoopRule p q) : unitLoopDegree p = unitLoopDegree q := by
-  rcases h with ⟨ha, hb, h⟩
-  cases ha
-  cases hb
-  rcases h with h | h | h
-  · rcases h with ⟨n, m, hp, hq⟩
-    cases hp
-    cases hq
-    simp [unitLoopDegree]
-  · rcases h with ⟨hp, hq⟩
-    cases hp
-    cases hq
-    simp [unitLoopDegree]
-  · rcases h with ⟨n, hp, hq⟩
-    cases hp
-    cases hq
-    simp [unitLoopDegree]
-
-def unitPathHomotopy {a b : Unit} (p q : _root_.Path a b) :
-    _root_.Path.Homotopic p q := by
-  have h : p = q := by
-    apply _root_.Path.ext
-    funext t
-    exact Subsingleton.elim _ _
-  cases h
-  exact _root_.Path.Homotopic.refl _
-
-noncomputable def unitLoopPresentation :
-    ScopedGeometricRewritePresentation unitLoopStepSystem where
-  rule := fun {a b} p q => unitLoopRule p q
-  sound_rule := by
-    intro a b p q h
-    exact unitPathHomotopy _ _
-
-abbrev UnitLoopRaw := ScopedRawPath (S := unitLoopStepSystem)
-
-noncomputable def unitLoopOpen (n : Int) :
-    OpenGeometricCompPath
-      unitLoopStepSystem.toGeometricStepSystem () () :=
-  { trace := unitLoopTrace n
-    geometric := _root_.Path.refl ()
-    coherent := unitPathHomotopy _ _ }
-
-noncomputable def unitLoopRepresentative (n : Int) : UnitLoopRaw :=
-  ⟨(), (), unitLoopOpen n⟩
-
-noncomputable def unitLoopComposable (m n : Int) :
-    TotalComposable Unit Int unitLoopStepSystem :=
-  ⟨(), (), (), unitLoopOpen m, unitLoopOpen n⟩
-
-abbrev UnitLoopClass := ScopedClass unitLoopPresentation
-
-noncomputable def unitLoopCode : UnitLoopClass → Int :=
-  Quot.lift
-    (fun p : UnitLoopRaw => unitLoopDegree p.path.trace)
+/-! A source-backed obstruction transfer packages the actual Hawaiian-earring
+loop quotient used in the manuscript.  Fabel's non-quotient and discontinuity
+theorems are explicit hypotheses; the selected consequences are the failures
+of the scoped presentation's ordinary-pair quotient and multiplication. -/
+noncomputable def hawaiianRadius (n : Nat) : ℝ := 1 / (n + 1)
+def hawaiianEarringSet : Set (ℝ × ℝ) :=
+  {p | ∃ n : Nat,
+    (p.1 - hawaiianRadius n) ^ 2 + p.2 ^ 2 = hawaiianRadius n ^ 2}
+abbrev HawaiianEarring := {p : ℝ × ℝ // p ∈ hawaiianEarringSet}
+noncomputable def hawaiianBase : HawaiianEarring :=
+  ⟨(0, 0), by
+    refine ⟨0, ?_⟩
+    norm_num [hawaiianEarringSet, hawaiianRadius]⟩
+abbrev HawaiianLoop := _root_.Path hawaiianBase hawaiianBase
+abbrev HawaiianLoopQuotient :=
+  _root_.Path.Homotopic.Quotient hawaiianBase hawaiianBase
+noncomputable def hawaiianLoopQuotientMap :
+    HawaiianLoop → HawaiianLoopQuotient :=
+  _root_.Path.Homotopic.Quotient.mk
+noncomputable instance hawaiianLoopQuotientTopology :
+    TopologicalSpace HawaiianLoopQuotient :=
+  TopologicalSpace.coinduced hawaiianLoopQuotientMap inferInstance
+noncomputable def hawaiianPairQuotientMap :
+    HawaiianLoop × HawaiianLoop →
+      HawaiianLoopQuotient × HawaiianLoopQuotient :=
+  fun pq => (hawaiianLoopQuotientMap pq.1, hawaiianLoopQuotientMap pq.2)
+noncomputable def hawaiianLoopQuotientMultiplication :
+    HawaiianLoopQuotient × HawaiianLoopQuotient → HawaiianLoopQuotient :=
+  fun pq => _root_.Path.Homotopic.Quotient.trans pq.1 pq.2
+theorem continuous_hawaiianPairQuotientMap :
+    Continuous hawaiianPairQuotientMap := by
+  exact
+    (continuous_coinduced_rng.comp continuous_fst).prodMk
+      (continuous_coinduced_rng.comp continuous_snd)
+/-- The two classical Hawaiian-earring facts are external inputs to the
+transfer.  They are not claimed as newly proved by this Challenge. -/
+structure FabelHawaiianEarringFacts : Prop where
+  pair_not_quotient :
+    ¬ Topology.IsQuotientMap hawaiianPairQuotientMap
+  multiplication_not_continuous :
+    ¬ Continuous hawaiianLoopQuotientMultiplication
+/-! ## The concrete based fiber and its final/ordinary comparison -/
+open ComputationalPaths.Path.GeometricTopology.UniversalCompPathHomotopyEquivalence
+noncomputable abbrev HawaiianUniversalSystem :=
+  continuousPathStepSystem HawaiianEarring
+abbrev HawaiianUniversalOpen :=
+  UniversalOpen (A := HawaiianEarring)
+    (a := hawaiianBase) (b := hawaiianBase)
+structure HawaiianObservableOpenFiber where
+  val : HawaiianUniversalOpen
+noncomputable def hawaiianObservableGeometric
+    (p : HawaiianObservableOpenFiber) : HawaiianLoop :=
+  p.val.geometric
+noncomputable instance hawaiianObservableOpenFiberTopology :
+    TopologicalSpace HawaiianObservableOpenFiber :=
+  TopologicalSpace.induced hawaiianObservableGeometric inferInstance
+noncomputable def hawaiianObservableSection (γ : HawaiianLoop) :
+    HawaiianObservableOpenFiber :=
+  ⟨universalOpenSection γ⟩
+theorem hawaiianObservableSection_geometric (γ : HawaiianLoop) :
+    hawaiianObservableGeometric (hawaiianObservableSection γ) = γ := by
+  rfl
+theorem continuous_hawaiianObservableSection :
+    Continuous (hawaiianObservableSection : HawaiianLoop →
+      HawaiianObservableOpenFiber) := by
+  apply continuous_induced_rng.mpr
+  change Continuous (fun γ : HawaiianLoop =>
+    hawaiianObservableGeometric (hawaiianObservableSection γ))
+  rw [show (fun γ : HawaiianLoop =>
+      hawaiianObservableGeometric (hawaiianObservableSection γ)) = id by
+    funext γ
+    exact hawaiianObservableSection_geometric γ]
+  exact continuous_id
+noncomputable instance hawaiianObservableSetoid :
+    Setoid HawaiianObservableOpenFiber where
+  r p q := _root_.Path.Homotopic
+    (hawaiianObservableGeometric p) (hawaiianObservableGeometric q)
+  iseqv :=
+    { refl := fun p => _root_.Path.Homotopic.refl
+        (hawaiianObservableGeometric p)
+      symm := fun h => h.symm
+      trans := fun h₁ h₂ => h₁.trans h₂ }
+abbrev HawaiianObservableClass := Quotient hawaiianObservableSetoid
+noncomputable def hawaiianObservableQuotientMk
+    (p : HawaiianObservableOpenFiber) : HawaiianObservableClass :=
+  Quotient.mk' p
+noncomputable instance hawaiianObservableClassTopology :
+    TopologicalSpace HawaiianObservableClass :=
+  TopologicalSpace.coinduced hawaiianObservableQuotientMk inferInstance
+noncomputable def hawaiianObservableToLoopQuotient :
+    HawaiianObservableClass → HawaiianLoopQuotient :=
+  Quotient.lift
+    (fun p => hawaiianLoopQuotientMap (hawaiianObservableGeometric p))
     (by
       intro p q h
-      rcases p with ⟨p_src, p_tgt, p_path⟩
-      rcases q with ⟨q_src, q_tgt, q_path⟩
-      rcases h with ⟨hs, ht, hr⟩
-      cases p_src
-      cases p_tgt
-      cases q_src
-      cases q_tgt
-      have hs0 : hs = (rfl : () = ()) := Subsingleton.elim _ _
-      have ht0 : ht = (rfl : () = ()) := Subsingleton.elim _ _
-      cases hs0
-      cases ht0
-      change ScopedRwEq unitLoopPresentation p_path.trace q_path.trace at hr
-      have hrewrites :
-          ∀ {a b : Unit}
-            {p q : GeometricTrace unitLoopStepSystem.toGeometricStepSystem a b},
-            ScopedRwEq unitLoopPresentation p q →
-              unitLoopDegree p = unitLoopDegree q := by
-        intro a b p q hrewrite
-        induction hrewrite with
-        | refl => rfl
-        | generator h => exact unitLoopRule_degree h
-        | symm h ih => simpa [unitLoopDegree] using ih.symm
-        | trans h₁ h₂ ih₁ ih₂ => exact ih₁.trans ih₂
-        | trans_congr h₁ h₂ ih₁ ih₂ =>
-            simpa [unitLoopDegree, ih₁, ih₂, add_assoc]
-        | symm_congr h ih => simpa [unitLoopDegree, ih]
-        | refl_trans p => simp [unitLoopDegree]
-        | trans_refl p => simp [unitLoopDegree]
-        | trans_assoc p q r => simp [unitLoopDegree, add_assoc]
-        | symm_trans p => simp [unitLoopDegree]
-        | trans_symm p => simp [unitLoopDegree]
-        | symm_symm p => simp [unitLoopDegree]
-        | symm_refl a => simp [unitLoopDegree]
-        | symm_comp p q => simp [unitLoopDegree, add_comm]
-      exact hrewrites hr)
-
-structure UnitLoopExponentCertificate : Prop where
-  bijective : Function.Bijective unitLoopCode
-  normal_form : ∀ p : UnitLoopTrace,
-    ScopedRwEq unitLoopPresentation p
-      (GeometricTrace.single (unitLoopDegree p) : UnitLoopTrace)
-  raw_code : ∀ p : UnitLoopRaw,
-    unitLoopCode (scopedQuotientMk unitLoopPresentation p) =
-      unitLoopDegree p.path.trace
-  representative_code : ∀ n,
-    unitLoopCode
-        (scopedQuotientMk unitLoopPresentation (unitLoopRepresentative n)) = n
-  composition_additive : ∀ m n,
-    unitLoopCode
-        (scopedCompositionFromComposable unitLoopPresentation
-          (scopedComposableMk unitLoopPresentation (unitLoopComposable m n))) =
-      m + n
-
-/-! ## A finite trace-sensitive obstruction
-
-The selected result also records the smallest separation example: two
-primitive computational labels are distinct in the trace carrier, while an
-observable code forgets the label.  The identity from the indiscrete
-observable topology to the discrete trace topology is not continuous in the
-reverse direction.  This is the finite obstruction behind the warning that a
-continuous bijection need not be a homeomorphism.
--/
-
-inductive TraceLabel
-  | left
-  | right
-
-noncomputable def finiteTraceStepSystem :
-    GeometricStepSystem Unit TraceLabel where
-  src := fun _ => ()
-  tgt := fun _ => ()
-  realize := fun _ => _root_.Path.refl ()
-
-abbrev FiniteTrace :=
-  GeometricTrace (A := Unit) (Step := TraceLabel) finiteTraceStepSystem () ()
-
-def finiteTrace (g : TraceLabel) : FiniteTrace :=
-  GeometricTrace.single g
-
-abbrev ObservableTraceCode := Nat × Unit
-
-def observableTraceCode (_ : TraceLabel) : ObservableTraceCode :=
-  (1, Unit.unit)
-
-def traceTopology : TopologicalSpace TraceLabel := ⊥
-
-def observableTopology : TopologicalSpace TraceLabel := ⊤
-
-inductive TraceUnitCoherence : Nat → Nat → Prop
-  | trans_refl_right (n : Nat) : TraceUnitCoherence n n
-
-noncomputable def traceUnitRewrite (n : Nat) :
-    TraceUnitCoherence n n :=
-  TraceUnitCoherence.trans_refl_right n
-
-structure TraceTopologyObstructionCertificate : Prop where
-  trace_separates : finiteTrace TraceLabel.left ≠ finiteTrace TraceLabel.right
-  observable_forgets :
-    observableTraceCode TraceLabel.left = observableTraceCode TraceLabel.right
-  forward_continuous :
-    @Continuous TraceLabel TraceLabel traceTopology observableTopology id
-  reverse_not_continuous :
-    ¬ @Continuous TraceLabel TraceLabel observableTopology traceTopology id
-  unit_coherence : ∀ n : Nat, TraceUnitCoherence n n
-
+      exact Quotient.sound h)
+noncomputable def loopQuotientToHawaiianObservable :
+    HawaiianLoopQuotient → HawaiianObservableClass :=
+  Quotient.lift
+    (fun γ => hawaiianObservableQuotientMk (hawaiianObservableSection γ))
+    (by
+      intro γ₁ γ₂ h
+      apply Quotient.sound
+      change _root_.Path.Homotopic
+        (hawaiianObservableGeometric (hawaiianObservableSection γ₁))
+        (hawaiianObservableGeometric (hawaiianObservableSection γ₂))
+      rw [hawaiianObservableSection_geometric,
+        hawaiianObservableSection_geometric]
+      exact h)
+noncomputable def hawaiianObservableHomeomorph :
+    HawaiianObservableClass ≃ₜ HawaiianLoopQuotient where
+  toEquiv :=
+    { toFun := hawaiianObservableToLoopQuotient
+      invFun := loopQuotientToHawaiianObservable
+      left_inv := by
+        intro x
+        refine Quotient.inductionOn x ?_
+        intro p
+        apply Quotient.sound
+        change _root_.Path.Homotopic
+          (hawaiianObservableGeometric
+            (hawaiianObservableSection (hawaiianObservableGeometric p)))
+          (hawaiianObservableGeometric p)
+        rw [hawaiianObservableSection_geometric]
+      right_inv := by
+        intro y
+        refine Quotient.inductionOn y ?_
+        intro γ
+        rfl }
+  continuous_toFun := by
+    apply (⟨⟨rfl⟩, Quotient.mk_surjective⟩ :
+      Topology.IsQuotientMap hawaiianObservableQuotientMk).continuous_iff.2
+    rw [show hawaiianObservableToLoopQuotient ∘
+        hawaiianObservableQuotientMk =
+        hawaiianLoopQuotientMap ∘ hawaiianObservableGeometric by
+      funext p
+      rfl]
+    exact continuous_coinduced_rng.comp continuous_induced_dom
+  continuous_invFun := by
+    apply (⟨⟨rfl⟩, Quotient.mk_surjective⟩ :
+      Topology.IsQuotientMap hawaiianLoopQuotientMap).continuous_iff.2
+    rw [show loopQuotientToHawaiianObservable ∘
+        hawaiianLoopQuotientMap =
+        hawaiianObservableQuotientMk ∘ hawaiianObservableSection by
+      funext γ
+      rfl]
+    exact continuous_coinduced_rng.comp continuous_hawaiianObservableSection
+noncomputable def hawaiianBasedPairQuotientMap :
+    HawaiianObservableOpenFiber × HawaiianObservableOpenFiber →
+      HawaiianObservableClass × HawaiianObservableClass :=
+  fun pq => (hawaiianObservableQuotientMk pq.1,
+    hawaiianObservableQuotientMk pq.2)
+noncomputable def hawaiianBasedPairHomeomorph :
+    (HawaiianObservableClass × HawaiianObservableClass) ≃ₜ
+      (HawaiianLoopQuotient × HawaiianLoopQuotient) :=
+  Homeomorph.prodCongr hawaiianObservableHomeomorph
+    hawaiianObservableHomeomorph
+noncomputable instance hawaiianBasedFinalPairSetoid :
+    Setoid (HawaiianObservableOpenFiber × HawaiianObservableOpenFiber) where
+  r p q := p.1 ≈ q.1 ∧ p.2 ≈ q.2
+  iseqv :=
+    { refl := fun _ => ⟨Setoid.refl _, Setoid.refl _⟩
+      symm := fun h => ⟨Setoid.symm h.1, Setoid.symm h.2⟩
+      trans := fun h₁ h₂ =>
+        ⟨Setoid.trans h₁.1 h₂.1, Setoid.trans h₁.2 h₂.2⟩ }
+abbrev HawaiianBasedFinalPair := Quotient hawaiianBasedFinalPairSetoid
+noncomputable def hawaiianBasedFinalPairMk
+    (pq : HawaiianObservableOpenFiber × HawaiianObservableOpenFiber) :
+    HawaiianBasedFinalPair := Quotient.mk' pq
+noncomputable instance hawaiianBasedFinalPairTopology :
+    TopologicalSpace HawaiianBasedFinalPair :=
+  TopologicalSpace.coinduced hawaiianBasedFinalPairMk inferInstance
+noncomputable def hawaiianBasedFinalToOrdinary :
+    HawaiianBasedFinalPair →
+      HawaiianObservableClass × HawaiianObservableClass :=
+  Quotient.lift hawaiianBasedPairQuotientMap (by
+    intro p q h
+    exact Prod.ext (Quotient.sound h.1) (Quotient.sound h.2))
+noncomputable def hawaiianBasedRawTrans
+    (pq : HawaiianObservableOpenFiber × HawaiianObservableOpenFiber) :
+    HawaiianObservableOpenFiber :=
+  ⟨openTrans HawaiianUniversalSystem.toGeometricStepSystem
+      pq.1.val pq.2.val⟩
+noncomputable def hawaiianBasedFinalOperation :
+    HawaiianBasedFinalPair → HawaiianObservableClass :=
+  Quotient.lift
+    (fun pq => hawaiianObservableQuotientMk (hawaiianBasedRawTrans pq))
+    (by
+      intro p q h
+      apply Quotient.sound
+      change _root_.Path.Homotopic
+        (hawaiianObservableGeometric (hawaiianBasedRawTrans p))
+        (hawaiianObservableGeometric (hawaiianBasedRawTrans q))
+      change _root_.Path.Homotopic
+        ((hawaiianObservableGeometric p.1).trans
+          (hawaiianObservableGeometric p.2))
+        ((hawaiianObservableGeometric q.1).trans
+          (hawaiianObservableGeometric q.2))
+      exact h.1.hcomp h.2)
+noncomputable def hawaiianBasedOrdinaryOperation :
+    HawaiianObservableClass × HawaiianObservableClass → HawaiianObservableClass :=
+  fun pq =>
+    Quotient.map₂
+      (fun p q => hawaiianBasedRawTrans (p, q))
+      (by
+        intro p p' hp q q' hq
+        change _root_.Path.Homotopic
+          ((hawaiianObservableGeometric p).trans
+            (hawaiianObservableGeometric q))
+          ((hawaiianObservableGeometric p').trans
+            (hawaiianObservableGeometric q'))
+        exact hp.hcomp hq)
+      pq.1 pq.2
+structure HawaiianBasedFiberCertificate
+    (F : FabelHawaiianEarringFacts) : Prop where
+  based_section : ∀ γ : HawaiianLoop,
+    hawaiianObservableGeometric (hawaiianObservableSection γ) = γ
+  observable_projection_continuous :
+    Continuous hawaiianObservableGeometric
+  observable_projection_quotient :
+    Topology.IsQuotientMap hawaiianObservableGeometric
+  quotient_homeomorph :
+    Nonempty (HawaiianObservableClass ≃ₜ HawaiianLoopQuotient)
+  pair_map_continuous : Continuous hawaiianBasedPairQuotientMap
+  pair_map_not_quotient :
+    ¬ Topology.IsQuotientMap hawaiianBasedPairQuotientMap
+  final_to_ordinary_bijective :
+    Function.Bijective hawaiianBasedFinalToOrdinary
+  final_to_ordinary_continuous :
+    Continuous hawaiianBasedFinalToOrdinary
+  final_to_ordinary_not_quotient :
+    ¬ Topology.IsQuotientMap hawaiianBasedFinalToOrdinary
+  final_topology_not_induced :
+    ¬ ((inferInstance : TopologicalSpace HawaiianBasedFinalPair) =
+      TopologicalSpace.induced hawaiianBasedFinalToOrdinary
+        (inferInstance : TopologicalSpace
+          (HawaiianObservableClass × HawaiianObservableClass)))
+  final_operation_continuous : Continuous hawaiianBasedFinalOperation
+  ordinary_operation_not_continuous :
+    ¬ Continuous hawaiianBasedOrdinaryOperation
+  operation_commutes :
+    hawaiianBasedFinalOperation =
+      hawaiianBasedOrdinaryOperation ∘ hawaiianBasedFinalToOrdinary
+structure HawaiianEarringObstructionTransfer
+    (source : Type u) (target : Type v) (arrow : Type w)
+    [TopologicalSpace source] [TopologicalSpace target]
+    [TopologicalSpace arrow] where
+  sourceMap : source → target
+  representativeMap : source → HawaiianLoop × HawaiianLoop
+  comparison : target ≃ₜ (HawaiianLoopQuotient × HawaiianLoopQuotient)
+  sourceOperation : target → arrow
+  arrowComparison : arrow ≃ₜ HawaiianLoopQuotient
+  representative_continuous : Continuous representativeMap
+  comparison_commutes :
+    comparison ∘ sourceMap = hawaiianPairQuotientMap ∘ representativeMap
+  operation_commutes :
+    arrowComparison ∘ sourceOperation =
+      hawaiianLoopQuotientMultiplication ∘ comparison
+  external_facts : FabelHawaiianEarringFacts
+abbrev GenuineCircleLoopQuotient := _root_.Path.Homotopic.Quotient (0 : AddCircle (1 : ℝ)) 0
+abbrev GenuineTorusLoopQuotient :=
+  _root_.Path.Homotopic.Quotient ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+    ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+structure AdditiveLoopClassification (Q : Type u) (K : Type v) [AddMonoid K] (compose : Q → Q → Q) (identity : Q) where
+  invariant : Q → K
+  standard : K → Q
+  invariant_identity : invariant identity = 0
+  invariant_compose : ∀ x y, invariant (compose x y) = invariant x + invariant y
+  invariant_standard : ∀ k, invariant (standard k) = k
+  standard_invariant : ∀ x, standard (invariant x) = x
+abbrev GenuineCircleWindingClassification := AdditiveLoopClassification GenuineCircleLoopQuotient Int _root_.Path.Homotopic.Quotient.trans (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl (0 : AddCircle (1 : ℝ))))
+abbrev GenuineTorusWindingClassification := AdditiveLoopClassification GenuineTorusLoopQuotient (Int × Int) _root_.Path.Homotopic.Quotient.trans (_root_.Path.Homotopic.Quotient.mk (_root_.Path.refl ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))))
 structure OrdinaryTopologyComparisonCertificate
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -925,9 +974,22 @@ structure OrdinaryTopologyComparisonCertificate
       [DiscreteTopology (ScopedComposableClass P)],
       Topology.IsQuotientMap (finalToOrdinary P) ∧
         Continuous (ordinaryComposition P)
-  concrete_exponent_application : UnitLoopExponentCertificate
-  trace_sensitive_obstruction : TraceTopologyObstructionCertificate
-
+  hawaiian_earring_obstruction :
+    ∀ (C : HawaiianEarringObstructionTransfer
+      (ScopedComposableRaw (S := S)) (ScopedComposablePair P)
+      (ScopedClass P))
+      (_hmap : C.sourceMap = rawToOrdinary P)
+      (_hop : C.sourceOperation = ordinaryComposition P),
+      ¬ Topology.IsQuotientMap (rawToOrdinary P) ∧
+      ¬ Topology.IsQuotientMap (finalToOrdinary P) ∧
+      ¬ ((inferInstance : TopologicalSpace (ScopedComposableClass P)) =
+        TopologicalSpace.induced (finalToOrdinary P)
+          (inferInstance : TopologicalSpace (ScopedComposablePair P))) ∧
+      ¬ Continuous (ordinaryComposition P)
+  hawaiian_based_fiber :
+    ∀ F : FabelHawaiianEarringFacts, HawaiianBasedFiberCertificate F
+  genuine_circle_winding : Nonempty GenuineCircleWindingClassification
+  genuine_torus_winding : Nonempty GenuineTorusWindingClassification
 theorem main_result
     {A : Type u} [TopologicalSpace A]
     {Step : Type v} [TopologicalSpace Step]
@@ -935,5 +997,4 @@ theorem main_result
     (P : ScopedGeometricRewritePresentation S) :
     OrdinaryTopologyComparisonCertificate S P := by
   sorry
-
 end TopologicalComputationalPaths
