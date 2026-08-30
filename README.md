@@ -79,9 +79,16 @@ application of the comparison theorem.
 
 The repository now also contains a separate, non-destructive follow-up
 surface.  Its central theorem applies to the compact-open based-loop quotient
-of every pointed topological space.  It proves continuous reversal, separate
-continuity of concatenation, explicit translation homeomorphisms and
-homogeneity, and the exact equivalence
+of every pointed topological space.  It first proves continuous functoriality
+under continuous maps, the identity and composition laws, invariance under
+homeomorphisms, and basepoint-change equivalences along arbitrary paths.  It
+also proves that quotient fundamental groups preserve binary products under
+the exact hypothesis that the product of the two loop-quotient projections is
+a quotient map.
+
+The same theorem proves continuous reversal, separate continuity of
+concatenation, explicit translation homeomorphisms and homogeneity, and the
+exact equivalence
 
 ```text
 quotient fundamental group discrete ↔ null-homotopy class open.

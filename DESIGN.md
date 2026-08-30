@@ -116,6 +116,11 @@ publication-facing center is the arbitrary-space quotient-topological
 fundamental-group theory in
 `ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean`:
 
+- continuous maps induce continuous homomorphisms, coherently with identity
+  and composition;
+- homeomorphisms and paths between basepoints induce homeomorphisms of the
+  quotient fundamental groups;
+- binary products are preserved under the exact product-quotient hypothesis;
 - inversion and both one-variable translations are continuous;
 - translation homeomorphisms make the quotient homogeneous;
 - discreteness is equivalent to openness of the null-homotopy class; and
