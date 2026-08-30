@@ -2,6 +2,12 @@
 set -euo pipefail
 
 repository_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+config_name=${1:-comparator.json}
+case "$config_name" in
+  comparator.json|comparator-followup.json) ;;
+  *) echo "usage: $0 [comparator.json|comparator-followup.json]" >&2; exit 2 ;;
+esac
+config_path="$repository_root/$config_name"
 cache_root=${PALOMAR_COMPARATOR_CACHE:-"$repository_root/.cache/palomar-comparator"}
 bin_dir="$cache_root/bin"
 comparator_dir="$cache_root/comparator"
@@ -23,7 +29,7 @@ for required_command in cargo git go lake python3; do
   fi
 done
 
-python3 - "$repository_root/comparator.json" <<'PY'
+python3 - "$config_path" <<'PY'
 import json
 import pathlib
 import sys
@@ -32,8 +38,12 @@ path = pathlib.Path(sys.argv[1])
 config = json.loads(path.read_text(encoding="utf-8"))
 if config.get("enable_nanoda") is not True:
     raise SystemExit("error: comparator.json must enable the NanoDa replay")
-if config.get("theorem_names") != ["TopologicalComputationalPaths.main_result"]:
-    raise SystemExit("error: comparator.json names an unexpected theorem target")
+expected = {
+    "comparator.json": ["TopologicalComputationalPaths.main_result"],
+    "comparator-followup.json": ["TopologicalComputationalPathsFollowup.main_result"],
+}[path.name]
+if config.get("theorem_names") != expected:
+    raise SystemExit(f"error: {path.name} names an unexpected theorem target")
 PY
 
 mkdir -p "$cache_root" "$bin_dir"
@@ -72,4 +82,4 @@ PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
 COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
 COMPARATOR_NANODA="$nanoda_dir/target/release/nanoda_bin" \
 COMPARATOR_LANDRUN="$repository_root/scripts/landrun-wrapper.sh" \
-  lake env "$comparator_dir/.lake/build/bin/comparator" comparator.json
+  lake env "$comparator_dir/.lake/build/bin/comparator" "$config_name"

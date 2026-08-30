@@ -1,6 +1,6 @@
 name = "TopologicalComputationalPaths"
 version = "0.1.0"
-defaultTargets = ["ComputationalPaths", "Challenge", "Solution"]
+defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution"]
 
 [[require]]
 name = "mathlib"
@@ -18,3 +18,11 @@ roots = ["Challenge"]
 [[lean_lib]]
 name = "Solution"
 roots = ["Solution"]
+
+[[lean_lib]]
+name = "FollowupChallenge"
+roots = ["FollowupChallenge"]
+
+[[lean_lib]]
+name = "FollowupSolution"
+roots = ["FollowupSolution"]

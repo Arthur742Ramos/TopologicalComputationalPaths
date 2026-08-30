@@ -75,6 +75,26 @@ comparison and functoriality remain supporting modules.  The Hawaiian-earring
 based fiber and its transfer are a conditional, independently checked
 application of the comparison theorem.
 
+## Follow-up theorem package
+
+The repository now also contains a separate, non-destructive follow-up
+surface.  It upgrades the genuine circle and torus classifications to
+homeomorphisms for the actual final quotient topology and proves that their
+homotopy classes are open, their quotient squares are quotient maps, and
+composition and reversal of loop classes are continuous.  It then proves the
+same full certificate uniformly for every finite-dimensional torus:
+
+```text
+π₁((AddCircle 1)^n, 0) ≃ₜ (Fin n → ℤ).
+```
+
+The proof is constructive at the representative level: coordinate winding,
+explicit standard loops, additivity, and endpoint-fixed homotopy completeness
+are all checked.  See [`FOLLOWUP.md`](FOLLOWUP.md),
+`FollowupChallenge.lean`, `FollowupSolution.lean`, and
+`comparator-followup.json`.  This follow-up does not alter the already accepted
+`Challenge.lean` / `Solution.lean` comparison surface.
+
 ## Source lineage
 
 The starting implementation is the topological layer at the immutable source
@@ -127,10 +147,11 @@ Challenge file.
 
 ## Status
 
-The focused 30-file core, the Palomar statement boundary, and the Lean 4.32.0
+The focused core, the accepted Palomar statement boundary, and the Lean 4.32.0
 port are complete.  `lake build` succeeds for the core, Challenge, and
-Solution targets.  The only `sorry` is the deliberate statement-side hole in
-`Challenge.lean`; `Solution.lean` and the extracted development contain no
+Solution targets.  Within that accepted package, the only `sorry` is the
+deliberate statement-side hole in `Challenge.lean`; `Solution.lean` and the
+extracted development contain no
 `sorry`, `admit`, custom axioms, or `native_decide`.  The selected solution
 packages the exact quotient-map/homeomorphism/topology-agreement comparison,
 its ordinary-composition consequence and obstruction, both positive
@@ -154,9 +175,11 @@ From the repository root:
 ```text
 lake build
 ./scripts/check-palomar.sh
+./scripts/check-followup.sh
 ```
 
-For the independent proof replay, run `./scripts/verify-comparator.sh`.  It
+For the independent proof replay, run `./scripts/verify-comparator.sh`.  Use
+`./scripts/verify-comparator.sh comparator-followup.json` for the follow-up. It
 fetches the exact pinned Comparator, Lean exporter, Landrun, and NanoDa
 revisions into the ignored `.cache/` directory, checks the toolchain match, and
 replays the selected theorem.  This local replay and CI do not replace
@@ -168,13 +191,16 @@ Useful local contract checks are:
 ```text
 test "$(wc -l < Challenge.lean)" -le 1000
 test "$(wc -c < Challenge.lean)" -le 102400
-rg "\\bsorry\\b|\\badmit\\b|^axiom |native_decide" -g "*.lean" -g "!.lake/**"
+rg "\\bsorry\\b|\\badmit\\b|^axiom |native_decide" \
+  Solution.lean FollowupSolution.lean ComputationalPaths -g "*.lean"
 git diff --check
 ```
 
 The checked-in `lake-manifest.json` records the complete dependency closure;
 the `lakefile.toml` and `lean-toolchain` are the only project controls needed
 to reproduce the build.  The proved `Solution.lean` declaration uses only
-`propext`, `Classical.choice`, and `Quot.sound`; the deliberate statement-side
-`sorry` appears only in `Challenge.lean`.  The same contract gate runs in
+`propext`, `Classical.choice`, and `Quot.sound`; the accepted statement-side
+`sorry` appears in `Challenge.lean`, while the separate follow-up statement
+hole appears in `FollowupChallenge.lean`.  Neither solution nor the substantive
+development contains a proof hole.  The same contract gate runs in
 GitHub Actions with the Lean toolchain pinned to an immutable action revision.

@@ -2,3 +2,6 @@ import ComputationalPaths.Path.Topology.ScopedGeometricRewriteGroupoid
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteComparison
 import ComputationalPaths.Path.Topology.ConcreteCircleWinding
 import ComputationalPaths.Path.Topology.ConcreteTorusWinding
+import ComputationalPaths.Path.Topology.ContinuousCompleteInvariant
+import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
+import ComputationalPaths.Path.Topology.FiniteTorusWinding
