@@ -1,0 +1,205 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Quotient-Topological Fundamental Groups and Finite-Torus Winding"
+  description: >-
+    A Lean formalization of the quotient-topological fundamental group of an
+    arbitrary pointed space.  It proves continuous inversion, separate
+    continuity of multiplication, and homogeneity; characterizes discreteness
+    exactly by openness of the null-homotopy class in the compact-open loop
+    space; and derives an open quotient map, the quotient-square property, and
+    joint continuity in the positive case.  It then proves the criterion for
+    every finite torus using explicit coordinate winding, standard loops,
+    endpoint-fixed homotopy completeness, and additivity, obtaining a
+    homeomorphism with the discrete integer lattice.
+  authors:
+    - "Arthur Freitas Ramos"
+    - "Ruy J. G. B. de Queiroz"
+    - "Anjolina Grisi de Oliveira"
+    - "Tiago M. L. de Veras"
+    - "David Barros Hulak"
+  license: "MIT"
+  responsible_maintainers:
+    - "Arthur Freitas Ramos"
+
+repository:
+  role: "substantive-development"
+
+classification:
+  arxiv: ["math.AT", "math.GN"]
+  msc2020: ["55Q05", "54B15", "22A22", "54H11", "68V20"]
+
+sources:
+  - title: "Discreteness and Homogeneity of the Topological Fundamental Group"
+    authors:
+      - "Jack S. Calcut"
+      - "John D. McCarthy"
+    type: "paper"
+    id: "https://arxiv.org/abs/0904.4739"
+    location: "Homogeneity and discreteness of the quotient-topological fundamental group"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+    note: >-
+      The Lean development independently constructs translation
+      homeomorphisms and proves the exact null-class-openness criterion.  It
+      does not formalize the paper's locally path-connected and semilocally
+      simply connected equivalence.
+  - title: "On Fundamental Groups with the Quotient Topology"
+    authors:
+      - "Jeremy Brazas"
+      - "Paul Fabel"
+    type: "paper"
+    id: "https://arxiv.org/abs/1304.6453"
+    location: "Quasitopological fundamental groups and quotient-topological behavior"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+    note: >-
+      This source supplies the established research context for treating the
+      compact-open loop quotient as a quasitopological rather than necessarily
+      topological group.  The Lean proofs are direct from Mathlib's path and
+      quotient universal properties.
+  - title: "Algebraic Topology"
+    authors:
+      - "Allen Hatcher"
+    type: "book"
+    id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+    location: "Chapter 1, fundamental groups of the circle and finite products"
+    relationship: "background"
+    author_endorsement: "n/a"
+    note: >-
+      The algebraic circle and finite-torus classifications are classical.
+      The present artifact additionally checks explicit compact-open
+      continuity and quotient-topological consequences.
+  - title: "Topological Semantics for Scoped Computational Paths"
+    authors:
+      - "Arthur Freitas Ramos"
+      - "Ruy J. G. B. de Queiroz"
+      - "Anjolina Grisi de Oliveira"
+      - "Tiago M. L. de Veras"
+    type: "paper"
+    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
+    location: "Final-versus-ordinary quotient topology and winding validation"
+    relationship: "adapts"
+    author_endorsement: "participated"
+    note: >-
+      The follow-up builds on the accepted focused extraction but adds the
+      space-independent quasitopological-group and discreteness theory and the
+      all-finite-dimensional torus application.
+
+related_formalizations:
+  - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
+    relationship: "builds-on"
+    note: >-
+      Accepted baseline package for the final-versus-ordinary composable-domain
+      comparison and the Hawaiian-earring obstruction transfer.
+  - id: "https://github.com/leanprover-community/mathlib4/commit/81a5d257c8e410db227a6665ed08f64fea08e997"
+    relationship: "builds-on"
+    note: >-
+      Pinned Mathlib revision supplying compact-open path spaces,
+      endpoint-fixed homotopy quotients, and fundamental-group algebra.
+
+status:
+  scope: >-
+    The selected theorem packages a universe-polymorphic theory for arbitrary
+    pointed spaces together with the complete finite-torus family.  The
+    general portion proves continuous reversal, separate continuity,
+    homogeneity, and the exact equivalence between quotient discreteness and
+    openness of the null-homotopy class, plus all positive quotient and joint
+    continuity consequences.  The finite-torus portion proves explicit
+    winding representatives, completeness, additivity, open classes, and the
+    quotient-topological homeomorphism with the integer lattice.  The
+    Comparator challenge has one deliberate statement hole; the solution and
+    substantive development have none.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "TopologicalComputationalPathsFollowup.main_result"
+      file: "FollowupSolution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator-followup.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "manual"
+      tool_setup: >-
+        Mathematical scope selection, literature and provenance review,
+        theorem-boundary design, and final metadata review.
+    - method: "agent"
+      models: ["Codex"]
+      framework: "Lean 4.32.0 and Lake"
+      tool_setup: >-
+        AI-assisted API audit, proof construction, refactoring, documentation,
+        and verification; all selected declarations are checked by Lean.
+      cost:
+        wall_time: "multi-session local development"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: >-
+        Strengthen an accepted quotient-topology formalization with a
+        substantively distinct general theorem and a concrete positive family.
+  spend_usd: "not tracked"
+  notes: >-
+    The proof is replayed through Comparator with both NanoDa and Lean's
+    default kernel in addition to ordinary Lake builds.
+
+fidelity:
+  divergences: >-
+    The artifact does not claim a new paper theorem.  It isolates the
+    null-class-openness criterion rather than formalizing the stronger
+    locally-path-connected/semilocally-simply-connected equivalence from
+    Calcut--McCarthy.  The finite-torus calculation is classical; the added
+    content is its explicit compact-open and final-quotient realization, the
+    general quasitopological-group mechanism, and their integration with the
+    computational-path topology comparison.  No Hawaiian-earring theorem is
+    reproved in this follow-up.
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    The theorem boundary was compared with the cited literature, the accepted
+    package, and current Mathlib APIs.  Builds and local Comparator replay are
+    technical verification only; no independent peer review, novelty
+    certification, or mathematical endorsement is claimed.
+
+alignment:
+  namespace: "ComputationalPaths.Path.GeometricTopology"
+  statements:
+    - source: "Quasitopological fundamental-group laws"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quasitopologicalGroupLaws"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
+      status: "proved"
+      note: "Continuous inversion and separate continuity for every pointed space."
+    - source: "Homogeneity"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientHomogeneous"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
+      status: "proved"
+      note: "Explicit right-translation homeomorphisms act transitively."
+    - source: "Exact discreteness criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.discreteTopology_iff_isOpen_nullHomotopyClass"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
+      status: "proved"
+      note: "The quotient is discrete exactly when the null-homotopy class is open upstairs."
+    - source: "Positive quotient consequences"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProd_isQuotientMap"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
+      status: "proved"
+      note: "Open projection, quotient square, open classes, and jointly continuous multiplication."
+    - source: "Finite-torus winding family"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousAddEquivIntVector"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Continuous additive classification of all finite-dimensional tori by integer winding vectors."
+    - source: "Follow-up publication certificate"
+      lean: "TopologicalComputationalPathsFollowup.main_result"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      status: "adapted"
+      note: "Packages the arbitrary-space theory and every finite-torus application in one Comparator target."
+
+acknowledgements: >-
+  Thanks to the cited authors, and to the contributors of Lean, Mathlib, the
+  Calculus of Computational Paths, and the Palomar Registry tooling.

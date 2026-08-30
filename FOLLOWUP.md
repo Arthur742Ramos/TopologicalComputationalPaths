@@ -1,46 +1,67 @@
-# Follow-up submission: quotient-topological winding for finite tori
+# Follow-up: quotient-topological fundamental groups
 
-The proposed follow-up result strengthens the accepted circle/product-torus
-validation in two independent directions.
+## Selected result
 
-First, the circle and two-torus classifications are no longer only type
-equivalences.  Their actual compact-open loop spaces are quotiented by
-endpoint-fixed homotopy with the final topology, and winding is proved locally
-constant by an explicit zero-chart contraction.  It follows that every
-homotopy class is open and that the quotient classifiers are homeomorphisms
-to the discrete spaces `ℤ` and `ℤ × ℤ`.  The quotient maps are open, their
-squares are quotient maps, and class composition and reversal are continuous
-for the ordinary product topology.
+The follow-up is centered on a theorem for every pointed topological space,
+not on a new computation of the fundamental group of a torus.
 
-Second, the construction is generalized from the product torus to every
-finite-dimensional torus.  For each `n`, coordinate winding gives a complete
-invariant
+For the endpoint-fixed homotopy quotient of the compact-open based loop space,
+the formalization proves:
+
+1. reversal is continuous;
+2. concatenation is continuous in each variable separately;
+3. right translations are homeomorphisms, so the quotient is homogeneous;
+4. the quotient is discrete if and only if the null-homotopy class is open in
+   the based loop space; and
+5. under that exact criterion, every homotopy class is open, the quotient map
+   is open, its square is a quotient map, and concatenation is jointly
+   continuous for the ordinary product topology.
+
+The distinction between separate and joint continuity is essential.  The
+general result is compatible with the accepted package's Hawaiian-earring
+obstruction: every quotient-topological fundamental group has the separate
+continuity laws, while the product-quotient condition needed for joint
+continuity can fail.
+
+## Finite-torus application
+
+For every `n`, coordinate winding classifies genuine compact-open loops in
+the finite torus `(Fin n → AddCircle 1)` modulo endpoint-fixed homotopy:
 
 ```text
 Path.Homotopic.Quotient (0 : (Fin n → AddCircle 1)) 0 ≃ₜ (Fin n → ℤ).
 ```
 
-The proof supplies coordinatewise standard representatives, proves their
-completeness using products of endpoint-fixed homotopies, establishes
-additivity under path concatenation, and derives the quotient-topological
-consequences above.  Winding is packaged as a continuous additive equivalence,
-and the transported addition on loop classes is proved equal to path-class
-concatenation.  The statement also covers `n = 0` and `n = 1` uniformly.
+The formalization constructs coordinatewise standard loops, proves winding
+completeness and additivity, proves the null class open, and applies the
+general criterion.  It obtains a discrete quotient, an open quotient map, a
+quotient square, and continuous concatenation and reversal.  Internally,
+winding is also packaged as a continuous additive equivalence, and the
+transported addition is proved equal to path-class concatenation.  Dimensions
+`0` and `1` are included uniformly.
 
-The reusable theorem in
-`ComputationalPaths/Path/Topology/ContinuousCompleteInvariant.lean` explains
-the positive mechanism: a continuous complete invariant into a discrete space
-forces a final quotient to be discrete.  This is the precise positive
-counterpart to the accepted package's Hawaiian-earring product-quotient
-obstruction.
+## Literature and novelty boundary
 
-The proposed comparison surface is:
+The mathematical facts that the quotient fundamental group is a
+quasitopological group, is homogeneous, and is discrete for familiar
+semilocally simply connected spaces are established in the literature.  The
+circle and finite-torus fundamental-group calculations are classical.  This
+package makes no novelty claim for those paper theorems.
 
-- `FollowupChallenge.lean` / `FollowupSolution.lean`;
+The contribution is a focused, kernel-checked Lean realization that connects
+the general quotient-topological mechanism to explicit compact-open winding
+classifiers and to the final-versus-ordinary product distinction of the
+accepted computational-path package.  Exact source relationships are recorded
+in `formalization-followup.yaml`.
+
+## Verification surface
+
+- `FollowupChallenge.lean` and `FollowupSolution.lean`;
 - `TopologicalComputationalPathsFollowup.main_result`;
 - `comparator-followup.json`;
+- `formalization-followup.yaml`;
 - `scripts/check-followup.sh`; and
 - `scripts/verify-comparator.sh comparator-followup.json`.
 
 The challenge contains one deliberate statement-side `sorry`.  The solution
-and all substantive modules contain none.
+and substantive modules contain none.
