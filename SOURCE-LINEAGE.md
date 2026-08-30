@@ -59,6 +59,13 @@ the research lineage and exact non-novelty boundary are recorded in
 `formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
 primary literature context.
 
+`ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean`
+adds direct compact-open/quotient proofs of continuous induced maps,
+homeomorphism invariance, path-based basepoint change, and binary-product
+preservation under the explicit product-quotient hypothesis.  These are
+formalized as structural properties of the established quasitopological
+fundamental group, not claimed as new paper theorems.
+
 `ComputationalPaths/Path/Topology/FiniteTorusWinding.lean` extends the earlier
 circle and two-torus validation to every finite dimension and connects its
 explicit winding proof to the general null-class-openness criterion.  This is

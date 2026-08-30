@@ -8,12 +8,19 @@ not on a new computation of the fundamental group of a torus.
 For the endpoint-fixed homotopy quotient of the compact-open based loop space,
 the formalization proves:
 
-1. reversal is continuous;
-2. concatenation is continuous in each variable separately;
-3. right translations are homeomorphisms, so the quotient is homogeneous;
-4. the quotient is discrete if and only if the null-homotopy class is open in
+1. every continuous map induces a continuous homomorphism, with formal
+   identity and composition laws;
+2. homeomorphisms induce continuous multiplicative equivalences;
+3. every path between basepoints induces a continuous multiplicative
+   equivalence between the corresponding quotient fundamental groups;
+4. binary products are preserved by a continuous multiplicative equivalence
+   whenever the product of the two loop projections is a quotient map;
+5. reversal is continuous;
+6. concatenation is continuous in each variable separately;
+7. right translations are homeomorphisms, so the quotient is homogeneous;
+8. the quotient is discrete if and only if the null-homotopy class is open in
    the based loop space; and
-5. under that exact criterion, every homotopy class is open, the quotient map
+9. under that exact criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
 
@@ -57,6 +64,7 @@ in `formalization-followup.yaml`.
 ## Verification surface
 
 - `FollowupChallenge.lean` and `FollowupSolution.lean`;
+- `ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean`;
 - `TopologicalComputationalPathsFollowup.main_result`;
 - `comparator-followup.json`;
 - `formalization-followup.yaml`;

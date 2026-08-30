@@ -7,11 +7,14 @@ import Mathlib.Topology.Maps.OpenQuotient
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
 
-First prove, for every pointed space, that the compact-open based-loop quotient
-is a quasitopological group: reversal and both one-variable translations are
+First prove that the compact-open based-loop quotient is functorial under
+continuous maps, invariant under homeomorphism and change of basepoint along
+a path, and preserves binary products whenever the product of the two loop
+projections is a quotient map.  For every pointed space, prove that it is a
+quasitopological group: reversal and both one-variable translations are
 continuous.  Prove the exact criterion that this quotient is discrete if and
 only if the null-homotopy class is open.  Derive open quotient projection,
-the product-quotient property, and joint continuity of multiplication in the
+the quotient-square property, and joint continuity of multiplication in the
 positive case.
 
 Then instantiate the criterion for every finite product of additive circles,
@@ -43,8 +46,58 @@ def nullHomotopyClass
     (X : Type u) [TopologicalSpace X] (x : X) : Set (GenericLoop X x) :=
   {γ | γ.Homotopic (_root_.Path.refl x)}
 
-/-- Space-independent theory of the quotient-topological fundamental group. -/
+/-- Functorial, basepoint-invariant, product-compatible theory of the
+quotient-topological fundamental group. -/
 structure QuotientTopologicalFundamentalGroupTheory where
+  quotient_map_continuous :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) (x : X),
+      Continuous
+        (fun q : GenericLoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.map q f)
+  quotient_map_id :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.map q (.id X) = q
+  quotient_map_comp :
+    ∀ (X Y Z : Type u)
+      [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace Z]
+      (f : C(X, Y)) (g : C(Y, Z)) (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.map q f) g =
+        _root_.Path.Homotopic.Quotient.map q (g.comp f)
+  quotient_homeomorph_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : X ≃ₜ Y) (x : X),
+      ∃ E : GenericLoopQuot X x ≃ₜ GenericLoopQuot Y (e x),
+        ∀ q : GenericLoopQuot X x,
+          E q = _root_.Path.Homotopic.Quotient.map q ⟨e, e.continuous⟩
+  quotient_basepoint_change :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      ∃ E : GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁,
+        ∀ q : GenericLoopQuot X x₀,
+          E q =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) q)
+              (Quotient.mk' p)
+  quotient_path_connected_basepoint_independent :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
+      (x₀ x₁ : X),
+      Nonempty (GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁)
+  quotient_product_preserved :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (x : X) (y : Y),
+      IsQuotientMap
+          (fun p : GenericLoop X x × GenericLoop Y y =>
+            ((Quotient.mk' p.1 : GenericLoopQuot X x),
+              (Quotient.mk' p.2 : GenericLoopQuot Y y))) →
+        ∃ E : (GenericLoopQuot X x × GenericLoopQuot Y y) ≃ₜ
+            GenericLoopQuot (X × Y) (x, y),
+          ∀ q : GenericLoopQuot X x × GenericLoopQuot Y y,
+            E q = _root_.Path.Homotopic.prod q.1 q.2
   quotient_symm_continuous :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       Continuous

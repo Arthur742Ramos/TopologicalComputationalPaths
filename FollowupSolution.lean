@@ -8,12 +8,13 @@ import ComputationalPaths
 /-!
 # Follow-up solution: quotient-topological fundamental groups
 
-The proof uses coordinatewise universal-cover winding.  A local zero-chart
-contraction proves winding locally constant on the compact-open circle-loop
-space.  Finite products then yield a continuous complete invariant, and the
-general discrete-classifier theorem upgrades the algebraic classification to
-a homeomorphism while forcing the quotient square and quotient operations to
-have the desired topology.
+The general proof descends compact-open postcomposition, path conjugation,
+and pointwise path products through quotient universal properties.  This
+gives continuous induced homomorphisms, homeomorphism and basepoint
+invariance, and a sharp product-preservation theorem.  The application uses
+coordinatewise universal-cover winding: a local zero-chart contraction makes
+winding locally constant, and finite products yield a continuous complete
+invariant and the discrete quotient consequences.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -37,11 +38,65 @@ noncomputable local instance genericLoopQuotTopologicalSpace
   TopologicalSpace.coinduced
     (Quotient.mk' : GenericLoop X x → GenericLoopQuot X x) inferInstance
 
+noncomputable local instance genericLoopQuotGroup
+    (X : Type u) [TopologicalSpace X] (x : X) :
+    Group (GenericLoopQuot X x) :=
+  inferInstanceAs (Group (FundamentalGroup X x))
+
 def nullHomotopyClass
     (X : Type u) [TopologicalSpace X] (x : X) : Set (GenericLoop X x) :=
   {γ | γ.Homotopic (_root_.Path.refl x)}
 
 structure QuotientTopologicalFundamentalGroupTheory where
+  quotient_map_continuous :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) (x : X),
+      Continuous
+        (fun q : GenericLoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.map q f)
+  quotient_map_id :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.map q (.id X) = q
+  quotient_map_comp :
+    ∀ (X Y Z : Type u)
+      [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace Z]
+      (f : C(X, Y)) (g : C(Y, Z)) (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.map q f) g =
+        _root_.Path.Homotopic.Quotient.map q (g.comp f)
+  quotient_homeomorph_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : X ≃ₜ Y) (x : X),
+      ∃ E : GenericLoopQuot X x ≃ₜ GenericLoopQuot Y (e x),
+        ∀ q : GenericLoopQuot X x,
+          E q = _root_.Path.Homotopic.Quotient.map q ⟨e, e.continuous⟩
+  quotient_basepoint_change :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      ∃ E : GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁,
+        ∀ q : GenericLoopQuot X x₀,
+          E q =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) q)
+              (Quotient.mk' p)
+  quotient_path_connected_basepoint_independent :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
+      (x₀ x₁ : X),
+      Nonempty (GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁)
+  quotient_product_preserved :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (x : X) (y : Y),
+      IsQuotientMap
+          (fun p : GenericLoop X x × GenericLoop Y y =>
+            ((Quotient.mk' p.1 : GenericLoopQuot X x),
+              (Quotient.mk' p.2 : GenericLoopQuot Y y))) →
+        ∃ E : (GenericLoopQuot X x × GenericLoopQuot Y y) ≃ₜ
+            GenericLoopQuot (X × Y) (x, y),
+          ∀ q : GenericLoopQuot X x × GenericLoopQuot Y y,
+            E q = _root_.Path.Homotopic.prod q.1 q.2
   quotient_symm_continuous :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       Continuous
@@ -148,6 +203,45 @@ theorem main_result :
       ∀ n : ℕ, Nonempty (FiniteTorusTopologicalClassification n) := by
   constructor
   · exact ⟨{
+      quotient_map_continuous :=
+        by
+          intro X Y _ _ f x
+          exact QuotientFundamentalGroup.continuous_quotientMap f x
+      quotient_map_id := by
+        intro X _ x q
+        exact QuotientFundamentalGroup.quotientMap_id x q
+      quotient_map_comp := by
+        intro X Y Z _ _ _ f g x q
+        exact QuotientFundamentalGroup.quotientMap_comp f g x q
+      quotient_homeomorph_invariant := by
+        intro X Y _ _ e x
+        refine ⟨
+          (QuotientFundamentalGroup.homeomorphInducedContinuousMulEquiv
+            e x).toHomeomorph,
+          ?_⟩
+        intro q
+        rfl
+      quotient_basepoint_change := by
+        intro X _ x₀ x₁ p
+        refine ⟨
+          (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+            p).toHomeomorph,
+          ?_⟩
+        exact QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply p
+      quotient_path_connected_basepoint_independent := by
+        intro X _ _ x₀ x₁
+        exact ⟨
+          (QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv
+            x₀ x₁).toHomeomorph⟩
+      quotient_product_preserved := by
+        intro X Y _ _ x y hprod
+        change IsQuotientMap
+          (QuotientFundamentalGroup.loopQuotientProdMap x y) at hprod
+        refine ⟨
+          QuotientFundamentalGroup.quotientProductHomeomorph x y hprod,
+          ?_⟩
+        intro q
+        rfl
       quotient_symm_continuous :=
         QuotientFundamentalGroup.continuous_quotientSymm
       quotient_trans_left_continuous :=
