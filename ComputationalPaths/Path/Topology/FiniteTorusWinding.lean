@@ -1,4 +1,5 @@
 import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
+import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
 import Mathlib.Topology.Homotopy.Product
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
 
@@ -197,6 +198,20 @@ theorem continuous_encode {n : ℕ} :
   apply Continuous.quotient_lift
   exact continuous_winding
 
+/-- The null-homotopy class is open in the compact-open finite-torus loop
+space.  This is the exact hypothesis in the general quotient-topological
+fundamental-group discreteness criterion. -/
+theorem isOpen_nullHomotopyClass (n : ℕ) :
+    IsOpen
+      (QuotientFundamentalGroup.nullHomotopyClass (Carrier n) (base n)) := by
+  have hopen :
+      IsOpen (winding ⁻¹' ({0} : Set (Fin n → ℤ))) :=
+    (isOpen_discrete _).preimage continuous_winding
+  convert hopen using 1
+  ext γ
+  change γ.Homotopic (_root_.Path.refl (base n)) ↔ winding γ = 0
+  rw [homotopic_iff_winding_eq, winding_identity]
+
 /-- Finite-torus winding as a continuous complete invariant. -/
 noncomputable def windingCompleteInvariant (n : ℕ) :
     ContinuousCompleteInvariant (Loop n) (LoopQuot n) (Fin n → ℤ) where
@@ -210,7 +225,8 @@ noncomputable def windingCompleteInvariant (n : ℕ) :
 /-- The finite-torus loop quotient is discrete. -/
 noncomputable instance loopQuotDiscreteTopology (n : ℕ) :
     DiscreteTopology (LoopQuot n) :=
-  (windingCompleteInvariant n).quotientDiscreteTopology
+  QuotientFundamentalGroup.quotientDiscreteTopology
+    (Carrier n) (base n) (isOpen_nullHomotopyClass n)
 
 /-- The quotient-topological fundamental group of `(S¹)ⁿ` is homeomorphic to
 the discrete integer lattice `ℤⁿ`. -/
@@ -229,12 +245,9 @@ noncomputable def loopQuotContinuousAddEquivIntVector (n : ℕ) :
 space. -/
 theorem isOpen_homotopyClass {n : ℕ} (γ : Loop n) :
     IsOpen {δ : Loop n | γ.Homotopic δ} := by
-  have hopen : IsOpen (winding ⁻¹' ({winding γ} : Set (Fin n → ℤ))) :=
-    (isOpen_discrete {winding γ}).preimage continuous_winding
-  convert hopen using 1
-  ext δ
-  simp only [Set.mem_setOf_eq, Set.mem_preimage, Set.mem_singleton_iff]
-  exact (homotopic_iff_winding_eq γ δ).trans eq_comm
+  exact
+    QuotientFundamentalGroup.isOpen_homotopyClass_of_isOpen_nullHomotopyClass
+      (Carrier n) (base n) (isOpen_nullHomotopyClass n) γ
 
 /-- Finite-torus loop homotopy as a Mathlib discrete quotient relation. -/
 noncomputable def loopHomotopyDiscreteQuotient (n : ℕ) :
@@ -247,23 +260,22 @@ theorem loopQuotientProd_isQuotientMap (n : ℕ) :
     IsQuotientMap
       (fun p : Loop n × Loop n =>
         ((Quotient.mk' p.1 : LoopQuot n), (Quotient.mk' p.2 : LoopQuot n))) := by
-  change IsQuotientMap
-    (Prod.map (windingCompleteInvariant n).quotient
-      (windingCompleteInvariant n).quotient)
-  exact (windingCompleteInvariant n).quotientProd_isQuotientMap
+  exact QuotientFundamentalGroup.loopQuotientProd_isQuotientMap
+    (Carrier n) (base n) (isOpen_nullHomotopyClass n)
 
 /-- Loop-class composition is continuous for the ordinary product topology. -/
 theorem continuous_quotientTrans (n : ℕ) :
     Continuous
       (fun p : LoopQuot n × LoopQuot n =>
         _root_.Path.Homotopic.Quotient.trans p.1 p.2) :=
-  continuous_of_discreteTopology
+  QuotientFundamentalGroup.continuous_quotientTrans
+    (Carrier n) (base n) (isOpen_nullHomotopyClass n)
 
 /-- Loop-class reversal is continuous. -/
 theorem continuous_quotientSymm (n : ℕ) :
     Continuous
       (_root_.Path.Homotopic.Quotient.symm : LoopQuot n → LoopQuot n) :=
-  continuous_of_discreteTopology
+  QuotientFundamentalGroup.continuous_quotientSymm (Carrier n) (base n)
 
 end FiniteTorusWinding
 

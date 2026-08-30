@@ -48,3 +48,19 @@ at that same parent snapshot; its Fabel inputs are bibliographic background,
 not hidden proof dependencies.  The observable based-fiber layer is a new
 focused formalization in this repository, with its universal carrier and
 topology made explicit rather than attributed to that source file.
+
+## Follow-up lineage
+
+`ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean` is new to the
+focused follow-up.  It is proved directly against Mathlib's compact-open path
+space, endpoint-fixed homotopy quotient, and fundamental-group algebra.  Its
+quasitopological-group and homogeneity results are established mathematics;
+the research lineage and exact non-novelty boundary are recorded in
+`formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
+primary literature context.
+
+`ComputationalPaths/Path/Topology/FiniteTorusWinding.lean` extends the earlier
+circle and two-torus validation to every finite dimension and connects its
+explicit winding proof to the general null-class-openness criterion.  This is
+an independently checked formalization of classical topology, not a claim of
+a new fundamental-group computation.

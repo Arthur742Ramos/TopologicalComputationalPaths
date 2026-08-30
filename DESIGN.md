@@ -108,6 +108,27 @@ hypotheses, not silently reproved claims.
 The automatic final-domain groupoid laws and the generic adapter remain
 supporting material.
 
+## Follow-up package
+
+The follow-up has its own non-destructive Comparator and metadata surface.  It
+does not present the classical identity `π₁(Tⁿ) ≅ ℤⁿ` as a new result.  Its
+publication-facing center is the arbitrary-space quotient-topological
+fundamental-group theory in
+`ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean`:
+
+- inversion and both one-variable translations are continuous;
+- translation homeomorphisms make the quotient homogeneous;
+- discreteness is equivalent to openness of the null-homotopy class; and
+- in the discrete case, the projection is open, its square is quotient, and
+  multiplication is jointly continuous.
+
+The all-finite-dimensional torus theorem is the concrete positive family.  It
+proves the null-class hypothesis by explicit winding and supplies standard
+representatives, completeness, additivity, and a continuous integer-lattice
+classifier.  This architecture gives a direct positive counterpart to the
+accepted package's failure of the product-quotient condition without erasing
+the crucial distinction between separate and joint continuity.
+
 ## Non-goals for the first submission
 
 The initial package will not claim that:

@@ -78,22 +78,34 @@ application of the comparison theorem.
 ## Follow-up theorem package
 
 The repository now also contains a separate, non-destructive follow-up
-surface.  It upgrades the genuine circle and torus classifications to
-homeomorphisms for the actual final quotient topology and proves that their
-homotopy classes are open, their quotient squares are quotient maps, and
-composition and reversal of loop classes are continuous.  It then proves the
-same full certificate uniformly for every finite-dimensional torus:
+surface.  Its central theorem applies to the compact-open based-loop quotient
+of every pointed topological space.  It proves continuous reversal, separate
+continuity of concatenation, explicit translation homeomorphisms and
+homogeneity, and the exact equivalence
+
+```text
+quotient fundamental group discrete ↔ null-homotopy class open.
+```
+
+Under that criterion the loop projection is open, its square is a quotient
+map, every homotopy class is open, and concatenation is jointly continuous.
+This separates the always-valid quasitopological-group laws from the stronger
+joint continuity that fails in the accepted Hawaiian-earring application.
+
+The concrete application proves the full certificate uniformly for every
+finite-dimensional torus:
 
 ```text
 π₁((AddCircle 1)^n, 0) ≃ₜ (Fin n → ℤ).
 ```
 
 The proof is constructive at the representative level: coordinate winding,
-explicit standard loops, additivity, and endpoint-fixed homotopy completeness
-are all checked.  See [`FOLLOWUP.md`](FOLLOWUP.md),
-`FollowupChallenge.lean`, `FollowupSolution.lean`, and
-`comparator-followup.json`.  This follow-up does not alter the already accepted
-`Challenge.lean` / `Solution.lean` comparison surface.
+explicit standard loops, additivity, endpoint-fixed homotopy completeness,
+and openness of the null class are all checked.  See
+[`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
+`FollowupSolution.lean`, `formalization-followup.yaml`, and
+`comparator-followup.json`.  This follow-up does not alter the already
+accepted `Challenge.lean` / `Solution.lean` comparison surface.
 
 ## Source lineage
 
