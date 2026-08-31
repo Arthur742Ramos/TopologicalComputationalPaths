@@ -31,7 +31,8 @@ semilocal consequence and the all-basepoint integer-lattice classifier from
 the basepoint-transport theorem.  The general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
-concatenated paths.
+concatenated paths.  It also records preservation of path-class concatenation
+under continuous maps and naturality of basepoint transport.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -85,6 +86,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
       _root_.Path.Homotopic.Quotient.map
           (_root_.Path.Homotopic.Quotient.map q f) g =
         _root_.Path.Homotopic.Quotient.map q (g.comp f)
+  quotient_map_trans :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) {x₀ x₁ x₂ : X}
+      (P : _root_.Path.Homotopic.Quotient x₀ x₁)
+      (Q : _root_.Path.Homotopic.Quotient x₁ x₂),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.trans P Q) f =
+        _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.map P f)
+          (_root_.Path.Homotopic.Quotient.map Q f)
   quotient_homeomorph_invariant :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (e : X ≃ₜ Y) (x : X),
@@ -162,6 +173,20 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (_root_.Path.Homotopic.Quotient.trans
               (Quotient.mk' (_root_.Path.refl x)) z)
             (Quotient.mk' (_root_.Path.refl x)) = z
+  quotient_basepoint_change_naturality :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) {x₀ x₁ : X} (p : _root_.Path x₀ x₁)
+      (q : GenericLoopQuot X x₀),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) q)
+            (Quotient.mk' p)) f =
+        _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans
+            (Quotient.mk' (p.map f.continuous).symm)
+            (_root_.Path.Homotopic.Quotient.map q f))
+          (Quotient.mk' (p.map f.continuous))
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),

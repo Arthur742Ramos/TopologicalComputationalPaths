@@ -6,9 +6,10 @@ project:
   description: >-
     A Lean formalization of the quotient-topological fundamental group of an
     arbitrary pointed space.  It proves continuous induced homomorphisms with
-    identity and composition laws, invariance under homotopy equivalence and
-    change of basepoint along a path (including path-homotopy independence and
-    composition coherence, and the identity law for constant-path transport),
+    identity and composition laws, preservation of path-class concatenation,
+    invariance under homotopy equivalence and change of basepoint along a path
+    (including path-homotopy independence, identity and composition coherence,
+    and naturality under continuous maps),
     and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
@@ -120,8 +121,8 @@ status:
     pointed spaces together with the complete finite-torus family.  The
     general portion proves functoriality under continuous maps, coherence with
     identity and composition, homotopy-equivalence invariance, path-based
-    basepoint change, path-homotopy coherence, identity coherence, and
-    composition coherence, and
+    basepoint change, path-homotopy coherence, identity coherence, composition
+    coherence, and continuous-map naturality, and
     conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
@@ -201,6 +202,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Continuous maps induce continuous fundamental-group homomorphisms, coherently with identity and composition."
+    - source: "Quotient path-composition functoriality"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientMap_trans"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Continuous maps preserve concatenation of endpoint-fixed path homotopy classes."
     - source: "Homotopy-equivalence and basepoint invariance"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.homotopyEquivInducedContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
@@ -221,6 +227,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Transport along a constant path is the identity continuous multiplicative equivalence."
+    - source: "Naturality of basepoint transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChange_quotientMap_naturality"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Induced quotient maps commute with basepoint transport along mapped paths."
     - source: "Discrete quotient transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_homotopyEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

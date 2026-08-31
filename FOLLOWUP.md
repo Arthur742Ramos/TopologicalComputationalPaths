@@ -43,6 +43,10 @@ the formalization proves:
    transport system on the fundamental-groupoid basepoints.
 18. transport along a constant path is the identity equivalence, completing
     the identity/composition coherence laws for basepoint transport.
+19. continuous maps preserve concatenation of endpoint-fixed path classes;
+    and
+20. basepoint transport is natural for continuous maps, so induced quotient
+    maps commute with transport along mapped paths.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -100,7 +104,10 @@ representative whenever two paths are endpoint-fixed homotopic.
 They satisfy the corresponding composition law for concatenated paths, so
 the transport is coherent as well as homotopy-invariant.  Transport along a
 constant path is separately identified with the identity equivalence, so the
-coherence package has both its unit and composition laws explicitly.
+coherence package has both its unit and composition laws explicitly.  Finally,
+quotient functoriality is recorded at the path-composition level, and the
+basepoint-change equivalences satisfy the resulting naturality square for
+every continuous map.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

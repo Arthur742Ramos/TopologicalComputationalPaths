@@ -12,7 +12,9 @@ pointwise construction to a functorial invariant. Continuous maps induce
 continuous homomorphisms, homeomorphisms induce continuous multiplicative
 equivalences, and paths between basepoints induce continuous multiplicative
 equivalences between the corresponding quotient fundamental groups.
-Consequently, quotient discreteness is invariant under both homotopy
+Quotient path composition is preserved by continuous maps, and basepoint
+transport is natural for those induced maps.  Consequently, quotient
+discreteness is invariant under both homotopy
 equivalence and path-based basepoint change.  The boundary between separate
 and joint multiplication continuity is homotopy-invariant as well.
 
@@ -98,6 +100,26 @@ theorem quotientMap_comp {Z : Type*} [TopologicalSpace Z]
         (_root_.Path.Homotopic.Quotient.map q f) g =
       _root_.Path.Homotopic.Quotient.map q (g.comp f) :=
   _root_.Path.Homotopic.Quotient.map_comp.symm
+
+/-- Quotient functoriality preserves concatenation of path classes. -/
+theorem quotientMap_trans {x₀ x₁ x₂ : X}
+    (f : C(X, Y))
+    (P : _root_.Path.Homotopic.Quotient x₀ x₁)
+    (Q : _root_.Path.Homotopic.Quotient x₁ x₂) :
+    _root_.Path.Homotopic.Quotient.map
+        (_root_.Path.Homotopic.Quotient.trans P Q) f =
+      _root_.Path.Homotopic.Quotient.trans
+        (_root_.Path.Homotopic.Quotient.map P f)
+        (_root_.Path.Homotopic.Quotient.map Q f) := by
+  induction P using _root_.Path.Homotopic.Quotient.ind with
+  | mk P =>
+      induction Q using _root_.Path.Homotopic.Quotient.ind with
+      | mk Q =>
+          conv_lhs =>
+            rw [← _root_.Path.Homotopic.Quotient.mk_trans]
+            rw [← _root_.Path.Homotopic.Quotient.mk_map]
+          rw [_root_.Path.map_trans]
+          rfl
 
 /-- The quotient-topological fundamental group is invariant under pointed
 homeomorphism, as a continuous multiplicative equivalence. -/
@@ -253,6 +275,20 @@ theorem basepointChangeContinuousMulEquiv_refl (x : X) :
   ext r
   rw [basepointChangeContinuousMulEquiv_apply]
   simp
+
+/-- Basepoint transport is natural for continuous maps: mapping a conjugated
+loop class agrees with conjugating the mapped class along the mapped path. -/
+theorem basepointChange_quotientMap_naturality
+    {x₀ x₁ : X} (p : _root_.Path x₀ x₁) (f : C(X, Y))
+    (q : LoopQuot X x₀) :
+    _root_.Path.Homotopic.Quotient.map
+        (basepointChangeContinuousMulEquiv p q) f =
+      basepointChangeContinuousMulEquiv (p.map f.continuous)
+        (_root_.Path.Homotopic.Quotient.map q f) := by
+  rw [basepointChangeContinuousMulEquiv_apply,
+    basepointChangeContinuousMulEquiv_apply]
+  rw [quotientMap_trans, quotientMap_trans]
+  simp only [← _root_.Path.Homotopic.Quotient.mk_map, _root_.Path.map_symm]
 
 /-- Discreteness of the quotient topology is independent of the chosen
 basepoint along a path. -/

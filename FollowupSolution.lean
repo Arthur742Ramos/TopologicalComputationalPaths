@@ -26,6 +26,8 @@ globally, together with a common integer-lattice homeomorphism for every
 based quotient.  Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
+The certificate also exposes preservation of path-class concatenation under
+continuous maps and the associated naturality square for basepoint transport.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -77,6 +79,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
       _root_.Path.Homotopic.Quotient.map
           (_root_.Path.Homotopic.Quotient.map q f) g =
         _root_.Path.Homotopic.Quotient.map q (g.comp f)
+  quotient_map_trans :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) {x₀ x₁ x₂ : X}
+      (P : _root_.Path.Homotopic.Quotient x₀ x₁)
+      (Q : _root_.Path.Homotopic.Quotient x₁ x₂),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.trans P Q) f =
+        _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.map P f)
+          (_root_.Path.Homotopic.Quotient.map Q f)
   quotient_homeomorph_invariant :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (e : X ≃ₜ Y) (x : X),
@@ -154,6 +166,20 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (_root_.Path.Homotopic.Quotient.trans
               (Quotient.mk' (_root_.Path.refl x)) z)
             (Quotient.mk' (_root_.Path.refl x)) = z
+  quotient_basepoint_change_naturality :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (f : C(X, Y)) {x₀ x₁ : X} (p : _root_.Path x₀ x₁)
+      (q : GenericLoopQuot X x₀),
+      _root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) q)
+            (Quotient.mk' p)) f =
+        _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans
+            (Quotient.mk' (p.map f.continuous).symm)
+            (_root_.Path.Homotopic.Quotient.map q f))
+          (Quotient.mk' (p.map f.continuous))
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
@@ -356,6 +382,9 @@ theorem main_result :
       quotient_map_comp := by
         intro X Y Z _ _ _ f g x q
         exact QuotientFundamentalGroup.quotientMap_comp f g x q
+      quotient_map_trans := by
+        intro X Y _ _ f x₀ x₁ x₂ P Q
+        exact QuotientFundamentalGroup.quotientMap_trans f P Q
       quotient_homeomorph_invariant := by
         intro X Y _ _ e x
         refine ⟨
@@ -417,6 +446,14 @@ theorem main_result :
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_refl x
         have hz := congrArg (fun E => E z) he
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
+      quotient_basepoint_change_naturality := by
+        intro X Y _ _ f x₀ x₁ p q
+        have hz :=
+          QuotientFundamentalGroup.basepointChange_quotientMap_naturality
+            p f q
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
       quotient_path_connected_basepoint_independent := by
         intro X _ _ x₀ x₁

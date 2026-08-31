@@ -107,6 +107,8 @@ concatenated paths, with transport along a constant path identified with the
 identity equivalence.  It also shows that joint continuity of quotient
 concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
+Continuous maps preserve quotient path concatenation, and the basepoint-change
+maps form a natural square with those induced quotient maps.
 
 The strengthened package also proves the exact T1 criterion by closedness of
 the null class (equivalently, of every based-loop homotopy class), both
