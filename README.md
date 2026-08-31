@@ -226,6 +226,10 @@ chosen basepoint, with explicit iff statements for image membership, the
 identity fiber, injectivity, and surjectivity.  The arbitrary-basepoint
 homomorphisms also satisfy typed contravariant composition and identity laws,
 with their endpoint casts induced explicitly by matrix-map coherence.
+With an explicit two-sided integer-matrix inverse, these maps upgrade to a
+continuous additive lattice equivalence, a torus homeomorphism, and a quotient
+homeomorphism and continuous additive equivalence for the transported loop
+groups.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

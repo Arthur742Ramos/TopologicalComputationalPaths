@@ -145,6 +145,10 @@ the formalization proves:
 60. arbitrary-basepoint matrix homomorphisms satisfy contravariant composition
     and identity laws, with the endpoint equalities induced by map coherence
     transported explicitly at the quotient level.
+61. an explicit two-sided integer-matrix inverse is upgraded to a continuous
+    additive equivalence of winding lattices, a torus homeomorphism, and both
+    a quotient homeomorphism and a continuous additive equivalence of the
+    transported loop-class groups.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -261,6 +265,11 @@ retains the same exactness guarantees as the canonical quotient map.
 The arbitrary-basepoint homomorphisms also satisfy contravariant composition
 and identity pointwise, with the endpoint equalities induced by
 `matrixMap_comp` and `matrixMap_id` transported explicitly.
+When a matrix is supplied with an explicit two-sided integer inverse, the same
+coherence produces equivalences throughout: the lattice action is a continuous
+additive equivalence, the torus map is a homeomorphism, and the canonical
+quotient map is a homeomorphism and continuous additive equivalence for the
+transported loop-class groups.
 
 ## Literature and novelty boundary
 

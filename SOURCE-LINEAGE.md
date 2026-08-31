@@ -142,6 +142,10 @@ chosen basepoint, each as an explicit iff theorem for the arbitrary-basepoint
 quotient homomorphism.  The arbitrary-basepoint homomorphisms also satisfy
 typed contravariant composition and identity laws, with endpoint casts induced
 by the matrix-map coherence equations.
+When an explicit two-sided integer inverse is available, the same construction
+also packages a continuous additive equivalence of winding lattices, a torus
+homeomorphism, and quotient homeomorphism and continuous additive equivalence
+for the transported loop groups.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

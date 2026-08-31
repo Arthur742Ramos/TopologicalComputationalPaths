@@ -55,6 +55,10 @@ injectivity, and surjectivity criteria to arbitrary basepoints.
 The arbitrary-basepoint matrix homomorphisms satisfy typed composition and
 identity laws as well, with the endpoint equalities induced by matrix-map
 coherence transported explicitly.
+An explicit two-sided integer-matrix inverse is upgraded at every level to an
+additive lattice equivalence, a torus homeomorphism, and a quotient
+homeomorphism and continuous additive equivalence for the transported loop
+groups.
 -/
 
 namespace ComputationalPaths
@@ -1573,6 +1577,69 @@ lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
   funext j
   simp [matrixMap, base]
 
+/-! A matrix with an explicit two-sided integer inverse acts by equivalences at
+every level of the construction.  Keeping the inverse equations as hypotheses
+avoids importing determinant machinery and works uniformly for rectangular
+types that happen to be isomorphic. -/
+
+/-- An explicit two-sided matrix inverse yields an additive equivalence of
+winding lattices. -/
+noncomputable def matrixActionEquivOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    (Fin n → ℤ) ≃+ (Fin m → ℤ) where
+  toFun := matrixAction A
+  invFun := matrixAction B
+  left_inv := by
+    intro z
+    have hcomp := congrArg (fun F : (Fin n → ℤ) →+ (Fin n → ℤ) => F z)
+      (matrixAction_comp_hom A B)
+    rw [hAB, matrixAction_id_hom] at hcomp
+    exact hcomp.symm
+  right_inv := by
+    intro z
+    have hcomp := congrArg (fun F : (Fin m → ℤ) →+ (Fin m → ℤ) => F z)
+      (matrixAction_comp_hom B A)
+    rw [hBA, matrixAction_id_hom] at hcomp
+    exact hcomp.symm
+  map_add' := (matrixAction A).map_add
+
+/-- The inverse matrix action is continuous for the product topologies. -/
+noncomputable def matrixActionContinuousEquivOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    (Fin n → ℤ) ≃ₜ+ (Fin m → ℤ) where
+  toEquiv := matrixActionEquivOfInverse A B hAB hBA
+  map_add' := (matrixAction A).map_add
+  continuous_toFun := (matrixActionContinuous A).continuous_toFun
+  continuous_invFun := (matrixActionContinuous B).continuous_toFun
+
+/-- An explicit two-sided matrix inverse yields a homeomorphism of finite
+tori. -/
+noncomputable def matrixMapHomeomorphOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    Carrier n ≃ₜ Carrier m where
+  toFun := matrixMap A
+  invFun := matrixMap B
+  left_inv := by
+    intro x
+    have hcomp := congrArg (fun F : C(Carrier n, Carrier n) => F x)
+      (matrixMap_comp A B)
+    rw [ContinuousMap.comp_apply, hAB, matrixMap_id] at hcomp
+    exact hcomp
+  right_inv := by
+    intro x
+    have hcomp := congrArg (fun F : C(Carrier m, Carrier m) => F x)
+      (matrixMap_comp B A)
+    rw [ContinuousMap.comp_apply, hBA, matrixMap_id] at hcomp
+    exact hcomp
+  continuous_toFun := (matrixMap A).continuous_toFun
+  continuous_invFun := (matrixMap B).continuous_toFun
+
 /-- Basepoint transport is stable under changing the endpoint types by an
 explicit equality.  The quotient cast on the loop class records the same
 change of basepoint on the source side. -/
@@ -2146,6 +2213,49 @@ lemma matrixMapQuotientMap_map_add {n m : ℕ}
   rw [hxy, hmap, encode_matrixMapQuotientMap,
     encode_matrixMapQuotientMap]
   exact (matrixAction A).map_add _ _
+
+/-- The quotient action of an explicit two-sided matrix inverse is an
+equivalence of based finite-torus loop classes. -/
+noncomputable def matrixMapQuotientEquivOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    LoopQuot n ≃ LoopQuot m where
+  toFun := matrixMapQuotientMap A
+  invFun := matrixMapQuotientMap B
+  left_inv := by
+    intro q
+    have hcomp := matrixMapQuotientMap_comp A B q
+    rw [hAB, matrixMapQuotientMap_id] at hcomp
+    exact hcomp
+  right_inv := by
+    intro q
+    have hcomp := matrixMapQuotientMap_comp B A q
+    rw [hBA, matrixMapQuotientMap_id] at hcomp
+    exact hcomp
+
+/-- The quotient equivalence from an explicit matrix inverse is a
+homeomorphism for the discrete quotient topologies. -/
+noncomputable def matrixMapQuotientHomeomorphOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    LoopQuot n ≃ₜ LoopQuot m where
+  toEquiv := matrixMapQuotientEquivOfInverse A B hAB hBA
+  continuous_toFun := continuous_of_discreteTopology
+  continuous_invFun := continuous_of_discreteTopology
+
+/-- The inverse quotient action is a continuous additive equivalence for the
+transported winding-group structures. -/
+noncomputable def matrixMapQuotientContinuousAddEquivOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m) :
+    LoopQuot n ≃ₜ+ LoopQuot m where
+  toEquiv := matrixMapQuotientEquivOfInverse A B hAB hBA
+  map_add' := matrixMapQuotientMap_map_add A
+  continuous_toFun := continuous_of_discreteTopology
+  continuous_invFun := continuous_of_discreteTopology
 
 noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     (A : Fin m → Fin n → ℤ) : LoopQuot n →+ LoopQuot m where

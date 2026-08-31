@@ -208,6 +208,10 @@ arbitrary-basepoint quotient homomorphisms, with each criterion exposed as an
 explicit iff theorem.  Their typed contravariant composition and identity laws
 are also proved pointwise, using explicit endpoint casts induced by
 `matrixMap_comp` and `matrixMap_id`.
+Given an explicit two-sided integer-matrix inverse, the interface upgrades to
+a continuous additive lattice equivalence, a torus homeomorphism, and a
+quotient homeomorphism and continuous additive equivalence for the transported
+loop groups.
 
 ## Non-goals for the first submission
 
