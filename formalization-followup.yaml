@@ -32,7 +32,8 @@ project:
     commutative at every torus basepoint.  In an abelian target quotient,
     basepoint transport is independent of the chosen path even without an
     endpoint-fixed homotopy between paths, yielding a canonical path-based
-    finite-torus lattice classifier.
+    finite-torus lattice classifier.  More generally, equality of transports
+    follows whenever the relative loop is central in the target quotient.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -155,7 +156,8 @@ status:
     Basepoint transport then proves all-basepoint discreteness, a common
     lattice model, and semilocal simple connectivity for every finite torus.
     In the abelian target case it also proves that the lattice classifier built
-    along any explicit basepoint path is independent of that path.
+    along any explicit basepoint path is independent of that path.  The more
+    precise general statement assumes only centrality of the relative loop.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -203,7 +205,8 @@ fidelity:
     homotopy-invariant quasitopological-group mechanism, sharp indexed-product
     boundary, separation and covering consequences, the multiplicative
     integer-lattice/abelian finite-torus refinement, path-choice independence
-    of transport in abelian targets, and their integration
+    of transport in abelian targets, the sharper relative-centrality criterion,
+    and their integration
     with the computational-path topology comparison.  No external
     Hawaiian-earring theorem is reproved; the accepted conditional facts are
     instantiated in a new generic sharpness theorem.
@@ -245,6 +248,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "When the target quotient group is abelian, basepoint transport is independent of the chosen path even without a homotopy between paths."
+    - source: "Relative-centrality criterion for basepoint transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_relative_comm"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Two path transports agree when the relative loop p⁻¹·q commutes with every target loop; the global abelian statement is a corollary."
     - source: "Composition coherence of basepoint transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_trans"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

@@ -48,9 +48,10 @@ path-connected spaces, and locally path-connected path-connected spaces admit
 a one-basepoint semilocal criterion.
 It also records homotopy and path invariance of the T1 separation boundary,
 its all-basepoint reduction on path-connected spaces, and homotopy invariance
-of that global T1 property.  Finally, in an abelian target quotient, it
-records that basepoint transport is independent of the chosen path even
-without an endpoint-fixed homotopy between the paths.
+of that global T1 property.  Finally, it records the sharper central-relative
+loop criterion for equality of two transports, and its abelian-target
+corollary: in an abelian target quotient, transport is independent of the
+chosen path even without an endpoint-fixed homotopy between the paths.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -214,6 +215,25 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p q : _root_.Path x₀ x₁),
       p.Homotopic q →
+        ∀ z : GenericLoopQuot X x₀,
+          _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) z)
+              (Quotient.mk' p) =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' q.symm) z)
+              (Quotient.mk' q)
+  quotient_basepoint_change_relative_comm :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p q : _root_.Path x₀ x₁),
+      (∀ b : GenericLoopQuot X x₁,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) (Quotient.mk' q)) b =
+          _root_.Path.Homotopic.Quotient.trans b
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) (Quotient.mk' q))) →
         ∀ z : GenericLoopQuot X x₀,
           _root_.Path.Homotopic.Quotient.trans
               (_root_.Path.Homotopic.Quotient.trans

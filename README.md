@@ -109,7 +109,8 @@ concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
 If the target quotient group is abelian, the transport equivalence is in fact
 independent of the chosen path even without an endpoint-fixed homotopy between
-the paths.
+the paths.  The sharper statement only requires the relative loop between two
+paths to be central in the target quotient.
 Continuous maps preserve quotient path concatenation, and the basepoint-change
 maps form a natural square with those induced quotient maps.
 For homotopic continuous maps, the induced quotient maps are related by the

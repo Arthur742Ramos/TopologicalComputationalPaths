@@ -137,8 +137,9 @@ counterpart to the accepted package's failure of the product-quotient
 condition without erasing the crucial distinction between separate and joint
 continuity.  The generic transport layer also proves that an abelian target
 quotient makes basepoint transport independent of the chosen path, even in the
-absence of a homotopy between paths; the finite-torus classifier uses this to
-be canonical at each basepoint.
+absence of a homotopy between paths.  More precisely, it isolates centrality
+of the relative loop as the exact sufficient condition; the finite-torus
+classifier uses the abelian corollary to be canonical at each basepoint.
 
 ## Non-goals for the first submission
 

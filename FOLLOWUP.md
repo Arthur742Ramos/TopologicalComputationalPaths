@@ -70,6 +70,8 @@ the formalization proves:
     invariant between path-connected spaces.
 31. if the target quotient group is abelian, basepoint transport is independent
     of the chosen path even without an endpoint-fixed homotopy between paths.
+32. more generally, two transports agree whenever their relative loop is
+    central in the target quotient group.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -137,6 +139,9 @@ coherence package has both its unit and composition laws explicitly.  Finally,
 when the target quotient is abelian, the path-independence statement no longer
 requires a homotopy between the paths; this is the mechanism that makes the
 finite-torus lattice classifier canonical at each basepoint.
+The formal proof actually uses the sharper relative-centrality hypothesis,
+so the abelian result is a corollary rather than the limit of the transport
+argument.
 Quotient functoriality is recorded at the path-composition level, and the
 basepoint-change equivalences satisfy the resulting naturality square for
 every continuous map.

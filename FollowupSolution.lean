@@ -35,7 +35,8 @@ It also exposes the pointed conjugacy relation for homotopic maps.  The
 topological-group boundary is likewise transported between any two basepoints
 joined by a path.  A homotopy that fixes the chosen basepoint throughout
 therefore gives equal induced based homomorphisms after endpoint casting.
-In an abelian target quotient, the same transport is independent of the
+More generally, the relative loop criterion identifies when two transports
+agree; in an abelian target quotient, the same transport is independent of the
 chosen path even when no endpoint-fixed homotopy between the paths is given.
 On a path-connected space, the joint-continuity boundary can consequently be
 checked at one basepoint or uniformly at all basepoints.  Discreteness and
@@ -206,6 +207,25 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p q : _root_.Path x₀ x₁),
       p.Homotopic q →
+        ∀ z : GenericLoopQuot X x₀,
+          _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) z)
+              (Quotient.mk' p) =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' q.symm) z)
+              (Quotient.mk' q)
+  quotient_basepoint_change_relative_comm :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p q : _root_.Path x₀ x₁),
+      (∀ b : GenericLoopQuot X x₁,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) (Quotient.mk' q)) b =
+          _root_.Path.Homotopic.Quotient.trans b
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm) (Quotient.mk' q))) →
         ∀ z : GenericLoopQuot X x₀,
           _root_.Path.Homotopic.Quotient.trans
               (_root_.Path.Homotopic.Quotient.trans
@@ -596,6 +616,15 @@ theorem main_result :
         have he :=
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_homotopic
             p q h
+        have hz := congrArg (fun E => E z) he
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
+      quotient_basepoint_change_relative_comm := by
+        intro X _ x₀ x₁ p q hcentral z
+        have he :=
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_relative_comm
+            p q hcentral
         have hz := congrArg (fun E => E z) he
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz

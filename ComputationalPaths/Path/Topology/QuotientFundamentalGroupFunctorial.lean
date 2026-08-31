@@ -21,8 +21,10 @@ Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
 When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
-When the target quotient group is abelian, basepoint transport is independent
-of the chosen path even without an endpoint-fixed homotopy between paths.
+More generally, two paths give the same transport whenever their relative loop
+is central in the target quotient.  When the target quotient group is abelian,
+basepoint transport is therefore independent of the chosen path even without
+an endpoint-fixed homotopy between paths.
 On a path-connected space, joint continuity at one basepoint is therefore
 equivalent to joint continuity at every basepoint; the same one-point test
 holds for discreteness, T1 separation, and the genuine topological-group
@@ -262,25 +264,25 @@ theorem basepointChangeContinuousMulEquiv_eq_of_homotopic
   · exact Quotient.sound h.symm₂
   · exact Quotient.sound h
 
-/-! If the target quotient group is abelian, the conjugation used for
-basepoint change is independent of the chosen path, even when the paths are
-not endpoint-fixed homotopic. -/
+/-! Basepoint conjugation only depends on the relative loop being central.
+The abelian-target statement below is the useful global corollary. -/
 
-/-- In an abelian target, all paths between two fixed basepoints induce the
-same continuous multiplicative basepoint-change equivalence. -/
-theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
+/-- If the relative loop `p⁻¹ · q` commutes with every target loop, then all
+paths `p` and `q` between the same basepoints induce the same transport. -/
+theorem basepointChangeContinuousMulEquiv_eq_of_relative_comm
     {x₀ x₁ : X} (p q : _root_.Path x₀ x₁)
-    (hcomm : ∀ a b : LoopQuot X x₁, a * b = b * a) :
+    (hcentral :
+      ∀ b : LoopQuot X x₁,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.mk p.symm)
+              (_root_.Path.Homotopic.Quotient.mk q)) b =
+          _root_.Path.Homotopic.Quotient.trans b
+            (_root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.mk p.symm)
+              (_root_.Path.Homotopic.Quotient.mk q))) :
     basepointChangeContinuousMulEquiv p =
       basepointChangeContinuousMulEquiv q := by
-  have htrans : ∀ a b : LoopQuot X x₁,
-      _root_.Path.Homotopic.Quotient.trans a b =
-        _root_.Path.Homotopic.Quotient.trans b a := by
-    intro a b
-    have hab := hcomm b a
-    change _root_.Path.Homotopic.Quotient.trans a b =
-      _root_.Path.Homotopic.Quotient.trans b a at hab
-    exact hab
   ext r
   rw [basepointChangeContinuousMulEquiv_apply,
     basepointChangeContinuousMulEquiv_apply]
@@ -291,6 +293,11 @@ theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
     (_root_.Path.Homotopic.Quotient.trans Q.symm R) Q
   let D := _root_.Path.Homotopic.Quotient.trans P.symm Q
   let C := _root_.Path.Homotopic.Quotient.trans Q.symm P
+  have htrans :
+      _root_.Path.Homotopic.Quotient.trans D B =
+        _root_.Path.Homotopic.Quotient.trans B D := by
+    have hDB := hcentral B
+    simpa [D] using hDB
   have hconj :
       _root_.Path.Homotopic.Quotient.trans D
           (_root_.Path.Homotopic.Quotient.trans B C) =
@@ -322,7 +329,7 @@ theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
       rw [← _root_.Path.Homotopic.Quotient.trans_assoc]
     _ = _root_.Path.Homotopic.Quotient.trans
           (_root_.Path.Homotopic.Quotient.trans B D) C := by
-      rw [htrans D B]
+      rw [htrans]
     _ = _root_.Path.Homotopic.Quotient.trans B
           (_root_.Path.Homotopic.Quotient.trans D C) := by
       rw [_root_.Path.Homotopic.Quotient.trans_assoc]
@@ -339,6 +346,32 @@ theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
           _root_.Path.Homotopic.Quotient.symm_trans]
       rw [hcancel, _root_.Path.Homotopic.Quotient.trans_refl]
       rfl
+
+/-! If the target quotient group is abelian, every relative loop is central,
+so the preceding criterion applies to arbitrary paths. -/
+
+/-- In an abelian target, all paths between two fixed basepoints induce the
+same continuous multiplicative basepoint-change equivalence. -/
+theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
+    {x₀ x₁ : X} (p q : _root_.Path x₀ x₁)
+    (hcomm : ∀ a b : LoopQuot X x₁, a * b = b * a) :
+    basepointChangeContinuousMulEquiv p =
+      basepointChangeContinuousMulEquiv q := by
+  apply basepointChangeContinuousMulEquiv_eq_of_relative_comm p q
+  intro b
+  have h := hcomm b
+    (_root_.Path.Homotopic.Quotient.trans
+      (_root_.Path.Homotopic.Quotient.mk p.symm)
+      (_root_.Path.Homotopic.Quotient.mk q))
+  change _root_.Path.Homotopic.Quotient.trans
+      (_root_.Path.Homotopic.Quotient.trans
+        (_root_.Path.Homotopic.Quotient.mk p.symm)
+        (_root_.Path.Homotopic.Quotient.mk q)) b =
+    _root_.Path.Homotopic.Quotient.trans b
+      (_root_.Path.Homotopic.Quotient.trans
+        (_root_.Path.Homotopic.Quotient.mk p.symm)
+        (_root_.Path.Homotopic.Quotient.mk q)) at h
+  exact h
 
 /-- Basepoint transport is compatible with concatenation of paths.  Thus the
 continuous multiplicative equivalences form a coherent transport system on
