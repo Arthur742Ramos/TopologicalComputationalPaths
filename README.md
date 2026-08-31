@@ -229,7 +229,9 @@ with their endpoint casts induced explicitly by matrix-map coherence.
 With an explicit two-sided integer-matrix inverse, these maps upgrade to a
 continuous additive lattice equivalence, a torus homeomorphism, and a quotient
 homeomorphism and continuous additive equivalence for the transported loop
-groups.
+groups.  At every arbitrary torus basepoint, the same inverse gives a
+continuous multiplicative equivalence of quotient fundamental groups, with
+explicit injectivity and surjectivity corollaries for the induced homomorphism.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

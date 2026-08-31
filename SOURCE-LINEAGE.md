@@ -145,7 +145,9 @@ by the matrix-map coherence equations.
 When an explicit two-sided integer inverse is available, the same construction
 also packages a continuous additive equivalence of winding lattices, a torus
 homeomorphism, and quotient homeomorphism and continuous additive equivalence
-for the transported loop groups.
+for the transported loop groups.  At every arbitrary torus basepoint, it also
+packages a continuous multiplicative quotient equivalence, with explicit
+injectivity and surjectivity consequences.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

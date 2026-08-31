@@ -81,7 +81,9 @@ contravariant composition and identity laws with explicit endpoint casts.
 An explicit two-sided integer-matrix inverse further yields a continuous
 additive lattice equivalence, a torus homeomorphism, and quotient
 homeomorphism and continuous additive equivalence for the transported
-loop-class groups.
+loop-class groups.  At every arbitrary torus basepoint, it also yields a
+continuous multiplicative quotient equivalence with explicit injectivity and
+surjectivity consequences.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

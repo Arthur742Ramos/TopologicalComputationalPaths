@@ -211,7 +211,9 @@ are also proved pointwise, using explicit endpoint casts induced by
 Given an explicit two-sided integer-matrix inverse, the interface upgrades to
 a continuous additive lattice equivalence, a torus homeomorphism, and a
 quotient homeomorphism and continuous additive equivalence for the transported
-loop groups.
+loop groups.  At every arbitrary torus basepoint, the same inverse yields a
+continuous multiplicative equivalence of quotient fundamental groups, with
+explicit injectivity and surjectivity corollaries.
 
 ## Non-goals for the first submission
 

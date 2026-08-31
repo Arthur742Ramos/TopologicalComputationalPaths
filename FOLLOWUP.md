@@ -149,6 +149,9 @@ the formalization proves:
     additive equivalence of winding lattices, a torus homeomorphism, and both
     a quotient homeomorphism and a continuous additive equivalence of the
     transported loop-class groups.
+62. at every arbitrary torus basepoint, the same inverse produces a continuous
+    multiplicative equivalence of quotient fundamental groups, with explicit
+    injectivity and surjectivity corollaries for the induced homomorphism.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -270,6 +273,10 @@ coherence produces equivalences throughout: the lattice action is a continuous
 additive equivalence, the torus map is a homeomorphism, and the canonical
 quotient map is a homeomorphism and continuous additive equivalence for the
 transported loop-class groups.
+At every arbitrary torus basepoint, the same explicit inverse is also exposed
+as a continuous multiplicative equivalence of quotient fundamental groups;
+the induced homomorphism is therefore explicitly injective and surjective at
+that basepoint.
 
 ## Literature and novelty boundary
 

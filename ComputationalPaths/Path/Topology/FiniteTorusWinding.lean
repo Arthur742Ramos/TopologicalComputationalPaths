@@ -58,7 +58,10 @@ coherence transported explicitly.
 An explicit two-sided integer-matrix inverse is upgraded at every level to an
 additive lattice equivalence, a torus homeomorphism, and a quotient
 homeomorphism and continuous additive equivalence for the transported loop
-groups.
+groups at the canonical basepoint.  At every arbitrary torus basepoint, the
+corresponding quotient homomorphism is likewise upgraded to a continuous
+multiplicative equivalence, with explicit injectivity and surjectivity
+corollaries.
 -/
 
 namespace ComputationalPaths
@@ -1693,6 +1696,50 @@ noncomputable def matrixMapQuotientContinuousMulHomAt {n m : ℕ}
     matrixMapQuotientContinuousMulHomAt A x q =
       _root_.Path.Homotopic.Quotient.map q (matrixMap A) :=
   rfl
+
+/-- An explicit two-sided matrix inverse upgrades the arbitrary-basepoint
+quotient homomorphism to a continuous multiplicative equivalence.  The inverse
+uses the matrix inverse on loops and the endpoint cast supplied by the torus
+homeomorphism. -/
+noncomputable def matrixMapQuotientContinuousMulEquivAtOfInverse {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m)
+    (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x ≃ₜ*
+      QuotientFundamentalGroup.LoopQuot (Carrier m) (matrixMap A x) :=
+  QuotientFundamentalGroup.homeomorphInducedContinuousMulEquiv
+    (matrixMapHomeomorphOfInverse A B hAB hBA) x
+
+@[simp] theorem matrixMapQuotientContinuousMulEquivAtOfInverse_apply
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m)
+    (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    matrixMapQuotientContinuousMulEquivAtOfInverse A B hAB hBA x q =
+      matrixMapQuotientContinuousMulHomAt A x q := by
+  rfl
+
+theorem matrixMapQuotientContinuousMulEquivAtOfInverse_injective
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m)
+    (x : Carrier n) :
+    Function.Injective (matrixMapQuotientContinuousMulHomAt A x) := by
+  intro p q h
+  exact (matrixMapQuotientContinuousMulEquivAtOfInverse A B hAB hBA x).injective h
+
+theorem matrixMapQuotientContinuousMulEquivAtOfInverse_surjective
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
+    (hAB : matrixCompose A B = matrixIdentity n)
+    (hBA : matrixCompose B A = matrixIdentity m)
+    (x : Carrier n) :
+    Function.Surjective (matrixMapQuotientContinuousMulHomAt A x) := by
+  intro q
+  obtain ⟨p, hp⟩ :=
+    (matrixMapQuotientContinuousMulEquivAtOfInverse A B hAB hBA x).surjective q
+  exact ⟨p, hp⟩
 
 /-- Matrix maps commute with basepoint transport along every explicit path
 from the canonical torus basepoint. -/
