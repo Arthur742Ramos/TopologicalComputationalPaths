@@ -312,6 +312,10 @@ the formalization proves:
      exponent exactly when every Smith-factor modulus divides it.
 114. a surviving zero Smith factor forces that global annihilator to be zero,
      matching the exponent-zero/rank-deficiency criterion.
+115. the sharp trivial-cokernel boundary is the exponent-one case: it occurs
+     exactly when every Smith factor has unit absolute value.
+116. this unit-factor criterion is exposed on the generic, lattice, and
+     finite-torus Smith presentations.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

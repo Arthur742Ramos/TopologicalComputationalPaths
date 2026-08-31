@@ -148,6 +148,8 @@ inverse witness, including at arbitrary basepoints.
     More generally, a proposed global annihilator `k` is divisible by the
     Smith exponent exactly when every Smith-factor modulus divides `k`, with a
     zero factor forcing `k = 0`.
+    The sharp trivial-cokernel boundary is the exponent-one case: the
+    exponent is one exactly when every Smith factor has unit absolute value.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

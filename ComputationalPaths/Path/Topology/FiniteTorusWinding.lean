@@ -135,6 +135,8 @@ exactly failure of full target rank.
 More generally, a proposed global annihilator `k` is divisible by the Smith
 exponent exactly when every Smith-factor modulus divides `k`, with a zero
 factor forcing `k = 0`.
+The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
+one exactly when every Smith factor has unit absolute value.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2611,6 +2613,29 @@ theorem submoduleCokernel_exponent_dvd_iff_smithFactor_dvd
   rw [Finset.lcm_dvd_iff]
   simp only [Finset.mem_univ, true_implies]
 
+/-- The Smith cokernel has exponent one exactly when every Smith factor is a
+unit, so the decomposition has no nontrivial cyclic or free coordinate. -/
+theorem submoduleCokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ N) = 1 ↔
+      ∀ i : Fin m, (smithNormalFormFactor snf i).natAbs = 1 := by
+  rw [submoduleCokernel_exponent_eq_smithFactorLcm snf]
+  constructor
+  · intro h i
+    have hi : (smithNormalFormFactor snf i).natAbs ∣
+        Finset.univ.lcm (fun j : Fin m =>
+          (smithNormalFormFactor snf j).natAbs) :=
+      Finset.dvd_lcm (Finset.mem_univ i)
+    rw [h] at hi
+    exact Nat.dvd_one.mp hi
+  · intro h
+    apply Nat.dvd_antisymm
+    · apply Finset.lcm_dvd
+      intro i hi
+      rw [h i]
+    · exact Nat.one_dvd _
+
 /-- The Smith cokernel has exponent zero exactly when at least one zero Smith
 factor survives, equivalently when its decomposition contains a free factor. -/
 theorem submoduleCokernel_exponent_eq_zero_iff_smithFreeFactor
@@ -2919,6 +2944,18 @@ theorem matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd
   exact submoduleCokernel_exponent_dvd_iff_smithFactor_dvd
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 k
+
+/-- The lattice cokernel has exponent one exactly when every Smith factor has
+unit absolute value. -/
+theorem matrixAction_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) = 1 ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs = 1 := by
+  exact submoduleCokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
 
 /-- The lattice cokernel has exponent zero exactly when a zero Smith factor
 survives. -/
@@ -4785,6 +4822,34 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_dvd_iff_smithFactor_dvd
   rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm]
   rw [Finset.lcm_dvd_iff]
   simp only [Finset.mem_univ, true_implies]
+
+/-- The finite-torus cokernel has exponent one exactly when every Smith factor
+has unit absolute value. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) = 1 ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs = 1 := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm]
+  constructor
+  · intro h i
+    have hi : (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs ∣
+        Finset.univ.lcm (fun j : Fin m =>
+          (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 j).natAbs) :=
+      Finset.dvd_lcm (Finset.mem_univ i)
+    rw [h] at hi
+    exact Nat.dvd_one.mp hi
+  · intro h
+    apply Nat.dvd_antisymm
+    · apply Finset.lcm_dvd
+      intro i hi
+      rw [h i]
+    · exact Nat.one_dvd _
 
 /-- The finite-torus cokernel has exponent zero exactly when a zero Smith
 factor survives. -/

@@ -141,6 +141,8 @@ target rank.
 More generally, a proposed global annihilator `k` is divisible by the Smith
 exponent exactly when every Smith-factor modulus divides `k`; a zero factor
 forces `k = 0`.
+The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
+one exactly when every Smith factor has unit absolute value.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
