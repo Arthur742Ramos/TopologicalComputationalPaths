@@ -81,6 +81,9 @@ the formalization proves:
     coordinate selections, including maps between different finite dimensions.
 36. reversing a basepoint path gives the inverse continuous multiplicative
     transport, completing the groupoid-action coherence.
+37. the path-based finite-torus lattice classifiers are natural under
+    coordinate selection at arbitrary basepoints, after transporting the
+    chosen basepoint path.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -132,6 +135,10 @@ coherence, so this is an explicit contravariant functorial interface.
 The multiplicative classifier obeys the same reindexing equation, even for
 maps between different finite dimensions, so the actual quotient group model
 is natural rather than only its underlying set-valued classifier.
+The path-based classifiers satisfy the corresponding naturality square at
+arbitrary torus basepoints: mapping a loop after transport along a chosen
+basepoint path agrees with reindexing its transported lattice vector, and the
+mapped path supplies the target transport.
 
 ## Literature and novelty boundary
 

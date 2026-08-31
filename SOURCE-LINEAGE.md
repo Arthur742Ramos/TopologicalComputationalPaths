@@ -94,8 +94,10 @@ module additionally proves naturality under arbitrary coordinate-selection
 maps between finite tori: the quotient classifier reindexes the winding
 vector; the standard representatives and quotient decoder obey the same
 reindexing law; the continuous multiplicative lattice classifier obeys that
-law even across different dimensions; and the coordinate maps satisfy identity
-and composition laws.
+law even across different dimensions; the coordinate maps satisfy identity and
+composition laws; and the path-based classifier satisfies the corresponding
+naturality square at arbitrary basepoints after mapping the chosen transport
+path.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

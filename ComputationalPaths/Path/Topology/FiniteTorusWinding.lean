@@ -464,6 +464,55 @@ noncomputable def loopQuotContinuousMulEquivIntVector_at_path
   (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm.trans
     (loopQuotContinuousMulEquivIntVector n)
 
+/-- Path-based lattice classifiers are natural under coordinate selection.
+Transporting a basepoint path and then applying the target classifier agrees
+with reindexing the source lattice classifier, including arbitrary source and
+target dimensions. -/
+theorem loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (p : _root_.Path (base n) x)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at_path m
+      (coordinateProjection f x)
+      (p.map (coordinateProjection f).continuous))
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+      Multiplicative.ofAdd
+        (coordinateReindex f
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at_path n x p q))) := by
+  let r : LoopQuot n :=
+    (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm q
+  have hr :
+      _root_.Path.Homotopic.Quotient.map q (coordinateProjection f) =
+        QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+          (p.map (coordinateProjection f).continuous)
+          (_root_.Path.Homotopic.Quotient.map r (coordinateProjection f)) := by
+    have hnat :=
+      QuotientFundamentalGroup.basepointChange_quotientMap_naturality
+        p (coordinateProjection f) r
+    have hpr :
+        QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p
+            ((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm q) = q :=
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).apply_symm_apply q
+    rw [hpr] at hnat
+    exact hnat
+  rw [loopQuotContinuousMulEquivIntVector_at_path,
+    loopQuotContinuousMulEquivIntVector_at_path]
+  change
+    (loopQuotContinuousMulEquivIntVector m)
+      ((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        (p.map (coordinateProjection f).continuous)).symm
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))) =
+      Multiplicative.ofAdd
+        (coordinateReindex f
+          (Multiplicative.toAdd
+            ((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm.trans
+              (loopQuotContinuousMulEquivIntVector n)) q))
+  rw [hr]
+  rw [(QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+    (p.map (coordinateProjection f).continuous)).symm_apply_apply]
+  exact (loopQuotContinuousMulEquivIntVector_coordinateProjection f r).symm
+
 /-- The explicit-path lattice classifier is independent of the chosen path. -/
 theorem loopQuotContinuousMulEquivIntVector_at_path_eq
     (n : ℕ) (x : Carrier n)

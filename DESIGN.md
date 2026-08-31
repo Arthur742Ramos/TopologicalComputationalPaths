@@ -154,6 +154,10 @@ the classifier's naturality is presented as a coherent contravariant action.
 The continuous multiplicative lattice classifier satisfies the same
 reindexing equation for maps between different dimensions, tying the actual
 quotient group operation to that contravariant action.
+At arbitrary torus basepoints, the path-based classifier satisfies the same
+naturality square after the chosen basepoint path is mapped to the target;
+this makes the transport-compatible statement explicit rather than limiting
+it to the all-zero quotient.
 
 ## Non-goals for the first submission
 

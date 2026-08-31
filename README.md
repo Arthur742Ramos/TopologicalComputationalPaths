@@ -173,6 +173,10 @@ These coordinate maps satisfy explicit identity and composition laws, making
 the reindexing statement functorial rather than a collection of unrelated
 equalities.  The continuous multiplicative lattice classifier satisfies the
 same equation, including coordinate selections between different dimensions.
+The path-based classifier satisfies the corresponding naturality square at
+arbitrary torus basepoints: transporting along a chosen path and then
+selecting coordinates agrees with reindexing the transported lattice vector,
+using the mapped path at the target.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
