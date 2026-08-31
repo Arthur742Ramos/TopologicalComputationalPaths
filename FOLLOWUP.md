@@ -374,6 +374,12 @@ the formalization proves:
      yields the exact exponent product on the lattice and finite-torus sides.
 143. the determinant-coprime equality is exposed in explicit composition and
      canonical `matrixCompose` notation for both cokernel presentations.
+144. for every prime `p`, the composite exponent is divisible by `p` exactly
+     when at least one successive exponent is.
+145. rectangular lattice and finite-torus matrix cokernels inherit this
+     prime-support law in explicit and canonical `matrixCompose` forms.
+146. the law interfaces directly with the prime-power Smith decomposition,
+     identifying the exact prime support of each composite obstruction.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

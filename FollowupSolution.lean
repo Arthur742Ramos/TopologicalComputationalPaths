@@ -178,6 +178,11 @@ For square matrices, the adjugate determinant bounds turn coprime determinant
 absolute values into coprime successive exponents.  If the second determinant
 is nonzero, the exact exponent product therefore follows on both lattice and
 finite-torus cokernels, including canonical `matrixCompose` forms.
+For every prime `p`, the composite exponent is divisible by `p` exactly when
+at least one successive exponent is.  This prime-support law is transported
+to rectangular lattice and finite-torus matrices, including canonical
+`matrixCompose` notation, and links the exact sequence to the prime-power
+Smith decomposition.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
@@ -875,6 +880,23 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
         AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
           AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff :
+    ∀ (A B : Fin n → Fin n → ℤ)
+      (hB : Function.Injective (matrixAction B)) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_rectangular_exponent_prime_dvd_iff :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B)) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)
 
 open ComputationalPaths.Path.GeometricTopology
 
@@ -1292,6 +1314,16 @@ theorem main_result :
       intro A B hB hcop
       exact
         FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime
-          A B hB hcop }⟩
+          A B hB hcop
+    matrix_cokernel_exponent_prime_dvd_iff := by
+      intro A B hB p hp
+      exact
+        FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective
+          A B hB p hp
+    matrix_cokernel_rectangular_exponent_prime_dvd_iff := by
+      intro n m k A B hB p hp
+      exact
+        FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective
+          A B hB p hp }⟩
 
 end TopologicalComputationalPathsFollowup

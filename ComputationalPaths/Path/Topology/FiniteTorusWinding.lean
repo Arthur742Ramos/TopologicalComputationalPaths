@@ -128,6 +128,11 @@ the exponent coprimality through the adjugate bounds.  Hence a nonzero
 determinant for the second matrix plus coprime determinant absolute values
 forces the same exact exponent product on both lattice and finite-torus
 cokernels, including canonical `matrixCompose` forms.
+At every prime `p`, the exact sequence also has a prime-support law: `p`
+divides the composite exponent exactly when it divides at least one
+successive exponent.  The result is transported to rectangular lattice and
+finite-torus matrices, including canonical `matrixCompose` forms, and feeds
+directly into the prime-power Smith decomposition.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -2010,6 +2015,31 @@ theorem addCokernelComp_exponent_lcm_dvd_of_injective
   · exact AddMonoid.exponent_dvd_of_addMonoidHom F hF
   · exact AddMonoidHom.exponent_dvd hP
 
+/-- For an injective additive cokernel sequence, the prime divisors of the
+composite exponent are exactly the union of those of the successive
+exponents. -/
+theorem addCokernelComp_exponent_prime_dvd_iff_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (hg : Function.Injective g)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent (W ⧸ (g.comp f).range) ↔
+      p ∣ AddMonoid.exponent (V ⧸ f.range) ∨
+        p ∣ AddMonoid.exponent (W ⧸ g.range) := by
+  have hUpper := addCokernelComp_exponent_dvd_mul f g
+  have hLower := addCokernelComp_exponent_lcm_dvd_of_injective f g hg
+  constructor
+  · intro hpC
+    have hpProd : p ∣ AddMonoid.exponent (V ⧸ f.range) *
+        AddMonoid.exponent (W ⧸ g.range) := dvd_trans hpC hUpper
+    exact (hp.dvd_mul).mp hpProd
+  · intro h
+    have hpLcm : p ∣ Nat.lcm (AddMonoid.exponent (V ⧸ f.range))
+        (AddMonoid.exponent (W ⧸ g.range)) := by
+      rcases h with h | h
+      · exact dvd_trans h (Nat.dvd_lcm_left _ _)
+      · exact dvd_trans h (Nat.dvd_lcm_right _ _)
+    exact dvd_trans hpLcm hLower
+
 /-- If the two successive cokernel exponents are coprime, the product bound
 is sharp: the composite exponent is their product. -/
 theorem addCokernelComp_exponent_eq_mul_of_coprime_of_injective
@@ -2142,6 +2172,31 @@ theorem matrixAction_rectangular_cokernel_exponent_lcm_dvd_of_matrixCompose_inje
   rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
   exact matrixAction_rectangular_cokernel_exponent_lcm_dvd_of_injective
     A B hB
+
+/-- Rectangular lattice cokernels have the exact prime-support law for their
+composite exponent. -/
+theorem matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+      p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+        p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  exact addCokernelComp_exponent_prime_dvd_iff_of_injective
+    (matrixAction A) (matrixAction B) hB p hp
+
+/-- The rectangular lattice prime-support law in canonical matrix-compose
+notation. -/
+theorem matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+      p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+        p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    A B hB p hp
 
 /-- For coprime successive lattice exponents, the rectangular composite
 cokernel exponent is their product. -/
@@ -4677,6 +4732,39 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_lcm_dvd_of_matrixA
   change Function.Injective (matrixMapQuotientMap B)
   exact (matrixMapQuotientMap_injective_iff B).mpr hB
 
+/-- Rectangular finite-torus cokernels have the exact prime-support law for
+their composite exponent. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) (p : ℕ)
+    (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  exact addCokernelComp_exponent_prime_dvd_iff_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB p hp
+
+/-- The finite-torus prime-support law also follows from injectivity of the
+underlying rectangular lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  apply matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    A B ?_ p hp
+  change Function.Injective (matrixMapQuotientMap B)
+  exact (matrixMapQuotientMap_injective_iff B).mpr hB
+
 /-- For coprime successive finite-torus exponents, the rectangular composite
 cokernel exponent is their product. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
@@ -6212,6 +6300,36 @@ theorem matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_eq_mul_of_det_co
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime
     A B hB hcop
+
+/-- The finite-torus prime-support law in canonical matrix-compose notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) (p : ℕ)
+    (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot k ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    A B hB p hp
+
+/-- The finite-torus prime-support law in matrix-compose notation also follows
+from injectivity of the underlying lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot k ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixAction_injective
+    A B hB p hp
 
 /-- The rectangular finite-torus exponent bound in canonical matrix-compose
 notation. -/

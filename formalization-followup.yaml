@@ -131,6 +131,11 @@ project:
     successive exponents by the adjugate bounds; with a nonzero second
     determinant, the exact product is therefore certified on both lattice and
     finite-torus cokernels, including canonical `matrixCompose` forms.
+    For every prime `p`, the composite exponent is divisible by `p` exactly
+    when at least one successive exponent is.  This prime-support law is
+    exposed for rectangular lattice and finite-torus matrix cokernels,
+    including canonical `matrixCompose` forms, and interfaces directly with
+    the prime-power Smith decomposition.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -874,6 +879,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For square matrices, coprime determinant absolute values imply coprime successive exponents through the adjugate bounds; if the second determinant is nonzero, the composite exponent is exactly the product on both lattice and finite-torus sides, including matrixCompose notation."
+    - source: "Finite-torus exact-sequence exponent prime support"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_matrixAction_injective"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For every prime p, the composite cokernel exponent is divisible by p exactly when one of the successive exponents is; rectangular lattice and finite-torus wrappers expose the law in explicit and canonical matrixCompose forms, linking exact-sequence exponents to the prime-power Smith decomposition."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

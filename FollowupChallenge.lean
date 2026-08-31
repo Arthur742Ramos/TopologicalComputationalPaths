@@ -186,6 +186,11 @@ inverse witness, including at arbitrary basepoints.
     second determinant is nonzero, the exact exponent product therefore
     follows on both lattice and finite-torus cokernels, including canonical
     `matrixCompose` forms.
+    For every prime `p`, the composite exponent is divisible by `p` exactly
+    when at least one successive exponent is.  The prime-support law is
+    transported to rectangular lattice and finite-torus matrices, including
+    canonical `matrixCompose` notation, and links the exact sequence to the
+    prime-power Smith decomposition.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative
@@ -923,6 +928,23 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
         AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
           AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff :
+    ∀ (A B : Fin n → Fin n → ℤ)
+      (hB : Function.Injective (matrixAction B)) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_rectangular_exponent_prime_dvd_iff :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B)) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)
 
 /-- The general criterion and its winding-classified finite-torus family. -/
 theorem main_result :

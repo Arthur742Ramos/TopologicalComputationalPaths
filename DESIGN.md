@@ -323,6 +323,11 @@ For square matrices, coprime determinant absolute values imply coprime
 successive exponents by the adjugate bounds.  A nonzero determinant for the
 second matrix therefore gives the exact exponent product directly on lattice
 and finite-torus cokernels, including canonical `matrixCompose` forms.
+The exponent bounds also determine prime support exactly: for every prime
+`p`, divisibility of the composite exponent is equivalent to divisibility of
+at least one successive exponent.  This prime-support theorem is exposed for
+rectangular lattice and finite-torus maps, including canonical `matrixCompose`
+notation, and interfaces directly with the prime-power Smith factors.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

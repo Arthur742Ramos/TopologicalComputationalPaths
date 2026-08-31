@@ -349,6 +349,11 @@ For square matrices, the adjugate exponent bounds let coprime determinant
 absolute values certify coprime successive exponents.  Thus, when the second
 determinant is nonzero, the exact product theorem applies directly to both
 lattice and finite-torus cokernels, including canonical `matrixCompose` forms.
+For every prime `p`, the exact sequence has an exact prime-support law: `p`
+divides the composite exponent iff it divides one of the two successive
+exponents.  Rectangular lattice and finite-torus wrappers expose this law in
+explicit and canonical `matrixCompose` forms, connecting the sequence bounds
+to the prime-power Smith decomposition.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,
