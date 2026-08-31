@@ -55,7 +55,7 @@ sources:
     type: "paper"
     id: "https://arxiv.org/abs/0904.4739"
     location: "Homogeneity and discreteness of quotient-topological fundamental groups"
-    relationship: "formalizes"
+    relationship: "background"
     author_endorsement: "not-contacted"
     note: >-
       This is substantive literature context for the homogeneity and
@@ -103,22 +103,6 @@ sources:
       invariant-factor language used by the selected matrix-cokernel fields.
       The Lean certificate formalizes the explicitly listed exponent and
       p-adic consequences in its own quotient presentation.
-  - title: "Topological Semantics for Scoped Computational Paths"
-    authors:
-      - "Arthur Freitas Ramos"
-      - "Ruy J. G. B. de Queiroz"
-      - "Anjolina Grisi de Oliveira"
-      - "Tiago M. L. de Veras"
-    type: "paper"
-    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Pinned parent manuscript and computational-path topology boundary"
-    relationship: "adapts"
-    author_endorsement: "participated"
-    note: >-
-      The follow-up reuses the parent computational-path setting while adding
-      the space-independent quotient-fundamental-group theory and the complete
-      finite-torus/matrix-cokernel certificate selected here.  The source is
-      pinned to the immutable parent commit recorded below.
   - title: "Functorial quotient fundamental groups and finite-torus cokernel profiles: selected follow-up certificate"
     authors:
       - "Arthur Freitas Ramos"

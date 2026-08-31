@@ -47,7 +47,7 @@ sources:
     type: "paper"
     id: "https://arxiv.org/abs/0904.4739"
     location: "Homogeneity and discreteness boundary"
-    relationship: "formalizes"
+    relationship: "background"
     author_endorsement: "not-contacted"
     note: >-
       Literature context for the selected homogeneity and null-class
@@ -81,20 +81,6 @@ sources:
     note: >-
       Algebraic context for the Smith-factor and invariant-factor fields in the
       selected matrix-cokernel layer.
-  - title: "Topological Semantics for Scoped Computational Paths"
-    authors:
-      - "Arthur Freitas Ramos"
-      - "Ruy J. G. B. de Queiroz"
-      - "Anjolina Grisi de Oliveira"
-      - "Tiago M. L. de Veras"
-    type: "paper"
-    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Pinned computational-path topology source"
-    relationship: "adapts"
-    author_endorsement: "participated"
-    note: >-
-      Parent source for the computational-path setting; the follow-up adds the
-      selected space-independent and finite-torus certificate.
   - title: "Functorial quotient fundamental groups and finite-torus cokernel profiles: selected follow-up certificate"
     authors:
       - "Arthur Freitas Ramos"
