@@ -99,6 +99,11 @@ Consequently, rectangular integer matrices in any composable dimensions
 inherit the same short-exact sequence whenever the second matrix action is
 injective, and the corresponding finite-torus quotient maps satisfy the same
 statement.
+For every composable additive cokernel sequence, the composite cokernel
+exponent divides the product of the two successive cokernel exponents.  This
+bound is proved without an injectivity assumption and is exposed for
+rectangular lattice and finite-torus matrix maps, including canonical
+`matrixCompose` notation.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -1931,6 +1936,58 @@ noncomputable def addCokernelCompProjection_quotientKerEquiv
       addCokernelCompProjection f g q := by
   exact QuotientAddGroup.kerLift_mk
     (addCokernelCompProjection f g) q
+
+/-- In any additive cokernel sequence, the exponent of the composite cokernel
+divides the product of the exponents of the first and second cokernels. -/
+theorem addCokernelComp_exponent_dvd_mul
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    AddMonoid.exponent (W ⧸ (g.comp f).range) ∣
+      AddMonoid.exponent (V ⧸ f.range) * AddMonoid.exponent (W ⧸ g.range) := by
+  apply AddMonoid.exponent_dvd_of_forall_nsmul_eq_zero
+  intro q
+  let eF := AddMonoid.exponent (V ⧸ f.range)
+  let eG := AddMonoid.exponent (W ⧸ g.range)
+  have hproj : eG • addCokernelCompProjection f g q = 0 :=
+    AddMonoid.exponent_nsmul_eq_zero _
+  have hker : eG • q ∈ (addCokernelCompProjection f g).ker := by
+    rw [AddMonoidHom.mem_ker, map_nsmul, hproj]
+  have himage : eG • q ∈ (addCokernelCompMap f g).range := by
+    rw [← addCokernelCompProjection_ker_eq_range f g]
+    exact hker
+  obtain ⟨p, hp⟩ := AddMonoidHom.mem_range.mp himage
+  have hkill : eF • p = 0 := AddMonoid.exponent_nsmul_eq_zero _
+  have hmul : eF • (eG • q) = 0 := by
+    calc
+      eF • (eG • q) = eF • (addCokernelCompMap f g p) :=
+        congrArg (fun z => eF • z) hp.symm
+      _ = addCokernelCompMap f g (eF • p) :=
+        (AddMonoidHom.map_nsmul (addCokernelCompMap f g) eF p).symm
+      _ = 0 := by rw [hkill, map_zero]
+  change (eF * eG) • q = 0
+  rw [Nat.mul_comm, mul_nsmul]
+  exact hmul
+
+/-- Rectangular matrix actions inherit the product exponent bound for their
+additive cokernel sequence. -/
+theorem matrixAction_rectangular_cokernel_exponent_dvd_mul
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ∣
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  exact addCokernelComp_exponent_dvd_mul (matrixAction A) (matrixAction B)
+
+/-- The rectangular lattice exponent bound in canonical matrix-compose
+notation. -/
+theorem matrixAction_rectangular_cokernel_exponent_dvd_mul_matrixCompose
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ∣
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_exponent_dvd_mul A B
 
 /-- The additive cokernel sequence is short exact whenever the second map is
 injective. -/
@@ -4316,6 +4373,18 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_injective
   exact addCokernelComp_shortExact_of_injective
     (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB
 
+/-- Rectangular finite-torus quotient maps inherit the product exponent bound
+for their additive cokernel sequence. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ∣
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  exact addCokernelComp_exponent_dvd_mul
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B)
+
 /-- Injectivity of the rectangular winding action is transported directly to
 the corresponding finite-torus quotient cokernel sequence. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective
@@ -5725,6 +5794,17 @@ theorem matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range
       (matrixMapQuotientAddHom A)).range =
       (matrixMapQuotientAddHom (matrixCompose A B)).range := by
   rw [← matrixMapQuotientAddHom_comp A B]
+
+/-- The rectangular finite-torus exponent bound in canonical matrix-compose
+notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul_matrixCompose
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) ∣
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul A B
 
 /-- The rectangular finite-torus exact sequence can be consumed directly
 through the canonical matrix-composition notation. -/

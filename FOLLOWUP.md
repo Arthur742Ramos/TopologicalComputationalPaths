@@ -329,6 +329,15 @@ the formalization proves:
      finite/infinite test.
 122. this finiteness/exponent equivalence is transported to lattice and
      finite-torus matrix cokernels.
+123. for any composable additive homomorphisms, the composite cokernel
+     exponent divides the product of the first and second cokernel exponents.
+124. this product bound is proved without an injectivity hypothesis, using the
+     projection kernel/image exactness.
+125. rectangular matrix cokernel sequences inherit the product bound in
+     lattice and finite-torus forms, including explicit homomorphism
+     composition.
+126. the same bound is exposed in canonical `matrixCompose` notation on both
+     sides.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

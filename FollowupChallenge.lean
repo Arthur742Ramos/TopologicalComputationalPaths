@@ -158,6 +158,11 @@ inverse witness, including at arbitrary basepoints.
     The finite/infinite dichotomy is equivalently global: each Smith cokernel
     is finite exactly when its exponent is nonzero, so the zero-exponent
     criterion is also a complete finiteness test.
+    For every composable additive cokernel sequence, the composite cokernel
+    exponent divides the product of the two successive cokernel exponents,
+    without an injectivity hypothesis; rectangular lattice and finite-torus
+    matrix sequences inherit the bound in explicit composition and canonical
+    `matrixCompose` notation.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

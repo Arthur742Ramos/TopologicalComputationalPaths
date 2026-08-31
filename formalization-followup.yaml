@@ -128,6 +128,10 @@ project:
     the exponent divides Int.natAbs (Matrix.det A), including singular cases.
     Equivalently, a Smith cokernel is finite exactly when its exponent is
     nonzero, so exponent zero is a complete finite/infinite obstruction test.
+    For every composable additive cokernel sequence, the composite cokernel
+    exponent divides the product of the two successive cokernel exponents
+    without an injectivity hypothesis; rectangular lattice and finite-torus
+    matrix sequences inherit this bound in explicit and `matrixCompose` forms.
     In the square nonsingular specialization, the Smith-modulus product is
     also proved equal to the determinant index Int.natAbs (Matrix.det A) on
     both the lattice and finite-torus sides.
@@ -818,6 +822,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "An arbitrary-rank Smith cokernel is finite exactly when its additive exponent is nonzero; the same finite/infinite obstruction criterion is transported to lattice and finite-torus matrix cokernels."
+    - source: "Finite-torus exact-sequence exponent bound"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_dvd_mul_matrixCompose; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul_matrixCompose"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For any composable additive cokernel sequence, the composite cokernel exponent divides the product of the successive cokernel exponents; rectangular lattice and finite-torus matrix forms inherit the bound, including canonical matrixCompose notation."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
