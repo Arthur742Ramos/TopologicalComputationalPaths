@@ -120,7 +120,9 @@ the continuous additive reindexing morphism itself.
 At arbitrary torus basepoints, the underlying coordinate-selection maps are
 also named as continuous multiplicative homomorphisms of quotient fundamental
 groups, with identity/composition coherence and a direct classifier
-naturality corollary.
+naturality corollary.  The canonical classifiers transport the exact
+fiber-constant image, injectivity/surjectivity converse, and
+vanishing-on-the-image kernel descriptions to arbitrary basepoints as well.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

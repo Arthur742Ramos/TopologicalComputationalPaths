@@ -61,7 +61,9 @@ project:
     basepoints, coordinate selection is also exposed as a continuous
     multiplicative homomorphism between the corresponding quotient
     fundamental groups, with explicit identity/composition coherence and a
-    direct classifier-naturality corollary.
+    direct classifier-naturality corollary.  The canonical classifiers also
+    transport the exact fiber-constant image, injectivity/surjectivity
+    converse, and kernel descriptions to arbitrary torus basepoints.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -548,10 +550,10 @@ alignment:
       status: "proved"
       note: "The typed quotient additive functor is continuous for the discrete quotient topologies, with the same identity and composition coherence."
     - source: "Finite-torus arbitrary-basepoint quotient homomorphism"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_eq_one_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_mem_ker_iff"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
-      note: "At arbitrary basepoints, coordinate selection is a continuous multiplicative homomorphism of quotient fundamental groups, coherently contravariant and compatible with the canonical lattice classifier."
+      note: "At arbitrary basepoints, coordinate selection is a continuous multiplicative homomorphism of quotient fundamental groups, coherently contravariant and compatible with the canonical lattice classifier; the exact image, converse, and kernel criteria are transported as well."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

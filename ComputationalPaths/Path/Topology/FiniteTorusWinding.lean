@@ -39,7 +39,9 @@ exactly the classes whose winding vanishes on the image of the index map.  At
 arbitrary torus basepoints, the same coordinate maps are exposed as continuous
 multiplicative homomorphisms with explicit identity/composition laws, and the
 canonical basepoint classifiers factor their action through the lattice
-reindexing.
+reindexing.  The same classifiers transport the exact fiber-constant image,
+injectivity/surjectivity converses, and kernel characterization to every
+torus basepoint.
 -/
 
 namespace ComputationalPaths
@@ -1202,6 +1204,189 @@ theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
             (loopQuotContinuousMulEquivIntVector_at n x q))) := by
   simpa only [coordinateProjectionQuotientContinuousMulHom_apply] using
     (loopQuotContinuousMulEquivIntVector_at_coordinateProjection f x q)
+
+/-- At arbitrary basepoints, the image of coordinate selection is exactly the
+fiber-constant part of the target lattice under the canonical classifier. -/
+theorem coordinateProjectionQuotientContinuousMulHom_mem_range_iff
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot
+      (Carrier m) (coordinateProjection f x)) :
+    q ∈ Set.range (coordinateProjectionQuotientContinuousMulHom f x) ↔
+      ∀ ⦃j k : Fin m⦄, f j = f k →
+        Multiplicative.toAdd
+            ((loopQuotContinuousMulEquivIntVector_at m
+              (coordinateProjection f x)) q) j =
+          Multiplicative.toAdd
+            ((loopQuotContinuousMulEquivIntVector_at m
+              (coordinateProjection f x)) q) k := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (coordinateProjection f x)
+  constructor
+  · rintro ⟨p, rfl⟩ j k h
+    have hnat := loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+      f x p
+    have hvec :
+        Multiplicative.toAdd (eₘ
+            (coordinateProjectionQuotientContinuousMulHom f x p)) =
+          coordinateReindex f (Multiplicative.toAdd (eₙ p)) := by
+      rw [hnat]
+      rfl
+    rw [hvec]
+    simp [coordinateReindex, h]
+  · intro h
+    have hrange :=
+      (coordinateReindex_mem_range_iff f
+        (Multiplicative.toAdd (eₘ q))).mpr h
+    obtain ⟨z, hz⟩ := hrange
+    refine ⟨eₙ.symm (Multiplicative.ofAdd z), ?_⟩
+    apply eₘ.injective
+    have hnat :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x (eₙ.symm (Multiplicative.ofAdd z))
+    rw [hnat]
+    apply Multiplicative.ext
+    change coordinateReindex f
+        (Multiplicative.toAdd (eₙ (eₙ.symm (Multiplicative.ofAdd z)))) =
+      Multiplicative.toAdd (eₘ q)
+    rw [eₙ.apply_symm_apply]
+    exact hz
+
+/-- The arbitrary-basepoint quotient homomorphism is injective exactly when
+the index map is surjective. -/
+theorem coordinateProjectionQuotientContinuousMulHom_injective_iff_surjective
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n) :
+    Function.Injective (coordinateProjectionQuotientContinuousMulHom f x) ↔
+      Function.Surjective f := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (coordinateProjection f x)
+  constructor
+  · intro hinj
+    apply (coordinateReindex_injective_iff_surjective f).mp
+    intro z w hzw
+    let p := eₙ.symm (Multiplicative.ofAdd z)
+    let q := eₙ.symm (Multiplicative.ofAdd w)
+    have hmap :
+        coordinateProjectionQuotientContinuousMulHom f x p =
+          coordinateProjectionQuotientContinuousMulHom f x q := by
+      apply eₘ.injective
+      have hp :=
+        loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+          f x p
+      have hq :=
+        loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+          f x q
+      rw [hp, hq]
+      apply Multiplicative.ext
+      change coordinateReindex f (Multiplicative.toAdd (eₙ p)) =
+        coordinateReindex f (Multiplicative.toAdd (eₙ q))
+      simp [p, q, hzw]
+    have hpq := hinj hmap
+    have heq := congrArg (fun r => eₙ r) hpq
+    have hvec := congrArg Multiplicative.toAdd heq
+    simpa [p, q] using hvec
+  · intro hf p q hmap
+    apply eₙ.injective
+    apply Multiplicative.ext
+    apply coordinateReindex_injective_of_surjective f hf
+    have hmap' := congrArg (fun r => eₘ r) hmap
+    have hp :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x p
+    have hq :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x q
+    rw [hp, hq] at hmap'
+    exact Multiplicative.ofAdd.injective hmap'
+
+/-- The arbitrary-basepoint quotient homomorphism is surjective exactly when
+the index map is injective. -/
+theorem coordinateProjectionQuotientContinuousMulHom_surjective_iff_injective
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n) :
+    Function.Surjective (coordinateProjectionQuotientContinuousMulHom f x) ↔
+      Function.Injective f := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (coordinateProjection f x)
+  constructor
+  · intro hsurj
+    apply (coordinateReindex_surjective_iff_injective f).mp
+    intro w
+    obtain ⟨q, hq⟩ := hsurj (eₘ.symm (Multiplicative.ofAdd w))
+    have hq' := congrArg (fun r => eₘ r) hq
+    have hnat :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x q
+    rw [hnat] at hq'
+    rw [eₘ.apply_symm_apply] at hq'
+    refine ⟨Multiplicative.toAdd (eₙ q), ?_⟩
+    exact Multiplicative.ofAdd.injective hq'
+  · intro hf q
+    obtain ⟨z, hz⟩ :=
+      coordinateReindex_surjective_of_injective f hf
+        (Multiplicative.toAdd (eₘ q))
+    refine ⟨eₙ.symm (Multiplicative.ofAdd z), ?_⟩
+    apply eₘ.injective
+    have hnat :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x (eₙ.symm (Multiplicative.ofAdd z))
+    rw [hnat]
+    apply Multiplicative.ext
+    change coordinateReindex f
+        (Multiplicative.toAdd (eₙ (eₙ.symm (Multiplicative.ofAdd z)))) =
+      Multiplicative.toAdd (eₘ q)
+    rw [eₙ.apply_symm_apply]
+    exact hz
+
+/-- The kernel of an arbitrary-basepoint coordinate homomorphism is exactly
+the set of classes whose canonical winding vector vanishes on the image of
+the index map. -/
+theorem coordinateProjectionQuotientContinuousMulHom_eq_one_iff
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    coordinateProjectionQuotientContinuousMulHom f x q = 1 ↔
+      ∀ i ∈ Set.range f,
+        Multiplicative.toAdd
+            ((loopQuotContinuousMulEquivIntVector_at n x) q) i = 0 := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (coordinateProjection f x)
+  constructor
+  · intro h i hi
+    have hq := congrArg (fun r => eₘ r) h
+    have hnat :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x q
+    rw [hnat] at hq
+    have h_one : eₘ (1 : QuotientFundamentalGroup.LoopQuot
+        (Carrier m) (coordinateProjection f x)) = 1 := eₘ.map_one
+    rw [h_one] at hq
+    have hvec : coordinateReindex f (Multiplicative.toAdd (eₙ q)) = 0 := by
+      simpa using hq
+    exact (coordinateReindex_eq_zero_iff f
+      (Multiplicative.toAdd (eₙ q))).mp hvec i hi
+  · intro h
+    apply eₘ.injective
+    have hnat :=
+      loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+        f x q
+    rw [hnat]
+    have h_one : eₘ (1 : QuotientFundamentalGroup.LoopQuot
+        (Carrier m) (coordinateProjection f x)) = 1 := eₘ.map_one
+    rw [h_one]
+    apply Multiplicative.ext
+    change coordinateReindex f (Multiplicative.toAdd (eₙ q)) = 0
+    exact (coordinateReindex_eq_zero_iff f
+      (Multiplicative.toAdd (eₙ q))).mpr h
+
+/-- Membership in the kernel of the arbitrary-basepoint coordinate
+homomorphism has the same exact winding characterization. -/
+theorem coordinateProjectionQuotientContinuousMulHom_mem_ker_iff
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    q ∈ (coordinateProjectionQuotientContinuousMulHom f x).ker ↔
+      ∀ i ∈ Set.range f,
+        Multiplicative.toAdd
+            ((loopQuotContinuousMulEquivIntVector_at n x) q) i = 0 := by
+  change coordinateProjectionQuotientContinuousMulHom f x q = 1 ↔ _
+  exact coordinateProjectionQuotientContinuousMulHom_eq_one_iff f x q
 
 /-- Every finite-torus loop homotopy class is open in the compact-open loop
 space. -/

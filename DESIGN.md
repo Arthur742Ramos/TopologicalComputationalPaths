@@ -184,7 +184,9 @@ the index-map image.  Before choosing a classifier, the same
 coordinate-selection maps at arbitrary basepoints are packaged as continuous
 multiplicative homomorphisms between the corresponding quotient fundamental
 groups, with explicit identity/composition coherence and a direct
-classifier-naturality theorem.
+classifier-naturality theorem.  The canonical classifiers also transport the
+exact fiber-constant image, injectivity/surjectivity converse, and
+vanishing-on-the-image kernel descriptions to arbitrary basepoints.
 
 ## Non-goals for the first submission
 

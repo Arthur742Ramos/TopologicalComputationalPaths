@@ -204,7 +204,10 @@ explicit identity/composition laws and a kernel description by vanishing on
 the coordinates hit by the index map.  At arbitrary torus basepoints, the
 same operation is additionally packaged as a continuous multiplicative
 homomorphism between the corresponding quotient fundamental groups, with its
-own identity/composition coherence and a classifier-naturality corollary.
+own identity/composition coherence and a classifier-naturality corollary.  The
+same classifier transports the exact fiber-constant image criterion,
+injectivity/surjectivity converses, and vanishing-on-the-image kernel result
+to every torus basepoint.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

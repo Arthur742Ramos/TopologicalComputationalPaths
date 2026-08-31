@@ -110,7 +110,9 @@ the formalization proves:
     exactly by vanishing on the image of its index map.
 47. at arbitrary torus basepoints, coordinate selection is exposed as a
     continuous multiplicative homomorphism of quotient fundamental groups,
-    with explicit identity/composition coherence and classifier naturality.
+    with explicit identity/composition coherence and classifier naturality;
+    the exact image, converse, and kernel descriptions are transported there
+    as well.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -196,7 +198,9 @@ also packaged before choosing a lattice classifier as a continuous
 multiplicative homomorphism between the corresponding quotient fundamental
 groups.  These maps obey the expected contravariant identity and composition
 laws, and the canonical lattice-classifier square factors through the named
-homomorphism directly.
+homomorphism directly.  The classifier equivalence also transports the exact
+fiber-constant image criterion, injectivity/surjectivity converses, and
+vanishing-on-the-image kernel criterion to these arbitrary-basepoint maps.
 
 ## Literature and novelty boundary
 
