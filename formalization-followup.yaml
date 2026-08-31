@@ -75,7 +75,8 @@ project:
     explicit.  Abelian-target path independence gives the same naturality
     square for the canonical arbitrary-basepoint classifier.  The canonical
     classifier also transfers the exact matrix image, kernel,
-    injectivity/surjectivity iff criteria to every chosen basepoint.
+    injectivity/surjectivity iff criteria to every chosen basepoint, each as
+    an explicit theorem.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"

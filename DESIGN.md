@@ -204,7 +204,8 @@ keeps the endpoint cast from the mapped zero basepoint explicit.  Abelian
 target path independence also yields the corresponding canonical classifier
 square without a path parameter.  The canonical classifier transfers the
 matrix image, kernel, injectivity, and surjectivity iff criteria to the
-arbitrary-basepoint quotient homomorphisms.
+arbitrary-basepoint quotient homomorphisms, with each criterion exposed as an
+explicit iff theorem.
 
 ## Non-goals for the first submission
 

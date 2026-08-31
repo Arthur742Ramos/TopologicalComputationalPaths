@@ -139,6 +139,9 @@ the formalization proves:
     winding classifier; and
 58. injectivity and surjectivity of the arbitrary-basepoint quotient map are
     each equivalent to the corresponding property of the matrix action.
+59. the arbitrary-basepoint matrix image, kernel, injectivity, and
+    surjectivity statements are all explicit iff theorems, not merely
+    consequences left to reconstruction.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -249,6 +252,9 @@ gives the same statement for the canonical classifier at every basepoint.
 The same classifier transfers the exact matrix image and kernel descriptions,
 as well as the injectivity and surjectivity iff criteria, from the integer
 lattice action to the quotient homomorphism at every chosen basepoint.
+These are stated as explicit iff theorems for image membership, the identity
+fiber, injectivity, and surjectivity, so the arbitrary-basepoint interface
+retains the same exactness guarantees as the canonical quotient map.
 
 ## Literature and novelty boundary
 

@@ -222,7 +222,8 @@ matrix naturality square with its endpoint cast made explicit.  Abelian-target
 path independence then gives the same square for the canonical classifier,
 without exposing a path choice.  The canonical classifier also transfers the
 matrix image, kernel, injectivity, and surjectivity iff criteria to every
-chosen basepoint.
+chosen basepoint, with explicit iff statements for image membership, the
+identity fiber, injectivity, and surjectivity.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
