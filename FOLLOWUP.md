@@ -49,6 +49,8 @@ the formalization proves:
     maps commute with transport along mapped paths.
 21. a homotopy between continuous maps induces the corresponding conjugacy
     relation on quotient maps, with the homotopy's basepoint path as witness.
+22. the joint-continuity/topological-group boundary is also invariant under
+    basepoint change along a path.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -113,6 +115,8 @@ every continuous map.
 The pointed homotopy-naturality law is also exposed: a homotopy between maps
 relates their induced quotient maps by conjugation along the path traced at the
 basepoint.
+The same continuous multiplicative transport preserves the joint-continuity
+boundary at any two basepoints connected by a path.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

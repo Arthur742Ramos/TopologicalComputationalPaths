@@ -65,7 +65,7 @@ homeomorphism invariance, path-based basepoint change, its homotopy-class
 independence, its identity and composition laws, naturality under continuous
 maps, and binary-product preservation under the explicit product-quotient
 hypothesis.  It also exposes pointed homotopy naturality for induced quotient
-maps.  These are
+maps and basepoint invariance of the joint-continuity boundary.  These are
 formalized as structural properties of the established quasitopological
 fundamental group, not claimed as new paper theorems.
 

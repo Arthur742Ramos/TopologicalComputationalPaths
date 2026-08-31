@@ -28,7 +28,9 @@ on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
 The certificate also exposes preservation of path-class concatenation under
 continuous maps and the associated naturality square for basepoint transport.
-It also exposes the pointed conjugacy relation for homotopic maps.
+It also exposes the pointed conjugacy relation for homotopic maps.  The
+topological-group boundary is likewise transported between any two basepoints
+joined by a path.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -121,6 +123,15 @@ structure QuotientTopologicalFundamentalGroupTheory where
         Continuous
           (fun p : GenericLoopQuot Y (e x) × GenericLoopQuot Y (e x) =>
             _root_.Path.Homotopic.Quotient.trans p.1 p.2)
+  quotient_trans_continuity_basepoint_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      Continuous
+          (fun q : GenericLoopQuot X x₀ × GenericLoopQuot X x₀ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
+        Continuous
+          (fun q : GenericLoopQuot X x₁ × GenericLoopQuot X x₁ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),
@@ -425,6 +436,9 @@ theorem main_result :
         exact
           QuotientFundamentalGroup.quotientTransContinuous_iff_of_homotopyEquiv
             e x
+      quotient_trans_continuity_basepoint_invariant := by
+        intro X _ x₀ x₁ p
+        exact QuotientFundamentalGroup.quotientTransContinuous_iff_of_path p
       quotient_basepoint_change := by
         intro X _ x₀ x₁ p
         refine ⟨

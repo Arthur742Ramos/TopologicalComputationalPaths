@@ -33,7 +33,8 @@ basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths.  It also records preservation of path-class concatenation
 under continuous maps and naturality of basepoint transport, together with
-the conjugacy law for homotopic maps.
+the conjugacy law for homotopic maps.  It also records basepoint invariance
+of the joint-continuity boundary.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -128,6 +129,15 @@ structure QuotientTopologicalFundamentalGroupTheory where
         Continuous
           (fun p : GenericLoopQuot Y (e x) × GenericLoopQuot Y (e x) =>
             _root_.Path.Homotopic.Quotient.trans p.1 p.2)
+  quotient_trans_continuity_basepoint_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      Continuous
+          (fun q : GenericLoopQuot X x₀ × GenericLoopQuot X x₀ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
+        Continuous
+          (fun q : GenericLoopQuot X x₁ × GenericLoopQuot X x₁ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),

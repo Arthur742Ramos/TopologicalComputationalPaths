@@ -14,9 +14,8 @@ equivalences, and paths between basepoints induce continuous multiplicative
 equivalences between the corresponding quotient fundamental groups.
 Quotient path composition is preserved by continuous maps, and basepoint
 transport is natural for those induced maps.  Consequently, quotient
-discreteness is invariant under both homotopy
-equivalence and path-based basepoint change.  The boundary between separate
-and joint multiplication continuity is homotopy-invariant as well.
+discreteness and the joint-continuity boundary are invariant under both
+homotopy equivalence and path-based basepoint change.
 
 Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
@@ -450,6 +449,21 @@ theorem quotientTransContinuous_iff_of_homotopyEquiv
   rw [continuous_quotientTrans_iff_topologicalGroupStructure,
     continuous_quotientTrans_iff_topologicalGroupStructure]
   exact quotientContinuousMul_iff_of_homotopyEquiv e x
+
+/-- Joint continuity of quotient concatenation is independent of the chosen
+basepoint along a path. -/
+theorem quotientTransContinuous_iff_of_path {x₀ x₁ : X}
+    (p : _root_.Path x₀ x₁) :
+    Continuous
+        (fun q : LoopQuot X x₀ × LoopQuot X x₀ =>
+          _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
+      Continuous
+        (fun q : LoopQuot X x₁ × LoopQuot X x₁ =>
+          _root_.Path.Homotopic.Quotient.trans q.1 q.2) := by
+  rw [continuous_quotientTrans_iff_topologicalGroupStructure,
+    continuous_quotientTrans_iff_topologicalGroupStructure]
+  exact continuousMul_iff_of_continuousMulEquiv
+    (basepointChangeContinuousMulEquiv p)
 
 /-- A covering map induces an injective continuous homomorphism on
 quotient-topological fundamental groups.  The injectivity is the unique
