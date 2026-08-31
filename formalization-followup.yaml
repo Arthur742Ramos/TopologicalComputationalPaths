@@ -130,6 +130,10 @@ project:
     lattice and finite-torus matrix images, including zero-factor equations.
     The topological arbitrary-rank Smith equivalence also has an explicit
     quotient-representative formula for direct loop-class decoding.
+    Whenever all Smith moduli are nonzero, the cyclic factors are refined by
+    the Chinese remainder theorem into an explicit product of prime-power
+    cyclic groups on both lattice and finite-torus cokernels, with a proved
+    representative formula for the refined decoder.
     For every square matrix, the adjugate gives an explicit preimage of each
     determinant multiple, so the determinant annihilates every lattice and
     finite-torus cokernel class, including singular matrices; this certificate
@@ -716,6 +720,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The topological arbitrary-rank Smith equivalence has an explicit quotient-representative formula, reducing loop-class decoding to the lattice Smith representative formula."
+    - source: "Finite-torus Smith prime-power refinement"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPrimePowerAddEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPiPrimePowerAddEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_apply_mk"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Whenever all Smith moduli are nonzero, Chinese remainder decomposes each cyclic Smith factor into its explicit prime-power components; the lattice and finite-torus cokernel refinements have representative formulas."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

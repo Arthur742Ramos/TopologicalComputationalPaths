@@ -146,6 +146,10 @@ inverse witness, including at arbitrary basepoints.
     For every square matrix, the adjugate gives an explicit preimage of each
     determinant multiple, and the determinant annihilates both the lattice and
     finite-torus cokernel classes without a nonzero-determinant hypothesis.
+    Whenever all Smith moduli are nonzero, the cyclic factors are further
+    decomposed by the Chinese remainder theorem into explicit prime-power
+    cyclic factors on both lattice and finite-torus cokernels, with a
+    representative formula for the refined decoder.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

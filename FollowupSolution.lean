@@ -139,6 +139,10 @@ formula for evaluating the coordinate decoder on loop classes.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both lattice and
 finite-torus cokernel classes even in the singular case.
+Whenever all Smith moduli are nonzero, the cyclic factors are further
+decomposed by the Chinese remainder theorem into explicit prime-power cyclic
+factors on both lattice and finite-torus cokernels, with a representative
+formula for the refined decoder.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

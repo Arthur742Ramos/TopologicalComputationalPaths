@@ -130,6 +130,10 @@ The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
 so this coordinate decoder is directly usable on loop classes.
+Whenever the Smith factors are all nonzero, the cyclic factors are refined by
+the Chinese remainder theorem into an explicit product of prime-power cyclic
+groups, on both the lattice and finite-torus cokernels, with a representative
+formula for the refined decoder.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2520,6 +2524,50 @@ noncomputable def submoduleCokernelSmithEquiv
           ((snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) x i)) := by
   rfl
 
+/-! A nonzero Smith cyclic factor admits a canonical prime-power refinement
+through the Chinese remainder theorem. -/
+
+/-- The additive form of the Chinese-remainder decomposition of a nonzero
+`ZMod` into its prime-power factors. -/
+noncomputable def zmodPrimePowerAddEquiv (n : ℕ) (hn : n ≠ 0) :
+    ZMod n ≃+ (∀ p : n.primeFactors, ZMod (p ^ (n.factorization p))) :=
+  (ZMod.equivPi n hn).toAddEquiv
+
+/-- Apply the prime-power refinement coordinatewise to a finite product of
+nonzero cyclic `ZMod` factors. -/
+noncomputable def zmodPiPrimePowerAddEquiv {ι : Type*} [Fintype ι]
+    (a : ι → ℕ) (h : ∀ i, a i ≠ 0) :
+    (∀ i, ZMod (a i)) ≃+
+      (∀ i, ∀ p : (a i).primeFactors,
+        ZMod (p ^ ((a i).factorization p))) :=
+  AddEquiv.piCongrRight fun i => zmodPrimePowerAddEquiv (a i) (h i)
+
+/-- Refine an arbitrary-rank Smith cokernel into its prime-power cyclic
+factors whenever the quotient is finite (equivalently, every Smith factor is
+nonzero). -/
+noncomputable def submoduleCokernelSmithPrimePowerEquiv
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0) :
+    ((Fin m → ℤ) ⧸ N) ≃+
+      (∀ i : Fin m, ∀ p : (smithNormalFormFactor snf i).natAbs.primeFactors,
+        ZMod (p ^ ((smithNormalFormFactor snf i).natAbs.factorization p))) := by
+  let a : Fin m → ℕ := fun i => (smithNormalFormFactor snf i).natAbs
+  have ha : ∀ i, a i ≠ 0 := fun i => Int.natAbs_ne_zero.mpr (h i)
+  exact (submoduleCokernelSmithEquiv snf).trans
+    (zmodPiPrimePowerAddEquiv a ha)
+
+@[simp] theorem submoduleCokernelSmithPrimePowerEquiv_apply_mk
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0)
+    (x : Fin m → ℤ) :
+    submoduleCokernelSmithPrimePowerEquiv snf h (Submodule.Quotient.mk x) =
+      fun i => zmodPrimePowerAddEquiv
+        (smithNormalFormFactor snf i).natAbs (Int.natAbs_ne_zero.mpr (h i))
+        ((submoduleCokernelSmithEquiv snf (Submodule.Quotient.mk x)) i) := by
+  rfl
+
 /-- The arbitrary-rank Smith equivalence gives the exact `Nat.card` of the
 cokernel, including the infinite case: a zero factor contributes the zero
 cardinality of `ZMod 0`. -/
@@ -2543,6 +2591,43 @@ noncomputable def matrixAction_cokernel_smithEquiv {n m : ℕ}
   exact submoduleCokernelSmithEquiv
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-- Refine a finite rectangular lattice cokernel into prime-power cyclic
+factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
+noncomputable def matrixAction_cokernel_smithPrimePowerEquiv
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ≃+
+      (∀ i : Fin m, ∀ p : (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+        ZMod (p ^ ((smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p))) :=
+  submoduleCokernelSmithPrimePowerEquiv
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h
+
+@[simp] theorem matrixAction_cokernel_smithPrimePowerEquiv_apply_mk
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : Fin m → ℤ) :
+    matrixAction_cokernel_smithPrimePowerEquiv A h
+        (Submodule.Quotient.mk x) =
+      fun i => zmodPrimePowerAddEquiv
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
+        (Int.natAbs_ne_zero.mpr (h i))
+        ((submoduleCokernelSmithEquiv
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2
+          (Submodule.Quotient.mk x)) i) := by
+  rfl
 
 /-- A finite product of `ZMod` coordinates is finite exactly when every
 modulus is nonzero.  This is the finiteness criterion that detects whether an
@@ -4194,6 +4279,47 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquiv
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2
         (Submodule.Quotient.mk (loopQuotAddEquivIntVector m x)) := by
+  rfl
+
+/-- Refine a finite rectangular finite-torus cokernel into prime-power cyclic
+factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ≃+
+      (∀ i : Fin m, ∀ p : (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+        ZMod (p ^ ((smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p))) := by
+  let snf := (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+    (matrixAction A).range.toIntSubmodule).2
+  let a : Fin m → ℕ := fun i => (smithNormalFormFactor snf i).natAbs
+  have ha : ∀ i, a i ≠ 0 := fun i => Int.natAbs_ne_zero.mpr (h i)
+  exact (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).trans
+    (zmodPiPrimePowerAddEquiv a ha)
+
+@[simp] theorem matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_apply_mk
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : LoopQuot m) :
+    matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv A h
+        (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+      fun i => zmodPrimePowerAddEquiv
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
+        (Int.natAbs_ne_zero.mpr (h i))
+        ((submoduleCokernelSmithEquiv
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2
+          (Submodule.Quotient.mk
+            (loopQuotAddEquivIntVector m x))) i) := by
   rfl
 
 /-- Membership in a rectangular finite-torus matrix image is detected by

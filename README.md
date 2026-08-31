@@ -307,6 +307,10 @@ The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,
 so the decoded coordinates can be evaluated directly on loop classes.
+Whenever the Smith factors are nonzero, the cyclic factors are further
+decomposed by the Chinese remainder theorem into an explicit product of
+prime-power cyclic groups, on both lattice and finite-torus cokernels, with
+a representative formula for the refined decoder.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

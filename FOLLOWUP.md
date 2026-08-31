@@ -259,6 +259,12 @@ the formalization proves:
 90. consequently, the determinant annihilates every lattice and finite-torus
     cokernel class, including singular matrices; this annihilator certificate
     is independent of the nonzero-determinant cardinality theorem.
+91. whenever all Smith factors are nonzero, each cyclic `ZMod` factor is
+    refined by the Chinese remainder theorem into an explicit indexed product
+    of prime-power cyclic factors.
+92. this prime-power refinement is packaged for arbitrary-rank lattice and
+    finite-torus cokernels, with a proved representative formula for the
+    refined decoder.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
