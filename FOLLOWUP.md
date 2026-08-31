@@ -53,6 +53,8 @@ the formalization proves:
     basepoint change along a path.
 23. a homotopy that fixes the chosen basepoint throughout induces equal based
     homomorphisms, with the endpoint equality handled by `mapOfEq`.
+24. on a path-connected space, joint continuity at one basepoint is equivalent
+    to joint continuity at every basepoint.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -122,6 +124,9 @@ boundary at any two basepoints connected by a path.
 As a pointed specialization, when the homotopy is constant at the chosen
 basepoint, the two induced based homomorphisms are equal after the canonical
 endpoint cast.
+For path-connected spaces, the basepoint result upgrades this to a global
+criterion: the topological-group boundary may be checked at any one chosen
+basepoint or simultaneously at all basepoints.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

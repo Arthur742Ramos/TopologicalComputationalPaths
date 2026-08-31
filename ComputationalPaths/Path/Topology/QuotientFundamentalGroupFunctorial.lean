@@ -21,6 +21,8 @@ Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
 When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
+On a path-connected space, joint continuity at one basepoint is therefore
+equivalent to joint continuity at every basepoint.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -525,6 +527,23 @@ theorem quotientTransContinuous_iff_of_path {x₀ x₁ : X}
     continuous_quotientTrans_iff_topologicalGroupStructure]
   exact continuousMul_iff_of_continuousMulEquiv
     (basepointChangeContinuousMulEquiv p)
+
+/-- On a path-connected space, checking joint continuity at one basepoint is
+equivalent to checking it at every basepoint. -/
+theorem quotientTransContinuous_iff_forall_of_pathConnected
+    [PathConnectedSpace X] (x₀ : X) :
+    Continuous
+        (fun p : LoopQuot X x₀ × LoopQuot X x₀ =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) ↔
+      ∀ x : X, Continuous
+        (fun p : LoopQuot X x × LoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
+  constructor
+  · intro h x
+    let p : _root_.Path x₀ x := PathConnectedSpace.somePath x₀ x
+    exact (quotientTransContinuous_iff_of_path p).mp h
+  · intro h
+    exact h x₀
 
 /-- A covering map induces an injective continuous homomorphism on
 quotient-topological fundamental groups.  The injectivity is the unique

@@ -11,7 +11,8 @@ project:
     (including path-homotopy independence, identity and composition coherence,
     naturality under continuous maps, basepoint invariance of the
     joint-continuity boundary, and the pointed fixed-basepoint homotopy
-    corollary),
+    corollary, and the path-connected all-basepoints joint-continuity
+    criterion),
     and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
@@ -125,7 +126,8 @@ status:
     identity and composition, homotopy-equivalence invariance, path-based
     basepoint change, path-homotopy coherence, identity coherence, composition
     coherence, continuous-map naturality, basepoint joint-continuity
-    invariance, and the pointed fixed-basepoint homotopy corollary, and
+    invariance, the pointed fixed-basepoint homotopy corollary, and the
+    path-connected all-basepoints joint-continuity criterion, and
     conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
@@ -260,6 +262,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "A homotopy fixed at the chosen basepoint induces equal based homomorphisms after endpoint casting."
+    - source: "All-basepoints joint-continuity criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "On a path-connected space, joint continuity at one basepoint is equivalent to joint continuity at every basepoint."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

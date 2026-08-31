@@ -32,6 +32,8 @@ It also exposes the pointed conjugacy relation for homotopic maps.  The
 topological-group boundary is likewise transported between any two basepoints
 joined by a path.  A homotopy that fixes the chosen basepoint throughout
 therefore gives equal induced based homomorphisms after endpoint casting.
+On a path-connected space, the joint-continuity boundary can consequently be
+checked at one basepoint or uniformly at all basepoints.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -132,6 +134,14 @@ structure QuotientTopologicalFundamentalGroupTheory where
             _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
         Continuous
           (fun q : GenericLoopQuot X x₁ × GenericLoopQuot X x₁ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_trans_continuity_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      Continuous
+          (fun q : GenericLoopQuot X x₀ × GenericLoopQuot X x₀ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
+        ∀ x : X, Continuous
+          (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
             _root_.Path.Homotopic.Quotient.trans q.1 q.2)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
@@ -448,6 +458,11 @@ theorem main_result :
       quotient_trans_continuity_basepoint_invariant := by
         intro X _ x₀ x₁ p
         exact QuotientFundamentalGroup.quotientTransContinuous_iff_of_path p
+      quotient_trans_continuity_all_basepoints := by
+        intro X _ _ x₀
+        exact
+          QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected
+            x₀
       quotient_basepoint_change := by
         intro X _ x₀ x₁ p
         refine ⟨

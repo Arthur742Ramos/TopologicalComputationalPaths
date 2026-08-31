@@ -36,6 +36,8 @@ under continuous maps and naturality of basepoint transport, together with
 the conjugacy law for homotopic maps.  It also records basepoint invariance
 of the joint-continuity boundary, and the pointed specialization that a
 basepoint-fixing homotopy induces equal based homomorphisms.
+On path-connected spaces it also records that joint continuity at one
+basepoint is equivalent to joint continuity at every basepoint.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -138,6 +140,14 @@ structure QuotientTopologicalFundamentalGroupTheory where
             _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
         Continuous
           (fun q : GenericLoopQuot X x₁ × GenericLoopQuot X x₁ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_trans_continuity_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      Continuous
+          (fun q : GenericLoopQuot X x₀ × GenericLoopQuot X x₀ =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2) ↔
+        ∀ x : X, Continuous
+          (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
             _root_.Path.Homotopic.Quotient.trans q.1 q.2)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
