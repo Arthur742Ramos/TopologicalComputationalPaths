@@ -133,6 +133,12 @@ the formalization proves:
 55. by abelian-target path independence, the canonical arbitrary-basepoint
     winding classifier satisfies the same matrix naturality square without a
     path parameter.
+56. at arbitrary basepoints, the image of a matrix-induced quotient map is
+    exactly the image of the corresponding integer-lattice action;
+57. its kernel is exactly the matrix-action kernel under the transported
+    winding classifier; and
+58. injectivity and surjectivity of the arbitrary-basepoint quotient map are
+    each equivalent to the corresponding property of the matrix action.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -240,6 +246,9 @@ cast needed because a matrix preserves the zero basepoint propositionally is
 part of the theorem rather than hidden in a definitional equality.
 Path independence of the abelian target then removes the auxiliary path and
 gives the same statement for the canonical classifier at every basepoint.
+The same classifier transfers the exact matrix image and kernel descriptions,
+as well as the injectivity and surjectivity iff criteria, from the integer
+lattice action to the quotient homomorphism at every chosen basepoint.
 
 ## Literature and novelty boundary
 

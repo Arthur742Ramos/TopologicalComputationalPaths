@@ -73,7 +73,9 @@ homomorphisms at arbitrary basepoints, proves their compatibility with
 basepoint transport, and states the path-based classifier square with the
 endpoint cast made explicit.  Abelian-target path independence then gives
 the same matrix naturality square for the canonical classifier without a
-path parameter.
+path parameter.  The canonical classifier also transfers the exact matrix
+image and kernel descriptions, and the injectivity/surjectivity iff criteria,
+to every chosen basepoint.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

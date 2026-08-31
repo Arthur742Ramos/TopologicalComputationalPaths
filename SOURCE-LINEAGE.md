@@ -136,7 +136,9 @@ are also exposed as continuous multiplicative quotient homomorphisms commuting
 with explicit basepoint transport.  The path-based classifier naturality
 theorem records the endpoint cast from the mapped zero basepoint explicitly,
 and abelian-target path independence gives the same square for the canonical
-arbitrary-basepoint classifier.
+arbitrary-basepoint classifier.  The same classifier transports the exact
+matrix image, kernel, injectivity, and surjectivity iff criteria to every
+chosen basepoint.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

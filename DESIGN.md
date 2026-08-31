@@ -202,7 +202,9 @@ multiplicative homomorphism at arbitrary torus basepoints, with a proved
 basepoint-transport square.  The path-based classifier naturality theorem
 keeps the endpoint cast from the mapped zero basepoint explicit.  Abelian
 target path independence also yields the corresponding canonical classifier
-square without a path parameter.
+square without a path parameter.  The canonical classifier transfers the
+matrix image, kernel, injectivity, and surjectivity iff criteria to the
+arbitrary-basepoint quotient homomorphisms.
 
 ## Non-goals for the first submission
 

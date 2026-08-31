@@ -50,6 +50,8 @@ At arbitrary basepoints, the induced continuous multiplicative homomorphisms
 commute with explicit basepoint transport, and both the path-based and
 canonical winding classifiers satisfy the corresponding matrix naturality
 square, with the endpoint cast made explicit.
+The canonical classifier also transports exact matrix image, kernel,
+injectivity, and surjectivity criteria to arbitrary basepoints.
 -/
 
 namespace ComputationalPaths
@@ -1819,6 +1821,142 @@ theorem loopQuotContinuousMulEquivIntVector_at_matrixMap
   simpa [p, p', loopQuotContinuousMulEquivIntVector_at_path,
     loopQuotContinuousMulEquivIntVector_at,
     QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv] using h
+
+/-- At arbitrary basepoints, the image of the matrix-induced quotient
+homomorphism is exactly the image of the corresponding lattice action. -/
+theorem matrixMapQuotientContinuousMulHomAt_mem_range_iff
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier m) (matrixMap A x)) :
+    q ∈ Set.range (matrixMapQuotientContinuousMulHomAt A x) ↔
+      Multiplicative.toAdd
+          ((loopQuotContinuousMulEquivIntVector_at m (matrixMap A x)) q) ∈
+        Set.range (matrixAction A) := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (matrixMap A x)
+  constructor
+  · rintro ⟨p, rfl⟩
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x p
+    have hvec :
+        Multiplicative.toAdd (eₘ
+            (matrixMapQuotientContinuousMulHomAt A x p)) =
+          matrixAction A (Multiplicative.toAdd (eₙ p)) := by
+      rw [hnat]
+      rfl
+    rw [hvec]
+    exact ⟨Multiplicative.toAdd (eₙ p), rfl⟩
+  · rintro ⟨z, hz⟩
+    refine ⟨eₙ.symm (Multiplicative.ofAdd z), ?_⟩
+    apply eₘ.injective
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x
+      (eₙ.symm (Multiplicative.ofAdd z))
+    rw [hnat]
+    apply Multiplicative.ext
+    change matrixAction A
+        (Multiplicative.toAdd (eₙ (eₙ.symm (Multiplicative.ofAdd z)))) =
+      Multiplicative.toAdd (eₘ q)
+    rw [eₙ.apply_symm_apply]
+    exact hz
+
+/-- At arbitrary basepoints, the kernel of the matrix-induced quotient
+homomorphism is exactly the kernel of the integer matrix action. -/
+theorem matrixMapQuotientContinuousMulHomAt_eq_one_iff
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    matrixMapQuotientContinuousMulHomAt A x q = 1 ↔
+      matrixAction A
+          (Multiplicative.toAdd
+            ((loopQuotContinuousMulEquivIntVector_at n x) q)) = 0 := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (matrixMap A x)
+  constructor
+  · intro h
+    have hq := congrArg (fun r => eₘ r)
+      (show matrixMapQuotientContinuousMulHomAt A x q = 1 from h)
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x q
+    rw [hnat] at hq
+    have h_one : eₘ (1 : QuotientFundamentalGroup.LoopQuot
+        (Carrier m) (matrixMap A x)) = 1 := eₘ.map_one
+    rw [h_one] at hq
+    apply Multiplicative.ofAdd.injective
+    exact hq
+  · intro h
+    apply eₘ.injective
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x q
+    rw [hnat]
+    have h_one : eₘ (1 : QuotientFundamentalGroup.LoopQuot
+        (Carrier m) (matrixMap A x)) = 1 := eₘ.map_one
+    rw [h_one]
+    apply Multiplicative.ext
+    change matrixAction A (Multiplicative.toAdd (eₙ q)) = 0
+    exact h
+
+/-- Injectivity of the arbitrary-basepoint matrix quotient homomorphism is
+exactly injectivity of the induced integer matrix action. -/
+theorem matrixMapQuotientContinuousMulHomAt_injective_iff
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n) :
+    Function.Injective (matrixMapQuotientContinuousMulHomAt A x) ↔
+      Function.Injective (matrixAction A) := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (matrixMap A x)
+  constructor
+  · intro hinj z w hzw
+    let p := eₙ.symm (Multiplicative.ofAdd z)
+    let q := eₙ.symm (Multiplicative.ofAdd w)
+    have hmap :
+        matrixMapQuotientContinuousMulHomAt A x p =
+          matrixMapQuotientContinuousMulHomAt A x q := by
+      apply eₘ.injective
+      have hp := loopQuotContinuousMulEquivIntVector_at_matrixMap A x p
+      have hq := loopQuotContinuousMulEquivIntVector_at_matrixMap A x q
+      rw [hp, hq]
+      apply Multiplicative.ext
+      change matrixAction A (Multiplicative.toAdd (eₙ p)) =
+        matrixAction A (Multiplicative.toAdd (eₙ q))
+      simp [p, q, hzw]
+    have hpq := hinj hmap
+    have heq := congrArg (fun r => eₙ r) hpq
+    have hvec := congrArg (fun r => Multiplicative.toAdd r) heq
+    simpa [p, q] using hvec
+  · intro hinj p q hmap
+    apply eₙ.injective
+    apply Multiplicative.ext
+    apply hinj
+    have hmap' := congrArg (fun r => eₘ r) hmap
+    have hp := loopQuotContinuousMulEquivIntVector_at_matrixMap A x p
+    have hq := loopQuotContinuousMulEquivIntVector_at_matrixMap A x q
+    rw [hp, hq] at hmap'
+    exact Multiplicative.ofAdd.injective hmap'
+
+/-- Surjectivity of the arbitrary-basepoint matrix quotient homomorphism is
+exactly surjectivity of the induced integer matrix action. -/
+theorem matrixMapQuotientContinuousMulHomAt_surjective_iff
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n) :
+    Function.Surjective (matrixMapQuotientContinuousMulHomAt A x) ↔
+      Function.Surjective (matrixAction A) := by
+  let eₙ := loopQuotContinuousMulEquivIntVector_at n x
+  let eₘ := loopQuotContinuousMulEquivIntVector_at m (matrixMap A x)
+  constructor
+  · intro hsurj w
+    obtain ⟨q, hq⟩ := hsurj (eₘ.symm (Multiplicative.ofAdd w))
+    have hq' := congrArg (fun r => eₘ r) hq
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x q
+    rw [hnat] at hq'
+    rw [eₘ.apply_symm_apply] at hq'
+    refine ⟨Multiplicative.toAdd (eₙ q), ?_⟩
+    exact Multiplicative.ofAdd.injective hq'
+  · intro hsurj q
+    obtain ⟨z, hz⟩ := hsurj (Multiplicative.toAdd (eₘ q))
+    refine ⟨eₙ.symm (Multiplicative.ofAdd z), ?_⟩
+    apply eₘ.injective
+    have hnat := loopQuotContinuousMulEquivIntVector_at_matrixMap A x
+      (eₙ.symm (Multiplicative.ofAdd z))
+    rw [hnat]
+    apply Multiplicative.ext
+    change matrixAction A
+        (Multiplicative.toAdd (eₙ (eₙ.symm (Multiplicative.ofAdd z)))) =
+      Multiplicative.toAdd (eₘ q)
+    rw [eₙ.apply_symm_apply]
+    exact hz
 
 /-- Matrix quotient maps compose contravariantly. -/
 theorem matrixMapQuotientMap_comp {n m k : ℕ}
