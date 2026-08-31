@@ -139,7 +139,9 @@ and abelian-target path independence gives the same square for the canonical
 arbitrary-basepoint classifier.  The same classifier transports the exact
 matrix image, kernel, injectivity, and surjectivity iff criteria to every
 chosen basepoint, each as an explicit iff theorem for the arbitrary-basepoint
-quotient homomorphism.
+quotient homomorphism.  The arbitrary-basepoint homomorphisms also satisfy
+typed contravariant composition and identity laws, with endpoint casts induced
+by the matrix-map coherence equations.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

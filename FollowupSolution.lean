@@ -71,6 +71,8 @@ the same matrix naturality square for the canonical classifier without a
 path parameter.  The canonical classifier also transfers the exact matrix
 image and kernel descriptions, and the injectivity/surjectivity iff criteria,
 to every chosen basepoint, each as an explicit iff theorem.
+The arbitrary-basepoint homomorphisms additionally satisfy typed
+contravariant composition and identity laws with explicit endpoint casts.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

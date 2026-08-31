@@ -142,6 +142,9 @@ the formalization proves:
 59. the arbitrary-basepoint matrix image, kernel, injectivity, and
     surjectivity statements are all explicit iff theorems, not merely
     consequences left to reconstruction.
+60. arbitrary-basepoint matrix homomorphisms satisfy contravariant composition
+    and identity laws, with the endpoint equalities induced by map coherence
+    transported explicitly at the quotient level.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -255,6 +258,9 @@ lattice action to the quotient homomorphism at every chosen basepoint.
 These are stated as explicit iff theorems for image membership, the identity
 fiber, injectivity, and surjectivity, so the arbitrary-basepoint interface
 retains the same exactness guarantees as the canonical quotient map.
+The arbitrary-basepoint homomorphisms also satisfy contravariant composition
+and identity pointwise, with the endpoint equalities induced by
+`matrixMap_comp` and `matrixMap_id` transported explicitly.
 
 ## Literature and novelty boundary
 

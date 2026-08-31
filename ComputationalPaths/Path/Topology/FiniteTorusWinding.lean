@@ -52,6 +52,9 @@ canonical winding classifiers satisfy the corresponding matrix naturality
 square, with the endpoint cast made explicit.
 The canonical classifier also transports exact matrix image, kernel,
 injectivity, and surjectivity criteria to arbitrary basepoints.
+The arbitrary-basepoint matrix homomorphisms satisfy typed composition and
+identity laws as well, with the endpoint equalities induced by matrix-map
+coherence transported explicitly.
 -/
 
 namespace ComputationalPaths
@@ -1596,6 +1599,19 @@ lemma quotientCast_roundtrip
   cases h
   simp only [_root_.Path.Homotopic.Quotient.cast_rfl_rfl]
 
+/-- Equality of continuous maps transports the induced quotient map across
+the corresponding endpoint equality. -/
+lemma quotientMap_cast_of_continuousMap_eq
+    {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+    {f g : C(X, Y)} (hfg : f = g) (x : X)
+    (q : QuotientFundamentalGroup.LoopQuot X x) :
+    ((_root_.Path.Homotopic.Quotient.map q f).cast
+      (congrArg (fun F : C(X, Y) => F x) hfg.symm)
+      (congrArg (fun F : C(X, Y) => F x) hfg.symm)) =
+      _root_.Path.Homotopic.Quotient.map q g := by
+  cases hfg
+  simp only [_root_.Path.Homotopic.Quotient.cast_rfl_rfl]
+
 /-- An integer matrix induces a continuous multiplicative homomorphism on
 the quotient fundamental groups at every chosen torus basepoint. -/
 noncomputable def matrixMapQuotientContinuousMulHomAt {n m : ℕ}
@@ -1629,6 +1645,37 @@ theorem matrixMapQuotientContinuousMulHomAt_basepointChange
       (_root_.Path.Homotopic.Quotient.map q (matrixMap A))
   exact QuotientFundamentalGroup.basepointChange_quotientMap_naturality
     p (matrixMap A) q
+
+/-- Arbitrary-basepoint matrix homomorphisms compose contravariantly, with
+the endpoint equality induced by matrix-map composition made explicit. -/
+theorem matrixMapQuotientContinuousMulHomAt_comp_cast_apply
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (x : Carrier n) (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (((matrixMapQuotientContinuousMulHomAt B (matrixMap A x)).comp
+        (matrixMapQuotientContinuousMulHomAt A x)) q).cast
+      (congrArg (fun F : C(Carrier n, Carrier k) => F x)
+        (matrixMap_comp A B).symm)
+      (congrArg (fun F : C(Carrier n, Carrier k) => F x)
+        (matrixMap_comp A B).symm) =
+      matrixMapQuotientContinuousMulHomAt (matrixCompose A B) x q := by
+  dsimp
+  rw [QuotientFundamentalGroup.quotientMap_comp]
+  exact quotientMap_cast_of_continuousMap_eq (matrixMap_comp A B) x q
+
+/-- The identity matrix induces the identity arbitrary-basepoint quotient
+homomorphism, with the endpoint equality induced by `matrixMap_id` explicit. -/
+theorem matrixMapQuotientContinuousMulHomAt_id_cast_apply
+    (n : ℕ) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    ((matrixMapQuotientContinuousMulHomAt (matrixIdentity n) x) q).cast
+      (congrArg (fun F : C(Carrier n, Carrier n) => F x)
+        (matrixMap_id n).symm)
+      (congrArg (fun F : C(Carrier n, Carrier n) => F x)
+        (matrixMap_id n).symm) = q := by
+  dsimp
+  have hcast := quotientMap_cast_of_continuousMap_eq (matrixMap_id n) x q
+  have hid := QuotientFundamentalGroup.quotientMap_id x q
+  exact hcast.trans hid
 
 lemma zsmul_circleCover (a : ℤ) (r : ℝ) :
     a • circleCover r = circleCover (a • r) := by

@@ -223,7 +223,9 @@ path independence then gives the same square for the canonical classifier,
 without exposing a path choice.  The canonical classifier also transfers the
 matrix image, kernel, injectivity, and surjectivity iff criteria to every
 chosen basepoint, with explicit iff statements for image membership, the
-identity fiber, injectivity, and surjectivity.
+identity fiber, injectivity, and surjectivity.  The arbitrary-basepoint
+homomorphisms also satisfy typed contravariant composition and identity laws,
+with their endpoint casts induced explicitly by matrix-map coherence.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

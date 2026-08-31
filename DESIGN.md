@@ -205,7 +205,9 @@ target path independence also yields the corresponding canonical classifier
 square without a path parameter.  The canonical classifier transfers the
 matrix image, kernel, injectivity, and surjectivity iff criteria to the
 arbitrary-basepoint quotient homomorphisms, with each criterion exposed as an
-explicit iff theorem.
+explicit iff theorem.  Their typed contravariant composition and identity laws
+are also proved pointwise, using explicit endpoint casts induced by
+`matrixMap_comp` and `matrixMap_id`.
 
 ## Non-goals for the first submission
 
