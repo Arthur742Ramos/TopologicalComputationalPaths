@@ -156,6 +156,9 @@ exponent divides the product of the two successive cokernel exponents,
 without an injectivity hypothesis.  Rectangular lattice and finite-torus
 matrix sequences inherit this bound in explicit composition and canonical
 `matrixCompose` notation.
+Under injectivity of the second map, the exact sequence also gives a
+multiplicative `Nat.card` identity for the composite and successive cokernels,
+in both rectangular lattice and finite-torus presentations.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

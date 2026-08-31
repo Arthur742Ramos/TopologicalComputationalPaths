@@ -327,6 +327,10 @@ exponent divides the product of the exponents of the two successive
 cokernels, without an injectivity hypothesis.  Rectangular lattice and
 finite-torus matrix sequences inherit this bound, both for explicit homomorphism
 composition and for canonical `matrixCompose` ranges.
+Under the injectivity hypothesis needed for exactness, the corresponding
+`Nat.card` identity is multiplicative as well: the composite cokernel has the
+product cardinality of the two successive cokernels, on both rectangular
+interfaces.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

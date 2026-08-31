@@ -109,6 +109,9 @@ project:
     short-exact sequence under injectivity of the second matrix action, and
     the corresponding finite-torus quotient maps satisfy the transported
     theorem as well.
+    Under that injectivity hypothesis, the exact sequence also multiplies
+    `Nat.card`: the composite cokernel cardinality is the product of the two
+    successive cokernel cardinalities, in explicit and `matrixCompose` forms.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -827,6 +830,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For any composable additive cokernel sequence, the composite cokernel exponent divides the product of the successive cokernel exponents; rectangular lattice and finite-torus matrix forms inherit the bound, including canonical matrixCompose notation."
+    - source: "Finite-torus exact-sequence cardinality product"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_injective"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "When the second map is injective, the exact cokernel sequence multiplies Nat.card; rectangular lattice and finite-torus forms expose the product identity for explicit composition and canonical matrixCompose ranges."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

@@ -163,6 +163,9 @@ inverse witness, including at arbitrary basepoints.
     without an injectivity hypothesis; rectangular lattice and finite-torus
     matrix sequences inherit the bound in explicit composition and canonical
     `matrixCompose` notation.
+    Under injectivity of the second map, the exact sequence also gives a
+    multiplicative `Nat.card` identity for the composite and successive
+    cokernels, in both rectangular lattice and finite-torus presentations.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

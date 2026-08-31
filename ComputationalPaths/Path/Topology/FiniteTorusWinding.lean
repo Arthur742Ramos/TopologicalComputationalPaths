@@ -104,6 +104,9 @@ exponent divides the product of the two successive cokernel exponents.  This
 bound is proved without an injectivity assumption and is exposed for
 rectangular lattice and finite-torus matrix maps, including canonical
 `matrixCompose` notation.
+When the second map is injective, the same exact sequence multiplies
+`Nat.card`: the composite cokernel cardinality is the product of the two
+successive cokernel cardinalities, again in both rectangular presentations.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -1968,6 +1971,38 @@ theorem addCokernelComp_exponent_dvd_mul
   rw [Nat.mul_comm, mul_nsmul]
   exact hmul
 
+/-- When the second map is injective, the exact cokernel sequence multiplies
+cardinalities: the composite cokernel has the product size of the two
+successive cokernels. -/
+theorem addCokernelComp_card_mul_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (hg : Function.Injective g) :
+    Nat.card (V ⧸ f.range) * Nat.card (W ⧸ g.range) =
+      Nat.card (W ⧸ (g.comp f).range) := by
+  let F := addCokernelCompMap f g
+  let P := addCokernelCompProjection f g
+  have hF : Function.Injective F :=
+    addCokernelCompMap_injective_of_injective f g hg
+  have hker : P.ker = F.range :=
+    addCokernelCompProjection_ker_eq_range f g
+  have hFcard : Nat.card (V ⧸ f.range) = Nat.card F.range :=
+    Nat.card_congr (AddMonoidHom.ofInjective hF).toEquiv
+  have hQcard :
+      Nat.card ((W ⧸ (g.comp f).range) ⧸ P.ker) = Nat.card (W ⧸ g.range) :=
+    Nat.card_congr (addCokernelCompProjection_quotientKerEquiv f g).toEquiv
+  calc
+    Nat.card (V ⧸ f.range) * Nat.card (W ⧸ g.range) =
+        Nat.card F.range *
+          Nat.card ((W ⧸ (g.comp f).range) ⧸ P.ker) := by
+      rw [hFcard, hQcard]
+    _ = Nat.card (W ⧸ (g.comp f).range) := by
+      calc
+        Nat.card F.range *
+              Nat.card ((W ⧸ (g.comp f).range) ⧸ P.ker) =
+            Nat.card P.ker * P.ker.index := by
+              rw [hker, AddSubgroup.index_eq_card]
+        _ = Nat.card (W ⧸ (g.comp f).range) := P.ker.card_mul_index
+
 /-- Rectangular matrix actions inherit the product exponent bound for their
 additive cokernel sequence. -/
 theorem matrixAction_rectangular_cokernel_exponent_dvd_mul
@@ -1988,6 +2023,27 @@ theorem matrixAction_rectangular_cokernel_exponent_dvd_mul_matrixCompose
         AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
   rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
   exact matrixAction_rectangular_cokernel_exponent_dvd_mul A B
+
+/-- Injective rectangular lattice sequences multiply cokernel cardinalities. -/
+theorem matrixAction_rectangular_cokernel_card_mul_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+      Nat.card
+        ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) := by
+  exact addCokernelComp_card_mul_of_injective (matrixAction A) (matrixAction B) hB
+
+/-- The rectangular lattice cardinality product in canonical matrix-compose
+notation. -/
+theorem matrixAction_rectangular_cokernel_card_mul_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+      Nat.card ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_card_mul_of_injective A B hB
 
 /-- The additive cokernel sequence is short exact whenever the second map is
 injective. -/
@@ -4385,6 +4441,19 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul
   exact addCokernelComp_exponent_dvd_mul
     (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B)
 
+/-- Injective rectangular finite-torus sequences multiply cokernel
+cardinalities. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        Nat.card (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) =
+      Nat.card
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) := by
+  exact addCokernelComp_card_mul_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB
+
 /-- Injectivity of the rectangular winding action is transported directly to
 the corresponding finite-torus quotient cokernel sequence. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective
@@ -5805,6 +5874,19 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul_matrixComp
         AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul A B
+
+/-- The rectangular finite-torus cardinality product in canonical
+matrix-compose notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        Nat.card (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) =
+      Nat.card
+        (LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective A B hB
 
 /-- The rectangular finite-torus exact sequence can be consumed directly
 through the canonical matrix-composition notation. -/

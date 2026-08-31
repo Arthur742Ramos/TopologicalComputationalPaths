@@ -301,6 +301,9 @@ exponent divides the product of the two successive cokernel exponents,
 without an injectivity hypothesis.  Rectangular lattice and finite-torus
 matrix sequences inherit this bound, including their canonical
 `matrixCompose` presentations.
+When the second map is injective, exactness also gives a multiplicative
+`Nat.card` identity: the composite cokernel has the product cardinality of the
+two successive cokernels, in both rectangular presentations.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

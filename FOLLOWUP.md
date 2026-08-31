@@ -338,6 +338,13 @@ the formalization proves:
      composition.
 126. the same bound is exposed in canonical `matrixCompose` notation on both
      sides.
+127. when the second map is injective, the exact cokernel sequence multiplies
+     `Nat.card`: the composite cardinality is the product of the successive
+     cokernel cardinalities.
+128. this cardinality product is transported to rectangular lattice and
+     finite-torus matrix cokernels under the same injectivity hypothesis.
+129. the cardinality identity is also exposed for canonical `matrixCompose`
+     ranges on both sides.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
