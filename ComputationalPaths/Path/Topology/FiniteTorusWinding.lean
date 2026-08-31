@@ -110,6 +110,9 @@ successive cokernel cardinalities, again in both rectangular presentations.
 On the finite-torus side this product identity is also available directly
 from injectivity of the underlying lattice action, with the quotient
 injectivity equivalence discharged explicitly.
+The same hypothesis gives a finiteness equivalence: the composite cokernel is
+finite exactly when both successive cokernels are finite, with direct and
+`matrixCompose` forms on the lattice and finite-torus sides.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -2006,6 +2009,34 @@ theorem addCokernelComp_card_mul_of_injective
               rw [hker, AddSubgroup.index_eq_card]
         _ = Nat.card (W ⧸ (g.comp f).range) := P.ker.card_mul_index
 
+/-- Under injectivity of the second map, the composite cokernel is finite
+exactly when both successive cokernels are finite. -/
+theorem addCokernelComp_finite_iff_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (hg : Function.Injective g) :
+    (Finite (V ⧸ f.range) ∧ Finite (W ⧸ g.range)) ↔
+      Finite (W ⧸ (g.comp f).range) := by
+  have hcard := addCokernelComp_card_mul_of_injective f g hg
+  constructor
+  · rintro ⟨hF, hG⟩
+    letI := hF
+    letI := hG
+    apply Nat.finite_of_card_ne_zero
+    rw [← hcard]
+    exact mul_ne_zero Nat.card_pos.ne' Nat.card_pos.ne'
+  · intro hComp
+    letI := hComp
+    have hComp0 : Nat.card (W ⧸ (g.comp f).range) ≠ 0 :=
+      Nat.card_ne_zero.mpr ⟨inferInstance, inferInstance⟩
+    have hprod0 : Nat.card (V ⧸ f.range) * Nat.card (W ⧸ g.range) ≠ 0 := by
+      rw [hcard]
+      exact hComp0
+    have hF0 : Nat.card (V ⧸ f.range) ≠ 0 :=
+      fun h => hprod0 (by rw [h, zero_mul])
+    have hG0 : Nat.card (W ⧸ g.range) ≠ 0 :=
+      fun h => hprod0 (by rw [h, mul_zero])
+    exact ⟨Nat.finite_of_card_ne_zero hF0, Nat.finite_of_card_ne_zero hG0⟩
+
 /-- Rectangular matrix actions inherit the product exponent bound for their
 additive cokernel sequence. -/
 theorem matrixAction_rectangular_cokernel_exponent_dvd_mul
@@ -2047,6 +2078,28 @@ theorem matrixAction_rectangular_cokernel_card_mul_of_matrixCompose_injective
       Nat.card ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) := by
   rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
   exact matrixAction_rectangular_cokernel_card_mul_of_injective A B hB
+
+/-- Injective rectangular lattice sequences have a finite composite cokernel
+exactly when both successive lattice cokernels are finite. -/
+theorem matrixAction_rectangular_cokernel_finite_iff_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+      Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
+      Finite
+        ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) := by
+  exact addCokernelComp_finite_iff_of_injective (matrixAction A) (matrixAction B) hB
+
+/-- The rectangular lattice finiteness equivalence in canonical
+matrix-compose notation. -/
+theorem matrixAction_rectangular_cokernel_finite_iff_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+      Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
+      Finite ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_finite_iff_of_injective A B hB
 
 /-- The additive cokernel sequence is short exact whenever the second map is
 injective. -/
@@ -4471,6 +4524,33 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixAction_in
   change Function.Injective (matrixMapQuotientMap B)
   exact (matrixMapQuotientMap_injective_iff B).mpr hB
 
+/-- Injective rectangular finite-torus sequences have a finite composite
+cokernel exactly when both successive finite-torus cokernels are finite. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    (Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∧
+      Finite (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range)) ↔
+      Finite
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) := by
+  exact addCokernelComp_finite_iff_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB
+
+/-- The finite-torus finiteness equivalence follows from injectivity of the
+underlying rectangular lattice action as well. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    (Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∧
+      Finite (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range)) ↔
+      Finite
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) := by
+  apply matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_injective A B
+  change Function.Injective (matrixMapQuotientMap B)
+  exact (matrixMapQuotientMap_injective_iff B).mpr hB
+
 /-- Injectivity of the rectangular winding action is transported directly to
 the corresponding finite-torus quotient cokernel sequence. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective
@@ -5917,6 +5997,32 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_m
           (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixAction_injective
+    A B hB
+
+/-- The finite-torus finiteness equivalence in matrix-compose notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    (Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∧
+      Finite (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range)) ↔
+      Finite
+        (LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_injective A B hB
+
+/-- The finite-torus finiteness equivalence in matrix-compose notation also
+follows from injectivity of the underlying lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    (Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∧
+      Finite (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range)) ↔
+      Finite
+        (LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixAction_injective
     A B hB
 
 /-- The rectangular finite-torus exact sequence can be consumed directly

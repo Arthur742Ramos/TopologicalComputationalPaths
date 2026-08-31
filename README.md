@@ -332,6 +332,9 @@ Under the injectivity hypothesis needed for exactness, the corresponding
 product cardinality of the two successive cokernels, on both rectangular
 interfaces.  On the finite-torus side it is also exposed from injectivity of
 the underlying lattice action, via the proved quotient-injectivity transport.
+Under the same hypothesis, finiteness is equivalent across the exact
+sequence: the composite cokernel is finite exactly when both successive
+cokernels are finite, including the canonical `matrixCompose` forms.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

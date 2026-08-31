@@ -114,6 +114,9 @@ project:
     successive cokernel cardinalities, in explicit and `matrixCompose` forms.
     The finite-torus product identity is also exposed from injectivity of the
     underlying lattice action through the quotient-injectivity equivalence.
+    Under the same hypothesis, the composite cokernel is finite exactly when
+    both successive cokernels are finite, including canonical `matrixCompose`
+    presentations.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -837,6 +840,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "When the second map is injective, the exact cokernel sequence multiplies Nat.card; rectangular lattice and finite-torus forms expose the product identity for explicit composition and canonical matrixCompose ranges."
+    - source: "Finite-torus exact-sequence finiteness equivalence"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_matrixAction_injective"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Under injectivity of the second map, the composite cokernel is finite exactly when both successive cokernels are finite; lattice and finite-torus wrappers include explicit and canonical matrixCompose forms."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

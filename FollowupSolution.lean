@@ -161,6 +161,9 @@ multiplicative `Nat.card` identity for the composite and successive cokernels,
 in both rectangular lattice and finite-torus presentations.
 The finite-torus identity is also exposed from injectivity of the underlying
 lattice action via the quotient-injectivity equivalence.
+Under the same hypothesis, the composite cokernel is finite exactly when both
+successive cokernels are finite, including canonical `matrixCompose`
+presentations.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

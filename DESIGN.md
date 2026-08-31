@@ -306,6 +306,9 @@ When the second map is injective, exactness also gives a multiplicative
 two successive cokernels, in both rectangular presentations.
 The finite-torus identity is additionally exposed from injectivity of the
 underlying lattice action through the quotient-injectivity equivalence.
+The same hypothesis gives a finiteness equivalence: the composite cokernel is
+finite exactly when both successive cokernels are finite, including canonical
+`matrixCompose` presentations.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

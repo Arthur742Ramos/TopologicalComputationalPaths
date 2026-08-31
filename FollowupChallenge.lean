@@ -168,6 +168,9 @@ inverse witness, including at arbitrary basepoints.
     cokernels, in both rectangular lattice and finite-torus presentations.
     The finite-torus identity is also exposed from injectivity of the
     underlying lattice action via the quotient-injectivity equivalence.
+    Under the same hypothesis, the composite cokernel is finite exactly when
+    both successive cokernels are finite, including canonical `matrixCompose`
+    presentations.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

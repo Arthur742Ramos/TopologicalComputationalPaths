@@ -347,6 +347,10 @@ the formalization proves:
      ranges on both sides.
 130. the finite-torus cardinality product is also available from injectivity
      of the underlying lattice action, using the quotient-injectivity iff.
+131. under the same injectivity hypothesis, the composite cokernel is finite
+     exactly when both successive cokernels are finite.
+132. this finiteness equivalence is transported to rectangular lattice and
+     finite-torus forms, including canonical `matrixCompose` presentations.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
