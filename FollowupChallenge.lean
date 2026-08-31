@@ -167,6 +167,13 @@ structure QuotientTopologicalFundamentalGroupTheory where
       Function.Injective
         (fun q : GenericLoopQuot E e =>
           _root_.Path.Homotopic.Quotient.map q ⟨p, hp.continuous⟩)
+  covering_map_image_is_monodromy_stabilizer :
+    ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
+      (p : E → B) (hp : IsCoveringMap p) (e : E)
+      (q : GenericLoopQuot B (p e)),
+      q ∈ Set.range (fun r : GenericLoopQuot E e =>
+          _root_.Path.Homotopic.Quotient.map r ⟨p, hp.continuous⟩) ↔
+        hp.monodromy q ⟨e, rfl⟩ = ⟨e, rfl⟩
   quotient_topological_group_agreement :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       Continuous

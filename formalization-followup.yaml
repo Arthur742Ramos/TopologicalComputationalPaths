@@ -2,17 +2,18 @@
 version: "v0.4"
 
 project:
-  name: "Functorial Quotient-Topological Fundamental Groups and Finite-Torus Winding"
+  name: "Homotopy-Invariant Quotient Fundamental Groups, Sharp Products, and Finite-Torus Winding"
   description: >-
     A Lean formalization of the quotient-topological fundamental group of an
     arbitrary pointed space.  It proves continuous induced homomorphisms with
-    identity and composition laws, invariance under homeomorphism and change
-    of basepoint along a path, and preservation of binary products under the
-    exact product-quotient hypothesis.  It also proves continuous inversion,
-    separate continuity and homogeneity; characterizes discreteness exactly
-    by openness of the null-homotopy class; and derives the positive quotient
-    consequences.  Every finite torus is then classified by explicit winding
-    as a discrete integer lattice.
+    identity and composition laws, invariance under homotopy equivalence and
+    change of basepoint along a path, and preservation of arbitrary indexed
+    products under the exact product-quotient hypothesis.  It proves sharp
+    failure of that hypothesis when multiplication is discontinuous, exact
+    T1 and discreteness criteria, semilocal consequences, covering-map
+    injectivity with a monodromy-stabilizer image theorem, and the precise
+    topological-group agreement boundary.  Every finite torus is classified
+    by explicit winding as a discrete integer lattice.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -43,8 +44,9 @@ sources:
     note: >-
       The Lean development independently constructs translation
       homeomorphisms and proves the exact null-class-openness criterion.  It
-      does not formalize the paper's locally path-connected and semilocally
-      simply connected equivalence.
+      formalizes the reverse implication from discreteness to semilocal
+      simple connectivity; the locally path-connected forward implication
+      remains outside the current selected certificate.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors:
       - "Jeremy Brazas"
@@ -58,9 +60,9 @@ sources:
       This source supplies the established research context for treating the
       compact-open loop quotient as a quasitopological invariant rather than
       necessarily a topological group.  The Lean development directly proves
-      continuous induced maps, basepoint and homeomorphism invariance, and the
-      exact conditional binary-product theorem from Mathlib's path and
-      quotient universal properties.
+      continuous induced maps, homotopy and basepoint invariance, exact
+      conditional indexed-product preservation, and T1/closed-class criteria
+      from Mathlib's path and quotient universal properties.
   - title: "Algebraic Topology"
     authors:
       - "Allen Hatcher"
@@ -107,10 +109,12 @@ status:
     The selected theorem packages a universe-polymorphic theory for arbitrary
     pointed spaces together with the complete finite-torus family.  The
     general portion proves functoriality under continuous maps, coherence with
-    identity and composition, homeomorphism invariance, path-based basepoint
-    change, and conditional binary-product preservation.  It also proves
-    continuous reversal, separate continuity, homogeneity, the exact
-    discreteness/null-class criterion, and all positive quotient consequences.
+    identity and composition, homotopy-equivalence invariance, path-based
+    basepoint change, and conditional indexed-product preservation.  It also
+    proves continuous reversal, separate continuity, homogeneity, exact T1
+    and discreteness criteria, product sharpness, the semilocal reverse
+    implication, covering/monodromy consequences, and the topological-group
+    agreement boundary.
     The finite-torus portion proves explicit winding representatives,
     completeness, additivity, open classes, and the homeomorphism with the
     integer lattice.  The Comparator challenge has one deliberate statement
@@ -153,14 +157,15 @@ automation:
 fidelity:
   divergences: >-
     The artifact does not claim a new paper theorem.  It isolates the
-    null-class-openness criterion rather than formalizing the stronger
-    locally-path-connected/semilocally-simply-connected equivalence from
+    null-class-openness criterion and the reverse semilocal implication, but
+    not yet the locally-path-connected forward implication from
     Calcut--McCarthy.  The finite-torus calculation is classical; the added
     content is its explicit compact-open and final-quotient realization, the
-    general functorial and basepoint-invariant quasitopological-group
-    mechanism, the sharp product hypothesis, and their integration with the
-    computational-path topology comparison.  No Hawaiian-earring theorem is
-    reproved in this follow-up.
+    homotopy-invariant quasitopological-group mechanism, sharp indexed-product
+    boundary, separation and covering consequences, and their integration
+    with the computational-path topology comparison.  No external
+    Hawaiian-earring theorem is reproved; the accepted conditional facts are
+    instantiated in a new generic sharpness theorem.
 
 review:
   status: "self-assessed"
@@ -179,16 +184,31 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Continuous maps induce continuous fundamental-group homomorphisms, coherently with identity and composition."
-    - source: "Homeomorphism and basepoint invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv"
+    - source: "Homotopy-equivalence and basepoint invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.homotopyEquivInducedContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
-      note: "Homeomorphisms and paths between basepoints induce continuous multiplicative equivalences."
-    - source: "Conditional product preservation"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientProductContinuousMulEquiv"
+      note: "Homotopy equivalences and paths between basepoints induce continuous multiplicative equivalences."
+    - source: "Conditional indexed-product preservation"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
-      note: "The quotient fundamental group preserves binary products whenever the product loop projection is a quotient map."
+      note: "The quotient fundamental group preserves indexed products whenever the indexed loop projection is a quotient map."
+    - source: "Sharp Hawaiian-earring product boundary"
+      lean: "TopologicalComputationalPathsFollowup.hawaiianEarring_loopQuotientProd_not_quotient"
+      module: "FollowupSolution.lean"
+      status: "proved-from-accepted-conditional-facts"
+      note: "Discontinuous multiplication forces failure of the product-quotient hypothesis; the accepted Fabel-style facts instantiate it."
+    - source: "T1 and closed homotopy classes"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.t1Space_iff_all_homotopyClasses_closed"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
+      status: "proved"
+      note: "T1 is equivalent to closedness of the null class and of every based-loop homotopy class."
+    - source: "Covering image and monodromy"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.mem_range_inducedContinuousMonoidHom_iff_monodromy_fixed"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Covering maps induce injections whose image is the monodromy stabilizer of the chosen lift."
     - source: "Quasitopological fundamental-group laws"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quasitopologicalGroupLaws"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"

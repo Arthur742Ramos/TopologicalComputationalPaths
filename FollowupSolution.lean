@@ -161,6 +161,13 @@ structure QuotientTopologicalFundamentalGroupTheory where
       Function.Injective
         (fun q : GenericLoopQuot E e =>
           _root_.Path.Homotopic.Quotient.map q ⟨p, hp.continuous⟩)
+  covering_map_image_is_monodromy_stabilizer :
+    ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
+      (p : E → B) (hp : IsCoveringMap p) (e : E)
+      (q : GenericLoopQuot B (p e)),
+      q ∈ Set.range (fun r : GenericLoopQuot E e =>
+          _root_.Path.Homotopic.Quotient.map r ⟨p, hp.continuous⟩) ↔
+        hp.monodromy q ⟨e, rfl⟩ = ⟨e, rfl⟩
   quotient_topological_group_agreement :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       Continuous
@@ -332,6 +339,10 @@ theorem main_result :
         intro E B _ _ p hp e
         exact QuotientFundamentalGroup.inducedContinuousMonoidHom_injective_of_isCoveringMap
           hp e
+      covering_map_image_is_monodromy_stabilizer := by
+        intro E B _ _ p hp e q
+        exact QuotientFundamentalGroup.mem_range_inducedContinuousMonoidHom_iff_monodromy_fixed
+          hp e q
       quotient_topological_group_agreement :=
         QuotientFundamentalGroup.continuous_quotientTrans_iff_topologicalGroupStructure
       homotopy_classes_open_of_null_class_open :=

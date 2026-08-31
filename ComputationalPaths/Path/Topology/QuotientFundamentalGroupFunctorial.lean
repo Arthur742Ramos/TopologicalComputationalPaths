@@ -304,6 +304,33 @@ theorem inducedContinuousMonoidHom_injective_of_isCoveringMap
       (inducedContinuousMonoidHom ⟨p, hp.continuous⟩ e) :=
   hp.injective_path_homotopic_map e e
 
+/-- The image of the fundamental-group homomorphism induced by a covering
+map is exactly the stabilizer of the chosen point in the monodromy action. -/
+theorem mem_range_inducedContinuousMonoidHom_iff_monodromy_fixed
+    {E B : Type*} [TopologicalSpace E] [TopologicalSpace B]
+    {p : E → B} (hp : IsCoveringMap p) (e : E)
+    (q : LoopQuot B (p e)) :
+    q ∈ Set.range (inducedContinuousMonoidHom ⟨p, hp.continuous⟩ e) ↔
+      hp.monodromy q ⟨e, rfl⟩ = ⟨e, rfl⟩ := by
+  constructor
+  · rintro ⟨r, rfl⟩
+    exact hp.monodromy_map r
+  · intro hfix
+    let e₀ : p ⁻¹' {p e} := ⟨e, rfl⟩
+    let Γ := hp.liftPathQuotient q e₀
+    have hend : (hp.monodromy q e₀).1 = e :=
+      congrArg Subtype.val hfix
+    let r : LoopQuot E e := Γ.cast rfl hend.symm
+    refine ⟨r, ?_⟩
+    change _root_.Path.Homotopic.Quotient.map r ⟨p, hp.continuous⟩ = q
+    dsimp [r]
+    rw [_root_.Path.Homotopic.Quotient.map_cast,
+      hp.map_liftPathQuotient]
+    convert _root_.Path.Homotopic.Quotient.cast_rfl_rfl q
+    all_goals try rfl
+    all_goals try simp [e₀, hend]
+    exact _root_.Path.Homotopic.Quotient.cast_heq _ _
+
 /-- On a path-connected space, the quotient-topological fundamental group is
 independent of the chosen basepoint up to continuous multiplicative
 equivalence. -/

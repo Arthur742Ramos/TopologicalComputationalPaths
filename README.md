@@ -81,10 +81,10 @@ The repository now also contains a separate, non-destructive follow-up
 surface.  Its central theorem applies to the compact-open based-loop quotient
 of every pointed topological space.  It first proves continuous functoriality
 under continuous maps, the identity and composition laws, invariance under
-homeomorphisms, and basepoint-change equivalences along arbitrary paths.  It
-also proves that quotient fundamental groups preserve binary products under
-the exact hypothesis that the product of the two loop-quotient projections is
-a quotient map.
+homotopy equivalences, and basepoint-change equivalences along arbitrary
+paths.  It also proves that quotient fundamental groups preserve arbitrary
+indexed products under the exact hypothesis that the indexed product of the
+loop-quotient projections is a quotient map.
 
 The same theorem proves continuous reversal, separate continuity of
 concatenation, explicit translation homeomorphisms and homogeneity, and the
@@ -98,6 +98,15 @@ Under that criterion the loop projection is open, its square is a quotient
 map, every homotopy class is open, and concatenation is jointly continuous.
 This separates the always-valid quasitopological-group laws from the stronger
 joint continuity that fails in the accepted Hawaiian-earring application.
+
+The strengthened package also proves the exact T1 criterion by closedness of
+the null class (equivalently, of every based-loop homotopy class), the
+implication from quotient discreteness to semilocal simple connectivity, and
+the exact agreement boundary with a genuine topological-group structure.
+Covering maps induce injective continuous homomorphisms whose images are the
+monodromy stabilizers of the chosen lifts.  Discontinuous multiplication is
+proved to force failure of the product-quotient hypothesis, and the accepted
+Hawaiian-earring facts instantiate this sharp boundary.
 
 The concrete application proves the full certificate uniformly for every
 finite-dimensional torus:
