@@ -2,17 +2,20 @@
 version: "v0.4"
 
 project:
-  name: "Functorial Quotient Fundamental Groups and Finite-Torus Cokernel Profiles"
+  name: "Path-Choice Centrality and Finite-Torus Smith Profiles for Quotient Fundamental Groups"
   description: >-
     Companion metadata for the selected follow-up declaration
     `TopologicalComputationalPathsFollowup.main_result`.  The declaration is
     a conjunction of a general functorial quotient-topological fundamental-
-    group theory and, for every finite `n`, a finite-torus certificate.  The
-    general structure proves induced-map, homotopy, homeomorphism, basepoint,
-    T1, discreteness, semilocal, covering, and topological-group boundary
-    results.  Its product result is binary and conditional on the product of
-    the two quotient projections being a quotient map; it does not assert
-    arbitrary indexed-product preservation.  The finite-torus structure
+    group theory and, for every finite `n`, a finite-torus certificate.  Its
+    principal contribution is the exact relative-centrality iff: two
+    continuous multiplicative basepoint transports agree exactly when their
+    relative loop is central in the target quotient.  The general structure
+    also proves induced-map, homotopy, homeomorphism, basepoint, T1,
+    discreteness, semilocal, covering, and topological-group boundary results.
+    Its product result is binary and conditional on the product of the two
+    quotient projections being a quotient map; it does not assert arbitrary
+    indexed-product preservation.  The finite-torus structure
     proves winding/standard-loop classification by `Fin n → ℤ`, coordinate
     naturality, continuous multiplicative and arbitrary-basepoint classifiers,
     path independence, commutativity, discreteness, openness, and semilocal
@@ -23,7 +26,10 @@ project:
     class-order p-adic fields.  Broader repository matrix-map, determinant
     cardinality, CRT, free-factor, annihilator, image, kernel, and
     injectivity/surjectivity declarations are supporting material and are not
-    attributed to this selected certificate.
+    attributed to this selected certificate.  Winding and Smith ingredients
+    are classical; the claimed research contribution is the source-linked,
+    formally explicit topology--algebra coherence package, not a priority
+    claim for those classical calculations.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -39,7 +45,7 @@ repository:
 
 classification:
   arxiv: ["math.AT", "math.GN"]
-  msc2020: ["55Q05", "54B15", "15A03", "20K01", "68V20"]
+  msc2020: ["55Q05", "54B15", "15A03", "20K01"]
 
 sources:
   - title: "Discreteness and Homogeneity of the Topological Fundamental Group"
@@ -47,56 +53,65 @@ sources:
     type: "paper"
     id: "https://arxiv.org/abs/0904.4739"
     location: "Homogeneity and discreteness boundary"
-    relationship: "background"
+    relationship: "formalizes"
     author_endorsement: "not-contacted"
     note: >-
-      Literature context for the selected homogeneity and null-class
-      discreteness fields; the Lean certificate states its own exact scope.
+      The selected Lean fields formalize the homogeneity and null-class/
+      discreteness boundary used here, together with its homotopy/basepoint
+      transport consequences.  They do not claim to reproduce every theorem
+      in the paper.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors: ["Jeremy Brazas", "Paul Fabel"]
     type: "paper"
     id: "https://arxiv.org/abs/1304.6453"
     location: "Quotient-topology and quasitopological-group context"
-    relationship: "background"
+    relationship: "formalizes"
     author_endorsement: "not-contacted"
     note: >-
-      Context for separate versus joint continuity and the quotient topology.
+      The selected Lean fields formalize the quotient-topology and
+      quasitopological-group boundary, including the distinction between
+      separate and joint continuity.  The source is not cited as priority for
+      the centrality iff or for the combined certificate.
   - title: "Algebraic Topology"
     authors: ["Allen Hatcher"]
     type: "book"
     id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-    location: "Circle, winding, and finite products"
-    relationship: "background"
+    location: "Chapter 1: circle, winding, products, and change of basepoint"
+    relationship: "formalizes"
     author_endorsement: "n/a"
     note: >-
-      Classical source for the winding and finite-torus ingredients; the
-      selected artifact adds explicit Lean and quotient-topological structure.
+      The selected artifact formalizes the classical winding classification
+      with explicit representatives, compact-open/quotient-topological
+      statements, coordinate naturality, and all-basepoint forms; it does not
+      claim the classical calculation as a new mathematical theorem.
   - title: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
     authors: ["Christopher Norman"]
     type: "book"
     id: "https://doi.org/10.1007/978-1-4471-2730-7"
     location: "Smith normal form and invariant factors"
-    relationship: "background"
+    relationship: "formalizes"
     author_endorsement: "n/a"
     note: >-
       Algebraic context for the Smith-factor and invariant-factor fields in the
-      selected matrix-cokernel layer.
-  - title: "Functorial quotient fundamental groups and finite-torus cokernel profiles: selected follow-up certificate"
+      selected matrix-cokernel layer; the Lean certificate formalizes the
+      explicitly listed exponent and p-adic consequences.
+  - title: "Topological Semantics for Scoped Computational Paths"
     authors:
       - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
       - "Anjolina Grisi de Oliveira"
       - "Tiago M. L. de Veras"
-      - "David Barros Hulak"
-    type: "original-proof"
-    id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths"
-    location: "FollowupChallenge.lean and FollowupSolution.lean"
-    relationship: "other"
+    type: "paper"
+    id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
+    location: "Pinned parent manuscript and computational-path topology boundary"
+    relationship: "adapts"
     author_endorsement: "participated"
     note: >-
-      Records the exact bundled formal certificate as an original
-      repository-level presentation, without claiming novelty for the cited
-      classical ingredients.
+      The follow-up adapts the parent computational-path setting while adding
+      the space-independent quotient-fundamental-group coherence theorem and
+      finite-torus profile certificate selected here.  This entry records
+      source lineage, not a first-publication claim for the underlying
+      classical mathematics.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -114,7 +129,9 @@ status:
     `TopologicalComputationalPathsFollowup.main_result` selects one
     `QuotientTopologicalFundamentalGroupTheory` and one
     `FiniteTorusTopologicalClassification n` for every finite `n`.  Product
-    preservation is binary and hypothesis-conditional.  The selected matrix
+    preservation is binary and hypothesis-conditional, and the general theory
+    includes the exact relative-centrality iff for equality of basepoint
+    transports.  The selected matrix
     and Smith fields are exactly the short-exact, exponent, prime-support,
     Smith-factor, exponent-factorization, and class-order-factorization fields
     named in `main_results`; repository-wide wrappers outside those fields are
@@ -130,6 +147,9 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator-followup.json"
       selected_fields:
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
         - "FiniteTorusTopologicalClassification.winding"
@@ -158,14 +178,53 @@ status:
         - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor"
         - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
       literature_dependencies:
-        - "Calcut--McCarthy"
-        - "Brazas--Fabel"
-        - "Hatcher"
-        - "Norman"
+        - statement: "Homogeneity and the quotient-topology discreteness boundary"
+          source: "Discreteness and Homogeneity of the Topological Fundamental Group"
+        - statement: "Quotient-topology and quasitopological-group continuity context"
+          source: "On Fundamental Groups with the Quotient Topology"
+        - statement: "Circle and finite-torus winding classification"
+          source: "Algebraic Topology"
+        - statement: "Smith factors and invariant-factor consequences"
+          source: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
+        - statement: "Computational-path parent setting"
+          source: "Topological Semantics for Scoped Computational Paths"
       excluded_repository_results:
         - "arbitrary indexed-product preservation"
         - "unselected matrix-map and determinant-cardinality wrappers"
         - "CRT, free-factor, annihilator, image, kernel, and iff-wrapper families"
+
+research_interest:
+  audience: "Researchers in algebraic topology, general topology, formalized mathematics, and computational homotopy"
+  selected_contribution: >-
+    The selected paper-sized theorem is the exact iff
+    `quotient_basepoint_change_relative_comm_iff`: for arbitrary pointed
+    spaces, equality of the two continuous multiplicative transports induced
+    by paths with common endpoints is equivalent to centrality of their
+    relative loop in the target quotient fundamental group.  It is coupled to
+    homotopy/basepoint invariance, the sharp binary product-quotient boundary,
+    and the all-basepoint finite-torus winding/Smith profile.
+  why_nontrivial: >-
+    This is a quantified topology--algebra coherence result, not a restatement
+    of an isolated group isomorphism.  It controls path-choice dependence of
+    the actual quotient-topological transport maps, identifies the precise
+    obstruction to canonical transport in the nonabelian case, and then
+    specializes the mechanism to a uniform family of finite tori with exact
+    coordinate and p-adic profile fields.
+  literature_boundary: >-
+    Calcut--McCarthy and Brazas--Fabel are the substantive sources for the
+    quotient-topology, homogeneity, discreteness, and continuity boundaries;
+    Hatcher supplies the classical winding context; Norman supplies the Smith
+    invariant-factor context; and the pinned parent manuscript supplies the
+    computational-path setting.  The metadata records these relationships as
+    formalizes/adapts.  No first-publication claim is made for the classical
+    ingredients.  The originality claim is limited to this explicit,
+    source-linked formalized coherence synthesis and its exact theorem
+    interface, which the cited sources do not present in this combined form.
+  evidence:
+    - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
+    - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
+    - "FollowupChallenge.lean: FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
+    - "FollowupChallenge.lean: FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup"
 
 automation:
   methods:
@@ -185,9 +244,12 @@ automation:
 
 fidelity:
   divergences: >-
-    This is a formalization synthesis of classical quotient-topology, winding,
-    and Smith-normal-form ingredients, not a claim of new classical theorems.
-    The declaration preserves the binary quotient-map hypothesis and excludes
+    This is a source-linked formalization contribution, not a claim of a new
+    classical winding or Smith-normal-form theorem.  Its specifically
+    identified contribution is the exact relative-centrality criterion for
+    equality of topological basepoint transports, packaged with the
+    quotient-topology continuity boundary and finite-torus profile.  The
+    declaration preserves the binary quotient-map hypothesis and excludes
     arbitrary indexed products.  Broader repository matrix developments are
     supporting material, not selected results.
 
@@ -196,8 +258,11 @@ review:
   reviewers: []
   notes: >-
     The selected structure, named fields, source relationships, and excluded
-    repository results were audited together.  Technical builds and Comparator
-    replay do not constitute independent peer review or novelty approval.
+    repository results were audited together.  The cited literature supplies
+    substantive source relationships for the formalized boundaries; no source
+    entry claims first presentation of the bundled certificate or of the
+    classical mathematics.  Technical builds and Comparator replay do not
+    constitute independent peer review or novelty approval.
 
 alignment:
   namespace: "TopologicalComputationalPathsFollowup"
@@ -206,7 +271,19 @@ alignment:
       lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "Includes the binary product and sharpness fields, not indexed products."
+      note: >-
+        Includes the binary product and sharpness fields, not indexed products,
+        and the exact relative-centrality iff for path-transport equality.
+    - source: "Path-choice centrality and coherent basepoint transport"
+      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        The exact iff identifies centrality of the relative loop as the
+        necessary-and-sufficient obstruction to path-choice independence and
+        is accompanied by unit, inverse, and composition coherence.  This is
+        the specifically identified formalization contribution; no priority
+        claim is made for the classical change-of-basepoint construction.
     - source: "Finite-torus winding/basepoint certificate"
       lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.winding; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

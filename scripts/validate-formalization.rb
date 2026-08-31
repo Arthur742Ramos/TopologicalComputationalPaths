@@ -53,6 +53,27 @@ abort "status.main_results must identify main_result" unless main_result.is_a?(H
   main_result["axioms"] == expected_axioms &&
   main_result["comparator_config"] == expected_comparator
 
+if followup
+  msc = document.dig("classification", "msc2020")
+  abort "follow-up metadata must not classify the result as 68V20" if msc.include?("68V20")
+
+  interest = document.fetch("research_interest")
+  abort "follow-up metadata must describe research interest" unless interest.is_a?(Hash)
+  contribution = interest["selected_contribution"].to_s
+  abort "research-interest statement must identify the centrality iff" unless
+    contribution.include?("quotient_basepoint_change_relative_comm_iff")
+
+  fields = main_result.fetch("selected_fields")
+  abort "selected fields must include the centrality iff" unless
+    fields.include?("QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff")
+
+  substantive = %w[formalizes adapts independently-proves]
+  abort "follow-up sources must record substantive literature relationships" unless
+    sources.any? { |source| substantive.include?(source["relationship"]) }
+  abort "follow-up must not use an original-proof source for the bundled certificate" if
+    sources.any? { |source| source["type"] == "original-proof" }
+end
+
 methods = document.dig("automation", "methods")
 method_names = methods.is_a?(Array) ? methods.map { |entry| entry["method"] } : []
 abort "automation.methods must record manual and agent work" unless method_names.include?("manual") && method_names.include?("agent")

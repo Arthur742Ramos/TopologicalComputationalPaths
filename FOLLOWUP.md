@@ -14,9 +14,10 @@ the formalization proves:
    (strictly strengthening homeomorphism invariance);
 3. every path between basepoints induces a continuous multiplicative
    equivalence between the corresponding quotient fundamental groups;
-4. arbitrary indexed products are preserved by a continuous multiplicative
-   equivalence whenever the indexed product of the loop projections is a
-   quotient map (with the binary theorem as a concrete specialization);
+4. binary products are preserved by a continuous multiplicative equivalence
+   whenever the product of the two loop projections is a quotient map; the
+   selected certificate does not assert arbitrary indexed-product
+   preservation;
 5. reversal is continuous;
 6. concatenation is continuous in each variable separately;
 7. right translations are homeomorphisms, so the quotient is homogeneous;
@@ -575,15 +576,35 @@ obstruction, not merely a cardinality or an unstructured equivalence.
 
 ## Literature and novelty boundary
 
-The mathematical facts that the quotient fundamental group is a
-quasitopological group, is homogeneous, and is discrete for familiar
-semilocally simply connected spaces are established in the literature.  The
-circle and finite-torus fundamental-group calculations are classical.  This
-The integer-matrix maps on finite tori are likewise classical; this package
-makes no novelty claim for those underlying constructions.  Its added value
-is the independently checked Lean interface carrying them through compact-open
-paths, endpoint casts, quotient classifiers, and exact algebraic image/kernel
-criteria.
+The selected follow-up is a formalization contribution with a deliberately
+explicit mathematical boundary.  The quotient fundamental group is known to
+be a quasitopological group, homogeneous, and discrete for familiar
+semilocally simply connected spaces; the circle, finite-torus, and Smith
+normal-form calculations are classical.  Those sources are recorded in
+`formalization.yaml` with `formalizes` relationships, and the parent
+computational-path manuscript is recorded with `adapts`.  No source entry
+claims first presentation of the bundled Lean certificate or of the classical
+calculations.
+
+The specifically identified research contribution is the exact
+`quotient_basepoint_change_relative_comm_iff` theorem.  For arbitrary pointed
+spaces it characterizes equality of the two continuous multiplicative
+basepoint transports by centrality of their relative loop in the target
+quotient group.  The selected structure packages this iff with the transport
+unit, inverse, composition, naturality, homotopy/basepoint invariance, and the
+sharp binary product-quotient boundary.  Thus it identifies the precise
+obstruction to path-choice independence in the nonabelian case; the familiar
+abelian path-independence result is a corollary.  The finite-torus classifier
+and selected lattice Smith profiles provide a uniform, nontrivial test family
+for that coherence mechanism.
+
+The originality claim is limited to this source-linked formalized coherence
+synthesis and its exact theorem interface.  It is not a claim that winding,
+Smith factors, determinant indices, or the underlying change-of-basepoint
+construction were first discovered here.  The repository's larger topological
+matrix-map, determinant-cardinality, CRT, free-factor, and annihilator
+developments remain useful supporting material outside the selected Comparator
+surface.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex
@@ -634,11 +655,14 @@ equivalences.  Consequently, on path-connected spaces a single based quotient
 detects the T1 status of every based quotient, and homotopy-equivalent
 path-connected spaces have the same global T1 status.
 
-The contribution is a focused, kernel-checked Lean realization that connects
-the general quotient-topological mechanism to explicit compact-open winding
-classifiers and to the final-versus-ordinary product distinction of the
-accepted computational-path package.  Exact source relationships are recorded
-in `formalization-followup.yaml`.
+The contribution is therefore a focused theorem package connecting the general
+quotient-topological mechanism to explicit compact-open winding classifiers
+and Smith profiles, with path-choice coherence and the final-versus-ordinary
+product distinction stated at the source level.  Kernel checking is evidence
+that the selected statements are proved; the research-interest claim rests on
+the exact coherence statement and its reusable topology--algebra boundary,
+not on proof size alone.  Exact source relationships are recorded in
+`formalization-followup.yaml`.
 
 ## Verification surface
 

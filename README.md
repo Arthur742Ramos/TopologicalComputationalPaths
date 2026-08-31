@@ -38,26 +38,26 @@ certificates rather than bare equivalence witnesses: each exposes the
 invariant, its value on the identity, additivity under quotient composition,
 an explicit standard-representative map, and both inverse/completeness laws.
 
-The mathematical point is the exact separation between the canonical topology
-forced by explicitly composable representatives and the ordinary pullback
-topology on quotient arrows.  This is relevant to work on quotient
-fundamental groupoids, topological groupoids, and formalized rewriting: it
-isolates the product-quotient condition needed to transport composition and
-locates the strict Hawaiian-earring failure at that comparison map.  The
-observable based fiber deliberately retains the universal computational-path
-trace and coherence witness while using the induced topology of its geometric
-loop observation; this makes the comparison with the standard based loop
-quotient explicit without conflating trace-sensitive and observable topologies.
-The selected result's substantive non-transport core is the universal-cover
-classification of actual topological loop spaces: the lift endpoint is a
-well-defined complete invariant, and the torus result is obtained from genuine
-coordinate paths.  These are classical winding theorems, so this repository
-does not claim a new fundamental-group calculation; the plausible specialist
-note contribution is the kernel-checked realization of those theorems inside
-the computational-path quotient/final-topology semantics.  Synthetic integer
-and finite-trace examples are not used as the relevance evidence.
+The baseline mathematical point is the exact separation between the canonical
+topology forced by explicitly composable representatives and the ordinary
+pullback topology on quotient arrows.  The follow-up extends that setting to
+the source-independent quotient fundamental group and makes path-choice
+dependence exact through the centrality criterion above.  This is relevant to
+quotient fundamental groupoids, topological groupoids, and formalized
+rewriting: it isolates the product-quotient condition needed to transport
+composition and locates the strict Hawaiian-earring failure at that comparison
+map.  The observable based fiber deliberately retains the universal
+computational-path trace and coherence witness while using the induced
+topology of its geometric loop observation; this makes the comparison with
+the standard based loop quotient explicit without conflating trace-sensitive
+and observable topologies.  The winding and Smith calculations remain
+classical validation families; the selected follow-up contribution is the
+source-linked formalized topology--algebra coherence interface, not a claim of
+first publication for those classical calculations.  Synthetic integer and
+finite-trace examples are not used as the relevance evidence.
 
-The Palomar-selected declaration is the comparison in item 3, the genuine
+The baseline Palomar declaration (the accepted first submission) is the
+comparison in item 3, the genuine
 circle and torus classifications in items 4--5, and the concrete based-fiber
 construction in items 6--7.  Items 1 and 2 supply the spaces and continuous
 final-domain operation needed to formulate and prove that comparison; their
@@ -78,13 +78,45 @@ application of the comparison theorem.
 ## Follow-up theorem package
 
 The repository now also contains a separate, non-destructive follow-up
-surface.  Its central theorem applies to the compact-open based-loop quotient
+surface.  For the follow-up submission, `comparator-followup.json` selects
+`TopologicalComputationalPathsFollowup.main_result` in
+`FollowupSolution.lean`; it does not select the baseline `main_result` above.
+Its central theorem applies to the compact-open based-loop quotient
 of every pointed topological space.  It first proves continuous functoriality
 under continuous maps, the identity and composition laws, invariance under
 homotopy equivalences, and basepoint-change equivalences along arbitrary
-paths.  It also proves that quotient fundamental groups preserve arbitrary
-indexed products under the exact hypothesis that the indexed product of the
-loop-quotient projections is a quotient map.
+paths.  It also proves that quotient fundamental groups preserve binary
+products for arbitrary pointed spaces under the exact hypothesis that the
+product of the two loop-quotient projections is a quotient map.  The selected
+certificate does not assert preservation of arbitrary indexed products; any broader indexed
+construction elsewhere in the repository is supporting material outside the
+selected Comparator theorem.
+
+### Research contribution and selected boundary
+
+The follow-up is not presented as a new calculation of a classical
+fundamental group.  Its paper-sized mathematical contribution is the exact
+path-choice coherence theorem
+`QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff`:
+for arbitrary pointed spaces, two continuous multiplicative basepoint
+transports agree if and only if the relative loop between their paths is
+central in the target quotient fundamental group.  The same selected
+certificate proves the unit, inverse, and composition laws for these
+transports, the sharp binary product-quotient boundary, and the homotopy and
+basepoint invariance needed to use the criterion globally.  This identifies a
+precise obstruction to canonical transport in the nonabelian case; the
+abelian path-independence theorem is a corollary.
+
+The finite-torus portion supplies a uniform test family: explicit winding and
+standard representatives, continuous multiplicative classifiers at every
+basepoint, and the selected lattice-cokernel/Smith-factor profile fields.
+The winding and Smith ingredients are classical and are cited as such.  The
+claim made for this follow-up is the explicit source-linked formalized
+topology--algebra coherence synthesis and theorem interface, not first
+publication of those classical ingredients.  The larger topological
+matrix-map, determinant-cardinality, CRT, free-factor, and annihilator APIs in
+the repository are useful supporting results but are outside this selected
+Comparator claim unless named in `formalization.yaml`.
 
 The same theorem proves continuous reversal, separate continuity of
 concatenation, explicit translation homeomorphisms and homogeneity, and the
