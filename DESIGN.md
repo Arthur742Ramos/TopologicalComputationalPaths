@@ -353,6 +353,9 @@ When every Smith factor is nonzero, this lcm identity refines pointwise: the
 factor valuations, and the theorem is transported to both rectangular lattice
 and finite-torus matrix cokernels.  The nonzero hypothesis explicitly marks
 the finite-torsion regime; a zero factor is a `ZMod 0` free component.
+For an individual class in that regime, the factorization of its additive
+order is likewise the pointwise supremum of the factorization profiles of its
+decoded Smith-coordinate orders, with the same transport on both sides.
 The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of

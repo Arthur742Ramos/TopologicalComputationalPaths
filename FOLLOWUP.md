@@ -398,6 +398,13 @@ the formalization proves:
      finite-torus matrix cokernels, refining the Boolean prime-support test.
 155. the nonzero-modulus hypothesis is explicit, separating finite torsion
      profiles from zero-factor free components represented by `ZMod 0`.
+156. for every finite-order Smith cokernel class, the factorization of its
+     additive order is the pointwise supremum of its decoded coordinate-order
+     factorizations.
+157. the class-level p-adic profile is transported to rectangular lattice and
+     finite-torus matrix cokernels through the existing Smith equivalences.
+158. this elementwise refinement records prime-power class orders, not merely
+     global exponent support, while retaining the explicit nonzero-factor gate.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

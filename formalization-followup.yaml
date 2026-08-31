@@ -191,6 +191,10 @@ project:
     rectangular lattice and finite-torus matrix cokernels, while the explicit
     nonzero hypothesis marks the finite-torsion regime and leaves zero factors
     as the `ZMod 0` free-part boundary.
+    For every finite-order Smith cokernel class, the factorization of its
+    additive order is also the pointwise supremum of the factorizations of its
+    decoded Smith-coordinate orders; this class-level profile is transported
+    to rectangular lattice and finite-torus matrix cokernels.
     The same Smith coordinates give an elementwise annihilation criterion:
     a multiple of a lattice or finite-torus cokernel class vanishes exactly
     when each transformed coordinate is divisible by the corresponding
@@ -911,6 +915,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "When every Smith modulus is nonzero, the exponent's p-adic valuation is the supremum of the Smith-factor valuations for every prime p; the result is transported to rectangular lattice and finite-torus matrix cokernels, while zero factors remain the explicit free-part boundary."
+    - source: "Finite-torus Smith p-adic class-order profile"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For every class when all Smith moduli are nonzero, the p-adic factorization of its additive order is the supremum of the factorization profiles of its decoded Smith-coordinate orders; the theorem is transported to lattice and finite-torus matrix cokernels."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

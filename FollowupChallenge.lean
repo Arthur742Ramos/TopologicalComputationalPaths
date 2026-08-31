@@ -264,7 +264,6 @@ criterion for equality of two transports, and its abelian-target
 corollary: in an abelian target quotient, transport is independent of the
 chosen path even without an endpoint-fixed homotopy between the paths.
 -/
-
 /-! Statement-facing copies of the small project aliases used below.  The
 challenge is compiled by Palomar in a scratch environment without the
 project's generated `.olean` files, so these declarations intentionally use
@@ -276,15 +275,11 @@ namespace ComputationalPaths
 namespace Path
 namespace GeometricTopology
 namespace QuotientFundamentalGroup
-
 universe u
-
 abbrev Loop (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
   _root_.Path x x
-
 abbrev LoopQuot (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
   _root_.Path.Homotopic.Quotient x x
-
 def SemilocallySimplyConnectedAt
     (X : Type u) [TopologicalSpace X] (x : X) : Prop :=
   ∃ U : Set X, IsOpen U ∧ x ∈ U ∧
@@ -294,17 +289,13 @@ def SemilocallySimplyConnectedAt
 def SemilocallySimplyConnected
     (X : Type u) [TopologicalSpace X] : Prop :=
   ∀ x : X, SemilocallySimplyConnectedAt X x
-
 end QuotientFundamentalGroup
 end GeometricTopology
 end Path
 end ComputationalPaths
-
 namespace TopologicalComputationalPathsFollowup
-
 open Set Topology
 open scoped ContinuousMap Topology
-
 attribute [local instance] _root_.Path.Homotopic.setoid
 
 universe u
@@ -759,7 +750,6 @@ noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
     (Quotient.mk' : Loop n → LoopQuot n) inferInstance
-
 /-- Full publication-facing certificate for the finite-torus theorem. -/
 structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
@@ -976,6 +966,16 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       (h : ∀ i : Fin m, smithFactor A i ≠ 0) (p : ℕ),
       (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule)).factorization p =
         Finset.univ.sup (fun i : Fin m => (smithFactor A i).natAbs.factorization p)
+  matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+      (h : ∀ i : Fin m, smithFactor A i ≠ 0) (x : Fin m → ℤ) (p : ℕ),
+      (addOrderOf (Submodule.Quotient.mk x :
+        (Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule)).factorization p =
+        Finset.univ.sup (fun i : Fin m =>
+          (addOrderOf (Int.quotientSpanEquivZMod (smithFactor A i)
+            (Submodule.Quotient.mk
+              (((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i)))).factorization p)
   matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
     ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
       p ∣ AddMonoid.exponent

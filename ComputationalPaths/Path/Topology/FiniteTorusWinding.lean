@@ -3144,6 +3144,28 @@ theorem intQuotientSpan_addOrderOf_eq_zero_iff
     rw [addOrderOf_eq_zero_iff]
     simp [hfin, hn]
 
+/-! In the finite-torsion regime, the class-order lcm also refines
+    pointwise to the full prime-adic profile of its Smith coordinates. -/
+theorem submoduleCokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0)
+    (x : Fin m → ℤ) (p : ℕ) :
+    (addOrderOf (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N)).factorization p =
+      Finset.univ.sup (fun i : Fin m =>
+        (addOrderOf (Int.quotientSpanEquivZMod (smithNormalFormFactor snf i)
+          (Submodule.Quotient.mk
+            ((snf.bM.equivFun x) i)))).factorization p) := by
+  rw [submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm]
+  exact finsetLcm_factorization_eq_sup_of_ne_zero
+    (fun i : Fin m =>
+      addOrderOf (Int.quotientSpanEquivZMod (smithNormalFormFactor snf i)
+        (Submodule.Quotient.mk ((snf.bM.equivFun x) i))))
+    (fun i => by
+      intro hi
+      exact (h i) ((intQuotientSpan_addOrderOf_eq_zero_iff
+        ((snf.bM.equivFun x) i) (smithNormalFormFactor snf i)).mp hi |>.1)) p
+
 /-- An arbitrary-rank Smith cokernel class has infinite additive order exactly
 when some free `ZMod 0` coordinate is nonzero.  Thus the theorem detects the
 free part elementwise, not merely at the level of the whole quotient. -/
@@ -3358,6 +3380,28 @@ theorem matrixAction_cokernel_exponent_factorization_eq_smithFactor_sup
         (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
           (matrixAction A).range.toIntSubmodule).2 i).natAbs)
     (fun i => Int.natAbs_ne_zero.mpr (h i)) p
+
+/-! The rectangular lattice class-order formula has the same full p-adic
+    Smith-coordinate refinement. -/
+theorem matrixAction_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : Fin m → ℤ) (p : ℕ) :
+    (addOrderOf (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule))).factorization p =
+      Finset.univ.sup (fun i : Fin m =>
+        (addOrderOf (Int.quotientSpanEquivZMod
+          (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i)
+          (Submodule.Quotient.mk
+            (((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i)))).factorization p) := by
+  exact submoduleCokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h x p
 
 /-- A prime divides a rectangular lattice cokernel exponent exactly when it
 divides at least one Smith-factor modulus. -/
@@ -5559,6 +5603,34 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_factorization_eq_smithFactor_s
         (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
           (matrixAction A).range.toIntSubmodule).2 i).natAbs)
     (fun i => Int.natAbs_ne_zero.mpr (h i)) p
+
+/-! The finite-torus class-order formula inherits the same Smith-coordinate
+    p-adic profile through the winding-lattice additive equivalence. -/
+theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : LoopQuot m) (p : ℕ) :
+    (addOrderOf (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x)).factorization p =
+      Finset.univ.sup (fun i : Fin m =>
+        (addOrderOf (Int.quotientSpanEquivZMod
+          (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i)
+          (Submodule.Quotient.mk
+            (((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+                (loopQuotAddEquivIntVector m x)) i)))).factorization p) := by
+  rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
+  rw [matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk]
+  rw [(submoduleCokernelSmithEquiv
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2).addOrderOf_eq]
+  exact submoduleCokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h
+    (loopQuotAddEquivIntVector m x) p
 
 /-- A prime divides a rectangular finite-torus cokernel exponent exactly when
 it divides at least one Smith-factor modulus. -/

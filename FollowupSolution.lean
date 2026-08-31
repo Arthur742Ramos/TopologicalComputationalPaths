@@ -933,6 +933,16 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       (h : ∀ i : Fin m, smithFactor A i ≠ 0) (p : ℕ),
       (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule)).factorization p =
         Finset.univ.sup (fun i : Fin m => (smithFactor A i).natAbs.factorization p)
+  matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+      (h : ∀ i : Fin m, smithFactor A i ≠ 0) (x : Fin m → ℤ) (p : ℕ),
+      (addOrderOf (Submodule.Quotient.mk x :
+        (Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule)).factorization p =
+        Finset.univ.sup (fun i : Fin m =>
+          (addOrderOf (Int.quotientSpanEquivZMod (smithFactor A i)
+            (Submodule.Quotient.mk
+              (((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i)))).factorization p)
   matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
     ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
       p ∣ AddMonoid.exponent
@@ -1390,6 +1400,11 @@ theorem main_result :
       exact
         FiniteTorusWinding.matrixAction_cokernel_exponent_factorization_eq_smithFactor_sup
           A h p
+    matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup := by
+      intro n m A h x p
+      exact
+        FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup
+          A h x p
     matrix_cokernel_exponent_prime_dvd_iff_smithFactor := by
       intro A p hp
       exact

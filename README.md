@@ -378,6 +378,9 @@ valuation of the exponent at each prime is the `Finset.sup` of the valuations
 of the Smith moduli; the same p-adic profile is transported to rectangular
 lattice and finite-torus matrix cokernels.  The hypothesis is deliberate:
 zero factors represent `ZMod 0` free components.
+The same supremum law is now available elementwise for every finite-order
+cokernel class: the factorization of its additive order is the supremum of the
+factorizations of its decoded Smith-coordinate orders, on both presentations.
 The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of
