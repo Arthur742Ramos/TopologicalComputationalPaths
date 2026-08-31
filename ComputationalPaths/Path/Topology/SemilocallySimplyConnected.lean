@@ -142,6 +142,29 @@ theorem exists_finite_null_subdivision
       exact hidx i hs
     · exact htmono (Nat.le_succ i)
 
+/-- A compact-open subbasic condition remains open after restricting from
+the continuous-map space to the based path space. -/
+theorem isOpen_loops_mapsTo
+    (x : X) {K : Set I} {U : Set X}
+    (hK : IsCompact K) (hU : IsOpen U) :
+    IsOpen {γ : Loop X x | MapsTo γ K U} := by
+  exact isOpen_induced
+    (ContinuousMap.isOpen_setOf_mapsTo hK hU)
+
+/-- A finite family of compact-open range conditions is open in the based
+loop space. -/
+theorem isOpen_loops_mapsTo_finite
+    {x : X} {n : ℕ} (K : Fin n → Set I) (U : Fin n → Set X)
+    (hK : ∀ i, IsCompact (K i)) (hU : ∀ i, IsOpen (U i)) :
+    IsOpen {γ : Loop X x | ∀ i, MapsTo γ (K i) (U i)} := by
+  rw [show {γ : Loop X x | ∀ i, MapsTo γ (K i) (U i)} =
+      ⋂ i, {γ : Loop X x | MapsTo γ (K i) (U i)} by ext; simp]
+  let S : Set (Fin n) := univ
+  rw [show ⋂ i, {γ : Loop X x | MapsTo γ (K i) (U i)} =
+      ⋂ i ∈ S, {γ : Loop X x | MapsTo γ (K i) (U i)} by simp [S]]
+  exact (Set.toFinite S).isOpen_biInter fun i _ =>
+    isOpen_loops_mapsTo X x (hK i) (hU i)
+
 /-- Openness of the null-homotopy class gives a semilocally simply connected
 neighborhood of the basepoint. -/
 theorem semilocallySimplyConnectedAt_of_isOpen_nullHomotopyClass
