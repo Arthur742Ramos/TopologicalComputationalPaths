@@ -918,6 +918,14 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
         p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
           p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_eq_smithFactorLcm :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      AddMonoid.exponent
+          ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+        Finset.univ.lcm (fun i : Fin m =>
+          (smithNormalFormFactor (Submodule.smithNormalForm
+            (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs)
   matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
     ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
       p ∣ AddMonoid.exponent
@@ -1366,6 +1374,10 @@ theorem main_result :
       exact
         FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero
           A B hB p hp
+    matrix_cokernel_exponent_eq_smithFactorLcm := by
+      intro n m A
+      exact
+        FiniteTorusWinding.matrixAction_cokernel_exponent_eq_smithFactorLcm A
     matrix_cokernel_exponent_prime_dvd_iff_smithFactor := by
       intro A p hp
       exact
