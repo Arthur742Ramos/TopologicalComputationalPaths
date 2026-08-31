@@ -85,7 +85,7 @@ if followup
   abort "follow-up must have exactly one scoped original-proof source" unless original_sources.length == 1
   original = original_sources.first
   abort "original-proof source must be scoped to the centrality iff" unless
-    original["relationship"] == "independently-proves" &&
+    original["relationship"] == "other" &&
       original["title"].to_s.include?("centrality") &&
       original["location"].to_s.include?("quotient_basepoint_change_relative_comm_iff")
 end

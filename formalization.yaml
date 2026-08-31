@@ -135,7 +135,7 @@ sources:
     type: "original-proof"
     id: "FollowupSolution.lean"
     location: "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
-    relationship: "independently-proves"
+    relationship: "other"
     author_endorsement: "participated"
     note: >-
       This entry is deliberately limited to the exact necessary-and-sufficient
@@ -293,8 +293,9 @@ research_interest:
     invariant-factor context; and the pinned parent manuscript supplies the
     computational-path setting.  The metadata records these relationships as
     formalizes/adapts.  The exact centrality iff is separately recorded as an
-    `original-proof`/`independently-proves` entry, limited to that theorem and
-    its stated interface.  No first-publication claim is made for the
+    `original-proof` entry (with the intake-required `other` relationship),
+    whose independently developed proof is limited to that theorem and its
+    stated interface.  No first-publication claim is made for the
     classical ingredients or for the bundled Lean certificate.  The literature
     audit found standard inner-conjugation and abelian endpoint-independence
     statements in general topology texts, but did not locate this exact

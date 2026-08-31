@@ -19,8 +19,8 @@ theorem and the finite-dimensional winding/classifier certificate.  Its
 Smith and matrix fields are integer-lattice cokernel fields carried by the
 certificate, not a claim that every repository matrix wrapper
 or arbitrary indexed product is selected.  The narrowly scoped centrality
-theorem is recorded in the metadata as an `original-proof`/
-`independently-proves` result; the classical
+theorem is recorded in the metadata as an `original-proof` result with an
+independently developed proof; the classical
 quotient-topology, winding, and Smith ingredients are attributed in
 `formalization.yaml`.
 
