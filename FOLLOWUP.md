@@ -121,6 +121,8 @@ The core classifier is also natural for every coordinate-selection map
 `Fin m → Fin n`: the induced loop and quotient maps simply reindex the
 integer winding vector (with the fixed-dimensional instance exposed in the
 publication certificate).
+The explicit standard-loop representatives and quotient decoder obey the same
+reindexing equation.
 The coordinate-selection maps themselves satisfy identity and composition
 coherence, so this is an explicit contravariant functorial interface.
 

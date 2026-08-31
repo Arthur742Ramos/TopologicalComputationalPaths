@@ -144,6 +144,8 @@ The finite-torus classifier is also natural under every coordinate-selection
 map between finite products: mapping a loop and then winding is exactly the
 corresponding reindexing of its integer lattice vector, including after
 quotienting.
+The chosen standard representatives and the quotient decoder satisfy the same
+reindexing equation, so both sides of the classification are functorial.
 The coordinate maps also satisfy explicit identity and composition laws, so
 the classifier's naturality is presented as a coherent contravariant action.
 

@@ -28,6 +28,8 @@ the lattice operation through a continuous `Multiplicative` equivalence, and
 proves commutativity at every basepoint.  The finite-torus winding vector is
 natural under coordinate-selection maps, with the core theorem allowing
 arbitrary source and target dimensions.  Basepoint-change maps are
+The standard representatives and quotient classifier satisfy the matching
+reindexing equations as well.  Basepoint-change maps are
 additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
@@ -459,6 +461,10 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       winding (γ.map (coordinateProjection f).continuous) =
         fun j => winding γ (f j)
   standardLoop : WindingVector n → Loop n
+  standard_loop_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (z : WindingVector n),
+      (standardLoop z).map (coordinateProjection f).continuous =
+        standardLoop (fun j => z (f j))
   classifier : LoopQuot n ≃ₜ WindingVector n
   classifier_coordinate_projection :
     ∀ (f : Fin n → Fin n) (q : LoopQuot n),
@@ -769,6 +775,13 @@ theorem main_result :
           (γ.map (FiniteTorusWinding.coordinateProjection f).continuous) =
         fun j => FiniteTorusWinding.winding γ (f j)
       exact FiniteTorusWinding.winding_coordinateProjection f γ
+    standard_loop_coordinate_projection := by
+      intro f z
+      change
+        (FiniteTorusWinding.standardLoop z).map
+            (FiniteTorusWinding.coordinateProjection f).continuous =
+          FiniteTorusWinding.standardLoop (fun j => z (f j))
+      exact FiniteTorusWinding.standardLoop_coordinateProjection f z
     classifier_coordinate_projection := by
       intro f q
       change FiniteTorusWinding.encode

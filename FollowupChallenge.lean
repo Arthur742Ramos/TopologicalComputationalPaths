@@ -32,8 +32,9 @@ the basepoint-transport theorem.  It strengthens this family with a
 continuous multiplicative equivalence to `Multiplicative (Fin n → ℤ)` and
 explicit commutativity of quotient multiplication at every basepoint.  The
 finite-torus winding vector is natural under coordinate-selection maps (the
-certificate records the fixed-dimensional reindexing instance).  The
-general certificate also records that
+certificate records the fixed-dimensional reindexing instance), and the
+standard representatives and quotient classifier satisfy the matching
+reindexing equations.  The general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths.  It also records preservation of path-class concatenation
@@ -468,6 +469,10 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       winding (γ.map (coordinateProjection f).continuous) =
         fun j => winding γ (f j)
   standardLoop : WindingVector n → Loop n
+  standard_loop_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (z : WindingVector n),
+      (standardLoop z).map (coordinateProjection f).continuous =
+        standardLoop (fun j => z (f j))
   classifier : LoopQuot n ≃ₜ WindingVector n
   classifier_coordinate_projection :
     ∀ (f : Fin n → Fin n) (q : LoopQuot n),

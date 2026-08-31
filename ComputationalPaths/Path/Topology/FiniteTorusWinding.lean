@@ -22,7 +22,8 @@ path-based lattice classifier at each point is independent of the explicit
 path used to transport it.  Coordinate-selection maps between finite tori
 act on winding vectors by the corresponding reindexing map, both before and
 after passage to the quotient, and the maps themselves satisfy explicit
-identity and composition laws.
+identity and composition laws.  The standard-loop representatives and the
+quotient decoder satisfy the same reindexing equations.
 -/
 
 namespace ComputationalPaths
@@ -107,6 +108,16 @@ noncomputable def standardLoop {n : ℕ} (z : Fin n → ℤ) : Loop n :=
     coordinate i (standardLoop z) = ConcreteCircleWinding.standardLoop (z i) := by
   apply _root_.Path.ext
   funext t
+  rfl
+
+/-- Standard representatives are preserved by coordinate selection. -/
+theorem standardLoop_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
+    (z : Fin n → ℤ) :
+    (standardLoop z).map (coordinateProjection f).continuous =
+      standardLoop (fun j => z (f j)) := by
+  apply _root_.Path.ext
+  funext t
+  funext j
   rfl
 
 @[simp] theorem winding_standardLoop {n : ℕ} (z : Fin n → ℤ) :
@@ -194,6 +205,18 @@ theorem encode_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
 /-- Standard loop class for an integer vector. -/
 noncomputable def decode {n : ℕ} (z : Fin n → ℤ) : LoopQuot n :=
   Quotient.mk' (standardLoop z)
+
+/-- The explicit quotient representatives are natural in the same way as the
+    winding classifier: selecting coordinates reindexes the lattice vector. -/
+theorem decode_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
+    (z : Fin n → ℤ) :
+    _root_.Path.Homotopic.Quotient.map (decode z) (coordinateProjection f) =
+      decode (fun j => z (f j)) := by
+  change Quotient.mk'
+      ((standardLoop z).map (coordinateProjection f).continuous) =
+    Quotient.mk' (standardLoop (fun j => z (f j)))
+  rw [standardLoop_coordinateProjection]
+  rfl
 
 @[simp] theorem encode_decode {n : ℕ} (z : Fin n → ℤ) :
     encode (decode z) = z :=

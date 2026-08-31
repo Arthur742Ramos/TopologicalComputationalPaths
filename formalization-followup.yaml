@@ -37,7 +37,8 @@ project:
     winding classifier is natural under coordinate-selection maps between
     finite tori, reindexing the integer lattice vector before and after
     passage to the quotient; those coordinate maps satisfy identity and
-    composition coherence laws.
+    composition coherence laws, and the standard representatives and quotient
+    decoder obey the same reindexing equation.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -164,7 +165,8 @@ status:
     precise general statement assumes only centrality of the relative loop.
     Coordinate-selection maps act naturally on winding vectors and on the
     quotient classifier by reindexing, with explicit identity and composition
-    laws for the maps themselves.
+    laws for the maps themselves; standard representatives and the quotient
+    decoder satisfy the corresponding equation.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -445,6 +447,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Coordinate-selection maps satisfy identity and composition laws, giving the reindexing construction an explicit contravariant functorial interface."
+    - source: "Finite-torus representative and decoder naturality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.standardLoop_coordinateProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.decode_coordinateProjection"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Standard representatives and their quotient decoder commute with coordinate selection by reindexing the lattice vector."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
