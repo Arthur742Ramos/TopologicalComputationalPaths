@@ -120,7 +120,8 @@ square-dimension or finiteness assumption.
 The Smith-normal-form product is generalized to rectangular maps with full
 target rank and transported to their finite-torus cokernels as well.  The
 lattice finite-cokernel condition is characterized exactly by full target
-rank.
+rank, and the arbitrary-rank factorization identifies this condition with the
+absence of zero Smith factors on both the lattice and finite-torus sides.
 -/
 
 namespace ComputationalPaths
@@ -2451,6 +2452,59 @@ noncomputable def matrixAction_cokernel_smithEquiv {n m : ℕ}
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
 
+/-- A finite product of `ZMod` coordinates is finite exactly when every
+modulus is nonzero.  This is the finiteness criterion that detects whether an
+arbitrary-rank Smith decomposition has a free coordinate. -/
+theorem finite_zmod_pi_iff {m : ℕ} (n : Fin m → ℕ) :
+    Finite (∀ i, ZMod (n i)) ↔ ∀ i, n i ≠ 0 := by
+  constructor
+  · intro hp i
+    have hi : Finite (ZMod (n i)) := by
+      letI : Finite (∀ j, ZMod (n j)) := hp
+      apply Finite.of_injective (fun z => Function.update (fun j => 0) i z)
+      intro a b hab
+      have h := congrFun hab i
+      simpa using h
+    cases hn : n i with
+    | zero =>
+        rw [hn] at hi
+        exact False.elim (ZMod.infinite.not_finite hi)
+    | succ k => exact Nat.succ_ne_zero k
+  · intro h
+    letI : ∀ i, Finite (ZMod (n i)) := fun i => by
+      cases hn : n i with
+      | zero => exact (h i hn).elim
+      | succ k => infer_instance
+    infer_instance
+
+/-- The arbitrary-rank Smith presentation gives an exact finiteness test for
+the lattice cokernel: it is finite precisely when no complementary `ZMod 0`
+factor occurs. -/
+theorem matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
+  refine (Equiv.finite_iff (matrixAction_cokernel_smithEquiv A).toEquiv).trans ?_
+  simpa only [Int.natAbs_ne_zero] using
+    (finite_zmod_pi_iff (fun i =>
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs))
+
+/-- Combining the finite-quotient theorem with the Smith presentation yields
+a direct full-rank criterion in terms of the diagonal coefficients. -/
+theorem matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+        Module.finrank ℤ (Fin m → ℤ) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
+  exact (matrixAction_cokernel_finite_iff_full_rank A).symm.trans
+    (matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero A)
+
 /-- Under full target rank, the Smith factors give the exact cardinality of
 the lattice cokernel as their product of moduli. -/
 theorem matrixAction_cokernel_card_eq_smithNormalFormProduct
@@ -3962,6 +4016,45 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquiv
     exact QuotientAddGroup.congr H (matrixAction A).range
       (loopQuotAddEquivIntVector m) hmap
   exact qAddEquiv.trans (matrixAction_cokernel_smithEquiv A)
+
+/-- The finite-torus cokernel is finite exactly when the corresponding lattice
+cokernel has full target rank. -/
+theorem matrixMapQuotientAddHom_cokernel_finite_iff_full_rank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ↔
+      Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+        Module.finrank ℤ (Fin m → ℤ) :=
+  (matrixMapQuotientAddHom_cokernel_finite_iff_matrixAction_cokernel A).trans
+    (matrixAction_cokernel_finite_iff_full_rank A)
+
+/-- The arbitrary-rank topological Smith presentation detects finiteness
+exactly: there is no finite quotient precisely when a complementary `ZMod 0`
+factor remains. -/
+theorem matrixMapQuotientAddHom_cokernel_finite_iff_smithNormalFormFactor_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
+  refine (Equiv.finite_iff
+      (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).toEquiv).trans ?_
+  simpa only [Int.natAbs_ne_zero] using
+    (finite_zmod_pi_iff (fun i =>
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs))
+
+/-- The canonical finite-torus cokernel is full-rank exactly when all of its
+Smith coordinates are torsion coordinates (nonzero moduli). -/
+theorem matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+        Module.finrank ℤ (Fin m → ℤ) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
+  exact (matrixMapQuotientAddHom_cokernel_finite_iff_full_rank A).symm.trans
+    (matrixMapQuotientAddHom_cokernel_finite_iff_smithNormalFormFactor_ne_zero A)
 
 /-- The finite-torus cokernel has the same exact Smith-factor cardinality as
 the lattice cokernel whenever the matrix has full target rank. -/

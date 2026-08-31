@@ -130,7 +130,9 @@ inverse witness, including at arbitrary basepoints.
     free factors and embedded Smith coordinates contribute cyclic torsion
     factors.  Under full target rank, the exact product of Smith moduli is
     transported to the torus cokernel as well, and the lattice finite-cokernel
-    condition is characterized exactly by full target rank.
+    condition is characterized exactly by full target rank.  The arbitrary-rank
+    factorization also gives a direct finiteness test on both sides: every
+    Smith modulus is nonzero exactly when the corresponding cokernel is finite.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

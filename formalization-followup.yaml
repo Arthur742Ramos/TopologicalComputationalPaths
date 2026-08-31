@@ -117,7 +117,9 @@ project:
     maps: complementary coordinates contribute explicit ZMod 0 free factors,
     while embedded Smith coordinates contribute cyclic torsion factors.  Under
     full target rank the exact product of Smith moduli is transported to both
-    lattice and finite-torus cokernels.
+    lattice and finite-torus cokernels.  The same factorization gives an exact
+    finiteness criterion: both cokernels are finite exactly when every Smith
+    modulus is nonzero, equivalently when no ZMod 0 free factor remains.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -675,6 +677,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "When the image has full target rank, both the lattice and canonical finite-torus cokernels have cardinality equal to the product of the Smith-normal-form moduli."
+    - source: "Finite-torus Smith-factor finiteness criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.finite_zmod_pi_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_full_rank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For arbitrary-rank rectangular maps, finiteness of both lattice and finite-torus cokernels is equivalent to nonzero Smith moduli in every ambient coordinate; this is equivalent to full target rank and exactly rules out the free ZMod 0 factors."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

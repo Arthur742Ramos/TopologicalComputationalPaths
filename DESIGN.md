@@ -270,7 +270,9 @@ rectangular maps: zero `ZMod 0` factors retain the free cokernel summand while
 nonzero factors describe torsion.  Under full target rank it gives the finite
 cyclic-factor decomposition and exact product cardinality on both the lattice
 and finite-torus sides; lattice finiteness is equivalent to that full-rank
-hypothesis.
+hypothesis.  The arbitrary-rank factors also give a direct criterion on both
+sides: the cokernel is finite exactly when every Smith modulus is nonzero,
+equivalently when no `ZMod 0` free coordinate remains.
 
 ## Non-goals for the first submission
 

@@ -296,6 +296,9 @@ record the free part while nonzero factors record torsion.  Under full target
 rank, the same cyclic product is finite and its exact cardinality is the
 product of the Smith moduli; both the lattice and finite-torus cokernels carry
 this decomposition, and lattice finiteness is exactly the full-rank condition.
+More precisely, finiteness on either side is equivalent to every Smith modulus
+being nonzero, so the criterion detects exactly when no `ZMod 0` free factor
+survives (and is equivalent to full target rank).
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

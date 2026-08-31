@@ -237,6 +237,10 @@ the formalization proves:
     while the embedded Smith coordinates contribute the cyclic torsion
     factors; the finite full-rank specialization also exposes the exact
     product of Smith moduli as the lattice and torus cokernel cardinality.
+84. the lattice and finite-torus cokernels receive an exact arbitrary-rank
+    finiteness criterion in terms of the Smith data: they are finite exactly
+    when every modulus is nonzero (equivalently, no `ZMod 0` free factor
+    remains), which is itself equivalent to full target rank.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
