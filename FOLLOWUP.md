@@ -91,6 +91,8 @@ the formalization proves:
 40. finite index equivalences upgrade coordinate selection to a torus
     homeomorphism and lattice reindexing to a continuous additive equivalence,
     with matching identity and composition coherence.
+41. the arbitrary-basepoint classifier naturality squares are also stated
+    directly through the continuous additive reindexing morphism.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -155,6 +157,8 @@ laws are proved at that continuous-morphism level as well.
 For finite index equivalences, the coordinate maps are upgraded to
 homeomorphisms and the lattice maps to continuous additive equivalences;
 their identity and composition laws are proved in those stronger categories.
+The path-based and canonical arbitrary-basepoint classifier squares are also
+restated through the continuous additive reindexing map itself.
 
 ## Literature and novelty boundary
 

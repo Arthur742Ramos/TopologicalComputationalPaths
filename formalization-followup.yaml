@@ -50,6 +50,8 @@ project:
     For finite index equivalences, the coordinate map is a torus homeomorphism
     and the lattice reindexing is a continuous additive equivalence, with
     matching identity/composition coherence.
+    The arbitrary-basepoint classifier naturality squares are also stated
+    directly through the continuous additive reindexing morphism.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -188,6 +190,8 @@ status:
     corresponding identity and composition laws.
     For index equivalences, these are upgraded to a torus homeomorphism and a
     continuous additive lattice equivalence with the same coherence laws.
+    The arbitrary-basepoint classifier squares are likewise restated through
+    the continuous additive reindexing map.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -498,6 +502,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Index equivalences induce a torus homeomorphism and a continuous additive lattice equivalence, with explicit identity and composition coherence."
+    - source: "Finite-torus arbitrary-basepoint continuous reindexing"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection_continuousReindex; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_continuousReindex"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Path-based and canonical arbitrary-basepoint classifier naturality are expressed directly through the continuous additive lattice reindexing morphism."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

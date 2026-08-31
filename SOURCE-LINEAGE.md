@@ -105,6 +105,8 @@ through that morphism.
 For index equivalences, the same construction is upgraded to a torus
 homeomorphism and a continuous additive lattice equivalence, again with
 identity/composition coherence.
+The arbitrary-basepoint classifier naturality squares are also restated using
+the continuous additive reindexing morphism itself.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

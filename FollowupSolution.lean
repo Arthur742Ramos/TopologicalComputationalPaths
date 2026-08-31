@@ -40,6 +40,8 @@ and composition coherence.
 For finite index equivalences, the coordinate map is a torus homeomorphism
 and the lattice reindexing is a continuous additive equivalence with matching
 coherence.
+The arbitrary-basepoint classifier naturality squares are also stated through
+the continuous additive reindexing morphism.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

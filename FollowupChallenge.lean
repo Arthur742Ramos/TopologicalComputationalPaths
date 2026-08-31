@@ -45,6 +45,8 @@ identity and composition coherence.
 For finite index equivalences, the coordinate map is a torus homeomorphism
 and the lattice reindexing is a continuous additive equivalence with matching
 coherence.
+The arbitrary-basepoint classifier naturality squares are also stated through
+the continuous additive reindexing morphism.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

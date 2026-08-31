@@ -623,6 +623,23 @@ theorem loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection
     (p.map (coordinateProjection f).continuous)).symm_apply_apply]
   exact (loopQuotContinuousMulEquivIntVector_coordinateProjection f r).symm
 
+/-- The path-based arbitrary-basepoint naturality square can be read through
+the continuous additive lattice morphism itself. -/
+theorem loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection_continuousReindex
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (p : _root_.Path (base n) x)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at_path m
+      (coordinateProjection f x)
+      (p.map (coordinateProjection f).continuous))
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+      Multiplicative.ofAdd
+        (coordinateReindexContinuous f
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at_path n x p q))) := by
+  simpa only [coordinateReindexContinuous_apply] using
+    (loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection f x p q)
+
 /-- The explicit-path lattice classifier is independent of the chosen path. -/
 theorem loopQuotContinuousMulEquivIntVector_at_path_eq
     (n : ℕ) (x : Carrier n)
@@ -666,6 +683,21 @@ theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection
   simpa [p, p', loopQuotContinuousMulEquivIntVector_at,
     loopQuotContinuousMulEquivIntVector_at_path,
     QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv] using h
+
+/-- The canonical arbitrary-basepoint naturality square can likewise be read
+through the continuous additive lattice morphism. -/
+theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection_continuousReindex
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at m
+      (coordinateProjection f x))
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+      Multiplicative.ofAdd
+        (coordinateReindexContinuous f
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at n x q))) := by
+  simpa only [coordinateReindexContinuous_apply] using
+    (loopQuotContinuousMulEquivIntVector_at_coordinateProjection f x q)
 
 /-- Every finite-torus loop homotopy class is open in the compact-open loop
 space. -/

@@ -166,6 +166,9 @@ topological-algebra level.
 When the index map is an equivalence, the coordinate-selection map is also
 packaged as a torus homeomorphism and the lattice map as a continuous additive
 equivalence, with the same coherence laws.
+The arbitrary-basepoint classifier squares are additionally expressed through
+the continuous additive reindexing map, for both path-based and canonical
+classifiers.
 
 ## Non-goals for the first submission
 
