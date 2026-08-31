@@ -51,7 +51,8 @@ sources:
       the converse is proved for locally path-connected spaces by a finite
       compact-open subdivision and ladder argument.  It also transports the
       quotient discreteness criterion across homotopy equivalences and derives
-      homotopy invariance of semilocal simple connectivity in that category.
+      homotopy invariance of semilocal simple connectivity in that category,
+      together with homotopy invariance of the joint-continuity boundary.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors:
       - "Jeremy Brazas"
@@ -119,7 +120,7 @@ status:
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
     discreteness equivalence and homotopy invariance in locally path-connected
-    spaces,
+    spaces, and homotopy invariance of the joint-continuity boundary,
     covering/monodromy consequences, and the topological-group agreement
     boundary.
     The finite-torus portion proves explicit winding representatives,
@@ -206,6 +207,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "A path between basepoints induces a homeomorphism and therefore preserves discreteness of the quotient topology."
+    - source: "Homotopy-invariant joint-continuity boundary"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_of_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Joint continuity of quotient concatenation is equivalent at corresponding basepoints across a homotopy equivalence, via multiplicative homeomorphism transport."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

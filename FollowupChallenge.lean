@@ -102,6 +102,15 @@ structure QuotientTopologicalFundamentalGroupTheory where
       {x₀ x₁ : X} (p : _root_.Path x₀ x₁),
       DiscreteTopology (GenericLoopQuot X x₀) ↔
         DiscreteTopology (GenericLoopQuot X x₁)
+  quotient_trans_continuity_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x : X),
+      Continuous
+          (fun p : GenericLoopQuot X x × GenericLoopQuot X x =>
+            _root_.Path.Homotopic.Quotient.trans p.1 p.2) ↔
+        Continuous
+          (fun p : GenericLoopQuot Y (e x) × GenericLoopQuot Y (e x) =>
+            _root_.Path.Homotopic.Quotient.trans p.1 p.2)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),

@@ -82,3 +82,6 @@ direct Mathlib path/quotient construction rather than an unverified import of
 a paper theorem.  The same module now transports quotient discreteness across
 homotopy equivalences and basepoint paths, and derives homotopy invariance of
 semilocal simple connectivity when both spaces are locally path-connected.
+Its multiplicative transport lemma also makes joint quotient multiplication
+(equivalently the topological-group boundary) homotopy-invariant at
+corresponding basepoints.

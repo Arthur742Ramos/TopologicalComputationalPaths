@@ -13,7 +13,8 @@ continuous homomorphisms, homeomorphisms induce continuous multiplicative
 equivalences, and paths between basepoints induce continuous multiplicative
 equivalences between the corresponding quotient fundamental groups.
 Consequently, quotient discreteness is invariant under both homotopy
-equivalence and path-based basepoint change.
+equivalence and path-based basepoint change.  The boundary between separate
+and joint multiplication continuity is homotopy-invariant as well.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -310,6 +311,63 @@ theorem quotientDiscreteTopology_iff_of_homotopyEquiv
     DiscreteTopology (LoopQuot X x) ↔
       DiscreteTopology (LoopQuot Y (e x)) :=
   (homotopyEquivInducedContinuousMulEquiv e x).toHomeomorph.discreteTopology_iff
+
+/-- Joint continuity of multiplication is transported by a continuous
+multiplicative equivalence. -/
+theorem continuousMul_iff_of_continuousMulEquiv
+    {G : Type u} {H : Type v} [TopologicalSpace G] [TopologicalSpace H]
+    [Mul G] [Mul H] (e : G ≃ₜ* H) :
+    Nonempty (ContinuousMul G) ↔ Nonempty (ContinuousMul H) := by
+  constructor
+  · rintro ⟨hG⟩
+    letI : ContinuousMul G := hG
+    have hpre : Continuous (fun p : H × H => e.symm p.1 * e.symm p.2) :=
+      continuous_mul.comp
+        ((e.symm.continuous_toFun.comp continuous_fst).prodMk
+          (e.symm.continuous_toFun.comp continuous_snd))
+    have hpost : Continuous (fun p : H × H =>
+        e (e.symm p.1 * e.symm p.2)) :=
+      e.continuous_toFun.comp hpre
+    refine ⟨{ continuous_mul := ?_ }⟩
+    convert hpost using 1
+    ext p
+    simp
+  · rintro ⟨hH⟩
+    letI : ContinuousMul H := hH
+    have hpre : Continuous (fun p : G × G => e p.1 * e p.2) :=
+      continuous_mul.comp
+        ((e.continuous_toFun.comp continuous_fst).prodMk
+          (e.continuous_toFun.comp continuous_snd))
+    have hpost : Continuous (fun p : G × G =>
+        e.symm (e p.1 * e p.2)) :=
+      e.symm.continuous_toFun.comp hpre
+    refine ⟨{ continuous_mul := ?_ }⟩
+    convert hpost using 1
+    ext p
+    simp
+
+/-- The topological-group boundary for quotient multiplication is invariant
+under homotopy equivalence at corresponding basepoints. -/
+theorem quotientContinuousMul_iff_of_homotopyEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    Nonempty (ContinuousMul (LoopQuot X x)) ↔
+      Nonempty (ContinuousMul (LoopQuot Y (e x))) :=
+  continuousMul_iff_of_continuousMulEquiv
+    (homotopyEquivInducedContinuousMulEquiv e x)
+
+/-- Joint continuity of quotient concatenation is invariant under homotopy
+equivalence at corresponding basepoints. -/
+theorem quotientTransContinuous_iff_of_homotopyEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    Continuous
+        (fun p : LoopQuot X x × LoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) ↔
+      Continuous
+        (fun p : LoopQuot Y (e x) × LoopQuot Y (e x) =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
+  rw [continuous_quotientTrans_iff_topologicalGroupStructure,
+    continuous_quotientTrans_iff_topologicalGroupStructure]
+  exact quotientContinuousMul_iff_of_homotopyEquiv e x
 
 /-- A covering map induces an injective continuous homomorphism on
 quotient-topological fundamental groups.  The injectivity is the unique

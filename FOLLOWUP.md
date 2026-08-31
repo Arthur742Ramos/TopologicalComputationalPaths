@@ -31,8 +31,10 @@ the formalization proves:
 12. quotient discreteness is invariant under homotopy equivalence and under
     basepoint change along a path; and
 13. among locally path-connected spaces, semilocal simple connectivity is a
-    homotopy invariant; and
-14. under the exact open-null-class criterion, every homotopy class is open, the quotient map
+   homotopy invariant; and
+14. joint continuity of quotient concatenation (equivalently, the genuine
+    topological-group structure) is invariant under homotopy equivalence; and
+15. under the exact open-null-class criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
 
@@ -78,7 +80,9 @@ refinement, and finite homotopy ladder produce an open class around each loop.
 It then transports quotient discreteness across the continuous quotient
 equivalences induced by homotopy equivalences and basepoint paths, giving
 homotopy invariance of semilocal simple connectivity in the stated locally
-path-connected category.
+path-connected category.  The same multiplicative homeomorphisms transport
+the boundary between separate and joint continuity, so the topological-group
+failure is itself a homotopy-invariant quotient-topology phenomenon.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding
