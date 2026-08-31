@@ -156,6 +156,9 @@ equivalence layers, including arbitrary basepoints.
 It also imports the finite-index theorem for integer linear maps: whenever the
 determinant is nonzero, the winding-lattice cokernel is finite with cardinality
 `Int.natAbs (Matrix.det A)`, and finiteness is exposed as a separate theorem.
+Through the canonical winding classifier, the induced quotient image has the
+same exact index and finite cokernel cardinality, with both index and cardinal
+forms proved in the quotient-group interface.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

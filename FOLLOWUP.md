@@ -163,6 +163,11 @@ the formalization proves:
     is finite with exactly `Int.natAbs (Matrix.det A)` elements; the same
     theorem exposes finiteness explicitly, giving a quantitative index
     certificate rather than only injectivity or surjectivity criteria.
+65. at the canonical finite-torus basepoint, the image of the induced quotient
+    homomorphism has index and cokernel cardinality exactly
+    `Int.natAbs (Matrix.det A)`, with an explicit finiteness theorem for that
+    quotient; this identifies the topological quotient obstruction with the
+    algebraic determinant index.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -297,6 +302,9 @@ Beyond these yes/no criteria, a nonzero determinant gives a finite lattice
 cokernel whose cardinality is exactly `Int.natAbs (Matrix.det A)`.  Thus the
 formalization records the full finite obstruction measured by the determinant,
 including an explicit `Finite` instance for the cokernel.
+The same count is transported through the canonical winding classifier: the
+image of the induced quotient homomorphism has index and cokernel cardinality
+`Int.natAbs (Matrix.det A)`, and the quotient is explicitly finite.
 
 ## Literature and novelty boundary
 

@@ -87,6 +87,9 @@ inverse witness, including at arbitrary basepoints.
 For every nonzero determinant, the winding-lattice cokernel is finite with
 cardinality exactly `Int.natAbs (Matrix.det A)`, and a separate theorem exposes
 that finiteness explicitly as a quantitative index certificate.
+At the canonical finite-torus basepoint, the induced quotient image has the
+same exact index and cokernel cardinality, and the quotient is explicitly
+finite.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

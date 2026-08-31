@@ -222,6 +222,9 @@ equivalence layers at arbitrary basepoints.
 When the determinant is merely nonzero, the integer lattice cokernel is still
 finite, with cardinality exactly `Int.natAbs (Matrix.det A)`; this quantitative
 Smith-normal-form certificate complements the binary determinant criteria.
+The canonical quotient homomorphism has the identical image index and finite
+cokernel cardinality, making the determinant count visible on the actual
+topological loop-class quotient as well.
 
 ## Non-goals for the first submission
 

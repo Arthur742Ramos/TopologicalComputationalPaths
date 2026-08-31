@@ -71,6 +71,10 @@ while surjectivity is equivalent to a unit determinant.  A unimodular matrix's
 canonical nonsingular inverse then supplies the preceding equivalences without
 requiring an inverse as an extra hypothesis, including at arbitrary
 basepoints.
+For every nonzero determinant, the winding-lattice cokernel is finite with
+cardinality `Int.natAbs (Matrix.det A)`.  The canonical quotient image has the
+same finite index, and its quotient cardinality and finiteness are exposed
+explicitly as well.
 -/
 
 namespace ComputationalPaths
@@ -2576,6 +2580,85 @@ noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     (A : Fin m → Fin n → ℤ) (q : LoopQuot n) :
     matrixMapQuotientAddHom A q = matrixMapQuotientMap A q :=
   rfl
+
+/-- The image of a square matrix on quotient loop classes has the same finite
+index as its winding-lattice image. -/
+theorem matrixMapQuotientAddHom_range_index_eq_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    (matrixMapQuotientAddHom A).range.index = Int.natAbs (Matrix.det A) := by
+  let e := loopQuotAddEquivIntVector n
+  have hmap :
+      (matrixMapQuotientAddHom A).range.map (e : LoopQuot n →+ (Fin n → ℤ)) =
+        (matrixAction A).range := by
+    ext z
+    constructor
+    · intro hz
+      rw [AddSubgroup.mem_map] at hz
+      rcases hz with ⟨p, hp, hpeq⟩
+      rcases hp with ⟨q, hq⟩
+      refine ⟨e q, ?_⟩
+      rw [← hpeq, ← hq]
+      change matrixAction A (e q) = e (matrixMapQuotientAddHom A q)
+      rw [matrixMapQuotientAddHom_apply]
+      exact (encode_matrixMapQuotientMap A q).symm
+    · intro hz
+      rcases hz with ⟨v, rfl⟩
+      refine ⟨matrixMapQuotientAddHom A (e.symm v), ⟨e.symm v, rfl⟩, ?_⟩
+      have hnat := encode_matrixMapQuotientMap A (e.symm v)
+      have hev : e (e.symm v) = v := e.apply_symm_apply v
+      calc
+        e (matrixMapQuotientAddHom A (e.symm v)) =
+            matrixAction A (e (e.symm v)) := by
+          change encode (matrixMapQuotientMap A (e.symm v)) =
+            matrixAction A (encode (e.symm v))
+          exact hnat
+        _ = matrixAction A v := by rw [hev]
+  have hi := AddSubgroup.index_map_equiv
+      (matrixMapQuotientAddHom A).range e
+  rw [hmap] at hi
+  rw [← hi]
+  rw [AddSubgroup.index_eq_card]
+  let N : Submodule ℤ (Fin n → ℤ) := AddSubgroup.toIntSubmodule (matrixAction A).range
+  let eQ : ((Fin n → ℤ) ⧸ (matrixAction A).range) ≃
+      ((Fin n → ℤ) ⧸ N) :=
+    Quotient.congr (Equiv.refl _) (by
+      intro x y
+      simp only [Equiv.refl_apply, QuotientAddGroup.leftRel_apply,
+        Submodule.quotientRel_def]
+      change -x + y ∈ (matrixAction A).range ↔ x - y ∈ (matrixAction A).range
+      constructor
+      · rintro ⟨z, hz⟩
+        refine ⟨-z, ?_⟩
+        rw [(matrixAction A).map_neg]
+        simpa [sub_eq_add_neg, add_comm] using congrArg Neg.neg hz
+      · rintro ⟨z, hz⟩
+        refine ⟨-z, ?_⟩
+        rw [(matrixAction A).map_neg]
+        simpa [sub_eq_add_neg, add_comm] using congrArg Neg.neg hz)
+  rw [Nat.card_congr eQ]
+  simpa [N] using (matrixAction_cokernel_card_eq_natAbs_det A hA)
+
+/-- The quotient of the finite-torus loop group by a non-singular matrix image
+has cardinality `natAbs (det A)`. -/
+theorem matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    Nat.card (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) =
+      Int.natAbs (Matrix.det A) := by
+  calc
+    Nat.card (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) =
+        (matrixMapQuotientAddHom A).range.index :=
+      (AddSubgroup.index_eq_card _).symm
+    _ = Int.natAbs (Matrix.det A) :=
+      matrixMapQuotientAddHom_range_index_eq_natAbs_det A hA
+
+/-- The finite-torus quotient cokernel is finite whenever the matrix
+determinant is nonzero. -/
+theorem matrixMapQuotientAddHom_cokernel_finite {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    Finite (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) := by
+  apply Nat.finite_of_card_ne_zero
+  rw [matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det A hA]
+  exact Int.natAbs_ne_zero.mpr hA
 
 /-- Membership in the matrix quotient homomorphism's kernel is exactly the
 kernel condition for its winding-lattice action. -/
