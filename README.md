@@ -248,8 +248,9 @@ canonical topological quotient obstruction.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding
-equivalence to that same explicit product, identifying the obstruction
-structurally at the topological level.
+equivalence to that same explicit product as an additive equivalence of finite
+abelian groups, identifying the obstruction structurally at the topological
+level rather than only by cardinality.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

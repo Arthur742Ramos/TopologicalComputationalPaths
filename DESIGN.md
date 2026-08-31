@@ -232,7 +232,9 @@ The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical
 quotient cokernel, giving an explicit structural classification of the
-topological obstruction rather than only its cardinality.
+topological obstruction, and the transport is packaged as an explicit additive
+equivalence between finite abelian groups.  This is stronger than only its
+cardinality or a bare type equivalence.
 
 ## Non-goals for the first submission
 

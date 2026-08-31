@@ -96,8 +96,9 @@ canonical quotient obstruction.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
-cyclic `ZMod` factors, so the determinant obstruction is structurally
-identified at the topological quotient level rather than only counted.
+cyclic `ZMod` factors as an explicit additive equivalence of finite abelian
+groups, so the determinant obstruction is structurally identified at the
+topological quotient level rather than only counted.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

@@ -79,7 +79,8 @@ The lattice cokernel is additionally presented, via Smith normal form, as a
 product of finite cyclic `ZMod` factors, with the full-rank image theorem made
 available to support the decomposition.  The same cyclic-factor presentation
 is transported through the winding equivalence to the canonical quotient
-cokernel of the induced torus homomorphism.
+cokernel of the induced torus homomorphism, now as an explicit additive
+equivalence of finite abelian groups.
 -/
 
 namespace ComputationalPaths
@@ -1020,6 +1021,16 @@ theorem quotientTrans_comm {n : ℕ} (x y : LoopQuot n) :
   change encode (_root_.Path.Homotopic.Quotient.trans x y) =
     encode (_root_.Path.Homotopic.Quotient.trans y x)
   rw [encode_trans, encode_trans, add_comm]
+
+/-- The transported winding addition on a finite-torus quotient is
+commutative.  This packages the preceding classifier theorem as the
+`AddCommGroup` structure needed by additive cokernel constructions. -/
+noncomputable instance loopQuotAddCommGroup (n : ℕ) : AddCommGroup (LoopQuot n) :=
+  { loopQuotAddGroup n with
+    add_comm := by
+      intro x y
+      rw [← quotientTrans_eq_add, ← quotientTrans_eq_add]
+      exact quotientTrans_comm x y }
 
 /-- The fundamental group of every finite torus is abelian, at every chosen
 basepoint. -/
@@ -2631,6 +2642,51 @@ noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     matrixMapQuotientAddHom A q = matrixMapQuotientMap A q :=
   rfl
 
+/-- The winding equivalence identifies the image of every integer-matrix
+quotient map with the corresponding lattice image, as additive subgroups.
+Unlike the determinant-index corollary below, this transport does not require
+the matrix to be square or nonsingular. -/
+theorem matrixMapQuotientAddHom_range_map {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) :
+    (matrixMapQuotientAddHom A).range.map
+        (loopQuotAddEquivIntVector m : LoopQuot m →+ (Fin m → ℤ)) =
+      (matrixAction A).range := by
+  ext z
+  constructor
+  · intro hz
+    rw [AddSubgroup.mem_map] at hz
+    rcases hz with ⟨p, hp, hpeq⟩
+    rcases hp with ⟨q, hq⟩
+    refine ⟨loopQuotAddEquivIntVector n q, ?_⟩
+    rw [← hpeq, ← hq]
+    change matrixAction A (loopQuotAddEquivIntVector n q) =
+      loopQuotAddEquivIntVector m (matrixMapQuotientAddHom A q)
+    rw [matrixMapQuotientAddHom_apply]
+    exact (encode_matrixMapQuotientMap A q).symm
+  · intro hz
+    rcases hz with ⟨v, rfl⟩
+    refine ⟨matrixMapQuotientAddHom A
+        ((loopQuotAddEquivIntVector n).symm v),
+      ⟨(loopQuotAddEquivIntVector n).symm v, rfl⟩, ?_⟩
+    have hnat := encode_matrixMapQuotientMap A
+      ((loopQuotAddEquivIntVector n).symm v)
+    have hev : loopQuotAddEquivIntVector n
+        ((loopQuotAddEquivIntVector n).symm v) = v :=
+      (loopQuotAddEquivIntVector n).apply_symm_apply v
+    calc
+      loopQuotAddEquivIntVector m
+          (matrixMapQuotientAddHom A
+            ((loopQuotAddEquivIntVector n).symm v)) =
+          matrixAction A
+            (loopQuotAddEquivIntVector n
+              ((loopQuotAddEquivIntVector n).symm v)) := by
+        change encode (matrixMapQuotientMap A
+            ((loopQuotAddEquivIntVector n).symm v)) =
+          matrixAction A (encode
+            ((loopQuotAddEquivIntVector n).symm v))
+        exact hnat
+      _ = matrixAction A v := by rw [hev]
+
 /-- The image of a square matrix on quotient loop classes has the same finite
 index as its winding-lattice image. -/
 theorem matrixMapQuotientAddHom_range_index_eq_natAbs_det {n : ℕ}
@@ -2640,29 +2696,7 @@ theorem matrixMapQuotientAddHom_range_index_eq_natAbs_det {n : ℕ}
   have hmap :
       (matrixMapQuotientAddHom A).range.map (e : LoopQuot n →+ (Fin n → ℤ)) =
         (matrixAction A).range := by
-    ext z
-    constructor
-    · intro hz
-      rw [AddSubgroup.mem_map] at hz
-      rcases hz with ⟨p, hp, hpeq⟩
-      rcases hp with ⟨q, hq⟩
-      refine ⟨e q, ?_⟩
-      rw [← hpeq, ← hq]
-      change matrixAction A (e q) = e (matrixMapQuotientAddHom A q)
-      rw [matrixMapQuotientAddHom_apply]
-      exact (encode_matrixMapQuotientMap A q).symm
-    · intro hz
-      rcases hz with ⟨v, rfl⟩
-      refine ⟨matrixMapQuotientAddHom A (e.symm v), ⟨e.symm v, rfl⟩, ?_⟩
-      have hnat := encode_matrixMapQuotientMap A (e.symm v)
-      have hev : e (e.symm v) = v := e.apply_symm_apply v
-      calc
-        e (matrixMapQuotientAddHom A (e.symm v)) =
-            matrixAction A (e (e.symm v)) := by
-          change encode (matrixMapQuotientMap A (e.symm v)) =
-            matrixAction A (encode (e.symm v))
-          exact hnat
-        _ = matrixAction A v := by rw [hev]
+    exact matrixMapQuotientAddHom_range_map A
   have hi := AddSubgroup.index_map_equiv
       (matrixMapQuotientAddHom A).range e
   rw [hmap] at hi
@@ -2715,6 +2749,25 @@ theorem matrixMapQuotientAddHom_cokernel_card_comp {n : ℕ}
   · rw [matrixCompose_det]
     exact mul_ne_zero hB hA
 
+/-- The canonical topological quotient cokernel is an abelian group with the
+same Smith-normal-form decomposition as the winding-lattice cokernel. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquivOfDetNeZero
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) ≃+
+      (∀ i : Fin n, ZMod ((Submodule.smithNormalFormCoeffs
+        (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA) i).natAbs)) := by
+  let H := (matrixMapQuotientAddHom A).range
+  have hmap :
+      H.map (loopQuotAddEquivIntVector n : LoopQuot n →+ (Fin n → ℤ)) =
+        (matrixAction A).range :=
+    matrixMapQuotientAddHom_range_map A
+  let qAddEquiv :
+      (LoopQuot n ⧸ H) ≃+
+        ((Fin n → ℤ) ⧸ (matrixAction A).range) := by
+    exact QuotientAddGroup.congr H (matrixAction A).range
+      (loopQuotAddEquivIntVector n) hmap
+  exact qAddEquiv.trans (matrixAction_cokernel_smithEquivOfDetNeZero A hA)
+
 /-- The finite-torus quotient cokernel is finite whenever the matrix
 determinant is nonzero. -/
 theorem matrixMapQuotientAddHom_cokernel_finite {n : ℕ}
@@ -2745,29 +2798,7 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithEquivOfDetNeZero
     exact quotientTrans_comm x y
   have hmap :
       H.map (e : LoopQuot n →+ (Fin n → ℤ)) = (matrixAction A).range := by
-    ext z
-    constructor
-    · intro hz
-      rw [AddSubgroup.mem_map] at hz
-      rcases hz with ⟨p, hp, hpeq⟩
-      rcases hp with ⟨q, hq⟩
-      refine ⟨e q, ?_⟩
-      rw [← hpeq, ← hq]
-      change matrixAction A (e q) = e (matrixMapQuotientAddHom A q)
-      rw [matrixMapQuotientAddHom_apply]
-      exact (encode_matrixMapQuotientMap A q).symm
-    · intro hz
-      rcases hz with ⟨v, rfl⟩
-      refine ⟨matrixMapQuotientAddHom A (e.symm v), ⟨e.symm v, rfl⟩, ?_⟩
-      have hnat := encode_matrixMapQuotientMap A (e.symm v)
-      have hev : e (e.symm v) = v := e.apply_symm_apply v
-      calc
-        e (matrixMapQuotientAddHom A (e.symm v)) =
-            matrixAction A (e (e.symm v)) := by
-          change encode (matrixMapQuotientMap A (e.symm v)) =
-            matrixAction A (encode (e.symm v))
-          exact hnat
-        _ = matrixAction A v := by rw [hev]
+    exact matrixMapQuotientAddHom_range_map A
   let qEquiv :
       Quotient (QuotientAddGroup.leftRel H) ≃
         Quotient (Submodule.quotientRel N) :=

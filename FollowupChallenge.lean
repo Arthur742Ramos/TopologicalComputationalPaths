@@ -101,7 +101,8 @@ inverse witness, including at arbitrary basepoints.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
-    cokernel of the induced torus homomorphism.
+    cokernel of the induced torus homomorphism as an explicit additive
+    equivalence of finite abelian groups.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

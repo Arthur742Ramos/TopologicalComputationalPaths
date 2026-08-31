@@ -178,6 +178,10 @@ the formalization proves:
 68. for composable non-singular square matrices, the exact determinant index is
     multiplicative under matrix composition on both the winding lattice and the
     canonical quotient cokernel.
+69. the canonical quotient cokernel is equipped with its transported abelian
+    group structure and an explicit additive equivalence to that Smith product,
+    making the topological classification structure-preserving rather than a
+    bare type equivalence.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -322,7 +326,9 @@ At the lattice level, the finite cokernel is further decomposed into the
 finite cyclic invariant factors supplied by Smith normal form, rather than
 only counted.  The canonical quotient cokernel is now transported through the
 winding equivalence to that same explicit product of cyclic `ZMod` factors,
-giving a structural topological classification of the obstruction.
+with an explicit additive equivalence preserving the finite abelian-group
+operations.  This gives a structural topological classification of the
+obstruction, not merely a cardinality or an unstructured equivalence.
 
 ## Literature and novelty boundary
 
