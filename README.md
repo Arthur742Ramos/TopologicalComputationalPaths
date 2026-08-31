@@ -320,6 +320,9 @@ The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of
 its Smith factor, including the zero-factor equations.
+More precisely, the additive order of each class is the lcm of the additive
+orders of its decoded Smith coordinates; a nonzero free `ZMod 0` coordinate
+therefore records infinite class order.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

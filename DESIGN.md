@@ -295,6 +295,9 @@ The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of
 its Smith factor, including the zero-factor equations.
+The corresponding class-order theorem identifies the additive order of each
+class with the lcm of the additive orders of its decoded Smith coordinates;
+a nonzero free `ZMod 0` coordinate records infinite order.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and

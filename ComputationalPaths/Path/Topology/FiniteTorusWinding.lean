@@ -144,6 +144,9 @@ The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of
 its Smith factor, including the zero-factor equations.
+The additive order of each class is the lcm of the additive orders of its
+decoded Smith coordinates, with a nonzero `ZMod 0` coordinate recording an
+infinite-order free component.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2550,6 +2553,24 @@ noncomputable def submoduleCokernelSmithEquiv
           ((snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) x i)) := by
   rfl
 
+/-- The additive order of a Smith cokernel class is exactly the lcm of the
+orders of its decoded cyclic coordinates.  This remains meaningful in the
+rank-deficient case because a nonzero `ZMod 0` coordinate contributes order
+zero, recording the infinite-order free direction. -/
+theorem submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) =
+      Finset.univ.lcm (fun i : Fin m =>
+        addOrderOf (Int.quotientSpanEquivZMod (smithNormalFormFactor snf i)
+          (Submodule.Quotient.mk
+            ((snf.bM.equivFun x) i)))) := by
+  rw [← (submoduleCokernelSmithEquiv snf).addOrderOf_eq]
+  rw [submoduleCokernelSmithEquiv_apply_mk]
+  rw [Pi.addOrderOf]
+  rfl
+
 /-! A nonzero Smith cyclic factor admits a canonical prime-power refinement
 through the Chinese remainder theorem. -/
 
@@ -2668,6 +2689,18 @@ noncomputable def matrixAction_cokernel_smithEquiv {n m : ℕ}
   exact submoduleCokernelSmithEquiv
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-- The lattice-cokernel class order is the lcm of the additive orders of its
+Smith-decoded cyclic coordinates. -/
+theorem matrixAction_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      Finset.univ.lcm (fun i : Fin m =>
+        addOrderOf ((matrixAction_cokernel_smithEquiv A)
+          (Submodule.Quotient.mk x) i)) := by
+  rw [← (matrixAction_cokernel_smithEquiv A).addOrderOf_eq]
+  rw [Pi.addOrderOf]
 
 /-- Refine a finite rectangular lattice cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
@@ -4401,6 +4434,17 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquiv
             (matrixAction A).range.toIntSubmodule).2
         (Submodule.Quotient.mk (loopQuotAddEquivIntVector m x)) := by
   rfl
+
+/-- The finite-torus cokernel class order is the lcm of the additive orders of
+its Smith-decoded cyclic coordinates. -/
+theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) :
+    addOrderOf (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+      Finset.univ.lcm (fun i : Fin m =>
+        addOrderOf ((matrixMapQuotientAddHom_cokernel_smithAddEquiv A)
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) i)) := by
+  rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
+  rw [Pi.addOrderOf]
 
 /-- Refine a finite rectangular finite-torus cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/

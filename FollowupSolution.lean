@@ -152,6 +152,9 @@ The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of
 its Smith factor, including the zero-factor equations.
+The additive order of each class is the lcm of the additive orders of its
+decoded Smith coordinates; a nonzero free `ZMod 0` coordinate records
+infinite class order.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

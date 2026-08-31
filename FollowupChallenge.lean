@@ -160,6 +160,9 @@ inverse witness, including at arbitrary basepoints.
     a multiple of a lattice or finite-torus cokernel class vanishes exactly
     when each transformed coordinate is divisible by the corresponding
     multiple of its Smith factor, including the zero-factor equations.
+    The additive order of each class is the lcm of the additive orders of its
+    decoded Smith coordinates; a nonzero free `ZMod 0` coordinate records
+    infinite class order.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

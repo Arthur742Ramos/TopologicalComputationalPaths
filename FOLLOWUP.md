@@ -279,6 +279,10 @@ the formalization proves:
     multiple of its Smith factor, including zero-factor equations.
 98. this elementwise annihilation criterion is transported to both lattice and
     finite-torus matrix cokernel representatives.
+99. the additive order of each arbitrary-rank Smith cokernel class is exactly
+    the lcm of the additive orders of its decoded Smith coordinates.
+100. a nonzero `ZMod 0` coordinate is thereby detected as an infinite-order
+     free component, while finite coordinates contribute their cyclic orders.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
