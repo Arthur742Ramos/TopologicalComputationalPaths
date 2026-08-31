@@ -165,6 +165,44 @@ theorem isOpen_loops_mapsTo_finite
   exact (Set.toFinite S).isOpen_biInter fun i _ =>
     isOpen_loops_mapsTo X x (hK i) (hU i)
 
+set_option backward.isDefEq.respectTransparency false in
+/-- A finite ladder of homotopy-commuting path cells identifies the two
+concatenated boundary paths, up to the two boundary connectors. -/
+theorem homotopic_concat_of_homotopic_ladder
+    {n : ℕ} (p q : Fin (n + 1) → X)
+    (β : (i : Fin (n + 1)) → _root_.Path (p i) (q i))
+    (F : (i : Fin n) → _root_.Path (p i.castSucc) (p i.succ))
+    (G : (i : Fin n) → _root_.Path (q i.castSucc) (q i.succ))
+    (hcell : ∀ i, (F i).Homotopic
+      ((β i.castSucc).trans ((G i).trans (β i.succ).symm))) :
+    (_root_.Path.concat p F).Homotopic
+      ((β 0).trans ((_root_.Path.concat q G).trans (β (Fin.last n)).symm)) := by
+  rw [← _root_.Path.Homotopic.Quotient.eq]
+  induction n with
+  | zero =>
+      simp [_root_.Path.concat_zero]
+  | succ n ih =>
+      rw [_root_.Path.concat_succ, _root_.Path.concat_succ]
+      simp only [_root_.Path.Homotopic.Quotient.mk_trans,
+        _root_.Path.Homotopic.Quotient.mk_symm]
+      have ih' := ih (p ∘ Fin.castSucc) (q ∘ Fin.castSucc)
+        (fun i => β i.castSucc) (fun i => F i.castSucc)
+        (fun i => G i.castSucc) (fun i => hcell i.castSucc)
+      simp only [_root_.Path.Homotopic.Quotient.mk_trans,
+        _root_.Path.Homotopic.Quotient.mk_symm] at ih'
+      have hlast := _root_.Path.Homotopic.Quotient.eq.mpr
+        (hcell (Fin.last n))
+      simp only [_root_.Path.Homotopic.Quotient.mk_trans,
+        _root_.Path.Homotopic.Quotient.mk_symm] at hlast
+      rw [ih', hlast]
+      simp only [_root_.Path.Homotopic.Quotient.trans_assoc]
+      rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+        (_root_.Path.Homotopic.Quotient.mk (β (Fin.last n).castSucc)).symm
+        (_root_.Path.Homotopic.Quotient.mk (β (Fin.last n).castSucc)),
+        _root_.Path.Homotopic.Quotient.symm_trans,
+        _root_.Path.Homotopic.Quotient.refl_trans]
+      rfl
+
 /-- Openness of the null-homotopy class gives a semilocally simply connected
 neighborhood of the basepoint. -/
 theorem semilocallySimplyConnectedAt_of_isOpen_nullHomotopyClass
