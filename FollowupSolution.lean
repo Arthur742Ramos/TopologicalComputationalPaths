@@ -35,6 +35,8 @@ It also exposes the pointed conjugacy relation for homotopic maps.  The
 topological-group boundary is likewise transported between any two basepoints
 joined by a path.  A homotopy that fixes the chosen basepoint throughout
 therefore gives equal induced based homomorphisms after endpoint casting.
+In an abelian target quotient, the same transport is independent of the
+chosen path even when no endpoint-fixed homotopy between the paths is given.
 On a path-connected space, the joint-continuity boundary can consequently be
 checked at one basepoint or uniformly at all basepoints.  Discreteness and
 the genuine topological-group structure satisfy the same one-point reduction,
@@ -204,6 +206,19 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p q : _root_.Path x₀ x₁),
       p.Homotopic q →
+        ∀ z : GenericLoopQuot X x₀,
+          _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) z)
+              (Quotient.mk' p) =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' q.symm) z)
+              (Quotient.mk' q)
+  quotient_basepoint_change_target_comm :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p q : _root_.Path x₀ x₁),
+      (∀ a b : GenericLoopQuot X x₁, a * b = b * a) →
         ∀ z : GenericLoopQuot X x₀,
           _root_.Path.Homotopic.Quotient.trans
               (_root_.Path.Homotopic.Quotient.trans
@@ -419,6 +434,14 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     ∀ x : FiniteTorus n,
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
           (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+  classifier_continuous_mul_equiv_at_path :
+    ∀ (x : FiniteTorus n) (p : _root_.Path (base n) x),
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+  classifier_continuous_mul_equiv_at_path_independent :
+    ∀ (x : FiniteTorus n) (p q : _root_.Path (base n) x),
+      classifier_continuous_mul_equiv_at_path x p =
+        classifier_continuous_mul_equiv_at_path x q
   quotient_mul_commutative :
     ∀ x y : LoopQuot n, x * y = y * x
   quotient_mul_commutative_at :
@@ -577,6 +600,15 @@ theorem main_result :
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
+      quotient_basepoint_change_target_comm := by
+        intro X _ x₀ x₁ p q hcomm z
+        have he :=
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_target_comm
+            p q hcomm
+        have hz := congrArg (fun E => E z) he
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
       quotient_basepoint_change_composition := by
         intro X _ x₀ x₁ x₂ p q z
         have he :=
@@ -693,6 +725,12 @@ theorem main_result :
     classifier_continuous_mul_equiv_at := by
       intro x
       exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at n x
+    classifier_continuous_mul_equiv_at_path := by
+      intro x p
+      exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path n x p
+    classifier_continuous_mul_equiv_at_path_independent := by
+      intro x p q
+      exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_eq n x p q
     quotient_mul_commutative := by
       intro x y
       change

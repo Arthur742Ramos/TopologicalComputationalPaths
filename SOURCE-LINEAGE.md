@@ -73,7 +73,9 @@ criterion in the locally path-connected setting.  It also formalizes the T1
 separation boundary under homotopy and path transport, including its
 path-connected all-basepoint and global homotopy-invariance forms.  These are
 formalized as structural properties of the established quasitopological
-fundamental group, not claimed as new paper theorems.
+fundamental group, not claimed as new paper theorems.  In addition, when the
+target quotient group is abelian, it proves path-choice independence of
+basepoint transport even without an endpoint-fixed homotopy between paths.
 
 `ComputationalPaths/Path/Topology/FiniteTorusWinding.lean` extends the earlier
 circle and two-torus validation to every finite dimension and connects its
@@ -83,8 +85,10 @@ semilocal simple connectivity at every point of every finite torus, together
 with a common integer-lattice homeomorphism for all based quotients.  The
 classifier is also a continuous multiplicative equivalence to the integer
 lattice, and the quotient multiplication is proved commutative at every
-basepoint.  This is an independently checked formalization of classical
-topology, not a claim of a new fundamental-group computation.
+basepoint.  It also defines the lattice classifier along an arbitrary explicit
+path from the canonical basepoint and proves all such classifiers equal.  This
+is an independently checked formalization of classical topology, not a claim
+of a new fundamental-group computation.
 
 `ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean` now adds a
 finite compact-open subdivision theorem and an explicit ladder assembly.  In

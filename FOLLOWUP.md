@@ -68,6 +68,8 @@ the formalization proves:
 30. on a path-connected space, T1 separation at one basepoint is equivalent
     to T1 separation at every basepoint, and this global property is homotopy
     invariant between path-connected spaces.
+31. if the target quotient group is abelian, basepoint transport is independent
+    of the chosen path even without an endpoint-fixed homotopy between paths.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -105,7 +107,9 @@ connectivity at all points for every finite torus.  The same transport gives a
 continuous multiplicative equivalence (and hence commutativity) from every
 based quotient to the same integer lattice, so the classification is
 independent of the chosen basepoint as a topological and algebraic statement,
-not only as a discreteness statement.
+not only as a discreteness statement.  More strongly, the classifier may be
+defined along any explicit path from the canonical basepoint, and all such
+path-based classifiers are equal by the abelian-target transport theorem.
 
 ## Literature and novelty boundary
 
@@ -130,6 +134,9 @@ They satisfy the corresponding composition law for concatenated paths, so
 the transport is coherent as well as homotopy-invariant.  Transport along a
 constant path is separately identified with the identity equivalence, so the
 coherence package has both its unit and composition laws explicitly.  Finally,
+when the target quotient is abelian, the path-independence statement no longer
+requires a homotopy between the paths; this is the mechanism that makes the
+finite-torus lattice classifier canonical at each basepoint.
 quotient functoriality is recorded at the path-composition level, and the
 basepoint-change equivalences satisfy the resulting naturality square for
 every continuous map.

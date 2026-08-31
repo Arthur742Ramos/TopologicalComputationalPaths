@@ -107,6 +107,9 @@ concatenated paths, with transport along a constant path identified with the
 identity equivalence.  It also shows that joint continuity of quotient
 concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
+If the target quotient group is abelian, the transport equivalence is in fact
+independent of the chosen path even without an endpoint-fixed homotopy between
+the paths.
 Continuous maps preserve quotient path concatenation, and the basepoint-change
 maps form a natural square with those induced quotient maps.
 For homotopic continuous maps, the induced quotient maps are related by the
@@ -154,7 +157,10 @@ at every torus point, not only at the all-zero basepoint.  It also transports
 the integer-lattice homeomorphism to every chosen basepoint.  The additive
 classifier is further packaged as a continuous multiplicative equivalence to
 `Multiplicative (Fin n → ℤ)`, identifying the actual quotient multiplication
-with lattice addition and proving commutativity at every basepoint.  See
+with lattice addition and proving commutativity at every basepoint.
+The classifier can also be constructed along any explicit path from the
+canonical basepoint, and the abelian target theorem proves that all such
+path-based classifiers are equal as continuous multiplicative equivalences.  See
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
 `comparator-followup.json`.  This follow-up does not alter the already

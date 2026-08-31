@@ -21,6 +21,8 @@ Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
 When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
+When the target quotient group is abelian, basepoint transport is independent
+of the chosen path even without an endpoint-fixed homotopy between paths.
 On a path-connected space, joint continuity at one basepoint is therefore
 equivalent to joint continuity at every basepoint; the same one-point test
 holds for discreteness, T1 separation, and the genuine topological-group
@@ -259,6 +261,84 @@ theorem basepointChangeContinuousMulEquiv_eq_of_homotopic
         (_root_.Path.Homotopic.Quotient.trans a r) b)
   · exact Quotient.sound h.symm₂
   · exact Quotient.sound h
+
+/-! If the target quotient group is abelian, the conjugation used for
+basepoint change is independent of the chosen path, even when the paths are
+not endpoint-fixed homotopic. -/
+
+/-- In an abelian target, all paths between two fixed basepoints induce the
+same continuous multiplicative basepoint-change equivalence. -/
+theorem basepointChangeContinuousMulEquiv_eq_of_target_comm
+    {x₀ x₁ : X} (p q : _root_.Path x₀ x₁)
+    (hcomm : ∀ a b : LoopQuot X x₁, a * b = b * a) :
+    basepointChangeContinuousMulEquiv p =
+      basepointChangeContinuousMulEquiv q := by
+  have htrans : ∀ a b : LoopQuot X x₁,
+      _root_.Path.Homotopic.Quotient.trans a b =
+        _root_.Path.Homotopic.Quotient.trans b a := by
+    intro a b
+    have hab := hcomm b a
+    change _root_.Path.Homotopic.Quotient.trans a b =
+      _root_.Path.Homotopic.Quotient.trans b a at hab
+    exact hab
+  ext r
+  rw [basepointChangeContinuousMulEquiv_apply,
+    basepointChangeContinuousMulEquiv_apply]
+  let P := _root_.Path.Homotopic.Quotient.mk p
+  let Q := _root_.Path.Homotopic.Quotient.mk q
+  let R := r
+  let B := _root_.Path.Homotopic.Quotient.trans
+    (_root_.Path.Homotopic.Quotient.trans Q.symm R) Q
+  let D := _root_.Path.Homotopic.Quotient.trans P.symm Q
+  let C := _root_.Path.Homotopic.Quotient.trans Q.symm P
+  have hconj :
+      _root_.Path.Homotopic.Quotient.trans D
+          (_root_.Path.Homotopic.Quotient.trans B C) =
+        _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans P.symm R) P := by
+    dsimp [B, D, C]
+    rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+      (P.symm.trans Q) ((Q.symm.trans R).trans Q) (Q.symm.trans P)]
+    rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+      (P.symm.trans Q) (Q.symm.trans R) Q]
+    rw [_root_.Path.Homotopic.Quotient.trans_assoc
+      P.symm Q (Q.symm.trans R)]
+    rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+      Q Q.symm R]
+    rw [_root_.Path.Homotopic.Quotient.trans_symm,
+      _root_.Path.Homotopic.Quotient.refl_trans]
+    rw [_root_.Path.Homotopic.Quotient.trans_assoc
+      (P.symm.trans R) Q (Q.symm.trans P)]
+    rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+      Q Q.symm P]
+    rw [_root_.Path.Homotopic.Quotient.trans_symm,
+      _root_.Path.Homotopic.Quotient.refl_trans]
+  calc
+    _ = _root_.Path.Homotopic.Quotient.trans D
+          (_root_.Path.Homotopic.Quotient.trans B C) := by
+      exact hconj.symm
+    _ = _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans D B) C := by
+      rw [← _root_.Path.Homotopic.Quotient.trans_assoc]
+    _ = _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans B D) C := by
+      rw [htrans D B]
+    _ = _root_.Path.Homotopic.Quotient.trans B
+          (_root_.Path.Homotopic.Quotient.trans D C) := by
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc]
+    _ = _ := by
+      have hcancel :
+          _root_.Path.Homotopic.Quotient.trans D C =
+            _root_.Path.Homotopic.Quotient.refl x₁ := by
+        dsimp [D, C]
+        rw [_root_.Path.Homotopic.Quotient.trans_assoc]
+        rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+          Q Q.symm P]
+        rw [_root_.Path.Homotopic.Quotient.trans_symm,
+          _root_.Path.Homotopic.Quotient.refl_trans,
+          _root_.Path.Homotopic.Quotient.symm_trans]
+      rw [hcancel, _root_.Path.Homotopic.Quotient.trans_refl]
+      rfl
 
 /-- Basepoint transport is compatible with concatenation of paths.  Thus the
 continuous multiplicative equivalences form a coherent transport system on

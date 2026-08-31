@@ -29,7 +29,10 @@ project:
     semilocal simple connectivity proved at every torus point.  The winding
     classifier is also a continuous multiplicative equivalence to
     `Multiplicative (Fin n → ℤ)`, and quotient multiplication is proved
-    commutative at every torus basepoint.
+    commutative at every torus basepoint.  In an abelian target quotient,
+    basepoint transport is independent of the chosen path even without an
+    endpoint-fixed homotopy between paths, yielding a canonical path-based
+    finite-torus lattice classifier.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -151,6 +154,8 @@ status:
     hence abelianity at the zero basepoint and every transported basepoint.
     Basepoint transport then proves all-basepoint discreteness, a common
     lattice model, and semilocal simple connectivity for every finite torus.
+    In the abelian target case it also proves that the lattice classifier built
+    along any explicit basepoint path is independent of that path.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -197,7 +202,8 @@ fidelity:
     content is its explicit compact-open and final-quotient realization, the
     homotopy-invariant quasitopological-group mechanism, sharp indexed-product
     boundary, separation and covering consequences, the multiplicative
-    integer-lattice/abelian finite-torus refinement, and their integration
+    integer-lattice/abelian finite-torus refinement, path-choice independence
+    of transport in abelian targets, and their integration
     with the computational-path topology comparison.  No external
     Hawaiian-earring theorem is reproved; the accepted conditional facts are
     instantiated in a new generic sharpness theorem.
@@ -234,6 +240,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "The basepoint-change equivalence is unchanged when the chosen endpoint-fixed path is replaced by a homotopic path."
+    - source: "Abelian-target path-choice independence"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_target_comm"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "When the target quotient group is abelian, basepoint transport is independent of the chosen path even without a homotopy between paths."
     - source: "Composition coherence of basepoint transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_trans"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
@@ -404,6 +415,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Every based finite-torus quotient fundamental group is commutative; the lattice model is transported from zero to arbitrary points."
+    - source: "Canonical finite-torus lattice classifier"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_eq"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The multiplicative lattice classifier at a torus basepoint is independent of the explicit transport path."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

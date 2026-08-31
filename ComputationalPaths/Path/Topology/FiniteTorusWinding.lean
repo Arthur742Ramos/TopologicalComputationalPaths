@@ -17,6 +17,9 @@ ordinary product topology.  The classifier is also a continuous
 multiplicative equivalence to the integer lattice (viewed through
 `Multiplicative`), so quotient concatenation is commutative at the zero
 basepoint and, by continuous basepoint transport, at every torus point.
+The abelian target transport theorem further shows that the resulting
+path-based lattice classifier at each point is independent of the explicit
+path used to transport it.
 -/
 
 namespace ComputationalPaths
@@ -338,6 +341,31 @@ theorem quotientMul_comm_at (n : ℕ) (x : Carrier n)
     e (p * q) = e p * e q := e.map_mul p q
     _ = e q * e p := mul_comm _ _
     _ = e (q * p) := (e.map_mul q p).symm
+
+/-! A classifier may be built using any explicit path from the canonical
+basepoint.  The abelian target theorem in the functorial quotient module
+shows that this extra path choice is immaterial. -/
+
+/-- Classifier at a chosen torus basepoint along an explicit path. -/
+noncomputable def loopQuotContinuousMulEquivIntVector_at_path
+    (n : ℕ) (x : Carrier n)
+    (p : _root_.Path (base n) x) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x ≃ₜ*
+      Multiplicative (Fin n → ℤ) :=
+  (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm.trans
+    (loopQuotContinuousMulEquivIntVector n)
+
+/-- The explicit-path lattice classifier is independent of the chosen path. -/
+theorem loopQuotContinuousMulEquivIntVector_at_path_eq
+    (n : ℕ) (x : Carrier n)
+    (p q : _root_.Path (base n) x) :
+    loopQuotContinuousMulEquivIntVector_at_path n x p =
+      loopQuotContinuousMulEquivIntVector_at_path n x q := by
+  have hpq :=
+    QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_target_comm
+      p q (quotientMul_comm_at n x)
+  simp only [loopQuotContinuousMulEquivIntVector_at_path]
+  rw [hpq]
 
 /-- Every finite-torus loop homotopy class is open in the compact-open loop
 space. -/

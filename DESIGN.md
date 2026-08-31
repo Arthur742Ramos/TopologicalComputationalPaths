@@ -135,7 +135,10 @@ quotient fundamental-group operation (via `Multiplicative`), and transports
 commutativity to every basepoint.  This architecture gives a direct positive
 counterpart to the accepted package's failure of the product-quotient
 condition without erasing the crucial distinction between separate and joint
-continuity.
+continuity.  The generic transport layer also proves that an abelian target
+quotient makes basepoint transport independent of the chosen path, even in the
+absence of a homotopy between paths; the finite-torus classifier uses this to
+be canonical at each basepoint.
 
 ## Non-goals for the first submission
 
