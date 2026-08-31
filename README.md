@@ -306,6 +306,9 @@ cokernels, where a `ZMod 0` factor contributes cardinality zero.
 The same arbitrary-rank presentation identifies the additive exponent with the
 lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
 records the free summand both elementwise and globally.
+Equivalently, exponent zero is characterized by a zero Smith factor; for both
+rectangular lattice and finite-torus cokernels this is exactly failure of full
+target rank.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

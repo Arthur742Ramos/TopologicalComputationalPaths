@@ -129,6 +129,9 @@ The product formula itself is also established for arbitrary rank, with
 The same arbitrary-rank presentation identifies the additive exponent with
 the lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
 records the free summand both elementwise and globally.
+Equivalently, exponent zero is characterized by the presence of a zero Smith
+factor, and for rectangular lattice and finite-torus matrix cokernels this is
+exactly failure of full target rank.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2594,6 +2597,17 @@ theorem submoduleCokernel_exponent_eq_smithFactorLcm
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
 
+/-- The Smith cokernel has exponent zero exactly when at least one zero Smith
+factor survives, equivalently when its decomposition contains a free factor. -/
+theorem submoduleCokernel_exponent_eq_zero_iff_smithFreeFactor
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ N) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor snf i = 0 := by
+  rw [submoduleCokernel_exponent_eq_smithFactorLcm snf]
+  rw [Finset.lcm_eq_zero_iff]
+  simp only [Finset.mem_univ, true_and, Int.natAbs_eq_zero]
+
 /-- The additive order of a Smith cokernel class is exactly the lcm of the
 orders of its decoded cyclic coordinates.  This remains meaningful in the
 rank-deficient case because a nonzero `ZMod 0` coordinate contributes order
@@ -2880,6 +2894,18 @@ theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
 
+/-- The lattice cokernel has exponent zero exactly when a zero Smith factor
+survives. -/
+theorem matrixAction_cokernel_exponent_eq_zero_iff_smithFreeFactor
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i = 0 := by
+  exact submoduleCokernel_exponent_eq_zero_iff_smithFreeFactor
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
+
 /-- For a finite lattice cokernel, the class order is the lcm of the explicit
 Smith modulus/gcd orders of the transformed winding coordinates. -/
 theorem matrixAction_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
@@ -3051,6 +3077,23 @@ theorem matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero
           (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
   exact (matrixAction_cokernel_finite_iff_full_rank A).symm.trans
     (matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero A)
+
+/-- The lattice cokernel has exponent zero exactly when the matrix image is
+not full rank in the target winding lattice. -/
+theorem matrixAction_cokernel_exponent_eq_zero_iff_not_full_rank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) = 0 ↔
+      Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) ≠
+        Module.finrank ℤ (Fin m → ℤ) := by
+  rw [matrixAction_cokernel_exponent_eq_zero_iff_smithFreeFactor]
+  constructor
+  · rintro ⟨i, hi⟩ hfull
+    exact ((matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mp hfull i) hi
+  · intro hnot
+    by_contra hno
+    apply hnot
+    exact (matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mpr
+      (fun i hi => hno ⟨i, hi⟩)
 
 /-- The arbitrary-rank lattice cokernel cardinality is the product of the
 Smith moduli, with the same formula remaining valid when the quotient is
@@ -4705,6 +4748,18 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
 
+/-- The finite-torus cokernel has exponent zero exactly when a zero Smith
+factor survives. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_smithFreeFactor
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i = 0 := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm]
+  rw [Finset.lcm_eq_zero_iff]
+  simp only [Finset.mem_univ, true_and, Int.natAbs_eq_zero]
+
 /-- For a finite-torus cokernel, the class order is the lcm of the explicit
 Smith modulus/gcd orders of the decoded winding coordinates. -/
 theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
@@ -5009,6 +5064,24 @@ theorem matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_
           (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
   exact (matrixMapQuotientAddHom_cokernel_finite_iff_full_rank A).symm.trans
     (matrixMapQuotientAddHom_cokernel_finite_iff_smithNormalFormFactor_ne_zero A)
+
+/-- The finite-torus cokernel has exponent zero exactly when the winding-lattice
+image is not full rank. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_not_full_rank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) = 0 ↔
+      Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) ≠
+        Module.finrank ℤ (Fin m → ℤ) := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_smithFreeFactor]
+  constructor
+  · rintro ⟨i, hi⟩ hfull
+    exact ((matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mp
+      hfull i) hi
+  · intro hnot
+    by_contra hno
+    apply hnot
+    exact (matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mpr
+      (fun i hi => hno ⟨i, hi⟩)
 
 /-- The finite-torus cokernel has the same exact Smith-factor cardinality as
 the lattice cokernel whenever the matrix has full target rank. -/

@@ -304,6 +304,10 @@ the formalization proves:
      its Smith-factor moduli, with a zero factor forcing exponent zero.
 110. this exponent identity is transported to arbitrary rectangular lattice
      and finite-torus matrix cokernels.
+111. exponent zero is characterized exactly by the presence of a zero Smith
+     factor in the arbitrary-rank decomposition.
+112. for rectangular lattice and finite-torus matrix cokernels, exponent zero
+     is equivalent to failure of full target rank.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
