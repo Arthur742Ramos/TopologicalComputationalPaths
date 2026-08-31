@@ -84,6 +84,11 @@ homeomorphism and continuous additive equivalence for the transported
 loop-class groups.  At every arbitrary torus basepoint, it also yields a
 continuous multiplicative quotient equivalence with explicit injectivity and
 surjectivity consequences.
+For square matrices, injectivity of the lattice and canonical quotient action
+is equivalent to a nonzero determinant, while surjectivity is equivalent to a
+unit determinant.  The canonical nonsingular inverse of a unimodular matrix
+therefore supplies all of the preceding equivalence layers without an extra
+inverse witness, including at arbitrary basepoints.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

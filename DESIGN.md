@@ -214,6 +214,11 @@ quotient homeomorphism and continuous additive equivalence for the transported
 loop groups.  At every arbitrary torus basepoint, the same inverse yields a
 continuous multiplicative equivalence of quotient fundamental groups, with
 explicit injectivity and surjectivity corollaries.
+For square matrices, the adjugate-based nonsingular inverse is canonical when
+the determinant is a unit.  The lattice and canonical quotient actions then
+have exact determinant criteria—nonzero determinant for injectivity and unit
+determinant for surjectivity—and the canonical inverse drives all of the same
+equivalence layers at arbitrary basepoints.
 
 ## Non-goals for the first submission
 

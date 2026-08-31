@@ -152,6 +152,13 @@ the formalization proves:
 62. at every arbitrary torus basepoint, the same inverse produces a continuous
     multiplicative equivalence of quotient fundamental groups, with explicit
     injectivity and surjectivity corollaries for the induced homomorphism.
+63. for square integer matrices, injectivity of the winding-lattice and
+    canonical quotient actions is equivalent to a nonzero determinant, while
+    surjectivity is equivalent to a unit determinant; the canonical
+    nonsingular inverse of a unimodular matrix therefore supplies the lattice
+    equivalence, torus homeomorphism, quotient homeomorphism, continuous
+    additive quotient equivalence, and arbitrary-basepoint multiplicative
+    quotient equivalence without an extra inverse witness.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -277,6 +284,11 @@ At every arbitrary torus basepoint, the same explicit inverse is also exposed
 as a continuous multiplicative equivalence of quotient fundamental groups;
 the induced homomorphism is therefore explicitly injective and surjective at
 that basepoint.
+For square matrices this inverse witness is canonical whenever the determinant
+is a unit: the adjugate-based nonsingular inverse gives the two-sided equations
+internally.  The lattice and quotient actions consequently have exact,
+independent determinant criteria—nonzero determinant for injectivity and unit
+determinant for surjectivity—at the canonical and every arbitrary basepoint.
 
 ## Literature and novelty boundary
 

@@ -148,6 +148,11 @@ homeomorphism, and quotient homeomorphism and continuous additive equivalence
 for the transported loop groups.  At every arbitrary torus basepoint, it also
 packages a continuous multiplicative quotient equivalence, with explicit
 injectivity and surjectivity consequences.
+For square matrices, the adjugate-based nonsingular inverse is available
+canonically when the determinant is a unit.  The formalization records the
+sharp determinant criteria for lattice and quotient injectivity and
+surjectivity, and instantiates the canonical inverse through all of the
+equivalence layers, including arbitrary basepoints.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

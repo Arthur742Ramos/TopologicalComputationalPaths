@@ -3,6 +3,8 @@ import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
 import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 import Mathlib.Topology.Homotopy.Product
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
 
 /-!
 # Finite-dimensional topological torus winding
@@ -62,6 +64,12 @@ groups at the canonical basepoint.  At every arbitrary torus basepoint, the
 corresponding quotient homomorphism is likewise upgraded to a continuous
 multiplicative equivalence, with explicit injectivity and surjectivity
 corollaries.
+For square matrices, the lattice and canonical quotient actions satisfy the
+sharp determinant criteria: injectivity is equivalent to a nonzero determinant,
+while surjectivity is equivalent to a unit determinant.  A unimodular matrix's
+canonical nonsingular inverse then supplies the preceding equivalences without
+requiring an inverse as an extra hypothesis, including at arbitrary
+basepoints.
 -/
 
 namespace ComputationalPaths
@@ -1508,6 +1516,40 @@ theorem matrixAction_id_hom (n : ℕ) :
   change matrixAction (matrixIdentity n) z = z
   exact matrixAction_id n z
 
+/-! For square matrices, the winding-lattice action has a sharp determinant
+criterion.  Injectivity only asks for a nonzero determinant, whereas
+surjectivity over `ℤ` is equivalent to unimodularity of that determinant. -/
+
+/-- A square integer matrix acts injectively on the winding lattice exactly
+when its determinant is nonzero. -/
+theorem matrixAction_injective_iff_det_ne_zero {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    Function.Injective (matrixAction A) ↔ Matrix.det A ≠ 0 := by
+  change Function.Injective (Matrix.mulVec A) ↔ Matrix.det A ≠ 0
+  constructor
+  · intro hinj hdet
+    obtain ⟨v, hv, hz⟩ :=
+      (Matrix.exists_mulVec_eq_zero_iff (M := A)).mpr hdet
+    have hEq : Matrix.mulVec A v = Matrix.mulVec A 0 := by
+      simpa using hz
+    have hv0 := hinj hEq
+    exact hv (by simpa using hv0)
+  · intro hdet v w hvw
+    have hz : Matrix.mulVec A (v - w) = 0 := by
+      rw [Matrix.mulVec_sub, hvw]
+      simp
+    have hzero := Matrix.eq_zero_of_mulVec_eq_zero hdet hz
+    exact sub_eq_zero.mp hzero
+
+/-- A square integer matrix acts surjectively on the winding lattice exactly
+when its determinant is a unit in `ℤ` (equivalently, `±1`). -/
+theorem matrixAction_surjective_iff_isUnit_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    Function.Surjective (matrixAction A) ↔ IsUnit (Matrix.det A) := by
+  change Function.Surjective (Matrix.mulVec A) ↔ IsUnit (Matrix.det A)
+  rw [← Matrix.isUnit_iff_isUnit_det]
+  exact Matrix.mulVec_surjective_iff_isUnit (m := Fin n) (R := ℤ)
+
 /-- The matrix action is continuous for the product topologies on the
 integer lattices. -/
 noncomputable def matrixActionContinuous {n m : ℕ}
@@ -1580,6 +1622,41 @@ lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
   funext j
   simp [matrixMap, base]
 
+/-! The adjugate-based nonsingular inverse is named explicitly at the
+function level so that square matrices can be passed through the same
+row-by-column API as the rectangular maps above. -/
+
+/-- The canonical nonsingular inverse of a square integer matrix. -/
+noncomputable def matrixNonsingInv {n : ℕ} (A : Fin n → Fin n → ℤ) :
+    Fin n → Fin n → ℤ :=
+  let M : Matrix (Fin n) (Fin n) ℤ := A
+  let B : Matrix (Fin n) (Fin n) ℤ := M⁻¹
+  B
+
+/-- The inverse matrix followed by `A` is the identity in the
+`matrixCompose` convention. -/
+theorem matrixCompose_nonsingInv_mul_of_det_unit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    matrixCompose A (matrixNonsingInv A) = matrixIdentity n := by
+  let M : Matrix (Fin n) (Fin n) ℤ := A
+  let B : Matrix (Fin n) (Fin n) ℤ := M⁻¹
+  have hM : IsUnit (Matrix.det M) := by simpa [M] using hA
+  ext i j
+  change (B * M) i j = (1 : Matrix (Fin n) (Fin n) ℤ) i j
+  rw [show B = M⁻¹ by rfl, Matrix.nonsing_inv_mul M hM]
+
+/-- `A` followed by its nonsingular inverse is the identity in the
+`matrixCompose` convention. -/
+theorem matrixCompose_mul_nonsingInv_of_det_unit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    matrixCompose (matrixNonsingInv A) A = matrixIdentity n := by
+  let M : Matrix (Fin n) (Fin n) ℤ := A
+  let B : Matrix (Fin n) (Fin n) ℤ := M⁻¹
+  have hM : IsUnit (Matrix.det M) := by simpa [M] using hA
+  ext i j
+  change (M * B) i j = (1 : Matrix (Fin n) (Fin n) ℤ) i j
+  rw [show B = M⁻¹ by rfl, Matrix.mul_nonsing_inv M hM]
+
 /-! A matrix with an explicit two-sided integer inverse acts by equivalences at
 every level of the construction.  Keeping the inverse equations as hypotheses
 avoids importing determinant machinery and works uniformly for rectangular
@@ -1642,6 +1719,32 @@ noncomputable def matrixMapHomeomorphOfInverse {n m : ℕ}
     exact hcomp
   continuous_toFun := (matrixMap A).continuous_toFun
   continuous_invFun := (matrixMap B).continuous_toFun
+
+/-- A unimodular square matrix yields an additive equivalence of winding
+lattices using its canonical nonsingular inverse. -/
+noncomputable def matrixActionEquivOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    (Fin n → ℤ) ≃+ (Fin n → ℤ) :=
+  matrixActionEquivOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
+
+/-- The determinant-level lattice equivalence is continuous for the product
+topologies on the discrete winding lattices. -/
+noncomputable def matrixActionContinuousEquivOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    (Fin n → ℤ) ≃ₜ+ (Fin n → ℤ) :=
+  matrixActionContinuousEquivOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
+
+/-- A unimodular square matrix acts as a homeomorphism of the finite torus. -/
+noncomputable def matrixMapHomeomorphOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    Carrier n ≃ₜ Carrier n :=
+  matrixMapHomeomorphOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
 
 /-- Basepoint transport is stable under changing the endpoint types by an
 explicit equality.  The quotient cast on the loop class records the same
@@ -1711,6 +1814,18 @@ noncomputable def matrixMapQuotientContinuousMulEquivAtOfInverse {n m : ℕ}
   QuotientFundamentalGroup.homeomorphInducedContinuousMulEquiv
     (matrixMapHomeomorphOfInverse A B hAB hBA) x
 
+/-- A unimodular square matrix upgrades the quotient homomorphism at every
+basepoint to a continuous multiplicative equivalence using its canonical
+nonsingular inverse. -/
+noncomputable def matrixMapQuotientContinuousMulEquivAtOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A))
+    (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x ≃ₜ*
+      QuotientFundamentalGroup.LoopQuot (Carrier n) (matrixMap A x) :=
+  matrixMapQuotientContinuousMulEquivAtOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA) x
+
 @[simp] theorem matrixMapQuotientContinuousMulEquivAtOfInverse_apply
     {n m : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin n → Fin m → ℤ)
     (hAB : matrixCompose A B = matrixIdentity n)
@@ -1740,6 +1855,41 @@ theorem matrixMapQuotientContinuousMulEquivAtOfInverse_surjective
   obtain ⟨p, hp⟩ :=
     (matrixMapQuotientContinuousMulEquivAtOfInverse A B hAB hBA x).surjective q
   exact ⟨p, hp⟩
+
+@[simp] theorem matrixMapQuotientContinuousMulEquivAtOfDetUnit_apply
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A))
+    (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    matrixMapQuotientContinuousMulEquivAtOfDetUnit A hA x q =
+      matrixMapQuotientContinuousMulHomAt A x q := by
+  change matrixMapQuotientContinuousMulEquivAtOfInverse A
+      (matrixNonsingInv A)
+      (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+      (matrixCompose_mul_nonsingInv_of_det_unit A hA) x q = _
+  exact matrixMapQuotientContinuousMulEquivAtOfInverse_apply A
+    (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA) x q
+
+/-- The determinant-level arbitrary-basepoint equivalence is injective. -/
+theorem matrixMapQuotientContinuousMulEquivAtOfDetUnit_injective
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A))
+    (x : Carrier n) :
+    Function.Injective (matrixMapQuotientContinuousMulHomAt A x) := by
+  exact matrixMapQuotientContinuousMulEquivAtOfInverse_injective A
+    (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA) x
+
+/-- The determinant-level arbitrary-basepoint equivalence is surjective. -/
+theorem matrixMapQuotientContinuousMulEquivAtOfDetUnit_surjective
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A))
+    (x : Carrier n) :
+    Function.Surjective (matrixMapQuotientContinuousMulHomAt A x) := by
+  exact matrixMapQuotientContinuousMulEquivAtOfInverse_surjective A
+    (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA) x
 
 /-- Matrix maps commute with basepoint transport along every explicit path
 from the canonical torus basepoint. -/
@@ -2119,6 +2269,24 @@ theorem matrixMapQuotientContinuousMulHomAt_surjective_iff
     rw [eₙ.apply_symm_apply]
     exact hz
 
+/-- At every basepoint, a square matrix induces an injective quotient
+homomorphism exactly when its determinant is nonzero. -/
+theorem matrixMapQuotientContinuousMulHomAt_injective_iff_det_ne_zero
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (x : Carrier n) :
+    Function.Injective (matrixMapQuotientContinuousMulHomAt A x) ↔
+      Matrix.det A ≠ 0 := by
+  rw [matrixMapQuotientContinuousMulHomAt_injective_iff,
+    matrixAction_injective_iff_det_ne_zero]
+
+/-- At every basepoint, a square matrix induces a surjective quotient
+homomorphism exactly when its determinant is a unit in `ℤ`. -/
+theorem matrixMapQuotientContinuousMulHomAt_surjective_iff_isUnit_det
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (x : Carrier n) :
+    Function.Surjective (matrixMapQuotientContinuousMulHomAt A x) ↔
+      IsUnit (Matrix.det A) := by
+  rw [matrixMapQuotientContinuousMulHomAt_surjective_iff,
+    matrixAction_surjective_iff_isUnit_det]
+
 /-- Matrix quotient maps compose contravariantly. -/
 theorem matrixMapQuotientMap_comp {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
@@ -2227,6 +2395,22 @@ theorem matrixMapQuotientMap_surjective_iff {n m : ℕ}
     rw [encode_matrixMapQuotientMap, encode_decode]
     exact hz
 
+/-- For a square matrix, the canonical quotient action is injective exactly
+when the matrix determinant is nonzero. -/
+theorem matrixMapQuotientMap_injective_iff_det_ne_zero {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    Function.Injective (matrixMapQuotientMap A) ↔ Matrix.det A ≠ 0 := by
+  rw [matrixMapQuotientMap_injective_iff,
+    matrixAction_injective_iff_det_ne_zero]
+
+/-- For a square matrix, the canonical quotient action is surjective exactly
+when the determinant is a unit in `ℤ`. -/
+theorem matrixMapQuotientMap_surjective_iff_isUnit_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A) := by
+  rw [matrixMapQuotientMap_surjective_iff,
+    matrixAction_surjective_iff_isUnit_det]
+
 /-- Matrix quotient maps preserve the transported additive group law. -/
 lemma matrixMapQuotientMap_map_zero {n m : ℕ}
     (A : Fin m → Fin n → ℤ) :
@@ -2303,6 +2487,33 @@ noncomputable def matrixMapQuotientContinuousAddEquivOfInverse {n m : ℕ}
   map_add' := matrixMapQuotientMap_map_add A
   continuous_toFun := continuous_of_discreteTopology
   continuous_invFun := continuous_of_discreteTopology
+
+/-- The canonical quotient equivalence induced by a unimodular square
+matrix. -/
+noncomputable def matrixMapQuotientEquivOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    LoopQuot n ≃ LoopQuot n :=
+  matrixMapQuotientEquivOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
+
+/-- A unimodular square matrix induces a homeomorphism of the discrete
+finite-torus loop-class quotient. -/
+noncomputable def matrixMapQuotientHomeomorphOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    LoopQuot n ≃ₜ LoopQuot n :=
+  matrixMapQuotientHomeomorphOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
+
+/-- The unimodular quotient action is a continuous additive equivalence for
+the transported winding-group structure. -/
+noncomputable def matrixMapQuotientContinuousAddEquivOfDetUnit {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : IsUnit (Matrix.det A)) :
+    LoopQuot n ≃ₜ+ LoopQuot n :=
+  matrixMapQuotientContinuousAddEquivOfInverse A (matrixNonsingInv A)
+    (matrixCompose_nonsingInv_mul_of_det_unit A hA)
+    (matrixCompose_mul_nonsingInv_of_det_unit A hA)
 
 noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     (A : Fin m → Fin n → ℤ) : LoopQuot n →+ LoopQuot m where
