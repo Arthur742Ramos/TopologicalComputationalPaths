@@ -156,6 +156,9 @@ elementwise.
 Equivalently, a natural number is a multiple of a class's additive order
 exactly when it satisfies the corresponding coordinatewise Smith divisibility
 equations, including the free-coordinate vanishing constraints.
+Conversely, a class has finite additive order exactly when every zero Smith
+factor carries a zero transformed coordinate; this torsion test is exposed on
+the lattice and finite-torus matrix representatives as well.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2693,6 +2696,30 @@ theorem submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
   · rintro ⟨i, hi, hxi⟩
     exact ⟨i, Finset.mem_univ i, hcoord i |>.mpr ⟨hi, hxi⟩⟩
 
+/-- A Smith cokernel class has finite additive order exactly when every free
+coordinate is zero.  Thus the torsion subgroup is detected coordinatewise in
+the arbitrary-rank decomposition. -/
+theorem submoduleCokernel_isOfFinAddOrder_iff_smithFreeCoordinate
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) :
+    IsOfFinAddOrder (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) ↔
+      ∀ i : Fin m, smithNormalFormFactor snf i = 0 →
+        (snf.bM.equivFun x) i = 0 := by
+  constructor
+  · intro hfin i hi
+    by_contra hxi
+    have hz :=
+      (submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate snf x).mpr
+        ⟨i, hi, hxi⟩
+    exact (addOrderOf_eq_zero_iff.mp hz) hfin
+  · intro hcoords
+    rw [← addOrderOf_pos_iff, Nat.pos_iff_ne_zero]
+    intro hz
+    rcases (submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate snf x).mp hz with
+      ⟨i, hi, hxi⟩
+    exact hxi (hcoords i hi)
+
 /-! A nonzero Smith cyclic factor admits a canonical prime-power refinement
 through the Chinese remainder theorem. -/
 
@@ -2859,6 +2886,21 @@ theorem matrixAction_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
         ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
           (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i ≠ 0 := by
   exact submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 x
+
+/-- A lattice cokernel class has finite additive order exactly when every free
+Smith coordinate is zero. -/
+theorem matrixAction_cokernel_isOfFinAddOrder_iff_smithFreeCoordinate
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) :
+    IsOfFinAddOrder (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i = 0 →
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i = 0 := by
+  exact submoduleCokernel_isOfFinAddOrder_iff_smithFreeCoordinate
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 x
 
@@ -4681,6 +4723,29 @@ theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoor
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2).addOrderOf_eq]
   exact submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
+    (loopQuotAddEquivIntVector m x)
+
+/-- A finite-torus cokernel class has finite additive order exactly when every
+free Smith coordinate of its winding vector is zero. -/
+theorem matrixMapQuotientAddHom_cokernel_isOfFinAddOrder_iff_smithFreeCoordinate
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) :
+    IsOfFinAddOrder (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i = 0 →
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (loopQuotAddEquivIntVector m x)) i = 0 := by
+  rw [← addOrderOf_pos_iff]
+  rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
+  rw [matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk]
+  rw [(submoduleCokernelSmithEquiv
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2).addOrderOf_eq]
+  rw [addOrderOf_pos_iff]
+  exact submoduleCokernel_isOfFinAddOrder_iff_smithFreeCoordinate
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
     (loopQuotAddEquivIntVector m x)

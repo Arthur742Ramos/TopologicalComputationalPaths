@@ -174,6 +174,9 @@ inverse witness, including at arbitrary basepoints.
     exactly when it satisfies the corresponding coordinatewise Smith
     divisibility equations, including the free-coordinate vanishing
     constraints.
+    Conversely, a class has finite additive order exactly when every zero
+    Smith factor carries a zero transformed coordinate; this torsion test is
+    exposed on the lattice and finite-torus matrix representatives as well.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

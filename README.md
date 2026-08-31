@@ -332,6 +332,9 @@ matrix representatives.
 Equivalently, a natural number is a multiple of a class's additive order
 exactly when it satisfies the corresponding coordinatewise Smith divisibility
 equations, including the free-coordinate vanishing constraints.
+Conversely, a class has finite additive order exactly when every zero Smith
+factor carries a zero transformed coordinate; this torsion test is exposed on
+the lattice and finite-torus matrix representatives as well.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

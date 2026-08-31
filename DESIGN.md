@@ -307,6 +307,9 @@ matrix representatives.
 Equivalently, a natural number is a multiple of a class's additive order
 exactly when it satisfies the corresponding coordinatewise Smith divisibility
 equations, including the free-coordinate vanishing constraints.
+Conversely, a class has finite additive order exactly when every zero Smith
+factor carries a zero transformed coordinate; this torsion test is exposed on
+the lattice and finite-torus matrix representatives as well.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and

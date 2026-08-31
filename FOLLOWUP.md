@@ -295,7 +295,11 @@ the formalization proves:
      class's additive order exactly when the corresponding coordinatewise
      Smith divisibility equations hold.
 106. this order-divisibility criterion is transported to lattice and
-     finite-torus matrix representatives, including zero-factor constraints.
+    finite-torus matrix representatives, including zero-factor constraints.
+107. a Smith cokernel class has finite additive order exactly when every zero
+     Smith factor carries a zero transformed coordinate.
+108. this finite-order torsion criterion is transported to lattice and
+     finite-torus matrix representatives.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

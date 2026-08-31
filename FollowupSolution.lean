@@ -164,6 +164,9 @@ matrix representatives.
 Equivalently, a natural number is a multiple of a class's additive order
 exactly when it satisfies the corresponding coordinatewise Smith divisibility
 equations, including the free-coordinate vanishing constraints.
+Conversely, a class has finite additive order exactly when every zero Smith
+factor carries a zero transformed coordinate; this torsion test is exposed on
+the lattice and finite-torus matrix representatives as well.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
