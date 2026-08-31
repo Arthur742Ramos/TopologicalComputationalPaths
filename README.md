@@ -183,6 +183,9 @@ without exposing any auxiliary path.
 The lattice reindexing maps are also continuous additive morphisms, with
 identity and composition coherence; the classifier equation is restated
 through that continuous morphism.
+For a finite index equivalence, the coordinate map is a torus homeomorphism
+and the lattice map is a continuous additive equivalence, with matching
+identity and composition laws.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

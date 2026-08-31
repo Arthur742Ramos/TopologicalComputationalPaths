@@ -37,6 +37,9 @@ Abelian-target path independence yields the same statement for the canonical
 classifier without exposing a path choice.
 The lattice reindexings are also continuous additive morphisms with identity
 and composition coherence.
+For finite index equivalences, the coordinate map is a torus homeomorphism
+and the lattice reindexing is a continuous additive equivalence with matching
+coherence.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

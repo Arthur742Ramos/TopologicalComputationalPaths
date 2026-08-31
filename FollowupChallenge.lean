@@ -42,6 +42,9 @@ By abelian-target path independence, the canonical classifier satisfies the
 same square without exposing a path choice.
 The lattice reindexings are continuous additive morphisms with their own
 identity and composition coherence.
+For finite index equivalences, the coordinate map is a torus homeomorphism
+and the lattice reindexing is a continuous additive equivalence with matching
+coherence.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

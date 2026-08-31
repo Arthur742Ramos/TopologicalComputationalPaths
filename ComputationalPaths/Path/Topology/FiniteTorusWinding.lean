@@ -27,7 +27,9 @@ classifier satisfies the same reindexing equation, including maps between
 different dimensions.  The standard-loop representatives and the quotient
 decoder satisfy the same reindexing equations.  The lattice reindexings are
 also packaged as continuous additive morphisms with the corresponding
-identity and composition laws.
+identity and composition laws.  When the index map is an equivalence,
+the torus coordinate map and lattice reindexing are upgraded to continuous
+homeomorphisms and additive equivalences, with matching coherence laws.
 -/
 
 namespace ComputationalPaths
@@ -125,6 +127,71 @@ theorem coordinateReindexContinuous_comp {n m k : ℕ} (f : Fin m → Fin n)
 theorem coordinateReindexContinuous_id (n : ℕ) :
     coordinateReindexContinuous (id : Fin n → Fin n) =
       ContinuousAddMonoidHom.id (Fin n → ℤ) := by
+  ext z j
+  rfl
+
+/-- A coordinate relabeling is a homeomorphism of finite tori. -/
+noncomputable def coordinateProjectionHomeomorph {n m : ℕ} (e : Fin m ≃ Fin n) :
+    Carrier n ≃ₜ Carrier m where
+  toFun := coordinateProjection e
+  invFun := coordinateProjection e.symm
+  left_inv x := by
+    ext j
+    simp [coordinateProjection]
+  right_inv x := by
+    ext j
+    simp [coordinateProjection]
+  continuous_toFun := (coordinateProjection e).continuous_toFun
+  continuous_invFun := (coordinateProjection e.symm).continuous_toFun
+
+/-- Coordinate relabeling homeomorphisms compose contravariantly. -/
+theorem coordinateProjectionHomeomorph_comp {n m k : ℕ} (e : Fin m ≃ Fin n)
+    (g : Fin k ≃ Fin m) :
+    coordinateProjectionHomeomorph (g.trans e) =
+      (coordinateProjectionHomeomorph e).trans
+        (coordinateProjectionHomeomorph g) := by
+  ext x j
+  rfl
+
+/-- Relabeling along the identity equivalence is the identity homeomorphism. -/
+theorem coordinateProjectionHomeomorph_refl (n : ℕ) :
+    coordinateProjectionHomeomorph (Equiv.refl (Fin n)) =
+      Homeomorph.refl (Carrier n) := by
+  ext x j
+  rfl
+
+/-- A bijective coordinate relabeling is a continuous additive equivalence of
+integer lattices. -/
+noncomputable def coordinateReindexContinuousEquiv {n m : ℕ} (e : Fin m ≃ Fin n) :
+    (Fin n → ℤ) ≃ₜ+ (Fin m → ℤ) where
+  toFun := coordinateReindex e
+  invFun := coordinateReindex e.symm
+  left_inv z := by
+    ext i
+    simp [coordinateReindex]
+  right_inv z := by
+    ext i
+    simp [coordinateReindex]
+  map_add' z w := by
+    ext i
+    rfl
+  continuous_toFun := (coordinateReindexContinuous e).continuous_toFun
+  continuous_invFun := (coordinateReindexContinuous e.symm).continuous_toFun
+
+/-- Continuous additive reindexing equivalences compose contravariantly. -/
+theorem coordinateReindexContinuousEquiv_comp {n m k : ℕ}
+    (e : Fin m ≃ Fin n) (g : Fin k ≃ Fin m) :
+    coordinateReindexContinuousEquiv (g.trans e) =
+      (coordinateReindexContinuousEquiv e).trans
+        (coordinateReindexContinuousEquiv g) := by
+  ext z j
+  rfl
+
+/-- Reindexing along the identity equivalence is the identity continuous
+additive equivalence. -/
+theorem coordinateReindexContinuousEquiv_refl (n : ℕ) :
+    coordinateReindexContinuousEquiv (Equiv.refl (Fin n)) =
+      ContinuousAddEquiv.refl (Fin n → ℤ) := by
   ext z j
   rfl
 

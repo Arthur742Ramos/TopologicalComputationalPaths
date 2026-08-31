@@ -47,6 +47,9 @@ project:
     classifier satisfies the same square without exposing any path choice.
     The lattice reindexings are continuous additive morphisms, and their
     continuous identity/composition laws are proved explicitly.
+    For finite index equivalences, the coordinate map is a torus homeomorphism
+    and the lattice reindexing is a continuous additive equivalence, with
+    matching identity/composition coherence.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -183,6 +186,8 @@ status:
     abelian-target path independence.
     The lattice reindexings are also continuous additive morphisms with the
     corresponding identity and composition laws.
+    For index equivalences, these are upgraded to a torus homeomorphism and a
+    continuous additive lattice equivalence with the same coherence laws.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -488,6 +493,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Lattice reindexing is a continuous additive morphism, coherently functorial under identity and composition, and classifier naturality is expressed through it."
+    - source: "Finite-torus coordinate-equivalence coherence"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph_refl; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv_refl; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv_comp"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Index equivalences induce a torus homeomorphism and a continuous additive lattice equivalence, with explicit identity and composition coherence."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

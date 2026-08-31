@@ -88,6 +88,9 @@ the formalization proves:
     square without exposing any path choice.
 39. lattice reindexing is packaged as a continuous additive morphism, with
     explicit identity and composition coherence and a classifier corollary.
+40. finite index equivalences upgrade coordinate selection to a torus
+    homeomorphism and lattice reindexing to a continuous additive equivalence,
+    with matching identity and composition coherence.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -149,6 +152,9 @@ naturality square at arbitrary basepoints.
 The reindexing maps themselves are continuous additive morphisms for the
 product topologies on the integer lattices, and their identity/composition
 laws are proved at that continuous-morphism level as well.
+For finite index equivalences, the coordinate maps are upgraded to
+homeomorphisms and the lattice maps to continuous additive equivalences;
+their identity and composition laws are proved in those stronger categories.
 
 ## Literature and novelty boundary
 

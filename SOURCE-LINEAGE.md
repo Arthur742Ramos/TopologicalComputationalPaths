@@ -102,6 +102,9 @@ for the canonical arbitrary-basepoint classifier without a path parameter.
 The lattice reindexings are additionally continuous additive morphisms with
 explicit identity/composition laws, and classifier naturality is restated
 through that morphism.
+For index equivalences, the same construction is upgraded to a torus
+homeomorphism and a continuous additive lattice equivalence, again with
+identity/composition coherence.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

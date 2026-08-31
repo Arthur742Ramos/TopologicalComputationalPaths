@@ -163,6 +163,9 @@ so the canonical classifier at each basepoint is natural as well.
 The integer-lattice reindexings are packaged as continuous additive
 morphisms, and their identity and composition laws are checked at that
 topological-algebra level.
+When the index map is an equivalence, the coordinate-selection map is also
+packaged as a torus homeomorphism and the lattice map as a continuous additive
+equivalence, with the same coherence laws.
 
 ## Non-goals for the first submission
 
