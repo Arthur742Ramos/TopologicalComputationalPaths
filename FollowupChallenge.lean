@@ -7,6 +7,7 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 /-!
@@ -750,6 +751,14 @@ noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
     WindingVector n → WindingVector m :=
   fun z j => z (f j)
 
+/-! Smith factors are copied into the standalone statement surface so the
+    Comparator challenge can expose the arithmetic criterion without
+    importing the substantive project implementation. -/
+noncomputable def smithNormalFormFactor
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
+  if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -958,6 +967,21 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
         p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
           p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
+    ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction A).range) ↔
+        ∃ i : Fin n, p ∣ (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin n))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
+  matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+        ∃ i : Fin m, p ∣ (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
 
 /-- The general criterion and its winding-classified finite-torus family. -/
 theorem main_result :

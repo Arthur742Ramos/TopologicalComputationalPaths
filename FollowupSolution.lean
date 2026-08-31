@@ -7,6 +7,7 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
 import ComputationalPaths
+import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 /-!
@@ -703,6 +704,13 @@ noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
     WindingVector n → WindingVector m :=
   fun z j => z (f j)
 
+/-! Keep the statement surface self-contained: this is definitionally the
+    Smith-factor decoder used by the substantive finite-torus module. -/
+noncomputable def smithNormalFormFactor
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
+  if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -910,6 +918,21 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
         p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
           p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
+    ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction A).range) ↔
+        ∃ i : Fin n, p ∣ (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin n))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
+  matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : ℕ)
+      (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+        ∃ i : Fin m, p ∣ (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
 
 open ComputationalPaths.Path.GeometricTopology
 
@@ -1342,6 +1365,16 @@ theorem main_result :
       intro A B hB p hp
       exact
         FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero
-          A B hB p hp }⟩
+          A B hB p hp
+    matrix_cokernel_exponent_prime_dvd_iff_smithFactor := by
+      intro A p hp
+      exact
+        FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
+          A p hp
+    matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor := by
+      intro n m A p hp
+      exact
+        FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
+          A p hp }⟩
 
 end TopologicalComputationalPathsFollowup
