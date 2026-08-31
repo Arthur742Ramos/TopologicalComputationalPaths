@@ -231,7 +231,9 @@ classifier.
 The composition law also has a canonical structural witness: `B` induces an
 additive map from the cokernel of `A` into that of `B ∘ A`, and the map is
 injective whenever the determinant of `B` is nonzero.  The same embedding is
-proved directly for the topological quotient cokernels.
+proved directly for the topological quotient cokernels.  The projection from
+the cokernel of `B ∘ A` onto the cokernel of `B` is surjective with precisely
+that image as its kernel, yielding a short exact sequence on both sides.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

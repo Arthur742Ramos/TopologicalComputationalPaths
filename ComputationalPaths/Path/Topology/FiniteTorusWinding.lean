@@ -75,6 +75,11 @@ For every nonzero determinant, the winding-lattice cokernel is finite with
 cardinality `Int.natAbs (Matrix.det A)`.  The canonical quotient image has the
 same finite index, and its quotient cardinality and finiteness are exposed
 explicitly as well.
+For composable non-singular square matrices, the determinant index is
+multiplicative, and composition is refined to a short exact sequence of
+cokernels: the induced composition embedding is injective and the canonical
+projection onto the second cokernel is surjective with that image as kernel,
+on both the winding and topological quotient sides.
 The lattice cokernel is additionally presented, via Smith normal form, as a
 product of finite cyclic `ZMod` factors, with the full-rank image theorem made
 available to support the decomposition.  The same cyclic-factor presentation
@@ -1706,6 +1711,139 @@ theorem matrixAction_cokernel_compMap_injective_of_det_ne_zero
     exact sub_eq_zero.mp hEq
   rw [hrel]
 
+/-- The composition cokernel map onto the cokernel of `B` is induced by the
+identity on the winding lattice. -/
+noncomputable def matrixAction_cokernel_compProjection {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+
+      (Fin n → ℤ) ⧸ (matrixAction B).range := by
+  let N : AddSubgroup (Fin n → ℤ) :=
+    (matrixAction (matrixCompose A B)).range
+  let M : AddSubgroup (Fin n → ℤ) := (matrixAction B).range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id (Fin n → ℤ)) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixAction A w, ?_⟩
+    have hcomp : matrixAction (matrixCompose A B) w =
+        matrixAction B (matrixAction A w) :=
+      (matrixAction_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  exact QuotientAddGroup.map N M (AddMonoidHom.id (Fin n → ℤ)) hNM
+
+/-- The projection from the cokernel of `B ∘ A` to the cokernel of `B` is
+surjective. -/
+theorem matrixAction_cokernel_compProjection_surjective {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    Function.Surjective (matrixAction_cokernel_compProjection A B) := by
+  let N : AddSubgroup (Fin n → ℤ) :=
+    (matrixAction (matrixCompose A B)).range
+  let M : AddSubgroup (Fin n → ℤ) := (matrixAction B).range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id (Fin n → ℤ)) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixAction A w, ?_⟩
+    have hcomp : matrixAction (matrixCompose A B) w =
+        matrixAction B (matrixAction A w) :=
+      (matrixAction_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  intro y
+  obtain ⟨v, rfl⟩ := QuotientAddGroup.mk'_surjective M y
+  refine ⟨(QuotientAddGroup.mk' N) v, ?_⟩
+  change (QuotientAddGroup.map N M (AddMonoidHom.id (Fin n → ℤ)) hNM)
+      ((QuotientAddGroup.mk' N) v) = (QuotientAddGroup.mk' M) v
+  rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (Fin n → ℤ)) hNM v]
+  rfl
+
+/-- The kernel of the projection onto the cokernel of `B` is exactly the
+image of the composition map from the cokernel of `A`. -/
+theorem matrixAction_cokernel_compProjection_ker_eq_range {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    (matrixAction_cokernel_compProjection A B).ker =
+      (matrixAction_cokernel_compMap A B).range := by
+  let NA : AddSubgroup (Fin n → ℤ) := (matrixAction A).range
+  let N : AddSubgroup (Fin n → ℤ) :=
+    (matrixAction (matrixCompose A B)).range
+  let M : AddSubgroup (Fin n → ℤ) := (matrixAction B).range
+  have hNM : NA ≤ AddSubgroup.comap (matrixAction B) N := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    exact congrArg (fun F : (Fin n → ℤ) →+ (Fin n → ℤ) => F w)
+      (matrixAction_comp_hom A B)
+  have hNP : N ≤ AddSubgroup.comap (AddMonoidHom.id (Fin n → ℤ)) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixAction A w, ?_⟩
+    have hcomp : matrixAction (matrixCompose A B) w =
+        matrixAction B (matrixAction A w) :=
+      (matrixAction_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  have hcomp :
+      (matrixAction_cokernel_compProjection A B).comp
+          (matrixAction_cokernel_compMap A B) = 0 := by
+    apply AddMonoidHom.ext
+    intro q
+    obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective NA q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (Fin n → ℤ)) hNP)
+        ((QuotientAddGroup.map NA N (matrixAction B) hNM)
+          ((QuotientAddGroup.mk' NA) z)) = 0
+    rw [QuotientAddGroup.map_mk' NA N (matrixAction B) hNM z]
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (Fin n → ℤ)) hNP)
+      ((QuotientAddGroup.mk' N) (matrixAction B z)) = 0
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (Fin n → ℤ)) hNP]
+    change (QuotientAddGroup.mk' M) (matrixAction B z) = 0
+    change ((matrixAction B z : (Fin n → ℤ)) :
+      (Fin n → ℤ) ⧸ M) = ((0 : (Fin n → ℤ)) : (Fin n → ℤ) ⧸ M)
+    rw [QuotientAddGroup.eq_iff_sub_mem]
+    simp only [sub_zero]
+    exact (AddMonoidHom.mem_range).mpr ⟨z, rfl⟩
+  ext q
+  constructor
+  · intro hq
+    obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective N q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (Fin n → ℤ)) hNP)
+        ((QuotientAddGroup.mk' N) x) = 0 at hq
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (Fin n → ℤ)) hNP] at hq
+    change (x : (Fin n → ℤ) ⧸ M) = 0 at hq
+    have hx : x ∈ M := by
+      have := (QuotientAddGroup.eq_iff_sub_mem).mp hq
+      simpa only [sub_zero] using this
+    rcases (AddMonoidHom.mem_range).mp hx with ⟨z, hz⟩
+    refine ⟨(QuotientAddGroup.mk' NA) z, ?_⟩
+    change (QuotientAddGroup.map NA N (matrixAction B) hNM)
+        ((QuotientAddGroup.mk' NA) z) = (QuotientAddGroup.mk' N) x
+    rw [QuotientAddGroup.map_mk' NA N (matrixAction B) hNM z]
+    exact congrArg (QuotientAddGroup.mk' N) hz
+  · intro hq
+    rcases hq with ⟨qA, rfl⟩
+    change (matrixAction_cokernel_compProjection A B)
+        ((matrixAction_cokernel_compMap A B) qA) = 0
+    have hcomp_q := congrArg
+      (fun F : ((Fin n → ℤ) ⧸ NA) →+ ((Fin n → ℤ) ⧸ M) => F qA) hcomp
+    simpa only [AddMonoidHom.comp_apply, AddMonoidHom.zero_apply] using hcomp_q
+
+/-- The lattice cokernels of a composable pair form a short exact sequence:
+the composition embedding is injective when `det B ≠ 0`, its image is the
+projection kernel, and the projection is surjective. -/
+theorem matrixAction_cokernel_comp_shortExact_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0) :
+    Function.Injective (matrixAction_cokernel_compMap A B) ∧
+      (matrixAction_cokernel_compProjection A B).ker =
+        (matrixAction_cokernel_compMap A B).range ∧
+      Function.Surjective (matrixAction_cokernel_compProjection A B) :=
+  ⟨matrixAction_cokernel_compMap_injective_of_det_ne_zero A B hB,
+    matrixAction_cokernel_compProjection_ker_eq_range A B,
+    matrixAction_cokernel_compProjection_surjective A B⟩
+
 /-- A nonzero determinant makes the winding-lattice cokernel finite. -/
 theorem matrixAction_cokernel_finite {n : ℕ}
     (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
@@ -2893,6 +3031,152 @@ theorem matrixMapQuotientAddHom_cokernel_compMap_injective_of_det_ne_zero
   have hrel : x' - y' = matrixMapQuotientAddHom A z := by
     exact sub_eq_zero.mp hEq
   rw [hrel]
+
+/-- The composition cokernel map onto the cokernel of `B` is induced by the
+identity on the topological loop-class quotient. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_compProjection {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    LoopQuot n ⧸
+        (matrixMapQuotientAddHom (matrixCompose A B)).range →+
+      LoopQuot n ⧸ (matrixMapQuotientAddHom B).range := by
+  let N : AddSubgroup (LoopQuot n) :=
+    (matrixMapQuotientAddHom (matrixCompose A B)).range
+  let M : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom B).range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id (LoopQuot n)) M := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixMapQuotientAddHom A w, ?_⟩
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  exact QuotientAddGroup.map N M (AddMonoidHom.id (LoopQuot n)) hNM
+
+/-- The projection from the topological cokernel of `B ∘ A` to the cokernel
+of `B` is surjective. -/
+theorem matrixMapQuotientAddHom_cokernel_compProjection_surjective
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    Function.Surjective
+      (matrixMapQuotientAddHom_cokernel_compProjection A B) := by
+  let N : AddSubgroup (LoopQuot n) :=
+    (matrixMapQuotientAddHom (matrixCompose A B)).range
+  let M : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom B).range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id (LoopQuot n)) M := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixMapQuotientAddHom A w, ?_⟩
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  intro y
+  obtain ⟨v, rfl⟩ := QuotientAddGroup.mk'_surjective M y
+  refine ⟨(QuotientAddGroup.mk' N) v, ?_⟩
+  change (QuotientAddGroup.map N M (AddMonoidHom.id (LoopQuot n)) hNM)
+      ((QuotientAddGroup.mk' N) v) = (QuotientAddGroup.mk' M) v
+  rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (LoopQuot n)) hNM v]
+  rfl
+
+/-- The kernel of the topological projection onto the cokernel of `B` is
+exactly the image of the composition map from the cokernel of `A`. -/
+theorem matrixMapQuotientAddHom_cokernel_compProjection_ker_eq_range
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    (matrixMapQuotientAddHom_cokernel_compProjection A B).ker =
+      (matrixMapQuotientAddHom_cokernel_compMap A B).range := by
+  let NA : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom A).range
+  let N : AddSubgroup (LoopQuot n) :=
+    (matrixMapQuotientAddHom (matrixCompose A B)).range
+  let M : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom B).range
+  have hNM : NA ≤ AddSubgroup.comap (matrixMapQuotientAddHom B) N := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    exact hcomp
+  have hNP : N ≤ AddSubgroup.comap (AddMonoidHom.id (LoopQuot n)) M := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨matrixMapQuotientAddHom A w, ?_⟩
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    simpa only [AddMonoidHom.id_apply] using hcomp.symm.trans hw
+  have hcomp :
+      (matrixMapQuotientAddHom_cokernel_compProjection A B).comp
+          (matrixMapQuotientAddHom_cokernel_compMap A B) = 0 := by
+    apply AddMonoidHom.ext
+    intro q
+    obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective NA q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (LoopQuot n)) hNP)
+        ((QuotientAddGroup.map NA N (matrixMapQuotientAddHom B) hNM)
+          ((QuotientAddGroup.mk' NA) z)) = 0
+    rw [QuotientAddGroup.map_mk' NA N (matrixMapQuotientAddHom B) hNM z]
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (LoopQuot n)) hNP)
+      ((QuotientAddGroup.mk' N) (matrixMapQuotientAddHom B z)) = 0
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (LoopQuot n)) hNP]
+    change (QuotientAddGroup.mk' M) (matrixMapQuotientAddHom B z) = 0
+    change ((matrixMapQuotientAddHom B z : LoopQuot n) :
+      LoopQuot n ⧸ M) = ((0 : LoopQuot n) : LoopQuot n ⧸ M)
+    rw [QuotientAddGroup.eq_iff_sub_mem]
+    simp only [sub_zero]
+    exact (AddMonoidHom.mem_range).mpr ⟨z, rfl⟩
+  ext q
+  constructor
+  · intro hq
+    obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective N q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id (LoopQuot n)) hNP)
+        ((QuotientAddGroup.mk' N) x) = 0 at hq
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id (LoopQuot n)) hNP] at hq
+    change (x : LoopQuot n ⧸ M) = 0 at hq
+    have hx : x ∈ M := by
+      have := (QuotientAddGroup.eq_iff_sub_mem).mp hq
+      simpa only [sub_zero] using this
+    rcases (AddMonoidHom.mem_range).mp hx with ⟨z, hz⟩
+    refine ⟨(QuotientAddGroup.mk' NA) z, ?_⟩
+    change (QuotientAddGroup.map NA N (matrixMapQuotientAddHom B) hNM)
+        ((QuotientAddGroup.mk' NA) z) = (QuotientAddGroup.mk' N) x
+    rw [QuotientAddGroup.map_mk' NA N (matrixMapQuotientAddHom B) hNM z]
+    exact congrArg (QuotientAddGroup.mk' N) hz
+  · intro hq
+    rcases hq with ⟨qA, rfl⟩
+    change (matrixMapQuotientAddHom_cokernel_compProjection A B)
+        ((matrixMapQuotientAddHom_cokernel_compMap A B) qA) = 0
+    have hcomp_q := congrArg
+      (fun F : (LoopQuot n ⧸ NA) →+ (LoopQuot n ⧸ M) => F qA) hcomp
+    simpa only [AddMonoidHom.comp_apply, AddMonoidHom.zero_apply] using hcomp_q
+
+/-- The topological cokernels of a composable pair form a short exact
+sequence: the composition embedding is injective when `det B ≠ 0`, its image
+is the projection kernel, and the projection is surjective. -/
+theorem matrixMapQuotientAddHom_cokernel_comp_shortExact_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0) :
+    Function.Injective (matrixMapQuotientAddHom_cokernel_compMap A B) ∧
+      (matrixMapQuotientAddHom_cokernel_compProjection A B).ker =
+        (matrixMapQuotientAddHom_cokernel_compMap A B).range ∧
+      Function.Surjective
+        (matrixMapQuotientAddHom_cokernel_compProjection A B) :=
+  ⟨matrixMapQuotientAddHom_cokernel_compMap_injective_of_det_ne_zero A B hB,
+    matrixMapQuotientAddHom_cokernel_compProjection_ker_eq_range A B,
+    matrixMapQuotientAddHom_cokernel_compProjection_surjective A B⟩
 
 /-- The canonical topological quotient cokernel is an abelian group with the
 same Smith-normal-form decomposition as the winding-lattice cokernel. -/

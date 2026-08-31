@@ -186,6 +186,10 @@ the formalization proves:
     from the cokernel of `A` to the cokernel of `B ∘ A`; this map is proved
     injective on both the winding lattice and the topological loop-class
     quotient, giving a structural explanation for the determinant-index law.
+71. the canonical projection from the cokernel of `B ∘ A` onto the cokernel of
+    `B` is surjective, with kernel exactly the image of the preceding map; with
+    `det B ≠ 0`, these results package into an explicit short exact sequence on
+    both sides of the winding classifier.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -329,8 +333,10 @@ quotient sides.
 More structurally, composition by `B` induces a canonical additive map from
 the cokernel of `A` into the cokernel of `B ∘ A`; when `det B ≠ 0`, the map is
 proved injective on the winding lattice and on the topological loop-class
-quotient.  Thus the multiplicative index law is accompanied by an explicit
-cokernel embedding, not only a numerical identity.
+quotient.  The canonical projection from the cokernel of `B ∘ A` onto the
+cokernel of `B` is surjective, and its kernel is exactly the image of that
+embedding.  Thus the multiplicative index law is accompanied by an explicit
+short exact sequence of finite abelian groups, not only a numerical identity.
 At the lattice level, the finite cokernel is further decomposed into the
 finite cyclic invariant factors supplied by Smith normal form, rather than
 only counted.  The canonical quotient cokernel is now transported through the

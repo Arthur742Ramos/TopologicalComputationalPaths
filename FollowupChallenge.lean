@@ -101,6 +101,9 @@ inverse witness, including at arbitrary basepoints.
     Composition by a non-singular matrix `B` also induces a canonical additive
     map from the cokernel of `A` into that of `B ∘ A`, proved injective on both
     the winding lattice and the topological quotient.
+    The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
+    surjective with exactly that image as its kernel, giving a short exact
+    sequence on both sides.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

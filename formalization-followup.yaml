@@ -97,6 +97,9 @@ project:
     Composition by a non-singular matrix `B` also induces a canonical additive
     map from the cokernel of `A` into that of `B ∘ A`, proved injective on both
     the winding lattice and the topological quotient.
+    The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
+    surjective with exactly that image as its kernel, giving a short exact
+    sequence on both sides.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
@@ -627,6 +630,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Composition by B induces canonical additive maps from the cokernel of A into the cokernel of B composed with A; nonzero det B makes both the lattice and topological maps injective."
+    - source: "Finite-torus cokernel short exactness"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_ker_eq_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_comp_shortExact_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_ker_eq_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_shortExact_of_det_ne_zero"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The projection from the cokernel of B composed with A onto the cokernel of B is surjective and has the composition-map image as kernel; with nonzero det B this is an explicit short exact sequence on the lattice and topological quotient sides."
 
 acknowledgements: >-
   Thanks to the cited authors, and to the contributors of Lean, Mathlib, the
