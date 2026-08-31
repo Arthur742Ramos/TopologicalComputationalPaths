@@ -7,7 +7,6 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
 import ComputationalPaths
-import Solution
 
 /-!
 # Follow-up solution: quotient-topological fundamental groups
@@ -247,18 +246,6 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     Continuous
       (_root_.Path.Homotopic.Quotient.symm :
         LoopQuot n → LoopQuot n)
-
-/-- The accepted Fabel-style Hawaiian-earring facts instantiate the abstract
-sharpness theorem: the square of the genuine based-loop quotient map is not
-a quotient map. -/
-theorem hawaiianEarring_loopQuotientProd_not_quotient
-    (F : TopologicalComputationalPaths.FabelHawaiianEarringFacts) :
-    ¬ IsQuotientMap
-      (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProdMap
-        TopologicalComputationalPaths.hawaiianBase
-        TopologicalComputationalPaths.hawaiianBase) := by
-  apply ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.not_isQuotientMap_loopQuotientProd_of_not_continuous
-  exact TopologicalComputationalPaths.FabelHawaiianEarringFacts.multiplication_not_continuous F
 
 open ComputationalPaths.Path.GeometricTopology
 

@@ -196,7 +196,7 @@ alignment:
       note: "The quotient fundamental group preserves indexed products whenever the indexed loop projection is a quotient map."
     - source: "Sharp Hawaiian-earring product boundary"
       lean: "TopologicalComputationalPathsFollowup.hawaiianEarring_loopQuotientProd_not_quotient"
-      module: "FollowupSolution.lean"
+      module: "FollowupHawaiianSharpness.lean"
       status: "proved-from-accepted-conditional-facts"
       note: "Discontinuous multiplication forces failure of the product-quotient hypothesis; the accepted Fabel-style facts instantiate it."
     - source: "T1 and closed homotopy classes"
