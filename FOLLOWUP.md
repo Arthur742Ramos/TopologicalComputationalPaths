@@ -232,6 +232,11 @@ the formalization proves:
 82. the lattice finite-cokernel criterion is proved exactly as equality of
     target finranks, making the full-rank hypothesis in the rectangular Smith
     decomposition sharp.
+83. the Smith decomposition is extended to arbitrary-rank rectangular maps:
+    complementary coordinates contribute explicit `ZMod 0` free factors,
+    while the embedded Smith coordinates contribute the cyclic torsion
+    factors; the finite full-rank specialization also exposes the exact
+    product of Smith moduli as the lattice and torus cokernel cardinality.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

@@ -265,11 +265,12 @@ invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical
 quotient cokernel, giving an explicit structural classification of the
 topological obstruction, and the transport is packaged as an explicit additive
-equivalence between finite abelian groups.  This is stronger than only its
-cardinality or a bare type equivalence.  The Smith-normal-form interface also
-accepts rectangular maps under a full target-rank hypothesis and transports
-their cyclic-factor decomposition to the finite-torus quotient; for the lattice
-cokernel, finiteness is equivalent to that full-rank hypothesis.
+equivalence.  The Smith-normal-form interface now accepts arbitrary-rank
+rectangular maps: zero `ZMod 0` factors retain the free cokernel summand while
+nonzero factors describe torsion.  Under full target rank it gives the finite
+cyclic-factor decomposition and exact product cardinality on both the lattice
+and finite-torus sides; lattice finiteness is equivalent to that full-rank
+hypothesis.
 
 ## Non-goals for the first submission
 

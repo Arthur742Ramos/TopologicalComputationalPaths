@@ -113,8 +113,11 @@ project:
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
     diagram certificate packages these exactness and naturality statements.
-    The Smith-normal-form product is generalized to rectangular maps with
-    full target rank and transported to their finite-torus cokernels.
+    The Smith-normal-form product is generalized to arbitrary-rank rectangular
+    maps: complementary coordinates contribute explicit ZMod 0 free factors,
+    while embedded Smith coordinates contribute cyclic torsion factors.  Under
+    full target rank the exact product of Smith moduli is transported to both
+    lattice and finite-torus cokernels.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -662,6 +665,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For any rectangular matrix whose image has full target rank, the lattice cokernel is explicitly a product of cyclic ZMod factors supplied by Smith normal form, and the winding equivalence transports that additive decomposition to the finite-torus cokernel.  Lattice cokernel finiteness is characterized exactly by the same full-rank condition."
+    - source: "Finite-torus arbitrary-rank Smith decomposition"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor_eq_zero_of_not_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.map_smithNormalForm_eq_pi; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquiv"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Arbitrary-rank Smith data are extended to all ambient coordinates: complementary coordinates appear as explicit ZMod 0 free factors and embedded Smith coordinates as cyclic torsion factors.  The lattice and finite-torus cokernels are additively equivalent to this product, with a quotient-representative formula; full target rank specializes to the finite product and exact Smith-modulus cardinality theorems."
+    - source: "Finite-torus Smith-modulus cardinality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_eq_smithNormalFormProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormProduct"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "When the image has full target rank, both the lattice and canonical finite-torus cokernels have cardinality equal to the product of the Smith-normal-form moduli."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

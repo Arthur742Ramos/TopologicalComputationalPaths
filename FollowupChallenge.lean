@@ -125,10 +125,12 @@ inverse witness, including at arbitrary basepoints.
     have explicit quotient-representative formulas.  The substantive module
     transports cardinality and finiteness across the rectangular winding
     equivalence for individual matrices and explicit composites.
-    It also generalizes the Smith-normal-form product to rectangular maps
-    with full target rank and transports that product to the torus cokernel.
-    The lattice finite-cokernel condition is characterized exactly by full
-    target rank.
+    It also generalizes the Smith-normal-form product to arbitrary-rank
+    rectangular maps: complementary coordinates contribute explicit `ZMod 0`
+    free factors and embedded Smith coordinates contribute cyclic torsion
+    factors.  Under full target rank, the exact product of Smith moduli is
+    transported to the torus cokernel as well, and the lattice finite-cokernel
+    condition is characterized exactly by full target rank.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

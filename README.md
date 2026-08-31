@@ -291,9 +291,11 @@ cokernel of the induced torus homomorphism is transported through the winding
 equivalence to that same explicit product as an additive equivalence of finite
 abelian groups, identifying the obstruction structurally at the topological
 level rather than only by cardinality.  The Smith-normal-form construction is
-also generalized to rectangular maps whose image has full target rank, and
-the same cyclic product is transported to their finite-torus cokernels; the
-lattice finite-cokernel criterion is exactly this full-rank condition.
+now generalized to arbitrary-rank rectangular maps: zero `ZMod 0` factors
+record the free part while nonzero factors record torsion.  Under full target
+rank, the same cyclic product is finite and its exact cardinality is the
+product of the Smith moduli; both the lattice and finite-torus cokernels carry
+this decomposition, and lattice finiteness is exactly the full-rank condition.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
