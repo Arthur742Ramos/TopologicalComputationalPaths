@@ -8,7 +8,8 @@ project:
     arbitrary pointed space.  It proves continuous induced homomorphisms with
     identity and composition laws, invariance under homotopy equivalence and
     change of basepoint along a path (including path-homotopy independence and
-    composition coherence), and preservation of arbitrary indexed products
+    composition coherence, and the identity law for constant-path transport),
+    and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
     T1 and discreteness criteria, semilocal consequences, covering-map
@@ -119,7 +120,8 @@ status:
     pointed spaces together with the complete finite-torus family.  The
     general portion proves functoriality under continuous maps, coherence with
     identity and composition, homotopy-equivalence invariance, path-based
-    basepoint change, path-homotopy coherence, and composition coherence, and
+    basepoint change, path-homotopy coherence, identity coherence, and
+    composition coherence, and
     conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
@@ -214,6 +216,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Transport along two concatenated paths equals the single transport along their concatenation."
+    - source: "Identity coherence of basepoint transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_refl"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Transport along a constant path is the identity continuous multiplicative equivalence."
     - source: "Discrete quotient transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_homotopyEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

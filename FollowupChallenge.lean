@@ -30,7 +30,8 @@ open.  The finite-torus certificate additionally exposes the all-basepoint
 semilocal consequence and the all-basepoint integer-lattice classifier from
 the basepoint-transport theorem.  The general certificate also records that
 basepoint transport is independent of the chosen path representative up to
-endpoint-fixed homotopy and composes along concatenated paths.
+endpoint-fixed homotopy, is the identity on constant paths, and composes along
+concatenated paths.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -150,10 +151,17 @@ structure QuotientTopologicalFundamentalGroupTheory where
                   (Quotient.mk' p.symm) z)
                 (Quotient.mk' p)))
             (Quotient.mk' q) =
-          _root_.Path.Homotopic.Quotient.trans
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' (p.trans q).symm) z)
+              (Quotient.mk' (p.trans q))
+  quotient_basepoint_change_identity :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      ∀ z : GenericLoopQuot X x,
+        _root_.Path.Homotopic.Quotient.trans
             (_root_.Path.Homotopic.Quotient.trans
-              (Quotient.mk' (p.trans q).symm) z)
-            (Quotient.mk' (p.trans q))
+              (Quotient.mk' (_root_.Path.refl x)) z)
+            (Quotient.mk' (_root_.Path.refl x)) = z
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),

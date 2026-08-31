@@ -103,7 +103,8 @@ homotopy equivalence and path-based basepoint change.  The basepoint-change map
 depends only on the path's endpoint-fixed homotopy class.  It also proves that
 semilocal simple connectivity is homotopy invariant for locally
 path-connected spaces, and that basepoint transport composes along
-concatenated paths.  It also shows that joint continuity of quotient
+concatenated paths, with transport along a constant path identified with the
+identity equivalence.  It also shows that joint continuity of quotient
 concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
 

@@ -243,6 +243,17 @@ theorem basepointChangeContinuousMulEquiv_trans
     basepointChangeContinuousMulEquiv_apply]
   simp
 
+/-! Together with homotopy-class independence and concatenation compatibility,
+the next identity law records the unit of the path-transport system. -/
+
+/-- Transport along a constant path is the identity equivalence. -/
+theorem basepointChangeContinuousMulEquiv_refl (x : X) :
+    basepointChangeContinuousMulEquiv (_root_.Path.refl x) =
+      ContinuousMulEquiv.refl (LoopQuot X x) := by
+  ext r
+  rw [basepointChangeContinuousMulEquiv_apply]
+  simp
+
 /-- Discreteness of the quotient topology is independent of the chosen
 basepoint along a path. -/
 theorem quotientDiscreteTopology_iff_of_path {x₀ x₁ : X}

@@ -40,7 +40,9 @@ the formalization proves:
 16. the basepoint-change equivalence depends only on the endpoint-fixed
     homotopy class of the chosen path.
 17. basepoint transport composes along concatenated paths, giving a coherent
-    transport system on the fundamental-groupoid basepoints.
+   transport system on the fundamental-groupoid basepoints.
+18. transport along a constant path is the identity equivalence, completing
+    the identity/composition coherence laws for basepoint transport.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -96,7 +98,9 @@ failure is itself a homotopy-invariant quotient-topology phenomenon.  The
 basepoint-change maps are also proved independent of the chosen path
 representative whenever two paths are endpoint-fixed homotopic.
 They satisfy the corresponding composition law for concatenated paths, so
-the transport is coherent as well as homotopy-invariant.
+the transport is coherent as well as homotopy-invariant.  Transport along a
+constant path is separately identified with the identity equivalence, so the
+coherence package has both its unit and composition laws explicitly.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding
