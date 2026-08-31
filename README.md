@@ -180,6 +180,9 @@ using the mapped path at the target.
 Since the target quotient is abelian, the path choice can be eliminated: the
 canonical arbitrary-basepoint classifier satisfies this naturality square
 without exposing any auxiliary path.
+The lattice reindexing maps are also continuous additive morphisms, with
+identity and composition coherence; the classifier equation is restated
+through that continuous morphism.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

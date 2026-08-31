@@ -40,6 +40,8 @@ The path-based classifier also satisfies the corresponding naturality square
 at arbitrary torus basepoints after mapping the chosen transport path.
 By abelian-target path independence, the canonical classifier satisfies the
 same square without exposing a path choice.
+The lattice reindexings are continuous additive morphisms with their own
+identity and composition coherence.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

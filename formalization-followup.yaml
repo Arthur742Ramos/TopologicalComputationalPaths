@@ -45,6 +45,8 @@ project:
     the corresponding naturality square at arbitrary torus basepoints after
     mapping the chosen transport path.  The canonical arbitrary-basepoint
     classifier satisfies the same square without exposing any path choice.
+    The lattice reindexings are continuous additive morphisms, and their
+    continuous identity/composition laws are proved explicitly.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -179,6 +181,8 @@ status:
     naturality square at arbitrary basepoints after mapping the chosen
     transport path.  The canonical classifier satisfies it as well, by
     abelian-target path independence.
+    The lattice reindexings are also continuous additive morphisms with the
+    corresponding identity and composition laws.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -479,6 +483,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The path choice is eliminated by abelian-target transport independence, yielding naturality for the canonical classifier at every basepoint."
+    - source: "Finite-torus continuous lattice reindexing"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_coordinateProjection_continuousReindex"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Lattice reindexing is a continuous additive morphism, coherently functorial under identity and composition, and classifier naturality is expressed through it."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

@@ -99,6 +99,9 @@ composition laws; and the path-based classifier satisfies the corresponding
 naturality square at arbitrary basepoints after mapping the chosen transport
 path.  Abelian-target path independence then yields the same naturality square
 for the canonical arbitrary-basepoint classifier without a path parameter.
+The lattice reindexings are additionally continuous additive morphisms with
+explicit identity/composition laws, and classifier naturality is restated
+through that morphism.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

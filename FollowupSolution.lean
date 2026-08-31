@@ -35,6 +35,8 @@ different finite dimensions.  The path-based classifier is also natural at
 arbitrary torus basepoints after mapping the chosen transport path.
 Abelian-target path independence yields the same statement for the canonical
 classifier without exposing a path choice.
+The lattice reindexings are also continuous additive morphisms with identity
+and composition coherence.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

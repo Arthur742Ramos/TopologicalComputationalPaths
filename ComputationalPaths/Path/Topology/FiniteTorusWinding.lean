@@ -25,7 +25,9 @@ after passage to the quotient, and the maps themselves satisfy explicit
 identity and composition laws.  The continuous multiplicative lattice
 classifier satisfies the same reindexing equation, including maps between
 different dimensions.  The standard-loop representatives and the quotient
-decoder satisfy the same reindexing equations.
+decoder satisfy the same reindexing equations.  The lattice reindexings are
+also packaged as continuous additive morphisms with the corresponding
+identity and composition laws.
 -/
 
 namespace ComputationalPaths
@@ -82,6 +84,21 @@ noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
   map_zero' := by ext j; rfl
   map_add' z w := by ext j; rfl
 
+/-- Reindexing is a continuous additive morphism for the product topologies
+on the integer lattices. -/
+noncomputable def coordinateReindexContinuous {n m : ℕ} (f : Fin m → Fin n) :
+    (Fin n → ℤ) →ₜ+ (Fin m → ℤ) where
+  toAddMonoidHom := coordinateReindex f
+  continuous_toFun := by
+    apply continuous_pi
+    intro j
+    exact continuous_apply (f j)
+
+@[simp] theorem coordinateReindexContinuous_apply {n m : ℕ}
+    (f : Fin m → Fin n) (z : Fin n → ℤ) :
+    coordinateReindexContinuous f z = coordinateReindex f z :=
+  rfl
+
 /-- Lattice reindexing is contravariantly functorial. -/
 theorem coordinateReindex_comp {n m k : ℕ} (f : Fin m → Fin n)
     (g : Fin k → Fin m) :
@@ -93,6 +110,21 @@ theorem coordinateReindex_comp {n m k : ℕ} (f : Fin m → Fin n)
 /-- Reindexing along the identity index map is the identity additive homomorphism. -/
 theorem coordinateReindex_id (n : ℕ) :
     coordinateReindex (id : Fin n → Fin n) = AddMonoidHom.id (Fin n → ℤ) := by
+  ext z j
+  rfl
+
+/-- Continuous lattice reindexing is contravariantly functorial. -/
+theorem coordinateReindexContinuous_comp {n m k : ℕ} (f : Fin m → Fin n)
+    (g : Fin k → Fin m) :
+    coordinateReindexContinuous (f ∘ g) =
+      (coordinateReindexContinuous g).comp (coordinateReindexContinuous f) := by
+  ext z j
+  rfl
+
+/-- Continuous reindexing along the identity index map is the identity. -/
+theorem coordinateReindexContinuous_id (n : ℕ) :
+    coordinateReindexContinuous (id : Fin n → Fin n) =
+      ContinuousAddMonoidHom.id (Fin n → ℤ) := by
   ext z j
   rfl
 
@@ -418,6 +450,17 @@ theorem loopQuotContinuousMulEquivIntVector_coordinateProjection
     encode (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
   funext j
   exact (encode_coordinateProjection f q).symm ▸ rfl
+
+/-- The classifier naturality equation can be read through the continuous
+additive lattice morphism itself. -/
+theorem loopQuotContinuousMulEquivIntVector_coordinateProjection_continuousReindex
+    {n m : ℕ} (f : Fin m → Fin n) (q : LoopQuot n) :
+    Multiplicative.ofAdd
+        (coordinateReindexContinuous f (encode q)) =
+      (loopQuotContinuousMulEquivIntVector m)
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) := by
+  simpa only [coordinateReindexContinuous_apply] using
+    (loopQuotContinuousMulEquivIntVector_coordinateProjection f q)
 
 /-- The same integer-lattice model works at every torus basepoint, and the
 basepoint transport is a continuous multiplicative equivalence. -/

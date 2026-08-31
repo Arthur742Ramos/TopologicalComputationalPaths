@@ -86,6 +86,8 @@ the formalization proves:
     chosen basepoint path.
 38. the canonical arbitrary-basepoint classifiers satisfy the same naturality
     square without exposing any path choice.
+39. lattice reindexing is packaged as a continuous additive morphism, with
+    explicit identity and composition coherence and a classifier corollary.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -144,6 +146,9 @@ mapped path supplies the target transport.
 Because the target quotient is abelian, the path choice can then be removed:
 the canonical classifier defined by path-connectedness satisfies the same
 naturality square at arbitrary basepoints.
+The reindexing maps themselves are continuous additive morphisms for the
+product topologies on the integer lattices, and their identity/composition
+laws are proved at that continuous-morphism level as well.
 
 ## Literature and novelty boundary
 

@@ -160,6 +160,9 @@ this makes the transport-compatible statement explicit rather than limiting
 it to the all-zero quotient.
 The abelian-target path-independence theorem then removes that auxiliary path,
 so the canonical classifier at each basepoint is natural as well.
+The integer-lattice reindexings are packaged as continuous additive
+morphisms, and their identity and composition laws are checked at that
+topological-algebra level.
 
 ## Non-goals for the first submission
 
