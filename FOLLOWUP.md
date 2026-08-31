@@ -73,6 +73,16 @@ the formalization proves:
     of the chosen path even without an endpoint-fixed homotopy between paths.
 32. more generally, two transports agree if and only if their relative loop is
     central in the target quotient group.
+
+The selected declaration also contains the fixed-dimensional finite-torus
+winding/basepoint fields and the integer-lattice matrix/Smith fields named in
+`formalization.yaml`.  The numbered material below is a repository-wide
+inventory: it includes cross-dimensional and topological matrix extensions that
+are useful context but are not additional Comparator claims unless their exact
+field names occur in `main_results.selected_fields`.
+
+## Repository-wide supporting inventory (not selected by Comparator)
+
 33. finite-torus winding is natural under every coordinate-selection map; the
     induced quotient classifier reindexes the integer lattice vector.
 34. the coordinate-selection maps satisfy identity and composition coherence,
@@ -418,7 +428,7 @@ topological-group topology exactly when multiplication is jointly continuous.
 Covering maps additionally induce injective continuous homomorphisms on these
 quotient fundamental groups, by unique path lifting.
 
-## Finite-torus application
+## Selected finite-torus application
 
 For every `n`, coordinate winding classifies genuine compact-open loops in
 the finite torus `(Fin n → AddCircle 1)` modulo endpoint-fixed homotopy:
@@ -446,6 +456,20 @@ independent of the chosen basepoint as a topological and algebraic statement,
 not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
+
+The selected finite-torus surface is the fixed-dimensional winding/basepoint
+certificate above together with the integer-lattice cokernel and Smith-profile
+fields named in `formalization.yaml`.  The cross-dimensional coordinate API
+and the broader topological matrix/Smith wrappers below are repository support;
+they are not additional Comparator claims unless their exact field names are
+listed in `main_results.selected_fields`.
+
+### Repository-wide finite-torus extensions (not selected by Comparator)
+
+The following inventory is intentionally broader than the headline selected
+fields: it records useful repository declarations, while the Comparator
+account is restricted to the exact field names in `main_results.selected_fields`.
+
 The core classifier is also natural for every coordinate-selection map
 `Fin m → Fin n`: the induced loop and quotient maps simply reindex the
 integer winding vector (with the fixed-dimensional instance exposed in the
@@ -464,6 +488,7 @@ mapped path supplies the target transport.
 Because the target quotient is abelian, the path choice can then be removed:
 the canonical classifier defined by path-connectedness satisfies the same
 naturality square at arbitrary basepoints.
+
 The reindexing maps themselves are continuous additive morphisms for the
 product topologies on the integer lattices, and their identity/composition
 laws are proved at that continuous-morphism level as well.
@@ -576,35 +601,48 @@ obstruction, not merely a cardinality or an unstructured equivalence.
 
 ## Literature and novelty boundary
 
-The selected follow-up is a formalization contribution with a deliberately
-explicit mathematical boundary.  The quotient fundamental group is known to
-be a quasitopological group, homogeneous, and discrete for familiar
-semilocally simply connected spaces; the circle, finite-torus, and Smith
-normal-form calculations are classical.  Those sources are recorded in
-`formalization.yaml` with `formalizes` relationships, and the parent
-computational-path manuscript is recorded with `adapts`.  No source entry
-claims first presentation of the bundled Lean certificate or of the classical
-calculations.
+The selected follow-up has a deliberately explicit mathematical boundary.  The
+quotient fundamental group is known to be a quasitopological group,
+homogeneous, and discrete for familiar semilocally simply connected spaces;
+the circle, finite-torus, and Smith normal-form calculations are classical.
+Those sources are recorded in `formalization.yaml` with `formalizes`
+relationships, and the parent computational-path manuscript is recorded with
+`adapts`.  The sole `original-proof` entry is scoped to the exact centrality
+iff below; no source entry claims first presentation of the bundled Lean
+certificate or of the classical calculations.
 
 The specifically identified research contribution is the exact
 `quotient_basepoint_change_relative_comm_iff` theorem.  For arbitrary pointed
 spaces it characterizes equality of the two continuous multiplicative
 basepoint transports by centrality of their relative loop in the target
-quotient group.  The selected structure packages this iff with the transport
-unit, inverse, composition, naturality, homotopy/basepoint invariance, and the
-sharp binary product-quotient boundary.  Thus it identifies the precise
-obstruction to path-choice independence in the nonabelian case; the familiar
-abelian path-independence result is a corollary.  The finite-torus classifier
-and selected lattice Smith profiles provide a uniform, nontrivial test family
+quotient group, distinguishing equality of the actual topological maps from
+mere existence of an abstract group isomorphism.  The selected structure
+packages this iff with the transport unit, inverse, composition, naturality,
+homotopy/basepoint invariance, and the sharp binary product-quotient boundary.
+Thus it identifies the precise obstruction to path-choice independence in the
+nonabelian case; the familiar abelian path-independence result is a corollary.
+The finite-torus classifier and selected lattice Smith profiles provide a
+uniform, nontrivial test family
 for that coherence mechanism.
 
 The originality claim is limited to this source-linked formalized coherence
 synthesis and its exact theorem interface.  It is not a claim that winding,
 Smith factors, determinant indices, or the underlying change-of-basepoint
-construction were first discovered here.  The repository's larger topological
+construction were first discovered here.  The audit found standard
+inner-conjugation and abelian endpoint-independence statements in general
+topology texts, but did not locate this exact quotient-topological
+transport-equality criterion in the cited sources; the `original-proof` entry
+therefore records only this scoped theorem, not the whole bundle.  The
+repository's larger topological
 matrix-map, determinant-cardinality, CRT, free-factor, and annihilator
 developments remain useful supporting material outside the selected Comparator
 surface.
+
+The result is intended for specialists who need a canonicality criterion for
+quotient-topological transport, not merely an abstract basepoint-independent
+group.  The finite-torus family supplies a complete positive calibration, while
+the centrality iff and sharp binary product boundary expose the nonabelian and
+topological obstructions in a reusable form.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex

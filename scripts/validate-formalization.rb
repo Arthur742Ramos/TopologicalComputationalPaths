@@ -62,16 +62,32 @@ if followup
   contribution = interest["selected_contribution"].to_s
   abort "research-interest statement must identify the centrality iff" unless
     contribution.include?("quotient_basepoint_change_relative_comm_iff")
+  abort "research-interest statement must explain paper-worthiness" unless
+    interest["paper_worthiness"].to_s.strip.length >= 80
 
   fields = main_result.fetch("selected_fields")
   abort "selected fields must include the centrality iff" unless
     fields.include?("QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff")
+  # Validate against the statement-facing structure, not merely a token that
+  # happens to occur somewhere in the proof file.  This keeps metadata scope
+  # tied to fields the Comparator actually asks the Challenge to expose.
+  selected_source = File.binread("FollowupChallenge.lean")
+  fields.each do |field|
+    leaf = field.split(".").last
+    abort "selected field is not declared in FollowupChallenge.lean: #{field}" unless
+      selected_source.match?(/^\s+#{Regexp.escape(leaf)}\s*:/)
+  end
 
   substantive = %w[formalizes adapts independently-proves]
   abort "follow-up sources must record substantive literature relationships" unless
     sources.any? { |source| substantive.include?(source["relationship"]) }
-  abort "follow-up must not use an original-proof source for the bundled certificate" if
-    sources.any? { |source| source["type"] == "original-proof" }
+  original_sources = sources.select { |source| source["type"] == "original-proof" }
+  abort "follow-up must have exactly one scoped original-proof source" unless original_sources.length == 1
+  original = original_sources.first
+  abort "original-proof source must be scoped to the centrality iff" unless
+    original["relationship"] == "independently-proves" &&
+      original["title"].to_s.include?("centrality") &&
+      original["location"].to_s.include?("quotient_basepoint_change_relative_comm_iff")
 end
 
 methods = document.dig("automation", "methods")

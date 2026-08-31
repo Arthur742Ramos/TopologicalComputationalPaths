@@ -2,7 +2,7 @@
 version: "v0.4"
 
 project:
-  name: "Path-Choice Centrality and Finite-Torus Smith Profiles for Quotient Fundamental Groups"
+  name: "Path-Choice Centrality with Finite-Torus Winding and Lattice Smith Profiles"
   description: >-
     This follow-up selects the two-part Lean certificate
     `TopologicalComputationalPathsFollowup.main_result`.  Its principal
@@ -21,15 +21,18 @@ project:
     `Fin n → ℤ`, including coordinate naturality, continuous multiplicative
     quotient equivalences, arbitrary-basepoint and path-independent forms,
     commutativity, discreteness, openness, and semilocal simple connectivity.
-    The same selected structure contains an algebraic matrix-cokernel layer:
+    The same selected structure contains an algebraic lattice-cokernel layer:
     square and rectangular short-exact sequences, lcm and coprime-product
-    exponent laws, determinant-coprime and prime-support criteria, and the
-    explicitly named Smith-factor lcm, Smith-factor prime-support, exponent
-    p-adic, and class-order p-adic profile fields.  Winding and Smith
-    ingredients are classical; the claimed research contribution is the
-    source-linked, formally explicit topology--algebra coherence package,
-    including the centrality iff, not a priority claim for those classical
-    calculations.  Broader matrix-map, determinant-cardinality,
+    exponent laws, determinant-coprime and
+    prime-support criteria, and the explicitly named Smith-factor lcm,
+    Smith-factor prime-support, exponent p-adic, and class-order p-adic
+    profile fields.  Winding and Smith ingredients are classical; the claimed
+    mathematical contribution is the exact centrality criterion together with
+    its coherent quotient-topological boundary.  The Lean certificate is its
+    checked presentation, not a substitute for that mathematical claim, and
+    no priority claim is made for the classical calculations.  Broader
+    matrix-map,
+    determinant-cardinality,
     Chinese-remainder, free-factor, annihilator, image, kernel, and
     injectivity/surjectivity developments remain repository support and are
     not attributed to this selected result unless listed in `main_results`.
@@ -122,6 +125,28 @@ sources:
       finite-torus profile certificate selected here.  This entry records
       source lineage, not a first-publication claim for the underlying
       classical mathematics.
+  - title: "Path-choice centrality criterion for quotient fundamental groups"
+    authors:
+      - "Arthur Freitas Ramos"
+      - "Ruy J. G. B. de Queiroz"
+      - "Anjolina Grisi de Oliveira"
+      - "Tiago M. L. de Veras"
+      - "David Barros Hulak"
+    type: "original-proof"
+    id: "FollowupSolution.lean"
+    location: "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
+    relationship: "independently-proves"
+    author_endorsement: "participated"
+    note: >-
+      This entry is deliberately limited to the exact necessary-and-sufficient
+      relative-centrality criterion for equality of two basepoint transports.
+      It is not a first-presentation claim for the bundled Lean certificate or
+      for the classical winding, quotient-topology, change-of-basepoint, or
+      Smith results.  The cited literature entries provide the substantive
+      context.  The audit found the standard inner-conjugation and abelian
+      endpoint-independence statements in general topology texts, but did not
+      locate this exact quotient-topological transport-equality criterion in
+      the cited sources.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -157,7 +182,11 @@ status:
     includes winding, standard representatives, coordinate naturality,
     continuous multiplicative classifiers, arbitrary-basepoint/path
     independence, commutativity, discreteness, openness, and semilocal
-    simple connectivity.  Its selected matrix fields are the two short-exact
+    simple connectivity.  Its selected matrix and Smith fields are
+    integer-lattice cokernel fields carried by the certificate; corresponding
+    topological matrix wrappers and cross-dimensional extensions elsewhere in
+    the repository remain supporting material.  The selected matrix fields are
+    the two short-exact
     cokernel statements; lcm, coprime-product, determinant-coprime, and
     prime-support exponent laws; the Smith-factor lcm and prime-support laws;
     and the Smith-factor and class-order p-adic factorization profiles.  The
@@ -176,8 +205,12 @@ status:
       comparator_config: "comparator-followup.json"
       selected_fields:
         - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_homotopy_invariant"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_target_comm"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_identity"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_naturality"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved"
         - "QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
         - "FiniteTorusTopologicalClassification.winding"
@@ -186,6 +219,7 @@ status:
         - "FiniteTorusTopologicalClassification.classifier_coordinate_projection"
         - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv"
         - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path"
         - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
         - "FiniteTorusTopologicalClassification.quotient_mul_commutative_at"
         - "FiniteTorusTopologicalClassification.quotient_discrete_at"
@@ -224,30 +258,50 @@ status:
 research_interest:
   audience: "Researchers in algebraic topology, general topology, formalized mathematics, and computational homotopy"
   selected_contribution: >-
-    The selected paper-sized theorem is the exact iff
+    The selected paper-sized mathematical theorem is the exact iff
     `quotient_basepoint_change_relative_comm_iff`: for arbitrary pointed
     spaces, equality of the two continuous multiplicative transports induced
     by paths with common endpoints is equivalent to centrality of their
     relative loop in the target quotient fundamental group.  It is coupled to
     homotopy/basepoint invariance, the sharp binary product-quotient boundary,
-    and the all-basepoint finite-torus winding/Smith profile.
+    and the all-basepoint finite-torus winding plus lattice-Smith profile.  This
+    exact theorem, rather than proof size or kernel checking, is the
+    mathematical result submitted for specialist consideration.
   why_nontrivial: >-
     This is a quantified topology--algebra coherence result, not a restatement
     of an isolated group isomorphism.  It controls path-choice dependence of
-    the actual quotient-topological transport maps, identifies the precise
-    obstruction to canonical transport in the nonabelian case, and then
+    the actual quotient-topological transport maps rather than merely their
+    abstract isomorphism type, identifies the precise obstruction to canonical
+    transport in the nonabelian case, and gives a reusable criterion whose
+    abelian and homotopy-invariant corollaries are explicit.  It then
     specializes the mechanism to a uniform family of finite tori with exact
-    coordinate and p-adic profile fields.
+    coordinate and lattice p-adic profile fields.
+  paper_worthiness: >-
+    The theorem answers a structural question left implicit by ordinary
+    change-of-basepoint notation: exactly when do two path choices define the
+    same continuous multiplicative map, rather than merely isomorphic groups?
+    In a nonabelian target, one element witnessing failure of centrality is a
+    concrete certificate that the two transports differ; in the abelian
+    finite-torus family the obstruction vanishes and the classifiers become
+    canonical.  The theorem is reusable for quotient fundamental groups,
+    supplies a sharp binary product-topology boundary, and is calibrated by a
+    complete positive finite-torus family and its lattice profiles.
   literature_boundary: >-
     Calcut--McCarthy and Brazas--Fabel are the substantive sources for the
     quotient-topology, homogeneity, discreteness, and continuity boundaries;
     Hatcher supplies the classical winding context; Norman supplies the Smith
     invariant-factor context; and the pinned parent manuscript supplies the
     computational-path setting.  The metadata records these relationships as
-    formalizes/adapts.  No first-publication claim is made for the classical
-    ingredients.  The originality claim is limited to this explicit,
-    source-linked formalized coherence synthesis and its exact theorem
-    interface, which the cited sources do not present in this combined form.
+    formalizes/adapts.  The exact centrality iff is separately recorded as an
+    `original-proof`/`independently-proves` entry, limited to that theorem and
+    its stated interface.  No first-publication claim is made for the
+    classical ingredients or for the bundled Lean certificate.  The literature
+    audit found standard inner-conjugation and abelian endpoint-independence
+    statements in general topology texts, but did not locate this exact
+    quotient-topological transport-equality criterion stated in the cited
+    sources.  The originality claim is therefore scoped to this combined
+    theorem statement, not to the underlying classical change-of-basepoint
+    construction.
   evidence:
     - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
     - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
@@ -283,11 +337,12 @@ fidelity:
   divergences: >-
     The selected certificate is a source-linked formalization contribution,
     not a claim of a new classical winding or Smith-normal-form theorem.  Its
-    specifically identified contribution is the exact relative-centrality
-    criterion for equality of topological basepoint transports, packaged with
-    the quotient-topology continuity boundary and finite-torus profile.  The
-    binary quotient-product theorem retains its explicit quotient-map
-    hypothesis; no arbitrary indexed-product generalization is asserted.  The
+    specifically identified independently-proved contribution is the exact
+    relative-centrality criterion for equality of topological basepoint
+    transports, packaged with the quotient-topology continuity boundary and
+    the finite-torus winding/lattice profile.  The binary quotient-product
+    theorem retains its explicit quotient-map hypothesis; no arbitrary
+    indexed-product generalization is asserted.  The
     selected matrix/Smith scope is limited to the fields listed in
     `main_results`; broader matrix-map and arithmetic developments in the
     repository are intentionally treated as supporting results.  The parent
@@ -301,9 +356,10 @@ review:
     The selected declaration was audited field-by-field against the title,
     description, status scope, alignment, source relationships, and excluded
     repository results.  The cited literature supplies the substantive
-    source relationships for the formalized boundaries; no source entry is
-    used to claim first presentation of the bundled certificate or of the
-    classical mathematics.  Builds and Comparator replay are technical
+    source relationships for the formalized boundaries, and the sole
+    `original-proof` entry is scoped to the named centrality iff.  No source
+    entry is used to claim first presentation of the bundled certificate or of
+    the classical mathematics.  Builds and Comparator replay are technical
     verification, not independent peer review or novelty approval.
 
 alignment:
@@ -319,15 +375,16 @@ alignment:
         result restricted to the binary quotient-map hypothesis.  It also
         exposes the exact relative-centrality iff for path-transport equality.
     - source: "Path-choice centrality and coherent basepoint transport"
-      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse"
+      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_homotopy_invariant; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_target_comm; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_identity; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_naturality"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
       note: >-
         The exact iff identifies centrality of the relative loop as the
         necessary-and-sufficient obstruction to path-choice independence and
-        is accompanied by unit, inverse, and composition coherence.  This is
-        the specifically identified formalization contribution; no priority
-        claim is made for the classical change-of-basepoint construction.
+        is accompanied by homotopy invariance, naturality, unit, inverse, and
+        composition coherence.  This is the specifically identified
+        independently-proved contribution; no priority claim is made for the
+        classical change-of-basepoint construction.
     - source: "Binary product sharpness boundary"
       lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
@@ -344,7 +401,7 @@ alignment:
         inverse laws, coordinate naturality, and a complete quotient
         classifier, with classical context supplied by Hatcher.
     - source: "Finite-torus topological and basepoint package"
-      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_mul_commutative_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_discrete_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.semilocally_simply_connected"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_mul_commutative_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_discrete_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.semilocally_simply_connected"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
       note: >-
@@ -352,7 +409,17 @@ alignment:
         arbitrary-basepoint/path-independent classifiers, commutativity, and
         global discrete/semilocal consequences.
     - source: "Selected matrix-cokernel exactness and exponent laws"
-      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_short_exact; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff"
+      lean: >-
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_short_exact;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_lcm_dvd;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_eq_mul_of_coprime;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero
       module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
       note: >-
@@ -360,7 +427,12 @@ alignment:
         torus structure; they are stated for the integer-lattice cokernels and
         are not a claim that every repository matrix wrapper is selected.
     - source: "Selected Smith-factor and p-adic profiles"
-      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
+      lean: >-
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor;
+        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor
       module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
       note: >-

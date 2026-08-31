@@ -6,7 +6,32 @@ broader [ComputationalPathsLean](https://github.com/Arthur742Ramos/Computational
 development so that the mathematical claim, dependencies, and publication
 artifact have a small and auditable boundary.
 
-## Intended result
+## Current follow-up submission scope
+
+The current Comparator artifact is `comparator-followup.json`, which selects
+`TopologicalComputationalPathsFollowup.main_result` in `FollowupSolution.lean`.
+Its headline mathematical result is the exact
+`quotient_basepoint_change_relative_comm_iff`: for arbitrary pointed spaces,
+two continuous multiplicative basepoint transports agree if and only if their
+relative loop is central in the target quotient fundamental group.  The same
+selected declaration includes the explicitly conditional binary product
+theorem and the finite-dimensional winding/classifier certificate.  Its
+Smith and matrix fields are integer-lattice cokernel fields carried by the
+certificate, not a claim that every repository matrix wrapper
+or arbitrary indexed product is selected.  The narrowly scoped centrality
+theorem is recorded in the metadata as an `original-proof`/
+`independently-proves` result; the classical
+quotient-topology, winding, and Smith ingredients are attributed in
+`formalization.yaml`.
+
+The accepted first-submission package and the repository-wide extensions below
+are retained as context.  They are not additional claims about the selected
+follow-up declaration unless a declaration or field is named in the follow-up
+metadata.
+
+## Baseline package (repository context)
+
+The following section describes the accepted first-submission package:
 
 The first result package concerns a scoped geometric rewrite presentation:
 
@@ -88,9 +113,9 @@ homotopy equivalences, and basepoint-change equivalences along arbitrary
 paths.  It also proves that quotient fundamental groups preserve binary
 products for arbitrary pointed spaces under the exact hypothesis that the
 product of the two loop-quotient projections is a quotient map.  The selected
-certificate does not assert preservation of arbitrary indexed products; any broader indexed
-construction elsewhere in the repository is supporting material outside the
-selected Comparator theorem.
+certificate does not assert preservation of arbitrary indexed products; any
+broader indexed construction elsewhere in the repository is supporting
+material outside the selected Comparator theorem.
 
 ### Research contribution and selected boundary
 
@@ -103,13 +128,29 @@ transports agree if and only if the relative loop between their paths is
 central in the target quotient fundamental group.  The same selected
 certificate proves the unit, inverse, and composition laws for these
 transports, the sharp binary product-quotient boundary, and the homotopy and
-basepoint invariance needed to use the criterion globally.  This identifies a
-precise obstruction to canonical transport in the nonabelian case; the
-abelian path-independence theorem is a corollary.
+basepoint invariance needed to use the criterion globally.  It distinguishes
+equality of the actual topological maps from mere existence of an abstract
+group isomorphism.  This identifies a precise obstruction to canonical
+transport in the nonabelian case; the abelian path-independence theorem is a
+corollary.
+This exact iff is the narrowly scoped independently-proved result recorded in
+the metadata; the surrounding continuity, winding, and Smith statements are
+classical-source formalizations or explicitly identified corollaries.
+It answers a structural question that ordinary change-of-basepoint notation
+usually leaves implicit: when do two path choices define the same continuous
+multiplicative map, rather than merely isomorphic groups?  That reusable
+nonabelian criterion has an explicit witness form: any target element that
+fails to commute with the relative loop certifies that the two transports are
+different.  In the abelian finite-torus family the obstruction vanishes, so
+the path-based classifiers collapse to canonical classifiers.  Together with
+the sharp binary product-topology hypothesis, this positive/negative pairing
+is the reason the follow-up is offered as a mathematical submission rather
+than as a proof-size report.
 
 The finite-torus portion supplies a uniform test family: explicit winding and
 standard representatives, continuous multiplicative classifiers at every
-basepoint, and the selected lattice-cokernel/Smith-factor profile fields.
+basepoint, and the selected integer-lattice-cokernel/Smith-factor profile
+fields carried by the certificate.
 The winding and Smith ingredients are classical and are cited as such.  The
 claim made for this follow-up is the explicit source-linked formalized
 topology--algebra coherence synthesis and theorem interface, not first
@@ -196,6 +237,16 @@ with lattice addition and proving commutativity at every basepoint.
 The classifier can also be constructed along any explicit path from the
 canonical basepoint, and the abelian target theorem proves that all such
 path-based classifiers are equal as continuous multiplicative equivalences.
+
+This fixed-dimensional winding/basepoint surface, together with the named
+integer-lattice cokernel and Smith-profile fields in the follow-up metadata,
+is the selected finite-torus portion.  The cross-dimensional coordinate API
+and the broader matrix/Smith inventory that follows are repository support;
+only fields explicitly listed in `formalization.yaml` are part of the
+Comparator account.
+
+### Repository-wide finite-torus extensions (not selected by Comparator)
+
 The core winding theorem is natural under every coordinate-selection map
 `Fin m → Fin n`: mapping a loop and then taking winding reindexes its lattice
 vector, and the corresponding quotient classifier commutes with that map.
@@ -452,6 +503,12 @@ This focused repo is the publication-oriented extraction of that layer.  The
 parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
+For the follow-up, the parent setting is recorded as an `adapts` source.  The
+only `original-proof` entry is the exact relative-centrality iff named in the
+follow-up metadata; the circle, quotient-topology, change-of-basepoint, and
+Smith ingredients are recorded as literature formalizations rather than as
+first discoveries here.
+
 ## Publication boundary
 
 This repository now contains one pinned Lean project with a focused
@@ -515,7 +572,7 @@ Comparator/NanoDa run and an automated editorial review identifying no blocking
 problem.  That review is a gate, not approval or endorsement of the
 mathematics; registration remains a separate request.
 
-## Reproduce the baseline
+## Reproduce the checked artifacts
 
 From the repository root:
 

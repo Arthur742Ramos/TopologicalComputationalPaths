@@ -59,6 +59,13 @@ the research lineage and exact non-novelty boundary are recorded in
 `formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
 primary literature context.
 
+The follow-up's only scoped independently-proved result is the exact
+relative-centrality criterion for equality of basepoint transports, recorded
+in the metadata as an `original-proof` entry.  This is a claim about that
+specific combined theorem statement and interface, not a claim of first
+discovery for the classical change-of-basepoint construction or for the
+bundled Lean certificate.
+
 `ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean`
 adds direct compact-open/quotient proofs of continuous induced maps,
 homeomorphism invariance, path-based basepoint change, its homotopy-class
