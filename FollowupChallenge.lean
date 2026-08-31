@@ -6,7 +6,6 @@ import Mathlib.Topology.Maps.OpenQuotient
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
-import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
@@ -126,6 +125,41 @@ criterion for equality of two transports, and its abelian-target
 corollary: in an abelian target quotient, transport is independent of the
 chosen path even without an endpoint-fixed homotopy between the paths.
 -/
+
+/-! Statement-facing copies of the small project aliases used below.  The
+challenge is compiled by Palomar in a scratch environment without the
+project's generated `.olean` files, so these declarations intentionally use
+only the Mathlib path quotient and keep the publication statement standalone.
+The substantive definitions with the same names are imported by the solution
+from the checked project modules; Comparator checks that the resulting
+statement constants agree. -/
+namespace ComputationalPaths
+namespace Path
+namespace GeometricTopology
+namespace QuotientFundamentalGroup
+
+universe u
+
+abbrev Loop (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
+  _root_.Path x x
+
+abbrev LoopQuot (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
+  _root_.Path.Homotopic.Quotient x x
+
+def SemilocallySimplyConnectedAt
+    (X : Type u) [TopologicalSpace X] (x : X) : Prop :=
+  ∃ U : Set X, IsOpen U ∧ x ∈ U ∧
+    ∀ γ : Loop X x, Set.range γ ⊆ U →
+      γ.Homotopic (_root_.Path.refl x)
+
+def SemilocallySimplyConnected
+    (X : Type u) [TopologicalSpace X] : Prop :=
+  ∀ x : X, SemilocallySimplyConnectedAt X x
+
+end QuotientFundamentalGroup
+end GeometricTopology
+end Path
+end ComputationalPaths
 
 namespace TopologicalComputationalPathsFollowup
 
