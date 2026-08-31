@@ -392,6 +392,12 @@ the formalization proves:
      transported to rectangular lattice and finite-torus matrix cokernels.
 152. the factor-level result covers zero and nonzero Smith moduli uniformly,
      so free coordinates cannot hide from the prime-support certificate.
+153. when every Smith modulus is nonzero, the exponent's `Nat.factorization`
+     valuation at each prime is the `Finset.sup` of the Smith-factor valuations.
+154. this full p-adic profile is transported to rectangular lattice and
+     finite-torus matrix cokernels, refining the Boolean prime-support test.
+155. the nonzero-modulus hypothesis is explicit, separating finite torsion
+     profiles from zero-factor free components represented by `ZMod 0`.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

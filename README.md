@@ -373,6 +373,11 @@ prime-power orders multiply back to each Smith modulus, so both cokernel
 cardinalities are identified with the resulting full double product.
 The additive exponent of the finite cokernel is likewise proved to be the
 least common multiple of the Smith moduli, giving its precise annihilator.
+Under the explicit all-factors-nonzero hypothesis, the full `Nat.factorization`
+valuation of the exponent at each prime is the `Finset.sup` of the valuations
+of the Smith moduli; the same p-adic profile is transported to rectangular
+lattice and finite-torus matrix cokernels.  The hypothesis is deliberate:
+zero factors represent `ZMod 0` free components.
 The same Smith coordinates give an elementwise annihilation criterion: a
 multiple of a lattice or finite-torus cokernel class vanishes exactly when
 each transformed coordinate is divisible by the corresponding multiple of

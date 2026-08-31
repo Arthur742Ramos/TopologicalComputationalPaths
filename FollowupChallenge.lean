@@ -715,7 +715,6 @@ structure QuotientTopologicalFundamentalGroupTheory where
       Continuous
         (fun p : GenericLoopQuot X x × GenericLoopQuot X x =>
           _root_.Path.Homotopic.Quotient.trans p.1 p.2)
-
 abbrev Circle : Type := AddCircle (1 : ℝ)
 abbrev FiniteTorus (n : ℕ) : Type := Fin n → Circle
 noncomputable abbrev base (n : ℕ) : FiniteTorus n := fun _ => 0
@@ -723,7 +722,6 @@ abbrev Loop (n : ℕ) : Type := _root_.Path (base n) (base n)
 abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
-
 /-! Statement-facing matrix actions used to expose the cokernel composition
 certificate without importing the substantive finite-torus module. -/
 noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
@@ -735,22 +733,18 @@ noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
   map_add' z w := by
     ext j
     simp [mul_add, Finset.sum_add_distrib]
-
 def matrixCompose {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
     Fin k → Fin n → ℤ :=
   fun l i => ∑ j : Fin m, B l j * A j i
-
 /-- Coordinate-selection maps between finite tori, used to state winding
 naturality without importing the substantive implementation. -/
 noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
     C(FiniteTorus n, FiniteTorus m) :=
   ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
-
 noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
     WindingVector n → WindingVector m :=
   fun z j => z (f j)
-
 /-! Smith factors are copied into the standalone statement surface so the
     Comparator challenge can expose the arithmetic criterion without
     importing the substantive project implementation. -/
@@ -758,6 +752,8 @@ noncomputable def smithNormalFormFactor
     {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
     (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
   if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
+
+noncomputable def smithFactor {n m : ℕ} (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ := smithNormalFormFactor (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2 i
 
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
@@ -975,6 +971,11 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (smithNormalFormFactor (Submodule.smithNormalForm
             (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+  matrix_cokernel_exponent_factorization_eq_smithFactor_sup :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+      (h : ∀ i : Fin m, smithFactor A i ≠ 0) (p : ℕ),
+      (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule)).factorization p =
+        Finset.univ.sup (fun i : Fin m => (smithFactor A i).natAbs.factorization p)
   matrix_cokernel_exponent_prime_dvd_iff_smithFactor :
     ∀ (A : Fin n → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p),
       p ∣ AddMonoid.exponent
@@ -990,7 +991,6 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
         ∃ i : Fin m, p ∣ (smithNormalFormFactor
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs
-
 /-- The general criterion and its winding-classified finite-torus family. -/
 theorem main_result :
     Nonempty QuotientTopologicalFundamentalGroupTheory ∧

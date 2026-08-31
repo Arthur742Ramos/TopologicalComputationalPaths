@@ -2957,6 +2957,31 @@ theorem submoduleCokernel_exponent_eq_smithFactorLcm
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
 
+/-- For a finite family of nonzero moduli, the prime-adic valuation of their
+least common multiple is the pointwise supremum of the valuations. -/
+theorem finsetLcm_factorization_eq_sup_of_ne_zero
+    {ι : Type*} [Fintype ι] (a : ι → ℕ)
+    (h : ∀ i, a i ≠ 0) (p : ℕ) :
+    (Finset.univ.lcm a).factorization p =
+      Finset.univ.sup (fun i => (a i).factorization p) := by
+  classical
+  have hlcm (s : Finset ι) :
+      (s.lcm a).factorization p =
+        s.sup (fun i => (a i).factorization p) := by
+    induction s using Finset.induction_on with
+    | empty => simp
+    | @insert b s hb ih =>
+        rw [Finset.lcm_insert]
+        have hs0 : s.lcm a ≠ 0 := by
+          intro hs
+          rcases (Finset.lcm_eq_zero_iff.mp hs) with ⟨i, hi, hzero⟩
+          exact h i hzero
+        change (Nat.lcm (a b) (s.lcm a)).factorization p = _
+        rw [Nat.factorization_lcm (h b) hs0]
+        simp only [Finsupp.sup_apply, Finset.sup_insert]
+        rw [ih]
+  exact hlcm (Finset.univ : Finset ι)
+
 /-- A prime divides a Smith cokernel exponent exactly when it divides at
 least one Smith-factor modulus. -/
 theorem submoduleCokernel_exponent_prime_dvd_iff_smithFactor
@@ -3311,6 +3336,28 @@ theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
   exact submoduleCokernel_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-! The lcm identity refines pointwise to the full prime-adic valuation
+    profile of the rectangular lattice cokernel. -/
+theorem matrixAction_cokernel_exponent_factorization_eq_smithFactor_sup
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (p : ℕ) :
+    (AddMonoid.exponent ((Fin m → ℤ) ⧸
+      ((matrixAction A).range.toIntSubmodule))).factorization p =
+      Finset.univ.sup (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p) := by
+  rw [matrixAction_cokernel_exponent_eq_smithFactorLcm A]
+  exact finsetLcm_factorization_eq_sup_of_ne_zero
+    (fun i : Fin m =>
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+    (fun i => Int.natAbs_ne_zero.mpr (h i)) p
 
 /-- A prime divides a rectangular lattice cokernel exponent exactly when it
 divides at least one Smith-factor modulus. -/
@@ -5490,6 +5537,28 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
     (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
+
+/-! The same lcm factorization records the full prime-adic valuation profile
+    after transport to the finite-torus quotient cokernel. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_factorization_eq_smithFactor_sup
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (p : ℕ) :
+    (AddMonoid.exponent (LoopQuot m ⧸
+      (matrixMapQuotientAddHom A).range)).factorization p =
+      Finset.univ.sup (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p) := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm A]
+  exact finsetLcm_factorization_eq_sup_of_ne_zero
+    (fun i : Fin m =>
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+    (fun i => Int.natAbs_ne_zero.mpr (h i)) p
 
 /-- A prime divides a rectangular finite-torus cokernel exponent exactly when
 it divides at least one Smith-factor modulus. -/
