@@ -316,6 +316,10 @@ prime-power orders multiply back to each Smith modulus, so both cokernel
 cardinalities are identified with the resulting full double product.
 The additive exponent of the finite cokernel is likewise proved to be the
 least common multiple of the Smith moduli, giving its precise annihilator.
+The same Smith coordinates give an elementwise annihilation criterion: a
+multiple of a lattice or finite-torus cokernel class vanishes exactly when
+each transformed coordinate is divisible by the corresponding multiple of
+its Smith factor, including the zero-factor equations.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

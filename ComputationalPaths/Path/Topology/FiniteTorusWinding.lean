@@ -140,6 +140,10 @@ cokernel cardinalities are thereby identified with the full double product.
 Its additive exponent is also identified exactly with the least common multiple
 of the Smith moduli, so the prime-power presentation records the precise
 annihilator of the finite cokernel rather than only its order.
+The same Smith coordinates give an elementwise annihilation criterion: a
+multiple of a lattice or finite-torus cokernel class vanishes exactly when
+each transformed coordinate is divisible by the corresponding multiple of
+its Smith factor, including the zero-factor equations.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2494,6 +2498,22 @@ theorem submodule_mem_iff_smithNormalFormFactor_dvd
     have hxy : y = x := snf.bM.equivFun.injective hyeq
     simpa [hxy] using hy
 
+/-- A multiple of a Smith cokernel class vanishes exactly when every
+transformed coordinate is divisible by the corresponding multiple of its
+Smith factor.  This gives an elementwise annihilation test, including the
+zero-factor equations in the rank-deficient case. -/
+theorem submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) (k : ℕ) :
+    k • (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) = 0 ↔
+      ∀ i : Fin m, smithNormalFormFactor snf i ∣
+        (k : ℤ) * (snf.bM.equivFun x) i := by
+  change Submodule.Quotient.mk ((k : ℤ) • x) = 0 ↔ _
+  rw [Submodule.Quotient.mk_eq_zero]
+  rw [submodule_mem_iff_smithNormalFormFactor_dvd snf]
+  simp only [map_smul, Pi.smul_apply, smul_eq_mul]
+
 /-- The quotient by an arbitrary-rank Smith-normal-form submodule is the
 coordinatewise product of the corresponding cyclic quotients.  The zero
 coefficients on complementary coordinates are retained as `ZMod 0`, so the
@@ -2795,6 +2815,21 @@ theorem matrixAction_mem_range_iff_smithNormalFormFactor_dvd
   exact submodule_mem_iff_smithNormalFormFactor_dvd
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 x
+
+/-- A multiple of a lattice cokernel class vanishes exactly when its Smith
+coordinates satisfy the corresponding coordinatewise divisibility equations. -/
+theorem matrixAction_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) (k : ℕ) :
+    k • (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) = 0 ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        (k : ℤ) * ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i := by
+  exact submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 x k
 
 /-- Under full target rank, the Smith factors give the exact cardinality of
 the lattice cokernel as their product of moduli. -/
@@ -4478,6 +4513,44 @@ theorem matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
       (show Function.Injective (e : LoopQuot m →+ (Fin m → ℤ)) from ?_)).mp hex
     intro a b hab
     exact e.injective hab
+
+/-- A multiple of a finite-torus cokernel class vanishes exactly when the
+corresponding winding vector satisfies the Smith-coordinate divisibility
+equations. -/
+theorem matrixMapQuotientAddHom_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) (k : ℕ) :
+    k • (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) = 0 ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        (k : ℤ) * ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+          (loopQuotAddEquivIntVector m x)) i := by
+  let e := loopQuotAddEquivIntVector m
+  let H := (matrixMapQuotientAddHom A).range
+  have hmap : H.map (e : LoopQuot m →+ (Fin m → ℤ)) =
+      (matrixAction A).range := matrixMapQuotientAddHom_range_map A
+  change k • (x : LoopQuot m ⧸ H) = 0 ↔ _
+  rw [← QuotientAddGroup.mk_nsmul H x k, QuotientAddGroup.eq_zero_iff]
+  have hmem : k • x ∈ H ↔ e (k • x) ∈ H.map (e : LoopQuot m →+ (Fin m → ℤ)) := by
+    exact (AddSubgroup.mem_map_iff_mem
+      (show Function.Injective (e : LoopQuot m →+ (Fin m → ℤ)) from e.injective)).symm
+  rw [hmem, hmap]
+  change e (k • x) ∈ (matrixAction A).range.toIntSubmodule ↔ _
+  rw [matrixAction_mem_range_iff_smithNormalFormFactor_dvd A]
+  rw [map_nsmul]
+  rw [map_nsmul]
+  let snf := (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+    (matrixAction A).range.toIntSubmodule).2
+  change (∀ i : Fin m, smithNormalFormFactor snf i ∣
+      (k • (snf.bM.equivFun (e x))) i) ↔
+    ∀ i : Fin m, smithNormalFormFactor snf i ∣
+      (k : ℤ) * (snf.bM.equivFun (e x)) i
+  simp only [Pi.smul_apply]
+  have hNatSmul (y : ℤ) : k • y = (k : ℤ) * y := by
+    rw [← Nat.cast_smul_eq_nsmul ℤ k]
+    exact smul_eq_mul _ _
+  simp_rw [hNatSmul]
 
 /-- The topological rectangular cokernel has the same exact arbitrary-rank
 Smith-factor cardinality formula as the lattice quotient, including infinite

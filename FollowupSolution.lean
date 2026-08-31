@@ -148,6 +148,10 @@ orders multiply back to each Smith modulus, identifying both cokernel
 cardinalities with the resulting full double product.
 Its additive exponent is also identified exactly with the least common
 multiple of the Smith moduli, exposing the precise finite-cokernel annihilator.
+The same Smith coordinates give an elementwise annihilation criterion: a
+multiple of a lattice or finite-torus cokernel class vanishes exactly when
+each transformed coordinate is divisible by the corresponding multiple of
+its Smith factor, including the zero-factor equations.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

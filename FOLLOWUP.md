@@ -274,6 +274,11 @@ the formalization proves:
 96. the same exponent identity is transported through the refined lattice and
     finite-torus equivalences, identifying the precise finite-cokernel
     annihilator rather than only its cardinality.
+97. a multiple of any arbitrary-rank Smith cokernel class vanishes exactly
+    when every transformed coordinate is divisible by the corresponding
+    multiple of its Smith factor, including zero-factor equations.
+98. this elementwise annihilation criterion is transported to both lattice and
+    finite-torus matrix cokernel representatives.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

@@ -291,6 +291,10 @@ multiply back to each Smith modulus, and both cokernel cardinalities equal the
 resulting full double product.
 The additive exponent is also identified exactly with the least common
 multiple of the Smith moduli, exposing the precise finite-cokernel annihilator.
+The same Smith coordinates give an elementwise annihilation criterion: a
+multiple of a lattice or finite-torus cokernel class vanishes exactly when
+each transformed coordinate is divisible by the corresponding multiple of
+its Smith factor, including the zero-factor equations.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and
