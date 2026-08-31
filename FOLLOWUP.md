@@ -283,6 +283,10 @@ the formalization proves:
     the lcm of the additive orders of its decoded Smith coordinates.
 100. a nonzero `ZMod 0` coordinate is thereby detected as an infinite-order
      free component, while finite coordinates contribute their cyclic orders.
+101. when all Smith factors are nonzero, each coordinate order has the explicit
+     modulus-divided-by-gcd formula on the transformed integer coordinate.
+102. the lattice and finite-torus class-order formulas expose this arithmetic
+     refinement through their concrete matrix representatives.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

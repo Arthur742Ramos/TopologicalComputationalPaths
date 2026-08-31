@@ -147,6 +147,9 @@ its Smith factor, including the zero-factor equations.
 The additive order of each class is the lcm of the additive orders of its
 decoded Smith coordinates, with a nonzero `ZMod 0` coordinate recording an
 infinite-order free component.
+When all factors are nonzero, each finite coordinate order is computed
+explicitly as its Smith modulus divided by the gcd with the transformed
+integer coordinate.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2571,6 +2574,47 @@ theorem submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm
   rw [Pi.addOrderOf]
   rfl
 
+/-- The order of an integer class in a nonzero cyclic Smith factor is the
+usual modulus divided by the gcd with the represented integer. -/
+theorem intQuotientSpan_addOrderOf_eq_natAbs_div_gcd
+    (a n : ℤ) (hn : n.natAbs ≠ 0) :
+    addOrderOf (Int.quotientSpanEquivZMod n
+      (Submodule.Quotient.mk (p := Submodule.span ℤ ({n} : Set ℤ)) a)) =
+      n.natAbs / Nat.gcd n.natAbs a.natAbs := by
+  change addOrderOf ((a : ZMod n.natAbs)) = _
+  cases a with
+  | ofNat a =>
+      simpa using (ZMod.addOrderOf_coe a hn)
+  | negSucc a =>
+      rw [Int.cast_negSucc, addOrderOf_neg]
+      simpa using (ZMod.addOrderOf_coe (a + 1) hn)
+
+/-- When all Smith factors are nonzero, the additive order of a Smith
+cokernel class is the lcm of the explicit modulus/gcd orders of its decoded
+coordinates. -/
+theorem submoduleCokernel_addOrderOf_mk_eq_smithFactorGcdLcm
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0)
+    (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor snf i).natAbs /
+          Nat.gcd (smithNormalFormFactor snf i).natAbs
+            ((snf.bM.equivFun x) i).natAbs) := by
+  rw [submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm]
+  have hi (i : Fin m) :
+      addOrderOf (Int.quotientSpanEquivZMod (smithNormalFormFactor snf i)
+        (Submodule.Quotient.mk ((snf.bM.equivFun x) i))) =
+        (smithNormalFormFactor snf i).natAbs /
+          Nat.gcd (smithNormalFormFactor snf i).natAbs
+            ((snf.bM.equivFun x) i).natAbs := by
+    apply intQuotientSpan_addOrderOf_eq_natAbs_div_gcd
+    exact Int.natAbs_ne_zero.mpr (h i)
+  refine Finset.lcm_congr rfl ?_
+  intro i _
+  exact hi i
+
 /-! A nonzero Smith cyclic factor admits a canonical prime-power refinement
 through the Chinese remainder theorem. -/
 
@@ -2701,6 +2745,29 @@ theorem matrixAction_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
           (Submodule.Quotient.mk x) i)) := by
   rw [← (matrixAction_cokernel_smithEquiv A).addOrderOf_eq]
   rw [Pi.addOrderOf]
+
+/-- For a finite lattice cokernel, the class order is the lcm of the explicit
+Smith modulus/gcd orders of the transformed winding coordinates. -/
+theorem matrixAction_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs /
+          Nat.gcd (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs
+            ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2.bM.equivFun x i).natAbs) := by
+  exact submoduleCokernel_addOrderOf_mk_eq_smithFactorGcdLcm
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h x
 
 /-- Refine a finite rectangular lattice cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
@@ -4445,6 +4512,50 @@ theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
           (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) i)) := by
   rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
   rw [Pi.addOrderOf]
+
+/-- For a finite-torus cokernel, the class order is the lcm of the explicit
+Smith modulus/gcd orders of the decoded winding coordinates. -/
+theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0)
+    (x : LoopQuot m) :
+    addOrderOf (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs /
+          Nat.gcd (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs
+            ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+                (loopQuotAddEquivIntVector m x) i).natAbs) := by
+  rw [matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithCoordinateLcm]
+  refine Finset.lcm_congr rfl ?_
+  intro i _
+  have hi :
+      addOrderOf (Int.quotientSpanEquivZMod
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i)
+        (Submodule.Quotient.mk
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+              (loopQuotAddEquivIntVector m x) i))) =
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs /
+        Nat.gcd (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+              (loopQuotAddEquivIntVector m x) i).natAbs := by
+    apply intQuotientSpan_addOrderOf_eq_natAbs_div_gcd
+    exact Int.natAbs_ne_zero.mpr (h i)
+  exact hi
 
 /-- Refine a finite rectangular finite-torus cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/

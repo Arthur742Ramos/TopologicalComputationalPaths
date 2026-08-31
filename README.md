@@ -323,6 +323,8 @@ its Smith factor, including the zero-factor equations.
 More precisely, the additive order of each class is the lcm of the additive
 orders of its decoded Smith coordinates; a nonzero free `ZMod 0` coordinate
 therefore records infinite class order.
+When all factors are nonzero, each coordinate order is computed explicitly as
+its Smith modulus divided by the gcd with the transformed integer coordinate.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

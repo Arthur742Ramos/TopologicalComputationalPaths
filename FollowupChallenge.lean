@@ -163,6 +163,9 @@ inverse witness, including at arbitrary basepoints.
     The additive order of each class is the lcm of the additive orders of its
     decoded Smith coordinates; a nonzero free `ZMod 0` coordinate records
     infinite class order.
+    When all factors are nonzero, each coordinate order is computed explicitly
+    as its Smith modulus divided by the gcd with the transformed integer
+    coordinate.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

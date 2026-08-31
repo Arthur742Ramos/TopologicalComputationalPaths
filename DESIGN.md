@@ -298,6 +298,8 @@ its Smith factor, including the zero-factor equations.
 The corresponding class-order theorem identifies the additive order of each
 class with the lcm of the additive orders of its decoded Smith coordinates;
 a nonzero free `ZMod 0` coordinate records infinite order.
+When all factors are nonzero, each coordinate order is refined to the explicit
+Smith-modulus/gcd formula on the transformed integer coordinate.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and
