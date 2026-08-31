@@ -137,6 +137,9 @@ project:
     The refined product has an exact cardinality certificate: its prime-power
     orders multiply back to each Smith modulus, identifying both cokernel
     cardinalities with the resulting full double product.
+    Its additive exponent is also identified exactly with the least common
+    multiple of the Smith moduli, exposing the precise finite-cokernel
+    annihilator.
     For every square matrix, the adjugate gives an explicit preimage of each
     determinant multiple, so the determinant annihilates every lattice and
     finite-torus cokernel class, including singular matrices; this certificate
@@ -733,6 +736,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The Chinese-remainder refinement has an exact cardinality bridge: each prime-power product equals its Smith modulus, and both lattice and finite-torus cokernel cardinalities equal the full double product."
+    - source: "Finite-torus Smith exponent"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPrimePowerAddEquiv_exponent; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPiPrimePowerAddEquiv_exponent_eq_lcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The additive exponent of the prime-power Smith presentation, and hence of both finite lattice and finite-torus cokernels, is exactly the least common multiple of the Smith moduli."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

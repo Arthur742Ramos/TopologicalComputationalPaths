@@ -137,6 +137,9 @@ formula for the refined decoder.
 The refined product has an exact cardinality formula as well: its prime-power
 orders multiply back to each Smith modulus, and the lattice and finite-torus
 cokernel cardinalities are thereby identified with the full double product.
+Its additive exponent is also identified exactly with the least common multiple
+of the Smith moduli, so the prime-power presentation records the precise
+annihilator of the finite cokernel rather than only its order.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2542,6 +2545,13 @@ noncomputable def zmodPrimePowerAddEquiv (n : ℕ) (hn : n ≠ 0) :
   simp only [Nat.card_zmod]
   exact (Nat.prod_primeFactors_coe_pow_factorization hn).symm
 
+theorem zmodPrimePowerAddEquiv_exponent (n : ℕ) (hn : n ≠ 0) :
+    AddMonoid.exponent (∀ p : n.primeFactors,
+      ZMod (p ^ (n.factorization p))) = n := by
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (zmodPrimePowerAddEquiv n hn).symm]
+  exact ZMod.exponent n
+
 /-- Apply the prime-power refinement coordinatewise to a finite product of
 nonzero cyclic `ZMod` factors. -/
 noncomputable def zmodPiPrimePowerAddEquiv {ι : Type*} [Fintype ι]
@@ -2589,6 +2599,31 @@ theorem submoduleCokernelSmithPrimePowerEquiv_card_eq_primePowerProduct
   apply Finset.prod_congr rfl
   intro i hi
   simp only [Nat.card_zmod]
+
+theorem zmodPiPrimePowerAddEquiv_exponent_eq_lcm {ι : Type*} [Fintype ι]
+    (a : ι → ℕ) (h : ∀ i, a i ≠ 0) :
+    AddMonoid.exponent (∀ i, ∀ p : (a i).primeFactors,
+      ZMod (p ^ ((a i).factorization p))) =
+      Finset.univ.lcm a := by
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (zmodPiPrimePowerAddEquiv a h).symm]
+  rw [AddMonoid.exponent_pi]
+  simp only [ZMod.exponent]
+
+theorem submoduleCokernelSmithPrimePowerEquiv_exponent_eq_smithFactorLcm
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ N) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor snf i).natAbs) := by
+  let a : Fin m → ℕ := fun i => (smithNormalFormFactor snf i).natAbs
+  have ha : ∀ i, a i ≠ 0 := fun i => Int.natAbs_ne_zero.mpr (h i)
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (submoduleCokernelSmithPrimePowerEquiv snf h)]
+  change AddMonoid.exponent (∀ i, ∀ p : (a i).primeFactors,
+      ZMod (p ^ ((a i).factorization p))) = Finset.univ.lcm a
+  exact zmodPiPrimePowerAddEquiv_exponent_eq_lcm a ha
 
 /-- The arbitrary-rank Smith equivalence gives the exact `Nat.card` of the
 cokernel, including the infinite case: a zero factor contributes the zero
@@ -2664,6 +2699,19 @@ theorem matrixAction_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p) := by
   exact submoduleCokernelSmithPrimePowerEquiv_card_eq_primePowerProduct
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h
+
+theorem matrixAction_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      Finset.univ.lcm (fun i : Fin m => (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs) := by
+  exact submoduleCokernelSmithPrimePowerEquiv_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 h
 
@@ -4378,6 +4426,25 @@ theorem matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_card_eq_primePower
   apply Finset.prod_congr rfl
   intro i hi
   simp only [Nat.card_zmod]
+
+theorem matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) =
+      Finset.univ.lcm (fun i : Fin m => (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs) := by
+  let snf := (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+    (matrixAction A).range.toIntSubmodule).2
+  let a : Fin m → ℕ := fun i => (smithNormalFormFactor snf i).natAbs
+  have ha : ∀ i, a i ≠ 0 := fun i => Int.natAbs_ne_zero.mpr (h i)
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv A h)]
+  change AddMonoid.exponent (∀ i, ∀ p : (a i).primeFactors,
+      ZMod (p ^ ((a i).factorization p))) = Finset.univ.lcm a
+  exact zmodPiPrimePowerAddEquiv_exponent_eq_lcm a ha
 
 /-- Membership in a rectangular finite-torus matrix image is detected by
 coordinatewise Smith divisibility after decoding the loop class to its winding

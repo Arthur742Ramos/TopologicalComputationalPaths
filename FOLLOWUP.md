@@ -269,6 +269,11 @@ the formalization proves:
     prime-power orders multiply back to each nonzero Smith modulus.
 94. consequently, both the lattice and finite-torus cokernel cardinalities
     are identified with the full double product of the prime-power orders.
+95. the additive exponent of the finite Smith cokernel is proved exactly equal
+    to the least common multiple of its Smith moduli.
+96. the same exponent identity is transported through the refined lattice and
+    finite-torus equivalences, identifying the precise finite-cokernel
+    annihilator rather than only its cardinality.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

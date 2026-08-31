@@ -314,6 +314,8 @@ a representative formula for the refined decoder.
 The refined product also carries an exact cardinality certificate: the
 prime-power orders multiply back to each Smith modulus, so both cokernel
 cardinalities are identified with the resulting full double product.
+The additive exponent of the finite cokernel is likewise proved to be the
+least common multiple of the Smith moduli, giving its precise annihilator.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

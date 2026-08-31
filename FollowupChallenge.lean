@@ -153,6 +153,9 @@ inverse witness, including at arbitrary basepoints.
     The refined product has an exact cardinality certificate: its prime-power
     orders multiply back to each Smith modulus, identifying both cokernel
     cardinalities with the resulting full double product.
+    Its additive exponent is also identified exactly with the least common
+    multiple of the Smith moduli, exposing the precise finite-cokernel
+    annihilator.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
