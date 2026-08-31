@@ -6,6 +6,7 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
 import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
+import Mathlib.Data.Nat.GCD.Prime
 
 /-!
 # Finite-dimensional topological torus winding
@@ -136,6 +137,9 @@ directly into the prime-power Smith decomposition.
 For square matrices, a nonzero determinant of the second factor supplies the
 injectivity hypothesis automatically, so the same prime-support law is
 available directly from determinant assumptions on both cokernel sides.
+The Smith presentation sharpens this to a factor-level criterion: for every
+prime `p`, `p` divides a cokernel exponent exactly when it divides at least
+one Smith-factor modulus, on both lattice and finite-torus sides.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -2953,6 +2957,30 @@ theorem submoduleCokernel_exponent_eq_smithFactorLcm
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
 
+/-- A prime divides a Smith cokernel exponent exactly when it divides at
+least one Smith-factor modulus. -/
+theorem submoduleCokernel_exponent_prime_dvd_iff_smithFactor
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ N) ↔
+      ∃ i : Fin m, p ∣ (smithNormalFormFactor snf i).natAbs := by
+  rw [submoduleCokernel_exponent_eq_smithFactorLcm snf]
+  have hlcm (s : Finset (Fin m)) :
+      p ∣ s.lcm (fun i : Fin m =>
+        (smithNormalFormFactor snf i).natAbs) ↔
+        ∃ i ∈ s, p ∣ (smithNormalFormFactor snf i).natAbs := by
+    induction s using Finset.induction_on with
+    | empty => simp [hp.ne_one]
+    | @insert a s ha ih =>
+        rw [Finset.lcm_insert]
+        change p ∣ Nat.lcm (smithNormalFormFactor snf a).natAbs
+            (s.lcm (fun i : Fin m =>
+              (smithNormalFormFactor snf i).natAbs)) ↔ _
+        rw [Nat.Prime.dvd_lcm hp]
+        simp only [Finset.mem_insert, exists_eq_or_imp, ih]
+  simpa using hlcm (Finset.univ : Finset (Fin m))
+
 /-- A proposed global annihilator is a multiple of the Smith exponent exactly
 when it is divisible by every Smith-factor modulus. -/
 theorem submoduleCokernel_exponent_dvd_iff_smithFactor_dvd
@@ -3283,6 +3311,19 @@ theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
   exact submoduleCokernel_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-- A prime divides a rectangular lattice cokernel exponent exactly when it
+divides at least one Smith-factor modulus. -/
+theorem matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ↔
+      ∃ i : Fin m, p ∣ (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs := by
+  exact submoduleCokernel_exponent_prime_dvd_iff_smithFactor
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 p hp
 
 /-- The adjugate annihilator gives a determinant bound on the lattice-cokernel
 exponent, valid even for singular square matrices. -/
@@ -5449,6 +5490,40 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
     (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
+
+/-- A prime divides a rectangular finite-torus cokernel exponent exactly when
+it divides at least one Smith-factor modulus. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_prime_dvd_iff_smithFactor
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ↔
+      ∃ i : Fin m, p ∣ (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm A]
+  have hlcm (s : Finset (Fin m)) :
+      p ∣ s.lcm (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs) ↔
+        ∃ i ∈ s, p ∣ (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs := by
+    induction s using Finset.induction_on with
+    | empty => simp [hp.ne_one]
+    | @insert a s ha ih =>
+        rw [Finset.lcm_insert]
+        change p ∣ Nat.lcm
+            (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 a).natAbs
+            (s.lcm (fun i : Fin m =>
+              (smithNormalFormFactor
+                (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                  (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ↔ _
+        rw [Nat.Prime.dvd_lcm hp]
+        simp only [Finset.mem_insert, exists_eq_or_imp, ih]
+  simpa using hlcm (Finset.univ : Finset (Fin m))
 
 /-- The adjugate annihilator gives a determinant bound on the finite-torus
 cokernel exponent, valid even for singular square matrices. -/

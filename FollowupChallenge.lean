@@ -194,6 +194,9 @@ inverse witness, including at arbitrary basepoints.
     For square matrices, a nonzero determinant of the second factor supplies
     injectivity automatically, exposing the same prime-support law directly
     from determinant hypotheses on both cokernel presentations.
+    The Smith presentation gives a factor-level refinement: for every prime
+    `p`, divisibility of a cokernel exponent by `p` is equivalent to
+    divisibility of at least one Smith-factor modulus, on both sides.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

@@ -386,6 +386,12 @@ the formalization proves:
      hypotheses on both lattice and finite-torus cokernel presentations.
 149. these determinant corollaries retain canonical `matrixCompose` forms,
      so arithmetic clients need no intermediate quotient-injectivity proof.
+150. the Smith presentation sharpens prime support to a factor-level test:
+     `p` divides the exponent exactly when it divides one Smith modulus.
+151. this criterion is proved for arbitrary-rank Smith cokernels and then
+     transported to rectangular lattice and finite-torus matrix cokernels.
+152. the factor-level result covers zero and nonzero Smith moduli uniformly,
+     so free coordinates cannot hide from the prime-support certificate.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

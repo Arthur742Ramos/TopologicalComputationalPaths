@@ -186,6 +186,9 @@ Smith decomposition.
 For square matrices, a nonzero determinant of the second factor supplies
 injectivity automatically, exposing the same prime-support law directly from
 determinant hypotheses on both cokernel presentations.
+The Smith presentation gives a factor-level refinement: for every prime `p`,
+divisibility of a cokernel exponent by `p` is equivalent to divisibility of at
+least one Smith-factor modulus, on both sides.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

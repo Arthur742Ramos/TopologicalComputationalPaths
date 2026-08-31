@@ -331,6 +331,9 @@ notation, and interfaces directly with the prime-power Smith factors.
 For square maps, a nonzero determinant of the second factor supplies
 injectivity, so determinant-based lattice and finite-torus corollaries expose
 the same support law without requiring users to construct an injectivity proof.
+At the Smith level, the support is exact factor-by-factor: a prime divides the
+cokernel exponent exactly when it divides one of the Smith-factor moduli, for
+both lattice and finite-torus presentations.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

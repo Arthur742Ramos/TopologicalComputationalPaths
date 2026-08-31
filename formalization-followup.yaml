@@ -139,6 +139,9 @@ project:
     For square matrices, a nonzero determinant of the second factor supplies
     injectivity automatically, so the same law is available directly from
     determinant hypotheses on both lattice and finite-torus cokernels.
+    The Smith presentation gives a factor-level refinement: for every prime
+    `p`, divisibility of a cokernel exponent by `p` is equivalent to
+    divisibility of at least one Smith-factor modulus, on both sides.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -892,6 +895,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For square matrices, a nonzero determinant of the second factor supplies injectivity automatically, so the prime-support law is available directly from determinant hypotheses on both lattice and finite-torus cokernel presentations, including canonical matrixCompose forms."
+    - source: "Finite-torus Smith-factor exponent prime support"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_prime_dvd_iff_smithFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_prime_dvd_iff_smithFactor"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For every prime p, a Smith cokernel exponent is divisible by p exactly when p divides one Smith-factor modulus; the criterion is transported from arbitrary-rank Smith data to rectangular lattice and finite-torus matrix cokernels, including zero factors."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

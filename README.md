@@ -357,6 +357,9 @@ to the prime-power Smith decomposition.
 For square matrices, a nonzero determinant of the second factor discharges
 injectivity automatically, so the same law is directly available from
 determinant hypotheses on both lattice and finite-torus cokernels.
+The Smith presentation gives the corresponding factor-level test: a prime
+divides a cokernel exponent exactly when it divides at least one Smith modulus,
+on both lattice and finite-torus sides.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,
