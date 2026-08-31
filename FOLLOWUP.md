@@ -360,6 +360,14 @@ the formalization proves:
      `matrixCompose` forms.
 136. on the finite-torus side, the same equality is exposed from injectivity of
      the underlying lattice action through the quotient-injectivity iff.
+137. under injectivity of the second map, each successive cokernel exponent
+     divides the composite exponent, so their least common multiple divides it.
+138. this lcm lower bound and the product upper bound give a sharp interval for
+     the exponent of every additive cokernel short exact sequence.
+139. rectangular lattice and finite-torus matrix wrappers expose the lcm bound
+     in explicit composition and canonical `matrixCompose` notation.
+140. the finite-torus lcm theorem is also available from injectivity of the
+     underlying lattice action, via the quotient-injectivity equivalence.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

@@ -309,6 +309,10 @@ underlying lattice action through the quotient-injectivity equivalence.
 The same hypothesis gives a finiteness equivalence: the composite cokernel is
 finite exactly when both successive cokernels are finite, including canonical
 `matrixCompose` presentations.
+The exact sequence also exposes the complementary lower bound: under
+injectivity, the lcm of the successive exponents divides the composite
+exponent.  Together with the product bound, this yields a sharp lcm-to-product
+interval before any coprimality specialization.
 When the successive cokernel exponents are coprime, injectivity of the second
 map upgrades the exponent divisibility bound to equality with their product.
 This sharpening is factored through the abstract exact sequence and exposed

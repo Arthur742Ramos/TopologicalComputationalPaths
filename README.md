@@ -335,6 +335,10 @@ the underlying lattice action, via the proved quotient-injectivity transport.
 Under the same hypothesis, finiteness is equivalent across the exact
 sequence: the composite cokernel is finite exactly when both successive
 cokernels are finite, including the canonical `matrixCompose` forms.
+Under injectivity of the second map, the least common multiple of the two
+successive cokernel exponents divides the composite exponent.  Combined with
+the product upper bound, this gives a sharp lcm-to-product interval for every
+such exact sequence.
 If the two successive cokernel exponents are coprime, injectivity of the
 second map sharpens the exponent divisibility bound to an exact product
 identity.  The theorem is proved abstractly and transported to rectangular
