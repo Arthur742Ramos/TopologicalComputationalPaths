@@ -1,4 +1,6 @@
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
+import Mathlib.Topology.Homotopy.Lifting
 import Mathlib.Topology.Homotopy.Product
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
 
@@ -22,6 +24,7 @@ namespace Path
 namespace GeometricTopology
 
 open CategoryTheory Topology
+open scoped ContinuousMap
 
 noncomputable section
 
@@ -193,17 +196,113 @@ theorem basepointChangeContinuousMulEquiv_apply {x₀ x₁ : X}
     basepointChangeContinuousMulEquiv p q =
       _root_.Path.Homotopic.Quotient.trans
         (_root_.Path.Homotopic.Quotient.trans
-          (Quotient.mk' p.symm) q)
-        (Quotient.mk' p) := by
+          (_root_.Path.Homotopic.Quotient.mk p.symm) q)
+        (_root_.Path.Homotopic.Quotient.mk p) := by
   let α :=
     (CategoryTheory.Groupoid.isoEquivHom
       (FundamentalGroupoid.mk x₀) (FundamentalGroupoid.mk x₁)).symm
-      (Quotient.mk' p)
+      (_root_.Path.Homotopic.Quotient.mk p)
   change α.conj q = _
   calc
     α.conj q = α.inv ≫ q ≫ α.hom := CategoryTheory.Iso.conj_apply α q
     _ = (α.inv ≫ q) ≫ α.hom := (Category.assoc _ _ _).symm
     _ = _ := rfl
+
+/-- Homotopic maps induce conjugate maps on quotient fundamental groups,
+where the conjugation follows the path traced by the basepoint through the
+homotopy.  This is the pointed form of homotopy naturality. -/
+theorem basepointChange_quotientMap_homotopy {f g : C(X, Y)}
+    (H : f.Homotopy g) (x : X) (q : LoopQuot X x) :
+    basepointChangeContinuousMulEquiv (H.evalAt x)
+        (_root_.Path.Homotopic.Quotient.map q f) =
+      _root_.Path.Homotopic.Quotient.map q g := by
+  rw [basepointChangeContinuousMulEquiv_apply]
+  have hn := (FundamentalGroupoidFunctor.homotopicMapsNatIso H).naturality q
+  dsimp [FundamentalGroupoidFunctor.homotopicMapsNatIso] at hn
+  change _root_.Path.Homotopic.Quotient.trans
+      (_root_.Path.Homotopic.Quotient.map q f)
+      (_root_.Path.Homotopic.Quotient.mk (H.evalAt x)) =
+    _root_.Path.Homotopic.Quotient.trans
+      (_root_.Path.Homotopic.Quotient.mk (H.evalAt x))
+      (_root_.Path.Homotopic.Quotient.map q g) at hn
+  rw [_root_.Path.Homotopic.Quotient.mk_symm,
+    _root_.Path.Homotopic.Quotient.trans_assoc, hn,
+    ← _root_.Path.Homotopic.Quotient.trans_assoc,
+    _root_.Path.Homotopic.Quotient.symm_trans,
+    _root_.Path.Homotopic.Quotient.refl_trans]
+
+/-- The algebraic equivalence on fundamental groups induced by a homotopy
+equivalence, obtained from full faithfulness of the corresponding
+fundamental-groupoid equivalence. -/
+noncomputable def homotopyEquivInducedMulEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    LoopQuot X x ≃* LoopQuot Y (e x) :=
+  (FundamentalGroupoidFunctor.equivOfHomotopyEquiv e).fullyFaithfulFunctor
+    |>.mulEquivEnd (FundamentalGroupoid.mk x)
+
+@[simp]
+theorem homotopyEquivInducedMulEquiv_apply
+    (e : X ≃ₕ Y) (x : X) (q : LoopQuot X x) :
+    homotopyEquivInducedMulEquiv e x q =
+      _root_.Path.Homotopic.Quotient.map q e.toFun :=
+  rfl
+
+/-- A homotopy equivalence induces a continuous multiplicative equivalence
+of quotient-topological fundamental groups.  The inverse is postcomposition
+by the homotopy inverse followed by basepoint change along the chosen
+left-inverse homotopy. -/
+noncomputable def homotopyEquivInducedContinuousMulEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    LoopQuot X x ≃ₜ* LoopQuot Y (e x) := by
+  let H := e.left_inv.some
+  let p := H.evalAt x
+  let forward : LoopQuot X x → LoopQuot Y (e x) :=
+    fun q => _root_.Path.Homotopic.Quotient.map q e.toFun
+  let inverse : LoopQuot Y (e x) → LoopQuot X x :=
+    fun q => basepointChangeContinuousMulEquiv p
+      (_root_.Path.Homotopic.Quotient.map q e.invFun)
+  have hleft : Function.LeftInverse inverse forward := by
+    intro q
+    change basepointChangeContinuousMulEquiv p
+        (_root_.Path.Homotopic.Quotient.map
+          (_root_.Path.Homotopic.Quotient.map q e.toFun)
+          e.invFun) = q
+    rw [quotientMap_comp]
+    simpa only [p, H, quotientMap_id] using
+      basepointChange_quotientMap_homotopy H x q
+  have hsurj : Function.Surjective forward := by
+    change Function.Surjective (homotopyEquivInducedMulEquiv e x)
+    exact (homotopyEquivInducedMulEquiv e x).surjective
+  refine
+    { toFun := forward
+      invFun := inverse
+      left_inv := hleft
+      right_inv := hleft.rightInverse_of_surjective hsurj
+      map_mul' := ?_
+      continuous_toFun := continuous_quotientMap e.toFun x
+      continuous_invFun := ?_ }
+  · intro q r
+    exact (FundamentalGroup.map e.toFun x).map_mul q r
+  · exact (basepointChangeContinuousMulEquiv p).continuous.comp
+      (continuous_quotientMap e.invFun (e x))
+
+@[simp]
+theorem homotopyEquivInducedContinuousMulEquiv_apply
+    (e : X ≃ₕ Y) (x : X) (q : LoopQuot X x) :
+    homotopyEquivInducedContinuousMulEquiv e x q =
+      _root_.Path.Homotopic.Quotient.map q e.toFun :=
+  rfl
+
+/-- A covering map induces an injective continuous homomorphism on
+quotient-topological fundamental groups.  The injectivity is the unique
+path-lifting theorem, while continuity comes from compact-open
+postcomposition and quotient descent. -/
+theorem inducedContinuousMonoidHom_injective_of_isCoveringMap
+    {E B : Type*} [TopologicalSpace E] [TopologicalSpace B]
+    {p : E → B} (hp : IsCoveringMap p) (e : E) :
+    Function.Injective
+      (inducedContinuousMonoidHom ⟨p, hp.continuous⟩ e) :=
+  hp.injective_path_homotopic_map e e
 
 /-- On a path-connected space, the quotient-topological fundamental group is
 independent of the chosen basepoint up to continuous multiplicative
@@ -289,6 +388,80 @@ def quotientProductContinuousMulEquiv (x : X) (y : Y)
     rintro ⟨q₁, q₂⟩ ⟨r₁, r₂⟩
     exact
       (_root_.Path.Homotopic.comp_prod_eq_prod_comp r₁ r₂ q₁ q₂).symm
+
+section IndexedProducts
+
+universe w
+
+variable {ι : Type w} {Z : ι → Type u}
+variable [∀ i, TopologicalSpace (Z i)]
+
+/-- Coordinatewise assembly of an indexed family of based paths is
+continuous for the compact-open path topologies. -/
+theorem continuous_loopPi (z : ∀ i, Z i) :
+    Continuous
+      (fun γ : ∀ i, Loop (Z i) (z i) => _root_.Path.pi γ) := by
+  apply _root_.Path.continuous_uncurry_iff.mp
+  change Continuous
+    (fun p : (∀ i, Loop (Z i) (z i)) × unitInterval =>
+      fun i => p.1 i p.2)
+  fun_prop
+
+/-- The indexed product of the based-loop quotient maps. -/
+def loopQuotientPiMap (z : ∀ i, Z i) :
+    (∀ i, Loop (Z i) (z i)) → (∀ i, LoopQuot (Z i) (z i)) :=
+  fun γ i => Quotient.mk' (γ i)
+
+/-- Under the exact indexed product-quotient hypothesis, assembly of a
+family of path classes is continuous. -/
+theorem continuous_quotientPi (z : ∀ i, Z i)
+    (hpi : IsQuotientMap (loopQuotientPiMap z)) :
+    Continuous
+      (fun q : ∀ i, LoopQuot (Z i) (z i) =>
+        _root_.Path.Homotopic.pi q) := by
+  apply hpi.continuous_iff.mpr
+  exact ((loopQuotient_isQuotientMap (∀ i, Z i) z).continuous.comp
+    (continuous_loopPi z)).congr fun γ =>
+      (_root_.Path.Homotopic.pi_lift γ).symm
+
+/-- Algebraic indexed-product classification of based path classes. -/
+def quotientPiEquiv (z : ∀ i, Z i) :
+    (∀ i, LoopQuot (Z i) (z i)) ≃
+      LoopQuot (∀ i, Z i) z where
+  toFun := _root_.Path.Homotopic.pi
+  invFun q i := _root_.Path.Homotopic.proj i q
+  left_inv q := funext fun i => _root_.Path.Homotopic.proj_pi i q
+  right_inv := _root_.Path.Homotopic.pi_proj
+
+/-- All coordinate projections from the quotient fundamental group of an
+indexed product are jointly continuous. -/
+theorem continuous_quotientPiProjections (z : ∀ i, Z i) :
+    Continuous (quotientPiEquiv z).invFun := by
+  apply continuous_pi
+  intro i
+  exact continuous_quotientMap ⟨_, continuous_apply i⟩ z
+
+/-- The quotient fundamental group preserves an indexed product whenever
+the indexed product of loop quotient maps is itself a quotient map. -/
+def quotientPiHomeomorph (z : ∀ i, Z i)
+    (hpi : IsQuotientMap (loopQuotientPiMap z)) :
+    (∀ i, LoopQuot (Z i) (z i)) ≃ₜ
+      LoopQuot (∀ i, Z i) z where
+  toEquiv := quotientPiEquiv z
+  continuous_toFun := continuous_quotientPi z hpi
+  continuous_invFun := continuous_quotientPiProjections z
+
+/-- Multiplicative indexed-product preservation under the exact quotient
+hypothesis. -/
+def quotientPiContinuousMulEquiv (z : ∀ i, Z i)
+    (hpi : IsQuotientMap (loopQuotientPiMap z)) :
+    (∀ i, LoopQuot (Z i) (z i)) ≃ₜ*
+      LoopQuot (∀ i, Z i) z :=
+  ContinuousMulEquiv.mk' (quotientPiHomeomorph z hpi) <| by
+    intro q r
+    exact (_root_.Path.Homotopic.comp_pi_eq_pi_comp r q).symm
+
+end IndexedProducts
 
 end QuotientFundamentalGroup
 

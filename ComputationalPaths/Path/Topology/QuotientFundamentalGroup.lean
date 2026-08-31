@@ -166,6 +166,88 @@ theorem isOpen_singleton_refl_iff :
     _ ↔ IsOpen (nullHomotopyClass X x) := by
       rw [preimage_singleton_refl]
 
+/-- The identity class is closed precisely when the null-homotopy class is
+closed upstairs in the compact-open based loop space. -/
+theorem isClosed_singleton_refl_iff :
+    IsClosed ({_root_.Path.Homotopic.Quotient.refl x} :
+      Set (LoopQuot X x)) ↔
+      IsClosed (nullHomotopyClass X x) := by
+  calc
+    IsClosed ({_root_.Path.Homotopic.Quotient.refl x} :
+      Set (LoopQuot X x)) ↔
+        IsClosed
+          ((Quotient.mk' : Loop X x → LoopQuot X x) ⁻¹'
+            {_root_.Path.Homotopic.Quotient.refl x}) :=
+      (loopQuotient_isQuotientMap X x).isClosed_preimage.symm
+    _ ↔ IsClosed (nullHomotopyClass X x) := by
+      rw [preimage_singleton_refl]
+
+/-- Exact T1 criterion for the quotient-topological fundamental group.  By
+homogeneity it suffices to test the identity class, whose inverse image is
+the null-homotopy class of loops. -/
+theorem t1Space_iff_isClosed_nullHomotopyClass :
+    T1Space (LoopQuot X x) ↔
+      IsClosed (nullHomotopyClass X x) := by
+  constructor
+  · intro hT1
+    letI : T1Space (LoopQuot X x) := hT1
+    exact (isClosed_singleton_refl_iff X x).mp isClosed_singleton
+  · intro hclosed
+    have hclosedRefl :
+        IsClosed ({_root_.Path.Homotopic.Quotient.refl x} :
+          Set (LoopQuot X x)) :=
+      (isClosed_singleton_refl_iff X x).mpr hclosed
+    refine ⟨fun q => ?_⟩
+    have hcontinuous :
+        Continuous
+          (fun y : LoopQuot X x =>
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.symm q) y) :=
+      continuous_quotientTrans_left X x _
+    have hpreimage :
+        (fun y : LoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.symm q) y) ⁻¹'
+              {_root_.Path.Homotopic.Quotient.refl x} = {q} := by
+      ext y
+      change y * q⁻¹ = 1 ↔ y = q
+      exact mul_inv_eq_one
+    rw [← hpreimage]
+    exact hclosedRefl.preimage hcontinuous
+
+/-- The T1 separation property is equivalent to closedness of every based
+loop homotopy class in the compact-open loop space. -/
+theorem t1Space_iff_all_homotopyClasses_closed :
+    T1Space (LoopQuot X x) ↔
+      ∀ γ : Loop X x, IsClosed {δ : Loop X x | γ.Homotopic δ} := by
+  constructor
+  · intro hT1
+    letI : T1Space (LoopQuot X x) := hT1
+    intro γ
+    have hclosedSingleton :
+        IsClosed ({Quotient.mk' γ} : Set (LoopQuot X x)) :=
+      isClosed_singleton
+    have hclosedFiber :
+        IsClosed
+          ((Quotient.mk' : Loop X x → LoopQuot X x) ⁻¹'
+            ({Quotient.mk' γ} : Set (LoopQuot X x))) :=
+      hclosedSingleton.preimage (loopQuotient_isQuotientMap X x).continuous
+    convert hclosedFiber using 1
+    ext δ
+    change γ.Homotopic δ ↔ Quotient.mk' δ = Quotient.mk' γ
+    constructor
+    · intro h
+      exact Quotient.sound h.symm
+    · intro h
+      exact (Quotient.exact h).symm
+  · intro hclasses
+    apply (t1Space_iff_isClosed_nullHomotopyClass X x).mpr
+    convert hclasses (_root_.Path.refl x) using 1
+    ext γ
+    constructor <;> intro h
+    · exact h.symm
+    · exact h.symm
+
 /-- Exact discreteness criterion for the quotient-topological fundamental
 group: discreteness is equivalent to openness of the null-homotopy class in
 the compact-open based loop space. -/
@@ -262,6 +344,93 @@ theorem loopQuotientProd_isQuotientMap
     ((loopQuotient_isOpenQuotientMap X x hopen).prodMap
       (loopQuotient_isOpenQuotientMap X x hopen)).isQuotientMap
 
+/-- The product of the based-loop quotient map with itself is exactly the
+descent hypothesis needed for joint continuity of quotient multiplication.
+No discreteness assumption is required for this implication. -/
+theorem continuous_quotientTrans_of_isQuotientMap
+    (hprod : IsQuotientMap
+      (fun p : Loop X x × Loop X x =>
+        ((Quotient.mk' p.1 : LoopQuot X x),
+          (Quotient.mk' p.2 : LoopQuot X x)))) :
+    Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
+  apply hprod.continuous_iff.mpr
+  exact (loopQuotient_isQuotientMap X x).continuous.comp
+    (Continuous.path_trans continuous_fst continuous_snd)
+
+/-- Consequently, discontinuous quotient multiplication certifies failure
+of the product-quotient hypothesis.  This is the abstract sharpness bridge
+used by Hawaiian-earring counterexamples. -/
+theorem not_isQuotientMap_loopQuotientProd_of_not_continuous
+    (hnot : ¬ Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.1 p.2)) :
+    ¬ IsQuotientMap
+      (fun p : Loop X x × Loop X x =>
+        ((Quotient.mk' p.1 : LoopQuot X x),
+          (Quotient.mk' p.2 : LoopQuot X x))) := by
+  intro hprod
+  exact hnot (continuous_quotientTrans_of_isQuotientMap X x hprod)
+
+/-- Continuous inversion is always available as a topological-group
+structure component on the quotient fundamental group. -/
+theorem quotientContinuousInv :
+    ContinuousInv (LoopQuot X x) where
+  continuous_inv := by
+    change Continuous
+      (_root_.Path.Homotopic.Quotient.symm :
+        LoopQuot X x → LoopQuot X x)
+    exact continuous_quotientSymm X x
+
+/-- Joint continuity of path-class concatenation supplies the multiplication
+component of a genuine topological-group structure. -/
+theorem quotientContinuousMulOfContinuousTrans
+    (htrans : Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.1 p.2)) :
+    ContinuousMul (LoopQuot X x) where
+  continuous_mul := by
+    change Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.2 p.1)
+    exact htrans.comp (continuous_snd.prodMk continuous_fst)
+
+/-- The quotient topology already realizes the corresponding topological
+group exactly when quotient concatenation is jointly continuous.  This is
+the agreement boundary used when comparing the quotient construction with a
+topological-group reflection. -/
+theorem continuous_quotientTrans_iff_topologicalGroupStructure :
+    Continuous
+        (fun p : LoopQuot X x × LoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) ↔
+      Nonempty (ContinuousMul (LoopQuot X x)) := by
+  constructor
+  · exact fun h => ⟨quotientContinuousMulOfContinuousTrans X x h⟩
+  · rintro ⟨hmul⟩
+    letI : ContinuousMul (LoopQuot X x) := hmul
+    have hmul' : Continuous
+        (fun p : LoopQuot X x × LoopQuot X x => p.1 * p.2) :=
+      continuous_mul
+    have h := hmul'.comp (continuous_snd.prodMk continuous_fst)
+    change Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.1 p.2) at h
+    exact h
+
+/-- Under the product-quotient hypothesis the quotient topology itself is a
+genuine topological-group topology; no further reflection changes it. -/
+theorem topologicalGroupStructure_of_isQuotientMap
+    (hprod : IsQuotientMap
+      (fun p : Loop X x × Loop X x =>
+        ((Quotient.mk' p.1 : LoopQuot X x),
+          (Quotient.mk' p.2 : LoopQuot X x)))) :
+    Nonempty (ContinuousMul (LoopQuot X x)) ∧
+      Nonempty (ContinuousInv (LoopQuot X x)) :=
+  ⟨⟨quotientContinuousMulOfContinuousTrans X x
+      (continuous_quotientTrans_of_isQuotientMap X x hprod)⟩,
+    ⟨quotientContinuousInv X x⟩⟩
+
 /-- Under the exact discreteness criterion, quotient multiplication is jointly
 continuous for the ordinary product topology. -/
 theorem continuous_quotientTrans
@@ -269,9 +438,8 @@ theorem continuous_quotientTrans
     Continuous
       (fun p : LoopQuot X x × LoopQuot X x =>
         _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
-  letI : DiscreteTopology (LoopQuot X x) :=
-    quotientDiscreteTopology X x hopen
-  exact continuous_of_discreteTopology
+  exact continuous_quotientTrans_of_isQuotientMap X x
+    (loopQuotientProd_isQuotientMap X x hopen)
 
 end QuotientFundamentalGroup
 

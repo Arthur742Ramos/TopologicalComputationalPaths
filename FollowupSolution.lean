@@ -3,7 +3,11 @@ import Mathlib.Topology.Homotopy.Product
 import Mathlib.Topology.Homotopy.HSpaces
 import Mathlib.Topology.Instances.AddCircle.Real
 import Mathlib.Topology.Maps.OpenQuotient
+import Mathlib.Topology.Algebra.ContinuousMonoidHom
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
+import Mathlib.Topology.Homotopy.Lifting
 import ComputationalPaths
+import Solution
 
 /-!
 # Follow-up solution: quotient-topological fundamental groups
@@ -72,6 +76,12 @@ structure QuotientTopologicalFundamentalGroupTheory where
       ∃ E : GenericLoopQuot X x ≃ₜ GenericLoopQuot Y (e x),
         ∀ q : GenericLoopQuot X x,
           E q = _root_.Path.Homotopic.Quotient.map q ⟨e, e.continuous⟩
+  quotient_homotopy_equiv_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x : X),
+      ∃ E : GenericLoopQuot X x ≃ₜ GenericLoopQuot Y (e x),
+        ∀ q : GenericLoopQuot X x,
+          E q = _root_.Path.Homotopic.Quotient.map q e.toFun
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),
@@ -97,6 +107,15 @@ structure QuotientTopologicalFundamentalGroupTheory where
             GenericLoopQuot (X × Y) (x, y),
           ∀ q : GenericLoopQuot X x × GenericLoopQuot Y y,
             E q = _root_.Path.Homotopic.prod q.1 q.2
+  quotient_product_hypothesis_sharp :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      (¬ Continuous
+        (fun p : GenericLoopQuot X x × GenericLoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2)) →
+      ¬ IsQuotientMap
+        (fun p : GenericLoop X x × GenericLoop X x =>
+          ((Quotient.mk' p.1 : GenericLoopQuot X x),
+            (Quotient.mk' p.2 : GenericLoopQuot X x)))
   quotient_symm_continuous :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       Continuous
@@ -122,6 +141,32 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       DiscreteTopology (GenericLoopQuot X x) ↔
         IsOpen (nullHomotopyClass X x)
+  quotient_t1_iff_null_class_closed :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      T1Space (GenericLoopQuot X x) ↔
+        IsClosed (nullHomotopyClass X x)
+  quotient_t1_iff_all_classes_closed :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      T1Space (GenericLoopQuot X x) ↔
+        ∀ γ : GenericLoop X x,
+          IsClosed {δ : GenericLoop X x | γ.Homotopic δ}
+  quotient_discrete_implies_semilocally_simply_connected :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      DiscreteTopology (GenericLoopQuot X x) →
+        ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnectedAt
+          X x
+  covering_map_induces_injection :
+    ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
+      (p : E → B) (hp : IsCoveringMap p) (e : E),
+      Function.Injective
+        (fun q : GenericLoopQuot E e =>
+          _root_.Path.Homotopic.Quotient.map q ⟨p, hp.continuous⟩)
+  quotient_topological_group_agreement :
+    ∀ (X : Type u) [TopologicalSpace X] (x : X),
+      Continuous
+          (fun p : GenericLoopQuot X x × GenericLoopQuot X x =>
+            _root_.Path.Homotopic.Quotient.trans p.1 p.2) ↔
+        Nonempty (ContinuousMul (GenericLoopQuot X x))
   homotopy_classes_open_of_null_class_open :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       IsOpen (nullHomotopyClass X x) →
@@ -196,6 +241,18 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       (_root_.Path.Homotopic.Quotient.symm :
         LoopQuot n → LoopQuot n)
 
+/-- The accepted Fabel-style Hawaiian-earring facts instantiate the abstract
+sharpness theorem: the square of the genuine based-loop quotient map is not
+a quotient map. -/
+theorem hawaiianEarring_loopQuotientProd_not_quotient
+    (F : TopologicalComputationalPaths.FabelHawaiianEarringFacts) :
+    ¬ IsQuotientMap
+      (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProdMap
+        TopologicalComputationalPaths.hawaiianBase
+        TopologicalComputationalPaths.hawaiianBase) := by
+  apply ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.not_isQuotientMap_loopQuotientProd_of_not_continuous
+  exact TopologicalComputationalPaths.FabelHawaiianEarringFacts.multiplication_not_continuous F
+
 open ComputationalPaths.Path.GeometricTopology
 
 theorem main_result :
@@ -221,6 +278,14 @@ theorem main_result :
           ?_⟩
         intro q
         rfl
+      quotient_homotopy_equiv_invariant := by
+        intro X Y _ _ e x
+        refine ⟨
+          (QuotientFundamentalGroup.homotopyEquivInducedContinuousMulEquiv
+            e x).toHomeomorph,
+          ?_⟩
+        intro q
+        rfl
       quotient_basepoint_change := by
         intro X _ x₀ x₁ p
         refine ⟨
@@ -242,6 +307,8 @@ theorem main_result :
           ?_⟩
         intro q
         rfl
+      quotient_product_hypothesis_sharp :=
+        QuotientFundamentalGroup.not_isQuotientMap_loopQuotientProd_of_not_continuous
       quotient_symm_continuous :=
         QuotientFundamentalGroup.continuous_quotientSymm
       quotient_trans_left_continuous :=
@@ -252,6 +319,21 @@ theorem main_result :
         QuotientFundamentalGroup.quotientHomogeneous
       quotient_discrete_iff_null_class_open :=
         QuotientFundamentalGroup.discreteTopology_iff_isOpen_nullHomotopyClass
+      quotient_t1_iff_null_class_closed :=
+        QuotientFundamentalGroup.t1Space_iff_isClosed_nullHomotopyClass
+      quotient_t1_iff_all_classes_closed :=
+        QuotientFundamentalGroup.t1Space_iff_all_homotopyClasses_closed
+      quotient_discrete_implies_semilocally_simply_connected := by
+        intro X _ x hdiscrete
+        letI : DiscreteTopology (GenericLoopQuot X x) := hdiscrete
+        exact QuotientFundamentalGroup.semilocallySimplyConnectedAt_of_discreteTopology
+          X x
+      covering_map_induces_injection := by
+        intro E B _ _ p hp e
+        exact QuotientFundamentalGroup.inducedContinuousMonoidHom_injective_of_isCoveringMap
+          hp e
+      quotient_topological_group_agreement :=
+        QuotientFundamentalGroup.continuous_quotientTrans_iff_topologicalGroupStructure
       homotopy_classes_open_of_null_class_open :=
         QuotientFundamentalGroup.isOpen_homotopyClass_of_isOpen_nullHomotopyClass
       quotient_open_of_null_class_open :=

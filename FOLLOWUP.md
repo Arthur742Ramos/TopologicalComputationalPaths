@@ -10,25 +10,35 @@ the formalization proves:
 
 1. every continuous map induces a continuous homomorphism, with formal
    identity and composition laws;
-2. homeomorphisms induce continuous multiplicative equivalences;
+2. homotopy equivalences induce continuous multiplicative equivalences
+   (strictly strengthening homeomorphism invariance);
 3. every path between basepoints induces a continuous multiplicative
    equivalence between the corresponding quotient fundamental groups;
-4. binary products are preserved by a continuous multiplicative equivalence
-   whenever the product of the two loop projections is a quotient map;
+4. arbitrary indexed products are preserved by a continuous multiplicative
+   equivalence whenever the indexed product of the loop projections is a
+   quotient map (with the binary theorem as a concrete specialization);
 5. reversal is continuous;
 6. concatenation is continuous in each variable separately;
 7. right translations are homeomorphisms, so the quotient is homogeneous;
-8. the quotient is discrete if and only if the null-homotopy class is open in
+8. the quotient is T1 if and only if the null-homotopy class is closed,
+   equivalently if every based-loop homotopy class is closed;
+9. the quotient is discrete if and only if the null-homotopy class is open in
    the based loop space; and
-9. under that exact criterion, every homotopy class is open, the quotient map
+10. discreteness implies semilocal simple connectivity at the basepoint; and
+11. under the exact open-null-class criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
 
 The distinction between separate and joint continuity is essential.  The
-general result is compatible with the accepted package's Hawaiian-earring
-obstruction: every quotient-topological fundamental group has the separate
-continuity laws, while the product-quotient condition needed for joint
-continuity can fail.
+formalization now proves that discontinuous quotient multiplication forces
+the product of loop quotient maps not to be a quotient map, and instantiates
+this theorem with the accepted package's Fabel-style Hawaiian-earring facts.
+Thus the product hypothesis is formally sharp at the existing negative
+example.  It also proves that the quotient topology itself is a genuine
+topological-group topology exactly when multiplication is jointly continuous.
+
+Covering maps additionally induce injective continuous homomorphisms on these
+quotient fundamental groups, by unique path lifting.
 
 ## Finite-torus application
 

@@ -5,5 +5,6 @@ import ComputationalPaths.Path.Topology.ConcreteTorusWinding
 import ComputationalPaths.Path.Topology.ContinuousCompleteInvariant
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroupFunctorial
+import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
 import ComputationalPaths.Path.Topology.FiniteTorusWinding
