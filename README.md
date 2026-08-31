@@ -194,6 +194,14 @@ surjective maps by zero extension.
 For an arbitrary index map, the image is characterized exactly as the
 fiber-constant part of the target winding lattice, equivalently at the typed
 quotient level.
+The converse criteria are exact: these reindexing maps are injective exactly
+for surjective index maps and surjective exactly for injective index maps.
+This holds simultaneously for the raw finite-torus maps, their integer
+lattice classifiers, and the typed quotient loop maps.
+Typed quotient coordinate selection is also exposed as a contravariant
+additive functor, continuous for the discrete quotient topologies, with
+explicit identity/composition laws and a kernel description by vanishing on
+the coordinates hit by the index map.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

@@ -32,7 +32,10 @@ the torus coordinate map and lattice reindexing are upgraded to continuous
 homeomorphisms and additive equivalences, with matching coherence laws.
 Surjective and injective index maps additionally give the exact injectivity
 and surjectivity behavior of the torus map, lattice reindexing, and typed
-quotient map.
+quotient map, including converses.  The typed quotient maps compose
+contravariantly and are additive homomorphisms for the transported winding
+groups (continuously for the discrete quotient topologies); their kernels are
+exactly the classes whose winding vanishes on the image of the index map.
 -/
 
 namespace ComputationalPaths
@@ -218,6 +221,46 @@ theorem coordinateReindex_surjective_of_injective {n m : ℕ}
   funext j
   exact Function.Injective.extend_apply hf w (fun _ => 0) j
 
+/-- Reindexing is injective exactly when the index map is surjective. -/
+theorem coordinateReindex_injective_iff_surjective {n m : ℕ}
+    (f : Fin m → Fin n) :
+    Function.Injective (coordinateReindex f) ↔ Function.Surjective f := by
+  constructor
+  · intro hinj
+    by_contra hsurj
+    simp only [Function.Surjective, not_forall, not_exists] at hsurj
+    obtain ⟨i, hi⟩ := hsurj
+    let z : Fin n → ℤ := fun l => if l = i then 1 else 0
+    have hz : coordinateReindex f z = coordinateReindex f 0 := by
+      funext j
+      have hne : f j ≠ i := hi j
+      simp [coordinateReindex, z, hne]
+    have hz' := hinj hz
+    have hi0 := congrFun hz' i
+    simp [z] at hi0
+  · exact coordinateReindex_injective_of_surjective f
+
+/-- Reindexing is surjective exactly when the index map is injective. -/
+theorem coordinateReindex_surjective_iff_injective {n m : ℕ}
+    (f : Fin m → Fin n) :
+    Function.Surjective (coordinateReindex f) ↔ Function.Injective f := by
+  constructor
+  · intro hsurj j k hfjk
+    by_contra hne
+    let w : Fin m → ℤ := fun l => if l = k then 1 else 0
+    obtain ⟨z, hz⟩ := hsurj w
+    have hzw : w j = w k := by
+      calc
+        w j = z (f j) := by
+          simpa [coordinateReindex] using (congrFun hz j).symm
+        _ = z (f k) := by rw [hfjk]
+        _ = w k := by simpa [coordinateReindex] using congrFun hz k
+    have hjw : w j = 0 := by simp [w, hne]
+    have hkw : w k = 1 := by simp [w]
+    rw [hjw, hkw] at hzw
+    norm_num at hzw
+  · exact coordinateReindex_surjective_of_injective f
+
 /-- The image of a lattice reindexing consists exactly of vectors constant on
 the fibers of its index map. -/
 theorem coordinateReindex_mem_range_iff {n m : ℕ} (f : Fin m → Fin n)
@@ -235,6 +278,21 @@ theorem coordinateReindex_mem_range_iff {n m : ℕ} (f : Fin m → Fin n)
       intro a b hab
       exact h hab
     exact hfactor.extend_apply (fun _ => 0) j
+
+/-- A lattice vector lies in the kernel of reindexing exactly when it
+vanishes on the image of the index map. -/
+theorem coordinateReindex_eq_zero_iff {n m : ℕ} (f : Fin m → Fin n)
+    (z : Fin n → ℤ) :
+    coordinateReindex f z = 0 ↔
+      ∀ i ∈ Set.range f, z i = 0 := by
+  constructor
+  · intro h i hi
+    obtain ⟨j, rfl⟩ := hi
+    have hj := congrFun h j
+    simpa [coordinateReindex] using hj
+  · intro h
+    funext j
+    exact h (f j) ⟨j, rfl⟩
 
 /-- Coordinate-selection maps respect composition of index maps. -/
 theorem coordinateProjection_comp {n m k : ℕ} (f : Fin m → Fin n)
@@ -270,6 +328,60 @@ theorem coordinateProjection_surjective_of_injective {n m : ℕ}
   refine ⟨z, ?_⟩
   funext j
   exact Function.Injective.extend_apply hf x (fun _ => 0) j
+
+/-- A coordinate map of finite tori is injective exactly when its index map is
+surjective. -/
+theorem coordinateProjection_injective_iff_surjective {n m : ℕ}
+    (f : Fin m → Fin n) :
+    Function.Injective (coordinateProjection f) ↔ Function.Surjective f := by
+  constructor
+  · intro hinj
+    by_contra hsurj
+    simp only [Function.Surjective, not_forall, not_exists] at hsurj
+    obtain ⟨i, hi⟩ := hsurj
+    let a : TopologicalCircle := circleCover 0
+    let b : TopologicalCircle := circleCover (cut 0)
+    have hab : a ≠ b := by
+      change circleCover 0 ≠ circleCover (cut 0)
+      exact circleCover_ne_cut 0
+    let x : Carrier n := fun l => if l = i then a else b
+    let y : Carrier n := fun _ => b
+    have hxy : coordinateProjection f x = coordinateProjection f y := by
+      funext j
+      have hne : f j ≠ i := hi j
+      simp [coordinateProjection, x, y, hne]
+    have hxy' := hinj hxy
+    have hi0 := congrFun hxy' i
+    have hab' : a = b := by simpa [x, y] using hi0
+    exact hab hab'
+  · exact coordinateProjection_injective_of_surjective f
+
+/-- A coordinate map of finite tori is surjective exactly when its index map
+is injective. -/
+theorem coordinateProjection_surjective_iff_injective {n m : ℕ}
+    (f : Fin m → Fin n) :
+    Function.Surjective (coordinateProjection f) ↔ Function.Injective f := by
+  constructor
+  · intro hsurj j k hfjk
+    by_contra hne
+    let a : TopologicalCircle := circleCover 0
+    let b : TopologicalCircle := circleCover (cut 0)
+    have hab : a ≠ b := by
+      change circleCover 0 ≠ circleCover (cut 0)
+      exact circleCover_ne_cut 0
+    let x : Carrier m := fun l => if l = k then a else b
+    obtain ⟨z, hz⟩ := hsurj x
+    have hxjk : x j = x k := by
+      calc
+        x j = z (f j) := by
+          simpa [coordinateProjection] using (congrFun hz j).symm
+        _ = z (f k) := by rw [hfjk]
+        _ = x k := by simpa [coordinateProjection] using congrFun hz k
+    have hjx : x j = b := by simp [x, hne]
+    have hkx : x k = a := by simp [x]
+    rw [hjx, hkx] at hxjk
+    exact hab hxjk.symm
+  · exact coordinateProjection_surjective_of_injective f
 
 /-- Winding vectors are natural under coordinate selection: the induced loop
 map simply reindexes the vector. -/
@@ -436,6 +548,30 @@ noncomputable def equivIntVector (n : ℕ) : LoopQuot n ≃ (Fin n → ℤ) wher
   left_inv := decode_encode
   right_inv := encode_decode
 
+/-- Typed quotient coordinate maps compose contravariantly. -/
+theorem coordinateProjectionQuotientMap_comp {n m k : ℕ}
+    (f : Fin m → Fin n) (g : Fin k → Fin m) (q : LoopQuot n) :
+    coordinateProjectionQuotientMap g (coordinateProjectionQuotientMap f q) =
+      coordinateProjectionQuotientMap (f ∘ g) q := by
+  apply (equivIntVector k).injective
+  change encode (coordinateProjectionQuotientMap g
+      (coordinateProjectionQuotientMap f q)) =
+    encode (coordinateProjectionQuotientMap (f ∘ g) q)
+  rw [encode_coordinateProjectionQuotientMap,
+    encode_coordinateProjectionQuotientMap,
+    encode_coordinateProjectionQuotientMap]
+  rfl
+
+/-- Typed quotient coordinate selection along the identity is the identity. -/
+theorem coordinateProjectionQuotientMap_id {n : ℕ} (q : LoopQuot n) :
+    coordinateProjectionQuotientMap (id : Fin n → Fin n) q = q := by
+  apply (equivIntVector n).injective
+  change encode (coordinateProjectionQuotientMap (id : Fin n → Fin n) q) =
+    encode q
+  rw [encode_coordinateProjectionQuotientMap]
+  rw [coordinateReindex_id]
+  rfl
+
 /-- A surjective index map induces an injective map on finite-torus loop
 classes. -/
 theorem coordinateProjectionQuotientMap_injective_of_surjective
@@ -459,6 +595,45 @@ theorem coordinateProjectionQuotientMap_surjective_of_injective
   apply (equivIntVector m).injective
   change encode (coordinateProjectionQuotientMap f (decode z)) = encode q
   rw [encode_coordinateProjectionQuotientMap, encode_decode, hz]
+
+/-- A typed quotient coordinate map is injective exactly when its index map is
+surjective. -/
+theorem coordinateProjectionQuotientMap_injective_iff_surjective
+    {n m : ℕ} (f : Fin m → Fin n) :
+    Function.Injective (coordinateProjectionQuotientMap f) ↔
+      Function.Surjective f := by
+  constructor
+  · intro h
+    apply (coordinateReindex_injective_iff_surjective f).mp
+    intro z w hzw
+    have hmap : coordinateProjectionQuotientMap f (decode z) =
+        coordinateProjectionQuotientMap f (decode w) := by
+      apply (equivIntVector m).injective
+      change encode (coordinateProjectionQuotientMap f (decode z)) =
+        encode (coordinateProjectionQuotientMap f (decode w))
+      rw [encode_coordinateProjectionQuotientMap,
+        encode_coordinateProjectionQuotientMap, encode_decode,
+        encode_decode, hzw]
+    have hdec := h hmap
+    have henc := congrArg (fun q => encode q) hdec
+    simpa only [encode_decode] using henc
+  · exact coordinateProjectionQuotientMap_injective_of_surjective f
+
+/-- A typed quotient coordinate map is surjective exactly when its index map
+is injective. -/
+theorem coordinateProjectionQuotientMap_surjective_iff_injective
+    {n m : ℕ} (f : Fin m → Fin n) :
+    Function.Surjective (coordinateProjectionQuotientMap f) ↔
+      Function.Injective f := by
+  constructor
+  · intro h
+    apply (coordinateReindex_surjective_iff_injective f).mp
+    intro w
+    obtain ⟨q, hq⟩ := h (decode w)
+    have henc := congrArg (fun q => encode q) hq
+    rw [encode_coordinateProjectionQuotientMap, encode_decode] at henc
+    exact ⟨encode q, henc⟩
+  · exact coordinateProjectionQuotientMap_surjective_of_injective f
 
 /-- The image of the typed quotient map is exactly the set of classes whose
 winding vectors are constant on the fibers of the index map. -/
@@ -504,6 +679,108 @@ theorem quotientTrans_eq_add {n : ℕ} (x y : LoopQuot n) :
   change encode (_root_.Path.Homotopic.Quotient.trans x y) = encode (x + y)
   rw [encode_trans]
   exact (loopQuotAddEquivIntVector n).map_add x y |>.symm
+
+/-- Typed quotient coordinate selection preserves the zero loop class. -/
+theorem coordinateProjectionQuotientMap_map_zero {n m : ℕ}
+    (f : Fin m → Fin n) :
+    coordinateProjectionQuotientMap f (0 : LoopQuot n) = (0 : LoopQuot m) := by
+  apply (equivIntVector m).injective
+  change encode (coordinateProjectionQuotientMap f (0 : LoopQuot n)) =
+    encode (0 : LoopQuot m)
+  rw [encode_coordinateProjectionQuotientMap]
+  have hn : encode (0 : LoopQuot n) = 0 :=
+    (loopQuotAddEquivIntVector n).map_zero
+  have hm : encode (0 : LoopQuot m) = 0 :=
+    (loopQuotAddEquivIntVector m).map_zero
+  rw [hn, hm]
+  rfl
+
+/-- Typed quotient coordinate selection preserves concatenation/addition. -/
+theorem coordinateProjectionQuotientMap_map_add {n m : ℕ}
+    (f : Fin m → Fin n) (x y : LoopQuot n) :
+    coordinateProjectionQuotientMap f (x + y) =
+      coordinateProjectionQuotientMap f x + coordinateProjectionQuotientMap f y := by
+  apply (equivIntVector m).injective
+  change encode (coordinateProjectionQuotientMap f (x + y)) =
+    encode (coordinateProjectionQuotientMap f x + coordinateProjectionQuotientMap f y)
+  rw [encode_coordinateProjectionQuotientMap]
+  have hxy : encode (x + y) = encode x + encode y :=
+    (loopQuotAddEquivIntVector n).map_add x y
+  have hmap :
+      encode (coordinateProjectionQuotientMap f x +
+        coordinateProjectionQuotientMap f y) =
+        encode (coordinateProjectionQuotientMap f x) +
+          encode (coordinateProjectionQuotientMap f y) :=
+    (loopQuotAddEquivIntVector m).map_add _ _
+  rw [hxy, hmap, encode_coordinateProjectionQuotientMap,
+    encode_coordinateProjectionQuotientMap]
+  rfl
+
+/-- The typed quotient coordinate map is a homomorphism of the transported
+integer-winding additive groups. -/
+noncomputable def coordinateProjectionQuotientAddHom {n m : ℕ}
+    (f : Fin m → Fin n) : LoopQuot n →+ LoopQuot m where
+  toFun := coordinateProjectionQuotientMap f
+  map_zero' := coordinateProjectionQuotientMap_map_zero f
+  map_add' := coordinateProjectionQuotientMap_map_add f
+
+@[simp] theorem coordinateProjectionQuotientAddHom_apply {n m : ℕ}
+    (f : Fin m → Fin n) (q : LoopQuot n) :
+    coordinateProjectionQuotientAddHom f q =
+      coordinateProjectionQuotientMap f q :=
+  rfl
+
+/-- The quotient additive maps satisfy the same contravariant composition law. -/
+theorem coordinateProjectionQuotientAddHom_comp {n m k : ℕ}
+    (f : Fin m → Fin n) (g : Fin k → Fin m) :
+    coordinateProjectionQuotientAddHom (f ∘ g) =
+      (coordinateProjectionQuotientAddHom g).comp
+        (coordinateProjectionQuotientAddHom f) := by
+  ext q
+  exact (coordinateProjectionQuotientMap_comp f g q).symm
+
+/-- The quotient additive map associated to the identity index map is the
+identity homomorphism. -/
+theorem coordinateProjectionQuotientAddHom_id (n : ℕ) :
+    coordinateProjectionQuotientAddHom (id : Fin n → Fin n) =
+      AddMonoidHom.id (LoopQuot n) := by
+  ext q
+  exact coordinateProjectionQuotientMap_id q
+
+/-- The quotient coordinate map has the same exact kernel description as its
+lattice classifier. -/
+theorem coordinateProjectionQuotientMap_eq_zero_iff {n m : ℕ}
+    (f : Fin m → Fin n) (q : LoopQuot n) :
+    coordinateProjectionQuotientMap f q = (0 : LoopQuot m) ↔
+      ∀ i ∈ Set.range f, encode q i = 0 := by
+  constructor
+  · intro h i hi
+    obtain ⟨j, rfl⟩ := hi
+    have hm : encode (0 : LoopQuot m) = 0 :=
+      (loopQuotAddEquivIntVector m).map_zero
+    have henc := congrArg (fun q => encode q) h
+    rw [hm] at henc
+    have hj := congrFun henc j
+    rw [encode_coordinateProjectionQuotientMap] at hj
+    change encode q (f j) = 0 at hj
+    exact hj
+  · intro h
+    apply (equivIntVector m).injective
+    change encode (coordinateProjectionQuotientMap f q) = encode (0 : LoopQuot m)
+    rw [encode_coordinateProjectionQuotientMap]
+    have hm : encode (0 : LoopQuot m) = 0 :=
+      (loopQuotAddEquivIntVector m).map_zero
+    rw [hm]
+    exact (coordinateReindex_eq_zero_iff f (encode q)).mpr h
+
+/-- Membership in the additive kernel is equivalent to the exact vanishing
+condition on the image coordinates. -/
+theorem coordinateProjectionQuotientAddHom_mem_ker_iff {n m : ℕ}
+    (f : Fin m → Fin n) (q : LoopQuot n) :
+    q ∈ (coordinateProjectionQuotientAddHom f).ker ↔
+      ∀ i ∈ Set.range f, encode q i = 0 := by
+  change coordinateProjectionQuotientMap f q = (0 : LoopQuot m) ↔ _
+  exact coordinateProjectionQuotientMap_eq_zero_iff f q
 
 /-- The ordinary final quotient topology on finite-torus loop classes. -/
 noncomputable instance loopQuotTopologicalSpace (n : ℕ) :
@@ -557,6 +834,36 @@ noncomputable instance loopQuotDiscreteTopology (n : ℕ) :
     DiscreteTopology (LoopQuot n) :=
   QuotientFundamentalGroup.quotientDiscreteTopology
     (Carrier n) (base n) (isOpen_nullHomotopyClass n)
+
+/-- Typed quotient coordinate selection is a continuous additive map for the
+discrete quotient topologies. -/
+noncomputable def coordinateProjectionQuotientContinuousAddHom {n m : ℕ}
+    (f : Fin m → Fin n) : LoopQuot n →ₜ+ LoopQuot m where
+  toAddMonoidHom := coordinateProjectionQuotientAddHom f
+  continuous_toFun := continuous_of_discreteTopology
+
+@[simp] theorem coordinateProjectionQuotientContinuousAddHom_apply
+    {n m : ℕ} (f : Fin m → Fin n) (q : LoopQuot n) :
+    coordinateProjectionQuotientContinuousAddHom f q =
+      coordinateProjectionQuotientMap f q :=
+  rfl
+
+/-- The continuous quotient additive maps inherit contravariant composition. -/
+theorem coordinateProjectionQuotientContinuousAddHom_comp
+    {n m k : ℕ} (f : Fin m → Fin n) (g : Fin k → Fin m) :
+    coordinateProjectionQuotientContinuousAddHom (f ∘ g) =
+      (coordinateProjectionQuotientContinuousAddHom g).comp
+        (coordinateProjectionQuotientContinuousAddHom f) := by
+  ext q
+  exact (coordinateProjectionQuotientMap_comp f g q).symm
+
+/-- The continuous quotient additive map associated to the identity is the
+identity continuous homomorphism. -/
+theorem coordinateProjectionQuotientContinuousAddHom_id (n : ℕ) :
+    coordinateProjectionQuotientContinuousAddHom (id : Fin n → Fin n) =
+      ContinuousAddMonoidHom.id (LoopQuot n) := by
+  ext q
+  exact coordinateProjectionQuotientMap_id q
 
 /-- Every based quotient fundamental group of a finite torus is discrete.
 The zero-basepoint classification is transported to an arbitrary point along

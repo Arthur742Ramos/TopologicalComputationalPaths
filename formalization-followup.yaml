@@ -54,7 +54,10 @@ project:
     directly through the continuous additive reindexing morphism.
     Surjective and injective index maps have the corresponding exact
     injectivity and surjectivity behavior at the torus, lattice, and typed
-    quotient levels.
+    quotient levels, including the converses.  Typed quotient coordinate
+    maps compose contravariantly and are additive homomorphisms for the
+    transported winding groups; their kernels are exactly the classes whose
+    winding vanishes on the image of the index map.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -199,7 +202,12 @@ status:
     injective index maps yield surjective maps by zero extension.
     For an arbitrary index map, the image is characterized exactly by
     fiber-constant target winding vectors, equivalently for typed quotient
-    loop classes.
+    loop classes.  The corresponding converse injectivity/surjectivity
+    criteria are proved as iff theorems.  Typed quotient coordinate maps are
+    also contravariantly additive, with identity/composition coherence and an
+    exact kernel description by vanishing on the index-map image; the
+    resulting additive maps are continuous for the discrete quotient
+    topologies.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -516,15 +524,25 @@ alignment:
       status: "proved"
       note: "Path-based and canonical arbitrary-basepoint classifier naturality are expressed directly through the continuous additive lattice reindexing morphism."
     - source: "Finite-torus index-map image behavior"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_surjective_of_injective"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_surjective_iff_injective"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
-      note: "Surjective and injective index maps induce the corresponding injective and surjective maps on torus coordinates, integer lattices, and typed quotient loop classes."
+      note: "Surjective and injective index maps induce the corresponding injective and surjective maps on torus coordinates, integer lattices, and typed quotient loop classes, with exact converses at every level."
     - source: "Finite-torus coordinate-selection image characterization"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_mem_range_iff"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The image of an arbitrary coordinate-selection map is exactly the fiber-constant part of the target winding lattice, equivalently for typed quotient classes."
+    - source: "Finite-torus typed quotient additive functor and kernel"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_map_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_map_add; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_mem_ker_iff"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Typed quotient coordinate selection is a contravariant additive functor, and its kernel is exactly the classes whose winding vanishes on the image of the index map, matching the lattice kernel."
+    - source: "Finite-torus continuous typed quotient additive functor"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_id"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The typed quotient additive functor is continuous for the discrete quotient topologies, with the same identity and composition coherence."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

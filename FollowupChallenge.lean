@@ -52,6 +52,11 @@ injectivity and surjectivity results for torus maps, lattice reindexing, and
 typed quotient maps.
 For an arbitrary index map, the image is characterized exactly by winding
 vectors constant on its fibers, at both the lattice and typed quotient levels.
+The converses are included as exact iff criteria at the raw torus, lattice,
+and typed quotient levels.  Typed quotient coordinate maps also compose
+contravariantly and preserve the transported additive structure continuously
+for the discrete quotient topologies, with their kernels characterized by
+vanishing on the index-map image.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

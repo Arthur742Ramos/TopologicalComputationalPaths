@@ -99,6 +99,15 @@ the formalization proves:
 43. for an arbitrary index map, the image is characterized exactly by winding
     vectors constant on its fibers, both on the lattice and on quotient loop
     classes.
+44. the torus, lattice, and typed quotient reindexing maps satisfy exact
+    converse criteria: injectivity is equivalent to surjectivity of the index
+    map, and surjectivity is equivalent to injectivity of the index map.
+45. typed quotient coordinate maps compose contravariantly, preserve the
+    transported additive loop-class structure continuously for the discrete
+    quotient topologies, and package as additive homomorphisms with identity
+    and composition coherence.
+46. the kernel of every lattice or typed quotient coordinate map is described
+    exactly by vanishing on the image of its index map.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -171,6 +180,14 @@ is witnessed constructively by zero extension on missing coordinates.
 More generally, the image of any coordinate-selection map is exactly the
 fiber-constant part of the target winding lattice, and the same description
 holds for the typed quotient map.
+The converses are exact as well: the lattice and typed quotient maps are
+injective exactly for surjective index maps and surjective exactly for
+injective index maps.  At the quotient level, coordinate selection is a
+contravariant additive functor: it preserves the transported zero and
+addition and obeys identity/composition laws.  Its kernel consists precisely
+of the classes whose winding vector vanishes on the coordinates hit by the
+index map, matching the lattice kernel description; because the quotient
+topologies are discrete, this additive functor is continuous as well.
 
 ## Literature and novelty boundary
 

@@ -175,6 +175,12 @@ surjectivity via an explicit zero extension.
 For an arbitrary index map, the image is characterized as precisely the
 fiber-constant winding vectors, with an equivalent statement for quotient
 loop classes.
+The converse injectivity/surjectivity criteria are formalized as iff
+theorems simultaneously for raw torus maps, lattice reindexings, and typed
+quotient maps.  At the quotient level, coordinate selection is additionally
+an additive contravariant functor, continuous for the discrete quotient
+topologies, and its kernel is exactly the classes whose winding vanishes on
+the index-map image.
 
 ## Non-goals for the first submission
 

@@ -110,6 +110,11 @@ surjective/injective index maps at the torus, lattice, and typed quotient
 levels, using zero extension for the surjective direction.
 For arbitrary index maps it further identifies the image exactly with the
 fiber-constant winding vectors, equivalently for typed quotient classes.
+It also proves the converse injectivity/surjectivity criteria at the raw
+torus, lattice, and typed quotient levels, packages typed quotient coordinate
+selection as a contravariant additive functor (continuously for the discrete
+quotient topologies), and identifies its kernel by vanishing on the index-map
+image.
 The arbitrary-basepoint classifier naturality squares are also restated using
 the continuous additive reindexing morphism itself.
 It is an independently checked formalization of classical topology,
