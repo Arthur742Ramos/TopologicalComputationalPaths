@@ -228,6 +228,21 @@ theorem basepointChangeContinuousMulEquiv_eq_of_homotopic
   · exact Quotient.sound h.symm₂
   · exact Quotient.sound h
 
+/-- Basepoint transport is compatible with concatenation of paths.  Thus the
+continuous multiplicative equivalences form a coherent transport system on
+the fundamental-groupoid basepoints. -/
+theorem basepointChangeContinuousMulEquiv_trans
+    {x₀ x₁ x₂ : X} (p : _root_.Path x₀ x₁) (q : _root_.Path x₁ x₂) :
+    (basepointChangeContinuousMulEquiv p).trans
+        (basepointChangeContinuousMulEquiv q) =
+      basepointChangeContinuousMulEquiv (p.trans q) := by
+  ext r
+  rw [ContinuousMulEquiv.trans_apply,
+    basepointChangeContinuousMulEquiv_apply,
+    basepointChangeContinuousMulEquiv_apply,
+    basepointChangeContinuousMulEquiv_apply]
+  simp
+
 /-- Discreteness of the quotient topology is independent of the chosen
 basepoint along a path. -/
 theorem quotientDiscreteTopology_iff_of_path {x₀ x₁ : X}

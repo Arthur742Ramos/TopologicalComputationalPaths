@@ -24,7 +24,8 @@ equivalence.  The finite-torus certificate transports discreteness from the
 zero basepoint to every point and records semilocal simple connectivity
 globally, together with a common integer-lattice homeomorphism for every
 based quotient.  Basepoint-change maps are additionally shown to depend only
-on endpoint-fixed homotopy classes of paths.
+on endpoint-fixed homotopy classes of paths and to compose along concatenated
+paths.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -130,6 +131,22 @@ structure QuotientTopologicalFundamentalGroupTheory where
               (_root_.Path.Homotopic.Quotient.trans
                 (Quotient.mk' q.symm) z)
               (Quotient.mk' q)
+  quotient_basepoint_change_composition :
+    ∀ (X : Type u) [TopologicalSpace X]
+      {x₀ x₁ x₂ : X} (p : _root_.Path x₀ x₁) (q : _root_.Path x₁ x₂),
+      ∀ z : GenericLoopQuot X x₀,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' q.symm)
+              (_root_.Path.Homotopic.Quotient.trans
+                (_root_.Path.Homotopic.Quotient.trans
+                  (Quotient.mk' p.symm) z)
+                (Quotient.mk' p)))
+            (Quotient.mk' q) =
+          _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' (p.trans q).symm) z)
+            (Quotient.mk' (p.trans q))
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
@@ -375,6 +392,16 @@ theorem main_result :
             p q h
         have hz := congrArg (fun E => E z) he
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
+      quotient_basepoint_change_composition := by
+        intro X _ x₀ x₁ x₂ p q z
+        have he :=
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_trans p q
+        have hz := congrArg (fun E => E z) he
+        rw [ContinuousMulEquiv.trans_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
       quotient_path_connected_basepoint_independent := by
