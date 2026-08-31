@@ -158,6 +158,8 @@ At arbitrary torus basepoints, the path-based classifier satisfies the same
 naturality square after the chosen basepoint path is mapped to the target;
 this makes the transport-compatible statement explicit rather than limiting
 it to the all-zero quotient.
+The abelian-target path-independence theorem then removes that auxiliary path,
+so the canonical classifier at each basepoint is natural as well.
 
 ## Non-goals for the first submission
 

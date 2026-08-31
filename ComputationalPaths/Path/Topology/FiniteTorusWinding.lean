@@ -525,6 +525,38 @@ theorem loopQuotContinuousMulEquivIntVector_at_path_eq
   simp only [loopQuotContinuousMulEquivIntVector_at_path]
   rw [hpq]
 
+/-- The canonical arbitrary-basepoint lattice classifiers are natural under
+coordinate selection.  The path used by the definition is immaterial by the
+abelian-target transport theorem, so no path choice appears in this statement.
+-/
+theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at m
+      (coordinateProjection f x))
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+      Multiplicative.ofAdd
+        (coordinateReindex f
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at n x q))) := by
+  let p : _root_.Path (base n) x := PathConnectedSpace.somePath (base n) x
+  let p' : _root_.Path (base m) (coordinateProjection f x) :=
+    PathConnectedSpace.somePath (base m) (coordinateProjection f x)
+  have h := loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection
+    f x p q
+  have ht := loopQuotContinuousMulEquivIntVector_at_path_eq m
+    (coordinateProjection f x) (p.map (coordinateProjection f).continuous) p'
+  have htq := congrArg
+    (fun E => E (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))) ht
+  have hs := loopQuotContinuousMulEquivIntVector_at_path_eq n x p
+    (PathConnectedSpace.somePath (base n) x)
+  have hsq := congrArg (fun E => E q) hs
+  rw [htq] at h
+  rw [← hsq] at h
+  simpa [p, p', loopQuotContinuousMulEquivIntVector_at,
+    loopQuotContinuousMulEquivIntVector_at_path,
+    QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv] using h
+
 /-- Every finite-torus loop homotopy class is open in the compact-open loop
 space. -/
 theorem isOpen_homotopyClass {n : ℕ} (γ : Loop n) :

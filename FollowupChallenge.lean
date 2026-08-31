@@ -546,6 +546,17 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (coordinateReindex f
             (Multiplicative.toAdd
               (classifier_continuous_mul_equiv_at_path x p q)))
+  classifier_at_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (x : FiniteTorus n)
+      (q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+        (FiniteTorus n) x),
+      classifier_continuous_mul_equiv_at
+          (coordinateProjection f x)
+          (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+        Multiplicative.ofAdd
+          (coordinateReindex f
+            (Multiplicative.toAdd
+              (classifier_continuous_mul_equiv_at x q)))
   classifier_continuous_mul_equiv_at_path_independent :
     ∀ (x : FiniteTorus n) (p q : _root_.Path (base n) x),
       classifier_continuous_mul_equiv_at_path x p =

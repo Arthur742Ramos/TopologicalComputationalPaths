@@ -538,6 +538,17 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (coordinateReindex f
             (Multiplicative.toAdd
               (classifier_continuous_mul_equiv_at_path x p q)))
+  classifier_at_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (x : FiniteTorus n)
+      (q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+        (FiniteTorus n) x),
+      classifier_continuous_mul_equiv_at
+          (coordinateProjection f x)
+          (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+        Multiplicative.ofAdd
+          (coordinateReindex f
+            (Multiplicative.toAdd
+              (classifier_continuous_mul_equiv_at x q)))
   classifier_continuous_mul_equiv_at_path_independent :
     ∀ (x : FiniteTorus n) (p q : _root_.Path (base n) x),
       classifier_continuous_mul_equiv_at_path x p =
@@ -921,6 +932,21 @@ theorem main_result :
       exact
         FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection
           f x p q
+    classifier_at_coordinate_projection := by
+      intro f x q
+      change
+        (FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at n
+          (FiniteTorusWinding.coordinateProjection f x))
+            (_root_.Path.Homotopic.Quotient.map q
+              (FiniteTorusWinding.coordinateProjection f)) =
+          Multiplicative.ofAdd
+            (FiniteTorusWinding.coordinateReindex f
+              (Multiplicative.toAdd
+                ((FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at
+                    n x) q)))
+      exact
+        FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection
+          f x q
     classifier_continuous_mul_equiv_at_path_independent := by
       intro x p q
       exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_eq n x p q

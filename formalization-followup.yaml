@@ -43,7 +43,8 @@ project:
     and the standard representatives and quotient decoder obey the same
     reindexing equation.  The path-based lattice classifier also satisfies
     the corresponding naturality square at arbitrary torus basepoints after
-    mapping the chosen transport path.
+    mapping the chosen transport path.  The canonical arbitrary-basepoint
+    classifier satisfies the same square without exposing any path choice.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -176,7 +177,8 @@ status:
     standard representatives and the quotient decoder satisfy the
     corresponding equation.  The path-based classifier satisfies the same
     naturality square at arbitrary basepoints after mapping the chosen
-    transport path.
+    transport path.  The canonical classifier satisfies it as well, by
+    abelian-target path independence.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -472,6 +474,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "After mapping a chosen basepoint path, the path-based classifier commutes with coordinate selection at arbitrary torus basepoints."
+    - source: "Finite-torus canonical arbitrary-basepoint classifier naturality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The path choice is eliminated by abelian-target transport independence, yielding naturality for the canonical classifier at every basepoint."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

@@ -84,6 +84,8 @@ the formalization proves:
 37. the path-based finite-torus lattice classifiers are natural under
     coordinate selection at arbitrary basepoints, after transporting the
     chosen basepoint path.
+38. the canonical arbitrary-basepoint classifiers satisfy the same naturality
+    square without exposing any path choice.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -139,6 +141,9 @@ The path-based classifiers satisfy the corresponding naturality square at
 arbitrary torus basepoints: mapping a loop after transport along a chosen
 basepoint path agrees with reindexing its transported lattice vector, and the
 mapped path supplies the target transport.
+Because the target quotient is abelian, the path choice can then be removed:
+the canonical classifier defined by path-connectedness satisfies the same
+naturality square at arbitrary basepoints.
 
 ## Literature and novelty boundary
 
