@@ -191,6 +191,9 @@ directly through the continuous additive reindexing morphism.
 The exact image behavior is also formalized: surjective index maps induce
 injective torus, lattice, and quotient maps, while injective index maps induce
 surjective maps by zero extension.
+For an arbitrary index map, the image is characterized exactly as the
+fiber-constant part of the target winding lattice, equivalently at the typed
+quotient level.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

@@ -96,6 +96,9 @@ the formalization proves:
 42. surjective and injective index maps have the corresponding exact
     injectivity and surjectivity behavior on torus coordinates, integer
     lattices, and typed quotient loop classes.
+43. for an arbitrary index map, the image is characterized exactly by winding
+    vectors constant on its fibers, both on the lattice and on quotient loop
+    classes.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -165,6 +168,9 @@ restated through the continuous additive reindexing map itself.
 Finally, a surjective index map yields injective coordinate, lattice, and
 quotient maps, while an injective index map yields surjective ones; the latter
 is witnessed constructively by zero extension on missing coordinates.
+More generally, the image of any coordinate-selection map is exactly the
+fiber-constant part of the target winding lattice, and the same description
+holds for the typed quotient map.
 
 ## Literature and novelty boundary
 

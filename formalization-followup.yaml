@@ -197,6 +197,9 @@ status:
     the continuous additive reindexing map.
     Surjective index maps yield injective torus, lattice, and quotient maps;
     injective index maps yield surjective maps by zero extension.
+    For an arbitrary index map, the image is characterized exactly by
+    fiber-constant target winding vectors, equivalently for typed quotient
+    loop classes.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -517,6 +520,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Surjective and injective index maps induce the corresponding injective and surjective maps on torus coordinates, integer lattices, and typed quotient loop classes."
+    - source: "Finite-torus coordinate-selection image characterization"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_mem_range_iff"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The image of an arbitrary coordinate-selection map is exactly the fiber-constant part of the target winding lattice, equivalently for typed quotient classes."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

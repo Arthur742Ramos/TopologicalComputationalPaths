@@ -218,6 +218,24 @@ theorem coordinateReindex_surjective_of_injective {n m : ℕ}
   funext j
   exact Function.Injective.extend_apply hf w (fun _ => 0) j
 
+/-- The image of a lattice reindexing consists exactly of vectors constant on
+the fibers of its index map. -/
+theorem coordinateReindex_mem_range_iff {n m : ℕ} (f : Fin m → Fin n)
+    (w : Fin m → ℤ) :
+    w ∈ Set.range (coordinateReindex f) ↔
+      ∀ ⦃j k : Fin m⦄, f j = f k → w j = w k := by
+  constructor
+  · rintro ⟨z, rfl⟩ j k h
+    simp [coordinateReindex, h]
+  · intro h
+    let z : Fin n → ℤ := Function.extend f w (fun _ => 0)
+    refine ⟨z, ?_⟩
+    funext j
+    have hfactor : Function.FactorsThrough w f := by
+      intro a b hab
+      exact h hab
+    exact hfactor.extend_apply (fun _ => 0) j
+
 /-- Coordinate-selection maps respect composition of index maps. -/
 theorem coordinateProjection_comp {n m k : ℕ} (f : Fin m → Fin n)
     (g : Fin k → Fin m) :
@@ -441,6 +459,23 @@ theorem coordinateProjectionQuotientMap_surjective_of_injective
   apply (equivIntVector m).injective
   change encode (coordinateProjectionQuotientMap f (decode z)) = encode q
   rw [encode_coordinateProjectionQuotientMap, encode_decode, hz]
+
+/-- The image of the typed quotient map is exactly the set of classes whose
+winding vectors are constant on the fibers of the index map. -/
+theorem coordinateProjectionQuotientMap_mem_range_iff
+    {n m : ℕ} (f : Fin m → Fin n) (q : LoopQuot m) :
+    q ∈ Set.range (coordinateProjectionQuotientMap f) ↔
+      ∀ ⦃j k : Fin m⦄, f j = f k → encode q j = encode q k := by
+  constructor
+  · rintro ⟨p, rfl⟩ j k h
+    rw [encode_coordinateProjectionQuotientMap]
+    simp [coordinateReindex, h]
+  · intro h
+    obtain ⟨z, hz⟩ := (coordinateReindex_mem_range_iff f (encode q)).mpr h
+    refine ⟨decode z, ?_⟩
+    apply (equivIntVector m).injective
+    change encode (coordinateProjectionQuotientMap f (decode z)) = encode q
+    rw [encode_coordinateProjectionQuotientMap, encode_decode, hz]
 
 /-- The additive-group structure transported from the integer winding lattice. -/
 noncomputable instance loopQuotAddGroup (n : ℕ) : AddGroup (LoopQuot n) :=

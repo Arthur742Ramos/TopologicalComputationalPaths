@@ -108,6 +108,8 @@ identity/composition coherence.
 The module also proves the exact injective/surjective correspondence for
 surjective/injective index maps at the torus, lattice, and typed quotient
 levels, using zero extension for the surjective direction.
+For arbitrary index maps it further identifies the image exactly with the
+fiber-constant winding vectors, equivalently for typed quotient classes.
 The arbitrary-basepoint classifier naturality squares are also restated using
 the continuous additive reindexing morphism itself.
 It is an independently checked formalization of classical topology,

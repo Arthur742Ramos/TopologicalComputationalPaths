@@ -172,6 +172,9 @@ classifiers.
 The finite-index map is analyzed exactly as well: surjectivity gives
 injectivity at the torus, lattice, and quotient levels, and injectivity gives
 surjectivity via an explicit zero extension.
+For an arbitrary index map, the image is characterized as precisely the
+fiber-constant winding vectors, with an equivalent statement for quotient
+loop classes.
 
 ## Non-goals for the first submission
 
