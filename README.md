@@ -329,6 +329,9 @@ For arbitrary rank, infinite order is characterized elementwise: it occurs
 exactly when a zero Smith factor carries a nonzero transformed coordinate, and
 the same free-coordinate criterion is exposed on lattice and finite-torus
 matrix representatives.
+Equivalently, a natural number is a multiple of a class's additive order
+exactly when it satisfies the corresponding coordinatewise Smith divisibility
+equations, including the free-coordinate vanishing constraints.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

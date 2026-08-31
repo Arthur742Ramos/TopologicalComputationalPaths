@@ -290,7 +290,12 @@ the formalization proves:
 103. an arbitrary-rank Smith cokernel class has infinite additive order exactly
      when a zero Smith factor carries a nonzero transformed coordinate.
 104. this free-coordinate criterion is transported to both lattice and
-     finite-torus matrix representatives.
+    finite-torus matrix representatives.
+105. a natural number is a multiple of an arbitrary-rank Smith cokernel
+     class's additive order exactly when the corresponding coordinatewise
+     Smith divisibility equations hold.
+106. this order-divisibility criterion is transported to lattice and
+     finite-torus matrix representatives, including zero-factor constraints.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

@@ -170,6 +170,10 @@ inverse witness, including at arbitrary basepoints.
     exactly when a zero Smith factor carries a nonzero transformed coordinate,
     and the same free-coordinate criterion is exposed on lattice and
     finite-torus matrix representatives.
+    Equivalently, a natural number is a multiple of a class's additive order
+    exactly when it satisfies the corresponding coordinatewise Smith
+    divisibility equations, including the free-coordinate vanishing
+    constraints.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

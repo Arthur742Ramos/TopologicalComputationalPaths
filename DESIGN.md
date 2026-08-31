@@ -304,6 +304,9 @@ For arbitrary rank, the free part is detected elementwise: a class has
 infinite order exactly when a zero Smith factor carries a nonzero transformed
 coordinate, with the criterion transported to lattice and finite-torus
 matrix representatives.
+Equivalently, a natural number is a multiple of a class's additive order
+exactly when it satisfies the corresponding coordinatewise Smith divisibility
+equations, including the free-coordinate vanishing constraints.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and

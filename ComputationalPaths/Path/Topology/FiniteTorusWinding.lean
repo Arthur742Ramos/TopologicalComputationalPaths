@@ -153,6 +153,9 @@ integer coordinate.
 An arbitrary-rank class has infinite order exactly when a zero Smith factor
 carries a nonzero transformed coordinate, so the free part is detected
 elementwise.
+Equivalently, a natural number is a multiple of a class's additive order
+exactly when it satisfies the corresponding coordinatewise Smith divisibility
+equations, including the free-coordinate vanishing constraints.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2523,6 +2526,19 @@ theorem submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
   rw [submodule_mem_iff_smithNormalFormFactor_dvd snf]
   simp only [map_smul, Pi.smul_apply, smul_eq_mul]
 
+/-- A proposed period `k` is divisible by the additive order of a Smith
+cokernel class exactly when the corresponding coordinatewise annihilation
+equations hold. -/
+theorem submoduleCokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) (k : ℕ) :
+    addOrderOf (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) ∣ k ↔
+      ∀ i : Fin m, smithNormalFormFactor snf i ∣
+        (k : ℤ) * (snf.bM.equivFun x) i := by
+  rw [addOrderOf_dvd_iff_nsmul_eq_zero]
+  exact submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd snf x k
+
 /-- The quotient by an arbitrary-rank Smith-normal-form submodule is the
 coordinatewise product of the corresponding cyclic quotients.  The zero
 coefficients on complementary coordinates are retained as `ZMod 0`, so the
@@ -3007,6 +3023,20 @@ theorem matrixAction_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
   exact submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 x k
+
+/-- A proposed period `k` is divisible by the additive order of a lattice
+cokernel class exactly when its Smith-coordinate annihilation equations hold. -/
+theorem matrixAction_cokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) (k : ℕ) :
+    addOrderOf (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ∣ k ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        (k : ℤ) * ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i := by
+  rw [addOrderOf_dvd_iff_nsmul_eq_zero]
+  exact matrixAction_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd A x k
 
 /-- Under full target rank, the Smith factors give the exact cardinality of
 the lattice cokernel as their product of moduli. -/
@@ -4804,6 +4834,21 @@ theorem matrixMapQuotientAddHom_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFac
     rw [← Nat.cast_smul_eq_nsmul ℤ k]
     exact smul_eq_mul _ _
   simp_rw [hNatSmul]
+
+/-- A proposed period `k` is divisible by the additive order of a
+finite-torus cokernel class exactly when its decoded Smith-coordinate
+annihilation equations hold. -/
+theorem matrixMapQuotientAddHom_cokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) (k : ℕ) :
+    addOrderOf (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) ∣ k ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        (k : ℤ) * ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+          (loopQuotAddEquivIntVector m x)) i := by
+  rw [addOrderOf_dvd_iff_nsmul_eq_zero]
+  exact matrixMapQuotientAddHom_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd A x k
 
 /-- The topological rectangular cokernel has the same exact arbitrary-rank
 Smith-factor cardinality formula as the lattice quotient, including infinite
