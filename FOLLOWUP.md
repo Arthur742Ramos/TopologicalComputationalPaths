@@ -308,6 +308,10 @@ the formalization proves:
      factor in the arbitrary-rank decomposition.
 112. for rectangular lattice and finite-torus matrix cokernels, exponent zero
      is equivalent to failure of full target rank.
+113. a proposed global annihilator is divisible by the arbitrary-rank Smith
+     exponent exactly when every Smith-factor modulus divides it.
+114. a surviving zero Smith factor forces that global annihilator to be zero,
+     matching the exponent-zero/rank-deficiency criterion.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

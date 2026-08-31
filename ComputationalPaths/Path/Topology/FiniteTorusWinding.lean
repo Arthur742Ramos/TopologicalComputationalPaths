@@ -132,6 +132,9 @@ records the free summand both elementwise and globally.
 Equivalently, exponent zero is characterized by the presence of a zero Smith
 factor, and for rectangular lattice and finite-torus matrix cokernels this is
 exactly failure of full target rank.
+More generally, a proposed global annihilator `k` is divisible by the Smith
+exponent exactly when every Smith-factor modulus divides `k`, with a zero
+factor forcing `k = 0`.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2597,6 +2600,17 @@ theorem submoduleCokernel_exponent_eq_smithFactorLcm
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
 
+/-- A proposed global annihilator is a multiple of the Smith exponent exactly
+when it is divisible by every Smith-factor modulus. -/
+theorem submoduleCokernel_exponent_dvd_iff_smithFactor_dvd
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) (k : ℕ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ N) ∣ k ↔
+      ∀ i : Fin m, (smithNormalFormFactor snf i).natAbs ∣ k := by
+  rw [submoduleCokernel_exponent_eq_smithFactorLcm snf]
+  rw [Finset.lcm_dvd_iff]
+  simp only [Finset.mem_univ, true_implies]
+
 /-- The Smith cokernel has exponent zero exactly when at least one zero Smith
 factor survives, equivalently when its decomposition contains a free factor. -/
 theorem submoduleCokernel_exponent_eq_zero_iff_smithFreeFactor
@@ -2893,6 +2907,18 @@ theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
   exact submoduleCokernel_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-- A proposed global lattice-cokernel annihilator is a multiple of its Smith
+exponent exactly when every Smith-factor modulus divides it. -/
+theorem matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (k : ℕ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ∣ k ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs ∣ k := by
+  exact submoduleCokernel_exponent_dvd_iff_smithFactor_dvd
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 k
 
 /-- The lattice cokernel has exponent zero exactly when a zero Smith factor
 survives. -/
@@ -4747,6 +4773,18 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
     (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
+
+/-- A proposed global finite-torus-cokernel annihilator is a multiple of its
+Smith exponent exactly when every Smith-factor modulus divides it. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_dvd_iff_smithFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (k : ℕ) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ∣ k ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs ∣ k := by
+  rw [matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm]
+  rw [Finset.lcm_dvd_iff]
+  simp only [Finset.mem_univ, true_implies]
 
 /-- The finite-torus cokernel has exponent zero exactly when a zero Smith
 factor survives. -/
