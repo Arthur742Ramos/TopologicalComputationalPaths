@@ -878,6 +878,51 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin k → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
+  matrix_cokernel_exponent_lcm_dvd :
+    ∀ (A B : Fin n → Fin n → ℤ)
+      (hB : Function.Injective (matrixAction B)),
+      Nat.lcm
+          (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range))
+          (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)) ∣
+        AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range)
+  matrix_cokernel_rectangular_exponent_lcm_dvd :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B)),
+      Nat.lcm
+          (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+          (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)) ∣
+        AddMonoid.exponent
+          ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range)
+  matrix_cokernel_exponent_eq_mul_of_coprime :
+    ∀ (A B : Fin n → Fin n → ℤ)
+      (hB : Function.Injective (matrixAction B))
+      (hcop : Nat.Coprime
+        (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range))
+        (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range))),
+      AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
+        AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
+          AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_rectangular_exponent_eq_mul_of_coprime :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B))
+      (hcop : Nat.Coprime
+        (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+        (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))),
+      AddMonoid.exponent
+          ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
+        AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+          AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_eq_mul_of_det_coprime :
+    ∀ (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+      (hcop : Nat.Coprime (Matrix.det A).natAbs (Matrix.det B).natAbs),
+      AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
+        AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
+          AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
 
 /-- The general criterion and its winding-classified finite-torus family. -/
 theorem main_result :
