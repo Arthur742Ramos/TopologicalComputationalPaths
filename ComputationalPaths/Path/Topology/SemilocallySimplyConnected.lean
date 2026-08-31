@@ -1,5 +1,6 @@
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
 import Mathlib.Topology.Connected.LocallyPathConnected
+import Mathlib.Topology.Subpath
 
 /-!
 # Semilocal simple connectivity and quotient fundamental groups
@@ -17,7 +18,7 @@ namespace Path
 namespace GeometricTopology
 
 open Set Topology
-open scoped ContinuousMap Topology
+open scoped ContinuousMap Topology unitInterval
 
 noncomputable section
 
@@ -103,6 +104,43 @@ theorem exists_open_pathConnected_loopsNullIn
     rw [_root_.Path.symm_range] at hz
     rcases hz with ⟨t, rfl⟩
     exact hVU (joined.somePath_mem t)
+
+/-- Every path in a locally path-connected semilocally simply connected
+space has a finite monotone subdivision whose pieces lie in open
+path-connected sets on which all ambient loops are null. -/
+theorem exists_finite_null_subdivision
+    [LocallyPathConnectedSpace X]
+    (hsemi : SemilocallySimplyConnected X)
+    {a b : X} (γ : _root_.Path a b) :
+    ∃ n : ℕ, ∃ t : Fin (n + 1) → I, ∃ V : Fin n → Set X,
+      t 0 = 0 ∧ t (Fin.last n) = 1 ∧ Monotone t ∧
+      ∀ i : Fin n,
+        IsOpen (V i) ∧ IsPathConnected (V i) ∧ LoopsNullIn X (V i) ∧
+          range (γ.subpath (t i.castSucc) (t i.succ)) ⊆ V i := by
+  choose V hVopen hγV hVpath hVnull using
+    fun s : I => exists_open_pathConnected_loopsNullIn X hsemi (γ s)
+  let c : I → Set I := fun s => γ ⁻¹' V s
+  have hcopen : ∀ s, IsOpen (c s) :=
+    fun s => (hVopen s).preimage γ.continuous
+  have hccover : (univ : Set I) ⊆ ⋃ s, c s := by
+    intro s _
+    exact mem_iUnion.mpr ⟨s, hγV s⟩
+  rcases exists_monotone_Icc_subset_open_cover_unitInterval hcopen hccover with
+    ⟨tNat, htzero, htmono, ⟨m, htm⟩, hpieces⟩
+  let t : Fin (m + 1) → I := fun i => tNat i
+  choose idx hidx using fun i : Fin m => hpieces i
+  let W : Fin m → Set X := fun i => V (idx i)
+  refine ⟨m, t, W, ?_, ?_, ?_, ?_⟩
+  · exact htzero
+  · exact htm m le_rfl
+  · intro i j hij
+    exact htmono (by exact_mod_cast hij)
+  · intro i
+    refine ⟨hVopen (idx i), hVpath (idx i), hVnull (idx i), ?_⟩
+    rw [_root_.Path.range_subpath_of_le]
+    · rintro _ ⟨s, hs, rfl⟩
+      exact hidx i hs
+    · exact htmono (Nat.le_succ i)
 
 /-- Openness of the null-homotopy class gives a semilocally simply connected
 neighborhood of the basepoint. -/
