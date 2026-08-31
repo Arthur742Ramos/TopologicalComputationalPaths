@@ -242,8 +242,14 @@ cardinality exactly `Int.natAbs (Matrix.det A)`, so the determinant controls the
 quantitative finite index as well as the injectivity and surjectivity boundary.
 At the canonical finite-torus basepoint, the induced quotient image has the
 same exact index and cokernel cardinality, with finiteness exposed directly.
+For composable non-singular square matrices, the determinant index is proved
+multiplicative under matrix composition both on the winding lattice and on the
+canonical topological quotient obstruction.
 The lattice cokernel is also exposed through its Smith-normal-form
-decomposition into finite cyclic `ZMod` factors.
+decomposition into finite cyclic `ZMod` factors.  The canonical quotient
+cokernel of the induced torus homomorphism is transported through the winding
+equivalence to that same explicit product, identifying the obstruction
+structurally at the topological level.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

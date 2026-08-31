@@ -90,8 +90,14 @@ that finiteness explicitly as a quantitative index certificate.
 At the canonical finite-torus basepoint, the induced quotient image has the
 same exact index and cokernel cardinality, and the quotient is explicitly
 finite.
+For composable non-singular square matrices, the determinant index is proved
+multiplicative under matrix composition on both the winding lattice and the
+canonical quotient obstruction.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
-finite cyclic `ZMod` factors.
+finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
+transported through the winding equivalence to the same explicit product of
+cyclic `ZMod` factors, so the determinant obstruction is structurally
+identified at the topological quotient level rather than only counted.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

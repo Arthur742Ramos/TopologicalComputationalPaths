@@ -77,7 +77,9 @@ same finite index, and its quotient cardinality and finiteness are exposed
 explicitly as well.
 The lattice cokernel is additionally presented, via Smith normal form, as a
 product of finite cyclic `ZMod` factors, with the full-rank image theorem made
-available to support the decomposition.
+available to support the decomposition.  The same cyclic-factor presentation
+is transported through the winding equivalence to the canonical quotient
+cokernel of the induced torus homomorphism.
 -/
 
 namespace ComputationalPaths
@@ -1476,6 +1478,19 @@ def matrixCompose {n m k : ℕ}
     Fin k → Fin n → ℤ :=
   fun l i => ∑ j : Fin m, B l j * A j i
 
+/-- For square matrices, the determinant follows the row-by-column
+`matrixCompose` convention (the standard product is `B * A`). -/
+theorem matrixCompose_det {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    Matrix.det (matrixCompose A B) = Matrix.det B * Matrix.det A := by
+  let AM : Matrix (Fin n) (Fin n) ℤ := A
+  let BM : Matrix (Fin n) (Fin n) ℤ := B
+  have hmul : matrixCompose A B = BM * AM := by
+    ext i j
+    simp [matrixCompose, AM, BM, Matrix.mul_apply]
+  rw [hmul]
+  change Matrix.det (BM * AM) = Matrix.det BM * Matrix.det AM
+  exact Matrix.det_mul BM AM
+
 /-- The identity matrix in the same row-by-column convention. -/
 def matrixIdentity (n : ℕ) : Fin n → Fin n → ℤ :=
   fun i j => if i = j then 1 else 0
@@ -1599,6 +1614,20 @@ theorem matrixAction_cokernel_card_eq_natAbs_det {n : ℕ}
     rfl
   rw [hlin, LinearMap.det_toLin'] at hcard
   simpa [f] using hcard.symm
+
+/-- The exact finite index is multiplicative under composition of
+non-singular square matrix actions. -/
+theorem matrixAction_cokernel_card_comp {n : ℕ}
+    (A B : Fin n → Fin n → ℤ)
+    (hA : Matrix.det A ≠ 0) (hB : Matrix.det B ≠ 0) :
+    Nat.card ((Fin n → ℤ) ⧸
+        ((matrixAction (matrixCompose A B)).range.toIntSubmodule)) =
+      Int.natAbs (Matrix.det A) * Int.natAbs (Matrix.det B) := by
+  rw [matrixAction_cokernel_card_eq_natAbs_det (matrixCompose A B)]
+  · rw [matrixCompose_det, Int.natAbs_mul]
+    exact Nat.mul_comm _ _
+  · rw [matrixCompose_det]
+    exact mul_ne_zero hB hA
 
 /-- A nonzero determinant makes the winding-lattice cokernel finite. -/
 theorem matrixAction_cokernel_finite {n : ℕ}
@@ -2672,6 +2701,20 @@ theorem matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det {n : ℕ}
     _ = Int.natAbs (Matrix.det A) :=
       matrixMapQuotientAddHom_range_index_eq_natAbs_det A hA
 
+/-- The topological quotient obstruction has the same multiplicative index
+law under composition of non-singular square matrix maps. -/
+theorem matrixMapQuotientAddHom_cokernel_card_comp {n : ℕ}
+    (A B : Fin n → Fin n → ℤ)
+    (hA : Matrix.det A ≠ 0) (hB : Matrix.det B ≠ 0) :
+    Nat.card (LoopQuot n ⧸
+        (matrixMapQuotientAddHom (matrixCompose A B)).range) =
+      Int.natAbs (Matrix.det A) * Int.natAbs (Matrix.det B) := by
+  rw [matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det (matrixCompose A B)]
+  · rw [matrixCompose_det, Int.natAbs_mul]
+    exact Nat.mul_comm _ _
+  · rw [matrixCompose_det]
+    exact mul_ne_zero hB hA
+
 /-- The finite-torus quotient cokernel is finite whenever the matrix
 determinant is nonzero. -/
 theorem matrixMapQuotientAddHom_cokernel_finite {n : ℕ}
@@ -2680,6 +2723,87 @@ theorem matrixMapQuotientAddHom_cokernel_finite {n : ℕ}
   apply Nat.finite_of_card_ne_zero
   rw [matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det A hA]
   exact Int.natAbs_ne_zero.mpr hA
+
+/-! The determinant count has a structural refinement: the topological
+quotient obstruction itself, not only its cardinality, inherits the Smith
+normal-form cyclic factors of the winding lattice. -/
+
+/-- The canonical finite-torus quotient cokernel is explicitly equivalent to
+the product of cyclic `ZMod` factors supplied by Smith normal form. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_smithEquivOfDetNeZero
+    {n : ℕ} (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) ≃
+      (∀ i : Fin n, ZMod ((Submodule.smithNormalFormCoeffs
+        (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA) i).natAbs)) := by
+  let e := loopQuotAddEquivIntVector n
+  let H := (matrixMapQuotientAddHom A).range
+  let N : Submodule ℤ (Fin n → ℤ) :=
+    (H.map (e : LoopQuot n →+ (Fin n → ℤ))).toIntSubmodule
+  have hadd_comm : ∀ x y : LoopQuot n, x + y = y + x := by
+    intro x y
+    rw [← quotientTrans_eq_add, ← quotientTrans_eq_add]
+    exact quotientTrans_comm x y
+  have hmap :
+      H.map (e : LoopQuot n →+ (Fin n → ℤ)) = (matrixAction A).range := by
+    ext z
+    constructor
+    · intro hz
+      rw [AddSubgroup.mem_map] at hz
+      rcases hz with ⟨p, hp, hpeq⟩
+      rcases hp with ⟨q, hq⟩
+      refine ⟨e q, ?_⟩
+      rw [← hpeq, ← hq]
+      change matrixAction A (e q) = e (matrixMapQuotientAddHom A q)
+      rw [matrixMapQuotientAddHom_apply]
+      exact (encode_matrixMapQuotientMap A q).symm
+    · intro hz
+      rcases hz with ⟨v, rfl⟩
+      refine ⟨matrixMapQuotientAddHom A (e.symm v), ⟨e.symm v, rfl⟩, ?_⟩
+      have hnat := encode_matrixMapQuotientMap A (e.symm v)
+      have hev : e (e.symm v) = v := e.apply_symm_apply v
+      calc
+        e (matrixMapQuotientAddHom A (e.symm v)) =
+            matrixAction A (e (e.symm v)) := by
+          change encode (matrixMapQuotientMap A (e.symm v)) =
+            matrixAction A (encode (e.symm v))
+          exact hnat
+        _ = matrixAction A v := by rw [hev]
+  let qEquiv :
+      Quotient (QuotientAddGroup.leftRel H) ≃
+        Quotient (Submodule.quotientRel N) :=
+    Quotient.congr e.toEquiv (by
+      intro x y
+      simp only [QuotientAddGroup.leftRel_apply, Submodule.quotientRel_def]
+      change -x + y ∈ H ↔ e x - e y ∈ N
+      constructor
+      · intro hxy
+        change e x - e y ∈ H.map (e : LoopQuot n →+ (Fin n → ℤ))
+        have hsub : x - y ∈ H := by
+          have hEq : x - y = -(-x + y) := by
+            simpa [sub_eq_add_neg, neg_add, neg_neg] using hadd_comm x (-y)
+          rw [hEq]
+          exact H.neg_mem hxy
+        have hmem : e (x - y) ∈
+            H.map (e : LoopQuot n →+ (Fin n → ℤ)) :=
+          ⟨x - y, hsub, rfl⟩
+        simpa [map_sub] using hmem
+      · intro hxy
+        change e x - e y ∈ H.map (e : LoopQuot n →+ (Fin n → ℤ)) at hxy
+        rcases (AddSubgroup.mem_map).mp hxy with ⟨q, hq, hEq⟩
+        have hsub : x - y = q := by
+          apply e.injective
+          simpa [map_sub] using hEq.symm
+        have hsub' : x - y ∈ H := hsub ▸ hq
+        have hEq : -x + y = -(x - y) := by
+          simpa [sub_eq_add_neg, neg_add, neg_neg] using (hadd_comm (-x) y)
+        rw [hEq]
+        exact H.neg_mem hsub')
+  exact qEquiv.trans (by
+    have hN : N = (matrixAction A).range.toIntSubmodule := by
+      dsimp [N]
+      rw [hmap]
+    rw [hN]
+    exact (matrixAction_cokernel_smithEquivOfDetNeZero A hA).toEquiv)
 
 /-- Membership in the matrix quotient homomorphism's kernel is exactly the
 kernel condition for its winding-lattice action. -/

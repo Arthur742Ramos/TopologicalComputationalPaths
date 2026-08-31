@@ -225,8 +225,14 @@ Smith-normal-form certificate complements the binary determinant criteria.
 The canonical quotient homomorphism has the identical image index and finite
 cokernel cardinality, making the determinant count visible on the actual
 topological loop-class quotient as well.
+For composable non-singular square matrices, these exact indices are proved
+multiplicative under the matrix-composition law on both sides of the winding
+classifier.
 The lattice interface additionally exposes the corresponding finite cyclic
-invariant-factor decomposition supplied by Smith normal form.
+invariant-factor decomposition supplied by Smith normal form.  The same
+decomposition is transported through the winding equivalence to the canonical
+quotient cokernel, giving an explicit structural classification of the
+topological obstruction rather than only its cardinality.
 
 ## Non-goals for the first submission
 

@@ -171,6 +171,13 @@ the formalization proves:
 66. the non-singular lattice cokernel also has an explicit Smith-normal-form
     presentation as a finite product of cyclic `ZMod` groups, together with a
     proved full-rank image theorem supporting that decomposition.
+67. the canonical finite-torus quotient cokernel itself is transported through
+    the winding equivalence to the same explicit Smith-normal-form product of
+    cyclic `ZMod` groups, so the determinant obstruction is classified at the
+    topological quotient level rather than only counted.
+68. for composable non-singular square matrices, the exact determinant index is
+    multiplicative under matrix composition on both the winding lattice and the
+    canonical quotient cokernel.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -308,9 +315,14 @@ including an explicit `Finite` instance for the cokernel.
 The same count is transported through the canonical winding classifier: the
 image of the induced quotient homomorphism has index and cokernel cardinality
 `Int.natAbs (Matrix.det A)`, and the quotient is explicitly finite.
+For composable non-singular square matrices, the determinant index is proved
+multiplicative under matrix composition on both the lattice and canonical
+quotient sides.
 At the lattice level, the finite cokernel is further decomposed into the
 finite cyclic invariant factors supplied by Smith normal form, rather than
-only counted.
+only counted.  The canonical quotient cokernel is now transported through the
+winding equivalence to that same explicit product of cyclic `ZMod` factors,
+giving a structural topological classification of the obstruction.
 
 ## Literature and novelty boundary
 
