@@ -23,6 +23,10 @@ positive case.
 
 Then instantiate the criterion for every finite product of additive circles,
 including an explicit winding classification by the integer lattice.
+In locally path-connected spaces, also prove the converse finite-ladder
+criterion: semilocal simple connectivity is equivalent to discreteness of
+every based quotient fundamental group, and every based-loop homotopy class is
+open.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -161,6 +165,17 @@ structure QuotientTopologicalFundamentalGroupTheory where
       DiscreteTopology (GenericLoopQuot X x) →
         ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnectedAt
           X x
+  quotient_discrete_iff_semilocally_simply_connected_in_locally_path_connected_spaces :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X],
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+        ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  homotopy_classes_open_of_semilocally_simply_connected :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X],
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X →
+        ∀ x : X, ∀ γ : GenericLoop X x,
+          IsOpen {δ : GenericLoop X x | γ.Homotopic δ}
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
       (p : E → B) (hp : IsCoveringMap p) (e : E),

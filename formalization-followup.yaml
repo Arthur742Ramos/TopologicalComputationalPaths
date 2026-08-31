@@ -44,9 +44,10 @@ sources:
     note: >-
       The Lean development independently constructs translation
       homeomorphisms and proves the exact null-class-openness criterion.  It
-      formalizes the reverse implication from discreteness to semilocal
-      simple connectivity; the locally path-connected forward implication
-      remains outside the current selected certificate.
+      formalizes both directions of the discreteness/semilocal connection:
+      discreteness implies the pointwise semilocal condition in general, and
+      the converse is proved for locally path-connected spaces by a finite
+      compact-open subdivision and ladder argument.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors:
       - "Jeremy Brazas"
@@ -112,9 +113,10 @@ status:
     identity and composition, homotopy-equivalence invariance, path-based
     basepoint change, and conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
-    and discreteness criteria, product sharpness, the semilocal reverse
-    implication, covering/monodromy consequences, and the topological-group
-    agreement boundary.
+    and discreteness criteria, product sharpness, the semilocal
+    discreteness equivalence in locally path-connected spaces,
+    covering/monodromy consequences, and the topological-group agreement
+    boundary.
     The finite-torus portion proves explicit winding representatives,
     completeness, additivity, open classes, and the homeomorphism with the
     integer lattice.  The Comparator challenge has one deliberate statement
@@ -157,9 +159,9 @@ automation:
 fidelity:
   divergences: >-
     The artifact does not claim a new paper theorem.  It isolates the
-    null-class-openness criterion and the reverse semilocal implication, but
-    not yet the locally-path-connected forward implication from
-    Calcut--McCarthy.  The finite-torus calculation is classical; the added
+    null-class-openness criterion and the full locally-path-connected
+    discreteness/semilocal equivalence from a finite compact-open ladder
+    construction.  The finite-torus calculation is classical; the added
     content is its explicit compact-open and final-quotient realization, the
     homotopy-invariant quasitopological-group mechanism, sharp indexed-product
     boundary, separation and covering consequences, and their integration
@@ -224,6 +226,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
       status: "proved"
       note: "The quotient is discrete exactly when the null-homotopy class is open upstairs."
+    - source: "Finite-ladder openness under semilocal simple connectivity"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.isOpen_homotopyClass_of_semilocallySimplyConnected"
+      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
+      status: "proved"
+      note: "In locally path-connected spaces, finite compact-open subdivisions and path-connected vertex refinements make every based-loop homotopy class open."
+    - source: "Semilocal/discrete equivalence"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology"
+      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
+      status: "proved"
+      note: "For locally path-connected spaces, semilocal simple connectivity is equivalent to discreteness of every based quotient fundamental group."
     - source: "Positive quotient consequences"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProd_isQuotientMap"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"

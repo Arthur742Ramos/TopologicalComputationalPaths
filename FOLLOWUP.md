@@ -24,8 +24,11 @@ the formalization proves:
    equivalently if every based-loop homotopy class is closed;
 9. the quotient is discrete if and only if the null-homotopy class is open in
    the based loop space; and
-10. discreteness implies semilocal simple connectivity at the basepoint; and
-11. under the exact open-null-class criterion, every homotopy class is open, the quotient map
+10. discreteness implies semilocal simple connectivity at the basepoint;
+11. in locally path-connected spaces, semilocal simple connectivity implies
+    openness of every based-loop homotopy class and discreteness of every
+    based quotient fundamental group; and
+12. under the exact open-null-class criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
 
@@ -64,6 +67,10 @@ quasitopological group, is homogeneous, and is discrete for familiar
 semilocally simply connected spaces are established in the literature.  The
 circle and finite-torus fundamental-group calculations are classical.  This
 package makes no novelty claim for those paper theorems.
+
+The new follow-up proof closes the locally path-connected converse explicitly
+at the compact-open level: a finite path subdivision, path-connected vertex
+refinement, and finite homotopy ladder produce an open class around each loop.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

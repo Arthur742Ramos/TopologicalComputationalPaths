@@ -17,7 +17,10 @@ gives continuous induced homomorphisms, homeomorphism and basepoint
 invariance, and a sharp product-preservation theorem.  The application uses
 coordinatewise universal-cover winding: a local zero-chart contraction makes
 winding locally constant, and finite products yield a continuous complete
-invariant and the discrete quotient consequences.
+invariant and the discrete quotient consequences.  For locally path-connected
+spaces, it also supplies the finite compact-open subdivision and ladder proof
+of openness of every homotopy class, hence the converse semilocal/discrete
+equivalence.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -154,6 +157,17 @@ structure QuotientTopologicalFundamentalGroupTheory where
       DiscreteTopology (GenericLoopQuot X x) →
         ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnectedAt
           X x
+  quotient_discrete_iff_semilocally_simply_connected_in_locally_path_connected_spaces :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X],
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+        ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  homotopy_classes_open_of_semilocally_simply_connected :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X],
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X →
+        ∀ x : X, ∀ γ : GenericLoop X x,
+          IsOpen {δ : GenericLoop X x | γ.Homotopic δ}
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
       (p : E → B) (hp : IsCoveringMap p) (e : E),
@@ -322,6 +336,13 @@ theorem main_result :
         letI : DiscreteTopology (GenericLoopQuot X x) := hdiscrete
         exact QuotientFundamentalGroup.semilocallySimplyConnectedAt_of_discreteTopology
           X x
+      quotient_discrete_iff_semilocally_simply_connected_in_locally_path_connected_spaces := by
+        intro X _ _
+        exact QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology X
+      homotopy_classes_open_of_semilocally_simply_connected := by
+        intro X _ _ hsemi x gamma
+        exact QuotientFundamentalGroup.isOpen_homotopyClass_of_semilocallySimplyConnected
+          X hsemi x gamma
       covering_map_induces_injection := by
         intro E B _ _ p hp e
         exact QuotientFundamentalGroup.inducedContinuousMonoidHom_injective_of_isCoveringMap

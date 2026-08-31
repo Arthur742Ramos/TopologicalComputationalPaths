@@ -100,9 +100,12 @@ This separates the always-valid quasitopological-group laws from the stronger
 joint continuity that fails in the accepted Hawaiian-earring application.
 
 The strengthened package also proves the exact T1 criterion by closedness of
-the null class (equivalently, of every based-loop homotopy class), the
-implication from quotient discreteness to semilocal simple connectivity, and
-the exact agreement boundary with a genuine topological-group structure.
+the null class (equivalently, of every based-loop homotopy class), both
+directions of the discreteness/semilocal-simple-connectivity relationship in
+locally path-connected spaces, and the exact agreement boundary with a
+genuine topological-group structure.  The forward direction is witnessed by
+a finite compact-open subdivision and an explicit homotopy ladder, not merely
+by a transported abstract equivalence.
 Covering maps induce injective continuous homomorphisms whose images are the
 monodromy stabilizers of the chosen lifts.  Discontinuous multiplication is
 proved to force failure of the product-quotient hypothesis, and the accepted

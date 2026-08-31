@@ -71,3 +71,12 @@ circle and two-torus validation to every finite dimension and connects its
 explicit winding proof to the general null-class-openness criterion.  This is
 an independently checked formalization of classical topology, not a claim of
 a new fundamental-group computation.
+
+`ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean` now adds a
+finite compact-open subdivision theorem and an explicit ladder assembly.  In
+locally path-connected spaces, this proves openness of every based-loop
+homotopy class and the converse implication from semilocal simple connectivity
+to discreteness of every based quotient fundamental group; together with the
+general reverse implication, it yields the stated equivalence.  The proof is a
+direct Mathlib path/quotient construction rather than an unverified import of
+a paper theorem.
