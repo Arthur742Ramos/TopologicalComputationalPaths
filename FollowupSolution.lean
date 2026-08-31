@@ -7,6 +7,7 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
 import ComputationalPaths
+import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 /-!
 # Follow-up solution: quotient-topological fundamental groups
@@ -551,6 +552,23 @@ abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
 
+/-! Statement-facing matrix actions used to expose the cokernel composition
+certificate without changing the standalone comparison imports. -/
+noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    (Fin n → ℤ) →+ (Fin m → ℤ) where
+  toFun z j := ∑ i : Fin n, A j i * z i
+  map_zero' := by
+    ext j
+    simp
+  map_add' z w := by
+    ext j
+    simp [mul_add, Finset.sum_add_distrib]
+
+def matrixCompose {n m k : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Fin k → Fin n → ℤ :=
+  fun l i => ∑ j : Fin m, B l j * A j i
+
 /- Coordinate-selection maps between finite tori, used to state winding
    naturality without importing the substantive implementation. -/
 noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
@@ -676,6 +694,13 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     Continuous
       (_root_.Path.Homotopic.Quotient.symm :
         LoopQuot n → LoopQuot n)
+  matrix_cokernel_short_exact :
+    ∀ (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0),
+      ∃ f : (Fin n → ℤ) ⧸ (matrixAction A).range →+
+          (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range,
+      ∃ g : (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+
+          (Fin n → ℤ) ⧸ (matrixAction B).range,
+        Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 
 open ComputationalPaths.Path.GeometricTopology
 
@@ -1048,6 +1073,19 @@ theorem main_result :
     homotopy_classes_open := FiniteTorusWinding.isOpen_homotopyClass
     quotient_square := FiniteTorusWinding.loopQuotientProd_isQuotientMap n
     quotient_trans_continuous := FiniteTorusWinding.continuous_quotientTrans n
-    quotient_symm_continuous := FiniteTorusWinding.continuous_quotientSymm n }⟩
+    quotient_symm_continuous := FiniteTorusWinding.continuous_quotientSymm n
+    matrix_cokernel_short_exact := by
+      intro A B hB
+      refine ⟨
+        FiniteTorusWinding.matrixAction_cokernel_compMap A B,
+        FiniteTorusWinding.matrixAction_cokernel_compProjection A B,
+        ?_⟩
+      exact
+        ⟨FiniteTorusWinding.matrixAction_cokernel_compMap_injective_of_det_ne_zero
+            A B hB,
+          FiniteTorusWinding.matrixAction_cokernel_compProjection_ker_eq_range
+            A B,
+          FiniteTorusWinding.matrixAction_cokernel_compProjection_surjective
+            A B⟩ }⟩
 
 end TopologicalComputationalPathsFollowup
