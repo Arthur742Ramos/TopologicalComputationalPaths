@@ -100,6 +100,9 @@ injective on both the winding lattice and the actual topological quotient.  The
 projection from the cokernel of `B ∘ A` onto the cokernel of `B` is surjective
 with exactly that image as its kernel, giving a short exact sequence on both
 sides.
+The quotient of the composition cokernel by the projection kernel is also
+identified with the cokernel of `B` by an explicit first-isomorphism additive
+equivalence, with the representative formula checked against the projection.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
@@ -700,6 +703,8 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range,
       ∃ g : (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+
           (Fin n → ℤ) ⧸ (matrixAction B).range,
+      ∃ e : (((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
+          (Fin n → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 
 open ComputationalPaths.Path.GeometricTopology
@@ -1079,6 +1084,8 @@ theorem main_result :
       refine ⟨
         FiniteTorusWinding.matrixAction_cokernel_compMap A B,
         FiniteTorusWinding.matrixAction_cokernel_compProjection A B,
+        FiniteTorusWinding.matrixAction_cokernel_compProjection_quotientKerEquiv
+          A B,
         ?_⟩
       exact
         ⟨FiniteTorusWinding.matrixAction_cokernel_compMap_injective_of_det_ne_zero

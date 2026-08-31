@@ -234,6 +234,9 @@ injective whenever the determinant of `B` is nonzero.  The same embedding is
 proved directly for the topological quotient cokernels.  The projection from
 the cokernel of `B ∘ A` onto the cokernel of `B` is surjective with precisely
 that image as its kernel, yielding a short exact sequence on both sides.
+The corresponding quotient of the composition cokernel by that kernel is
+then identified with the second cokernel by an explicit first-isomorphism
+additive equivalence, including its action on quotient representatives.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

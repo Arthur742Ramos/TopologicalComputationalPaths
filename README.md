@@ -253,6 +253,10 @@ The complementary projection from the cokernel of `B ∘ A` onto the cokernel
 of `B` is surjective with exactly that image as its kernel, so the result is an
 explicit short exact sequence of finite abelian groups rather than only a
 numerical identity.
+The associated first-isomorphism quotient is also made explicit: quotienting
+the composition cokernel by the projection kernel yields an additive
+equivalence with the cokernel of `B`, and a proved representative formula
+identifies this equivalence with the canonical projection.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

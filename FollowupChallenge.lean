@@ -106,6 +106,9 @@ inverse witness, including at arbitrary basepoints.
     The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
     surjective with exactly that image as its kernel, giving a short exact
     sequence on both sides.
+    The quotient of the composition cokernel by the projection kernel is also
+    equipped with an explicit first-isomorphism additive equivalence to the
+    cokernel of `B`, including its action on quotient representatives.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
@@ -742,6 +745,8 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       ∃ f : (Fin n → ℤ) ⧸ (matrixAction A).range →+
           (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range,
       ∃ g : (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+
+          (Fin n → ℤ) ⧸ (matrixAction B).range,
+      ∃ e : (((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin n → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 

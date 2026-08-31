@@ -100,6 +100,9 @@ project:
     The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
     surjective with exactly that image as its kernel, giving a short exact
     sequence on both sides.
+    Quotienting the composition cokernel by the projection kernel is also
+    identified with the cokernel of `B` by an explicit first-isomorphism
+    additive equivalence, including a proved representative formula.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
@@ -265,6 +268,9 @@ status:
     quotient maps satisfy matrix identity/composition laws, with exact image,
     kernel, injectivity, and surjectivity transfer and continuous additive
     quotient homomorphisms.
+    The composition-cokernel short exact sequence is further equipped with
+    explicit first-isomorphism quotient equivalences on both the lattice and
+    topological quotient sides, together with their representative formulas.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -635,6 +641,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The projection from the cokernel of B composed with A onto the cokernel of B is surjective and has the composition-map image as kernel; with nonzero det B this is an explicit short exact sequence on the lattice and topological quotient sides."
+    - source: "Finite-torus cokernel first-isomorphism quotients"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_quotientKerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_quotientKerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv_apply_mk"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The quotient of each composition cokernel by the projection kernel is explicitly additively equivalent to the second cokernel, and the equivalence sends quotient representatives to the canonical projection image."
 
 acknowledgements: >-
   Thanks to the cited authors, and to the contributors of Lean, Mathlib, the

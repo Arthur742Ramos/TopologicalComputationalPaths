@@ -85,7 +85,10 @@ product of finite cyclic `ZMod` factors, with the full-rank image theorem made
 available to support the decomposition.  The same cyclic-factor presentation
 is transported through the winding equivalence to the canonical quotient
 cokernel of the induced torus homomorphism, now as an explicit additive
-equivalence of finite abelian groups.
+equivalence of finite abelian groups.  Finally, the quotient of the
+composition cokernel by the projection kernel is identified with the second
+cokernel by an explicit first-isomorphism additive equivalence, whose action
+on quotient representatives is proved directly.
 -/
 
 namespace ComputationalPaths
@@ -1844,6 +1847,29 @@ theorem matrixAction_cokernel_comp_shortExact_of_det_ne_zero
     matrixAction_cokernel_compProjection_ker_eq_range A B,
     matrixAction_cokernel_compProjection_surjective A B⟩
 
+/-- The first-isomorphism quotient of the composition cokernel sequence is
+canonically the cokernel of `B`.  This packages the projection quotient as an
+explicit additive equivalence, rather than only recording its kernel and
+surjectivity separately. -/
+noncomputable def matrixAction_cokernel_compProjection_quotientKerEquiv
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸
+        (matrixAction_cokernel_compProjection A B).ker ≃+
+      (Fin n → ℤ) ⧸ (matrixAction B).range :=
+  QuotientAddGroup.quotientKerEquivOfSurjective
+    (matrixAction_cokernel_compProjection A B)
+    (matrixAction_cokernel_compProjection_surjective A B)
+
+@[simp] theorem matrixAction_cokernel_compProjection_quotientKerEquiv_apply_mk
+    {n : ℕ} (A B : Fin n → Fin n → ℤ)
+    (q : (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) :
+    matrixAction_cokernel_compProjection_quotientKerEquiv A B
+        (QuotientAddGroup.mk'
+          (matrixAction_cokernel_compProjection A B).ker q) =
+      matrixAction_cokernel_compProjection A B q := by
+  exact QuotientAddGroup.kerLift_mk
+    (matrixAction_cokernel_compProjection A B) q
+
 /-- A nonzero determinant makes the winding-lattice cokernel finite. -/
 theorem matrixAction_cokernel_finite {n : ℕ}
     (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
@@ -3177,6 +3203,29 @@ theorem matrixMapQuotientAddHom_cokernel_comp_shortExact_of_det_ne_zero
   ⟨matrixMapQuotientAddHom_cokernel_compMap_injective_of_det_ne_zero A B hB,
     matrixMapQuotientAddHom_cokernel_compProjection_ker_eq_range A B,
     matrixMapQuotientAddHom_cokernel_compProjection_surjective A B⟩
+
+/-- The first-isomorphism quotient of the topological composition cokernel
+sequence is canonically the topological quotient cokernel of `B`. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    (LoopQuot n ⧸
+        (matrixMapQuotientAddHom (matrixCompose A B)).range) ⧸
+        (matrixMapQuotientAddHom_cokernel_compProjection A B).ker ≃+
+      LoopQuot n ⧸ (matrixMapQuotientAddHom B).range :=
+  QuotientAddGroup.quotientKerEquivOfSurjective
+    (matrixMapQuotientAddHom_cokernel_compProjection A B)
+    (matrixMapQuotientAddHom_cokernel_compProjection_surjective A B)
+
+@[simp] theorem matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv_apply_mk
+    {n : ℕ} (A B : Fin n → Fin n → ℤ)
+    (q : LoopQuot n ⧸
+        (matrixMapQuotientAddHom (matrixCompose A B)).range) :
+    matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv A B
+        (QuotientAddGroup.mk'
+          (matrixMapQuotientAddHom_cokernel_compProjection A B).ker q) =
+      matrixMapQuotientAddHom_cokernel_compProjection A B q := by
+  exact QuotientAddGroup.kerLift_mk
+    (matrixMapQuotientAddHom_cokernel_compProjection A B) q
 
 /-- The canonical topological quotient cokernel is an abelian group with the
 same Smith-normal-form decomposition as the winding-lattice cokernel. -/

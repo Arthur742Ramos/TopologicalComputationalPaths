@@ -190,6 +190,10 @@ the formalization proves:
     `B` is surjective, with kernel exactly the image of the preceding map; with
     `det B ≠ 0`, these results package into an explicit short exact sequence on
     both sides of the winding classifier.
+72. the first-isomorphism quotient of that short exact sequence is made
+    explicit: quotienting the composition cokernel by the projection kernel is
+    additively equivalent to the cokernel of `B`, and the equivalence is proved
+    to send each quotient representative to its canonical projection image.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -337,6 +341,10 @@ quotient.  The canonical projection from the cokernel of `B ∘ A` onto the
 cokernel of `B` is surjective, and its kernel is exactly the image of that
 embedding.  Thus the multiplicative index law is accompanied by an explicit
 short exact sequence of finite abelian groups, not only a numerical identity.
+The first-isomorphism theorem is also instantiated directly: after quotienting
+the composition cokernel by the projection kernel, an explicit additive
+equivalence identifies the result with the cokernel of `B`; its representative
+formula is checked against the projection map itself.
 At the lattice level, the finite cokernel is further decomposed into the
 finite cyclic invariant factors supplied by Smith normal form, rather than
 only counted.  The canonical quotient cokernel is now transported through the
