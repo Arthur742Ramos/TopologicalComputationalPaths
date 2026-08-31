@@ -1190,6 +1190,25 @@ theorem coordinateProjectionQuotientContinuousMulHom_id (n : ℕ)
   cases hid
   exact QuotientFundamentalGroup.quotientMap_id x q
 
+/-- Coordinate selection commutes with basepoint transport along every explicit
+path from the canonical torus basepoint. -/
+theorem coordinateProjectionQuotientContinuousMulHom_basepointChange
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (p : _root_.Path (base n) x) (q : LoopQuot n) :
+    coordinateProjectionQuotientContinuousMulHom f x
+        (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p q) =
+      QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        (p.map (coordinateProjection f).continuous)
+        (coordinateProjectionQuotientContinuousMulHom f (base n) q) := by
+  change _root_.Path.Homotopic.Quotient.map
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p q)
+        (coordinateProjection f) =
+    QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+      (p.map (coordinateProjection f).continuous)
+      (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
+  exact QuotientFundamentalGroup.basepointChange_quotientMap_naturality
+    p (coordinateProjection f) q
+
 /-- The arbitrary-basepoint classifier naturality theorem can be stated
 directly through the induced continuous monoid homomorphism. -/
 theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom

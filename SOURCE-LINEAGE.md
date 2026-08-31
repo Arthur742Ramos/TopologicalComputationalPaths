@@ -123,6 +123,8 @@ groups, with identity/composition coherence and a direct classifier
 naturality corollary.  The canonical classifiers transport the exact
 fiber-constant image, injectivity/surjectivity converse, and
 vanishing-on-the-image kernel descriptions to arbitrary basepoints as well.
+It also commutes with explicit basepoint transport, providing a naturality
+square before any classifier is selected.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

@@ -207,7 +207,8 @@ homomorphism between the corresponding quotient fundamental groups, with its
 own identity/composition coherence and a classifier-naturality corollary.  The
 same classifier transports the exact fiber-constant image criterion,
 injectivity/surjectivity converses, and vanishing-on-the-image kernel result
-to every torus basepoint.
+to every torus basepoint.  It also commutes with explicit basepoint transport,
+giving a naturality square before any classifier is chosen.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

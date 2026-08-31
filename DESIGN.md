@@ -187,6 +187,8 @@ groups, with explicit identity/composition coherence and a direct
 classifier-naturality theorem.  The canonical classifiers also transport the
 exact fiber-constant image, injectivity/surjectivity converse, and
 vanishing-on-the-image kernel descriptions to arbitrary basepoints.
+The homomorphism also commutes with explicit basepoint transport, so this
+extension has a naturality square before any classifier is selected.
 
 ## Non-goals for the first submission
 

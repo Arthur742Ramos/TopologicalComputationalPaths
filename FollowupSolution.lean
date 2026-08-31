@@ -57,7 +57,8 @@ the corresponding quotient fundamental groups, with explicit
 identity/composition coherence and a direct classifier-naturality statement.
 The canonical classifiers also transport the exact fiber-constant image,
 injectivity/surjectivity converse, and kernel descriptions to every torus
-basepoint.
+basepoint.  The induced homomorphism also commutes with explicit basepoint
+transport, giving a naturality square before any classifier is chosen.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.

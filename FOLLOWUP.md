@@ -201,6 +201,8 @@ laws, and the canonical lattice-classifier square factors through the named
 homomorphism directly.  The classifier equivalence also transports the exact
 fiber-constant image criterion, injectivity/surjectivity converses, and
 vanishing-on-the-image kernel criterion to these arbitrary-basepoint maps.
+The homomorphism itself commutes with the explicit basepoint-change
+equivalence, giving a naturality square before any classifier is chosen.
 
 ## Literature and novelty boundary
 
