@@ -159,6 +159,8 @@ matrix sequences inherit this bound in explicit composition and canonical
 Under injectivity of the second map, the exact sequence also gives a
 multiplicative `Nat.card` identity for the composite and successive cokernels,
 in both rectangular lattice and finite-torus presentations.
+The finite-torus identity is also exposed from injectivity of the underlying
+lattice action via the quotient-injectivity equivalence.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

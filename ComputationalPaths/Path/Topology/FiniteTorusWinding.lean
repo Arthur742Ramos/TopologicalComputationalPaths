@@ -107,6 +107,9 @@ rectangular lattice and finite-torus matrix maps, including canonical
 When the second map is injective, the same exact sequence multiplies
 `Nat.card`: the composite cokernel cardinality is the product of the two
 successive cokernel cardinalities, again in both rectangular presentations.
+On the finite-torus side this product identity is also available directly
+from injectivity of the underlying lattice action, with the quotient
+injectivity equivalence discharged explicitly.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -4454,6 +4457,20 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective
   exact addCokernelComp_card_mul_of_injective
     (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB
 
+/-- The finite-torus cardinality product follows from injectivity of the
+underlying rectangular lattice action as well. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        Nat.card (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) =
+      Nat.card
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) := by
+  apply matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective A B
+  change Function.Injective (matrixMapQuotientMap B)
+  exact (matrixMapQuotientMap_injective_iff B).mpr hB
+
 /-- Injectivity of the rectangular winding action is transported directly to
 the corresponding finite-torus quotient cokernel sequence. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective
@@ -5887,6 +5904,20 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_i
           (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective A B hB
+
+/-- The finite-torus cardinality product in matrix-compose notation also
+follows from injectivity of the underlying lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        Nat.card (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) =
+      Nat.card
+        (LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixAction_injective
+    A B hB
 
 /-- The rectangular finite-torus exact sequence can be consumed directly
 through the canonical matrix-composition notation. -/

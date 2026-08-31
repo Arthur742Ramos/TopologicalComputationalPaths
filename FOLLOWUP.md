@@ -345,6 +345,8 @@ the formalization proves:
      finite-torus matrix cokernels under the same injectivity hypothesis.
 129. the cardinality identity is also exposed for canonical `matrixCompose`
      ranges on both sides.
+130. the finite-torus cardinality product is also available from injectivity
+     of the underlying lattice action, using the quotient-injectivity iff.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
