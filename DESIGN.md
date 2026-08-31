@@ -249,6 +249,10 @@ not an implicit extra assumption.
 The rectangular composite ranges are proved equal to the ranges of the
 canonical `matrixCompose` actions on both the lattice and finite-torus sides;
 the exact-sequence and iff interfaces are available in that canonical form.
+The subgroup transport is lifted to an explicit additive equivalence between
+each rectangular finite-torus cokernel and its integer-lattice cokernel, and
+both the composite embedding and complementary projection are verified natural
+under that equivalence.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

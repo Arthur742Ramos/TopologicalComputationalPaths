@@ -269,6 +269,12 @@ than a hidden strengthening.
 The composite-image subgroups are also identified explicitly with the ranges
 of the canonical row-by-column `matrixCompose` maps, and both the lattice and
 finite-torus exact-sequence APIs expose this notation directly.
+For every rectangular matrix, the winding equivalence is lifted to an explicit
+additive equivalence between the finite-torus cokernel and the lattice
+cokernel, with a representative formula.  The composite cokernel embedding is
+proved natural under these equivalences, and the complementary projection
+commutes as well, giving a checked commutative diagram between the topological
+and lattice exact sequences.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

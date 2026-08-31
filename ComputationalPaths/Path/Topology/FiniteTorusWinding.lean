@@ -102,6 +102,11 @@ of `matrixAction (matrixCompose A B)` and
 `matrixMapQuotientAddHom (matrixCompose A B)`.  The short-exact statements
 and converse criteria are exposed in these canonical matrix-composition forms
 as well, so clients need not unfold the homomorphism composition.
+Finally, the winding equivalence lifts from image subgroups to an explicit
+additive equivalence between every rectangular finite-torus cokernel and its
+integer-lattice cokernel.  In the composite form, this equivalence is proved
+natural for both the cokernel embedding and projection, so the topological and
+lattice exact sequences are related by a checked commutative diagram.
 -/
 
 namespace ComputationalPaths
@@ -3332,6 +3337,31 @@ theorem matrixMapQuotientAddHom_range_map {n m : ℕ}
         exact hnat
       _ = matrixAction A v := by rw [hev]
 
+/-! The subgroup-level range calculation lifts to a quotient equivalence for
+every rectangular matrix.  This is the structural winding transport used by
+the square Smith-normal-form corollaries below, but it does not require a
+determinant or a dimension equality. -/
+
+/-- The winding equivalence transports the finite-torus cokernel of every
+rectangular matrix to the corresponding integer-lattice cokernel. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_windingEquiv
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ≃+
+      ((Fin m → ℤ) ⧸ (matrixAction A).range) := by
+  exact QuotientAddGroup.congr
+    (matrixMapQuotientAddHom A).range (matrixAction A).range
+    (loopQuotAddEquivIntVector m)
+    (matrixMapQuotientAddHom_range_map A)
+
+@[simp] theorem matrixMapQuotientAddHom_cokernel_windingEquiv_apply_mk
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m) :
+    matrixMapQuotientAddHom_cokernel_windingEquiv A
+        (QuotientAddGroup.mk'
+          (matrixMapQuotientAddHom A).range q) =
+      QuotientAddGroup.mk' (matrixAction A).range
+        (loopQuotAddEquivIntVector m q) := by
+  rfl
+
 /-- The image of a square matrix on quotient loop classes has the same finite
 index as its winding-lattice image. -/
 theorem matrixMapQuotientAddHom_range_index_eq_natAbs_det {n : ℕ}
@@ -3744,6 +3774,143 @@ theorem matrixMapQuotientAddHom_comp {n m k : ℕ}
       (matrixMapQuotientAddHom B).comp (matrixMapQuotientAddHom A) := by
   ext q
   exact (matrixMapQuotientMap_comp A B q).symm
+
+/-! The quotient winding equivalence has a composition-compatible form whose
+target is written using the explicit homomorphism composite.  This makes the
+naturality statement below independent of proof-irrelevant subgroup casts. -/
+
+/-- The winding equivalence for a rectangular composite written as an
+explicit additive-homomorphism composition. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_windingEquiv_comp
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    (LoopQuot k ⧸
+        ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ≃+
+      ((Fin k → ℤ) ⧸
+        ((matrixAction B).comp (matrixAction A)).range) := by
+  have hmap :
+      ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range.map
+          (loopQuotAddEquivIntVector k : LoopQuot k →+ (Fin k → ℤ)) =
+        ((matrixAction B).comp (matrixAction A)).range := by
+    rw [← matrixMapQuotientAddHom_comp A B,
+      ← matrixAction_comp_hom A B]
+    exact matrixMapQuotientAddHom_range_map (matrixCompose A B)
+  exact QuotientAddGroup.congr _ _ (loopQuotAddEquivIntVector k) hmap
+
+@[simp] theorem matrixMapQuotientAddHom_cokernel_windingEquiv_comp_apply_mk
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (q : LoopQuot k) :
+    matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B
+        (QuotientAddGroup.mk'
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range q) =
+      QuotientAddGroup.mk'
+        ((matrixAction B).comp (matrixAction A)).range
+        (loopQuotAddEquivIntVector k q) := by
+  rfl
+
+/-! The quotient-level matrix map is natural with respect to the winding
+equivalences: applying the topological cokernel embedding and then decoding
+windings agrees with first decoding and applying the lattice embedding. -/
+
+/-- Naturality of the rectangular cokernel embedding under the winding
+equivalence. -/
+theorem matrixMapQuotientAddHom_cokernel_windingEquiv_compMap_naturality
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toAddMonoidHom.comp
+        (addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)) =
+      (addCokernelCompMap (matrixAction A) (matrixAction B)).comp
+        (matrixMapQuotientAddHom_cokernel_windingEquiv A).toAddMonoidHom := by
+  apply AddMonoidHom.ext
+  intro q
+  obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective
+    (matrixMapQuotientAddHom A).range q
+  simp only [AddMonoidHom.comp_apply]
+  change
+    matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B
+        (addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x)) =
+      addCokernelCompMap (matrixAction A) (matrixAction B)
+        (matrixMapQuotientAddHom_cokernel_windingEquiv A
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x))
+  rw [show addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+        QuotientAddGroup.mk'
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range
+          (matrixMapQuotientAddHom B x) by
+    rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv A
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+        QuotientAddGroup.mk' (matrixAction A).range
+          (loopQuotAddEquivIntVector m x) by rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B
+        (QuotientAddGroup.mk'
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range
+          (matrixMapQuotientAddHom B x)) =
+      QuotientAddGroup.mk'
+        ((matrixAction B).comp (matrixAction A)).range
+        (loopQuotAddEquivIntVector k
+          (matrixMapQuotientAddHom B x)) by rfl]
+  simp only [addCokernelCompMap, QuotientAddGroup.map_mk']
+  apply congrArg
+    (QuotientAddGroup.mk' ((matrixAction B).comp (matrixAction A)).range)
+  change encode (matrixMapQuotientMap B x) =
+    matrixAction B (encode x)
+  exact encode_matrixMapQuotientMap B x
+
+/-- Naturality of the rectangular cokernel projection under the winding
+equivalence. -/
+theorem matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_naturality
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    (matrixMapQuotientAddHom_cokernel_windingEquiv B).toAddMonoidHom.comp
+        (addCokernelCompProjection (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)) =
+      (addCokernelCompProjection (matrixAction A) (matrixAction B)).comp
+        (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toAddMonoidHom := by
+  apply AddMonoidHom.ext
+  intro q
+  obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective
+    ((matrixMapQuotientAddHom B).comp
+      (matrixMapQuotientAddHom A)).range q
+  simp only [AddMonoidHom.comp_apply]
+  change
+    matrixMapQuotientAddHom_cokernel_windingEquiv B
+        (addCokernelCompProjection (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)
+          (QuotientAddGroup.mk'
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range x)) =
+      addCokernelCompProjection (matrixAction A) (matrixAction B)
+        (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B
+          (QuotientAddGroup.mk'
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range x))
+  rw [show addCokernelCompProjection (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)
+          (QuotientAddGroup.mk'
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range x) =
+        QuotientAddGroup.mk' (matrixMapQuotientAddHom B).range x by
+    rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv B
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom B).range x) =
+        QuotientAddGroup.mk' (matrixAction B).range
+          (loopQuotAddEquivIntVector k x) by rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B
+          (QuotientAddGroup.mk'
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range x) =
+        QuotientAddGroup.mk'
+          ((matrixAction B).comp (matrixAction A)).range
+          (loopQuotAddEquivIntVector k x) by rfl]
+  simp only [addCokernelCompProjection, QuotientAddGroup.map_mk']
+  rfl
 
 /-- The image of a rectangular finite-torus composite is independent of
 whether it is written as an explicit homomorphism composition or through the

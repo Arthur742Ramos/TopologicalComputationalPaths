@@ -208,6 +208,12 @@ the formalization proves:
     of the canonical row-by-column `matrixCompose` maps on both the winding
     lattice and finite-torus quotient.  The short-exact sequence and exact
     injectivity-criterion APIs are exposed in this canonical notation as well.
+76. the winding equivalence lifts the image-subgroup calculation to an
+    explicit additive equivalence between every rectangular finite-torus
+    cokernel and its integer-lattice cokernel, with a representative formula.
+    The composite cokernel embedding and complementary projection are proved
+    natural under these equivalences, giving a checked commutative diagram
+    between both exact sequences.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
