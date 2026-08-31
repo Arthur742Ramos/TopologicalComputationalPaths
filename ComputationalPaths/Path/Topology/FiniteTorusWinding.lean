@@ -1792,6 +1792,15 @@ noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     matrixMapQuotientAddHom A q = matrixMapQuotientMap A q :=
   rfl
 
+/-- Membership in the matrix quotient homomorphism's kernel is exactly the
+kernel condition for its winding-lattice action. -/
+theorem matrixMapQuotientAddHom_mem_ker_iff {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (q : LoopQuot n) :
+    q ∈ (matrixMapQuotientAddHom A).ker ↔
+      matrixAction A (encode q) = 0 := by
+  change matrixMapQuotientMap A q = (0 : LoopQuot m) ↔ _
+  exact matrixMapQuotientMap_eq_zero_iff A q
+
 theorem matrixMapQuotientAddHom_comp {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
     matrixMapQuotientAddHom (matrixCompose A B) =
