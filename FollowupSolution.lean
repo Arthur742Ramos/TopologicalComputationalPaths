@@ -20,7 +20,9 @@ winding locally constant, and finite products yield a continuous complete
 invariant and the discrete quotient consequences.  For locally path-connected
 spaces, it also supplies the finite compact-open subdivision and ladder proof
 of openness of every homotopy class, hence the converse semilocal/discrete
-equivalence.
+equivalence.  The finite-torus certificate transports discreteness from the
+zero basepoint to every point and records semilocal simple connectivity
+globally.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -268,6 +270,14 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       classifier (_root_.Path.Homotopic.Quotient.trans x y) =
         classifier x + classifier y
   quotient_discrete : DiscreteTopology (LoopQuot n)
+  quotient_discrete_at :
+    ∀ x : FiniteTorus n,
+      DiscreteTopology
+        (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x)
+  semilocally_simply_connected :
+    ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected
+      (FiniteTorus n)
   null_class_open :
     IsOpen (nullHomotopyClass (FiniteTorus n) (base n))
   homotopy_classes_open :
@@ -418,6 +428,9 @@ theorem main_result :
     winding_trans := FiniteTorusWinding.winding_trans
     classifier_trans := FiniteTorusWinding.encode_trans
     quotient_discrete := inferInstance
+    quotient_discrete_at := FiniteTorusWinding.loopQuotDiscreteTopology_at n
+    semilocally_simply_connected :=
+      FiniteTorusWinding.semilocallySimplyConnected n
     null_class_open := FiniteTorusWinding.isOpen_nullHomotopyClass n
     homotopy_classes_open := FiniteTorusWinding.isOpen_homotopyClass
     quotient_square := FiniteTorusWinding.loopQuotientProd_isQuotientMap n

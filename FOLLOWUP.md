@@ -64,7 +64,10 @@ general criterion.  It obtains a discrete quotient, an open quotient map, a
 quotient square, and continuous concatenation and reversal.  Internally,
 winding is also packaged as a continuous additive equivalence, and the
 transported addition is proved equal to path-class concatenation.  Dimensions
-`0` and `1` are included uniformly.
+`0` and `1` are included uniformly.  The new basepoint-transport theorem
+upgrades the discrete quotient statement from the zero basepoint to every
+point of the torus; the resulting theorem packages semilocal simple
+connectivity at all points for every finite torus.
 
 ## Literature and novelty boundary
 

@@ -1,5 +1,6 @@
 import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
+import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 import Mathlib.Topology.Homotopy.Product
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
 
@@ -227,6 +228,28 @@ noncomputable instance loopQuotDiscreteTopology (n : ℕ) :
     DiscreteTopology (LoopQuot n) :=
   QuotientFundamentalGroup.quotientDiscreteTopology
     (Carrier n) (base n) (isOpen_nullHomotopyClass n)
+
+/-- Every based quotient fundamental group of a finite torus is discrete.
+The zero-basepoint classification is transported to an arbitrary point along
+the explicit path supplied by path-connectedness of the indexed product. -/
+theorem loopQuotDiscreteTopology_at (n : ℕ) (x : Carrier n) :
+    DiscreteTopology
+      (QuotientFundamentalGroup.LoopQuot (Carrier n) x) := by
+  let p : _root_.Path (base n) x := PathConnectedSpace.somePath (base n) x
+  have hbase : DiscreteTopology (LoopQuot n) := loopQuotDiscreteTopology n
+  have hpath := QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_path p
+  exact hpath.mp hbase
+
+/-- Finite-dimensional tori are semilocally simply connected at every point,
+as witnessed by the discrete quotient criterion. -/
+theorem semilocallySimplyConnected (n : ℕ) :
+    QuotientFundamentalGroup.SemilocallySimplyConnected (Carrier n) := by
+  intro x
+  letI : DiscreteTopology
+      (QuotientFundamentalGroup.LoopQuot (Carrier n) x) :=
+    loopQuotDiscreteTopology_at n x
+  exact QuotientFundamentalGroup.semilocallySimplyConnectedAt_of_discreteTopology
+    (Carrier n) x
 
 /-- The quotient-topological fundamental group of `(S¹)ⁿ` is homeomorphic to
 the discrete integer lattice `ℤⁿ`. -/

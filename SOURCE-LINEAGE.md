@@ -68,7 +68,9 @@ fundamental group, not claimed as new paper theorems.
 
 `ComputationalPaths/Path/Topology/FiniteTorusWinding.lean` extends the earlier
 circle and two-torus validation to every finite dimension and connects its
-explicit winding proof to the general null-class-openness criterion.  This is
+explicit winding proof to the general null-class-openness criterion.  Its
+basepoint-transport corollary proves discreteness of every based quotient and
+semilocal simple connectivity at every point of every finite torus.  This is
 an independently checked formalization of classical topology, not a claim of
 a new fundamental-group computation.
 

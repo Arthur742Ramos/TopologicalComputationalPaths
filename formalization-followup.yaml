@@ -15,7 +15,9 @@ project:
     category, covering-map injectivity with a monodromy-stabilizer image
     theorem, and the precise
     topological-group agreement boundary.  Every finite torus is classified
-    by explicit winding as a discrete integer lattice.
+    by explicit winding as a discrete integer lattice, with discreteness
+    transported to every basepoint and semilocal simple connectivity proved
+    at every torus point.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -125,8 +127,10 @@ status:
     boundary.
     The finite-torus portion proves explicit winding representatives,
     completeness, additivity, open classes, and the homeomorphism with the
-    integer lattice.  The Comparator challenge has one deliberate statement
-    hole; the solution and substantive development have none.
+    integer lattice.  Basepoint transport then proves all-basepoint
+    discreteness and semilocal simple connectivity for every finite torus.
+    The Comparator challenge has one deliberate statement hole; the solution
+    and substantive development have none.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -272,6 +276,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Continuous additive classification of all finite-dimensional tori by integer winding vectors."
+    - source: "All-basepoint finite-torus semilocality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.semilocallySimplyConnected"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Basepoint transport makes every based quotient discrete and proves semilocal simple connectivity at every point of each finite torus."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
