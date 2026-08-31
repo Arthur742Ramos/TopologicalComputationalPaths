@@ -277,6 +277,11 @@ For square nonsingular maps, the invariant-factor product is also proved equal
 to the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The same Smith-product formula is proved without a rank assumption, including
 the infinite cases via `Nat.card = 0` for a surviving `ZMod 0` factor.
+The corresponding image-membership interface is exact as well: after the
+Smith basis change, each coordinate is divisible by its factor, with zero
+factors imposing the complementary-coordinate equations.
+The transported topological equivalence also has an explicit quotient-
+representative formula, avoiding any hidden unfolding of the quotient map.
 
 ## Non-goals for the first submission
 

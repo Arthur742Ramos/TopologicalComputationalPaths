@@ -126,6 +126,10 @@ In the square nonsingular specialization, the Smith-modulus product is proved
 to equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The product formula itself is also established for arbitrary rank, with
 `Nat.card = 0` on precisely the infinite cases.
+The same coordinates give exact divisibility membership tests for the matrix
+images, including the vanishing equations forced by zero factors.
+The topological Smith equivalence has a proved quotient-representative formula
+so this coordinate decoder is directly usable on loop classes.
 -/
 
 namespace ComputationalPaths
@@ -2407,6 +2411,43 @@ theorem map_smithNormalForm_eq_pi
         simpa [smithNormalFormFactor, hi] using hc'.symm
       exact hyzero.trans hxzero.symm
 
+/-- Smith coordinates give a direct membership test for an arbitrary-rank
+submodule: a vector lies in the submodule exactly when every transformed
+coordinate is divisible by its Smith factor.  Divisibility by zero forces the
+corresponding complementary coordinate to vanish. -/
+theorem submodule_mem_iff_smithNormalFormFactor_dvd
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) :
+    x ∈ N ↔ ∀ i : Fin m, smithNormalFormFactor snf i ∣
+      (snf.bM.equivFun x) i := by
+  classical
+  constructor
+  · intro hx i
+    have hmem : snf.bM.equivFun x ∈
+        Submodule.map (snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) N :=
+      ⟨x, hx, rfl⟩
+    rw [map_smithNormalForm_eq_pi snf] at hmem
+    rcases Submodule.mem_span_singleton.mp (hmem i (Set.mem_univ _)) with ⟨c, hc⟩
+    refine (dvd_iff_exists_eq_mul_left).2 ⟨c, ?_⟩
+    simpa [mul_comm] using hc.symm
+  · intro hx
+    have hmem : snf.bM.equivFun x ∈
+        Submodule.pi Set.univ
+          (fun i => Submodule.span ℤ ({smithNormalFormFactor snf i} : Set ℤ)) := by
+      intro i _
+      rcases (dvd_iff_exists_eq_mul_left).1 (hx i) with ⟨c, hc⟩
+      refine Submodule.mem_span_singleton.mpr ⟨c, ?_⟩
+      change c * smithNormalFormFactor snf i = (snf.bM.equivFun x) i
+      exact hc.symm
+    have hmap : snf.bM.equivFun x ∈
+        Submodule.map (snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) N := by
+      rw [map_smithNormalForm_eq_pi snf]
+      exact hmem
+    rcases Submodule.mem_map.mp hmap with ⟨y, hy, hyeq⟩
+    have hxy : y = x := snf.bM.equivFun.injective hyeq
+    simpa [hxy] using hy
+
 /-- The quotient by an arbitrary-rank Smith-normal-form submodule is the
 coordinatewise product of the corresponding cyclic quotients.  The zero
 coefficients on complementary coordinates are retained as `ZMod 0`, so the
@@ -2532,6 +2573,21 @@ theorem matrixAction_cokernel_card_eq_smithNormalFormFactorProduct
   exact submoduleCokernel_card_eq_smithNormalFormFactorProduct
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
+
+/-- The matrix-image membership problem is decided in Smith coordinates by
+coordinatewise divisibility, including the zero-factor equations in the
+rank-deficient case. -/
+theorem matrixAction_mem_range_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) :
+    x ∈ (matrixAction A).range.toIntSubmodule ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i := by
+  exact submodule_mem_iff_smithNormalFormFactor_dvd
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 x
 
 /-- Under full target rank, the Smith factors give the exact cardinality of
 the lattice cokernel as their product of moduli. -/
@@ -4056,6 +4112,49 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquiv
     exact QuotientAddGroup.congr H (matrixAction A).range
       (loopQuotAddEquivIntVector m) hmap
   exact qAddEquiv.trans (matrixAction_cokernel_smithEquiv A)
+
+@[simp] theorem matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) :
+    matrixMapQuotientAddHom_cokernel_smithAddEquiv A
+        (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+      submoduleCokernelSmithEquiv
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2
+        (Submodule.Quotient.mk (loopQuotAddEquivIntVector m x)) := by
+  rfl
+
+/-- Membership in a rectangular finite-torus matrix image is detected by
+coordinatewise Smith divisibility after decoding the loop class to its winding
+vector. -/
+theorem matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) :
+    x ∈ (matrixMapQuotientAddHom A).range ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (loopQuotAddEquivIntVector m x)) i := by
+  let e := loopQuotAddEquivIntVector m
+  let H := (matrixMapQuotientAddHom A).range
+  have hmap : H.map (e : LoopQuot m →+ (Fin m → ℤ)) =
+      (matrixAction A).range := matrixMapQuotientAddHom_range_map A
+  constructor
+  · intro hx
+    have hex : e x ∈ (matrixAction A).range := by
+      rw [← hmap]
+      exact AddSubgroup.mem_map_of_mem (e : LoopQuot m →+ (Fin m → ℤ)) hx
+    exact (matrixAction_mem_range_iff_smithNormalFormFactor_dvd A (e x)).mp hex
+  · intro hx
+    have hLat : e x ∈ (matrixAction A).range :=
+      (matrixAction_mem_range_iff_smithNormalFormFactor_dvd A (e x)).mpr hx
+    have hex : e x ∈ H.map (e : LoopQuot m →+ (Fin m → ℤ)) := by
+      rw [hmap]
+      exact hLat
+    apply (AddSubgroup.mem_map_iff_mem
+      (show Function.Injective (e : LoopQuot m →+ (Fin m → ℤ)) from ?_)).mp hex
+    intro a b hab
+    exact e.injective hab
 
 /-- The topological rectangular cokernel has the same exact arbitrary-rank
 Smith-factor cardinality formula as the lattice quotient, including infinite

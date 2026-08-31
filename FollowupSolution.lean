@@ -132,6 +132,10 @@ equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The arbitrary-rank presentation also proves the exact `Nat.card` product
 formula without a finiteness assumption, including the infinite `ZMod 0`
 cases.
+Smith coordinates additionally give exact coordinatewise divisibility tests
+for membership in both lattice and finite-torus matrix images.
+The topological Smith equivalence includes an explicit quotient-representative
+formula for evaluating the coordinate decoder on loop classes.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

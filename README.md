@@ -303,6 +303,10 @@ For square nonsingular matrices, a checked arithmetic bridge identifies the
 Smith-modulus product on both sides with `Int.natAbs (Matrix.det A)`.
 The arbitrary-rank `Nat.card` formula remains exact even for infinite
 cokernels, where a `ZMod 0` factor contributes cardinality zero.
+The Smith coordinates also expose exact coordinatewise divisibility tests for
+membership in the lattice and finite-torus matrix images.
+The topological Smith equivalence includes a quotient-representative formula,
+so the decoded coordinates can be evaluated directly on loop classes.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

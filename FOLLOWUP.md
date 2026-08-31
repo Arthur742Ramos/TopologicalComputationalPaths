@@ -247,6 +247,13 @@ the formalization proves:
 86. the arbitrary-rank Smith presentation also gives an exact `Nat.card`
     product formula without a finiteness hypothesis: an infinite cokernel is
     represented by a `ZMod 0` factor and both sides evaluate to zero.
+87. Smith coordinates now provide exact image-membership tests for arbitrary
+    rectangular matrices on both sides of the winding equivalence: every
+    transformed coordinate is divisible by its factor, while zero factors
+    impose the expected vanishing equations.
+88. the topological arbitrary-rank Smith equivalence exposes a proved
+    quotient-representative formula, so its coordinate decoder can be applied
+    directly to loop classes.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

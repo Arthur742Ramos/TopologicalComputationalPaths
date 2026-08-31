@@ -139,6 +139,10 @@ inverse witness, including at arbitrary basepoints.
     The arbitrary-rank presentation additionally proves the exact `Nat.card`
     product formula without a finiteness assumption, including infinite cases
     through the `ZMod 0` factors.
+    It also supplies exact Smith-coordinate divisibility tests for lattice and
+    finite-torus matrix-image membership, including the zero-factor equations.
+    The topological Smith equivalence has an explicit quotient-representative
+    formula, making the decoder directly usable on loop classes.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

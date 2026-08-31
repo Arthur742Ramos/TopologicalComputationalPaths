@@ -126,6 +126,10 @@ project:
     The arbitrary-rank presentation also proves the exact Nat.card product
     formula without a finiteness assumption, including the infinite ZMod 0
     cases.
+    Smith coordinates also give exact divisibility membership tests for the
+    lattice and finite-torus matrix images, including zero-factor equations.
+    The topological arbitrary-rank Smith equivalence also has an explicit
+    quotient-representative formula for direct loop-class decoding.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -698,6 +702,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The arbitrary-rank Smith product computes Nat.card exactly without a finiteness hypothesis; a surviving ZMod 0 factor makes both the quotient cardinality and the product zero."
+    - source: "Finite-torus Smith membership criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submodule_mem_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_mem_range_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "After the Smith basis change, lattice and finite-torus matrix-image membership is equivalent to coordinatewise divisibility by the Smith factors; zero factors impose the complementary-coordinate vanishing equations."
+    - source: "Finite-torus Smith representative decoder"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The topological arbitrary-rank Smith equivalence has an explicit quotient-representative formula, reducing loop-class decoding to the lattice Smith representative formula."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
