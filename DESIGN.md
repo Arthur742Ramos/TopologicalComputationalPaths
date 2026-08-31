@@ -266,7 +266,10 @@ decomposition is transported through the winding equivalence to the canonical
 quotient cokernel, giving an explicit structural classification of the
 topological obstruction, and the transport is packaged as an explicit additive
 equivalence between finite abelian groups.  This is stronger than only its
-cardinality or a bare type equivalence.
+cardinality or a bare type equivalence.  The Smith-normal-form interface also
+accepts rectangular maps under a full target-rank hypothesis and transports
+their cyclic-factor decomposition to the finite-torus quotient; for the lattice
+cokernel, finiteness is equivalent to that full-rank hypothesis.
 
 ## Non-goals for the first submission
 

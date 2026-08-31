@@ -115,6 +115,10 @@ packages both short-exact sequences and both commuting squares under the
 shared injectivity hypothesis.  The equivalence also transports cardinality
 and finiteness for individual matrices and explicit composites, without a
 square-dimension or finiteness assumption.
+The Smith-normal-form product is generalized to rectangular maps with full
+target rank and transported to their finite-torus cokernels as well.  The
+lattice finite-cokernel condition is characterized exactly by full target
+rank.
 -/
 
 namespace ComputationalPaths
@@ -2267,6 +2271,27 @@ theorem matrixAction_cokernel_full_rank {n : ℕ}
   exact (Submodule.finiteQuotient_iff _).mp
     (matrixAction_cokernel_finite A hA)
 
+/-- For a rectangular matrix, finiteness of the lattice cokernel is exactly
+the full-target-rank condition. -/
+theorem matrixAction_cokernel_finite_iff_full_rank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ↔
+      Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+        Module.finrank ℤ (Fin m → ℤ) :=
+  Submodule.finiteQuotient_iff _
+
+/-- Smith normal form presents the cokernel of any rectangular matrix whose
+image has full rank in the target lattice. -/
+noncomputable def matrixAction_cokernel_smithEquivOfFullRank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (hA : Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+      Module.finrank ℤ (Fin m → ℤ)) :
+    ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ≃+
+      (∀ i : Fin m, ZMod ((Submodule.smithNormalFormCoeffs
+        (Pi.basisFun ℤ (Fin m)) hA i).natAbs)) :=
+  Submodule.quotientEquivPiZMod (matrixAction A).range.toIntSubmodule
+    (Pi.basisFun ℤ (Fin m)) hA
+
 /-- Smith normal form exposes the winding-lattice cokernel as a product of
 finite cyclic groups. -/
 noncomputable def matrixAction_cokernel_smithEquivOfDetNeZero {n : ℕ}
@@ -3734,6 +3759,27 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquivOfDetNeZero
     exact QuotientAddGroup.congr H (matrixAction A).range
       (loopQuotAddEquivIntVector n) hmap
   exact qAddEquiv.trans (matrixAction_cokernel_smithEquivOfDetNeZero A hA)
+
+/-- The rectangular finite-torus cokernel inherits the Smith-normal-form
+product whenever the matrix image has full target rank. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquivOfFullRank
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (hA : Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+      Module.finrank ℤ (Fin m → ℤ)) :
+    (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ≃+
+      (∀ i : Fin m, ZMod ((Submodule.smithNormalFormCoeffs
+        (Pi.basisFun ℤ (Fin m)) hA i).natAbs)) := by
+  let H := (matrixMapQuotientAddHom A).range
+  have hmap :
+      H.map (loopQuotAddEquivIntVector m : LoopQuot m →+ (Fin m → ℤ)) =
+        (matrixAction A).range :=
+    matrixMapQuotientAddHom_range_map A
+  let qAddEquiv :
+      (LoopQuot m ⧸ H) ≃+
+        ((Fin m → ℤ) ⧸ (matrixAction A).range) := by
+    exact QuotientAddGroup.congr H (matrixAction A).range
+      (loopQuotAddEquivIntVector m) hmap
+  exact qAddEquiv.trans (matrixAction_cokernel_smithEquivOfFullRank A hA)
 
 /-- The finite-torus quotient cokernel is finite whenever the matrix
 determinant is nonzero. -/

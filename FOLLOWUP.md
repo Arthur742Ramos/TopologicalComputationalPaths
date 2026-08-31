@@ -226,6 +226,12 @@ the formalization proves:
 80. `Nat.card` and `Finite` are transported across the rectangular winding
     equivalence for both individual matrices and explicit composites, with no
     square-dimension or finiteness assumption.
+81. Smith normal form is generalized from nonsingular square matrices to any
+    rectangular map with full target rank, and its finite cyclic product is
+    transported to the corresponding finite-torus cokernel.
+82. the lattice finite-cokernel criterion is proved exactly as equality of
+    target finranks, making the full-rank hypothesis in the rectangular Smith
+    decomposition sharp.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

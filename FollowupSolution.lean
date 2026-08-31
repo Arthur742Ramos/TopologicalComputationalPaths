@@ -119,6 +119,9 @@ The reusable abstract map and projection expose simp-normalized formulas on
 quotient representatives for downstream calculations.
 Cardinality and finiteness are transported across the rectangular winding
 equivalence for individual matrices and explicit composites as well.
+The Smith-normal-form product is generalized to rectangular maps with full
+target rank and transported to their finite-torus cokernels; lattice
+finite-cokernel finiteness is equivalent to that full-rank condition.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

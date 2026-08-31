@@ -290,7 +290,10 @@ decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding
 equivalence to that same explicit product as an additive equivalence of finite
 abelian groups, identifying the obstruction structurally at the topological
-level rather than only by cardinality.
+level rather than only by cardinality.  The Smith-normal-form construction is
+also generalized to rectangular maps whose image has full target rank, and
+the same cyclic product is transported to their finite-torus cokernels; the
+lattice finite-cokernel criterion is exactly this full-rank condition.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
