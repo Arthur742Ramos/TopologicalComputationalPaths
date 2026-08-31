@@ -124,6 +124,8 @@ rank, and the arbitrary-rank factorization identifies this condition with the
 absence of zero Smith factors on both the lattice and finite-torus sides.
 In the square nonsingular specialization, the Smith-modulus product is proved
 to equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
+The product formula itself is also established for arbitrary rank, with
+`Nat.card = 0` on precisely the infinite cases.
 -/
 
 namespace ComputationalPaths
@@ -2441,6 +2443,17 @@ noncomputable def submoduleCokernelSmithEquiv
           ((snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) x i)) := by
   rfl
 
+/-- The arbitrary-rank Smith equivalence gives the exact `Nat.card` of the
+cokernel, including the infinite case: a zero factor contributes the zero
+cardinality of `ZMod 0`. -/
+theorem submoduleCokernel_card_eq_smithNormalFormFactorProduct
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) :
+    Nat.card ((Fin m → ℤ) ⧸ N) =
+      ∏ i : Fin m, (smithNormalFormFactor snf i).natAbs := by
+  rw [Nat.card_congr (submoduleCokernelSmithEquiv snf).toEquiv]
+  simp [Nat.card_pi, Nat.card_zmod]
+
 /-- Smith normal form decomposes an arbitrary-rank lattice cokernel into cyclic
 `ZMod` factors.  A factor with modulus zero is the free `ZMod 0` coordinate,
 so this single equivalence records both torsion and free cokernel parts. -/
@@ -2506,6 +2519,19 @@ theorem matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero
           (matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
   exact (matrixAction_cokernel_finite_iff_full_rank A).symm.trans
     (matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero A)
+
+/-- The arbitrary-rank lattice cokernel cardinality is the product of the
+Smith moduli, with the same formula remaining valid when the quotient is
+infinite. -/
+theorem matrixAction_cokernel_card_eq_smithNormalFormFactorProduct
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Nat.card ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      ∏ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs := by
+  exact submoduleCokernel_card_eq_smithNormalFormFactorProduct
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
 
 /-- Under full target rank, the Smith factors give the exact cardinality of
 the lattice cokernel as their product of moduli. -/
@@ -4030,6 +4056,19 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithAddEquiv
     exact QuotientAddGroup.congr H (matrixAction A).range
       (loopQuotAddEquivIntVector m) hmap
   exact qAddEquiv.trans (matrixAction_cokernel_smithEquiv A)
+
+/-- The topological rectangular cokernel has the same exact arbitrary-rank
+Smith-factor cardinality formula as the lattice quotient, including infinite
+quotients through the `ZMod 0` factors. -/
+theorem matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormFactorProduct
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) =
+      ∏ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs := by
+  rw [Nat.card_congr
+    (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).toEquiv]
+  simp [Nat.card_pi, Nat.card_zmod]
 
 /-- The finite-torus cokernel is finite exactly when the corresponding lattice
 cokernel has full target rank. -/

@@ -123,6 +123,9 @@ project:
     In the square nonsingular specialization, the Smith-modulus product is
     also proved equal to the determinant index Int.natAbs (Matrix.det A) on
     both the lattice and finite-torus sides.
+    The arbitrary-rank presentation also proves the exact Nat.card product
+    formula without a finiteness assumption, including the infinite ZMod 0
+    cases.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -690,6 +693,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For square nonsingular matrices, the product of the Smith-normal-form moduli is exactly the determinant index Int.natAbs (Matrix.det A), independently on the winding-lattice and finite-torus cokernel sides."
+    - source: "Finite-torus arbitrary-rank Smith cardinality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_card_eq_smithNormalFormFactorProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_eq_smithNormalFormFactorProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormFactorProduct"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The arbitrary-rank Smith product computes Nat.card exactly without a finiteness hypothesis; a surviving ZMod 0 factor makes both the quotient cardinality and the product zero."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

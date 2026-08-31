@@ -136,6 +136,9 @@ inverse witness, including at arbitrary basepoints.
     In the square nonsingular specialization, the product of Smith moduli is
     also identified with the determinant index `Int.natAbs (Matrix.det A)` on
     both the lattice and finite-torus sides.
+    The arbitrary-rank presentation additionally proves the exact `Nat.card`
+    product formula without a finiteness assumption, including infinite cases
+    through the `ZMod 0` factors.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

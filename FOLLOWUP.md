@@ -244,6 +244,9 @@ the formalization proves:
 85. in the square nonsingular specialization, the product of Smith moduli is
     proved equal to the determinant index `Int.natAbs (Matrix.det A)` for both
     the lattice and canonical finite-torus cokernels.
+86. the arbitrary-rank Smith presentation also gives an exact `Nat.card`
+    product formula without a finiteness hypothesis: an infinite cokernel is
+    represented by a `ZMod 0` factor and both sides evaluate to zero.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

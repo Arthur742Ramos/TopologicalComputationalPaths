@@ -275,6 +275,8 @@ sides: the cokernel is finite exactly when every Smith modulus is nonzero,
 equivalently when no `ZMod 0` free coordinate remains.
 For square nonsingular maps, the invariant-factor product is also proved equal
 to the determinant index `Int.natAbs (Matrix.det A)` on both sides.
+The same Smith-product formula is proved without a rank assumption, including
+the infinite cases via `Nat.card = 0` for a surviving `ZMod 0` factor.
 
 ## Non-goals for the first submission
 
