@@ -155,6 +155,9 @@ inverse witness, including at arbitrary basepoints.
     For square matrices, the adjugate annihilator also gives the global bound
     `AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
     singular case.
+    The finite/infinite dichotomy is equivalently global: each Smith cokernel
+    is finite exactly when its exponent is nonzero, so the zero-exponent
+    criterion is also a complete finiteness test.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

@@ -319,6 +319,9 @@ surjective exactly when all of its Smith factors have unit absolute value.
 For square matrices, the adjugate annihilator also gives the global bound
 `AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
 singular case.
+The finite/infinite dichotomy is equivalently global: each Smith cokernel is
+finite exactly when its exponent is nonzero, so the zero-exponent criterion is
+also a complete finiteness test.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

@@ -142,6 +142,9 @@ surjective exactly when all of its Smith factors have unit absolute value.
 For square matrices, the adjugate annihilator also gives the global bound
 `AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
 singular case.
+The finite/infinite dichotomy is equivalently global: each Smith cokernel is
+finite exactly when its exponent is nonzero, so the zero-exponent criterion is
+also a complete finiteness test.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -3157,6 +3160,22 @@ theorem finite_zmod_pi_iff {m : ℕ} (n : Fin m → ℕ) :
       | succ k => infer_instance
     infer_instance
 
+/-- A Smith cokernel is finite exactly when its additive exponent is nonzero:
+the only obstruction is a surviving `ZMod 0` free factor. -/
+theorem submoduleCokernel_finite_iff_exponent_ne_zero
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) :
+    Finite ((Fin m → ℤ) ⧸ N) ↔
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ N) ≠ 0 := by
+  rw [Equiv.finite_iff (submoduleCokernelSmithEquiv snf).toEquiv]
+  rw [AddMonoid.exponent_eq_of_addEquiv (submoduleCokernelSmithEquiv snf)]
+  rw [AddMonoid.exponent_pi]
+  simp only [ZMod.exponent]
+  rw [Finset.lcm_ne_zero_iff]
+  simpa only [Finset.mem_univ, true_implies] using
+    (finite_zmod_pi_iff (fun j : Fin m =>
+      (smithNormalFormFactor snf j).natAbs))
+
 /-- The arbitrary-rank Smith presentation gives an exact finiteness test for
 the lattice cokernel: it is finite precisely when no complementary `ZMod 0`
 factor occurs. -/
@@ -3201,6 +3220,16 @@ theorem matrixAction_cokernel_exponent_eq_zero_iff_not_full_rank
     apply hnot
     exact (matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mpr
       (fun i hi => hno ⟨i, hi⟩)
+
+/-- The lattice cokernel is finite exactly when its arbitrary-rank Smith
+exponent is nonzero. -/
+theorem matrixAction_cokernel_finite_iff_exponent_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ↔
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ≠ 0 := by
+  exact submoduleCokernel_finite_iff_exponent_ne_zero
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
 
 /-- The arbitrary-rank lattice cokernel cardinality is the product of the
 Smith moduli, with the same formula remaining valid when the quotient is
@@ -5262,6 +5291,25 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_not_full_rank
     apply hnot
     exact (matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero A).mpr
       (fun i hi => hno ⟨i, hi⟩)
+
+/-- The finite-torus cokernel is finite exactly when its arbitrary-rank Smith
+exponent is nonzero. -/
+theorem matrixMapQuotientAddHom_cokernel_finite_iff_exponent_ne_zero
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ↔
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ≠ 0 := by
+  rw [Equiv.finite_iff
+    (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).toEquiv]
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
+  rw [AddMonoid.exponent_pi]
+  simp only [ZMod.exponent]
+  rw [Finset.lcm_ne_zero_iff]
+  simpa only [Finset.mem_univ, true_implies] using
+    (finite_zmod_pi_iff (fun j : Fin m =>
+      (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 j).natAbs))
 
 /-- The finite-torus cokernel has the same exact Smith-factor cardinality as
 the lattice cokernel whenever the matrix has full target rank. -/

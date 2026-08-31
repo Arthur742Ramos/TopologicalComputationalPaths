@@ -324,6 +324,11 @@ the formalization proves:
      exponent bound: the cokernel exponent divides `Int.natAbs (Matrix.det A)`.
 120. this determinant bound is proved on both winding-lattice and finite-torus
      cokernels and remains valid when the determinant is zero.
+121. each arbitrary-rank Smith cokernel is finite exactly when its additive
+     exponent is nonzero, making the exponent-zero criterion a complete
+     finite/infinite test.
+122. this finiteness/exponent equivalence is transported to lattice and
+     finite-torus matrix cokernels.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
