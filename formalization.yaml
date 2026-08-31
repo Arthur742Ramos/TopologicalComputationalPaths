@@ -2,27 +2,34 @@
 version: "v0.4"
 
 project:
-  name: "Final and Ordinary Topologies for Computational Paths"
+  name: "Functorial Quotient Fundamental Groups and Finite-Torus Cokernel Profiles"
   description: >-
-    A Lean formalization of topological semantics for endpoint-varying
-    computational paths.  It constructs both the canonical final composable
-    quotient and the ordinary pullback of quotient arrows.  The selected result
-    proves that the canonical comparison is a continuous bijection and
-    characterizes exactly when it is quotient, a homeomorphism, and an induced
-    topology agreement; under these equivalent conditions ordinary composition
-    is continuous.  It also records discontinuity as an obstruction and proves
-    compact--Hausdorff and discrete sufficient cases.  The selected certificate
-    additionally requires full additive classifications of the genuine
-    based-loop spaces `AddCircle (1 : ℝ)` by `ℤ` and its product torus by
-    `ℤ × ℤ`: the invariant, identity value, composition additivity, explicit
-    standard representatives, and both inverse laws are checked using
-    covering-map lifts and coordinatewise arguments.  It also formalizes the
-    observable based fiber of the universal continuous-path presentation, its
-    homeomorphism to the standard based loop quotient, the final/ordinary pair
-    comparison, and the source-backed Hawaiian-earring transfer: the
-    non-quotient square and discontinuous multiplication force failure of the
-    scoped ordinary-pair quotient, topology agreement, and ordinary
-    multiplication continuity under the comparison.
+    This follow-up selects the two-part Lean certificate
+    `TopologicalComputationalPathsFollowup.main_result`.  Its first part is a
+    functorial theory of the quotient-topological fundamental group of an
+    arbitrary pointed space: induced maps are continuous and preserve identity,
+    composition, and path-class concatenation; homeomorphisms, homotopy
+    equivalences, and basepoint changes give the stated invariances; T1 and
+    discreteness boundaries, semilocal consequences, covering-map consequences,
+    and the topological-group agreement boundary are proved.  Its product
+    theorem is deliberately binary: it preserves the product only when the
+    product of the two quotient projections is assumed to be a quotient map.
+    The certificate does not claim arbitrary indexed-product preservation.
+    The second part provides, for every finite `n`, a complete winding and
+    standard-loop classification of the based finite torus by
+    `Fin n → ℤ`, including coordinate naturality, continuous multiplicative
+    quotient equivalences, arbitrary-basepoint and path-independent forms,
+    commutativity, discreteness, openness, and semilocal simple connectivity.
+    The same selected structure contains an algebraic matrix-cokernel layer:
+    square and rectangular short-exact sequences, lcm and coprime-product
+    exponent laws, determinant-coprime and prime-support criteria, and the
+    explicitly named Smith-factor lcm, Smith-factor prime-support, exponent
+    p-adic, and class-order p-adic profile fields.  These are the matrix and
+    Smith-normal-form results established by the selected declaration.  The
+    repository also contains broader matrix-map, determinant-cardinality,
+    Chinese-remainder, free-factor, annihilator, image, kernel, and
+    injectivity/surjectivity developments; those supporting declarations are
+    not attributed to this selected result unless listed in `main_results`.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -38,9 +45,64 @@ repository:
 
 classification:
   arxiv: ["math.AT", "math.GN"]
-  msc2020: ["22A22", "54B15", "03B38", "55Q05", "68V20", "54B30"]
+  msc2020: ["55Q05", "54B15", "15A03", "20K01", "68V20"]
 
 sources:
+  - title: "Discreteness and Homogeneity of the Topological Fundamental Group"
+    authors:
+      - "Jack S. Calcut"
+      - "John D. McCarthy"
+    type: "paper"
+    id: "https://arxiv.org/abs/0904.4739"
+    location: "Homogeneity and discreteness of quotient-topological fundamental groups"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+    note: >-
+      This is substantive literature context for the homogeneity and
+      null-class/discreteness boundary.  The selected Lean fields give a
+      self-contained formal development of the stated boundary and its
+      homotopy/basepoint invariances; they do not claim to reproduce every
+      theorem in the paper.
+  - title: "On Fundamental Groups with the Quotient Topology"
+    authors:
+      - "Jeremy Brazas"
+      - "Paul Fabel"
+    type: "paper"
+    id: "https://arxiv.org/abs/1304.6453"
+    location: "Quasitopological fundamental groups and the joint-continuity boundary"
+    relationship: "background"
+    author_endorsement: "not-contacted"
+    note: >-
+      This source supplies the established quotient-topology and
+      quasitopological-group context for the general structure, including why
+      separate continuity does not by itself give a topological group.
+  - title: "Algebraic Topology"
+    authors:
+      - "Allen Hatcher"
+    type: "book"
+    id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
+    location: "Chapter 1: the circle, winding, and products"
+    relationship: "background"
+    author_endorsement: "n/a"
+    note: >-
+      The finite-torus winding classification is classical algebraic topology.
+      The selected artifact supplies explicit Lean winding representatives,
+      compact-open/quotient-topological statements, coordinate naturality,
+      and all-basepoint forms; it does not claim the classical classification
+      as a new mathematical theorem.
+  - title: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
+    authors:
+      - "Christopher Norman"
+    type: "book"
+    id: "https://doi.org/10.1007/978-1-4471-2730-7"
+    location: "Matrices with Integer Entries: the Smith Normal Form; invariant factors"
+    relationship: "background"
+    author_endorsement: "n/a"
+    note: >-
+      This is the substantive algebra reference for the Smith-factor and
+      invariant-factor language used by the selected matrix-cokernel fields.
+      The Lean certificate formalizes the explicitly listed exponent and
+      p-adic consequences in its own quotient presentation.
   - title: "Topological Semantics for Scoped Computational Paths"
     authors:
       - "Arthur Freitas Ramos"
@@ -49,159 +111,219 @@ sources:
       - "Tiago M. L. de Veras"
     type: "paper"
     id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Sections 4, 8, and 10: final/ordinary topologies, circle/torus validation, and the Lean artifact"
+    location: "Pinned parent manuscript and computational-path topology boundary"
     relationship: "adapts"
+    author_endorsement: "participated"
     note: >-
-      The focused repository extracts and ports the manuscript's
-      quotient-compatible topological groupoid and final/ordinary comparison
-      sections, the circle and torus winding validation cases, the focused
-      observable based-fiber construction, and its Hawaiian-earring
-      obstruction-transfer argument.  The source is pinned to the immutable
-      parent commit recorded in related_formalizations.
-  - title: "Multiplication Is Discontinuous in the Hawaiian Earring Group (with the Quotient Topology)"
+      The follow-up reuses the parent computational-path setting while adding
+      the space-independent quotient-fundamental-group theory and the complete
+      finite-torus/matrix-cokernel certificate selected here.  The source is
+      pinned to the immutable parent commit recorded below.
+  - title: "Functorial quotient fundamental groups and finite-torus cokernel profiles: selected follow-up certificate"
     authors:
-      - "Paul Fabel"
-    type: "paper"
-    id: "https://doi.org/10.4064/ba59-1-9"
-    location: "The non-quotient square and multiplication of the loop quotient"
-    relationship: "background"
+      - "Arthur Freitas Ramos"
+      - "Ruy J. G. B. de Queiroz"
+      - "Anjolina Grisi de Oliveira"
+      - "Tiago M. L. de Veras"
+      - "David Barros Hulak"
+    type: "original-proof"
+    id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths"
+    location: "FollowupChallenge.lean and FollowupSolution.lean"
+    relationship: "other"
+    author_endorsement: "participated"
     note: >-
-      Fabel's non-quotient square and discontinuous multiplication are
-      supplied as explicit hypotheses; this repository formally checks their
-      transfer to the scoped final-versus-ordinary comparison and does not
-      reprove Fabel's theorems.
+      This entry records the exact bundled formal certificate as an original
+      repository-level presentation.  It is not a claim that the classical
+      winding, Smith-normal-form, or quotient-topology ingredients are novel;
+      those relationships and their literature context are recorded above.
 
 related_formalizations:
+  - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
+    relationship: "builds-on"
+    note: >-
+      Accepted baseline package for the final-versus-ordinary computational-
+      path topology comparison.  The present follow-up keeps that artifact's
+      provenance distinct and selects the Followup declaration instead.
   - id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/2a2baa1f31c68f0e696021db91f8381dd2854652"
     relationship: "adapts"
     note: >-
-      The focused repository extracts the audited topological-semantics source
-      boundary at the topological-paper-v12 snapshot and ports it to Lean
-      4.32.0.  The parent repository remains the broader development tree.
+      Pinned parent development and manuscript source for the computational-
+      path topology layer.
+  - id: "https://github.com/leanprover-community/mathlib4/commit/81a5d257c8e410db227a6665ed08f64fea08e997"
+    relationship: "builds-on"
+    note: >-
+      Pinned Mathlib revision supplying compact-open path spaces, homotopy
+      quotients, quotient topology, fundamental-group algebra, and Smith
+      normal-form interfaces.
 
 status:
   scope: >-
-    The package formalizes the scoped geometric rewrite quotient and selects
-    the exact comparison between its final and ordinary composable domains:
-    quotient-map, homeomorphism, induced-topology, continuity-transfer, and
-    obstruction statements, together with compact--Hausdorff and discrete
-    sufficient conditions.  The unconditional final-domain groupoid laws are
-    supporting infrastructure.  The selected certificate also contains the
-    genuine additive-circle winding classification and coordinatewise
-    product-torus classification, proved by explicit covering-map lifting and
-    standard representatives.  It additionally contains the source-backed
-    Hawaiian-earring obstruction
-    observable based-fiber quotient comparison and source-backed transfer,
-    including transferred multiplication discontinuity; Fabel's external
-    theorems remain explicit inputs.  The
-    Challenge file contains the one deliberate statement-side sorry allowed by
-    the Palomar protocol; the proof development and Solution contain none.
+    The selected declaration is exactly
+    `TopologicalComputationalPathsFollowup.main_result` in
+    `FollowupSolution.lean`: a nonempty general
+    `QuotientTopologicalFundamentalGroupTheory` and, for every finite `n`, a
+    nonempty `FiniteTorusTopologicalClassification n`.  The general structure
+    includes functoriality, homotopy/homeomorphism/basepoint invariance, T1 and
+    discreteness criteria, semilocal and covering consequences, and a binary
+    product-preservation theorem conditional on the product quotient map.  It
+    has no arbitrary-indexed-product field.  The finite-torus structure
+    includes winding, standard representatives, coordinate naturality,
+    continuous multiplicative classifiers, arbitrary-basepoint/path
+    independence, commutativity, discreteness, openness, and semilocal
+    simple connectivity.  Its selected matrix fields are the two short-exact
+    cokernel statements; lcm, coprime-product, determinant-coprime, and
+    prime-support exponent laws; the Smith-factor lcm and prime-support laws;
+    and the Smith-factor and class-order p-adic factorization profiles.  The
+    repository's broader matrix-map/cardinality/CRT/free-factor/annihilator
+    results remain supporting material outside this selected certificate.
+    The Challenge file has one deliberate statement-side sorry; the selected
+    Solution and substantive development have none.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
-    - declaration: "TopologicalComputationalPaths.main_result"
-      file: "Solution.lean"
+    - declaration: "TopologicalComputationalPathsFollowup.main_result"
+      file: "FollowupSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "comparator.json"
+      comparator_config: "comparator-followup.json"
+      selected_fields:
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
+        - "FiniteTorusTopologicalClassification.winding"
+        - "FiniteTorusTopologicalClassification.standardLoop"
+        - "FiniteTorusTopologicalClassification.classifier"
+        - "FiniteTorusTopologicalClassification.classifier_coordinate_projection"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
+        - "FiniteTorusTopologicalClassification.quotient_mul_commutative_at"
+        - "FiniteTorusTopologicalClassification.quotient_discrete_at"
+        - "FiniteTorusTopologicalClassification.semilocally_simply_connected"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_short_exact"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_lcm_dvd"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_eq_mul_of_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
+      literature_dependencies:
+        - "Calcut--McCarthy: homogeneity and discreteness context"
+        - "Brazas--Fabel: quotient-topology/quasitopological-group context"
+        - "Hatcher: circle and finite-torus winding context"
+        - "Norman: Smith normal form and invariant-factor context"
+      excluded_repository_results:
+        - "arbitrary indexed-product preservation"
+        - "unselected matrix-map image/kernel/injectivity/surjectivity wrappers"
+        - "determinant cardinality, CRT, free-factor, and annihilator families"
 
 automation:
   methods:
     - method: "manual"
       tool_setup: >-
-        Human mathematical design, scope selection, source-lineage, attribution,
-        and final metadata review.
+        Human mathematical scope selection, literature/provenance audit,
+        attribution, and final metadata review.
     - method: "agent"
       models: ["Codex"]
       framework: "Lean 4.32.0 and Lake"
       tool_setup: >-
-        AI-assisted extraction, compatibility repair, and proof review; every
-        submitted theorem is checked by the Lean kernel.
+        AI-assisted API audit, proof review, documentation, and compatibility
+        repair; every selected theorem is checked by the Lean kernel.
       cost:
         wall_time: "multi-session local development"
         spend_usd: "not tracked"
         hardware: "local machine"
-      prompting_notes: "Focused extraction, dependency audit, and Palomar packaging."
+      prompting_notes: >-
+        Align the follow-up declaration, source lineage, and submission
+        metadata; preserve exact theorem boundaries.
   spend_usd: "not tracked"
   notes: >-
-    The focused repository was extracted from a pinned parent snapshot, ported
-    to the supported toolchain, and checked with targeted and full Lake builds.
+    Verification uses the ordinary Lake build, the repository quality gates,
+    and a fresh Palomar Comparator replay with NanoDa and Lean's default
+    kernel.
 
 fidelity:
   divergences: >-
-    The mathematical scope is unchanged for the extracted topological groupoid
-    layer, but the focused repository adds a statement-facing Palomar
-    certificate that selects the exact final-domain/ordinary-domain comparison,
-    including its homeomorphism and ordinary-composition consequences, its
-    positive sufficient cases, the genuine additive-circle and product-torus
-    winding classifications from explicit covering lifts, the observable
-    based-fiber quotient comparison, and the transfer of the Hawaiian-earring
-    obstruction.  The circle and torus classifications are classical
-    validation theorems rather than novelty claims.  The external
-    non-quotient theorem is a stated hypothesis, not reproved by this
-    repository.  The toolchain is ported from
-    Lean 4.24.0 to Lean 4.32.0.  The other manuscript modules are omitted from
-    this release rather than implied by the package.
+    The selected certificate is a repository-level formalization synthesis,
+    not a claim of a new classical winding or Smith-normal-form theorem.  The
+    binary quotient-product theorem retains its explicit quotient-map
+    hypothesis; no arbitrary indexed-product generalization is asserted.  The
+    selected matrix/Smith scope is limited to the fields listed in
+    `main_results`; broader matrix-map and arithmetic developments in the
+    repository are intentionally treated as supporting results.  The parent
+    computational-path source and Mathlib revision are pinned above, and the
+    Challenge/Solution boundary is preserved for Comparator.
 
 review:
   status: "self-assessed"
   reviewers: []
   notes: >-
-    Source lineage, dependency closure, theorem boundaries, quotient-map
-    hypotheses, and the final-versus-ordinary topology distinction were
-    audited.  Following earlier Palomar feedback, the selected declaration was
-    changed from the automatic final-domain groupoid certificate to the
-    substantive final-versus-ordinary comparison theorem, with unconditional
-    genuine circle/torus full additive-classification certificates as its
-    non-transport mathematical core.  These certificates expose identity,
-    composition additivity, explicit standard representatives, and inverse
-    laws, not merely equivalence witnesses.  The observable based-fiber construction and
-    source-backed Hawaiian-earring obstruction transfer remain conditional
-    secondary material.  Kernel builds and the Palomar-shaped
-    Challenge/Solution boundary were checked locally; no independent peer
-    review, approval, or endorsement is claimed.  Any Palomar editorial step
-    is an automated review identifying no blocking problem, not mathematical
-    approval.
+    The selected declaration was audited field-by-field against the title,
+    description, status scope, alignment, source relationships, and excluded
+    repository results.  The cited literature supplies context and known
+    mathematical relationships; the original-proof entry records only the
+    exact bundled formal certificate.  Builds and Comparator replay are
+    technical verification, not independent peer review or novelty approval.
 
 alignment:
-  namespace: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite"
+  namespace: "TopologicalComputationalPathsFollowup"
   statements:
-    - source: "Unconditional quotient-compatible topological groupoid certificate"
-      lean: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite.scopedFinalTopologicalGroupoidCertificate"
-      module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
+    - source: "Functorial quotient-topological fundamental-group theory"
+      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "Continuity and groupoid laws on the canonical final composable domain."
-    - source: "Exact final/ordinary composable-domain comparison"
-      lean: "ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite.scopedProductCompatibility_iff_four_way"
-      module: "ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean"
-      status: "proved"
-      note: "This theorem and its compact--Hausdorff and discrete consequences are the core of the selected comparison certificate."
-    - source: "Ordinary/final computational-path topology comparison certificate"
-      lean: "TopologicalComputationalPaths.main_result"
-      module: "Challenge.lean and Solution.lean"
-      status: "adapted"
       note: >-
-        The compared theorem packages continuous bijectivity, exact
-        quotient-map, homeomorphism, and induced-topology criteria, continuity
-        of ordinary composition, its obstruction, compact--Hausdorff and
-        discrete sufficient cases, the genuine circle and product-torus
-        winding classifications, the observable based-fiber quotient
-        comparison, the full additive circle and product-torus classification
-        certificates, and the source-backed transfer of a Hawaiian-earring
-        non-quotient and discontinuous-multiplication obstruction.  The
-        external Hawaiian-earring theorems are not claimed as reproved here.
-    - source: "Genuine additive-circle winding classification"
-      lean: "ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotEquivInt"
-      module: "ComputationalPaths/Path/Topology/ConcreteCircleWinding.lean"
+        The selected structure packages continuous induced maps, invariance,
+        T1/discreteness and semilocal/covering consequences, with the product
+        result restricted to the binary quotient-map hypothesis.
+    - source: "Binary product sharpness boundary"
+      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "The selected certificate exposes the lifted-endpoint invariant, identity value, composition additivity, explicit standard representatives, and both inverse laws for based continuous loops in AddCircle (1 : ℝ) modulo endpoint-fixed homotopy."
-    - source: "Genuine product-torus winding classification"
-      lean: "ComputationalPaths.Path.GeometricTopology.TopologicalTorus.equivIntProd"
-      module: "ComputationalPaths/Path/Topology/ConcreteTorusWinding.lean"
+      note: >-
+        This is the exact selected product family; it is not an arbitrary
+        indexed-product theorem.
+    - source: "Finite-torus winding and classifier family"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.winding; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.standardLoop; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "The selected certificate exposes the coordinatewise invariant, identity value, composition additivity, explicit standard representatives, and both inverse laws for based continuous loops in the product of two additive circles."
+      note: >-
+        Every finite torus has explicit winding/standard representatives,
+        inverse laws, coordinate naturality, and a complete quotient
+        classifier, with classical context supplied by Hatcher.
+    - source: "Finite-torus topological and basepoint package"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_mul_commutative_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.quotient_discrete_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.semilocally_simply_connected"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        The selected fields expose continuous multiplicative equivalences,
+        arbitrary-basepoint/path-independent classifiers, commutativity, and
+        global discrete/semilocal consequences.
+    - source: "Selected matrix-cokernel exactness and exponent laws"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_short_exact; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        These are the matrix families actually fields of the selected finite-
+        torus structure; they are stated for the integer-lattice cokernels and
+        are not a claim that every repository matrix wrapper is selected.
+    - source: "Selected Smith-factor and p-adic profiles"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        The selected declaration gives the Smith-normal-form lcm, prime
+        support, exponent valuation, and class-order valuation fields; Norman
+        is cited for the underlying invariant-factor context.
 
 acknowledgements: >-
-  Thanks to the authors and contributors of the Calculus of Computational Paths,
-  Lean 4, Mathlib, and the Palomar Registry tooling.
+  Thanks to the cited authors and to the contributors of Lean, Mathlib, the
+  Calculus of Computational Paths, and the Palomar Registry tooling.

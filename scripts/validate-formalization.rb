@@ -4,7 +4,6 @@
 require "yaml"
 
 path = ARGV.fetch(0, "formalization.yaml")
-followup = File.basename(path) == "formalization-followup.yaml"
 document = YAML.safe_load(File.binread(path), aliases: false)
 abort "#{path} must contain one top-level mapping" unless document.is_a?(Hash)
 abort "#{path} must declare version v0.4" unless document["version"] == "v0.4"
@@ -29,12 +28,6 @@ abort "classification.arxiv must contain one or two categories" unless arxiv.is_
 
 sources = document.fetch("sources")
 abort "sources must be nonempty" unless sources.is_a?(Array) && !sources.empty?
-unless followup
-  source = sources.first
-  abort "the source must be adapted" unless source["relationship"] == "adapts"
-  abort "the source must be pinned to a full commit" unless source["id"].to_s.match?(%r{/\b[0-9a-f]{40}\b/})
-  abort "the source must identify the topological manuscript" unless source["id"].to_s.end_with?("/paper/topological/main.tex")
-end
 
 status = document.fetch("status")
 abort "status.sorry_count must be zero" unless status["sorry_count"] == 0
@@ -42,6 +35,14 @@ abort "status.sorry_in_definitions must be zero" unless status["sorry_in_definit
 expected_axioms = ["propext", "Classical.choice", "Quot.sound"]
 abort "status.axioms must list the three standard proof axioms" unless status["axioms"] == expected_axioms
 main_result = status.dig("main_results", 0)
+followup = File.basename(path) == "formalization-followup.yaml" ||
+  main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.main_result"
+unless followup
+  source = sources.first
+  abort "the source must be adapted" unless source["relationship"] == "adapts"
+  abort "the source must be pinned to a full commit" unless source["id"].to_s.match?(%r{/\b[0-9a-f]{40}\b/})
+  abort "the source must identify the topological manuscript" unless source["id"].to_s.end_with?("/paper/topological/main.tex")
+end
 expected_declaration = followup ? "TopologicalComputationalPathsFollowup.main_result" : "TopologicalComputationalPaths.main_result"
 expected_file = followup ? "FollowupSolution.lean" : "Solution.lean"
 expected_comparator = followup ? "comparator-followup.json" : "comparator.json"

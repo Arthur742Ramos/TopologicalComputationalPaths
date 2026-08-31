@@ -46,7 +46,16 @@ if search_lean '^axiom |native_decide|Lean\.ofReduceBool' \
 fi
 
 ruby scripts/validate-formalization.rb
-ruby -rjson -e 'config = JSON.parse(File.binread("comparator.json")); abort "NanoDa replay is disabled" unless config["enable_nanoda"] == true; abort "Comparator theorem target is wrong" unless config["theorem_names"] == ["TopologicalComputationalPaths.main_result"]; puts "Comparator configuration validation passed"'
+ruby -ryaml -rjson -e '
+  metadata = YAML.safe_load(File.binread("formalization.yaml"), aliases: false)
+  main = metadata.dig("status", "main_results", 0)
+  comparator_name = main.fetch("comparator_config")
+  expected = main.fetch("declaration")
+  config = JSON.parse(File.binread(comparator_name))
+  abort "NanoDa replay is disabled" unless config["enable_nanoda"] == true
+  abort "Comparator theorem target is wrong" unless config["theorem_names"] == [expected]
+  puts "Comparator configuration validation passed for #{comparator_name}"
+'
 git diff --check
 
 echo "Palomar quality gate passed: Challenge.lean is ${challenge_lines} lines/${challenge_bytes} bytes"

@@ -2,220 +2,28 @@
 version: "v0.4"
 
 project:
-  name: "Homotopy-Invariant Quotient Fundamental Groups, Sharp Products, and Finite-Torus Winding"
+  name: "Functorial Quotient Fundamental Groups and Finite-Torus Cokernel Profiles"
   description: >-
-    A Lean formalization of the quotient-topological fundamental group of an
-    arbitrary pointed space.  It proves continuous induced homomorphisms with
-    identity and composition laws, preservation of path-class concatenation,
-    invariance under homotopy equivalence and change of basepoint along a path
-    (including path-homotopy independence, identity, composition, and reversal
-    coherence,
-    naturality under continuous maps, basepoint invariance of the
-    joint-continuity boundary, and the pointed fixed-basepoint homotopy
-    corollary, the path-connected all-basepoints joint-continuity and
-    discreteness criteria, and the homotopy-invariant global continuity
-    criterion, as well as the one-basepoint semilocal criterion in the
-    locally path-connected, path-connected setting, and the homotopy- and
-    path-invariant T1 separation boundary),
-    and preservation of arbitrary indexed products
-    under the exact product-quotient hypothesis.  It proves sharp
-    failure of that hypothesis when multiplication is discontinuous, exact
-    T1 and discreteness criteria, semilocal consequences, covering-map
-    consequences including homotopy invariance in the locally path-connected
-    category, covering-map injectivity with a monodromy-stabilizer image
-    theorem, and the precise
-    topological-group agreement boundary.  Every finite torus is classified
-    by explicit winding as a discrete integer lattice, with discreteness
-    transported to every basepoint, with a common integer-lattice model, and
-    semilocal simple connectivity proved at every torus point.  The winding
-    classifier is also a continuous multiplicative equivalence to
-    `Multiplicative (Fin n → ℤ)`, and quotient multiplication is proved
-    commutative at every torus basepoint.  In an abelian target quotient,
-    basepoint transport is independent of the chosen path even without an
-    endpoint-fixed homotopy between paths, yielding a canonical path-based
-    finite-torus lattice classifier.  More generally, equality of transports
-    is equivalent to centrality of the relative loop in the target quotient.
-    The winding classifier is natural under coordinate-selection maps between
-    finite tori, reindexing the integer lattice vector before and after
-    passage to the quotient; the continuous multiplicative lattice classifier
-    satisfies the same law across dimensions.  Both the coordinate maps and
-    their lattice reindexings satisfy identity and composition coherence laws,
-    and the standard representatives and quotient decoder obey the same
-    reindexing equation.  The path-based lattice classifier also satisfies
-    the corresponding naturality square at arbitrary torus basepoints after
-    mapping the chosen transport path.  The canonical arbitrary-basepoint
-    classifier satisfies the same square without exposing any path choice.
-    The lattice reindexings are continuous additive morphisms, and their
-    continuous identity/composition laws are proved explicitly.
-    For finite index equivalences, the coordinate map is a torus homeomorphism
-    and the lattice reindexing is a continuous additive equivalence, with
-    matching identity/composition coherence.
-    The arbitrary-basepoint classifier naturality squares are also stated
-    directly through the continuous additive reindexing morphism.
-    Surjective and injective index maps have the corresponding exact
-    injectivity and surjectivity behavior at the torus, lattice, and typed
-    quotient levels, including the converses.  Typed quotient coordinate
-    maps compose contravariantly and are additive homomorphisms for the
-    transported winding groups; their kernels are exactly the classes whose
-    winding vanishes on the image of the index map.  At arbitrary torus
-    basepoints, coordinate selection is also exposed as a continuous
-    multiplicative homomorphism between the corresponding quotient
-    fundamental groups, with explicit identity/composition coherence and a
-    direct classifier-naturality corollary.  The canonical classifiers also
-    transport the exact fiber-constant image, injectivity/surjectivity
-    converse, and kernel descriptions to arbitrary torus basepoints.  The
-    finite-torus layer also extends coordinate selections to arbitrary integer
-    matrices: continuous matrix maps and continuous lattice actions use
-    ordinary row-by-column multiplication, with natural standard representatives,
-    quotient maps, exact image/kernel/injectivity/surjectivity transfer, and
-    additive identity/composition coherence.  At arbitrary torus basepoints,
-    the matrix maps are exposed as continuous multiplicative quotient
-    homomorphisms commuting with explicit basepoint transport, and the
-    path-based classifier naturality square is proved with its endpoint cast
-    explicit.  Abelian-target path independence gives the same naturality
-    square for the canonical arbitrary-basepoint classifier.  The canonical
-    classifier also transfers the exact matrix image, kernel,
-    injectivity/surjectivity iff criteria to every chosen basepoint, each as
-    an explicit theorem.  The arbitrary-basepoint homomorphisms additionally
-    satisfy typed contravariant composition and identity laws with explicit
-    endpoint casts.
-    For square matrices, lattice and canonical quotient injectivity are
-    equivalent to a nonzero determinant, while surjectivity is equivalent to
-    a unit determinant.  The canonical adjugate-based nonsingular inverse of a
-    unimodular matrix supplies all corresponding equivalence layers, including
-    arbitrary basepoints.
-    For every nonzero determinant, the winding-lattice cokernel is finite with
-    cardinality exactly `Int.natAbs (Matrix.det A)`, and finiteness is exposed
-    explicitly as a quantitative index certificate.
-    At the canonical finite-torus basepoint, the induced quotient image has the
-    same exact index and cokernel cardinality, with an explicit finiteness
-    theorem identifying the topological quotient obstruction with the
-    determinant index.
-    For composable non-singular square matrices, the determinant index is
-    multiplicative under matrix composition on both the lattice and canonical
-    quotient cokernel.
-    Composition by a non-singular matrix `B` also induces a canonical additive
-    map from the cokernel of `A` into that of `B ∘ A`, proved injective on both
-    the winding lattice and the topological quotient.
-    The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
-    surjective with exactly that image as its kernel, giving a short exact
-    sequence on both sides.
-    Quotienting the composition cokernel by the projection kernel is also
-    identified with the cokernel of `B` by an explicit first-isomorphism
-    additive equivalence, including a proved representative formula.
-    The cokernel argument is factored through a reusable first-isomorphism
-    package for arbitrary composable additive homomorphisms.  Rectangular
-    integer matrices in any composable dimensions therefore inherit the same
-    short-exact sequence under injectivity of the second matrix action, and
-    the corresponding finite-torus quotient maps satisfy the transported
-    theorem as well.
-    Under that injectivity hypothesis, the exact sequence also multiplies
-    `Nat.card`: the composite cokernel cardinality is the product of the two
-    successive cokernel cardinalities, in explicit and `matrixCompose` forms.
-    The finite-torus product identity is also exposed from injectivity of the
-    underlying lattice action through the quotient-injectivity equivalence.
-    Under the same hypothesis, the composite cokernel is finite exactly when
-    both successive cokernels are finite, including canonical `matrixCompose`
-    presentations.
-    Under injectivity of the second map, the least common multiple of the two
-    successive cokernel exponents divides the composite exponent.  Together
-    with the product upper bound, this records a sharp lcm-to-product interval
-    for every such exact sequence.
-    When the two successive cokernel exponents are coprime, injectivity of the
-    second map sharpens the exponent divisibility bound to an exact product
-    equality.  This coprime theorem is available abstractly and through
-    rectangular lattice and finite-torus matrix interfaces, including explicit
-    and canonical `matrixCompose` forms and the lattice-action injectivity
-    route.
-    For square matrices, coprime determinant absolute values imply coprime
-    successive exponents by the adjugate bounds; with a nonzero second
-    determinant, the exact product is therefore certified on both lattice and
-    finite-torus cokernels, including canonical `matrixCompose` forms.
-    For every prime `p`, the composite exponent is divisible by `p` exactly
-    when at least one successive exponent is.  This prime-support law is
-    exposed for rectangular lattice and finite-torus matrix cokernels,
-    including canonical `matrixCompose` forms, and interfaces directly with
-    the prime-power Smith decomposition.
-    For square matrices, a nonzero determinant of the second factor supplies
-    injectivity automatically, so the same law is available directly from
-    determinant hypotheses on both lattice and finite-torus cokernels.
-    The Smith presentation gives a factor-level refinement: for every prime
-    `p`, divisibility of a cokernel exponent by `p` is equivalent to
-    divisibility of at least one Smith-factor modulus, on both sides.
-    The winding equivalence lifts to explicit rectangular cokernel
-    equivalences, transports cardinality and finiteness for individual maps
-    and composites, and proves both winding-commuting squares; a single
-    diagram certificate packages these exactness and naturality statements.
-    The Smith-normal-form product is generalized to arbitrary-rank rectangular
-    maps: complementary coordinates contribute explicit ZMod 0 free factors,
-    while embedded Smith coordinates contribute cyclic torsion factors.  Under
-    full target rank the exact product of Smith moduli is transported to both
-    lattice and finite-torus cokernels.  The same factorization gives an exact
-    finiteness criterion: both cokernels are finite exactly when every Smith
-    modulus is nonzero, equivalently when no ZMod 0 free factor remains.
-    The additive exponent is the lcm of the Smith moduli; exponent zero is
-    exactly rank deficiency, exponent one is exactly the unit-factor case, and
-    a proposed global annihilator is characterized by divisibility of every
-    Smith modulus.  Rectangular action surjectivity is equivalent to the same
-    unit-factor condition.  For square matrices the adjugate also proves that
-    the exponent divides Int.natAbs (Matrix.det A), including singular cases.
-    Equivalently, a Smith cokernel is finite exactly when its exponent is
-    nonzero, so exponent zero is a complete finite/infinite obstruction test.
-    For every composable additive cokernel sequence, the composite cokernel
-    exponent divides the product of the two successive cokernel exponents
-    without an injectivity hypothesis; rectangular lattice and finite-torus
-    matrix sequences inherit this bound in explicit and `matrixCompose` forms.
-    In the square nonsingular specialization, the Smith-modulus product is
-    also proved equal to the determinant index Int.natAbs (Matrix.det A) on
-    both the lattice and finite-torus sides.
-    The arbitrary-rank presentation also proves the exact Nat.card product
-    formula without a finiteness assumption, including the infinite ZMod 0
-    cases.
-    Smith coordinates also give exact divisibility membership tests for the
-    lattice and finite-torus matrix images, including zero-factor equations.
-    The topological arbitrary-rank Smith equivalence also has an explicit
-    quotient-representative formula for direct loop-class decoding.
-    Whenever all Smith moduli are nonzero, the cyclic factors are refined by
-    the Chinese remainder theorem into an explicit product of prime-power
-    cyclic groups on both lattice and finite-torus cokernels, with a proved
-    representative formula for the refined decoder.
-    The refined product has an exact cardinality certificate: its prime-power
-    orders multiply back to each Smith modulus, identifying both cokernel
-    cardinalities with the resulting full double product.
-    Its additive exponent is also identified exactly with the least common
-    multiple of the Smith moduli, exposing the precise finite-cokernel
-    annihilator.
-    When every Smith modulus is nonzero, the exponent's full
-    `Nat.factorization` valuation at each prime is the `Finset.sup` of the
-    Smith-factor valuations.  This p-adic profile is transported to both
-    rectangular lattice and finite-torus matrix cokernels, while the explicit
-    nonzero hypothesis marks the finite-torsion regime and leaves zero factors
-    as the `ZMod 0` free-part boundary.
-    For every finite-order Smith cokernel class, the factorization of its
-    additive order is also the pointwise supremum of the factorizations of its
-    decoded Smith-coordinate orders; this class-level profile is transported
-    to rectangular lattice and finite-torus matrix cokernels.
-    The same Smith coordinates give an elementwise annihilation criterion:
-    a multiple of a lattice or finite-torus cokernel class vanishes exactly
-    when each transformed coordinate is divisible by the corresponding
-    multiple of its Smith factor, including the zero-factor equations.
-    For every square matrix, the adjugate gives an explicit preimage of each
-    determinant multiple, so the determinant annihilates every lattice and
-    finite-torus cokernel class, including singular matrices; this certificate
-    does not assume a nonzero determinant.
-    The abstract induced map has an exact injectivity criterion given by
-    equality of the preimage of the composite image with the first image.
-    The non-singular lattice cokernel is additionally presented by an explicit
-    Smith-normal-form product of finite cyclic `ZMod` factors, and the same
-    cyclic-factor presentation is transported to the canonical quotient
-    cokernel of the induced torus homomorphism as an explicit additive
-    equivalence of finite abelian groups.
-    An explicit two-sided integer-matrix inverse further yields a continuous
-    additive lattice equivalence, a torus homeomorphism, and quotient
-    homeomorphism and continuous additive equivalence for the transported
-    loop-class groups.  At every arbitrary torus basepoint, it also yields a
-    continuous multiplicative quotient equivalence with explicit injectivity
-    and surjectivity consequences.
+    Companion metadata for the selected follow-up declaration
+    `TopologicalComputationalPathsFollowup.main_result`.  The declaration is
+    a conjunction of a general functorial quotient-topological fundamental-
+    group theory and, for every finite `n`, a finite-torus certificate.  The
+    general structure proves induced-map, homotopy, homeomorphism, basepoint,
+    T1, discreteness, semilocal, covering, and topological-group boundary
+    results.  Its product result is binary and conditional on the product of
+    the two quotient projections being a quotient map; it does not assert
+    arbitrary indexed-product preservation.  The finite-torus structure
+    proves winding/standard-loop classification by `Fin n → ℤ`, coordinate
+    naturality, continuous multiplicative and arbitrary-basepoint classifiers,
+    path independence, commutativity, discreteness, openness, and semilocal
+    simple connectivity.  Its selected algebraic layer consists exactly of
+    the square/rectangular cokernel short-exact fields, lcm and coprime-product
+    exponent fields, determinant-coprime and prime-support fields, and the
+    named Smith-factor lcm, Smith-factor prime-support, exponent p-adic, and
+    class-order p-adic fields.  Broader repository matrix-map, determinant
+    cardinality, CRT, free-factor, annihilator, image, kernel, and
+    injectivity/surjectivity declarations are supporting material and are not
+    attributed to this selected certificate.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -231,56 +39,48 @@ repository:
 
 classification:
   arxiv: ["math.AT", "math.GN"]
-  msc2020: ["55Q05", "54B15", "22A22", "54H11", "68V20"]
+  msc2020: ["55Q05", "54B15", "15A03", "20K01", "68V20"]
 
 sources:
   - title: "Discreteness and Homogeneity of the Topological Fundamental Group"
-    authors:
-      - "Jack S. Calcut"
-      - "John D. McCarthy"
+    authors: ["Jack S. Calcut", "John D. McCarthy"]
     type: "paper"
     id: "https://arxiv.org/abs/0904.4739"
-    location: "Homogeneity and discreteness of the quotient-topological fundamental group"
+    location: "Homogeneity and discreteness boundary"
     relationship: "formalizes"
     author_endorsement: "not-contacted"
     note: >-
-      The Lean development independently constructs translation
-      homeomorphisms and proves the exact null-class-openness criterion.  It
-      formalizes both directions of the discreteness/semilocal connection:
-      discreteness implies the pointwise semilocal condition in general, and
-      the converse is proved for locally path-connected spaces by a finite
-      compact-open subdivision and ladder argument.  It also transports the
-      quotient discreteness criterion across homotopy equivalences and derives
-      homotopy invariance of semilocal simple connectivity in that category,
-      together with homotopy invariance of the joint-continuity boundary.
+      Literature context for the selected homogeneity and null-class
+      discreteness fields; the Lean certificate states its own exact scope.
   - title: "On Fundamental Groups with the Quotient Topology"
-    authors:
-      - "Jeremy Brazas"
-      - "Paul Fabel"
+    authors: ["Jeremy Brazas", "Paul Fabel"]
     type: "paper"
     id: "https://arxiv.org/abs/1304.6453"
-    location: "Quasitopological fundamental groups and quotient-topological behavior"
-    relationship: "formalizes"
+    location: "Quotient-topology and quasitopological-group context"
+    relationship: "background"
     author_endorsement: "not-contacted"
     note: >-
-      This source supplies the established research context for treating the
-      compact-open loop quotient as a quasitopological invariant rather than
-      necessarily a topological group.  The Lean development directly proves
-      continuous induced maps, homotopy and basepoint invariance, exact
-      conditional indexed-product preservation, and T1/closed-class criteria
-      from Mathlib's path and quotient universal properties.
+      Context for separate versus joint continuity and the quotient topology.
   - title: "Algebraic Topology"
-    authors:
-      - "Allen Hatcher"
+    authors: ["Allen Hatcher"]
     type: "book"
     id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-    location: "Chapter 1, fundamental groups of the circle and finite products"
+    location: "Circle, winding, and finite products"
     relationship: "background"
     author_endorsement: "n/a"
     note: >-
-      The algebraic circle and finite-torus classifications are classical.
-      The present artifact additionally checks explicit compact-open
-      continuity and quotient-topological consequences.
+      Classical source for the winding and finite-torus ingredients; the
+      selected artifact adds explicit Lean and quotient-topological structure.
+  - title: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
+    authors: ["Christopher Norman"]
+    type: "book"
+    id: "https://doi.org/10.1007/978-1-4471-2730-7"
+    location: "Smith normal form and invariant factors"
+    relationship: "background"
+    author_endorsement: "n/a"
+    note: >-
+      Algebraic context for the Smith-factor and invariant-factor fields in the
+      selected matrix-cokernel layer.
   - title: "Topological Semantics for Scoped Computational Paths"
     authors:
       - "Arthur Freitas Ramos"
@@ -289,109 +89,51 @@ sources:
       - "Tiago M. L. de Veras"
     type: "paper"
     id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Final-versus-ordinary quotient topology and winding validation"
+    location: "Pinned computational-path topology source"
     relationship: "adapts"
     author_endorsement: "participated"
     note: >-
-      The follow-up builds on the accepted focused extraction but adds the
-      space-independent functorial, basepoint-invariant,
-      product-compatible quasitopological-group theory, the discreteness
-      criterion, and the all-finite-dimensional torus application.
+      Parent source for the computational-path setting; the follow-up adds the
+      selected space-independent and finite-torus certificate.
+  - title: "Functorial quotient fundamental groups and finite-torus cokernel profiles: selected follow-up certificate"
+    authors:
+      - "Arthur Freitas Ramos"
+      - "Ruy J. G. B. de Queiroz"
+      - "Anjolina Grisi de Oliveira"
+      - "Tiago M. L. de Veras"
+      - "David Barros Hulak"
+    type: "original-proof"
+    id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths"
+    location: "FollowupChallenge.lean and FollowupSolution.lean"
+    relationship: "other"
+    author_endorsement: "participated"
+    note: >-
+      Records the exact bundled formal certificate as an original
+      repository-level presentation, without claiming novelty for the cited
+      classical ingredients.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
     relationship: "builds-on"
-    note: >-
-      Accepted baseline package for the final-versus-ordinary composable-domain
-      comparison and the Hawaiian-earring obstruction transfer.
+    note: "Accepted baseline final-versus-ordinary topology package."
+  - id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/2a2baa1f31c68f0e696021db91f8381dd2854652"
+    relationship: "adapts"
+    note: "Pinned parent manuscript and computational-path development."
   - id: "https://github.com/leanprover-community/mathlib4/commit/81a5d257c8e410db227a6665ed08f64fea08e997"
     relationship: "builds-on"
-    note: >-
-      Pinned Mathlib revision supplying compact-open path spaces,
-      endpoint-fixed homotopy quotients, and fundamental-group algebra.
+    note: "Pinned Mathlib APIs used by the proof development."
 
 status:
   scope: >-
-    The selected theorem packages a universe-polymorphic theory for arbitrary
-    pointed spaces together with the complete finite-torus family.  The
-    general portion proves functoriality under continuous maps, coherence with
-    identity and composition, homotopy-equivalence invariance, path-based
-    basepoint change, path-homotopy coherence, identity, composition, and
-    reversal coherence, continuous-map naturality, basepoint joint-continuity
-    invariance, the pointed fixed-basepoint homotopy corollary, the
-    path-connected all-basepoints joint-continuity and discreteness criteria,
-    the homotopy-invariant global continuity criterion, and
-    the one-basepoint semilocal criterion in the locally path-connected,
-    path-connected setting, the homotopy- and path-invariant T1 separation
-    boundary, and conditional indexed-product preservation.  It also
-    proves continuous reversal, separate continuity, homogeneity, exact T1
-    and discreteness criteria, product sharpness, the semilocal
-    discreteness equivalence and homotopy invariance in locally path-connected
-    spaces, and homotopy invariance of the joint-continuity boundary,
-    covering/monodromy consequences, and the topological-group agreement
-    boundary.
-    The finite-torus portion proves explicit winding representatives,
-    completeness, additivity, open classes, and the homeomorphism with the
-    integer lattice.  It also proves a continuous multiplicative equivalence
-    to `Multiplicative (Fin n → ℤ)` for the actual quotient group operation,
-    hence abelianity at the zero basepoint and every transported basepoint.
-    Basepoint transport then proves all-basepoint discreteness, a common
-    lattice model, and semilocal simple connectivity for every finite torus.
-    In the abelian target case it also proves that the lattice classifier built
-    along any explicit basepoint path is independent of that path.  The more
-    precise general statement is an iff: equality of transports is equivalent
-    to centrality of the relative loop.
-    Coordinate-selection maps act naturally on winding vectors and on the
-    quotient classifier by reindexing, with the continuous multiplicative
-    classifier obeying the same equation across dimensions.  Both the maps and
-    their lattice reindexings have explicit identity and composition laws;
-    standard representatives and the quotient decoder satisfy the
-    corresponding equation.  The path-based classifier satisfies the same
-    naturality square at arbitrary basepoints after mapping the chosen
-    transport path.  The canonical classifier satisfies it as well, by
-    abelian-target path independence.
-    The lattice reindexings are also continuous additive morphisms with the
-    corresponding identity and composition laws.
-    For index equivalences, these are upgraded to a torus homeomorphism and a
-    continuous additive lattice equivalence with the same coherence laws.
-    The arbitrary-basepoint classifier squares are likewise restated through
-    the continuous additive reindexing map.
-    Surjective index maps yield injective torus, lattice, and quotient maps;
-    injective index maps yield surjective maps by zero extension.
-    For an arbitrary index map, the image is characterized exactly by
-    fiber-constant target winding vectors, equivalently for typed quotient
-    loop classes.  The corresponding converse injectivity/surjectivity
-    criteria are proved as iff theorems.  Typed quotient coordinate maps are
-    also contravariantly additive, with identity/composition coherence and an
-    exact kernel description by vanishing on the index-map image; the
-    resulting additive maps are continuous for the discrete quotient
-    topologies.  Finally, arbitrary integer matrices define continuous torus
-    maps whose continuous lattice actions, standard-loop representatives, and typed
-    quotient maps satisfy matrix identity/composition laws, with exact image,
-    kernel, injectivity, and surjectivity transfer and continuous additive
-    quotient homomorphisms.
-    The composition-cokernel short exact sequence is further equipped with
-    explicit first-isomorphism quotient equivalences on both the lattice and
-    topological quotient sides, together with their representative formulas.
-    The exactness construction is abstracted to arbitrary composable additive
-    homomorphisms and instantiated for rectangular integer matrices in all
-    composable dimensions, with injectivity of the second action as the exact
-    hypothesis; the same package is transported to the finite-torus quotient
-    side.  The composite-image subgroups are also identified with the ranges
-    of the canonical row-by-column `matrixCompose` maps, and the rectangular
-    exact-sequence and injectivity-criterion interfaces are exposed in that
-    notation on both sides.  The winding equivalence is lifted to explicit
-    additive equivalences between every rectangular finite-torus cokernel and
-    its lattice cokernel, and both the composite embedding and complementary
-    projection are proved natural under those equivalences.  The named square
-    `matrixCompose` maps expose the same naturality laws directly, and a
-    rectangular diagram certificate packages both exact sequences and squares.
-    The abstract map and projection expose simp-normalized representative
-    formulas for downstream calculations.  Cardinality and finiteness are
-    transported across the rectangular equivalence for matrices and composites
-    without square-dimension or finiteness assumptions.
-    The Comparator challenge has one deliberate statement hole; the solution
-    and substantive development have none.
+    `TopologicalComputationalPathsFollowup.main_result` selects one
+    `QuotientTopologicalFundamentalGroupTheory` and one
+    `FiniteTorusTopologicalClassification n` for every finite `n`.  Product
+    preservation is binary and hypothesis-conditional.  The selected matrix
+    and Smith fields are exactly the short-exact, exponent, prime-support,
+    Smith-factor, exponent-factorization, and class-order-factorization fields
+    named in `main_results`; repository-wide wrappers outside those fields are
+    not part of the submission claim.  The Challenge has one deliberate
+    statement-side sorry, while the selected Solution has none.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -401,556 +143,95 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator-followup.json"
-      literature_dependencies: []
+      selected_fields:
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved"
+        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
+        - "FiniteTorusTopologicalClassification.winding"
+        - "FiniteTorusTopologicalClassification.standardLoop"
+        - "FiniteTorusTopologicalClassification.classifier"
+        - "FiniteTorusTopologicalClassification.classifier_coordinate_projection"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
+        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
+        - "FiniteTorusTopologicalClassification.quotient_mul_commutative_at"
+        - "FiniteTorusTopologicalClassification.quotient_discrete_at"
+        - "FiniteTorusTopologicalClassification.semilocally_simply_connected"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_short_exact"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_lcm_dvd"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_eq_mul_of_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor"
+        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
+      literature_dependencies:
+        - "Calcut--McCarthy"
+        - "Brazas--Fabel"
+        - "Hatcher"
+        - "Norman"
+      excluded_repository_results:
+        - "arbitrary indexed-product preservation"
+        - "unselected matrix-map and determinant-cardinality wrappers"
+        - "CRT, free-factor, annihilator, image, kernel, and iff-wrapper families"
 
 automation:
   methods:
     - method: "manual"
-      tool_setup: >-
-        Mathematical scope selection, literature and provenance review,
-        theorem-boundary design, and final metadata review.
+      tool_setup: "Scope, provenance, attribution, and metadata review."
     - method: "agent"
       models: ["Codex"]
       framework: "Lean 4.32.0 and Lake"
-      tool_setup: >-
-        AI-assisted API audit, proof construction, refactoring, documentation,
-        and verification; all selected declarations are checked by Lean.
+      tool_setup: "AI-assisted proof review and compatibility repair; Lean checks every selected theorem."
       cost:
         wall_time: "multi-session local development"
         spend_usd: "not tracked"
         hardware: "local machine"
-      prompting_notes: >-
-        Strengthen an accepted quotient-topology formalization with a
-        substantively distinct general theorem and a concrete positive family.
+      prompting_notes: "Align selected declaration, provenance, and submission narrative."
   spend_usd: "not tracked"
-  notes: >-
-    The proof is replayed through Comparator with both NanoDa and Lean's
-    default kernel in addition to ordinary Lake builds.
+  notes: "Lake, repository quality gates, and Palomar Comparator/NanoDa replay are used."
 
 fidelity:
   divergences: >-
-    The artifact does not claim a new paper theorem.  It isolates the
-    null-class-openness criterion and the full locally-path-connected
-    discreteness/semilocal equivalence from a finite compact-open ladder
-    construction.  The finite-torus calculation is classical; the added
-    content is its explicit compact-open and final-quotient realization, the
-    homotopy-invariant quasitopological-group mechanism, sharp indexed-product
-    boundary, separation and covering consequences, the multiplicative
-    integer-lattice/abelian finite-torus refinement, path-choice independence
-    of transport in abelian targets, the exact relative-centrality criterion,
-    and their integration
-    with the computational-path topology comparison.  No external
-    Hawaiian-earring theorem is reproved; the accepted conditional facts are
-    instantiated in a new generic sharpness theorem.
+    This is a formalization synthesis of classical quotient-topology, winding,
+    and Smith-normal-form ingredients, not a claim of new classical theorems.
+    The declaration preserves the binary quotient-map hypothesis and excludes
+    arbitrary indexed products.  Broader repository matrix developments are
+    supporting material, not selected results.
 
 review:
   status: "self-assessed"
   reviewers: []
   notes: >-
-    The theorem boundary was compared with the cited literature, the accepted
-    package, and current Mathlib APIs.  Builds and local Comparator replay are
-    technical verification only; no independent peer review, novelty
-    certification, or mathematical endorsement is claimed.
+    The selected structure, named fields, source relationships, and excluded
+    repository results were audited together.  Technical builds and Comparator
+    replay do not constitute independent peer review or novelty approval.
 
 alignment:
-  namespace: "ComputationalPaths.Path.GeometricTopology"
+  namespace: "TopologicalComputationalPathsFollowup"
   statements:
-    - source: "Continuous functoriality"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.inducedContinuousMonoidHom"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Continuous maps induce continuous fundamental-group homomorphisms, coherently with identity and composition."
-    - source: "Quotient path-composition functoriality"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientMap_trans"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Continuous maps preserve concatenation of endpoint-fixed path homotopy classes."
-    - source: "Homotopy-equivalence and basepoint invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.homotopyEquivInducedContinuousMulEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Homotopy equivalences and paths between basepoints induce continuous multiplicative equivalences."
-    - source: "Path-homotopy coherence of basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_homotopic"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "The basepoint-change equivalence is unchanged when the chosen endpoint-fixed path is replaced by a homotopic path."
-    - source: "Abelian-target path-choice independence"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_target_comm"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "When the target quotient group is abelian, basepoint transport is independent of the chosen path even without a homotopy between paths."
-    - source: "Relative-centrality sufficient criterion for basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_relative_comm"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Centrality of the relative loop p⁻¹·q implies equality of the two path transports; the iff strengthening is recorded below."
-    - source: "Relative-centrality iff witness"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_iff_relative_comm"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "The pointwise transport equality and centrality condition are equivalent, with necessity proved by evaluating at a conjugated loop."
-    - source: "Composition coherence of basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_trans"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Transport along two concatenated paths equals the single transport along their concatenation."
-    - source: "Identity coherence of basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_refl"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Transport along a constant path is the identity continuous multiplicative equivalence."
-    - source: "Reversal coherence of basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_symm"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Transport along the reversed path is the inverse continuous multiplicative equivalence."
-    - source: "Naturality of basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChange_quotientMap_naturality"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Induced quotient maps commute with basepoint transport along mapped paths."
-    - source: "Discrete quotient transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Discreteness is preserved at corresponding basepoints across a homotopy equivalence, with the path-based basepoint analogue proved alongside it."
-    - source: "Path-based discrete basepoint invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_path"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "A path between basepoints induces a homeomorphism and therefore preserves discreteness of the quotient topology."
-    - source: "Homotopy-invariant joint-continuity boundary"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_of_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Joint continuity of quotient concatenation is equivalent at corresponding basepoints across a homotopy equivalence, via multiplicative homeomorphism transport."
-    - source: "Basepoint invariance of joint quotient continuity"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_of_path"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Joint continuity of quotient concatenation is equivalent at any two basepoints joined by a path."
-    - source: "Pointed homotopy invariance of induced maps"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientMap_eq_of_pointedHomotopy"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "A homotopy fixed at the chosen basepoint induces equal based homomorphisms after endpoint casting."
-    - source: "All-basepoints joint-continuity criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "On a path-connected space, joint continuity at one basepoint is equivalent to joint continuity at every basepoint."
-    - source: "All-basepoints discreteness criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_forall_of_pathConnected"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "On a path-connected space, discreteness at one basepoint is equivalent to discreteness at every basepoint."
-    - source: "Global continuity homotopy invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Between path-connected spaces, the global joint-continuity property is invariant under homotopy equivalence."
-    - source: "All-basepoints topological-group criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientContinuousMul_iff_forall_of_pathConnected"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "On a path-connected space, genuine topological-group structure at one basepoint is equivalent to structure at every basepoint."
-    - source: "One-basepoint semilocal criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology_at"
-      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
-      status: "proved"
-      note: "For locally path-connected, path-connected spaces, semilocal simple connectivity is equivalent to discreteness at one chosen basepoint."
-    - source: "Path-connected multiplicative basepoint transport"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "For a path-connected space, every pair of based quotient fundamental groups is related by an explicit continuous multiplicative equivalence."
-    - source: "T1 homotopy invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_of_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "T1 separation of corresponding based quotients is invariant under homotopy equivalence."
-    - source: "T1 basepoint invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_of_path"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "T1 separation is invariant under changing the basepoint along a path."
-    - source: "Global T1 criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "On a path-connected space, T1 separation at one basepoint is equivalent to T1 separation at every basepoint."
-    - source: "Global T1 homotopy invariance"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "The global T1 property is invariant under homotopy equivalence between path-connected spaces."
-    - source: "Conditional indexed-product preservation"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "The quotient fundamental group preserves indexed products whenever the indexed loop projection is a quotient map."
-    - source: "Sharp Hawaiian-earring product boundary"
-      lean: "TopologicalComputationalPathsFollowup.hawaiianEarring_loopQuotientProd_not_quotient"
-      module: "FollowupHawaiianSharpness.lean"
-      status: "proved-from-accepted-conditional-facts"
-      note: "Discontinuous multiplication forces failure of the product-quotient hypothesis; the accepted Fabel-style facts instantiate it."
-    - source: "T1 and closed homotopy classes"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.t1Space_iff_all_homotopyClasses_closed"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
-      status: "proved"
-      note: "T1 is equivalent to closedness of the null class and of every based-loop homotopy class."
-    - source: "Covering image and monodromy"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.mem_range_inducedContinuousMonoidHom_iff_monodromy_fixed"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
-      status: "proved"
-      note: "Covering maps induce injections whose image is the monodromy stabilizer of the chosen lift."
-    - source: "Quasitopological fundamental-group laws"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quasitopologicalGroupLaws"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
-      status: "proved"
-      note: "Continuous inversion and separate continuity for every pointed space."
-    - source: "Homogeneity"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientHomogeneous"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
-      status: "proved"
-      note: "Explicit right-translation homeomorphisms act transitively."
-    - source: "Exact discreteness criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.discreteTopology_iff_isOpen_nullHomotopyClass"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
-      status: "proved"
-      note: "The quotient is discrete exactly when the null-homotopy class is open upstairs."
-    - source: "Finite-ladder openness under semilocal simple connectivity"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.isOpen_homotopyClass_of_semilocallySimplyConnected"
-      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
-      status: "proved"
-      note: "In locally path-connected spaces, finite compact-open subdivisions and path-connected vertex refinements make every based-loop homotopy class open."
-    - source: "Semilocal/discrete equivalence"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology"
-      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
-      status: "proved"
-      note: "For locally path-connected spaces, semilocal simple connectivity is equivalent to discreteness of every based quotient fundamental group."
-    - source: "Homotopy invariance of semilocal simple connectivity"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_of_homotopyEquiv"
-      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
-      status: "proved"
-      note: "Semilocal simple connectivity is invariant under homotopy equivalence when both spaces are locally path-connected."
-    - source: "Positive quotient consequences"
-      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProd_isQuotientMap"
-      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"
-      status: "proved"
-      note: "Open projection, quotient square, open classes, and jointly continuous multiplication."
-    - source: "Finite-torus winding family"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousAddEquivIntVector"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Continuous additive classification of all finite-dimensional tori by integer winding vectors."
-    - source: "All-basepoint finite-torus semilocality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.semilocallySimplyConnected"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Basepoint transport makes every based quotient discrete and proves semilocal simple connectivity at every point of each finite torus."
-    - source: "All-basepoint finite-torus lattice model"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotHomeomorphIntVector_at"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Every based quotient is homeomorphic to the same integer lattice, transported from the all-zero classifier along a path supplied by path-connectedness."
-    - source: "Finite-torus multiplicative lattice classification"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The actual quotient fundamental-group multiplication is continuously equivalent to the integer lattice via Multiplicative."
-    - source: "All-basepoint finite-torus abelianity"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.quotientMul_comm_at"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Every based finite-torus quotient fundamental group is commutative; the lattice model is transported from zero to arbitrary points."
-    - source: "Canonical finite-torus lattice classifier"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_eq"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The multiplicative lattice classifier at a torus basepoint is independent of the explicit transport path."
-    - source: "Finite-torus coordinate-selection naturality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.encode_coordinateProjection"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The quotient winding classifier commutes with every coordinate-selection map, reindexing the integer lattice vector."
-    - source: "Finite-torus multiplicative classifier naturality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_coordinateProjection"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The continuous multiplicative lattice classifier obeys the same reindexing law, including maps between different dimensions."
-    - source: "Finite-torus arbitrary-basepoint classifier naturality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "After mapping a chosen basepoint path, the path-based classifier commutes with coordinate selection at arbitrary torus basepoints."
-    - source: "Finite-torus canonical arbitrary-basepoint classifier naturality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The path choice is eliminated by abelian-target transport independence, yielding naturality for the canonical classifier at every basepoint."
-    - source: "Finite-torus continuous lattice reindexing"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuous_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_coordinateProjection_continuousReindex"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Lattice reindexing is a continuous additive morphism, coherently functorial under identity and composition, and classifier naturality is expressed through it."
-    - source: "Finite-torus coordinate-equivalence coherence"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph_refl; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionHomeomorph_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv_refl; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindexContinuousEquiv_comp"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Index equivalences induce a torus homeomorphism and a continuous additive lattice equivalence, with explicit identity and composition coherence."
-    - source: "Finite-torus arbitrary-basepoint continuous reindexing"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_coordinateProjection_continuousReindex; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_continuousReindex"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Path-based and canonical arbitrary-basepoint classifier naturality are expressed directly through the continuous additive lattice reindexing morphism."
-    - source: "Finite-torus index-map image behavior"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_injective_of_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_surjective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_surjective_iff_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Surjective and injective index maps induce the corresponding injective and surjective maps on torus coordinates, integer lattices, and typed quotient loop classes, with exact converses at every level."
-    - source: "Finite-torus coordinate-selection image characterization"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_mem_range_iff"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The image of an arbitrary coordinate-selection map is exactly the fiber-constant part of the target winding lattice, equivalently for typed quotient classes."
-    - source: "Finite-torus typed quotient additive functor and kernel"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_map_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_map_add; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientMap_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientAddHom_mem_ker_iff"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Typed quotient coordinate selection is a contravariant additive functor, and its kernel is exactly the classes whose winding vanishes on the image of the index map, matching the lattice kernel."
-    - source: "Finite-torus continuous typed quotient additive functor"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousAddHom_id"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The typed quotient additive functor is continuous for the discrete quotient topologies, with the same identity and composition coherence."
-    - source: "Finite-torus arbitrary-basepoint quotient homomorphism"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_basepointChange; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_injective_iff_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_surjective_iff_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_eq_one_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_mem_ker_iff"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "At arbitrary basepoints, coordinate selection is a continuous multiplicative homomorphism of quotient fundamental groups, coherently contravariant and compatible with the canonical lattice classifier; the exact image, converse, kernel, and basepoint-transport naturality criteria are transported as well."
-    - source: "Finite-torus coordinate-selection coherence"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Coordinate-selection maps and integer-lattice reindexing satisfy identity and composition laws, giving the construction an explicit contravariant functorial interface."
-    - source: "Finite-torus representative and decoder naturality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.standardLoop_coordinateProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.decode_coordinateProjection"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Standard representatives and their quotient decoder commute with coordinate selection by reindexing the lattice vector."
-    - source: "Finite-torus arbitrary integer-matrix extension"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_comp_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_id_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_injective_iff_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_surjective_iff_isUnit_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixCompose_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_eq_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_finite; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_full_rank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithEquivOfDetNeZero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixCompose; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixIdentity; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_base; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixNonsingInv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixCompose_nonsingInv_mul_of_det_unit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixCompose_mul_nonsingInv_of_det_unit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionEquivOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuousEquivOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapHomeomorphOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionEquivOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuousEquivOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapHomeomorphOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.basepointChangeContinuousMulEquiv_pathCast; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.quotientCast_roundtrip; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.quotientMap_cast_of_continuousMap_eq; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfInverse_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfDetUnit_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfInverse_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulEquivAtOfInverse_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_basepointChange; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_comp_cast_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_id_cast_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_standardLoop; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.encode_matrixMapQuotientMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_decode; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_path_matrixMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_matrixMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_eq_one_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_surjective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_injective_iff_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousMulHomAt_surjective_iff_isUnit_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_surjective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_injective_iff_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_surjective_iff_isUnit_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_map_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_map_add; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientEquivOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientHomeomorphOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddEquivOfInverse; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientEquivOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientHomeomorphOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddEquivOfDetUnit; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotAddCommGroup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_range_map; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_range_index_eq_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithEquivOfDetNeZero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquivOfDetNeZero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_mem_ker_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_id"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Arbitrary integer matrices extend coordinate selections to continuous torus maps; their matrix actions and quotient maps are natural, functorial, and satisfy exact image, kernel, injectivity, and surjectivity transfer.  For nonzero determinant, the winding-lattice cokernel is finite with cardinality Int.natAbs (Matrix.det A), and finiteness is exposed explicitly.  Its full-rank image is also presented by a Smith-normal-form product of finite cyclic ZMod factors.  At the canonical basepoint, the induced quotient image has the same exact index and cokernel cardinality, with an explicit finite quotient theorem; the quotient cokernel itself is transported to the same Smith-normal-form product by an explicit additive equivalence of finite abelian groups.  For arbitrary rectangular maps, the quotient winding equivalence has a representative formula, exact Nat.card and Finite transport for maps and composites, and naturality for both cokernel maps; the rectangular diagram certificate packages both exact sequences and commuting squares.  For composable non-singular square matrices, the determinant index is multiplicative under matrix composition on both the lattice and quotient sides.  The arbitrary-basepoint quotient homomorphisms commute with path transport, satisfy typed composition and identity laws with explicit endpoint casts, and both the path-based and canonical classifier squares include the endpoint cast explicitly; the exact image, kernel, injectivity, and surjectivity criteria transfer there as well.  Explicit two-sided matrix inverses upgrade the lattice action to a continuous additive equivalence, the torus map to a homeomorphism, and the quotient map to both a homeomorphism and a continuous additive equivalence.  At every arbitrary basepoint, the quotient homomorphism itself upgrades to a continuous multiplicative equivalence with explicit injectivity and surjectivity consequences."
-    - source: "Finite-torus rectangular Smith normal form"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_finite_iff_full_rank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithEquivOfFullRank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquivOfFullRank"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For any rectangular matrix whose image has full target rank, the lattice cokernel is explicitly a product of cyclic ZMod factors supplied by Smith normal form, and the winding equivalence transports that additive decomposition to the finite-torus cokernel.  Lattice cokernel finiteness is characterized exactly by the same full-rank condition."
-    - source: "Finite-torus arbitrary-rank Smith decomposition"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.smithNormalFormFactor_eq_zero_of_not_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.map_smithNormalForm_eq_pi; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquiv"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Arbitrary-rank Smith data are extended to all ambient coordinates: complementary coordinates appear as explicit ZMod 0 free factors and embedded Smith coordinates as cyclic torsion factors.  The lattice and finite-torus cokernels are additively equivalent to this product, with a quotient-representative formula; full target rank specializes to the finite product and exact Smith-modulus cardinality theorems."
-    - source: "Finite-torus Smith-modulus cardinality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_eq_smithNormalFormProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormProduct"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "When the image has full target rank, both the lattice and canonical finite-torus cokernels have cardinality equal to the product of the Smith-normal-form moduli."
-    - source: "Finite-torus Smith-factor finiteness criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.finite_zmod_pi_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_finite_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_full_rank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_smithNormalFormFactor_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_full_rank_iff_smithNormalFormFactor_ne_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For arbitrary-rank rectangular maps, finiteness of both lattice and finite-torus cokernels is equivalent to nonzero Smith moduli in every ambient coordinate; this is equivalent to full target rank and exactly rules out the free ZMod 0 factors."
-    - source: "Finite-torus Smith determinant compatibility"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_smithNormalFormProduct_eq_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_smithNormalFormProduct_eq_natAbs_det"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For square nonsingular matrices, the product of the Smith-normal-form moduli is exactly the determinant index Int.natAbs (Matrix.det A), independently on the winding-lattice and finite-torus cokernel sides."
-    - source: "Finite-torus arbitrary-rank Smith cardinality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_card_eq_smithNormalFormFactorProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_card_eq_smithNormalFormFactorProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormFactorProduct"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The arbitrary-rank Smith product computes Nat.card exactly without a finiteness hypothesis; a surviving ZMod 0 factor makes both the quotient cardinality and the product zero."
-    - source: "Finite-torus Smith membership criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submodule_mem_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_mem_range_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "After the Smith basis change, lattice and finite-torus matrix-image membership is equivalent to coordinatewise divisibility by the Smith factors; zero factors impose the complementary-coordinate vanishing equations."
-    - source: "Finite-torus Smith representative decoder"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The topological arbitrary-rank Smith equivalence has an explicit quotient-representative formula, reducing loop-class decoding to the lattice Smith representative formula."
-    - source: "Finite-torus Smith prime-power refinement"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPrimePowerAddEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPiPrimePowerAddEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_apply_mk"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Whenever all Smith moduli are nonzero, Chinese remainder decomposes each cyclic Smith factor into its explicit prime-power components; the lattice and finite-torus cokernel refinements have representative formulas."
-    - source: "Finite-torus Smith prime-power cardinality"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPrimePowerAddEquiv_card; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv_card_eq_primePowerProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The Chinese-remainder refinement has an exact cardinality bridge: each prime-power product equals its Smith modulus, and both lattice and finite-torus cokernel cardinalities equal the full double product."
-    - source: "Finite-torus Smith exponent"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPrimePowerAddEquiv_exponent; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.zmodPiPrimePowerAddEquiv_exponent_eq_lcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernelSmithPrimePowerEquiv_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_exponent_eq_smithFactorLcm"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The additive exponent of the prime-power Smith presentation, and hence of both finite lattice and finite-torus cokernels, is exactly the least common multiple of the Smith moduli."
-    - source: "Finite-torus Smith elementwise annihilation"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_nsmul_mk_eq_zero_iff_smithNormalFormFactor_dvd"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A multiple of a Smith cokernel class vanishes exactly when every transformed coordinate is divisible by the corresponding multiple of its Smith factor; the criterion is explicit on both lattice and finite-torus representatives and includes zero-factor equations."
-    - source: "Finite-torus Smith class order"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_eq_smithCoordinateLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithCoordinateLcm"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The additive order of an arbitrary Smith cokernel class is exactly the lcm of the additive orders of its decoded coordinates; nonzero ZMod 0 coordinates record infinite order in the free part."
-    - source: "Finite-torus Smith class order gcd refinement"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.intQuotientSpan_addOrderOf_eq_natAbs_div_gcd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_mk_eq_smithFactorGcdLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For nonzero Smith factors, each finite coordinate order is the Smith modulus divided by the gcd with the transformed integer coordinate, and the class order is the lcm of these explicit orders on both lattice and finite-torus representatives."
-    - source: "Finite-torus Smith free-coordinate torsion criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.intQuotientSpan_addOrderOf_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "An arbitrary-rank Smith cokernel class has infinite additive order exactly when a zero Smith factor carries a nonzero transformed coordinate; the free-coordinate criterion is transported to lattice and finite-torus matrix representatives."
-    - source: "Finite-torus Smith order-divisibility criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_dvd_iff_smithNormalFormFactor_dvd"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A natural number is a multiple of a Smith cokernel class's additive order exactly when its transformed coordinates satisfy the corresponding divisibility equations, including zero-factor constraints, on generic, lattice, and finite-torus representatives."
-    - source: "Finite-torus Smith finite-order torsion criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_isOfFinAddOrder_iff_smithFreeCoordinate; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_isOfFinAddOrder_iff_smithFreeCoordinate; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_isOfFinAddOrder_iff_smithFreeCoordinate"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A Smith cokernel class has finite additive order exactly when every zero Smith factor carries a zero transformed coordinate; the torsion criterion is transported to lattice and finite-torus matrix representatives."
-    - source: "Finite-torus arbitrary-rank Smith exponent"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_eq_smithFactorLcm; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The additive exponent of an arbitrary-rank Smith cokernel is the lcm of the Smith-factor moduli on generic, lattice, and finite-torus representatives; a zero factor forces exponent zero and records the free summand."
-    - source: "Finite-torus Smith exponent-zero/free-rank criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_eq_zero_iff_smithFreeFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_eq_zero_iff_smithFreeFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_eq_zero_iff_not_full_rank; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_smithFreeFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_eq_zero_iff_not_full_rank"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Exponent zero is equivalent to a surviving zero Smith factor, and for rectangular lattice and finite-torus matrix cokernels this is exactly failure of full target rank."
-    - source: "Finite-torus Smith global annihilator criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_dvd_iff_smithFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_dvd_iff_smithFactor_dvd"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A proposed global annihilator is divisible by the Smith exponent exactly when every Smith-factor modulus divides it; a zero factor forces the proposed annihilator to be zero."
-    - source: "Finite-torus Smith unit-factor criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "The Smith exponent is one exactly when every Smith factor has unit absolute value, exposing the sharp trivial-cokernel boundary on generic, lattice, and finite-torus presentations."
-    - source: "Finite-torus Smith surjectivity criterion"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_surjective_iff_smithFactor_natAbs_eq_one; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_surjective_iff_smithFactor_natAbs_eq_one"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A rectangular lattice or finite-torus matrix action is surjective exactly when all Smith factors have unit absolute value, linking image surjectivity to the exponent-one/trivial-cokernel boundary."
-    - source: "Finite-torus determinant exponent bound"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_dvd_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_dvd_natAbs_det"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For every square integer matrix, the adjugate annihilator gives exponent(cokernel) dividing Int.natAbs (Matrix.det A) on both lattice and finite-torus sides, including singular matrices."
-    - source: "Finite-torus Smith finiteness/exponent equivalence"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_finite_iff_exponent_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_finite_iff_exponent_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_exponent_ne_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "An arbitrary-rank Smith cokernel is finite exactly when its additive exponent is nonzero; the same finite/infinite obstruction criterion is transported to lattice and finite-torus matrix cokernels."
-    - source: "Finite-torus exact-sequence exponent bound"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_dvd_mul_matrixCompose; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul_matrixCompose"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For any composable additive cokernel sequence, the composite cokernel exponent divides the product of the successive cokernel exponents; rectangular lattice and finite-torus matrix forms inherit the bound, including canonical matrixCompose notation."
-    - source: "Finite-torus exact-sequence cardinality product"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_matrixCompose_matrixAction_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "When the second map is injective, the exact cokernel sequence multiplies Nat.card; rectangular lattice and finite-torus forms expose the product identity for explicit composition and canonical matrixCompose ranges."
-    - source: "Finite-torus exact-sequence finiteness equivalence"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_finite_iff_of_matrixCompose_matrixAction_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Under injectivity of the second map, the composite cokernel is finite exactly when both successive cokernels are finite; lattice and finite-torus wrappers include explicit and canonical matrixCompose forms."
-    - source: "Finite-torus coprime exact-sequence exponent"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixAction_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_matrixAction_coprime_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "When the successive cokernel exponents are coprime and the second map is injective, the composite exponent is exactly their product; lattice and finite-torus rectangular wrappers expose explicit and canonical matrixCompose forms, including the lattice-action injectivity route."
-    - source: "Finite-torus exact-sequence exponent lcm lower bound"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_lcm_dvd_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_lcm_dvd_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_lcm_dvd_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_lcm_dvd_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_lcm_dvd_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_lcm_dvd_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_lcm_dvd_of_matrixCompose_matrixAction_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "Under injectivity of the second map, the lcm of the successive cokernel exponents divides the composite exponent; together with the product bound this gives a sharp lcm-to-product interval in abstract, lattice, and finite-torus matrixCompose forms."
-    - source: "Finite-torus determinant-coprime exponent product"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_comp_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For square matrices, coprime determinant absolute values imply coprime successive exponents through the adjugate bounds; if the second determinant is nonzero, the composite exponent is exactly the product on both lattice and finite-torus sides, including matrixCompose notation."
-    - source: "Finite-torus exact-sequence exponent prime support"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_matrixAction_injective"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For every prime p, the composite cokernel exponent is divisible by p exactly when one of the successive exponents is; rectangular lattice and finite-torus wrappers expose the law in explicit and canonical matrixCompose forms, linking exact-sequence exponents to the prime-power Smith decomposition."
-    - source: "Finite-torus determinant-based exponent prime support"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For square matrices, a nonzero determinant of the second factor supplies injectivity automatically, so the prime-support law is available directly from determinant hypotheses on both lattice and finite-torus cokernel presentations, including canonical matrixCompose forms."
-    - source: "Finite-torus Smith-factor exponent prime support"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_exponent_prime_dvd_iff_smithFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_prime_dvd_iff_smithFactor"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For every prime p, a Smith cokernel exponent is divisible by p exactly when p divides one Smith-factor modulus; the criterion is transported from arbitrary-rank Smith data to rectangular lattice and finite-torus matrix cokernels, including zero factors."
-    - source: "Finite-torus Smith p-adic exponent profile"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.finsetLcm_factorization_eq_sup_of_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_exponent_factorization_eq_smithFactor_sup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_exponent_factorization_eq_smithFactor_sup"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "When every Smith modulus is nonzero, the exponent's p-adic valuation is the supremum of the Smith-factor valuations for every prime p; the result is transported to rectangular lattice and finite-torus matrix cokernels, while zero factors remain the explicit free-part boundary."
-    - source: "Finite-torus Smith p-adic class-order profile"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.submoduleCokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_addOrderOf_mk_factorization_eq_smithCoordinate_sup"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For every class when all Smith moduli are nonzero, the p-adic factorization of its additive order is the supremum of the factorization profiles of its decoded Smith-coordinate orders; the theorem is transported to lattice and finite-torus matrix cokernels."
-    - source: "Finite-torus determinant annihilator certificate"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "For every square integer matrix, the adjugate supplies an explicit preimage of det A times any winding vector; the determinant therefore annihilates both lattice and finite-torus cokernel classes without a nonzero-determinant hypothesis."
-    - source: "Follow-up publication certificate"
-      lean: "TopologicalComputationalPathsFollowup.main_result"
+    - source: "General quotient-topological fundamental-group theory"
+      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory"
       module: "FollowupChallenge.lean and FollowupSolution.lean"
-      status: "adapted"
-      note: "Packages the arbitrary-space theory and every finite-torus application in one Comparator target."
-    - source: "Finite-torus cokernel composition embeddings"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compMap_injective_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compMap_injective_of_det_ne_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
-      note: "Composition by B induces canonical additive maps from the cokernel of A into the cokernel of B composed with A; nonzero det B makes both the lattice and topological maps injective."
-    - source: "Finite-torus cokernel short exactness"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_ker_eq_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_comp_shortExact_of_det_ne_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_ker_eq_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_shortExact_of_det_ne_zero"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      note: "Includes the binary product and sharpness fields, not indexed products."
+    - source: "Finite-torus winding/basepoint certificate"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.winding; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "The projection from the cokernel of B composed with A onto the cokernel of B is surjective and has the composition-map image as kernel; with nonzero det B this is an explicit short exact sequence on the lattice and topological quotient sides."
-    - source: "Finite-torus cokernel first-isomorphism quotients"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_quotientKerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_compProjection_quotientKerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_compProjection_quotientKerEquiv_apply_mk"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      note: "Winding, coordinate naturality, continuous classifiers, and global discrete/semilocal consequences."
+    - source: "Selected matrix and Smith p-adic certificate"
+      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_short_exact; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup"
+      module: "FollowupChallenge.lean and FollowupSolution.lean"
       status: "proved"
-      note: "The quotient of each composition cokernel by the projection kernel is explicitly additively equivalent to the second cokernel, and the equivalence sends quotient representatives to the canonical projection image."
-    - source: "General and rectangular cokernel exactness"
-      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompMap_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompMap_injective_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompMap_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection_ker_eq_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection_surjective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection_quotientKerEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelCompProjection_quotientKerEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_shortExact_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_comp_range_eq_matrixCompose_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_compMap_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_compMap_injective_iff_matrixCompose; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_compMap_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_card_eq_matrixAction_cokernel; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_finite_iff_matrixAction_cokernel; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_comp_apply_mk; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_card_eq_matrixAction_cokernel_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_finite_iff_matrixAction_cokernel_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_compMap_naturality; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_naturality; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_winding_shortExact; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_compMap_matrixCompose_naturality; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_matrixCompose_naturality; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixCompose_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_compMap_injective_iff_matrixCompose"
-      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
-      status: "proved"
-      note: "A reusable additive first-isomorphism package proves the cokernel short-exact sequence for arbitrary composable homomorphisms when the second map is injective, and specializes to rectangular integer matrices and their finite-torus quotient maps in all composable dimensions. Composite ranges are also identified with the canonical matrixCompose ranges, with direct exact-sequence and injectivity-criterion interfaces. The winding equivalence gives explicit rectangular cokernel equivalences and proved naturality for both the composite embedding and complementary projection, including named square matrixCompose maps. A single rectangular certificate packages both exact sequences and commuting squares."
+      note: "Exact selected fields only; broader repository arithmetic wrappers are excluded."
 
 acknowledgements: >-
-  Thanks to the cited authors, and to the contributors of Lean, Mathlib, the
+  Thanks to the cited authors and to the contributors of Lean, Mathlib, the
   Calculus of Computational Paths, and the Palomar Registry tooling.
