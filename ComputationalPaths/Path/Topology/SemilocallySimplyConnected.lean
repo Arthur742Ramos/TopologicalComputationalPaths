@@ -1,4 +1,5 @@
 import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
+import Mathlib.Topology.Connected.LocallyPathConnected
 
 /-!
 # Semilocal simple connectivity and quotient fundamental groups
@@ -39,6 +40,69 @@ def SemilocallySimplyConnectedAt (x : X) : Prop :=
 /-- Pointwise semilocal simple connectivity. -/
 def SemilocallySimplyConnected : Prop :=
   ∀ x : X, SemilocallySimplyConnectedAt X x
+
+/-- Every loop contained in `U`, with arbitrary basepoint in `U`, is
+null-homotopic in the ambient space.  This is the basepoint-uniform local
+condition used in compact subdivision arguments. -/
+def LoopsNullIn (U : Set X) : Prop :=
+  ∀ y ∈ U, ∀ γ : Loop X y, range γ ⊆ U →
+    γ.Homotopic (_root_.Path.refl y)
+
+/-- Cancelling the two sides of a null-homotopic conjugate shows that its
+middle loop is null-homotopic. -/
+private theorem homotopic_refl_of_conjugate_homotopic_refl
+    {x y : X} (α : _root_.Path x y) (γ : Loop X y)
+    (h : (α.trans (γ.trans α.symm)).Homotopic (_root_.Path.refl x)) :
+    γ.Homotopic (_root_.Path.refl y) := by
+  let a := _root_.Path.Homotopic.Quotient.mk α
+  let g := _root_.Path.Homotopic.Quotient.mk γ
+  have hq : a.trans (g.trans a.symm) =
+      _root_.Path.Homotopic.Quotient.refl x := by
+    have hmk : _root_.Path.Homotopic.Quotient.mk
+        (α.trans (γ.trans α.symm)) =
+        _root_.Path.Homotopic.Quotient.mk (_root_.Path.refl x) :=
+      _root_.Path.Homotopic.Quotient.eq.mpr h
+    simpa only [a, g, _root_.Path.Homotopic.Quotient.mk_trans,
+      _root_.Path.Homotopic.Quotient.mk_symm,
+      _root_.Path.Homotopic.Quotient.mk_refl] using hmk
+  have hcancel := congrArg
+    (fun q => (a.symm.trans q).trans a) hq
+  have hg : g = _root_.Path.Homotopic.Quotient.refl y := by
+    simp only [_root_.Path.Homotopic.Quotient.trans_assoc,
+      _root_.Path.Homotopic.Quotient.trans_refl] at hcancel
+    rw [← _root_.Path.Homotopic.Quotient.trans_assoc,
+      _root_.Path.Homotopic.Quotient.symm_trans,
+      _root_.Path.Homotopic.Quotient.refl_trans,
+      _root_.Path.Homotopic.Quotient.trans_refl] at hcancel
+    exact hcancel
+  exact _root_.Path.Homotopic.Quotient.eq.mp (by simpa [g] using hg)
+
+/-- In a locally path-connected semilocally simply connected space, every
+point has an open path-connected neighborhood on which loops based at any
+point are null-homotopic in the ambient space. -/
+theorem exists_open_pathConnected_loopsNullIn
+    [LocallyPathConnectedSpace X]
+    (hsemi : SemilocallySimplyConnected X) (x : X) :
+    ∃ V : Set X, IsOpen V ∧ x ∈ V ∧ IsPathConnected V ∧ LoopsNullIn X V := by
+  rcases hsemi x with ⟨U, hUopen, hxU, hU⟩
+  have hUnhds : U ∈ 𝓝 x := hUopen.mem_nhds hxU
+  rcases ((isOpen_isPathConnected_basis x).mem_iff.mp hUnhds) with
+    ⟨V, ⟨hVopen, hxV, hVpath⟩, hVU⟩
+  refine ⟨V, hVopen, hxV, hVpath, ?_⟩
+  intro y hyV γ hγV
+  let joined : JoinedIn V x y := hVpath.joinedIn x hxV y hyV
+  let α : _root_.Path x y := joined.somePath
+  apply homotopic_refl_of_conjugate_homotopic_refl X α γ
+  apply hU
+  rw [_root_.Path.trans_range, _root_.Path.trans_range]
+  refine union_subset (fun _ hz => ?_)
+    (union_subset (fun _ hz => hVU (hγV hz)) ?_)
+  · rcases hz with ⟨t, rfl⟩
+    exact hVU (joined.somePath_mem t)
+  · intro z hz
+    rw [_root_.Path.symm_range] at hz
+    rcases hz with ⟨t, rfl⟩
+    exact hVU (joined.somePath_mem t)
 
 /-- Openness of the null-homotopy class gives a semilocally simply connected
 neighborhood of the basepoint. -/
