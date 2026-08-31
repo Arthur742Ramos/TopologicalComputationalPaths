@@ -113,6 +113,12 @@ injectivity equivalence discharged explicitly.
 The same hypothesis gives a finiteness equivalence: the composite cokernel is
 finite exactly when both successive cokernels are finite, with direct and
 `matrixCompose` forms on the lattice and finite-torus sides.
+When the two successive cokernel exponents are coprime, injectivity of the
+second map sharpens the divisibility bound to an exact product equality.  This
+coprime exponent theorem is exposed abstractly and through the rectangular
+lattice and finite-torus matrix interfaces, including explicit composition and
+canonical `matrixCompose` forms; on the finite-torus side it is also available
+from injectivity of the underlying lattice action.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -1977,6 +1983,31 @@ theorem addCokernelComp_exponent_dvd_mul
   rw [Nat.mul_comm, mul_nsmul]
   exact hmul
 
+/-- If the two successive cokernel exponents are coprime, the product bound
+is sharp: the composite exponent is their product. -/
+theorem addCokernelComp_exponent_eq_mul_of_coprime_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (hg : Function.Injective g)
+    (hcop : Nat.Coprime (AddMonoid.exponent (V ⧸ f.range))
+      (AddMonoid.exponent (W ⧸ g.range))) :
+    AddMonoid.exponent (W ⧸ (g.comp f).range) =
+      AddMonoid.exponent (V ⧸ f.range) * AddMonoid.exponent (W ⧸ g.range) := by
+  let F := addCokernelCompMap f g
+  let P := addCokernelCompProjection f g
+  have hF : Function.Injective F :=
+    addCokernelCompMap_injective_of_injective f g hg
+  have hP : Function.Surjective P :=
+    addCokernelCompProjection_surjective f g
+  have hfirst : AddMonoid.exponent (V ⧸ f.range) ∣
+      AddMonoid.exponent (W ⧸ (g.comp f).range) :=
+    AddMonoid.exponent_dvd_of_addMonoidHom F hF
+  have hsecond : AddMonoid.exponent (W ⧸ g.range) ∣
+      AddMonoid.exponent (W ⧸ (g.comp f).range) :=
+    AddMonoidHom.exponent_dvd hP
+  apply Nat.dvd_antisymm
+  · exact addCokernelComp_exponent_dvd_mul f g
+  · exact hcop.mul_dvd_of_dvd_of_dvd hfirst hsecond
+
 /-- When the second map is injective, the exact cokernel sequence multiplies
 cardinalities: the composite cokernel has the product size of the two
 successive cokernels. -/
@@ -2057,6 +2088,37 @@ theorem matrixAction_rectangular_cokernel_exponent_dvd_mul_matrixCompose
         AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
   rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
   exact matrixAction_rectangular_cokernel_exponent_dvd_mul A B
+
+/-- For coprime successive lattice exponents, the rectangular composite
+cokernel exponent is their product. -/
+theorem matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+      (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))) :
+    AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) =
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  exact addCokernelComp_exponent_eq_mul_of_coprime_of_injective
+    (matrixAction A) (matrixAction B) hB hcop
+
+/-- The coprime lattice exponent product in canonical matrix-compose
+notation. -/
+theorem matrixAction_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+      (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))) :
+    AddMonoid.exponent
+        ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
+      AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    A B hB hcop
 
 /-- Injective rectangular lattice sequences multiply cokernel cardinalities. -/
 theorem matrixAction_rectangular_cokernel_card_mul_of_injective
@@ -4497,6 +4559,41 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul
   exact addCokernelComp_exponent_dvd_mul
     (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B)
 
+/-- For coprime successive finite-torus exponents, the rectangular composite
+cokernel exponent is their product. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range))
+      (AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range))) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) =
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  exact addCokernelComp_exponent_eq_mul_of_coprime_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB hcop
+
+/-- The finite-torus coprime exponent product follows from injectivity of the
+underlying rectangular lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixAction_coprime_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range))
+      (AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range))) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) =
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  apply matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    A B
+  · change Function.Injective (matrixMapQuotientMap B)
+    exact (matrixMapQuotientMap_injective_iff B).mpr hB
+  · exact hcop
+
 /-- Injective rectangular finite-torus sequences multiply cokernel
 cardinalities. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_card_mul_of_injective
@@ -5971,6 +6068,38 @@ theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul_matrixComp
         AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_dvd_mul A B
+
+/-- The finite-torus coprime exponent product in canonical matrix-compose
+notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range))
+      (AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range))) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) =
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    A B hB hcop
+
+/-- The finite-torus coprime exponent product in matrix-compose notation also
+follows from injectivity of the underlying lattice action. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_matrixAction_coprime_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B))
+    (hcop : Nat.Coprime
+      (AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range))
+      (AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range))) :
+    AddMonoid.exponent
+        (LoopQuot k ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) =
+      AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot k ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixAction_coprime_injective
+    A B hB hcop
 
 /-- The rectangular finite-torus cardinality product in canonical
 matrix-compose notation. -/

@@ -335,6 +335,12 @@ the underlying lattice action, via the proved quotient-injectivity transport.
 Under the same hypothesis, finiteness is equivalent across the exact
 sequence: the composite cokernel is finite exactly when both successive
 cokernels are finite, including the canonical `matrixCompose` forms.
+If the two successive cokernel exponents are coprime, injectivity of the
+second map sharpens the exponent divisibility bound to an exact product
+identity.  The theorem is proved abstractly and transported to rectangular
+lattice and finite-torus matrix cokernels, with explicit and canonical
+`matrixCompose` forms; finite-torus clients can also use lattice-action
+injectivity via the quotient-injectivity equivalence.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

@@ -117,6 +117,12 @@ project:
     Under the same hypothesis, the composite cokernel is finite exactly when
     both successive cokernels are finite, including canonical `matrixCompose`
     presentations.
+    When the two successive cokernel exponents are coprime, injectivity of the
+    second map sharpens the exponent divisibility bound to an exact product
+    equality.  This coprime theorem is available abstractly and through
+    rectangular lattice and finite-torus matrix interfaces, including explicit
+    and canonical `matrixCompose` forms and the lattice-action injectivity
+    route.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -845,6 +851,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Under injectivity of the second map, the composite cokernel is finite exactly when both successive cokernels are finite; lattice and finite-torus wrappers include explicit and canonical matrixCompose forms."
+    - source: "Finite-torus coprime exact-sequence exponent"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.addCokernelComp_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixAction_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_coprime_injective; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_matrixCompose_matrixAction_coprime_injective"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "When the successive cokernel exponents are coprime and the second map is injective, the composite exponent is exactly their product; lattice and finite-torus rectangular wrappers expose explicit and canonical matrixCompose forms, including the lattice-action injectivity route."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

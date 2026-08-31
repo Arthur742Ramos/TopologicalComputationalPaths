@@ -171,6 +171,12 @@ inverse witness, including at arbitrary basepoints.
     Under the same hypothesis, the composite cokernel is finite exactly when
     both successive cokernels are finite, including canonical `matrixCompose`
     presentations.
+    If the two successive cokernel exponents are coprime, injectivity of the
+    second map sharpens the exponent divisibility bound to an exact product.
+    The abstract theorem is transported to rectangular lattice and
+    finite-torus matrix cokernels, with explicit and canonical `matrixCompose`
+    forms; finite-torus users may also discharge injectivity through the
+    underlying lattice action.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

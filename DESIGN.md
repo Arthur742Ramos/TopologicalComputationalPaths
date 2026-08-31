@@ -309,6 +309,12 @@ underlying lattice action through the quotient-injectivity equivalence.
 The same hypothesis gives a finiteness equivalence: the composite cokernel is
 finite exactly when both successive cokernels are finite, including canonical
 `matrixCompose` presentations.
+When the successive cokernel exponents are coprime, injectivity of the second
+map upgrades the exponent divisibility bound to equality with their product.
+This sharpening is factored through the abstract exact sequence and exposed
+for rectangular lattice and finite-torus maps, including explicit and
+canonical `matrixCompose` notation and the lattice-action injectivity route
+on the finite-torus side.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

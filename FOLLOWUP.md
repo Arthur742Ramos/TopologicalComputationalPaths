@@ -351,6 +351,15 @@ the formalization proves:
      exactly when both successive cokernels are finite.
 132. this finiteness equivalence is transported to rectangular lattice and
      finite-torus forms, including canonical `matrixCompose` presentations.
+133. if the two successive cokernel exponents are coprime and the second map
+     is injective, the composite cokernel exponent is exactly their product.
+134. this coprime sharpening is proved abstractly from the injective cokernel
+     embedding, surjective projection, and the product divisibility bound.
+135. rectangular lattice and finite-torus matrix cokernels inherit the exact
+     coprime exponent product, including explicit and canonical
+     `matrixCompose` forms.
+136. on the finite-torus side, the same equality is exposed from injectivity of
+     the underlying lattice action through the quotient-injectivity iff.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
