@@ -137,7 +137,7 @@ coherence package has both its unit and composition laws explicitly.  Finally,
 when the target quotient is abelian, the path-independence statement no longer
 requires a homotopy between the paths; this is the mechanism that makes the
 finite-torus lattice classifier canonical at each basepoint.
-quotient functoriality is recorded at the path-composition level, and the
+Quotient functoriality is recorded at the path-composition level, and the
 basepoint-change equivalences satisfy the resulting naturality square for
 every continuous map.
 The pointed homotopy-naturality law is also exposed: a homotopy between maps
