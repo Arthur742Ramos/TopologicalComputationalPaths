@@ -299,6 +299,8 @@ this decomposition, and lattice finiteness is exactly the full-rank condition.
 More precisely, finiteness on either side is equivalent to every Smith modulus
 being nonzero, so the criterion detects exactly when no `ZMod 0` free factor
 survives (and is equivalent to full target rank).
+For square nonsingular matrices, a checked arithmetic bridge identifies the
+Smith-modulus product on both sides with `Int.natAbs (Matrix.det A)`.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

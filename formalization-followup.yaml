@@ -120,6 +120,9 @@ project:
     lattice and finite-torus cokernels.  The same factorization gives an exact
     finiteness criterion: both cokernels are finite exactly when every Smith
     modulus is nonzero, equivalently when no ZMod 0 free factor remains.
+    In the square nonsingular specialization, the Smith-modulus product is
+    also proved equal to the determinant index Int.natAbs (Matrix.det A) on
+    both the lattice and finite-torus sides.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -682,6 +685,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "For arbitrary-rank rectangular maps, finiteness of both lattice and finite-torus cokernels is equivalent to nonzero Smith moduli in every ambient coordinate; this is equivalent to full target rank and exactly rules out the free ZMod 0 factors."
+    - source: "Finite-torus Smith determinant compatibility"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_smithNormalFormProduct_eq_natAbs_det; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_smithNormalFormProduct_eq_natAbs_det"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For square nonsingular matrices, the product of the Smith-normal-form moduli is exactly the determinant index Int.natAbs (Matrix.det A), independently on the winding-lattice and finite-torus cokernel sides."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

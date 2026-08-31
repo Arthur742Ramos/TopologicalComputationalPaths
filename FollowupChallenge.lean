@@ -133,6 +133,9 @@ inverse witness, including at arbitrary basepoints.
     condition is characterized exactly by full target rank.  The arbitrary-rank
     factorization also gives a direct finiteness test on both sides: every
     Smith modulus is nonzero exactly when the corresponding cokernel is finite.
+    In the square nonsingular specialization, the product of Smith moduli is
+    also identified with the determinant index `Int.natAbs (Matrix.det A)` on
+    both the lattice and finite-torus sides.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

@@ -122,6 +122,8 @@ target rank and transported to their finite-torus cokernels as well.  The
 lattice finite-cokernel condition is characterized exactly by full target
 rank, and the arbitrary-rank factorization identifies this condition with the
 absence of zero Smith factors on both the lattice and finite-torus sides.
+In the square nonsingular specialization, the Smith-modulus product is proved
+to equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 -/
 
 namespace ComputationalPaths
@@ -2517,6 +2519,18 @@ theorem matrixAction_cokernel_card_eq_smithNormalFormProduct
   rw [Nat.card_congr (matrixAction_cokernel_smithEquivOfFullRank A hA).toEquiv]
   simp [Nat.card_pi, Nat.card_zmod]
 
+/-- In the square nonsingular case, the product of the Smith moduli is the
+determinant index.  This is the arithmetic compatibility between the
+invariant-factor and determinant cardinality certificates. -/
+theorem matrixAction_smithNormalFormProduct_eq_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    ∏ i : Fin n, (Submodule.smithNormalFormCoeffs
+      (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA) i).natAbs =
+      Int.natAbs (Matrix.det A) := by
+  rw [← matrixAction_cokernel_card_eq_smithNormalFormProduct A
+    (matrixAction_cokernel_full_rank A hA)]
+  exact matrixAction_cokernel_card_eq_natAbs_det A hA
+
 /-- The matrix action is continuous for the product topologies on the
 integer lattices. -/
 noncomputable def matrixActionContinuous {n m : ℕ}
@@ -4068,6 +4082,19 @@ theorem matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormProduct
   rw [Nat.card_congr
     (matrixMapQuotientAddHom_cokernel_smithAddEquivOfFullRank A hA).toEquiv]
   simp [Nat.card_pi, Nat.card_zmod]
+
+/-- The topological square cokernel carries the same determinant-index
+identity: its Smith-modulus product is exactly `Int.natAbs (Matrix.det A)`. -/
+theorem matrixMapQuotientAddHom_smithNormalFormProduct_eq_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    ∏ i : Fin n, (Submodule.smithNormalFormCoeffs
+      (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA) i).natAbs =
+      Int.natAbs (Matrix.det A) := by
+  calc
+    _ = Nat.card (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) :=
+      (matrixMapQuotientAddHom_cokernel_card_eq_smithNormalFormProduct A
+        (matrixAction_cokernel_full_rank A hA)).symm
+    _ = _ := matrixMapQuotientAddHom_cokernel_card_eq_natAbs_det A hA
 
 /-- The finite-torus quotient cokernel is finite whenever the matrix
 determinant is nonzero. -/

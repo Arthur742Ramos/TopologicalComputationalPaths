@@ -127,6 +127,8 @@ finite-torus cokernel cardinality; lattice finiteness is equivalent to that
 full-rank condition.  The arbitrary-rank factorization additionally proves
 that both cokernels are finite exactly when every Smith modulus is nonzero,
 equivalently when no `ZMod 0` free factor remains.
+For square nonsingular matrices, the product of the Smith moduli is proved to
+equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

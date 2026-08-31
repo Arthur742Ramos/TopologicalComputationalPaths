@@ -273,6 +273,8 @@ and finite-torus sides; lattice finiteness is equivalent to that full-rank
 hypothesis.  The arbitrary-rank factors also give a direct criterion on both
 sides: the cokernel is finite exactly when every Smith modulus is nonzero,
 equivalently when no `ZMod 0` free coordinate remains.
+For square nonsingular maps, the invariant-factor product is also proved equal
+to the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 
 ## Non-goals for the first submission
 

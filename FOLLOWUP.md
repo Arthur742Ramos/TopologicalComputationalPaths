@@ -241,6 +241,9 @@ the formalization proves:
     finiteness criterion in terms of the Smith data: they are finite exactly
     when every modulus is nonzero (equivalently, no `ZMod 0` free factor
     remains), which is itself equivalent to full target rank.
+85. in the square nonsingular specialization, the product of Smith moduli is
+    proved equal to the determinant index `Int.natAbs (Matrix.det A)` for both
+    the lattice and canonical finite-torus cokernels.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
