@@ -286,6 +286,9 @@ Whenever the Smith factors are nonzero, the cyclic factors are further
 decomposed by the Chinese remainder theorem into an explicit product of
 prime-power cyclic groups on both the lattice and finite-torus cokernels,
 with a representative formula for the refined decoder.
+The refined product has an exact cardinality bridge: the prime-power orders
+multiply back to each Smith modulus, and both cokernel cardinalities equal the
+resulting full double product.
 The square-matrix layer also has an adjugate annihilator certificate: applying
 the matrix to `adjugate A` gives `det A` times the input, so determinant
 multiples lie in the image and the determinant kills every lattice and

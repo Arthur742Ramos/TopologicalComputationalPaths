@@ -150,6 +150,9 @@ inverse witness, including at arbitrary basepoints.
     decomposed by the Chinese remainder theorem into explicit prime-power
     cyclic factors on both lattice and finite-torus cokernels, with a
     representative formula for the refined decoder.
+    The refined product has an exact cardinality certificate: its prime-power
+    orders multiply back to each Smith modulus, identifying both cokernel
+    cardinalities with the resulting full double product.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

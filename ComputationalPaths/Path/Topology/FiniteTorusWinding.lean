@@ -134,6 +134,9 @@ Whenever the Smith factors are all nonzero, the cyclic factors are refined by
 the Chinese remainder theorem into an explicit product of prime-power cyclic
 groups, on both the lattice and finite-torus cokernels, with a representative
 formula for the refined decoder.
+The refined product has an exact cardinality formula as well: its prime-power
+orders multiply back to each Smith modulus, and the lattice and finite-torus
+cokernel cardinalities are thereby identified with the full double product.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2533,6 +2536,12 @@ noncomputable def zmodPrimePowerAddEquiv (n : ℕ) (hn : n ≠ 0) :
     ZMod n ≃+ (∀ p : n.primeFactors, ZMod (p ^ (n.factorization p))) :=
   (ZMod.equivPi n hn).toAddEquiv
 
+@[simp] theorem zmodPrimePowerAddEquiv_card (n : ℕ) (hn : n ≠ 0) :
+    Nat.card (∀ p : n.primeFactors, ZMod (p ^ (n.factorization p))) = n := by
+  rw [Nat.card_pi]
+  simp only [Nat.card_zmod]
+  exact (Nat.prod_primeFactors_coe_pow_factorization hn).symm
+
 /-- Apply the prime-power refinement coordinatewise to a finite product of
 nonzero cyclic `ZMod` factors. -/
 noncomputable def zmodPiPrimePowerAddEquiv {ι : Type*} [Fintype ι]
@@ -2567,6 +2576,19 @@ noncomputable def submoduleCokernelSmithPrimePowerEquiv
         (smithNormalFormFactor snf i).natAbs (Int.natAbs_ne_zero.mpr (h i))
         ((submoduleCokernelSmithEquiv snf (Submodule.Quotient.mk x)) i) := by
   rfl
+
+theorem submoduleCokernelSmithPrimePowerEquiv_card_eq_primePowerProduct
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (h : ∀ i : Fin m, smithNormalFormFactor snf i ≠ 0) :
+    Nat.card ((Fin m → ℤ) ⧸ N) =
+      ∏ i : Fin m, ∏ p : (smithNormalFormFactor snf i).natAbs.primeFactors,
+        (p : ℕ) ^ ((smithNormalFormFactor snf i).natAbs.factorization p) := by
+  rw [Nat.card_congr (submoduleCokernelSmithPrimePowerEquiv snf h).toEquiv]
+  simp only [Nat.card_pi]
+  apply Finset.prod_congr rfl
+  intro i hi
+  simp only [Nat.card_zmod]
 
 /-- The arbitrary-rank Smith equivalence gives the exact `Nat.card` of the
 cokernel, including the infinite case: a zero factor contributes the zero
@@ -2628,6 +2650,22 @@ noncomputable def matrixAction_cokernel_smithPrimePowerEquiv
             (matrixAction A).range.toIntSubmodule).2
           (Submodule.Quotient.mk x)) i) := by
   rfl
+
+theorem matrixAction_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    Nat.card ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      ∏ i : Fin m, ∏ p : (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+        (p : ℕ) ^ ((smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p) := by
+  exact submoduleCokernelSmithPrimePowerEquiv_card_eq_primePowerProduct
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 h
 
 /-- A finite product of `ZMod` coordinates is finite exactly when every
 modulus is nonzero.  This is the finiteness criterion that detects whether an
@@ -4321,6 +4359,25 @@ noncomputable def matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv
           (Submodule.Quotient.mk
             (loopQuotAddEquivIntVector m x))) i) := by
   rfl
+
+theorem matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct
+    {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (h : ∀ i : Fin m, smithNormalFormFactor
+      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+        (matrixAction A).range.toIntSubmodule).2 i ≠ 0) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) =
+      ∏ i : Fin m, ∏ p : (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+        (p : ℕ) ^ ((smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p) := by
+  rw [Nat.card_congr
+    (matrixMapQuotientAddHom_cokernel_smithPrimePowerEquiv A h).toEquiv]
+  simp only [Nat.card_pi]
+  apply Finset.prod_congr rfl
+  intro i hi
+  simp only [Nat.card_zmod]
 
 /-- Membership in a rectangular finite-torus matrix image is detected by
 coordinatewise Smith divisibility after decoding the loop class to its winding

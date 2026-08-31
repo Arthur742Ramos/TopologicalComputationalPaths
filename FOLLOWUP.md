@@ -265,6 +265,10 @@ the formalization proves:
 92. this prime-power refinement is packaged for arbitrary-rank lattice and
     finite-torus cokernels, with a proved representative formula for the
     refined decoder.
+93. the refined prime-power product has an exact cardinality bridge: the
+    prime-power orders multiply back to each nonzero Smith modulus.
+94. consequently, both the lattice and finite-torus cokernel cardinalities
+    are identified with the full double product of the prime-power orders.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

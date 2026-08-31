@@ -143,6 +143,9 @@ Whenever all Smith moduli are nonzero, the cyclic factors are further
 decomposed by the Chinese remainder theorem into explicit prime-power cyclic
 factors on both lattice and finite-torus cokernels, with a representative
 formula for the refined decoder.
+The refined product has an exact cardinality certificate: its prime-power
+orders multiply back to each Smith modulus, identifying both cokernel
+cardinalities with the resulting full double product.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
