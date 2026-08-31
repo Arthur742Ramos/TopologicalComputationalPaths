@@ -209,6 +209,13 @@ same classifier transports the exact fiber-constant image criterion,
 injectivity/surjectivity converses, and vanishing-on-the-image kernel result
 to every torus basepoint.  It also commutes with explicit basepoint transport,
 giving a naturality square before any classifier is chosen.
+The finite-torus API is now extended from coordinate selections to arbitrary
+integer matrices: matrix maps are continuous, their winding actions and
+standard representatives are natural, and the typed quotient maps satisfy
+matrix identity/composition coherence.  Exact image, kernel, injectivity, and
+surjectivity criteria transfer through the winding equivalence, and the
+resulting lattice and quotient additive maps are continuous for the discrete
+topologies.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

@@ -190,6 +190,15 @@ vanishing-on-the-image kernel descriptions to arbitrary basepoints.
 The homomorphism also commutes with explicit basepoint transport, so this
 extension has a naturality square before any classifier is selected.
 
+The latest finite-torus extension lifts this functorial interface from
+coordinate selections to arbitrary integer matrices.  Rows act by integer
+linear combinations of target coordinates, while winding vectors transform
+by the matching row-by-column action.  The source checks continuity,
+matrix identity/composition, standard-loop and quotient naturality, exact
+image/kernel/injectivity/surjectivity transfer, and continuous additive
+functoriality of both the lattice action and quotient maps for the discrete
+quotient groups.
+
 ## Non-goals for the first submission
 
 The initial package will not claim that:

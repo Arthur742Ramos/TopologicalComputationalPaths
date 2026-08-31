@@ -113,6 +113,17 @@ the formalization proves:
     with explicit identity/composition coherence and classifier naturality;
     the exact image, converse, and kernel descriptions are transported there
     as well.
+48. arbitrary integer matrices define continuous maps between finite tori,
+    extending coordinate selections to genuine linear combinations of
+    coordinates;
+49. the matrix action on winding vectors is an additive homomorphism and
+    satisfies explicit composition and identity laws;
+50. standard winding representatives and the typed quotient classifier are
+    natural for these matrix maps, including the endpoint cast back to the
+    canonical target basepoint; and
+51. the matrix quotient maps have exact image, kernel, injectivity, and
+    surjectivity transfer criteria, and package as a continuous additive
+    contravariant functor on the discrete quotient groups.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -203,6 +214,16 @@ fiber-constant image criterion, injectivity/surjectivity converses, and
 vanishing-on-the-image kernel criterion to these arbitrary-basepoint maps.
 The homomorphism itself commutes with the explicit basepoint-change
 equivalence, giving a naturality square before any classifier is chosen.
+
+The finite-torus layer now also treats arbitrary integer matrices, not just
+coordinate selections.  A matrix acts on a point of `(AddCircle 1)^n` by
+integer linear combinations of coordinates, and its winding action is the
+corresponding row-by-column integer matrix product.  The formalization checks
+continuity of both the torus map and lattice action, matrix
+identity/composition, standard-loop naturality, quotient classifier
+naturality, and exact image/kernel/injectivity/surjectivity transfer.  The
+resulting typed quotient maps are additive and continuous for the discrete
+quotient topologies, with identity and composition coherence.
 
 ## Literature and novelty boundary
 

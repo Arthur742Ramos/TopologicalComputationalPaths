@@ -63,7 +63,12 @@ project:
     fundamental groups, with explicit identity/composition coherence and a
     direct classifier-naturality corollary.  The canonical classifiers also
     transport the exact fiber-constant image, injectivity/surjectivity
-    converse, and kernel descriptions to arbitrary torus basepoints.
+    converse, and kernel descriptions to arbitrary torus basepoints.  The
+    finite-torus layer also extends coordinate selections to arbitrary integer
+    matrices: continuous matrix maps and continuous lattice actions use
+    ordinary row-by-column multiplication, with natural standard representatives,
+    quotient maps, exact image/kernel/injectivity/surjectivity transfer, and
+    additive identity/composition coherence.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -213,7 +218,11 @@ status:
     also contravariantly additive, with identity/composition coherence and an
     exact kernel description by vanishing on the index-map image; the
     resulting additive maps are continuous for the discrete quotient
-    topologies.
+    topologies.  Finally, arbitrary integer matrices define continuous torus
+    maps whose continuous lattice actions, standard-loop representatives, and typed
+    quotient maps satisfy matrix identity/composition laws, with exact image,
+    kernel, injectivity, and surjectivity transfer and continuous additive
+    quotient homomorphisms.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -564,6 +573,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Standard representatives and their quotient decoder commute with coordinate selection by reindexing the lattice vector."
+    - source: "Finite-torus arbitrary integer-matrix extension"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_comp_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_id_hom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixActionContinuous_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixCompose; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixIdentity; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_base; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMap_standardLoop; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.encode_matrixMapQuotientMap; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_decode; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_mem_range_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_eq_zero_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_injective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_surjective_iff; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_map_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientMap_map_add; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientContinuousAddHom_id"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Arbitrary integer matrices extend coordinate selections to continuous torus maps; their matrix actions and quotient maps are natural, functorial, and satisfy exact image, kernel, injectivity, and surjectivity transfer."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

@@ -125,6 +125,13 @@ fiber-constant image, injectivity/surjectivity converse, and
 vanishing-on-the-image kernel descriptions to arbitrary basepoints as well.
 It also commutes with explicit basepoint transport, providing a naturality
 square before any classifier is selected.
+The same finite-torus layer now extends coordinate selections to arbitrary
+integer matrices: continuous matrix maps act on winding vectors by ordinary
+row-by-column multiplication, preserve standard representatives, and induce
+typed quotient maps with exact image, kernel, injectivity, and surjectivity
+transfer.  Their additive quotient homomorphisms satisfy identity and
+composition laws; the lattice and quotient homomorphisms are continuous for
+the discrete quotient topologies.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.
