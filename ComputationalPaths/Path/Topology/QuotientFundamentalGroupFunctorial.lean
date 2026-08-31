@@ -18,6 +18,9 @@ discreteness is invariant under both homotopy
 equivalence and path-based basepoint change.  The boundary between separate
 and joint multiplication continuity is homotopy-invariant as well.
 
+Homotopies of continuous maps induce the expected conjugacy relation on
+quotient maps, witnessed by the path traced by the homotopy at each basepoint.
+
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
 fundamental group of the product space: the product of the two loop-quotient

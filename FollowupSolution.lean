@@ -28,6 +28,7 @@ on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
 The certificate also exposes preservation of path-class concatenation under
 continuous maps and the associated naturality square for basepoint transport.
+It also exposes the pointed conjugacy relation for homotopic maps.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -180,6 +181,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (Quotient.mk' (p.map f.continuous).symm)
             (_root_.Path.Homotopic.Quotient.map q f))
           (Quotient.mk' (p.map f.continuous))
+  quotient_map_homotopy_naturality :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      {f g : C(X, Y)} (H : f.Homotopy g) (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans
+            (Quotient.mk' (H.evalAt x).symm)
+            (_root_.Path.Homotopic.Quotient.map q f))
+          (Quotient.mk' (H.evalAt x)) =
+        _root_.Path.Homotopic.Quotient.map q g
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
@@ -454,6 +465,13 @@ theorem main_result :
             p f q
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
           QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
+      quotient_map_homotopy_naturality := by
+        intro X Y _ _ f g H x q
+        have hz :=
+          QuotientFundamentalGroup.basepointChange_quotientMap_homotopy
+            H x q
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
       quotient_path_connected_basepoint_independent := by
         intro X _ _ x₀ x₁

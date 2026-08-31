@@ -32,7 +32,8 @@ the basepoint-transport theorem.  The general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths.  It also records preservation of path-class concatenation
-under continuous maps and naturality of basepoint transport.
+under continuous maps and naturality of basepoint transport, together with
+the conjugacy law for homotopic maps.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -187,6 +188,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (Quotient.mk' (p.map f.continuous).symm)
             (_root_.Path.Homotopic.Quotient.map q f))
           (Quotient.mk' (p.map f.continuous))
+  quotient_map_homotopy_naturality :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      {f g : C(X, Y)} (H : f.Homotopy g) (x : X)
+      (q : GenericLoopQuot X x),
+      _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans
+            (Quotient.mk' (H.evalAt x).symm)
+            (_root_.Path.Homotopic.Quotient.map q f))
+          (Quotient.mk' (H.evalAt x)) =
+        _root_.Path.Homotopic.Quotient.map q g
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
