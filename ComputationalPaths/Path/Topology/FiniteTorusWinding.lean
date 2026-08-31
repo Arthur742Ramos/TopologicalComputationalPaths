@@ -139,6 +139,9 @@ The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
 one exactly when every Smith factor has unit absolute value.
 Consequently, a rectangular lattice or finite-torus matrix action is
 surjective exactly when all of its Smith factors have unit absolute value.
+For square matrices, the adjugate annihilator also gives the global bound
+`AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
+singular case.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2935,6 +2938,19 @@ theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
 
+/-- The adjugate annihilator gives a determinant bound on the lattice-cokernel
+exponent, valid even for singular square matrices. -/
+theorem matrixAction_cokernel_exponent_dvd_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    AddMonoid.exponent ((Fin n → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ∣
+      (Matrix.det A).natAbs := by
+  apply AddMonoid.exponent_dvd_of_forall_nsmul_eq_zero
+  intro q
+  refine QuotientAddGroup.induction_on q ?_
+  intro x
+  apply natAbs_nsmul_eq_zero.mpr
+  exact matrixAction_cokernel_det_smul_eq_zero A x
+
 /-- A proposed global lattice-cokernel annihilator is a multiple of its Smith
 exponent exactly when every Smith-factor modulus divides it. -/
 theorem matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd
@@ -4838,6 +4854,19 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
     (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
   rw [AddMonoid.exponent_pi]
   simp only [ZMod.exponent]
+
+/-- The adjugate annihilator gives a determinant bound on the finite-torus
+cokernel exponent, valid even for singular square matrices. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_dvd_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) :
+    AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) ∣
+      (Matrix.det A).natAbs := by
+  apply AddMonoid.exponent_dvd_of_forall_nsmul_eq_zero
+  intro q
+  refine QuotientAddGroup.induction_on q ?_
+  intro x
+  apply natAbs_nsmul_eq_zero.mpr
+  exact matrixMapQuotientAddHom_cokernel_det_smul_eq_zero A x
 
 /-- A proposed global finite-torus-cokernel annihilator is a multiple of its
 Smith exponent exactly when every Smith-factor modulus divides it. -/

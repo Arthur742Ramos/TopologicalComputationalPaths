@@ -320,6 +320,10 @@ the formalization proves:
      factors have unit absolute value.
 118. the same unit-factor surjectivity criterion is transported to the
      canonical finite-torus quotient action.
+119. for every square matrix, the determinant annihilator sharpens to a global
+     exponent bound: the cokernel exponent divides `Int.natAbs (Matrix.det A)`.
+120. this determinant bound is proved on both winding-lattice and finite-torus
+     cokernels and remains valid when the determinant is zero.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

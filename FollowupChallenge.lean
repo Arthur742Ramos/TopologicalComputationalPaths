@@ -152,6 +152,9 @@ inverse witness, including at arbitrary basepoints.
     exponent is one exactly when every Smith factor has unit absolute value.
     Consequently, a rectangular lattice or finite-torus matrix action is
     surjective exactly when all of its Smith factors have unit absolute value.
+    For square matrices, the adjugate annihilator also gives the global bound
+    `AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
+    singular case.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative
