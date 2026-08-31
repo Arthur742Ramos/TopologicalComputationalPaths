@@ -19,6 +19,8 @@ homotopy equivalence and path-based basepoint change.
 
 Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
+When that path is pointwise constant, the induced based homomorphisms agree
+after the canonical endpoint cast.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -322,6 +324,65 @@ theorem basepointChange_quotientMap_homotopy {f g : C(X, Y)}
     ← _root_.Path.Homotopic.Quotient.trans_assoc,
     _root_.Path.Homotopic.Quotient.symm_trans,
     _root_.Path.Homotopic.Quotient.refl_trans]
+
+/-- A homotopy that fixes the chosen basepoint induces the same based map.
+The endpoint equality is handled by `FundamentalGroup.mapOfEq`, so the result
+is an equality of homomorphisms with a common target basepoint. -/
+theorem quotientMap_eq_of_pointedHomotopy
+    {f g : C(X, Y)} (H : f.Homotopy g) (x : X)
+    (hfix : ∀ t : unitInterval, H (t, x) = f x) :
+    FundamentalGroup.mapOfEq f
+        (show f x = g x by
+          exact (hfix 1).symm.trans (H.apply_one x)) =
+      FundamentalGroup.map g x := by
+  let hfg : f x = g x := (hfix 1).symm.trans (H.apply_one x)
+  ext q
+  rw [FundamentalGroup.mapOfEq_apply]
+  change (_root_.Path.Homotopic.Quotient.map q f).cast hfg.symm hfg.symm =
+    _root_.Path.Homotopic.Quotient.map q g
+  have hpath : H.evalAt x = (_root_.Path.refl (f x)).cast rfl hfg.symm := by
+    apply _root_.Path.ext
+    funext t
+    exact hfix t
+  have htransport := basepointChange_quotientMap_homotopy H x q
+  rw [hpath] at htransport
+  rw [basepointChangeContinuousMulEquiv_apply] at htransport
+  simp only [_root_.Path.Homotopic.Quotient.mk_symm,
+    _root_.Path.Homotopic.Quotient.mk_cast,
+    _root_.Path.Homotopic.Quotient.mk_refl] at htransport
+  induction q using _root_.Path.Homotopic.Quotient.ind with
+  | mk γ =>
+      have hfirst :
+          ((_root_.Path.Homotopic.Quotient.refl (f x)).cast rfl hfg.symm).symm =
+            (_root_.Path.Homotopic.Quotient.refl (f x)).cast hfg.symm rfl := by
+        change
+          _root_.Path.Homotopic.Quotient.mk
+              ((_root_.Path.refl (f x)).cast rfl hfg.symm).symm =
+            _root_.Path.Homotopic.Quotient.mk
+              ((_root_.Path.refl (f x)).cast hfg.symm rfl)
+        apply Quotient.sound
+        rw [← _root_.Path.cast_symm]
+        exact _root_.Path.Homotopic.refl _
+      have hlast :
+          (_root_.Path.Homotopic.Quotient.refl (f x)).cast rfl hfg.symm =
+            (_root_.Path.Homotopic.Quotient.refl (g x)).cast hfg rfl := by
+        have hcast_id {a b : Y} (h : a = b) :
+            (_root_.Path.Homotopic.Quotient.refl a).cast rfl h.symm =
+              (_root_.Path.Homotopic.Quotient.refl b).cast h rfl := by
+          cases h
+          rfl
+        exact hcast_id hfg
+      have hcat := FundamentalGroupoid.conj_eqToHom
+        (X := Y) hfg.symm hfg.symm
+          (p := _root_.Path.Homotopic.Quotient.map (Quotient.mk' γ) f)
+      rw [FundamentalGroupoid.eqToHom_eq] at hcat
+      rw [FundamentalGroupoid.eqToHom_eq hfg] at hcat
+      rw [← Category.assoc] at hcat
+      change
+        (_root_.Path.Homotopic.Quotient.map (Quotient.mk' γ) f).cast
+            hfg.symm hfg.symm = _
+      rw [hfirst, hlast] at htransport
+      exact hcat.symm.trans htransport
 
 /-- The algebraic equivalence on fundamental groups induced by a homotopy
 equivalence, obtained from full faithfulness of the corresponding

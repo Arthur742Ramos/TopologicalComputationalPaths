@@ -9,8 +9,9 @@ project:
     identity and composition laws, preservation of path-class concatenation,
     invariance under homotopy equivalence and change of basepoint along a path
     (including path-homotopy independence, identity and composition coherence,
-    naturality under continuous maps, and basepoint invariance of the
-    joint-continuity boundary),
+    naturality under continuous maps, basepoint invariance of the
+    joint-continuity boundary, and the pointed fixed-basepoint homotopy
+    corollary),
     and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
@@ -123,8 +124,8 @@ status:
     general portion proves functoriality under continuous maps, coherence with
     identity and composition, homotopy-equivalence invariance, path-based
     basepoint change, path-homotopy coherence, identity coherence, composition
-    coherence, continuous-map naturality, and basepoint joint-continuity
-    invariance, and
+    coherence, continuous-map naturality, basepoint joint-continuity
+    invariance, and the pointed fixed-basepoint homotopy corollary, and
     conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
@@ -254,6 +255,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Joint continuity of quotient concatenation is equivalent at any two basepoints joined by a path."
+    - source: "Pointed homotopy invariance of induced maps"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientMap_eq_of_pointedHomotopy"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "A homotopy fixed at the chosen basepoint induces equal based homomorphisms after endpoint casting."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

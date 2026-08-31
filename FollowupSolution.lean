@@ -30,7 +30,8 @@ The certificate also exposes preservation of path-class concatenation under
 continuous maps and the associated naturality square for basepoint transport.
 It also exposes the pointed conjugacy relation for homotopic maps.  The
 topological-group boundary is likewise transported between any two basepoints
-joined by a path.
+joined by a path.  A homotopy that fixes the chosen basepoint throughout
+therefore gives equal induced based homomorphisms after endpoint casting.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -200,8 +201,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
           (_root_.Path.Homotopic.Quotient.trans
             (Quotient.mk' (H.evalAt x).symm)
             (_root_.Path.Homotopic.Quotient.map q f))
-          (Quotient.mk' (H.evalAt x)) =
+            (Quotient.mk' (H.evalAt x)) =
         _root_.Path.Homotopic.Quotient.map q g
+  quotient_map_eq_of_pointed_homotopy :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      {f g : C(X, Y)} (H : f.Homotopy g) (x : X)
+      (hfix : ∀ t : unitInterval, H (t, x) = f x),
+      FundamentalGroup.mapOfEq f
+          (show f x = g x by
+            exact (hfix 1).symm.trans (H.apply_one x)) =
+        FundamentalGroup.map g x
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
@@ -487,6 +496,10 @@ theorem main_result :
             H x q
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
+      quotient_map_eq_of_pointed_homotopy := by
+        intro X Y _ _ f g H x hfix
+        exact QuotientFundamentalGroup.quotientMap_eq_of_pointedHomotopy
+          H x hfix
       quotient_path_connected_basepoint_independent := by
         intro X _ _ x₀ x₁
         exact ⟨

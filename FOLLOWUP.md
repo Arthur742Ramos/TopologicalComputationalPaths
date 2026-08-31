@@ -51,6 +51,8 @@ the formalization proves:
     relation on quotient maps, with the homotopy's basepoint path as witness.
 22. the joint-continuity/topological-group boundary is also invariant under
     basepoint change along a path.
+23. a homotopy that fixes the chosen basepoint throughout induces equal based
+    homomorphisms, with the endpoint equality handled by `mapOfEq`.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -117,6 +119,9 @@ relates their induced quotient maps by conjugation along the path traced at the
 basepoint.
 The same continuous multiplicative transport preserves the joint-continuity
 boundary at any two basepoints connected by a path.
+As a pointed specialization, when the homotopy is constant at the chosen
+basepoint, the two induced based homomorphisms are equal after the canonical
+endpoint cast.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

@@ -34,7 +34,8 @@ endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths.  It also records preservation of path-class concatenation
 under continuous maps and naturality of basepoint transport, together with
 the conjugacy law for homotopic maps.  It also records basepoint invariance
-of the joint-continuity boundary.
+of the joint-continuity boundary, and the pointed specialization that a
+basepoint-fixing homotopy induces equal based homomorphisms.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -206,8 +207,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
           (_root_.Path.Homotopic.Quotient.trans
             (Quotient.mk' (H.evalAt x).symm)
             (_root_.Path.Homotopic.Quotient.map q f))
-          (Quotient.mk' (H.evalAt x)) =
+            (Quotient.mk' (H.evalAt x)) =
         _root_.Path.Homotopic.Quotient.map q g
+  quotient_map_eq_of_pointed_homotopy :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      {f g : C(X, Y)} (H : f.Homotopy g) (x : X)
+      (hfix : ∀ t : unitInterval, H (t, x) = f x),
+      FundamentalGroup.mapOfEq f
+          (show f x = g x by
+            exact (hfix 1).symm.trans (H.apply_one x)) =
+        FundamentalGroup.map g x
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),

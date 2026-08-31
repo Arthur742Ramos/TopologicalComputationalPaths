@@ -113,6 +113,8 @@ For homotopic continuous maps, the induced quotient maps are related by the
 corresponding basepoint-path conjugacy.
 Joint continuity of quotient concatenation—and therefore the topological-group
 boundary—is invariant under changing the basepoint along a path as well.
+Moreover, a homotopy fixed at the chosen basepoint induces equal based
+homomorphisms, expressed with the canonical endpoint cast.
 
 The strengthened package also proves the exact T1 criterion by closedness of
 the null class (equivalently, of every based-loop homotopy class), both
