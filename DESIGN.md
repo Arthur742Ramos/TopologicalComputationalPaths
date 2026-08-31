@@ -282,6 +282,10 @@ Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.
 The transported topological equivalence also has an explicit quotient-
 representative formula, avoiding any hidden unfolding of the quotient map.
+The square-matrix layer also has an adjugate annihilator certificate: applying
+the matrix to `adjugate A` gives `det A` times the input, so determinant
+multiples lie in the image and the determinant kills every lattice and
+finite-torus cokernel class, without assuming `det A ≠ 0`.
 
 ## Non-goals for the first submission
 

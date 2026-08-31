@@ -254,6 +254,11 @@ the formalization proves:
 88. the topological arbitrary-rank Smith equivalence exposes a proved
     quotient-representative formula, so its coordinate decoder can be applied
     directly to loop classes.
+89. the square-matrix adjugate identity is exposed at the winding-action
+    level, giving an explicit preimage of every determinant multiple.
+90. consequently, the determinant annihilates every lattice and finite-torus
+    cokernel class, including singular matrices; this annihilator certificate
+    is independent of the nonzero-determinant cardinality theorem.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

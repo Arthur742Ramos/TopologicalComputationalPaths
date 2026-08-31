@@ -130,6 +130,10 @@ project:
     lattice and finite-torus matrix images, including zero-factor equations.
     The topological arbitrary-rank Smith equivalence also has an explicit
     quotient-representative formula for direct loop-class decoding.
+    For every square matrix, the adjugate gives an explicit preimage of each
+    determinant multiple, so the determinant annihilates every lattice and
+    finite-torus cokernel class, including singular matrices; this certificate
+    does not assume a nonzero determinant.
     The abstract induced map has an exact injectivity criterion given by
     equality of the preimage of the composite image with the first image.
     The non-singular lattice cokernel is additionally presented by an explicit
@@ -712,6 +716,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The topological arbitrary-rank Smith equivalence has an explicit quotient-representative formula, reducing loop-class decoding to the lattice Smith representative formula."
+    - source: "Finite-torus determinant annihilator certificate"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For every square integer matrix, the adjugate supplies an explicit preimage of det A times any winding vector; the determinant therefore annihilates both lattice and finite-torus cokernel classes without a nonzero-determinant hypothesis."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

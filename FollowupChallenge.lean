@@ -143,6 +143,9 @@ inverse witness, including at arbitrary basepoints.
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative
     formula, making the decoder directly usable on loop classes.
+    For every square matrix, the adjugate gives an explicit preimage of each
+    determinant multiple, and the determinant annihilates both the lattice and
+    finite-torus cokernel classes without a nonzero-determinant hypothesis.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

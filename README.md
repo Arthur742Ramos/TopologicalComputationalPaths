@@ -307,6 +307,10 @@ The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,
 so the decoded coordinates can be evaluated directly on loop classes.
+For every square matrix, the adjugate gives an explicit preimage of a
+determinant multiple.  Hence the determinant annihilates every class in both
+the winding-lattice and finite-torus cokernels, including singular matrices;
+the theorem is independent of the nonzero-determinant cardinality result.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

@@ -136,6 +136,9 @@ Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
 formula for evaluating the coordinate decoder on loop classes.
+For every square matrix, the adjugate gives an explicit preimage of each
+determinant multiple, so the determinant annihilates both lattice and
+finite-torus cokernel classes even in the singular case.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

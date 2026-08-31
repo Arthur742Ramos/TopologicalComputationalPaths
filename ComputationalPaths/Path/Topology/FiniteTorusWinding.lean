@@ -130,6 +130,11 @@ The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
 so this coordinate decoder is directly usable on loop classes.
+For every square matrix, the adjugate gives an explicit preimage of each
+determinant multiple, so the determinant annihilates both the lattice and
+finite-torus cokernel classes.  This annihilator certificate is proved before
+the non-singular cardinality theorem and does not require a determinant
+nonvanishing hypothesis.
 -/
 
 namespace ComputationalPaths
@@ -1988,6 +1993,37 @@ theorem matrixAction_surjective_iff_isUnit_det {n : ℕ}
   rw [← Matrix.isUnit_iff_isUnit_det]
   exact Matrix.mulVec_surjective_iff_isUnit (m := Fin n) (R := ℤ)
 
+/-! The adjugate supplies a uniform annihilator certificate for square
+matrix cokernels, including singular matrices. -/
+
+/-- The adjugate gives an explicit determinant preimage for every square
+matrix action. -/
+theorem matrixAction_adjugate_apply {n : ℕ} (A : Fin n → Fin n → ℤ)
+    (x : Fin n → ℤ) :
+    matrixAction A (Matrix.mulVec (Matrix.adjugate A) x) =
+      (Matrix.det A) • x := by
+  let M : Matrix (Fin n) (Fin n) ℤ := A
+  change Matrix.mulVec M (Matrix.mulVec (Matrix.adjugate M) x) =
+    (Matrix.det M) • x
+  rw [Matrix.mulVec_mulVec, Matrix.mul_adjugate, Matrix.smul_mulVec,
+    Matrix.one_mulVec]
+
+/-- Every determinant multiple belongs to the square matrix image, with the
+adjugate as an explicit preimage. -/
+theorem matrixAction_det_smul_mem_range {n : ℕ} (A : Fin n → Fin n → ℤ)
+    (x : Fin n → ℤ) :
+    (Matrix.det A) • x ∈ (matrixAction A).range := by
+  exact AddMonoidHom.mem_range.mpr ⟨Matrix.mulVec (Matrix.adjugate A) x,
+    matrixAction_adjugate_apply A x⟩
+
+/-- The determinant annihilates every class in the square lattice cokernel. -/
+theorem matrixAction_cokernel_det_smul_eq_zero {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (x : Fin n → ℤ) :
+    (Matrix.det A) • QuotientAddGroup.mk' (matrixAction A).range x = 0 := by
+  rw [← (QuotientAddGroup.mk' (matrixAction A).range).map_zsmul]
+  apply (QuotientAddGroup.eq_iff_sub_mem).2
+  simpa using matrixAction_det_smul_mem_range A x
+
 /-- If a square integer matrix has nonzero determinant, its winding-lattice
 cokernel is finite and has cardinality `natAbs (det A)`. -/
 theorem matrixAction_cokernel_card_eq_natAbs_det {n : ℕ}
@@ -3698,6 +3734,43 @@ theorem matrixMapQuotientAddHom_range_map {n m : ℕ}
             ((loopQuotAddEquivIntVector n).symm v))
         exact hnat
       _ = matrixAction A v := by rw [hev]
+
+/-! The square adjugate certificate transports through the winding
+equivalence to the finite-torus quotient cokernel. -/
+
+/-- Every determinant multiple belongs to the square finite-torus matrix
+image; the winding equivalence transports the lattice adjugate witness. -/
+theorem matrixMapQuotientAddHom_det_smul_mem_range {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (x : LoopQuot n) :
+    Matrix.det A • x ∈ (matrixMapQuotientAddHom A).range := by
+  let e := loopQuotAddEquivIntVector n
+  let v := e x
+  have hLat : Matrix.det A • v ∈ (matrixAction A).range :=
+    matrixAction_det_smul_mem_range A v
+  rcases AddMonoidHom.mem_range.mp hLat with ⟨y, hy⟩
+  refine AddMonoidHom.mem_range.mpr ⟨e.symm y, ?_⟩
+  apply e.injective
+  change encode (matrixMapQuotientAddHom A (e.symm y)) =
+    encode (Matrix.det A • x)
+  rw [matrixMapQuotientAddHom_apply, encode_matrixMapQuotientMap]
+  change matrixAction A (e (e.symm y)) = encode (Matrix.det A • x)
+  rw [e.apply_symm_apply]
+  have hsmul : encode (Matrix.det A • x) = Matrix.det A • v := by
+    change e (Matrix.det A • x) = Matrix.det A • v
+    simpa [v] using
+      (AddMonoidHom.map_zsmul e.toAddMonoidHom (Matrix.det A) x)
+  rw [hsmul]
+  exact hy
+
+/-- The determinant annihilates every class in the square finite-torus
+cokernel of the induced quotient homomorphism. -/
+theorem matrixMapQuotientAddHom_cokernel_det_smul_eq_zero {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (x : LoopQuot n) :
+    Matrix.det A • QuotientAddGroup.mk'
+        (matrixMapQuotientAddHom A).range x = 0 := by
+  rw [← (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range).map_zsmul]
+  apply (QuotientAddGroup.eq_iff_sub_mem).2
+  simpa using matrixMapQuotientAddHom_det_smul_mem_range A x
 
 /-! The subgroup-level range calculation lifts to a quotient equivalence for
 every rectangular matrix.  This is the structural winding transport used by
