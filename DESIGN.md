@@ -328,6 +328,9 @@ The exponent bounds also determine prime support exactly: for every prime
 at least one successive exponent.  This prime-support theorem is exposed for
 rectangular lattice and finite-torus maps, including canonical `matrixCompose`
 notation, and interfaces directly with the prime-power Smith factors.
+For square maps, a nonzero determinant of the second factor supplies
+injectivity, so determinant-based lattice and finite-torus corollaries expose
+the same support law without requiring users to construct an injectivity proof.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

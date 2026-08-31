@@ -133,6 +133,9 @@ divides the composite exponent exactly when it divides at least one
 successive exponent.  The result is transported to rectangular lattice and
 finite-torus matrices, including canonical `matrixCompose` forms, and feeds
 directly into the prime-power Smith decomposition.
+For square matrices, a nonzero determinant of the second factor supplies the
+injectivity hypothesis automatically, so the same prime-support law is
+available directly from determinant assumptions on both cokernel sides.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -3328,6 +3331,31 @@ theorem matrixAction_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime
   rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
   exact matrixAction_cokernel_comp_exponent_eq_mul_of_det_coprime A B hB hcop
 
+/-- A nonzero determinant for the second square matrix discharges the
+injectivity hypothesis in the exact prime-support law. -/
+theorem matrixAction_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        ((Fin n → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+      p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range) := by
+  exact matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    A B ((matrixAction_injective_iff_det_ne_zero B).mpr hB) p hp
+
+/-- The determinant-based prime-support law in canonical lattice
+matrix-compose notation. -/
+theorem matrixAction_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+      p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero
+    A B hB p hp
+
 /-- A proposed global lattice-cokernel annihilator is a multiple of its Smith
 exponent exactly when every Smith-factor modulus divides it. -/
 theorem matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd
@@ -6300,6 +6328,36 @@ theorem matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_eq_mul_of_det_co
   rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
   exact matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime
     A B hB hcop
+
+/-- A nonzero determinant for the second square matrix discharges the
+injectivity hypothesis in the finite-torus prime-support law. -/
+theorem matrixMapQuotientAddHom_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot n ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot n ⧸ (matrixMapQuotientAddHom B).range) := by
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+    A B ((matrixMapQuotientMap_injective_iff_det_ne_zero B).mpr hB) p hp
+
+/-- The determinant-based prime-support law in canonical finite-torus
+matrix-compose notation. -/
+theorem matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (p : ℕ) (hp : Nat.Prime p) :
+    p ∣ AddMonoid.exponent
+        (LoopQuot n ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range) ↔
+      p ∣ AddMonoid.exponent
+          (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) ∨
+        p ∣ AddMonoid.exponent
+          (LoopQuot n ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_cokernel_comp_exponent_prime_dvd_iff_of_det_ne_zero
+    A B hB p hp
 
 /-- The finite-torus prime-support law in canonical matrix-compose notation. -/
 theorem matrixMapQuotientAddHom_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective

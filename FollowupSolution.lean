@@ -183,6 +183,9 @@ at least one successive exponent is.  This prime-support law is transported
 to rectangular lattice and finite-torus matrices, including canonical
 `matrixCompose` notation, and links the exact sequence to the prime-power
 Smith decomposition.
+For square matrices, a nonzero determinant of the second factor supplies
+injectivity automatically, exposing the same prime-support law directly from
+determinant hypotheses on both cokernel presentations.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
@@ -897,6 +900,13 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
         p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
           p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero :
+    ∀ (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+      (p : ℕ) (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
 
 open ComputationalPaths.Path.GeometricTopology
 
@@ -1324,6 +1334,11 @@ theorem main_result :
       intro n m k A B hB p hp
       exact
         FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_matrixCompose_injective
+          A B hB p hp
+    matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero := by
+      intro A B hB p hp
+      exact
+        FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_prime_dvd_iff_of_det_ne_zero
           A B hB p hp }⟩
 
 end TopologicalComputationalPathsFollowup

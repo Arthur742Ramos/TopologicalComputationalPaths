@@ -380,6 +380,12 @@ the formalization proves:
      prime-support law in explicit and canonical `matrixCompose` forms.
 146. the law interfaces directly with the prime-power Smith decomposition,
      identifying the exact prime support of each composite obstruction.
+147. for square matrices, a nonzero determinant of the second factor supplies
+     the required injectivity automatically.
+148. the prime-support law is therefore exposed directly from determinant
+     hypotheses on both lattice and finite-torus cokernel presentations.
+149. these determinant corollaries retain canonical `matrixCompose` forms,
+     so arithmetic clients need no intermediate quotient-injectivity proof.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

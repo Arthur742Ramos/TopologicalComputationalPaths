@@ -354,6 +354,9 @@ divides the composite exponent iff it divides one of the two successive
 exponents.  Rectangular lattice and finite-torus wrappers expose this law in
 explicit and canonical `matrixCompose` forms, connecting the sequence bounds
 to the prime-power Smith decomposition.
+For square matrices, a nonzero determinant of the second factor discharges
+injectivity automatically, so the same law is directly available from
+determinant hypotheses on both lattice and finite-torus cokernels.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

@@ -191,6 +191,9 @@ inverse witness, including at arbitrary basepoints.
     transported to rectangular lattice and finite-torus matrices, including
     canonical `matrixCompose` notation, and links the exact sequence to the
     prime-power Smith decomposition.
+    For square matrices, a nonzero determinant of the second factor supplies
+    injectivity automatically, exposing the same prime-support law directly
+    from determinant hypotheses on both cokernel presentations.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative
@@ -945,6 +948,13 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           ((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
         p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
           p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)
+  matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero :
+    ∀ (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+      (p : ℕ) (hp : Nat.Prime p),
+      p ∣ AddMonoid.exponent
+          ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ↔
+        p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) ∨
+          p ∣ AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)
 
 /-- The general criterion and its winding-classified finite-torus family. -/
 theorem main_result :
