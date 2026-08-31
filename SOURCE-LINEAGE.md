@@ -67,7 +67,9 @@ maps, and binary-product preservation under the explicit product-quotient
 hypothesis.  It also exposes pointed homotopy naturality for induced quotient
 maps and basepoint invariance of the joint-continuity boundary, together with
 the pointed fixed-basepoint homotopy corollary, and the path-connected
-all-basepoints joint-continuity criterion.  These are
+all-basepoints joint-continuity and discreteness criteria, the global
+homotopy-invariant continuity criterion, and the one-basepoint semilocal
+criterion in the locally path-connected setting.  These are
 formalized as structural properties of the established quasitopological
 fundamental group, not claimed as new paper theorems.
 

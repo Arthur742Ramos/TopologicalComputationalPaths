@@ -11,8 +11,10 @@ project:
     (including path-homotopy independence, identity and composition coherence,
     naturality under continuous maps, basepoint invariance of the
     joint-continuity boundary, and the pointed fixed-basepoint homotopy
-    corollary, and the path-connected all-basepoints joint-continuity
-    criterion),
+    corollary, the path-connected all-basepoints joint-continuity and
+    discreteness criteria, and the homotopy-invariant global continuity
+    criterion, as well as the one-basepoint semilocal criterion in the
+    locally path-connected, path-connected setting),
     and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
@@ -126,9 +128,11 @@ status:
     identity and composition, homotopy-equivalence invariance, path-based
     basepoint change, path-homotopy coherence, identity coherence, composition
     coherence, continuous-map naturality, basepoint joint-continuity
-    invariance, the pointed fixed-basepoint homotopy corollary, and the
-    path-connected all-basepoints joint-continuity criterion, and
-    conditional indexed-product preservation.  It also
+    invariance, the pointed fixed-basepoint homotopy corollary, the
+    path-connected all-basepoints joint-continuity and discreteness criteria,
+    the homotopy-invariant global continuity criterion, and
+    the one-basepoint semilocal criterion in the locally path-connected,
+    path-connected setting, and conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
     discreteness equivalence and homotopy invariance in locally path-connected
@@ -267,6 +271,31 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "On a path-connected space, joint continuity at one basepoint is equivalent to joint continuity at every basepoint."
+    - source: "All-basepoints discreteness criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_forall_of_pathConnected"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "On a path-connected space, discreteness at one basepoint is equivalent to discreteness at every basepoint."
+    - source: "Global continuity homotopy invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Between path-connected spaces, the global joint-continuity property is invariant under homotopy equivalence."
+    - source: "All-basepoints topological-group criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientContinuousMul_iff_forall_of_pathConnected"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "On a path-connected space, genuine topological-group structure at one basepoint is equivalent to structure at every basepoint."
+    - source: "One-basepoint semilocal criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology_at"
+      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
+      status: "proved"
+      note: "For locally path-connected, path-connected spaces, semilocal simple connectivity is equivalent to discreteness at one chosen basepoint."
+    - source: "Path-connected multiplicative basepoint transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "For a path-connected space, every pair of based quotient fundamental groups is related by an explicit continuous multiplicative equivalence."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

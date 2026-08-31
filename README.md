@@ -116,7 +116,13 @@ boundary—is invariant under changing the basepoint along a path as well.
 Moreover, a homotopy fixed at the chosen basepoint induces equal based
 homomorphisms, expressed with the canonical endpoint cast.
 On path-connected spaces, joint continuity at one basepoint is equivalent to
-joint continuity at every basepoint.
+joint continuity at every basepoint.  Discreteness and the genuine
+topological-group boundary have the same one-basepoint criterion.  The global
+joint-continuity property is invariant under homotopy equivalence between
+path-connected spaces.  In the locally path-connected, path-connected
+setting, semilocal simple connectivity is likewise equivalent to discreteness
+at one chosen basepoint.  The path-connected basepoint transport is exposed
+as a continuous multiplicative equivalence, not only as a homeomorphism.
 
 The strengthened package also proves the exact T1 criterion by closedness of
 the null class (equivalently, of every based-loop homotopy class), both

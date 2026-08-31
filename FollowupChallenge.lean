@@ -37,7 +37,12 @@ the conjugacy law for homotopic maps.  It also records basepoint invariance
 of the joint-continuity boundary, and the pointed specialization that a
 basepoint-fixing homotopy induces equal based homomorphisms.
 On path-connected spaces it also records that joint continuity at one
-basepoint is equivalent to joint continuity at every basepoint.
+basepoint is equivalent to joint continuity at every basepoint, discreteness
+at one basepoint is equivalent to discreteness at every basepoint, and the
+genuine topological-group boundary has the same one-point criterion.  The
+global joint-continuity property is invariant under homotopy equivalence of
+path-connected spaces, and locally path-connected path-connected spaces admit
+a one-basepoint semilocal criterion.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -149,6 +154,24 @@ structure QuotientTopologicalFundamentalGroupTheory where
         ∀ x : X, Continuous
           (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
             _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_discrete_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      DiscreteTopology (GenericLoopQuot X x₀) ↔
+        ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  quotient_trans_continuity_all_basepoints_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      [PathConnectedSpace X] [PathConnectedSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x₀ : X),
+      (∀ x : X, Continuous
+        (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans q.1 q.2)) ↔
+        ∀ y : Y, Continuous
+          (fun q : GenericLoopQuot Y y × GenericLoopQuot Y y =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_topological_group_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      Nonempty (ContinuousMul (GenericLoopQuot X x₀)) ↔
+        ∀ x : X, Nonempty (ContinuousMul (GenericLoopQuot X x))
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),
@@ -230,7 +253,7 @@ structure QuotientTopologicalFundamentalGroupTheory where
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
-      Nonempty (GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁)
+      Nonempty (GenericLoopQuot X x₀ ≃ₜ* GenericLoopQuot X x₁)
   quotient_product_preserved :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (x : X) (y : Y),
@@ -307,6 +330,11 @@ structure QuotientTopologicalFundamentalGroupTheory where
       (e : ContinuousMap.HomotopyEquiv X Y),
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
         ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected Y
+  semilocally_simply_connected_iff_quotient_discrete_at_of_path_connected :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X] [PathConnectedSpace X] (x₀ : X),
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+        DiscreteTopology (GenericLoopQuot X x₀)
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
       (p : E → B) (hp : IsCoveringMap p) (e : E),

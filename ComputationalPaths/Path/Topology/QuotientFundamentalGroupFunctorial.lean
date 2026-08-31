@@ -22,7 +22,10 @@ quotient maps, witnessed by the path traced by the homotopy at each basepoint.
 When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
 On a path-connected space, joint continuity at one basepoint is therefore
-equivalent to joint continuity at every basepoint.
+equivalent to joint continuity at every basepoint; the same one-point test
+holds for discreteness and for the genuine topological-group structure.  The
+global joint-continuity property is itself invariant under homotopy
+equivalences between path-connected spaces.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -544,6 +547,79 @@ theorem quotientTransContinuous_iff_forall_of_pathConnected
     exact (quotientTransContinuous_iff_of_path p).mp h
   · intro h
     exact h x₀
+
+/-- On a path-connected space, discreteness at one basepoint is equivalent to
+discreteness at every basepoint. -/
+theorem quotientDiscreteTopology_iff_forall_of_pathConnected
+    [PathConnectedSpace X] (x₀ : X) :
+    DiscreteTopology (LoopQuot X x₀) ↔
+      ∀ x : X, DiscreteTopology (LoopQuot X x) := by
+  constructor
+  · intro h x
+    let p : _root_.Path x₀ x := PathConnectedSpace.somePath x₀ x
+    exact (quotientDiscreteTopology_iff_of_path p).mp h
+  · intro h
+    exact h x₀
+
+/-- The global joint-continuity criterion is invariant under a homotopy
+equivalence between path-connected spaces. -/
+theorem quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv
+    [PathConnectedSpace X] [PathConnectedSpace Y]
+    (e : X ≃ₕ Y) (x₀ : X) :
+    (∀ x : X, Continuous
+      (fun p : LoopQuot X x × LoopQuot X x =>
+        _root_.Path.Homotopic.Quotient.trans p.1 p.2)) ↔
+      ∀ y : Y, Continuous
+        (fun p : LoopQuot Y y × LoopQuot Y y =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
+  constructor
+  · intro h
+    have htarget : Continuous
+        (fun p : LoopQuot Y (e x₀) × LoopQuot Y (e x₀) =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) :=
+      (quotientTransContinuous_iff_of_homotopyEquiv e x₀).mp (h x₀)
+    exact
+      (quotientTransContinuous_iff_forall_of_pathConnected (e x₀)).mp htarget
+  · intro h
+    have hsource : Continuous
+        (fun p : LoopQuot X x₀ × LoopQuot X x₀ =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) :=
+      (quotientTransContinuous_iff_of_homotopyEquiv e x₀).mpr
+        (h (e x₀))
+    exact
+      (quotientTransContinuous_iff_forall_of_pathConnected x₀).mp hsource
+
+/-- On a path-connected space, the quotient is a genuine topological group at
+one basepoint exactly when it is one at every basepoint. -/
+theorem quotientContinuousMul_iff_forall_of_pathConnected
+    [PathConnectedSpace X] (x₀ : X) :
+    Nonempty (ContinuousMul (LoopQuot X x₀)) ↔
+      ∀ x : X, Nonempty (ContinuousMul (LoopQuot X x)) := by
+  constructor
+  · intro h
+    have htrans :=
+      (continuous_quotientTrans_iff_topologicalGroupStructure
+        (X := X) (x := x₀)).mpr h
+    have hall :=
+      (quotientTransContinuous_iff_forall_of_pathConnected (X := X) x₀).mp
+        htrans
+    intro x
+    exact
+      (continuous_quotientTrans_iff_topologicalGroupStructure
+        (X := X) (x := x)).mp (hall x)
+  · intro h
+    have hall : ∀ x : X, Continuous
+        (fun p : LoopQuot X x × LoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans p.1 p.2) := by
+      intro x
+      exact
+        (continuous_quotientTrans_iff_topologicalGroupStructure
+          (X := X) (x := x)).mpr (h x)
+    exact
+      (continuous_quotientTrans_iff_topologicalGroupStructure
+        (X := X) (x := x₀)).mp
+        ((quotientTransContinuous_iff_forall_of_pathConnected (X := X) x₀).mpr
+          hall)
 
 /-- A covering map induces an injective continuous homomorphism on
 quotient-topological fundamental groups.  The injectivity is the unique

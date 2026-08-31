@@ -33,7 +33,11 @@ topological-group boundary is likewise transported between any two basepoints
 joined by a path.  A homotopy that fixes the chosen basepoint throughout
 therefore gives equal induced based homomorphisms after endpoint casting.
 On a path-connected space, the joint-continuity boundary can consequently be
-checked at one basepoint or uniformly at all basepoints.
+checked at one basepoint or uniformly at all basepoints.  Discreteness and
+the genuine topological-group structure satisfy the same one-point reduction,
+the global continuity property is homotopy-invariant between path-connected
+spaces, and locally path-connected path-connected spaces have a
+one-basepoint semilocal criterion.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -143,6 +147,24 @@ structure QuotientTopologicalFundamentalGroupTheory where
         ∀ x : X, Continuous
           (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
             _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_discrete_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      DiscreteTopology (GenericLoopQuot X x₀) ↔
+        ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  quotient_trans_continuity_all_basepoints_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      [PathConnectedSpace X] [PathConnectedSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x₀ : X),
+      (∀ x : X, Continuous
+        (fun q : GenericLoopQuot X x × GenericLoopQuot X x =>
+          _root_.Path.Homotopic.Quotient.trans q.1 q.2)) ↔
+        ∀ y : Y, Continuous
+          (fun q : GenericLoopQuot Y y × GenericLoopQuot Y y =>
+            _root_.Path.Homotopic.Quotient.trans q.1 q.2)
+  quotient_topological_group_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      Nonempty (ContinuousMul (GenericLoopQuot X x₀)) ↔
+        ∀ x : X, Nonempty (ContinuousMul (GenericLoopQuot X x))
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),
@@ -224,7 +246,7 @@ structure QuotientTopologicalFundamentalGroupTheory where
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
-      Nonempty (GenericLoopQuot X x₀ ≃ₜ GenericLoopQuot X x₁)
+      Nonempty (GenericLoopQuot X x₀ ≃ₜ* GenericLoopQuot X x₁)
   quotient_product_preserved :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (x : X) (y : Y),
@@ -301,6 +323,11 @@ structure QuotientTopologicalFundamentalGroupTheory where
       (e : ContinuousMap.HomotopyEquiv X Y),
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
         ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected Y
+  semilocally_simply_connected_iff_quotient_discrete_at_of_path_connected :
+    ∀ (X : Type u) [TopologicalSpace X]
+      [LocallyPathConnectedSpace X] [PathConnectedSpace X] (x₀ : X),
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+        DiscreteTopology (GenericLoopQuot X x₀)
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
       (p : E → B) (hp : IsCoveringMap p) (e : E),
@@ -463,6 +490,21 @@ theorem main_result :
         exact
           QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected
             x₀
+      quotient_discrete_all_basepoints := by
+        intro X _ _ x₀
+        exact
+          QuotientFundamentalGroup.quotientDiscreteTopology_iff_forall_of_pathConnected
+            x₀
+      quotient_trans_continuity_all_basepoints_homotopy_invariant := by
+        intro X Y _ _ _ _ e x₀
+        exact
+          QuotientFundamentalGroup.quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv
+            e x₀
+      quotient_topological_group_all_basepoints := by
+        intro X _ _ x₀
+        exact
+          QuotientFundamentalGroup.quotientContinuousMul_iff_forall_of_pathConnected
+            x₀
       quotient_basepoint_change := by
         intro X _ x₀ x₁ p
         refine ⟨
@@ -519,7 +561,7 @@ theorem main_result :
         intro X _ _ x₀ x₁
         exact ⟨
           (QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv
-            x₀ x₁).toHomeomorph⟩
+            x₀ x₁)⟩
       quotient_product_preserved := by
         intro X Y _ _ x y hprod
         change IsQuotientMap
@@ -562,6 +604,11 @@ theorem main_result :
         exact
           QuotientFundamentalGroup.semilocallySimplyConnected_iff_of_homotopyEquiv
             X e
+      semilocally_simply_connected_iff_quotient_discrete_at_of_path_connected := by
+        intro X _ _ _ x₀
+        exact
+          QuotientFundamentalGroup.semilocallySimplyConnected_iff_quotientDiscreteTopology_at
+            X x₀
       covering_map_induces_injection := by
         intro E B _ _ p hp e
         exact QuotientFundamentalGroup.inducedContinuousMonoidHom_injective_of_isCoveringMap

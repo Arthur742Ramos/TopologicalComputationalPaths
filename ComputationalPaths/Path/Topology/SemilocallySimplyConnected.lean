@@ -15,7 +15,8 @@ locally path-connected semilocal spaces have open classes and discrete
 quotients by a finite subdivision and ladder argument.  The resulting
 criterion is transported across homotopy equivalences, yielding homotopy
 invariance of semilocal simple connectivity in the locally path-connected
-category.
+category.  When the space is also path-connected, semilocal simple
+connectivity is equivalent to discreteness at any one chosen basepoint.
 -/
 
 namespace ComputationalPaths
@@ -647,6 +648,23 @@ theorem semilocallySimplyConnected_iff_quotientDiscreteTopology
   · intro hdiscrete x
     letI : DiscreteTopology (LoopQuot X x) := hdiscrete x
     exact semilocallySimplyConnectedAt_of_discreteTopology X x
+
+/-- In a locally path-connected, path-connected space, semilocal simple
+connectivity can be tested at one chosen basepoint. -/
+theorem semilocallySimplyConnected_iff_quotientDiscreteTopology_at
+    [LocallyPathConnectedSpace X] [PathConnectedSpace X] (x₀ : X) :
+    SemilocallySimplyConnected X ↔
+      DiscreteTopology (LoopQuot X x₀) := by
+  constructor
+  · intro hsemi
+    exact
+      (semilocallySimplyConnected_iff_quotientDiscreteTopology X).mp
+        hsemi x₀
+  · intro hdiscrete
+    apply (semilocallySimplyConnected_iff_quotientDiscreteTopology X).mpr
+    intro x
+    let p : _root_.Path x₀ x := PathConnectedSpace.somePath x₀ x
+    exact (quotientDiscreteTopology_iff_of_path p).mp hdiscrete
 
 /-- Semilocal simple connectivity transports across a homotopy equivalence
 between locally path-connected spaces.  The proof uses the quotient-space

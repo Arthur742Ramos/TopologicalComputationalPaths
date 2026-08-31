@@ -55,6 +55,14 @@ the formalization proves:
     homomorphisms, with the endpoint equality handled by `mapOfEq`.
 24. on a path-connected space, joint continuity at one basepoint is equivalent
     to joint continuity at every basepoint.
+25. on a path-connected space, discreteness at one basepoint is equivalent to
+    discreteness at every basepoint.
+26. between path-connected spaces, the global joint-continuity property is
+    invariant under homotopy equivalence.
+27. on a path-connected space, the genuine topological-group boundary can be
+    checked at one basepoint or at every basepoint.
+28. in locally path-connected, path-connected spaces, semilocal simple
+    connectivity is equivalent to discreteness at one chosen basepoint.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -127,6 +135,13 @@ endpoint cast.
 For path-connected spaces, the basepoint result upgrades this to a global
 criterion: the topological-group boundary may be checked at any one chosen
 basepoint or simultaneously at all basepoints.
+The same path-connected upgrade holds for discreteness, and the global
+joint-continuity property is invariant under homotopy equivalences between
+path-connected spaces.  In the locally path-connected setting, the
+semilocal/discrete equivalence therefore reduces to a single chosen
+basepoint.  The basepoint equivalence exposed by the certificate is
+continuous and multiplicative, so these are algebraic-topological statements,
+not only bare homeomorphism assertions.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding
