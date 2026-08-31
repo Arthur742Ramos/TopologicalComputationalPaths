@@ -21,7 +21,8 @@ The abelian target transport theorem further shows that the resulting
 path-based lattice classifier at each point is independent of the explicit
 path used to transport it.  Coordinate-selection maps between finite tori
 act on winding vectors by the corresponding reindexing map, both before and
-after passage to the quotient.
+after passage to the quotient, and the maps themselves satisfy explicit
+identity and composition laws.
 -/
 
 namespace ComputationalPaths
@@ -70,6 +71,21 @@ map between finite tori. -/
 noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
     C(Carrier n, Carrier m) :=
   ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
+
+/-- Coordinate-selection maps respect composition of index maps. -/
+theorem coordinateProjection_comp {n m k : ℕ} (f : Fin m → Fin n)
+    (g : Fin k → Fin m) :
+    (coordinateProjection (n := m) (m := k) g).comp
+        (coordinateProjection (n := n) (m := m) f) =
+      coordinateProjection (n := n) (m := k) (f ∘ g) := by
+  ext x j
+  rfl
+
+/-- Selecting coordinates along the identity index map is the identity map. -/
+theorem coordinateProjection_id (n : ℕ) :
+    coordinateProjection (id : Fin n → Fin n) = ContinuousMap.id (Carrier n) := by
+  ext x j
+  rfl
 
 /-- Winding vectors are natural under coordinate selection: the induced loop
 map simply reindexes the vector. -/

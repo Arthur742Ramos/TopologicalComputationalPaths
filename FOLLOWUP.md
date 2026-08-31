@@ -74,6 +74,9 @@ the formalization proves:
     central in the target quotient group.
 33. finite-torus winding is natural under every coordinate-selection map; the
     induced quotient classifier reindexes the integer lattice vector.
+34. the coordinate-selection maps satisfy identity and composition coherence,
+    giving the reindexing construction an explicit contravariant functorial
+    interface.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -118,6 +121,8 @@ The core classifier is also natural for every coordinate-selection map
 `Fin m → Fin n`: the induced loop and quotient maps simply reindex the
 integer winding vector (with the fixed-dimensional instance exposed in the
 publication certificate).
+The coordinate-selection maps themselves satisfy identity and composition
+coherence, so this is an explicit contravariant functorial interface.
 
 ## Literature and novelty boundary
 

@@ -165,6 +165,9 @@ path-based classifiers are equal as continuous multiplicative equivalences.
 The core winding theorem is natural under every coordinate-selection map
 `Fin m → Fin n`: mapping a loop and then taking winding reindexes its lattice
 vector, and the corresponding quotient classifier commutes with that map.
+These coordinate maps satisfy explicit identity and composition laws, making
+the reindexing statement functorial rather than a collection of unrelated
+equalities.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
