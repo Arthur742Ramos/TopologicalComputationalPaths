@@ -19,7 +19,9 @@ multiplicative equivalence to the integer lattice (viewed through
 basepoint and, by continuous basepoint transport, at every torus point.
 The abelian target transport theorem further shows that the resulting
 path-based lattice classifier at each point is independent of the explicit
-path used to transport it.
+path used to transport it.  Coordinate-selection maps between finite tori
+act on winding vectors by the corresponding reindexing map, both before and
+after passage to the quotient.
 -/
 
 namespace ComputationalPaths
@@ -62,6 +64,24 @@ noncomputable def coordinate {n : ℕ} (i : Fin n) (γ : Loop n) :
 /-- Coordinatewise winding vector. -/
 noncomputable def winding {n : ℕ} (γ : Loop n) : Fin n → ℤ :=
   fun i => windingPath (coordinate i γ)
+
+/-- A map of finite index sets induces the corresponding coordinate-selection
+map between finite tori. -/
+noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
+    C(Carrier n, Carrier m) :=
+  ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
+
+/-- Winding vectors are natural under coordinate selection: the induced loop
+map simply reindexes the vector. -/
+theorem winding_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
+    (γ : Loop n) :
+    winding (γ.map (coordinateProjection f).continuous) =
+      fun j => winding γ (f j) := by
+  funext j
+  change windingPath
+      (coordinate j (γ.map (coordinateProjection f).continuous)) =
+    windingPath (coordinate (f j) γ)
+  congr 1
 
 /-- The standard loop with a prescribed integer winding in each coordinate. -/
 noncomputable def standardLoop {n : ℕ} (z : Fin n → ℤ) : Loop n :=
@@ -141,6 +161,19 @@ abbrev LoopQuot (n : ℕ) : Type :=
 /-- Winding descended to loop homotopy classes. -/
 noncomputable def encode {n : ℕ} : LoopQuot n → Fin n → ℤ :=
   Quotient.lift winding (fun _ _ h => winding_eq_of_homotopic h)
+
+/-- The quotient winding classifier commutes with every coordinate-selection
+map of finite tori. -/
+theorem encode_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
+    (q : LoopQuot n) :
+    encode
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+      fun j => encode q (f j) := by
+  induction q using _root_.Path.Homotopic.Quotient.ind with
+  | mk γ =>
+    change winding (γ.map (coordinateProjection f).continuous) =
+      fun j => winding γ (f j)
+    exact winding_coordinateProjection f γ
 
 /-- Standard loop class for an integer vector. -/
 noncomputable def decode {n : ℕ} (z : Fin n → ℤ) : LoopQuot n :=

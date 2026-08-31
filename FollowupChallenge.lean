@@ -31,6 +31,8 @@ semilocal consequence and the all-basepoint integer-lattice classifier from
 the basepoint-transport theorem.  It strengthens this family with a
 continuous multiplicative equivalence to `Multiplicative (Fin n → ℤ)` and
 explicit commutativity of quotient multiplication at every basepoint.  The
+finite-torus winding vector is natural under coordinate-selection maps (the
+certificate records the fixed-dimensional reindexing instance).  The
 general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
@@ -447,6 +449,12 @@ abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
 
+/-- Coordinate-selection maps between finite tori, used to state winding
+naturality without importing the substantive implementation. -/
+noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
+    C(FiniteTorus n, FiniteTorus m) :=
+  ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -455,8 +463,16 @@ noncomputable instance loopQuotTopology (n : ℕ) :
 /-- Full publication-facing certificate for the finite-torus theorem. -/
 structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
+  winding_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (γ : Loop n),
+      winding (γ.map (coordinateProjection f).continuous) =
+        fun j => winding γ (f j)
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (q : LoopQuot n),
+      classifier (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+        fun j => classifier q (f j)
   classifier_continuous_mul_equiv :
     LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
   classifier_continuous_mul_equiv_at :

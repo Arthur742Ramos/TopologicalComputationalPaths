@@ -33,7 +33,10 @@ project:
     basepoint transport is independent of the chosen path even without an
     endpoint-fixed homotopy between paths, yielding a canonical path-based
     finite-torus lattice classifier.  More generally, equality of transports
-    follows whenever the relative loop is central in the target quotient.
+    follows whenever the relative loop is central in the target quotient.  The
+    winding classifier is natural under coordinate-selection maps between
+    finite tori, reindexing the integer lattice vector before and after
+    passage to the quotient.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -158,6 +161,8 @@ status:
     In the abelian target case it also proves that the lattice classifier built
     along any explicit basepoint path is independent of that path.  The more
     precise general statement assumes only centrality of the relative loop.
+    Coordinate-selection maps act naturally on winding vectors and on the
+    quotient classifier by reindexing.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -428,6 +433,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The multiplicative lattice classifier at a torus basepoint is independent of the explicit transport path."
+    - source: "Finite-torus coordinate-selection naturality"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.encode_coordinateProjection"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The quotient winding classifier commutes with every coordinate-selection map, reindexing the integer lattice vector."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

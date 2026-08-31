@@ -88,7 +88,10 @@ classifier is also a continuous multiplicative equivalence to the integer
 lattice, and the quotient multiplication is proved commutative at every
 basepoint.  It also defines the lattice classifier along an arbitrary explicit
 path from the canonical basepoint and proves all such classifiers equal.  This
-is an independently checked formalization of classical topology, not a claim
+module additionally proves naturality under arbitrary coordinate-selection
+maps between finite tori: the quotient classifier reindexes the winding
+vector.  This is an independently checked formalization of classical topology,
+not a claim
 of a new fundamental-group computation.
 
 `ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean` now adds a

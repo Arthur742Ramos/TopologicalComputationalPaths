@@ -161,7 +161,11 @@ classifier is further packaged as a continuous multiplicative equivalence to
 with lattice addition and proving commutativity at every basepoint.
 The classifier can also be constructed along any explicit path from the
 canonical basepoint, and the abelian target theorem proves that all such
-path-based classifiers are equal as continuous multiplicative equivalences.  See
+path-based classifiers are equal as continuous multiplicative equivalences.
+The core winding theorem is natural under every coordinate-selection map
+`Fin m → Fin n`: mapping a loop and then taking winding reindexes its lattice
+vector, and the corresponding quotient classifier commutes with that map.
+See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
 `comparator-followup.json`.  This follow-up does not alter the already

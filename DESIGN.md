@@ -140,6 +140,10 @@ quotient makes basepoint transport independent of the chosen path, even in the
 absence of a homotopy between paths.  More precisely, it isolates centrality
 of the relative loop as the exact sufficient condition; the finite-torus
 classifier uses the abelian corollary to be canonical at each basepoint.
+The finite-torus classifier is also natural under every coordinate-selection
+map between finite products: mapping a loop and then winding is exactly the
+corresponding reindexing of its integer lattice vector, including after
+quotienting.
 
 ## Non-goals for the first submission
 

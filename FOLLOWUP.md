@@ -72,6 +72,8 @@ the formalization proves:
     of the chosen path even without an endpoint-fixed homotopy between paths.
 32. more generally, two transports agree whenever their relative loop is
     central in the target quotient group.
+33. finite-torus winding is natural under every coordinate-selection map; the
+    induced quotient classifier reindexes the integer lattice vector.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -112,6 +114,10 @@ independent of the chosen basepoint as a topological and algebraic statement,
 not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
+The core classifier is also natural for every coordinate-selection map
+`Fin m → Fin n`: the induced loop and quotient maps simply reindex the
+integer winding vector (with the fixed-dimensional instance exposed in the
+publication certificate).
 
 ## Literature and novelty boundary
 

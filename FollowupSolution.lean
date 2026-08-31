@@ -25,7 +25,9 @@ zero basepoint to every point and records semilocal simple connectivity
 globally, together with a common integer-lattice homeomorphism for every
 based quotient.  It also identifies the actual quotient multiplication with
 the lattice operation through a continuous `Multiplicative` equivalence, and
-proves commutativity at every basepoint.  Basepoint-change maps are
+proves commutativity at every basepoint.  The finite-torus winding vector is
+natural under coordinate-selection maps, with the core theorem allowing
+arbitrary source and target dimensions.  Basepoint-change maps are
 additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
@@ -439,6 +441,12 @@ abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
 
+/- Coordinate-selection maps between finite tori, used to state winding
+   naturality without importing the substantive implementation. -/
+noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
+    C(FiniteTorus n, FiniteTorus m) :=
+  ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -446,8 +454,16 @@ noncomputable instance loopQuotTopology (n : ℕ) :
 
 structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
+  winding_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (γ : Loop n),
+      winding (γ.map (coordinateProjection f).continuous) =
+        fun j => winding γ (f j)
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (q : LoopQuot n),
+      classifier (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
+        fun j => classifier q (f j)
   classifier_continuous_mul_equiv :
     LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
   classifier_continuous_mul_equiv_at :
@@ -747,6 +763,19 @@ theorem main_result :
   · intro n
     exact ⟨{
     winding := FiniteTorusWinding.winding
+    winding_coordinate_projection := by
+      intro f γ
+      change FiniteTorusWinding.winding
+          (γ.map (FiniteTorusWinding.coordinateProjection f).continuous) =
+        fun j => FiniteTorusWinding.winding γ (f j)
+      exact FiniteTorusWinding.winding_coordinateProjection f γ
+    classifier_coordinate_projection := by
+      intro f q
+      change FiniteTorusWinding.encode
+          (_root_.Path.Homotopic.Quotient.map q
+            (FiniteTorusWinding.coordinateProjection f)) =
+        fun j => FiniteTorusWinding.encode q (f j)
+      exact FiniteTorusWinding.encode_coordinateProjection f q
     standardLoop := FiniteTorusWinding.standardLoop
     classifier := FiniteTorusWinding.loopQuotHomeomorphIntVector n
     classifier_continuous_mul_equiv :=
