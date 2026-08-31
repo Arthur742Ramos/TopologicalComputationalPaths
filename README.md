@@ -98,6 +98,9 @@ Under that criterion the loop projection is open, its square is a quotient
 map, every homotopy class is open, and concatenation is jointly continuous.
 This separates the always-valid quasitopological-group laws from the stronger
 joint continuity that fails in the accepted Hawaiian-earring application.
+The follow-up also proves that quotient discreteness is invariant under
+homotopy equivalence and path-based basepoint change, and that semilocal simple
+connectivity is homotopy invariant for locally path-connected spaces.
 
 The strengthened package also proves the exact T1 criterion by closedness of
 the null class (equivalently, of every based-loop homotopy class), both

@@ -12,6 +12,8 @@ pointwise construction to a functorial invariant. Continuous maps induce
 continuous homomorphisms, homeomorphisms induce continuous multiplicative
 equivalences, and paths between basepoints induce continuous multiplicative
 equivalences between the corresponding quotient fundamental groups.
+Consequently, quotient discreteness is invariant under both homotopy
+equivalence and path-based basepoint change.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -208,6 +210,14 @@ theorem basepointChangeContinuousMulEquiv_apply {x₀ x₁ : X}
     _ = (α.inv ≫ q) ≫ α.hom := (Category.assoc _ _ _).symm
     _ = _ := rfl
 
+/-- Discreteness of the quotient topology is independent of the chosen
+basepoint along a path. -/
+theorem quotientDiscreteTopology_iff_of_path {x₀ x₁ : X}
+    (p : _root_.Path x₀ x₁) :
+    DiscreteTopology (LoopQuot X x₀) ↔
+      DiscreteTopology (LoopQuot X x₁) :=
+  (basepointChangeContinuousMulEquiv p).toHomeomorph.discreteTopology_iff
+
 /-- Homotopic maps induce conjugate maps on quotient fundamental groups,
 where the conjugation follows the path traced by the basepoint through the
 homotopy.  This is the pointed form of homotopy naturality. -/
@@ -292,6 +302,14 @@ theorem homotopyEquivInducedContinuousMulEquiv_apply
     homotopyEquivInducedContinuousMulEquiv e x q =
       _root_.Path.Homotopic.Quotient.map q e.toFun :=
   rfl
+
+/-- Discreteness of the quotient topology is invariant under a homotopy
+equivalence at corresponding basepoints. -/
+theorem quotientDiscreteTopology_iff_of_homotopyEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    DiscreteTopology (LoopQuot X x) ↔
+      DiscreteTopology (LoopQuot Y (e x)) :=
+  (homotopyEquivInducedContinuousMulEquiv e x).toHomeomorph.discreteTopology_iff
 
 /-- A covering map induces an injective continuous homomorphism on
 quotient-topological fundamental groups.  The injectivity is the unique

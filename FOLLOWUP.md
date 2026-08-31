@@ -28,7 +28,11 @@ the formalization proves:
 11. in locally path-connected spaces, semilocal simple connectivity implies
     openness of every based-loop homotopy class and discreteness of every
     based quotient fundamental group; and
-12. under the exact open-null-class criterion, every homotopy class is open, the quotient map
+12. quotient discreteness is invariant under homotopy equivalence and under
+    basepoint change along a path; and
+13. among locally path-connected spaces, semilocal simple connectivity is a
+    homotopy invariant; and
+14. under the exact open-null-class criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
 
@@ -71,6 +75,10 @@ package makes no novelty claim for those paper theorems.
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex
 refinement, and finite homotopy ladder produce an open class around each loop.
+It then transports quotient discreteness across the continuous quotient
+equivalences induced by homotopy equivalences and basepoint paths, giving
+homotopy invariance of semilocal simple connectivity in the stated locally
+path-connected category.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding

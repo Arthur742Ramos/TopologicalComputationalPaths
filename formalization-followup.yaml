@@ -11,7 +11,9 @@ project:
     products under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
     T1 and discreteness criteria, semilocal consequences, covering-map
-    injectivity with a monodromy-stabilizer image theorem, and the precise
+    consequences including homotopy invariance in the locally path-connected
+    category, covering-map injectivity with a monodromy-stabilizer image
+    theorem, and the precise
     topological-group agreement boundary.  Every finite torus is classified
     by explicit winding as a discrete integer lattice.
   authors:
@@ -47,7 +49,9 @@ sources:
       formalizes both directions of the discreteness/semilocal connection:
       discreteness implies the pointwise semilocal condition in general, and
       the converse is proved for locally path-connected spaces by a finite
-      compact-open subdivision and ladder argument.
+      compact-open subdivision and ladder argument.  It also transports the
+      quotient discreteness criterion across homotopy equivalences and derives
+      homotopy invariance of semilocal simple connectivity in that category.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors:
       - "Jeremy Brazas"
@@ -114,7 +118,8 @@ status:
     basepoint change, and conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
-    discreteness equivalence in locally path-connected spaces,
+    discreteness equivalence and homotopy invariance in locally path-connected
+    spaces,
     covering/monodromy consequences, and the topological-group agreement
     boundary.
     The finite-torus portion proves explicit winding representatives,
@@ -191,6 +196,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Homotopy equivalences and paths between basepoints induce continuous multiplicative equivalences."
+    - source: "Discrete quotient transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Discreteness is preserved at corresponding basepoints across a homotopy equivalence, with the path-based basepoint analogue proved alongside it."
+    - source: "Path-based discrete basepoint invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientDiscreteTopology_iff_of_path"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "A path between basepoints induces a homeomorphism and therefore preserves discreteness of the quotient topology."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
@@ -236,6 +251,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
       status: "proved"
       note: "For locally path-connected spaces, semilocal simple connectivity is equivalent to discreteness of every based quotient fundamental group."
+    - source: "Homotopy invariance of semilocal simple connectivity"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.semilocallySimplyConnected_iff_of_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean"
+      status: "proved"
+      note: "Semilocal simple connectivity is invariant under homotopy equivalence when both spaces are locally path-connected."
     - source: "Positive quotient consequences"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.loopQuotientProd_isQuotientMap"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean"

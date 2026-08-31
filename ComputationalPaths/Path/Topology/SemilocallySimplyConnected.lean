@@ -1,4 +1,4 @@
-import ComputationalPaths.Path.Topology.QuotientFundamentalGroup
+import ComputationalPaths.Path.Topology.QuotientFundamentalGroupFunctorial
 import Mathlib.Topology.Connected.LocallyPathConnected
 import Mathlib.Topology.Subpath
 
@@ -12,7 +12,10 @@ supplies a semilocally simply connected neighborhood of the basepoint.  In
 particular, discreteness of the quotient fundamental group implies the
 semilocal condition without local path-connectedness assumptions; conversely,
 locally path-connected semilocal spaces have open classes and discrete
-quotients by a finite subdivision and ladder argument.
+quotients by a finite subdivision and ladder argument.  The resulting
+criterion is transported across homotopy equivalences, yielding homotopy
+invariance of semilocal simple connectivity in the locally path-connected
+category.
 -/
 
 namespace ComputationalPaths
@@ -26,7 +29,7 @@ noncomputable section
 
 namespace QuotientFundamentalGroup
 
-universe u
+universe u v
 
 variable (X : Type u) [TopologicalSpace X]
 
@@ -644,6 +647,41 @@ theorem semilocallySimplyConnected_iff_quotientDiscreteTopology
   · intro hdiscrete x
     letI : DiscreteTopology (LoopQuot X x) := hdiscrete x
     exact semilocallySimplyConnectedAt_of_discreteTopology X x
+
+/-- Semilocal simple connectivity transports across a homotopy equivalence
+between locally path-connected spaces.  The proof uses the quotient-space
+discreteness criterion, homotopy-equivalence transport, and the path traced
+by the homotopy inverse at the target basepoint. -/
+theorem semilocallySimplyConnected_of_homotopyEquiv
+    {Y : Type v} [TopologicalSpace Y]
+    [LocallyPathConnectedSpace X] [LocallyPathConnectedSpace Y]
+    (e : X ≃ₕ Y) (hsemi : SemilocallySimplyConnected X) :
+    SemilocallySimplyConnected Y := by
+  intro y
+  have hsource : DiscreteTopology (LoopQuot X (e.invFun y)) :=
+    quotientDiscreteTopology_of_semilocallySimplyConnected X hsemi (e.invFun y)
+  have htransported :
+      DiscreteTopology (LoopQuot Y (e (e.invFun y))) := by
+    letI : DiscreteTopology (LoopQuot X (e.invFun y)) := hsource
+    exact
+      (quotientDiscreteTopology_iff_of_homotopyEquiv e (e.invFun y)).mp
+        inferInstance
+  have hpath := e.right_inv.some.evalAt y
+  have htarget : DiscreteTopology (LoopQuot Y y) := by
+    exact (quotientDiscreteTopology_iff_of_path hpath).mp htransported
+  letI : DiscreteTopology (LoopQuot Y y) := htarget
+  exact semilocallySimplyConnectedAt_of_discreteTopology Y y
+
+/-- Semilocal simple connectivity is a homotopy invariant among locally
+path-connected spaces. -/
+theorem semilocallySimplyConnected_iff_of_homotopyEquiv
+    {Y : Type v} [TopologicalSpace Y]
+    [LocallyPathConnectedSpace X] [LocallyPathConnectedSpace Y]
+    (e : X ≃ₕ Y) :
+    SemilocallySimplyConnected X ↔ SemilocallySimplyConnected Y := by
+  constructor
+  · exact semilocallySimplyConnected_of_homotopyEquiv X e
+  · exact semilocallySimplyConnected_of_homotopyEquiv Y e.symm
 
 end QuotientFundamentalGroup
 

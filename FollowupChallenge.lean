@@ -92,6 +92,16 @@ structure QuotientTopologicalFundamentalGroupTheory where
       ∃ E : GenericLoopQuot X x ≃ₜ GenericLoopQuot Y (e x),
         ∀ q : GenericLoopQuot X x,
           E q = _root_.Path.Homotopic.Quotient.map q e.toFun
+  quotient_discrete_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x : X),
+      DiscreteTopology (GenericLoopQuot X x) ↔
+        DiscreteTopology (GenericLoopQuot Y (e x))
+  quotient_discrete_basepoint_invariant :
+    ∀ (X : Type u) [TopologicalSpace X]
+      {x₀ x₁ : X} (p : _root_.Path x₀ x₁),
+      DiscreteTopology (GenericLoopQuot X x₀) ↔
+        DiscreteTopology (GenericLoopQuot X x₁)
   quotient_basepoint_change :
     ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
       (p : _root_.Path x₀ x₁),
@@ -176,6 +186,12 @@ structure QuotientTopologicalFundamentalGroupTheory where
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X →
         ∀ x : X, ∀ γ : GenericLoop X x,
           IsOpen {δ : GenericLoop X x | γ.Homotopic δ}
+  semilocally_simply_connected_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      [LocallyPathConnectedSpace X] [LocallyPathConnectedSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y),
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+        ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected Y
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
       (p : E → B) (hp : IsCoveringMap p) (e : E),
