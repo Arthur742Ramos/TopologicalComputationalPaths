@@ -159,6 +159,8 @@ determinant is nonzero, the winding-lattice cokernel is finite with cardinality
 Through the canonical winding classifier, the induced quotient image has the
 same exact index and finite cokernel cardinality, with both index and cardinal
 forms proved in the quotient-group interface.
+The lattice theorem also exposes a Smith-normal-form equivalence with a
+product of finite cyclic `ZMod` factors after proving the image has full rank.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

@@ -242,6 +242,8 @@ cardinality exactly `Int.natAbs (Matrix.det A)`, so the determinant controls the
 quantitative finite index as well as the injectivity and surjectivity boundary.
 At the canonical finite-torus basepoint, the induced quotient image has the
 same exact index and cokernel cardinality, with finiteness exposed directly.
+The lattice cokernel is also exposed through its Smith-normal-form
+decomposition into finite cyclic `ZMod` factors.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

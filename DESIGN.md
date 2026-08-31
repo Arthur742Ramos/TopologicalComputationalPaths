@@ -225,6 +225,8 @@ Smith-normal-form certificate complements the binary determinant criteria.
 The canonical quotient homomorphism has the identical image index and finite
 cokernel cardinality, making the determinant count visible on the actual
 topological loop-class quotient as well.
+The lattice interface additionally exposes the corresponding finite cyclic
+invariant-factor decomposition supplied by Smith normal form.
 
 ## Non-goals for the first submission
 

@@ -96,6 +96,8 @@ inverse witness, including at arbitrary basepoints.
     same exact index and cokernel cardinality, with an explicit finiteness
     theorem identifying the topological quotient obstruction with the
     determinant index.
+    The non-singular lattice cokernel is additionally presented by an explicit
+    Smith-normal-form product of finite cyclic `ZMod` factors.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

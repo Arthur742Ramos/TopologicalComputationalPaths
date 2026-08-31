@@ -168,6 +168,9 @@ the formalization proves:
     `Int.natAbs (Matrix.det A)`, with an explicit finiteness theorem for that
     quotient; this identifies the topological quotient obstruction with the
     algebraic determinant index.
+66. the non-singular lattice cokernel also has an explicit Smith-normal-form
+    presentation as a finite product of cyclic `ZMod` groups, together with a
+    proved full-rank image theorem supporting that decomposition.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -305,6 +308,9 @@ including an explicit `Finite` instance for the cokernel.
 The same count is transported through the canonical winding classifier: the
 image of the induced quotient homomorphism has index and cokernel cardinality
 `Int.natAbs (Matrix.det A)`, and the quotient is explicitly finite.
+At the lattice level, the finite cokernel is further decomposed into the
+finite cyclic invariant factors supplied by Smith normal form, rather than
+only counted.
 
 ## Literature and novelty boundary
 

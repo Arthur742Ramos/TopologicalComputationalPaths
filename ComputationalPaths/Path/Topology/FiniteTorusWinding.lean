@@ -75,6 +75,9 @@ For every nonzero determinant, the winding-lattice cokernel is finite with
 cardinality `Int.natAbs (Matrix.det A)`.  The canonical quotient image has the
 same finite index, and its quotient cardinality and finiteness are exposed
 explicitly as well.
+The lattice cokernel is additionally presented, via Smith normal form, as a
+product of finite cyclic `ZMod` factors, with the full-rank image theorem made
+available to support the decomposition.
 -/
 
 namespace ComputationalPaths
@@ -1604,6 +1607,24 @@ theorem matrixAction_cokernel_finite {n : ℕ}
   apply Nat.finite_of_card_ne_zero
   rw [matrixAction_cokernel_card_eq_natAbs_det A hA]
   exact Int.natAbs_ne_zero.mpr hA
+
+/-- A non-singular winding action has a full-rank image submodule. -/
+theorem matrixAction_cokernel_full_rank {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+      Module.finrank ℤ (Fin n → ℤ) := by
+  exact (Submodule.finiteQuotient_iff _).mp
+    (matrixAction_cokernel_finite A hA)
+
+/-- Smith normal form exposes the winding-lattice cokernel as a product of
+finite cyclic groups. -/
+noncomputable def matrixAction_cokernel_smithEquivOfDetNeZero {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    ((Fin n → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) ≃+
+      (∀ i : Fin n, ZMod ((Submodule.smithNormalFormCoeffs
+        (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA) i).natAbs)) :=
+  Submodule.quotientEquivPiZMod (matrixAction A).range.toIntSubmodule
+    (Pi.basisFun ℤ (Fin n)) (matrixAction_cokernel_full_rank A hA)
 
 /-- The matrix action is continuous for the product topologies on the
 integer lattices. -/
