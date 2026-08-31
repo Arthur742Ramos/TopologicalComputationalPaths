@@ -16,7 +16,8 @@ quotients by a finite subdivision and ladder argument.  The resulting
 criterion is transported across homotopy equivalences, yielding homotopy
 invariance of semilocal simple connectivity in the locally path-connected
 category.  When the space is also path-connected, semilocal simple
-connectivity is equivalent to discreteness at any one chosen basepoint.
+connectivity is equivalent to discreteness at any one chosen basepoint,
+rather than requiring a separate discreteness witness at every point.
 -/
 
 namespace ComputationalPaths

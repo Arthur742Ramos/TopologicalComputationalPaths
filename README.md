@@ -123,6 +123,9 @@ path-connected spaces.  In the locally path-connected, path-connected
 setting, semilocal simple connectivity is likewise equivalent to discreteness
 at one chosen basepoint.  The path-connected basepoint transport is exposed
 as a continuous multiplicative equivalence, not only as a homeomorphism.
+The T1 separation boundary is also invariant under homotopy equivalence and
+path transport; on path-connected spaces it can be checked at one basepoint,
+and the global T1 property is homotopy-invariant.
 
 The strengthened package also proves the exact T1 criterion by closedness of
 the null class (equivalently, of every based-loop homotopy class), both

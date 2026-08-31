@@ -14,7 +14,8 @@ project:
     corollary, the path-connected all-basepoints joint-continuity and
     discreteness criteria, and the homotopy-invariant global continuity
     criterion, as well as the one-basepoint semilocal criterion in the
-    locally path-connected, path-connected setting),
+    locally path-connected, path-connected setting, and the homotopy- and
+    path-invariant T1 separation boundary),
     and preservation of arbitrary indexed products
     under the exact product-quotient hypothesis.  It proves sharp
     failure of that hypothesis when multiplication is discontinuous, exact
@@ -132,7 +133,8 @@ status:
     path-connected all-basepoints joint-continuity and discreteness criteria,
     the homotopy-invariant global continuity criterion, and
     the one-basepoint semilocal criterion in the locally path-connected,
-    path-connected setting, and conditional indexed-product preservation.  It also
+    path-connected setting, the homotopy- and path-invariant T1 separation
+    boundary, and conditional indexed-product preservation.  It also
     proves continuous reversal, separate continuity, homogeneity, exact T1
     and discreteness criteria, product sharpness, the semilocal
     discreteness equivalence and homotopy invariance in locally path-connected
@@ -296,6 +298,26 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "For a path-connected space, every pair of based quotient fundamental groups is related by an explicit continuous multiplicative equivalence."
+    - source: "T1 homotopy invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_of_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "T1 separation of corresponding based quotients is invariant under homotopy equivalence."
+    - source: "T1 basepoint invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_of_path"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "T1 separation is invariant under changing the basepoint along a path."
+    - source: "Global T1 criterion"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "On a path-connected space, T1 separation at one basepoint is equivalent to T1 separation at every basepoint."
+    - source: "Global T1 homotopy invariance"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected_homotopyEquiv"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "The global T1 property is invariant under homotopy equivalence between path-connected spaces."
     - source: "Conditional indexed-product preservation"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.quotientPiContinuousMulEquiv"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

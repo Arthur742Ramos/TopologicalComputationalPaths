@@ -43,6 +43,9 @@ genuine topological-group boundary has the same one-point criterion.  The
 global joint-continuity property is invariant under homotopy equivalence of
 path-connected spaces, and locally path-connected path-connected spaces admit
 a one-basepoint semilocal criterion.
+It also records homotopy and path invariance of the T1 separation boundary,
+its all-basepoint reduction on path-connected spaces, and homotopy invariance
+of that global T1 property.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -158,6 +161,26 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
       DiscreteTopology (GenericLoopQuot X x₀) ↔
         ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  quotient_t1_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x : X),
+      T1Space (GenericLoopQuot X x) ↔
+        T1Space (GenericLoopQuot Y (e x))
+  quotient_t1_basepoint_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      T1Space (GenericLoopQuot X x₀) ↔
+        T1Space (GenericLoopQuot X x₁)
+  quotient_t1_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      T1Space (GenericLoopQuot X x₀) ↔
+        ∀ x : X, T1Space (GenericLoopQuot X x)
+  quotient_t1_all_basepoints_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      [PathConnectedSpace X] [PathConnectedSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x₀ : X),
+      (∀ x : X, T1Space (GenericLoopQuot X x)) ↔
+        ∀ y : Y, T1Space (GenericLoopQuot Y y)
   quotient_trans_continuity_all_basepoints_homotopy_invariant :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       [PathConnectedSpace X] [PathConnectedSpace Y]

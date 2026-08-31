@@ -23,9 +23,10 @@ When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
 On a path-connected space, joint continuity at one basepoint is therefore
 equivalent to joint continuity at every basepoint; the same one-point test
-holds for discreteness and for the genuine topological-group structure.  The
-global joint-continuity property is itself invariant under homotopy
-equivalences between path-connected spaces.
+holds for discreteness, T1 separation, and the genuine topological-group
+structure.  The global joint-continuity and global T1 properties are
+themselves invariant under homotopy equivalences between path-connected
+spaces.
 
 It also isolates the exact topological hypothesis under which the ordinary
 product of two quotient fundamental groups represents the quotient
@@ -561,6 +562,48 @@ theorem quotientDiscreteTopology_iff_forall_of_pathConnected
   · intro h
     exact h x₀
 
+/-- T1 separation of the quotient topology is invariant under a homotopy
+equivalence at corresponding basepoints. -/
+theorem quotientT1Topology_iff_of_homotopyEquiv
+    (e : X ≃ₕ Y) (x : X) :
+    T1Space (LoopQuot X x) ↔
+      T1Space (LoopQuot Y (e x)) := by
+  constructor
+  · intro h
+    letI : T1Space (LoopQuot X x) := h
+    exact (homotopyEquivInducedContinuousMulEquiv e x).toHomeomorph.t1Space
+  · intro h
+    letI : T1Space (LoopQuot Y (e x)) := h
+    exact
+      (homotopyEquivInducedContinuousMulEquiv e x).toHomeomorph.symm.t1Space
+
+/-- T1 separation of the quotient topology is invariant under changing the
+basepoint along a path. -/
+theorem quotientT1Topology_iff_of_path {x₀ x₁ : X}
+    (p : _root_.Path x₀ x₁) :
+    T1Space (LoopQuot X x₀) ↔
+      T1Space (LoopQuot X x₁) := by
+  constructor
+  · intro h
+    letI : T1Space (LoopQuot X x₀) := h
+    exact (basepointChangeContinuousMulEquiv p).toHomeomorph.t1Space
+  · intro h
+    letI : T1Space (LoopQuot X x₁) := h
+    exact (basepointChangeContinuousMulEquiv p).toHomeomorph.symm.t1Space
+
+/-- On a path-connected space, T1 separation at one basepoint is equivalent to
+T1 separation at every basepoint. -/
+theorem quotientT1Topology_iff_forall_of_pathConnected
+    [PathConnectedSpace X] (x₀ : X) :
+    T1Space (LoopQuot X x₀) ↔
+      ∀ x : X, T1Space (LoopQuot X x) := by
+  constructor
+  · intro h x
+    let p : _root_.Path x₀ x := PathConnectedSpace.somePath x₀ x
+    exact (quotientT1Topology_iff_of_path p).mp h
+  · intro h
+    exact h x₀
+
 /-- The global joint-continuity criterion is invariant under a homotopy
 equivalence between path-connected spaces. -/
 theorem quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv
@@ -588,6 +631,25 @@ theorem quotientTransContinuous_iff_forall_of_pathConnected_homotopyEquiv
         (h (e x₀))
     exact
       (quotientTransContinuous_iff_forall_of_pathConnected x₀).mp hsource
+
+/-- The global T1 property is invariant under a homotopy equivalence between
+path-connected spaces. -/
+theorem quotientT1Topology_iff_forall_of_pathConnected_homotopyEquiv
+    [PathConnectedSpace X] [PathConnectedSpace Y]
+    (e : X ≃ₕ Y) (x₀ : X) :
+    (∀ x : X, T1Space (LoopQuot X x)) ↔
+      ∀ y : Y, T1Space (LoopQuot Y y) := by
+  constructor
+  · intro h y
+    have htarget : T1Space (LoopQuot Y (e x₀)) :=
+      (quotientT1Topology_iff_of_homotopyEquiv e x₀).mp (h x₀)
+    exact
+      (quotientT1Topology_iff_forall_of_pathConnected (e x₀)).mp htarget y
+  · intro h x
+    have hsource : T1Space (LoopQuot X x₀) :=
+      (quotientT1Topology_iff_of_homotopyEquiv e x₀).mpr (h (e x₀))
+    exact
+      (quotientT1Topology_iff_forall_of_pathConnected x₀).mp hsource x
 
 /-- On a path-connected space, the quotient is a genuine topological group at
 one basepoint exactly when it is one at every basepoint. -/

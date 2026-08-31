@@ -69,7 +69,9 @@ maps and basepoint invariance of the joint-continuity boundary, together with
 the pointed fixed-basepoint homotopy corollary, and the path-connected
 all-basepoints joint-continuity and discreteness criteria, the global
 homotopy-invariant continuity criterion, and the one-basepoint semilocal
-criterion in the locally path-connected setting.  These are
+criterion in the locally path-connected setting.  It also formalizes the T1
+separation boundary under homotopy and path transport, including its
+path-connected all-basepoint and global homotopy-invariance forms.  These are
 formalized as structural properties of the established quasitopological
 fundamental group, not claimed as new paper theorems.
 

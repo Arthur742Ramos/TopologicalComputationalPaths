@@ -37,7 +37,9 @@ checked at one basepoint or uniformly at all basepoints.  Discreteness and
 the genuine topological-group structure satisfy the same one-point reduction,
 the global continuity property is homotopy-invariant between path-connected
 spaces, and locally path-connected path-connected spaces have a
-one-basepoint semilocal criterion.
+one-basepoint semilocal criterion.  T1 separation is likewise invariant under
+homotopy and path transport, reduces to one basepoint on path-connected
+spaces, and is homotopy-invariant as a global property.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -151,6 +153,26 @@ structure QuotientTopologicalFundamentalGroupTheory where
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
       DiscreteTopology (GenericLoopQuot X x₀) ↔
         ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
+  quotient_t1_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x : X),
+      T1Space (GenericLoopQuot X x) ↔
+        T1Space (GenericLoopQuot Y (e x))
+  quotient_t1_basepoint_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p : _root_.Path x₀ x₁),
+      T1Space (GenericLoopQuot X x₀) ↔
+        T1Space (GenericLoopQuot X x₁)
+  quotient_t1_all_basepoints :
+    ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X] (x₀ : X),
+      T1Space (GenericLoopQuot X x₀) ↔
+        ∀ x : X, T1Space (GenericLoopQuot X x)
+  quotient_t1_all_basepoints_homotopy_invariant :
+    ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
+      [PathConnectedSpace X] [PathConnectedSpace Y]
+      (e : ContinuousMap.HomotopyEquiv X Y) (x₀ : X),
+      (∀ x : X, T1Space (GenericLoopQuot X x)) ↔
+        ∀ y : Y, T1Space (GenericLoopQuot Y y)
   quotient_trans_continuity_all_basepoints_homotopy_invariant :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       [PathConnectedSpace X] [PathConnectedSpace Y]
@@ -495,6 +517,24 @@ theorem main_result :
         exact
           QuotientFundamentalGroup.quotientDiscreteTopology_iff_forall_of_pathConnected
             x₀
+      quotient_t1_homotopy_invariant := by
+        intro X Y _ _ e x
+        exact
+          QuotientFundamentalGroup.quotientT1Topology_iff_of_homotopyEquiv
+            e x
+      quotient_t1_basepoint_invariant := by
+        intro X _ x₀ x₁ p
+        exact QuotientFundamentalGroup.quotientT1Topology_iff_of_path p
+      quotient_t1_all_basepoints := by
+        intro X _ _ x₀
+        exact
+          QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected
+            x₀
+      quotient_t1_all_basepoints_homotopy_invariant := by
+        intro X Y _ _ _ _ e x₀
+        exact
+          QuotientFundamentalGroup.quotientT1Topology_iff_forall_of_pathConnected_homotopyEquiv
+            e x₀
       quotient_trans_continuity_all_basepoints_homotopy_invariant := by
         intro X Y _ _ _ _ e x₀
         exact

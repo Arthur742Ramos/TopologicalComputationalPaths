@@ -63,6 +63,11 @@ the formalization proves:
     checked at one basepoint or at every basepoint.
 28. in locally path-connected, path-connected spaces, semilocal simple
     connectivity is equivalent to discreteness at one chosen basepoint.
+29. T1 separation of the quotient is invariant under homotopy equivalence and
+    path-based basepoint transport.
+30. on a path-connected space, T1 separation at one basepoint is equivalent
+    to T1 separation at every basepoint, and this global property is homotopy
+    invariant between path-connected spaces.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -142,6 +147,10 @@ semilocal/discrete equivalence therefore reduces to a single chosen
 basepoint.  The basepoint equivalence exposed by the certificate is
 continuous and multiplicative, so these are algebraic-topological statements,
 not only bare homeomorphism assertions.
+The T1/closed-class boundary is transported by the same homotopy and path
+equivalences.  Consequently, on path-connected spaces a single based quotient
+detects the T1 status of every based quotient, and homotopy-equivalent
+path-connected spaces have the same global T1 status.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding
