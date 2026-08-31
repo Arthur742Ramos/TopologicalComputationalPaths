@@ -219,6 +219,9 @@ the determinant is a unit.  The lattice and canonical quotient actions then
 have exact determinant criteria—nonzero determinant for injectivity and unit
 determinant for surjectivity—and the canonical inverse drives all of the same
 equivalence layers at arbitrary basepoints.
+When the determinant is merely nonzero, the integer lattice cokernel is still
+finite, with cardinality exactly `Int.natAbs (Matrix.det A)`; this quantitative
+Smith-normal-form certificate complements the binary determinant criteria.
 
 ## Non-goals for the first submission
 

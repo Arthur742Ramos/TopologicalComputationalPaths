@@ -89,6 +89,9 @@ is equivalent to a nonzero determinant, while surjectivity is equivalent to a
 unit determinant.  The canonical nonsingular inverse of a unimodular matrix
 therefore supplies all of the preceding equivalence layers without an extra
 inverse witness, including at arbitrary basepoints.
+For every nonzero determinant, the winding-lattice cokernel is finite with
+cardinality exactly `Int.natAbs (Matrix.det A)`, and finiteness is exposed
+explicitly as a quantitative index certificate.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

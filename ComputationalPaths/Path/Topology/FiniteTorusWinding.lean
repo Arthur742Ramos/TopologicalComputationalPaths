@@ -5,6 +5,7 @@ import Mathlib.Topology.Homotopy.Product
 import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
+import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 
 /-!
 # Finite-dimensional topological torus winding
@@ -1549,6 +1550,56 @@ theorem matrixAction_surjective_iff_isUnit_det {n : ℕ}
   change Function.Surjective (Matrix.mulVec A) ↔ IsUnit (Matrix.det A)
   rw [← Matrix.isUnit_iff_isUnit_det]
   exact Matrix.mulVec_surjective_iff_isUnit (m := Fin n) (R := ℤ)
+
+/-- If a square integer matrix has nonzero determinant, its winding-lattice
+cokernel is finite and has cardinality `natAbs (det A)`. -/
+theorem matrixAction_cokernel_card_eq_natAbs_det {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    Nat.card ((Fin n → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      Int.natAbs (Matrix.det A) := by
+  let f := matrixAction A
+  have hf : Function.Injective f :=
+    (matrixAction_injective_iff_det_ne_zero A).mpr hA
+  let r : (Fin n → ℤ) ≃+ f.range := AddMonoidHom.ofInjective hf
+  let s : f.range ≃+ f.range.toIntSubmodule :=
+    { toFun := fun z =>
+        ⟨z.1, by
+          change z.1 ∈ (f.range : Set (Fin n → ℤ))
+          exact z.2⟩
+      invFun := fun y =>
+        ⟨y.1, by
+          change y.1 ∈ (f.range : Set (Fin n → ℤ))
+          exact y.2⟩
+      left_inv := by
+        intro z
+        apply Subtype.ext
+        rfl
+      right_inv := by
+        intro y
+        apply Subtype.ext
+        rfl
+      map_add' := by
+        intro z w
+        apply Subtype.ext
+        rfl }
+  let e : (Fin n → ℤ) ≃+ f.range.toIntSubmodule := r.trans s
+  have hcard := Submodule.natAbs_det_equiv f.range.toIntSubmodule e
+  have hlin :
+      (f.range.toIntSubmodule).subtype ∘ₗ
+        (e : (Fin n → ℤ) →+ f.range.toIntSubmodule).toIntLinearMap =
+        Matrix.toLin' A := by
+    ext z j
+    rfl
+  rw [hlin, LinearMap.det_toLin'] at hcard
+  simpa [f] using hcard.symm
+
+/-- A nonzero determinant makes the winding-lattice cokernel finite. -/
+theorem matrixAction_cokernel_finite {n : ℕ}
+    (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
+    Finite ((Fin n → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) := by
+  apply Nat.finite_of_card_ne_zero
+  rw [matrixAction_cokernel_card_eq_natAbs_det A hA]
+  exact Int.natAbs_ne_zero.mpr hA
 
 /-- The matrix action is continuous for the product topologies on the
 integer lattices. -/

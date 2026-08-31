@@ -159,6 +159,10 @@ the formalization proves:
     equivalence, torus homeomorphism, quotient homeomorphism, continuous
     additive quotient equivalence, and arbitrary-basepoint multiplicative
     quotient equivalence without an extra inverse witness.
+64. for every non-singular square integer matrix, the winding-lattice cokernel
+    is finite with exactly `Int.natAbs (Matrix.det A)` elements; the same
+    theorem exposes finiteness explicitly, giving a quantitative index
+    certificate rather than only injectivity or surjectivity criteria.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -289,6 +293,10 @@ is a unit: the adjugate-based nonsingular inverse gives the two-sided equations
 internally.  The lattice and quotient actions consequently have exact,
 independent determinant criteria—nonzero determinant for injectivity and unit
 determinant for surjectivity—at the canonical and every arbitrary basepoint.
+Beyond these yes/no criteria, a nonzero determinant gives a finite lattice
+cokernel whose cardinality is exactly `Int.natAbs (Matrix.det A)`.  Thus the
+formalization records the full finite obstruction measured by the determinant,
+including an explicit `Finite` instance for the cokernel.
 
 ## Literature and novelty boundary
 

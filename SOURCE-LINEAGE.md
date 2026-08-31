@@ -153,6 +153,9 @@ canonically when the determinant is a unit.  The formalization records the
 sharp determinant criteria for lattice and quotient injectivity and
 surjectivity, and instantiates the canonical inverse through all of the
 equivalence layers, including arbitrary basepoints.
+It also imports the finite-index theorem for integer linear maps: whenever the
+determinant is nonzero, the winding-lattice cokernel is finite with cardinality
+`Int.natAbs (Matrix.det A)`, and finiteness is exposed as a separate theorem.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

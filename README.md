@@ -237,6 +237,9 @@ determinant criteria: injectivity is equivalent to a nonzero determinant,
 surjectivity to a unit determinant, and the canonical nonsingular inverse of a
 unimodular matrix instantiates every equivalence layer without an extra inverse
 witness, including at arbitrary basepoints.
+For every nonzero determinant, the lattice cokernel is also proved finite with
+cardinality exactly `Int.natAbs (Matrix.det A)`, so the determinant controls the
+quantitative finite index as well as the injectivity and surjectivity boundary.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
