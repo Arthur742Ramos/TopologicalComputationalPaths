@@ -237,6 +237,15 @@ that image as its kernel, yielding a short exact sequence on both sides.
 The corresponding quotient of the composition cokernel by that kernel is
 then identified with the second cokernel by an explicit first-isomorphism
 additive equivalence, including its action on quotient representatives.
+The argument is factored through a reusable first-isomorphism package for
+arbitrary composable additive homomorphisms.  Thus rectangular integer
+matrices in any composable dimensions inherit the same short-exact sequence
+under injectivity of the second matrix action, and the finite-torus quotient
+maps receive the matching transported theorem.
+The abstract map also has an exact injectivity criterion: its kernel vanishes
+precisely when the preimage of the composite image equals the first image.
+Injectivity of the second map is therefore a clear sufficient specialization,
+not an implicit extra assumption.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

@@ -103,6 +103,11 @@ sides.
 The quotient of the composition cokernel by the projection kernel is also
 identified with the cokernel of `B` by an explicit first-isomorphism additive
 equivalence, with the representative formula checked against the projection.
+The underlying first-isomorphism argument is packaged for arbitrary
+composable additive homomorphisms, so rectangular integer matrices in any
+composable dimensions inherit the same short-exact sequence under injectivity
+of the second action; the finite-torus quotient maps satisfy the corresponding
+transported theorem.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
@@ -706,6 +711,20 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       ∃ e : (((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin n → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
+  matrix_cokernel_rectangular_short_exact :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B)),
+      ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
+          (Fin k → ℤ) ⧸
+            ((matrixAction B).comp (matrixAction A)).range,
+      ∃ g : (Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range →+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+      ∃ e : (((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range) ⧸ g.ker) ≃+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+        Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 
 open ComputationalPaths.Path.GeometricTopology
 
@@ -1079,7 +1098,7 @@ theorem main_result :
     quotient_square := FiniteTorusWinding.loopQuotientProd_isQuotientMap n
     quotient_trans_continuous := FiniteTorusWinding.continuous_quotientTrans n
     quotient_symm_continuous := FiniteTorusWinding.continuous_quotientSymm n
-    matrix_cokernel_short_exact := by
+    matrix_cokernel_short_exact := (by
       intro A B hB
       refine ⟨
         FiniteTorusWinding.matrixAction_cokernel_compMap A B,
@@ -1093,6 +1112,22 @@ theorem main_result :
           FiniteTorusWinding.matrixAction_cokernel_compProjection_ker_eq_range
             A B,
           FiniteTorusWinding.matrixAction_cokernel_compProjection_surjective
-            A B⟩ }⟩
+            A B⟩),
+    matrix_cokernel_rectangular_short_exact := by
+      intro n m k A B hB
+      refine ⟨
+        FiniteTorusWinding.addCokernelCompMap
+          (FiniteTorusWinding.matrixAction A)
+          (FiniteTorusWinding.matrixAction B),
+        FiniteTorusWinding.addCokernelCompProjection
+          (FiniteTorusWinding.matrixAction A)
+          (FiniteTorusWinding.matrixAction B),
+        FiniteTorusWinding.addCokernelCompProjection_quotientKerEquiv
+          (FiniteTorusWinding.matrixAction A)
+          (FiniteTorusWinding.matrixAction B),
+        ?_⟩
+      exact FiniteTorusWinding.addCokernelComp_shortExact_of_injective
+        (FiniteTorusWinding.matrixAction A)
+        (FiniteTorusWinding.matrixAction B) hB }⟩
 
 end TopologicalComputationalPathsFollowup

@@ -89,6 +89,14 @@ equivalence of finite abelian groups.  Finally, the quotient of the
 composition cokernel by the projection kernel is identified with the second
 cokernel by an explicit first-isomorphism additive equivalence, whose action
 on quotient representatives is proved directly.
+The underlying cokernel construction is also factored through a general
+first-isomorphism package for arbitrary composable additive homomorphisms.
+Consequently, rectangular integer matrices in any composable dimensions
+inherit the same short-exact sequence whenever the second matrix action is
+injective, and the corresponding finite-torus quotient maps satisfy the same
+statement.
+The induced cokernel map also has the exact converse criterion that its
+composite-image preimage equals the first image.
 -/
 
 namespace ComputationalPaths
@@ -1558,6 +1566,305 @@ theorem matrixAction_id_hom (n : ℕ) :
   change matrixAction (matrixIdentity n) z = z
   exact matrixAction_id n z
 
+/-! The cokernel argument is independent of matrices.  We first package it
+for arbitrary composable additive homomorphisms; the rectangular matrix and
+finite-torus statements below then become direct specializations. -/
+
+/-- The map on additive cokernels induced by the second map in a composable
+pair of additive homomorphisms. -/
+noncomputable def addCokernelCompMap
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    V ⧸ f.range →+ W ⧸ (g.comp f).range := by
+  let N : AddSubgroup V := f.range
+  let M : AddSubgroup W := (g.comp f).range
+  have hNM : N ≤ AddSubgroup.comap g M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    rfl
+  exact QuotientAddGroup.map N M g hNM
+
+/-- The canonical projection from the cokernel of a composite onto the
+cokernel of its second map. -/
+noncomputable def addCokernelCompProjection
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    W ⧸ (g.comp f).range →+ W ⧸ g.range := by
+  let N : AddSubgroup W := (g.comp f).range
+  let M : AddSubgroup W := g.range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id W) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨f w, ?_⟩
+    simpa only [AddMonoidHom.id_apply, AddMonoidHom.comp_apply] using hw
+  exact QuotientAddGroup.map N M (AddMonoidHom.id W) hNM
+
+/-- The cokernel projection of a composite is always surjective. -/
+theorem addCokernelCompProjection_surjective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    Function.Surjective (addCokernelCompProjection f g) := by
+  let N : AddSubgroup W := (g.comp f).range
+  let M : AddSubgroup W := g.range
+  have hNM : N ≤ AddSubgroup.comap (AddMonoidHom.id W) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨f w, ?_⟩
+    simpa only [AddMonoidHom.id_apply, AddMonoidHom.comp_apply] using hw
+  intro y
+  obtain ⟨v, rfl⟩ := QuotientAddGroup.mk'_surjective M y
+  refine ⟨(QuotientAddGroup.mk' N) v, ?_⟩
+  change (QuotientAddGroup.map N M (AddMonoidHom.id W) hNM)
+      ((QuotientAddGroup.mk' N) v) = (QuotientAddGroup.mk' M) v
+  rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id W) hNM v]
+  rfl
+
+/-- If the second homomorphism is injective, the induced map on cokernels is
+injective. -/
+theorem addCokernelCompMap_injective_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W)
+    (hg : Function.Injective g) :
+    Function.Injective (addCokernelCompMap f g) := by
+  let N : AddSubgroup V := f.range
+  let M : AddSubgroup W := (g.comp f).range
+  have hNM : N ≤ AddSubgroup.comap g M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    rfl
+  intro x y hxy
+  obtain ⟨x', rfl⟩ := QuotientAddGroup.mk'_surjective N x
+  obtain ⟨y', rfl⟩ := QuotientAddGroup.mk'_surjective N y
+  change (QuotientAddGroup.map N M g hNM)
+      ((QuotientAddGroup.mk' N) x') =
+    (QuotientAddGroup.map N M g hNM)
+      ((QuotientAddGroup.mk' N) y') at hxy
+  rw [QuotientAddGroup.map_mk' N M g hNM x',
+    QuotientAddGroup.map_mk' N M g hNM y'] at hxy
+  change (x' : V ⧸ N) = (y' : V ⧸ N)
+  rw [QuotientAddGroup.eq_iff_sub_mem] at hxy ⊢
+  rcases hxy with ⟨z, hz⟩
+  rw [AddMonoidHom.mem_range]
+  refine ⟨z, ?_⟩
+  have hzero : g (x' - y' - f z) = 0 := by
+    rw [map_sub, map_sub]
+    change g (f z) = g x' - g y' at hz
+    rw [hz]
+    simp
+  have hEq : x' - y' - f z = 0 := by
+    apply hg
+    simpa using hzero
+  have hrel : x' - y' = f z := by
+    exact sub_eq_zero.mp hEq
+  rw [hrel]
+
+/-- The induced map on cokernels is injective exactly when the second map
+creates no additional relations beyond the first map's image. -/
+theorem addCokernelCompMap_injective_iff
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    Function.Injective (addCokernelCompMap f g) ↔
+      AddSubgroup.comap g (g.comp f).range = f.range := by
+  let N : AddSubgroup V := f.range
+  let M : AddSubgroup W := (g.comp f).range
+  have hNM : N ≤ AddSubgroup.comap g M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    rfl
+  constructor
+  · intro hinj
+    change AddSubgroup.comap g M = N
+    apply le_antisymm
+    · intro v hv
+      rw [AddSubgroup.mem_comap] at hv
+      have hq :
+          (addCokernelCompMap f g) (QuotientAddGroup.mk' N v) =
+            (addCokernelCompMap f g) (QuotientAddGroup.mk' N (0 : V)) := by
+        change (QuotientAddGroup.map N M g hNM)
+            ((QuotientAddGroup.mk' N) v) =
+          (QuotientAddGroup.map N M g hNM)
+            ((QuotientAddGroup.mk' N) (0 : V))
+        rw [QuotientAddGroup.map_mk' N M g hNM v,
+          QuotientAddGroup.map_mk' N M g hNM (0 : V)]
+        change ((g v : W) : W ⧸ M) = ((g (0 : V) : W) : W ⧸ M)
+        rw [QuotientAddGroup.eq_iff_sub_mem]
+        simpa only [map_zero, sub_zero] using hv
+      have hq0 := hinj hq
+      change ((v : V) : V ⧸ N) = (((0 : V) : V) : V ⧸ N) at hq0
+      have hvN := (QuotientAddGroup.eq_iff_sub_mem).mp hq0
+      simpa only [sub_zero] using hvN
+    · exact hNM
+  · intro hN
+    intro x y hxy
+    obtain ⟨x', rfl⟩ := QuotientAddGroup.mk'_surjective N x
+    obtain ⟨y', rfl⟩ := QuotientAddGroup.mk'_surjective N y
+    change (QuotientAddGroup.map N M g hNM)
+        ((QuotientAddGroup.mk' N) x') =
+      (QuotientAddGroup.map N M g hNM)
+        ((QuotientAddGroup.mk' N) y') at hxy
+    rw [QuotientAddGroup.map_mk' N M g hNM x',
+      QuotientAddGroup.map_mk' N M g hNM y'] at hxy
+    change ((g x' : W) : W ⧸ M) = ((g y' : W) : W ⧸ M) at hxy
+    rw [QuotientAddGroup.eq_iff_sub_mem] at hxy
+    change ((x' : V) : V ⧸ N) = ((y' : V) : V ⧸ N)
+    rw [QuotientAddGroup.eq_iff_sub_mem]
+    change x' - y' ∈ f.range
+    rw [← hN]
+    rw [AddSubgroup.mem_comap]
+    simpa only [map_sub] using hxy
+
+/-- The kernel of the cokernel projection is exactly the range of the
+induced composite map, with no injectivity hypothesis. -/
+theorem addCokernelCompProjection_ker_eq_range
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    (addCokernelCompProjection f g).ker =
+      (addCokernelCompMap f g).range := by
+  let N₀ : AddSubgroup V := f.range
+  let N : AddSubgroup W := (g.comp f).range
+  let M : AddSubgroup W := g.range
+  have hNM : N₀ ≤ AddSubgroup.comap g N := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    rfl
+  have hNP : N ≤ AddSubgroup.comap (AddMonoidHom.id W) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨f w, ?_⟩
+    simpa only [AddMonoidHom.id_apply, AddMonoidHom.comp_apply] using hw
+  have hcomp :
+      (addCokernelCompProjection f g).comp
+          (addCokernelCompMap f g) = 0 := by
+    apply AddMonoidHom.ext
+    intro q
+    obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective N₀ q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id W) hNP)
+        ((QuotientAddGroup.map N₀ N g hNM)
+          ((QuotientAddGroup.mk' N₀) z)) = 0
+    rw [QuotientAddGroup.map_mk' N₀ N g hNM z]
+    change (QuotientAddGroup.map N M (AddMonoidHom.id W) hNP)
+      ((QuotientAddGroup.mk' N) (g z)) = 0
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id W) hNP]
+    change (QuotientAddGroup.mk' M) (g z) = 0
+    change ((g z : W) : W ⧸ M) = ((0 : W) : W ⧸ M)
+    rw [QuotientAddGroup.eq_iff_sub_mem]
+    simp only [sub_zero]
+    exact (AddMonoidHom.mem_range).mpr ⟨z, rfl⟩
+  ext q
+  constructor
+  · intro hq
+    obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective N q
+    change (QuotientAddGroup.map N M (AddMonoidHom.id W) hNP)
+        ((QuotientAddGroup.mk' N) x) = 0 at hq
+    rw [QuotientAddGroup.map_mk' N M (AddMonoidHom.id W) hNP] at hq
+    change (x : W ⧸ M) = 0 at hq
+    have hx : x ∈ M := by
+      have := (QuotientAddGroup.eq_iff_sub_mem).mp hq
+      simpa only [sub_zero] using this
+    rcases (AddMonoidHom.mem_range).mp hx with ⟨z, hz⟩
+    refine ⟨(QuotientAddGroup.mk' N₀) z, ?_⟩
+    change (QuotientAddGroup.map N₀ N g hNM)
+        ((QuotientAddGroup.mk' N₀) z) = (QuotientAddGroup.mk' N) x
+    rw [QuotientAddGroup.map_mk' N₀ N g hNM z]
+    exact congrArg (QuotientAddGroup.mk' N) hz
+  · intro hq
+    rcases hq with ⟨qA, rfl⟩
+    change (addCokernelCompProjection f g)
+        ((addCokernelCompMap f g) qA) = 0
+    have hcomp_q := congrArg
+      (fun F : (V ⧸ N₀) →+ (W ⧸ M) => F qA) hcomp
+    simpa only [AddMonoidHom.comp_apply, AddMonoidHom.zero_apply] using hcomp_q
+
+/-- The first-isomorphism equivalence associated with the cokernel
+projection. -/
+noncomputable def addCokernelCompProjection_quotientKerEquiv
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) :
+    (W ⧸ (g.comp f).range) ⧸ (addCokernelCompProjection f g).ker ≃+
+      W ⧸ g.range :=
+  QuotientAddGroup.quotientKerEquivOfSurjective
+    (addCokernelCompProjection f g)
+    (addCokernelCompProjection_surjective f g)
+
+@[simp] theorem addCokernelCompProjection_quotientKerEquiv_apply_mk
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W)
+    (q : W ⧸ (g.comp f).range) :
+    addCokernelCompProjection_quotientKerEquiv f g
+        (QuotientAddGroup.mk'
+          (addCokernelCompProjection f g).ker q) =
+      addCokernelCompProjection f g q := by
+  exact QuotientAddGroup.kerLift_mk
+    (addCokernelCompProjection f g) q
+
+/-- The additive cokernel sequence is short exact whenever the second map is
+injective. -/
+theorem addCokernelComp_shortExact_of_injective
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (hg : Function.Injective g) :
+    Function.Injective (addCokernelCompMap f g) ∧
+      (addCokernelCompProjection f g).ker =
+        (addCokernelCompMap f g).range ∧
+      Function.Surjective (addCokernelCompProjection f g) :=
+  ⟨addCokernelCompMap_injective_of_injective f g hg,
+    addCokernelCompProjection_ker_eq_range f g,
+    addCokernelCompProjection_surjective f g⟩
+
+/-- Rectangular integer matrices inherit the additive cokernel sequence for
+any composable dimensions.  The only hypothesis is injectivity of the second
+matrix action; no square determinant is needed. -/
+theorem matrixAction_rectangular_cokernel_shortExact_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
+          (Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range,
+    ∃ g : (Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range →+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+    ∃ e : (((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range) ⧸ g.ker) ≃+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+      Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g := by
+  refine ⟨addCokernelCompMap (matrixAction A) (matrixAction B),
+    addCokernelCompProjection (matrixAction A) (matrixAction B),
+    addCokernelCompProjection_quotientKerEquiv
+      (matrixAction A) (matrixAction B), ?_⟩
+  exact addCokernelComp_shortExact_of_injective
+    (matrixAction A) (matrixAction B) hB
+
+/-- The rectangular matrix cokernel embedding has the exact preimage-of-image
+criterion inherited from the abstract additive construction. -/
+theorem matrixAction_rectangular_cokernel_compMap_injective_iff
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Function.Injective
+        (addCokernelCompMap (matrixAction A) (matrixAction B)) ↔
+      AddSubgroup.comap (matrixAction B)
+          ((matrixAction B).comp (matrixAction A)).range =
+        (matrixAction A).range := by
+  exact addCokernelCompMap_injective_iff
+    (matrixAction A) (matrixAction B)
+
 /-! For square matrices, the winding-lattice action has a sharp determinant
 criterion.  Injectivity only asks for a nonzero determinant, whereas
 surjectivity over `ℤ` is equivalent to unimodularity of that determinant. -/
@@ -2871,6 +3178,71 @@ noncomputable def matrixMapQuotientAddHom {n m : ℕ}
     (A : Fin m → Fin n → ℤ) (q : LoopQuot n) :
     matrixMapQuotientAddHom A q = matrixMapQuotientMap A q :=
   rfl
+
+/-- The rectangular finite-torus quotient maps inherit the additive cokernel
+sequence for arbitrary composable dimensions.  Injectivity of the second
+quotient action is the exact hypothesis needed for the first map. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    ∃ f : LoopQuot m ⧸ (matrixMapQuotientAddHom A).range →+
+          LoopQuot k ⧸
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range,
+    ∃ g : LoopQuot k ⧸
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range →+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+    ∃ e : ((LoopQuot k ⧸
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range) ⧸ g.ker) ≃+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+      Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g := by
+  refine ⟨addCokernelCompMap (matrixMapQuotientAddHom A)
+      (matrixMapQuotientAddHom B),
+    addCokernelCompProjection (matrixMapQuotientAddHom A)
+      (matrixMapQuotientAddHom B),
+    addCokernelCompProjection_quotientKerEquiv
+      (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B), ?_⟩
+  exact addCokernelComp_shortExact_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB
+
+/-- Injectivity of the rectangular winding action is transported directly to
+the corresponding finite-torus quotient cokernel sequence. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixAction_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    ∃ f : LoopQuot m ⧸ (matrixMapQuotientAddHom A).range →+
+          LoopQuot k ⧸
+            ((matrixMapQuotientAddHom B).comp
+              (matrixMapQuotientAddHom A)).range,
+    ∃ g : LoopQuot k ⧸
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range →+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+    ∃ e : ((LoopQuot k ⧸
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range) ⧸ g.ker) ≃+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+      Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g := by
+  apply matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_injective
+    A B
+  change Function.Injective (matrixMapQuotientMap B)
+  exact (matrixMapQuotientMap_injective_iff B).mpr hB
+
+/-- The rectangular topological cokernel embedding has the same exact
+preimage-of-image injectivity criterion. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_compMap_injective_iff
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Function.Injective
+        (addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)) ↔
+      AddSubgroup.comap (matrixMapQuotientAddHom B)
+          ((matrixMapQuotientAddHom B).comp
+            (matrixMapQuotientAddHom A)).range =
+        (matrixMapQuotientAddHom A).range := by
+  exact addCokernelCompMap_injective_iff
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B)
 
 /-- The winding equivalence identifies the image of every integer-matrix
 quotient map with the corresponding lattice image, as additive subgroups.

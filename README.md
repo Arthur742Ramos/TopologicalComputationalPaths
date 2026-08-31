@@ -257,6 +257,15 @@ The associated first-isomorphism quotient is also made explicit: quotienting
 the composition cokernel by the projection kernel yields an additive
 equivalence with the cokernel of `B`, and a proved representative formula
 identifies this equivalence with the canonical projection.
+The construction is factored through a reusable first-isomorphism theorem for
+arbitrary composable additive homomorphisms.  Therefore rectangular integer
+matrices in any composable dimensions inherit the same short-exact sequence
+under the exact hypothesis that the second matrix action is injective; the
+finite-torus quotient maps satisfy the corresponding transported theorem.
+At the abstract level, injectivity is characterized exactly by the equality
+between the preimage of the composite image and the first map's image, so the
+matrix-action hypothesis is a transparent sufficient specialization rather
+than a hidden strengthening.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

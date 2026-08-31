@@ -194,6 +194,16 @@ the formalization proves:
     explicit: quotienting the composition cokernel by the projection kernel is
     additively equivalent to the cokernel of `B`, and the equivalence is proved
     to send each quotient representative to its canonical projection image.
+73. the cokernel argument is factored through a reusable first-isomorphism
+    package for arbitrary composable additive homomorphisms.  Consequently,
+    rectangular integer matrices in any composable dimensions satisfy the
+    same short-exact sequence whenever the second matrix action is injective,
+    and the corresponding finite-torus quotient maps satisfy the transported
+    theorem as well.
+74. the abstract induced cokernel map has an exact injectivity criterion:
+    injectivity is equivalent to the preimage of the composite image being
+    exactly the first image.  Injectivity of the second map is recorded as a
+    transparent sufficient specialization of this criterion.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -345,6 +355,15 @@ The first-isomorphism theorem is also instantiated directly: after quotienting
 the composition cokernel by the projection kernel, an explicit additive
 equivalence identifies the result with the cokernel of `B`; its representative
 formula is checked against the projection map itself.
+This exactness mechanism is not restricted to square matrices: the source
+also packages the additive first-isomorphism argument abstractly and applies
+it to rectangular integer matrices of any composable dimensions, with
+injectivity of the second action as the precise hypothesis.  The winding
+equivalence transports the same statement to the finite-torus quotient loop
+groups.
+The abstract theorem also proves the converse criterion, identifying
+injectivity with equality of the second map's preimage of the composite image
+and the first image.
 At the lattice level, the finite cokernel is further decomposed into the
 finite cyclic invariant factors supplied by Smith normal form, rather than
 only counted.  The canonical quotient cokernel is now transported through the

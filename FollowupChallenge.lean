@@ -109,6 +109,11 @@ inverse witness, including at arbitrary basepoints.
     The quotient of the composition cokernel by the projection kernel is also
     equipped with an explicit first-isomorphism additive equivalence to the
     cokernel of `B`, including its action on quotient representatives.
+    The underlying first-isomorphism argument is packaged for arbitrary
+    composable additive homomorphisms, so rectangular integer matrices in any
+    composable dimensions inherit the same short-exact sequence under
+    injectivity of the second action; the finite-torus quotient maps satisfy
+    the corresponding transported theorem.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
@@ -748,6 +753,20 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (Fin n → ℤ) ⧸ (matrixAction B).range,
       ∃ e : (((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin n → ℤ) ⧸ (matrixAction B).range,
+        Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
+  matrix_cokernel_rectangular_short_exact :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (hB : Function.Injective (matrixAction B)),
+      ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
+          (Fin k → ℤ) ⧸
+            ((matrixAction B).comp (matrixAction A)).range,
+      ∃ g : (Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range →+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+      ∃ e : (((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range) ⧸ g.ker) ≃+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 
 /-- The general criterion and its winding-classified finite-torus family. -/
