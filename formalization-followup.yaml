@@ -127,6 +127,10 @@ project:
     rectangular lattice and finite-torus matrix interfaces, including explicit
     and canonical `matrixCompose` forms and the lattice-action injectivity
     route.
+    For square matrices, coprime determinant absolute values imply coprime
+    successive exponents by the adjugate bounds; with a nonzero second
+    determinant, the exact product is therefore certified on both lattice and
+    finite-torus cokernels, including canonical `matrixCompose` forms.
     The winding equivalence lifts to explicit rectangular cokernel
     equivalences, transports cardinality and finiteness for individual maps
     and composites, and proves both winding-commuting squares; a single
@@ -865,6 +869,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Under injectivity of the second map, the lcm of the successive cokernel exponents divides the composite exponent; together with the product bound this gives a sharp lcm-to-product interval in abstract, lattice, and finite-torus matrixCompose forms."
+    - source: "Finite-torus determinant-coprime exponent product"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_comp_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "For square matrices, coprime determinant absolute values imply coprime successive exponents through the adjugate bounds; if the second determinant is nonzero, the composite exponent is exactly the product on both lattice and finite-torus sides, including matrixCompose notation."
     - source: "Finite-torus determinant annihilator certificate"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_adjugate_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixAction_cokernel_det_smul_eq_zero; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_det_smul_mem_range; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.matrixMapQuotientAddHom_cokernel_det_smul_eq_zero"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

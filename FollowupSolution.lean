@@ -174,6 +174,10 @@ product.  This sharpening is proved abstractly and transported to the
 rectangular lattice and finite-torus matrix interfaces, including explicit
 and canonical `matrixCompose` forms and the lattice-action injectivity route
 on the finite-torus side.
+For square matrices, the adjugate determinant bounds turn coprime determinant
+absolute values into coprime successive exponents.  If the second determinant
+is nonzero, the exact exponent product therefore follows on both lattice and
+finite-torus cokernels, including canonical `matrixCompose` forms.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

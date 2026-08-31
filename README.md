@@ -345,6 +345,10 @@ identity.  The theorem is proved abstractly and transported to rectangular
 lattice and finite-torus matrix cokernels, with explicit and canonical
 `matrixCompose` forms; finite-torus clients can also use lattice-action
 injectivity via the quotient-injectivity equivalence.
+For square matrices, the adjugate exponent bounds let coprime determinant
+absolute values certify coprime successive exponents.  Thus, when the second
+determinant is nonzero, the exact product theorem applies directly to both
+lattice and finite-torus cokernels, including canonical `matrixCompose` forms.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

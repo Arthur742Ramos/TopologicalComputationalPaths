@@ -368,6 +368,12 @@ the formalization proves:
      in explicit composition and canonical `matrixCompose` notation.
 140. the finite-torus lcm theorem is also available from injectivity of the
      underlying lattice action, via the quotient-injectivity equivalence.
+141. for square matrices, the adjugate determinant bounds show that coprime
+     determinant absolute values imply coprime successive cokernel exponents.
+142. when the second determinant is nonzero, this arithmetic certificate
+     yields the exact exponent product on the lattice and finite-torus sides.
+143. the determinant-coprime equality is exposed in explicit composition and
+     canonical `matrixCompose` notation for both cokernel presentations.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

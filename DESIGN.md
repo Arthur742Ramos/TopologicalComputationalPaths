@@ -319,6 +319,10 @@ This sharpening is factored through the abstract exact sequence and exposed
 for rectangular lattice and finite-torus maps, including explicit and
 canonical `matrixCompose` notation and the lattice-action injectivity route
 on the finite-torus side.
+For square matrices, coprime determinant absolute values imply coprime
+successive exponents by the adjugate bounds.  A nonzero determinant for the
+second matrix therefore gives the exact exponent product directly on lattice
+and finite-torus cokernels, including canonical `matrixCompose` forms.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

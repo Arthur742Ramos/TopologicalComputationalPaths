@@ -123,6 +123,11 @@ coprime exponent theorem is exposed abstractly and through the rectangular
 lattice and finite-torus matrix interfaces, including explicit composition and
 canonical `matrixCompose` forms; on the finite-torus side it is also available
 from injectivity of the underlying lattice action.
+For square matrices, coprimality of the determinant absolute values supplies
+the exponent coprimality through the adjugate bounds.  Hence a nonzero
+determinant for the second matrix plus coprime determinant absolute values
+forces the same exact exponent product on both lattice and finite-torus
+cokernels, including canonical `matrixCompose` forms.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
 The rectangular composite ranges are additionally identified with the ranges
@@ -3234,6 +3239,40 @@ theorem matrixAction_cokernel_exponent_dvd_natAbs_det {n : ℕ}
   apply natAbs_nsmul_eq_zero.mpr
   exact matrixAction_cokernel_det_smul_eq_zero A x
 
+/-- Coprime determinant bounds force the exact product exponent in the
+square lattice cokernel sequence. -/
+theorem matrixAction_cokernel_comp_exponent_eq_mul_of_det_coprime
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (hcop : Nat.Coprime (Matrix.det A).natAbs (Matrix.det B).natAbs) :
+    AddMonoid.exponent
+        ((Fin n → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) =
+      AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range) := by
+  have hEA : AddMonoid.exponent ((Fin n → ℤ) ⧸
+      ((matrixAction A).range.toIntSubmodule)) ∣ (Matrix.det A).natAbs :=
+    matrixAction_cokernel_exponent_dvd_natAbs_det A
+  have hEB : AddMonoid.exponent ((Fin n → ℤ) ⧸
+      ((matrixAction B).range.toIntSubmodule)) ∣ (Matrix.det B).natAbs :=
+    matrixAction_cokernel_exponent_dvd_natAbs_det B
+  have hcopExp : Nat.Coprime
+      (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range))
+      (AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range)) := by
+    exact Nat.Coprime.of_dvd hEA hEB hcop
+  exact matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    A B ((matrixAction_injective_iff_det_ne_zero B).mpr hB) hcopExp
+
+/-- The coprime determinant exponent product in canonical lattice
+matrix-compose notation. -/
+theorem matrixAction_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (hcop : Nat.Coprime (Matrix.det A).natAbs (Matrix.det B).natAbs) :
+    AddMonoid.exponent
+        ((Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) =
+      AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction A).range) *
+        AddMonoid.exponent ((Fin n → ℤ) ⧸ (matrixAction B).range) := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_cokernel_comp_exponent_eq_mul_of_det_coprime A B hB hcop
+
 /-- A proposed global lattice-cokernel annihilator is a multiple of its Smith
 exponent exactly when every Smith-factor modulus divides it. -/
 theorem matrixAction_cokernel_exponent_dvd_iff_smithFactor_dvd
@@ -5308,6 +5347,29 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_dvd_natAbs_det {n : ℕ}
   apply natAbs_nsmul_eq_zero.mpr
   exact matrixMapQuotientAddHom_cokernel_det_smul_eq_zero A x
 
+/-- Coprime determinant bounds force the exact product exponent in the
+square finite-torus cokernel sequence. -/
+theorem matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (hcop : Nat.Coprime (Matrix.det A).natAbs (Matrix.det B).natAbs) :
+    AddMonoid.exponent
+        (LoopQuot n ⧸ ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) =
+      AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom B).range) := by
+  have hEA : AddMonoid.exponent (LoopQuot n ⧸
+      (matrixMapQuotientAddHom A).range) ∣ (Matrix.det A).natAbs :=
+    matrixMapQuotientAddHom_cokernel_exponent_dvd_natAbs_det A
+  have hEB : AddMonoid.exponent (LoopQuot n ⧸
+      (matrixMapQuotientAddHom B).range) ∣ (Matrix.det B).natAbs :=
+    matrixMapQuotientAddHom_cokernel_exponent_dvd_natAbs_det B
+  have hcopExp : Nat.Coprime
+      (AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range))
+      (AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom B).range)) := by
+    exact Nat.Coprime.of_dvd hEA hEB hcop
+  exact matrixMapQuotientAddHom_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+    A B ((matrixMapQuotientMap_injective_iff_det_ne_zero B).mpr hB) hcopExp
+
 /-- A proposed global finite-torus-cokernel annihilator is a multiple of its
 Smith exponent exactly when every Smith-factor modulus divides it. -/
 theorem matrixMapQuotientAddHom_cokernel_exponent_dvd_iff_smithFactor_dvd
@@ -6136,6 +6198,20 @@ theorem matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range
       (matrixMapQuotientAddHom A)).range =
       (matrixMapQuotientAddHom (matrixCompose A B)).range := by
   rw [← matrixMapQuotientAddHom_comp A B]
+
+/-- The coprime determinant exponent product in canonical finite-torus
+matrix-compose notation. -/
+theorem matrixMapQuotientAddHom_cokernel_matrixCompose_exponent_eq_mul_of_det_coprime
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0)
+    (hcop : Nat.Coprime (Matrix.det A).natAbs (Matrix.det B).natAbs) :
+    AddMonoid.exponent
+        (LoopQuot n ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) =
+      AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom A).range) *
+        AddMonoid.exponent (LoopQuot n ⧸ (matrixMapQuotientAddHom B).range) := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_cokernel_comp_exponent_eq_mul_of_det_coprime
+    A B hB hcop
 
 /-- The rectangular finite-torus exponent bound in canonical matrix-compose
 notation. -/

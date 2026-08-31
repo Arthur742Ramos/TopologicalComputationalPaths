@@ -181,6 +181,11 @@ inverse witness, including at arbitrary basepoints.
     finite-torus matrix cokernels, with explicit and canonical `matrixCompose`
     forms; finite-torus users may also discharge injectivity through the
     underlying lattice action.
+    For square matrices, the adjugate determinant bounds turn coprime
+    determinant absolute values into coprime successive exponents.  If the
+    second determinant is nonzero, the exact exponent product therefore
+    follows on both lattice and finite-torus cokernels, including canonical
+    `matrixCompose` forms.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative
