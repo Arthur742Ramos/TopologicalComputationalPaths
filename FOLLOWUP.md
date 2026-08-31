@@ -223,6 +223,9 @@ the formalization proves:
 79. the reusable abstract cokernel map and projection expose simp-normalized
     formulas on quotient representatives, eliminating repeated quotient-map
     unfolding in downstream calculations.
+80. `Nat.card` and `Finite` are transported across the rectangular winding
+    equivalence for both individual matrices and explicit composites, with no
+    square-dimension or finiteness assumption.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

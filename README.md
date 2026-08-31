@@ -282,6 +282,9 @@ both commuting squares under the same injectivity hypothesis.
 The abstract induced map and projection also expose simp-normalized formulas
 on quotient representatives, making the certificate directly usable in
 downstream calculations.
+The rectangular winding equivalence additionally transports `Nat.card` and
+`Finite` exactly, for individual matrices and explicit composites, without
+assuming square dimensions or finiteness in advance.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

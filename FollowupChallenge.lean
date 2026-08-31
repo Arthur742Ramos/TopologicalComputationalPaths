@@ -122,7 +122,9 @@ inverse witness, including at arbitrary basepoints.
     the named square-matrix `matrixCompose` maps.  The substantive module also
     packages both exact sequences and both commuting squares in one
     rectangular diagram certificate.  The abstract map and projection also
-    have explicit quotient-representative formulas.
+    have explicit quotient-representative formulas.  The substantive module
+    transports cardinality and finiteness across the rectangular winding
+    equivalence for individual matrices and explicit composites.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

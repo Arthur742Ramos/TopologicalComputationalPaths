@@ -112,7 +112,9 @@ lattice exact sequences are related by a checked commutative diagram.  The
 named square-matrix `matrixCompose` maps expose the same naturality laws
 directly at their canonical target types.  A single rectangular certificate
 packages both short-exact sequences and both commuting squares under the
-shared injectivity hypothesis.
+shared injectivity hypothesis.  The equivalence also transports cardinality
+and finiteness for individual matrices and explicit composites, without a
+square-dimension or finiteness assumption.
 -/
 
 namespace ComputationalPaths
@@ -3386,6 +3388,24 @@ noncomputable def matrixMapQuotientAddHom_cokernel_windingEquiv
         (loopQuotAddEquivIntVector m q) := by
   rfl
 
+/-- The rectangular finite-torus and lattice cokernels have the same
+cardinality, including the infinite case. -/
+theorem matrixMapQuotientAddHom_cokernel_card_eq_matrixAction_cokernel
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Nat.card (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) =
+      Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) := by
+  exact Nat.card_congr
+    (matrixMapQuotientAddHom_cokernel_windingEquiv A).toEquiv
+
+/-- Finiteness of a rectangular finite-torus cokernel is equivalent to
+finiteness of its lattice cokernel. -/
+theorem matrixMapQuotientAddHom_cokernel_finite_iff_matrixAction_cokernel
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Finite (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) ↔
+      Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) := by
+  exact Equiv.finite_iff
+    (matrixMapQuotientAddHom_cokernel_windingEquiv A).toEquiv
+
 /-- The image of a square matrix on quotient loop classes has the same finite
 index as its winding-lattice image. -/
 theorem matrixMapQuotientAddHom_range_index_eq_natAbs_det {n : ℕ}
@@ -3833,6 +3853,30 @@ noncomputable def matrixMapQuotientAddHom_cokernel_windingEquiv_comp
         ((matrixAction B).comp (matrixAction A)).range
         (loopQuotAddEquivIntVector k q) := by
   rfl
+
+/-- The explicit composite finite-torus and lattice cokernels have the same
+cardinality in all composable dimensions. -/
+theorem matrixMapQuotientAddHom_cokernel_comp_card_eq_matrixAction_cokernel_comp
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Nat.card (LoopQuot k ⧸
+        ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) =
+      Nat.card ((Fin k → ℤ) ⧸
+        ((matrixAction B).comp (matrixAction A)).range) := by
+  exact Nat.card_congr
+    (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toEquiv
+
+/-- Finiteness of the explicit composite finite-torus cokernel is equivalent
+to finiteness of its lattice counterpart. -/
+theorem matrixMapQuotientAddHom_cokernel_comp_finite_iff_matrixAction_cokernel_comp
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Finite (LoopQuot k ⧸
+        ((matrixMapQuotientAddHom B).comp
+          (matrixMapQuotientAddHom A)).range) ↔
+      Finite ((Fin k → ℤ) ⧸
+        ((matrixAction B).comp (matrixAction A)).range) := by
+  exact Equiv.finite_iff
+    (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toEquiv
 
 /-! The quotient-level matrix map is natural with respect to the winding
 equivalences: applying the topological cokernel embedding and then decoding

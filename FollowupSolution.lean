@@ -117,6 +117,8 @@ rectangular diagram certificate packages both exact sequences and both
 commuting squares under the shared injectivity hypothesis.
 The reusable abstract map and projection expose simp-normalized formulas on
 quotient representatives for downstream calculations.
+Cardinality and finiteness are transported across the rectangular winding
+equivalence for individual matrices and explicit composites as well.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

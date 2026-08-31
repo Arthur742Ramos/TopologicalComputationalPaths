@@ -258,6 +258,8 @@ diagram-level rectangular certificate packages the two exact sequences and
 both commuting squares in one reusable theorem.
 The abstract map and projection have explicit quotient-representative
 formulas, so downstream proofs do not need to unfold `QuotientAddGroup.map`.
+The equivalence also gives cardinality and finiteness transport for individual
+rectangular matrices and their explicit composites, including infinite cases.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical
