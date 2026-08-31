@@ -105,6 +105,9 @@ through that morphism.
 For index equivalences, the same construction is upgraded to a torus
 homeomorphism and a continuous additive lattice equivalence, again with
 identity/composition coherence.
+The module also proves the exact injective/surjective correspondence for
+surjective/injective index maps at the torus, lattice, and typed quotient
+levels, using zero extension for the surjective direction.
 The arbitrary-basepoint classifier naturality squares are also restated using
 the continuous additive reindexing morphism itself.
 It is an independently checked formalization of classical topology,

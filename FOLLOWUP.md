@@ -93,6 +93,9 @@ the formalization proves:
     with matching identity and composition coherence.
 41. the arbitrary-basepoint classifier naturality squares are also stated
     directly through the continuous additive reindexing morphism.
+42. surjective and injective index maps have the corresponding exact
+    injectivity and surjectivity behavior on torus coordinates, integer
+    lattices, and typed quotient loop classes.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -159,6 +162,9 @@ homeomorphisms and the lattice maps to continuous additive equivalences;
 their identity and composition laws are proved in those stronger categories.
 The path-based and canonical arbitrary-basepoint classifier squares are also
 restated through the continuous additive reindexing map itself.
+Finally, a surjective index map yields injective coordinate, lattice, and
+quotient maps, while an injective index map yields surjective ones; the latter
+is witnessed constructively by zero extension on missing coordinates.
 
 ## Literature and novelty boundary
 

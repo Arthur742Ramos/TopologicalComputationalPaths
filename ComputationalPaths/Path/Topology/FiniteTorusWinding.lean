@@ -30,6 +30,9 @@ also packaged as continuous additive morphisms with the corresponding
 identity and composition laws.  When the index map is an equivalence,
 the torus coordinate map and lattice reindexing are upgraded to continuous
 homeomorphisms and additive equivalences, with matching coherence laws.
+Surjective and injective index maps additionally give the exact injectivity
+and surjectivity behavior of the torus map, lattice reindexing, and typed
+quotient map.
 -/
 
 namespace ComputationalPaths
@@ -195,6 +198,26 @@ theorem coordinateReindexContinuousEquiv_refl (n : ℕ) :
   ext z j
   rfl
 
+/-- A surjective index map gives an injective reindexing of integer lattices. -/
+theorem coordinateReindex_injective_of_surjective {n m : ℕ}
+    (f : Fin m → Fin n) (hf : Function.Surjective f) :
+    Function.Injective (coordinateReindex f) := by
+  intro z w h
+  funext i
+  obtain ⟨j, rfl⟩ := hf i
+  exact congrFun h j
+
+/-- An injective index map gives a surjective reindexing of integer lattices;
+the missing coordinates are filled with zero. -/
+theorem coordinateReindex_surjective_of_injective {n m : ℕ}
+    (f : Fin m → Fin n) (hf : Function.Injective f) :
+    Function.Surjective (coordinateReindex f) := by
+  intro w
+  let z : Fin n → ℤ := Function.extend f w (fun _ => 0)
+  refine ⟨z, ?_⟩
+  funext j
+  exact Function.Injective.extend_apply hf w (fun _ => 0) j
+
 /-- Coordinate-selection maps respect composition of index maps. -/
 theorem coordinateProjection_comp {n m k : ℕ} (f : Fin m → Fin n)
     (g : Fin k → Fin m) :
@@ -209,6 +232,26 @@ theorem coordinateProjection_id (n : ℕ) :
     coordinateProjection (id : Fin n → Fin n) = ContinuousMap.id (Carrier n) := by
   ext x j
   rfl
+
+/-- A surjective index map gives an injective coordinate map of finite tori. -/
+theorem coordinateProjection_injective_of_surjective {n m : ℕ}
+    (f : Fin m → Fin n) (hf : Function.Surjective f) :
+    Function.Injective (coordinateProjection f) := by
+  intro x y h
+  funext i
+  obtain ⟨j, rfl⟩ := hf i
+  exact congrFun h j
+
+/-- An injective index map gives a surjective coordinate map of finite tori;
+the missing coordinates can be filled with the zero circle point. -/
+theorem coordinateProjection_surjective_of_injective {n m : ℕ}
+    (f : Fin m → Fin n) (hf : Function.Injective f) :
+    Function.Surjective (coordinateProjection f) := by
+  intro x
+  let z : Carrier n := fun i => Function.extend f x (fun _ => 0) i
+  refine ⟨z, ?_⟩
+  funext j
+  exact Function.Injective.extend_apply hf x (fun _ => 0) j
 
 /-- Winding vectors are natural under coordinate selection: the induced loop
 map simply reindexes the vector. -/
@@ -307,6 +350,14 @@ theorem winding_identity {n : ℕ} :
 abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 
+/-- Coordinate selection on based loop classes, with the target basepoint
+cast made explicit.  The cast is definitionally along the zero basepoint. -/
+noncomputable def coordinateProjectionQuotientMap {n m : ℕ}
+    (f : Fin m → Fin n) : LoopQuot n → LoopQuot m :=
+  fun q =>
+    (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)).cast
+      (by rfl) (by rfl)
+
 /-- Winding descended to loop homotopy classes. -/
 noncomputable def encode {n : ℕ} : LoopQuot n → Fin n → ℤ :=
   Quotient.lift winding (fun _ _ h => winding_eq_of_homotopic h)
@@ -322,6 +373,17 @@ theorem encode_coordinateProjection {n m : ℕ} (f : Fin m → Fin n)
   | mk γ =>
     change winding (γ.map (coordinateProjection f).continuous) =
       fun j => winding γ (f j)
+    exact winding_coordinateProjection f γ
+
+/-- The typed quotient map is classified by the same lattice reindexing. -/
+theorem encode_coordinateProjectionQuotientMap {n m : ℕ}
+    (f : Fin m → Fin n) (q : LoopQuot n) :
+    encode (coordinateProjectionQuotientMap f q) =
+      coordinateReindex f (encode q) := by
+  induction q using _root_.Path.Homotopic.Quotient.ind with
+  | mk γ =>
+    change winding (γ.map (coordinateProjection f).continuous) =
+      coordinateReindex f (winding γ)
     exact winding_coordinateProjection f γ
 
 /-- Standard loop class for an integer vector. -/
@@ -355,6 +417,30 @@ noncomputable def equivIntVector (n : ℕ) : LoopQuot n ≃ (Fin n → ℤ) wher
   invFun := decode
   left_inv := decode_encode
   right_inv := encode_decode
+
+/-- A surjective index map induces an injective map on finite-torus loop
+classes. -/
+theorem coordinateProjectionQuotientMap_injective_of_surjective
+    {n m : ℕ} (f : Fin m → Fin n) (hf : Function.Surjective f) :
+    Function.Injective (coordinateProjectionQuotientMap f) := by
+  intro q r hqr
+  apply (equivIntVector n).injective
+  apply coordinateReindex_injective_of_surjective f hf
+  change coordinateReindex f (encode q) = coordinateReindex f (encode r)
+  rw [← encode_coordinateProjectionQuotientMap,
+    ← encode_coordinateProjectionQuotientMap, hqr]
+
+/-- An injective index map induces a surjective map on finite-torus loop
+classes. -/
+theorem coordinateProjectionQuotientMap_surjective_of_injective
+    {n m : ℕ} (f : Fin m → Fin n) (hf : Function.Injective f) :
+    Function.Surjective (coordinateProjectionQuotientMap f) := by
+  intro q
+  obtain ⟨z, hz⟩ := coordinateReindex_surjective_of_injective f hf (encode q)
+  refine ⟨decode z, ?_⟩
+  apply (equivIntVector m).injective
+  change encode (coordinateProjectionQuotientMap f (decode z)) = encode q
+  rw [encode_coordinateProjectionQuotientMap, encode_decode, hz]
 
 /-- The additive-group structure transported from the integer winding lattice. -/
 noncomputable instance loopQuotAddGroup (n : ℕ) : AddGroup (LoopQuot n) :=

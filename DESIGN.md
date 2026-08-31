@@ -169,6 +169,9 @@ equivalence, with the same coherence laws.
 The arbitrary-basepoint classifier squares are additionally expressed through
 the continuous additive reindexing map, for both path-based and canonical
 classifiers.
+The finite-index map is analyzed exactly as well: surjectivity gives
+injectivity at the torus, lattice, and quotient levels, and injectivity gives
+surjectivity via an explicit zero extension.
 
 ## Non-goals for the first submission
 

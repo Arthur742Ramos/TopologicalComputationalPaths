@@ -188,6 +188,9 @@ and the lattice map is a continuous additive equivalence, with matching
 identity and composition laws.
 The arbitrary-basepoint classifier naturality squares are likewise restated
 directly through the continuous additive reindexing morphism.
+The exact image behavior is also formalized: surjective index maps induce
+injective torus, lattice, and quotient maps, while injective index maps induce
+surjective maps by zero extension.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

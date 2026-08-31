@@ -42,6 +42,9 @@ and the lattice reindexing is a continuous additive equivalence with matching
 coherence.
 The arbitrary-basepoint classifier naturality squares are also stated through
 the continuous additive reindexing morphism.
+Surjective and injective index maps additionally yield the matching
+injectivity and surjectivity results for torus maps, lattice reindexing, and
+typed quotient maps.
 Basepoint-change maps are additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
