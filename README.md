@@ -325,6 +325,10 @@ orders of its decoded Smith coordinates; a nonzero free `ZMod 0` coordinate
 therefore records infinite class order.
 When all factors are nonzero, each coordinate order is computed explicitly as
 its Smith modulus divided by the gcd with the transformed integer coordinate.
+For arbitrary rank, infinite order is characterized elementwise: it occurs
+exactly when a zero Smith factor carries a nonzero transformed coordinate, and
+the same free-coordinate criterion is exposed on lattice and finite-torus
+matrix representatives.
 For every square matrix, the adjugate gives an explicit preimage of a
 determinant multiple.  Hence the determinant annihilates every class in both
 the winding-lattice and finite-torus cokernels, including singular matrices;

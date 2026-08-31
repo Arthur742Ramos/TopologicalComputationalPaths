@@ -166,6 +166,10 @@ inverse witness, including at arbitrary basepoints.
     When all factors are nonzero, each coordinate order is computed explicitly
     as its Smith modulus divided by the gcd with the transformed integer
     coordinate.
+    For arbitrary rank, infinite order is characterized elementwise: it occurs
+    exactly when a zero Smith factor carries a nonzero transformed coordinate,
+    and the same free-coordinate criterion is exposed on lattice and
+    finite-torus matrix representatives.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

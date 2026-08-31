@@ -287,6 +287,10 @@ the formalization proves:
      modulus-divided-by-gcd formula on the transformed integer coordinate.
 102. the lattice and finite-torus class-order formulas expose this arithmetic
      refinement through their concrete matrix representatives.
+103. an arbitrary-rank Smith cokernel class has infinite additive order exactly
+     when a zero Smith factor carries a nonzero transformed coordinate.
+104. this free-coordinate criterion is transported to both lattice and
+     finite-torus matrix representatives.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

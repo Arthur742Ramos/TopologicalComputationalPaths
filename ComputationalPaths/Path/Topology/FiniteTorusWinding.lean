@@ -150,6 +150,9 @@ infinite-order free component.
 When all factors are nonzero, each finite coordinate order is computed
 explicitly as its Smith modulus divided by the gcd with the transformed
 integer coordinate.
+An arbitrary-rank class has infinite order exactly when a zero Smith factor
+carries a nonzero transformed coordinate, so the free part is detected
+elementwise.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both the lattice and
 finite-torus cokernel classes.  This annihilator certificate is proved before
@@ -2615,6 +2618,65 @@ theorem submoduleCokernel_addOrderOf_mk_eq_smithFactorGcdLcm
   intro i _
   exact hi i
 
+/-- An integer class has infinite additive order precisely in the free Smith
+factor, and precisely when its represented integer is nonzero there. -/
+theorem intQuotientSpan_addOrderOf_eq_zero_iff
+    (a n : ℤ) :
+    addOrderOf (Int.quotientSpanEquivZMod n
+      (Submodule.Quotient.mk (p := Submodule.span ℤ ({n} : Set ℤ)) a)) = 0 ↔
+      n = 0 ∧ a ≠ 0 := by
+  change addOrderOf ((a : ZMod n.natAbs)) = 0 ↔ n = 0 ∧ a ≠ 0
+  by_cases hn : n = 0
+  · rw [hn, addOrderOf_eq_zero_iff]
+    simp only [eq_self, true_and]
+    constructor
+    · intro hfin ha0
+      apply hfin
+      rw [isOfFinAddOrder_iff_nsmul_eq_zero]
+      have hcast : (a : ZMod 0) = (0 : ZMod 0) := by
+        rw [ha0]
+        rfl
+      exact ⟨1, zero_lt_one, by rw [hcast]; rfl⟩
+    · intro ha0 hfin
+      rcases (isOfFinAddOrder_iff_nsmul_eq_zero.mp hfin) with ⟨k, hk, hk0⟩
+      have hk0' : (k : ℤ) * a = 0 := by
+        change (k : ℤ) * a = 0 at hk0
+        exact hk0
+      exact ha0 ((mul_eq_zero.mp hk0').resolve_left (Int.ofNat_ne_zero.mpr hk.ne'))
+  · have hnabs : n.natAbs ≠ 0 := Int.natAbs_ne_zero.mpr hn
+    have hfin : IsOfFinAddOrder ((a : ZMod n.natAbs)) := by
+      refine isOfFinAddOrder_iff_nsmul_eq_zero.mpr
+        ⟨n.natAbs, Nat.pos_of_ne_zero hnabs, ?_⟩
+      rw [← Nat.cast_smul_eq_nsmul (ZMod n.natAbs) n.natAbs]
+      simp
+    rw [addOrderOf_eq_zero_iff]
+    simp [hfin, hn]
+
+/-- An arbitrary-rank Smith cokernel class has infinite additive order exactly
+when some free `ZMod 0` coordinate is nonzero.  Thus the theorem detects the
+free part elementwise, not merely at the level of the whole quotient. -/
+theorem submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r)
+    (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x : (Fin m → ℤ) ⧸ N) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor snf i = 0 ∧
+        (snf.bM.equivFun x) i ≠ 0 := by
+  rw [submoduleCokernel_addOrderOf_mk_eq_smithCoordinateLcm]
+  rw [Finset.lcm_eq_zero_iff]
+  have hcoord (i : Fin m) :
+      addOrderOf (Int.quotientSpanEquivZMod (smithNormalFormFactor snf i)
+        (Submodule.Quotient.mk ((snf.bM.equivFun x) i))) = 0 ↔
+        smithNormalFormFactor snf i = 0 ∧
+          (snf.bM.equivFun x) i ≠ 0 := by
+    exact intQuotientSpan_addOrderOf_eq_zero_iff
+      ((snf.bM.equivFun x) i) (smithNormalFormFactor snf i)
+  constructor
+  · rintro ⟨i, _, hi⟩
+    exact ⟨i, hcoord i |>.mp hi⟩
+  · rintro ⟨i, hi, hxi⟩
+    exact ⟨i, Finset.mem_univ i, hcoord i |>.mpr ⟨hi, hxi⟩⟩
+
 /-! A nonzero Smith cyclic factor admits a canonical prime-power refinement
 through the Chinese remainder theorem. -/
 
@@ -2768,6 +2830,21 @@ theorem matrixAction_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
   exact submoduleCokernel_addOrderOf_mk_eq_smithFactorGcdLcm
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 h x
+
+/-- A lattice cokernel class has infinite additive order exactly when some
+free Smith coordinate is nonzero. -/
+theorem matrixAction_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Fin m → ℤ) :
+    addOrderOf (Submodule.Quotient.mk x :
+      (Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i = 0 ∧
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun x) i ≠ 0 := by
+  exact submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 x
 
 /-- Refine a finite rectangular lattice cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
@@ -4556,6 +4633,27 @@ theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithFactorGcdLcm
     apply intQuotientSpan_addOrderOf_eq_natAbs_div_gcd
     exact Int.natAbs_ne_zero.mpr (h i)
   exact hi
+
+/-- A finite-torus cokernel class has infinite additive order exactly when
+some free Smith coordinate of its winding vector is nonzero. -/
+theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : LoopQuot m) :
+    addOrderOf (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) = 0 ↔
+      ∃ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i = 0 ∧
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (loopQuotAddEquivIntVector m x)) i ≠ 0 := by
+  rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
+  rw [matrixMapQuotientAddHom_cokernel_smithAddEquiv_apply_mk]
+  rw [(submoduleCokernelSmithEquiv
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2).addOrderOf_eq]
+  exact submoduleCokernel_addOrderOf_mk_eq_zero_iff_smithFreeCoordinate
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
+    (loopQuotAddEquivIntVector m x)
 
 /-- Refine a finite rectangular finite-torus cokernel into prime-power cyclic
 factors whenever all of its arbitrary-rank Smith moduli are nonzero. -/
