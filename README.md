@@ -279,6 +279,9 @@ reuse that result directly, with canonical embedding and projection naturality
 theorems so the diagram can be consumed without range-rewrite boilerplate.  A
 single rectangular short-exactness certificate packages both sequences and
 both commuting squares under the same injectivity hypothesis.
+The abstract induced map and projection also expose simp-normalized formulas
+on quotient representatives, making the certificate directly usable in
+downstream calculations.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

@@ -220,6 +220,9 @@ the formalization proves:
 78. a single rectangular diagram certificate packages topological and lattice
     short exactness together with both winding-commuting squares under the
     shared injectivity hypothesis.
+79. the reusable abstract cokernel map and projection expose simp-normalized
+    formulas on quotient representatives, eliminating repeated quotient-map
+    unfolding in downstream calculations.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

@@ -115,6 +115,8 @@ the embedding and projection in the exact diagram.  The canonical square
 `matrixCompose` maps expose these naturality laws directly as well.  A single
 rectangular diagram certificate packages both exact sequences and both
 commuting squares under the shared injectivity hypothesis.
+The reusable abstract map and projection expose simp-normalized formulas on
+quotient representatives for downstream calculations.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

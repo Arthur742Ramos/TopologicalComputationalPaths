@@ -91,6 +91,8 @@ cokernel by an explicit first-isomorphism additive equivalence, whose action
 on quotient representatives is proved directly.
 The underlying cokernel construction is also factored through a general
 first-isomorphism package for arbitrary composable additive homomorphisms.
+The induced map and projection have direct quotient-representative formulas,
+so the package can be used without unfolding the underlying quotient maps.
 Consequently, rectangular integer matrices in any composable dimensions
 inherit the same short-exact sequence whenever the second matrix action is
 injective, and the corresponding finite-torus quotient maps satisfy the same
@@ -1611,6 +1613,14 @@ noncomputable def addCokernelCompMap
     rfl
   exact QuotientAddGroup.map N M g hNM
 
+/-- Representative formula for the induced map on additive cokernels. -/
+@[simp] theorem addCokernelCompMap_apply_mk
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (v : V) :
+    addCokernelCompMap f g (QuotientAddGroup.mk' f.range v) =
+      QuotientAddGroup.mk' (g.comp f).range (g v) := by
+  rfl
+
 /-- The canonical projection from the cokernel of a composite onto the
 cokernel of its second map. -/
 noncomputable def addCokernelCompProjection
@@ -1627,6 +1637,16 @@ noncomputable def addCokernelCompProjection
     refine ⟨f w, ?_⟩
     simpa only [AddMonoidHom.id_apply, AddMonoidHom.comp_apply] using hw
   exact QuotientAddGroup.map N M (AddMonoidHom.id W) hNM
+
+/-- Representative formula for the canonical projection on additive
+cokernels. -/
+@[simp] theorem addCokernelCompProjection_apply_mk
+    {U V W : Type*} [AddCommGroup U] [AddCommGroup V] [AddCommGroup W]
+    (f : U →+ V) (g : V →+ W) (w : W) :
+    addCokernelCompProjection f g
+        (QuotientAddGroup.mk' (g.comp f).range w) =
+      QuotientAddGroup.mk' g.range w := by
+  rfl
 
 /-- The cokernel projection of a composite is always surjective. -/
 theorem addCokernelCompProjection_surjective
