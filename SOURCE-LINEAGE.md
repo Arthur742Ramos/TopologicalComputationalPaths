@@ -131,7 +131,12 @@ row-by-column multiplication, preserve standard representatives, and induce
 typed quotient maps with exact image, kernel, injectivity, and surjectivity
 transfer.  Their additive quotient homomorphisms satisfy identity and
 composition laws; the lattice and quotient homomorphisms are continuous for
-the discrete quotient topologies.
+the discrete quotient topologies.  At arbitrary torus basepoints, matrix maps
+are also exposed as continuous multiplicative quotient homomorphisms commuting
+with explicit basepoint transport.  The path-based classifier naturality
+theorem records the endpoint cast from the mapped zero basepoint explicitly,
+and abelian-target path independence gives the same square for the canonical
+arbitrary-basepoint classifier.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.

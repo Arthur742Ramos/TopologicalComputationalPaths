@@ -124,6 +124,15 @@ the formalization proves:
 51. the matrix quotient maps have exact image, kernel, injectivity, and
     surjectivity transfer criteria, and package as a continuous additive
     contravariant functor on the discrete quotient groups.
+52. each matrix map also induces a continuous multiplicative homomorphism on
+    quotient fundamental groups at arbitrary torus basepoints;
+53. those arbitrary-basepoint homomorphisms commute with explicit path
+    transport, before choosing any winding classifier; and
+54. the path-based winding classifier is natural for matrix maps as well,
+    with the mapped path's endpoint cast made explicit and checked.
+55. by abelian-target path independence, the canonical arbitrary-basepoint
+    winding classifier satisfies the same matrix naturality square without a
+    path parameter.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -224,6 +233,13 @@ identity/composition, standard-loop naturality, quotient classifier
 naturality, and exact image/kernel/injectivity/surjectivity transfer.  The
 resulting typed quotient maps are additive and continuous for the discrete
 quotient topologies, with identity and composition coherence.
+At arbitrary basepoints, the induced continuous multiplicative homomorphism
+is natural for basepoint transport.  Along an explicit canonical-to-arbitrary
+path, the winding classifier commutes with the matrix action; the endpoint
+cast needed because a matrix preserves the zero basepoint propositionally is
+part of the theorem rather than hidden in a definitional equality.
+Path independence of the abelian target then removes the auxiliary path and
+gives the same statement for the canonical classifier at every basepoint.
 
 ## Literature and novelty boundary
 

@@ -215,7 +215,12 @@ standard representatives are natural, and the typed quotient maps satisfy
 matrix identity/composition coherence.  Exact image, kernel, injectivity, and
 surjectivity criteria transfer through the winding equivalence, and the
 resulting lattice and quotient additive maps are continuous for the discrete
-topologies.
+topologies.  At arbitrary basepoints, each matrix map is also exposed as a
+continuous multiplicative quotient homomorphism commuting with explicit
+basepoint transport; the path-based winding classifier satisfies the matching
+matrix naturality square with its endpoint cast made explicit.  Abelian-target
+path independence then gives the same square for the canonical classifier,
+without exposing a path choice.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

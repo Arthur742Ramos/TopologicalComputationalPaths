@@ -46,6 +46,10 @@ selections) define continuous torus maps whose winding actions, standard
 representatives, typed quotient maps, images, kernels, injectivity and
 surjectivity, and additive quotient homomorphisms all satisfy matching
 matrix-composition and identity laws.
+At arbitrary basepoints, the induced continuous multiplicative homomorphisms
+commute with explicit basepoint transport, and both the path-based and
+canonical winding classifiers satisfy the corresponding matrix naturality
+square, with the endpoint cast made explicit.
 -/
 
 namespace ComputationalPaths
@@ -1564,6 +1568,66 @@ lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
   funext j
   simp [matrixMap, base]
 
+/-- Basepoint transport is stable under changing the endpoint types by an
+explicit equality.  The quotient cast on the loop class records the same
+change of basepoint on the source side. -/
+theorem basepointChangeContinuousMulEquiv_pathCast
+    {X : Type*} [TopologicalSpace X]
+    {x₀ x₁ x₀' x₁' : X}
+    (p : _root_.Path x₀ x₁) (hx : x₀' = x₀) (hy : x₁' = x₁)
+    (q : QuotientFundamentalGroup.LoopQuot X x₀') :
+    QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        (p.cast hx hy) q =
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p
+        (_root_.Path.Homotopic.Quotient.cast q hx.symm hx.symm)).cast hy hy := by
+  cases hx
+  cases hy
+  rw [_root_.Path.cast_rfl_rfl]
+  simp only [_root_.Path.Homotopic.Quotient.cast_rfl_rfl]
+
+/-- Two successive endpoint casts cancel. -/
+lemma quotientCast_roundtrip
+    {X : Type*} [TopologicalSpace X]
+    {x y : X} (h : x = y)
+    (q : QuotientFundamentalGroup.LoopQuot X x) :
+    (q.cast h.symm h.symm).cast h h = q := by
+  cases h
+  simp only [_root_.Path.Homotopic.Quotient.cast_rfl_rfl]
+
+/-- An integer matrix induces a continuous multiplicative homomorphism on
+the quotient fundamental groups at every chosen torus basepoint. -/
+noncomputable def matrixMapQuotientContinuousMulHomAt {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x →ₜ*
+      QuotientFundamentalGroup.LoopQuot (Carrier m) (matrixMap A x) :=
+  QuotientFundamentalGroup.inducedContinuousMonoidHom (matrixMap A) x
+
+@[simp] theorem matrixMapQuotientContinuousMulHomAt_apply {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    matrixMapQuotientContinuousMulHomAt A x q =
+      _root_.Path.Homotopic.Quotient.map q (matrixMap A) :=
+  rfl
+
+/-- Matrix maps commute with basepoint transport along every explicit path
+from the canonical torus basepoint. -/
+theorem matrixMapQuotientContinuousMulHomAt_basepointChange
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (p : _root_.Path (base n) x) (q : LoopQuot n) :
+    matrixMapQuotientContinuousMulHomAt A x
+        (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p q) =
+      QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        (p.map (matrixMap A).continuous)
+        (matrixMapQuotientContinuousMulHomAt A (base n) q) := by
+  change _root_.Path.Homotopic.Quotient.map
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p q)
+        (matrixMap A) =
+    QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+      (p.map (matrixMap A).continuous)
+      (_root_.Path.Homotopic.Quotient.map q (matrixMap A))
+  exact QuotientFundamentalGroup.basepointChange_quotientMap_naturality
+    p (matrixMap A) q
+
 lemma zsmul_circleCover (a : ℤ) (r : ℝ) :
     a • circleCover r = circleCover (a • r) := by
   change a • (r : AddCircle (1 : ℝ)) = ((a • r : ℝ) : AddCircle (1 : ℝ))
@@ -1638,6 +1702,123 @@ theorem encode_matrixMapQuotientMap {n m : ℕ}
     rw [← decode_encode (Quotient.mk' γ)]
     rw [matrixMapQuotientMap_decode]
     simp only [encode_decode]
+
+/-- The path-based winding classifier is natural for arbitrary integer
+matrix maps, including the explicit endpoint cast from the mapped source
+basepoint to the canonical target basepoint. -/
+theorem loopQuotContinuousMulEquivIntVector_at_path_matrixMap
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (p : _root_.Path (base n) x)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at_path m
+      (matrixMap A x)
+      ((p.map (matrixMap A).continuous).cast
+        (matrixMap_base A).symm rfl))
+        (matrixMapQuotientContinuousMulHomAt A x q) =
+      Multiplicative.ofAdd
+        (matrixAction A
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at_path n x p q))) := by
+  let r : LoopQuot n :=
+    (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm q
+  have hr :
+      _root_.Path.Homotopic.Quotient.map q (matrixMap A) =
+        QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+          (p.map (matrixMap A).continuous)
+          (_root_.Path.Homotopic.Quotient.map r (matrixMap A)) := by
+    have hnat :=
+      QuotientFundamentalGroup.basepointChange_quotientMap_naturality
+        p (matrixMap A) r
+    have hpr :
+        QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p
+            ((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm q) = q :=
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).apply_symm_apply q
+    rw [hpr] at hnat
+    exact hnat
+  have hcast :
+      QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+          ((p.map (matrixMap A).continuous).cast
+            (matrixMap_base A).symm rfl)
+          ((_root_.Path.Homotopic.Quotient.map r (matrixMap A)).cast
+            (matrixMap_base A).symm (matrixMap_base A).symm) =
+        QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+          (p.map (matrixMap A).continuous)
+          (_root_.Path.Homotopic.Quotient.map r (matrixMap A)) := by
+    have htest := basepointChangeContinuousMulEquiv_pathCast
+      (p.map (matrixMap A).continuous)
+      (matrixMap_base A).symm rfl
+      ((_root_.Path.Homotopic.Quotient.map r (matrixMap A)).cast
+        (matrixMap_base A).symm (matrixMap_base A).symm)
+    have hround := quotientCast_roundtrip
+      (X := Carrier m) (matrixMap_base A)
+      (_root_.Path.Homotopic.Quotient.map r (matrixMap A))
+    rw [hround] at htest
+    simpa only [_root_.Path.Homotopic.Quotient.cast_rfl_rfl] using htest
+  rw [loopQuotContinuousMulEquivIntVector_at_path,
+    matrixMapQuotientContinuousMulHomAt_apply]
+  change
+    (loopQuotContinuousMulEquivIntVector m)
+      ((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        ((p.map (matrixMap A).continuous).cast
+          (matrixMap_base A).symm rfl)).symm
+        (_root_.Path.Homotopic.Quotient.map q (matrixMap A))) =
+      Multiplicative.ofAdd
+        (matrixAction A
+          (Multiplicative.toAdd
+            (((QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).symm.trans
+              (loopQuotContinuousMulEquivIntVector n)) q)))
+  rw [hr]
+  have hinv :
+      (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+        ((p.map (matrixMap A).continuous).cast
+          (matrixMap_base A).symm rfl)).symm
+          (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+            (p.map (matrixMap A).continuous)
+            (_root_.Path.Homotopic.Quotient.map r (matrixMap A))) =
+        (_root_.Path.Homotopic.Quotient.map r (matrixMap A)).cast
+          (matrixMap_base A).symm (matrixMap_base A).symm := by
+    rw [← hcast]
+    exact (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv
+      ((p.map (matrixMap A).continuous).cast
+        (matrixMap_base A).symm rfl)).symm_apply_apply _
+  rw [hinv]
+  apply Multiplicative.ext
+  change encode ((_root_.Path.Homotopic.Quotient.map r (matrixMap A)).cast
+      (matrixMap_base A).symm (matrixMap_base A).symm) =
+    matrixAction A (encode r)
+  simpa [matrixMapQuotientMap] using
+    (encode_matrixMapQuotientMap A r)
+
+/-- The canonical arbitrary-basepoint winding classifier is natural for
+integer matrix maps, by path-independence of the abelian target transport. -/
+theorem loopQuotContinuousMulEquivIntVector_at_matrixMap
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at m
+      (matrixMap A x))
+        (matrixMapQuotientContinuousMulHomAt A x q) =
+      Multiplicative.ofAdd
+        (matrixAction A
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at n x q))) := by
+  let p : _root_.Path (base n) x := PathConnectedSpace.somePath (base n) x
+  let p' : _root_.Path (base m) (matrixMap A x) :=
+    PathConnectedSpace.somePath (base m) (matrixMap A x)
+  have h := loopQuotContinuousMulEquivIntVector_at_path_matrixMap
+    A x p q
+  have ht := loopQuotContinuousMulEquivIntVector_at_path_eq m
+    (matrixMap A x)
+    ((p.map (matrixMap A).continuous).cast (matrixMap_base A).symm rfl) p'
+  have htq := congrArg
+    (fun E => E (matrixMapQuotientContinuousMulHomAt A x q)) ht
+  rw [htq] at h
+  have hs := loopQuotContinuousMulEquivIntVector_at_path_eq n x p
+    (PathConnectedSpace.somePath (base n) x)
+  have hsq := congrArg (fun E => E q) hs
+  rw [← hsq] at h
+  simpa [p, p', loopQuotContinuousMulEquivIntVector_at_path,
+    loopQuotContinuousMulEquivIntVector_at,
+    QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv] using h
 
 /-- Matrix quotient maps compose contravariantly. -/
 theorem matrixMapQuotientMap_comp {n m k : ℕ}

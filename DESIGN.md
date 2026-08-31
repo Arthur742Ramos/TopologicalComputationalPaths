@@ -197,7 +197,12 @@ by the matching row-by-column action.  The source checks continuity,
 matrix identity/composition, standard-loop and quotient naturality, exact
 image/kernel/injectivity/surjectivity transfer, and continuous additive
 functoriality of both the lattice action and quotient maps for the discrete
-quotient groups.
+quotient groups.  Each matrix map is also exposed as a continuous
+multiplicative homomorphism at arbitrary torus basepoints, with a proved
+basepoint-transport square.  The path-based classifier naturality theorem
+keeps the endpoint cast from the mapped zero basepoint explicit.  Abelian
+target path independence also yields the corresponding canonical classifier
+square without a path parameter.
 
 ## Non-goals for the first submission
 

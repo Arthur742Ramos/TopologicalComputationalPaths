@@ -68,7 +68,12 @@ The supporting finite-torus module additionally extends these coordinate
 selection results to arbitrary integer matrices: matrix maps act continuously
 on the torus and on its integer lattice, compose with the usual row-by-column
 law, and transfer exact image, kernel, injectivity, and surjectivity statements
-through winding.
+through winding.  It also exposes the induced continuous multiplicative
+homomorphisms at arbitrary basepoints, proves their compatibility with
+basepoint transport, and states the path-based classifier square with the
+endpoint cast made explicit.  Abelian-target path independence then gives
+the same matrix naturality square for the canonical classifier without a
+path parameter.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
