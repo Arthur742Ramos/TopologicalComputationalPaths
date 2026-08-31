@@ -150,6 +150,8 @@ inverse witness, including at arbitrary basepoints.
     zero factor forcing `k = 0`.
     The sharp trivial-cokernel boundary is the exponent-one case: the
     exponent is one exactly when every Smith factor has unit absolute value.
+    Consequently, a rectangular lattice or finite-torus matrix action is
+    surjective exactly when all of its Smith factors have unit absolute value.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

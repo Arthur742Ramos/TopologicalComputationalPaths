@@ -316,6 +316,10 @@ the formalization proves:
      exactly when every Smith factor has unit absolute value.
 116. this unit-factor criterion is exposed on the generic, lattice, and
      finite-torus Smith presentations.
+117. a rectangular lattice action is surjective exactly when all of its Smith
+     factors have unit absolute value.
+118. the same unit-factor surjectivity criterion is transported to the
+     canonical finite-torus quotient action.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

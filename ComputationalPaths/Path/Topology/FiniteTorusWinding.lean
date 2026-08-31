@@ -137,6 +137,8 @@ exponent exactly when every Smith-factor modulus divides `k`, with a zero
 factor forcing `k = 0`.
 The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
 one exactly when every Smith factor has unit absolute value.
+Consequently, a rectangular lattice or finite-torus matrix action is
+surjective exactly when all of its Smith factors have unit absolute value.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2957,6 +2959,32 @@ theorem matrixAction_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2
 
+/-- A rectangular lattice action is surjective exactly when its Smith factors
+all have unit absolute value. -/
+theorem matrixAction_surjective_iff_smithFactor_natAbs_eq_one
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Function.Surjective (matrixAction A) ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs = 1 := by
+  rw [← matrixAction_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one]
+  constructor
+  · intro hs
+    apply AddMonoid.exp_eq_one_iff.mpr
+    apply Submodule.Quotient.subsingleton_iff.mpr
+    have hR : (matrixAction A).range = (⊤ : AddSubgroup (Fin m → ℤ)) :=
+      AddMonoidHom.range_eq_top.mpr hs
+    rw [hR, AddSubgroup.toIntSubmodule.map_top]
+  · intro he
+    have hs : Subsingleton ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) :=
+      AddMonoid.exp_eq_one_iff.mp he
+    have hS : (matrixAction A).range.toIntSubmodule = (⊤ : Submodule ℤ (Fin m → ℤ)) :=
+      Submodule.Quotient.subsingleton_iff.mp hs
+    have hR : (matrixAction A).range = (⊤ : AddSubgroup (Fin m → ℤ)) := by
+      apply AddSubgroup.toIntSubmodule.injective
+      simpa only [AddSubgroup.toIntSubmodule.map_top] using hS
+    exact AddMonoidHom.range_eq_top.mp hR
+
 /-- The lattice cokernel has exponent zero exactly when a zero Smith factor
 survives. -/
 theorem matrixAction_cokernel_exponent_eq_zero_iff_smithFreeFactor
@@ -4850,6 +4878,26 @@ theorem matrixMapQuotientAddHom_cokernel_exponent_eq_one_iff_smithFactor_natAbs_
       intro i hi
       rw [h i]
     · exact Nat.one_dvd _
+
+/-- A rectangular finite-torus quotient action is surjective exactly when all
+of its Smith factors have unit absolute value. -/
+theorem matrixMapQuotientAddHom_surjective_iff_smithFactor_natAbs_eq_one
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    Function.Surjective (matrixMapQuotientAddHom A) ↔
+      ∀ i : Fin m, (smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i).natAbs = 1 := by
+  rw [← matrixMapQuotientAddHom_cokernel_exponent_eq_one_iff_smithFactor_natAbs_eq_one]
+  constructor
+  · intro hs
+    apply AddMonoid.exp_eq_one_iff.mpr
+    apply QuotientAddGroup.subsingleton_iff.mpr
+    exact AddMonoidHom.range_eq_top.mpr hs
+  · intro he
+    have hs : Subsingleton (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) :=
+      AddMonoid.exp_eq_one_iff.mp he
+    apply AddMonoidHom.range_eq_top.mp
+    exact QuotientAddGroup.subsingleton_iff.mp hs
 
 /-- The finite-torus cokernel has exponent zero exactly when a zero Smith
 factor survives. -/

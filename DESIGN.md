@@ -288,6 +288,8 @@ exponent exactly when every Smith-factor modulus divides `k`; a zero factor
 forces `k = 0`.
 The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
 one exactly when every Smith factor has unit absolute value.
+Consequently, a rectangular lattice or finite-torus matrix action is
+surjective exactly when all of its Smith factors have unit absolute value.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.

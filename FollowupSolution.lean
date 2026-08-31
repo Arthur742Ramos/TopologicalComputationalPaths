@@ -143,6 +143,8 @@ exponent exactly when every Smith-factor modulus divides `k`; a zero factor
 forces `k = 0`.
 The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
 one exactly when every Smith factor has unit absolute value.
+Consequently, a rectangular lattice or finite-torus matrix action is
+surjective exactly when all of its Smith factors have unit absolute value.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
