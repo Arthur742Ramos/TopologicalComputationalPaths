@@ -201,7 +201,10 @@ lattice classifiers, and the typed quotient loop maps.
 Typed quotient coordinate selection is also exposed as a contravariant
 additive functor, continuous for the discrete quotient topologies, with
 explicit identity/composition laws and a kernel description by vanishing on
-the coordinates hit by the index map.
+the coordinates hit by the index map.  At arbitrary torus basepoints, the
+same operation is additionally packaged as a continuous multiplicative
+homomorphism between the corresponding quotient fundamental groups, with its
+own identity/composition coherence and a classifier-naturality corollary.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

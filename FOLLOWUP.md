@@ -108,6 +108,9 @@ the formalization proves:
     and composition coherence.
 46. the kernel of every lattice or typed quotient coordinate map is described
     exactly by vanishing on the image of its index map.
+47. at arbitrary torus basepoints, coordinate selection is exposed as a
+    continuous multiplicative homomorphism of quotient fundamental groups,
+    with explicit identity/composition coherence and classifier naturality.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -188,6 +191,12 @@ addition and obeys identity/composition laws.  Its kernel consists precisely
 of the classes whose winding vector vanishes on the coordinates hit by the
 index map, matching the lattice kernel description; because the quotient
 topologies are discrete, this additive functor is continuous as well.
+At arbitrary torus basepoints, the same coordinate-selection operation is
+also packaged before choosing a lattice classifier as a continuous
+multiplicative homomorphism between the corresponding quotient fundamental
+groups.  These maps obey the expected contravariant identity and composition
+laws, and the canonical lattice-classifier square factors through the named
+homomorphism directly.
 
 ## Literature and novelty boundary
 

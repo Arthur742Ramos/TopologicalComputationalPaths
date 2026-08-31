@@ -35,7 +35,11 @@ and surjectivity behavior of the torus map, lattice reindexing, and typed
 quotient map, including converses.  The typed quotient maps compose
 contravariantly and are additive homomorphisms for the transported winding
 groups (continuously for the discrete quotient topologies); their kernels are
-exactly the classes whose winding vanishes on the image of the index map.
+exactly the classes whose winding vanishes on the image of the index map.  At
+arbitrary torus basepoints, the same coordinate maps are exposed as continuous
+multiplicative homomorphisms with explicit identity/composition laws, and the
+canonical basepoint classifiers factor their action through the lattice
+reindexing.
 -/
 
 namespace ComputationalPaths
@@ -1125,6 +1129,78 @@ theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection_continuousRe
           (Multiplicative.toAdd
             (loopQuotContinuousMulEquivIntVector_at n x q))) := by
   simpa only [coordinateReindexContinuous_apply] using
+    (loopQuotContinuousMulEquivIntVector_at_coordinateProjection f x q)
+
+/-! The coordinate map is itself a named morphism of quotient fundamental
+groups at arbitrary basepoints.  The zero-basepoint additive map above is
+the lattice-level specialization; this multiplicative version exposes the
+full functorial map before choosing a classifier. -/
+
+/-- Coordinate selection induces a continuous homomorphism between the
+quotient fundamental groups at the corresponding basepoints. -/
+noncomputable def coordinateProjectionQuotientContinuousMulHom
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x →ₜ*
+      QuotientFundamentalGroup.LoopQuot
+        (Carrier m) (coordinateProjection f x) :=
+  QuotientFundamentalGroup.inducedContinuousMonoidHom
+    (coordinateProjection f) x
+
+@[simp] theorem coordinateProjectionQuotientContinuousMulHom_apply
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    coordinateProjectionQuotientContinuousMulHom f x q =
+      _root_.Path.Homotopic.Quotient.map q (coordinateProjection f) :=
+  rfl
+
+/-- Arbitrary-basepoint coordinate maps compose contravariantly as continuous
+monoid homomorphisms. -/
+theorem coordinateProjectionQuotientContinuousMulHom_comp
+    {n m k : ℕ} (f : Fin m → Fin n) (g : Fin k → Fin m)
+    (x : Carrier n) :
+    coordinateProjectionQuotientContinuousMulHom (f ∘ g) x =
+      (coordinateProjectionQuotientContinuousMulHom g
+        (coordinateProjection f x)).comp
+        (coordinateProjectionQuotientContinuousMulHom f x) := by
+  ext q
+  change _root_.Path.Homotopic.Quotient.map q
+      (coordinateProjection (f ∘ g)) =
+    _root_.Path.Homotopic.Quotient.map
+      (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
+      (coordinateProjection g)
+  have hcomp := coordinateProjection_comp f g
+  cases hcomp
+  exact (QuotientFundamentalGroup.quotientMap_comp
+    (coordinateProjection f) (coordinateProjection g) x q).symm
+
+/-- The arbitrary-basepoint coordinate map for the identity index map is the
+identity continuous monoid homomorphism. -/
+theorem coordinateProjectionQuotientContinuousMulHom_id (n : ℕ)
+    (x : Carrier n) :
+    coordinateProjectionQuotientContinuousMulHom
+        (id : Fin n → Fin n) x =
+      ContinuousMonoidHom.id
+        (QuotientFundamentalGroup.LoopQuot (Carrier n) x) := by
+  ext q
+  change _root_.Path.Homotopic.Quotient.map q
+      (coordinateProjection (id : Fin n → Fin n)) = q
+  have hid := coordinateProjection_id n
+  cases hid
+  exact QuotientFundamentalGroup.quotientMap_id x q
+
+/-- The arbitrary-basepoint classifier naturality theorem can be stated
+directly through the induced continuous monoid homomorphism. -/
+theorem loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom
+    {n m : ℕ} (f : Fin m → Fin n) (x : Carrier n)
+    (q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    (loopQuotContinuousMulEquivIntVector_at m
+      (coordinateProjection f x))
+        (coordinateProjectionQuotientContinuousMulHom f x q) =
+      Multiplicative.ofAdd
+        (coordinateReindex f
+          (Multiplicative.toAdd
+            (loopQuotContinuousMulEquivIntVector_at n x q))) := by
+  simpa only [coordinateProjectionQuotientContinuousMulHom_apply] using
     (loopQuotContinuousMulEquivIntVector_at_coordinateProjection f x q)
 
 /-- Every finite-torus loop homotopy class is open in the compact-open loop

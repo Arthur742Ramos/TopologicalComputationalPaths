@@ -180,7 +180,11 @@ theorems simultaneously for raw torus maps, lattice reindexings, and typed
 quotient maps.  At the quotient level, coordinate selection is additionally
 an additive contravariant functor, continuous for the discrete quotient
 topologies, and its kernel is exactly the classes whose winding vanishes on
-the index-map image.
+the index-map image.  Before choosing a classifier, the same
+coordinate-selection maps at arbitrary basepoints are packaged as continuous
+multiplicative homomorphisms between the corresponding quotient fundamental
+groups, with explicit identity/composition coherence and a direct
+classifier-naturality theorem.
 
 ## Non-goals for the first submission
 

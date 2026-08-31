@@ -56,7 +56,10 @@ The converses are included as exact iff criteria at the raw torus, lattice,
 and typed quotient levels.  Typed quotient coordinate maps also compose
 contravariantly and preserve the transported additive structure continuously
 for the discrete quotient topologies, with their kernels characterized by
-vanishing on the index-map image.
+vanishing on the index-map image.  At arbitrary torus basepoints, coordinate
+selection is also exposed as a continuous multiplicative homomorphism between
+the corresponding quotient fundamental groups, with explicit
+identity/composition coherence and a direct classifier-naturality statement.
 The general certificate also records that basepoint transport is independent
 of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along

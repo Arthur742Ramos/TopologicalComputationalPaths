@@ -57,7 +57,11 @@ project:
     quotient levels, including the converses.  Typed quotient coordinate
     maps compose contravariantly and are additive homomorphisms for the
     transported winding groups; their kernels are exactly the classes whose
-    winding vanishes on the image of the index map.
+    winding vanishes on the image of the index map.  At arbitrary torus
+    basepoints, coordinate selection is also exposed as a continuous
+    multiplicative homomorphism between the corresponding quotient
+    fundamental groups, with explicit identity/composition coherence and a
+    direct classifier-naturality corollary.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -543,6 +547,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "The typed quotient additive functor is continuous for the discrete quotient topologies, with the same identity and composition coherence."
+    - source: "Finite-torus arbitrary-basepoint quotient homomorphism"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_apply; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjectionQuotientContinuousMulHom_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at_coordinateProjection_hom"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "At arbitrary basepoints, coordinate selection is a continuous multiplicative homomorphism of quotient fundamental groups, coherently contravariant and compatible with the canonical lattice classifier."
     - source: "Finite-torus coordinate-selection coherence"
       lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateProjection_comp; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_id; ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.coordinateReindex_comp"
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"

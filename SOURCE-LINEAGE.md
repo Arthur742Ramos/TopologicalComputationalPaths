@@ -117,6 +117,10 @@ quotient topologies), and identifies its kernel by vanishing on the index-map
 image.
 The arbitrary-basepoint classifier naturality squares are also restated using
 the continuous additive reindexing morphism itself.
+At arbitrary torus basepoints, the underlying coordinate-selection maps are
+also named as continuous multiplicative homomorphisms of quotient fundamental
+groups, with identity/composition coherence and a direct classifier
+naturality corollary.
 It is an independently checked formalization of classical topology,
 not a claim
 of a new fundamental-group computation.
