@@ -171,7 +171,8 @@ The explicit standard-loop representatives and quotient decoder satisfy the
 same reindexing equation.
 These coordinate maps satisfy explicit identity and composition laws, making
 the reindexing statement functorial rather than a collection of unrelated
-equalities.
+equalities.  The continuous multiplicative lattice classifier satisfies the
+same equation, including coordinate selections between different dimensions.
 See the detailed certificate and source lineage in
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and

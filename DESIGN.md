@@ -151,6 +151,9 @@ The chosen standard representatives and the quotient decoder satisfy the same
 reindexing equation, so both sides of the classification are functorial.
 The coordinate maps also satisfy explicit identity and composition laws, so
 the classifier's naturality is presented as a coherent contravariant action.
+The continuous multiplicative lattice classifier satisfies the same
+reindexing equation for maps between different dimensions, tying the actual
+quotient group operation to that contravariant action.
 
 ## Non-goals for the first submission
 

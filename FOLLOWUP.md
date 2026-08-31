@@ -77,7 +77,9 @@ the formalization proves:
 34. the coordinate-selection maps satisfy identity and composition coherence,
     giving the reindexing construction an explicit contravariant functorial
     interface.
-35. reversing a basepoint path gives the inverse continuous multiplicative
+35. the continuous multiplicative lattice classifier is natural under those
+    coordinate selections, including maps between different finite dimensions.
+36. reversing a basepoint path gives the inverse continuous multiplicative
     transport, completing the groupoid-action coherence.
 
 The distinction between separate and joint continuity is essential.  The
@@ -127,6 +129,9 @@ The explicit standard-loop representatives and quotient decoder obey the same
 reindexing equation.
 The coordinate-selection maps themselves satisfy identity and composition
 coherence, so this is an explicit contravariant functorial interface.
+The multiplicative classifier obeys the same reindexing equation, even for
+maps between different finite dimensions, so the actual quotient group model
+is natural rather than only its underlying set-valued classifier.
 
 ## Literature and novelty boundary
 

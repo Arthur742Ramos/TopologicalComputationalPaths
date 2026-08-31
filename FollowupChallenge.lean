@@ -34,8 +34,10 @@ explicit commutativity of quotient multiplication at every basepoint.  The
 finite-torus winding vector is natural under coordinate-selection maps (the
 certificate records the fixed-dimensional reindexing instance), and the
 standard representatives and quotient classifier satisfy the matching
-reindexing equations.  The general certificate also records that
-basepoint transport is independent of the chosen path representative up to
+reindexing equations.  The multiplicative lattice classifier satisfies the
+same reindexing law, including selections between different finite dimensions.
+The general certificate also records that basepoint transport is independent
+of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths; reversing a path supplies the inverse transport.  It also
 records preservation of path-class concatenation
@@ -488,6 +490,10 @@ noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
     C(FiniteTorus n, FiniteTorus m) :=
   ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
 
+noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
+    WindingVector n → WindingVector m :=
+  fun z j => z (f j)
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -512,6 +518,11 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
         fun j => classifier q (f j)
   classifier_continuous_mul_equiv :
     LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
+  classifier_multiplicative_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (q : LoopQuot n),
+      Multiplicative.ofAdd (coordinateReindex f (classifier q)) =
+        classifier_continuous_mul_equiv
+          (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
   classifier_continuous_mul_equiv_at :
     ∀ x : FiniteTorus n,
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot

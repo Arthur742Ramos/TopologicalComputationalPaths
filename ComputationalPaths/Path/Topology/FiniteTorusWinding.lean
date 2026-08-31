@@ -22,8 +22,10 @@ path-based lattice classifier at each point is independent of the explicit
 path used to transport it.  Coordinate-selection maps between finite tori
 act on winding vectors by the corresponding reindexing map, both before and
 after passage to the quotient, and the maps themselves satisfy explicit
-identity and composition laws.  The standard-loop representatives and the
-quotient decoder satisfy the same reindexing equations.
+identity and composition laws.  The continuous multiplicative lattice
+classifier satisfies the same reindexing equation, including maps between
+different dimensions.  The standard-loop representatives and the quotient
+decoder satisfy the same reindexing equations.
 -/
 
 namespace ComputationalPaths
@@ -72,6 +74,27 @@ map between finite tori. -/
 noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
     C(Carrier n, Carrier m) :=
   ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
+
+/-- Reindexing of integer winding vectors induced by a coordinate map. -/
+noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
+    (Fin n → ℤ) →+ (Fin m → ℤ) where
+  toFun z j := z (f j)
+  map_zero' := by ext j; rfl
+  map_add' z w := by ext j; rfl
+
+/-- Lattice reindexing is contravariantly functorial. -/
+theorem coordinateReindex_comp {n m k : ℕ} (f : Fin m → Fin n)
+    (g : Fin k → Fin m) :
+    coordinateReindex (f ∘ g) =
+      (coordinateReindex g).comp (coordinateReindex f) := by
+  ext z j
+  rfl
+
+/-- Reindexing along the identity index map is the identity additive homomorphism. -/
+theorem coordinateReindex_id (n : ℕ) :
+    coordinateReindex (id : Fin n → Fin n) = AddMonoidHom.id (Fin n → ℤ) := by
+  ext z j
+  rfl
 
 /-- Coordinate-selection maps respect composition of index maps. -/
 theorem coordinateProjection_comp {n m k : ℕ} (f : Fin m → Fin n)
@@ -381,6 +404,20 @@ noncomputable def loopQuotContinuousMulEquivIntVector (n : ℕ) :
     change encode (_root_.Path.Homotopic.Quotient.trans y x) =
       encode x + encode y
     simpa [add_comm] using encode_trans y x
+
+/-- The multiplicative lattice classifier is natural under coordinate
+selection, including maps between different finite dimensions. -/
+theorem loopQuotContinuousMulEquivIntVector_coordinateProjection
+    {n m : ℕ} (f : Fin m → Fin n) (q : LoopQuot n) :
+    Multiplicative.ofAdd
+        (coordinateReindex f (encode q)) =
+      (loopQuotContinuousMulEquivIntVector m)
+        (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) := by
+  apply Multiplicative.ext
+  change coordinateReindex f (encode q) =
+    encode (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
+  funext j
+  exact (encode_coordinateProjection f q).symm ▸ rfl
 
 /-- The same integer-lattice model works at every torus basepoint, and the
 basepoint transport is a continuous multiplicative equivalence. -/

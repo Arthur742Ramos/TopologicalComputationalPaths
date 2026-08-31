@@ -27,10 +27,12 @@ based quotient.  It also identifies the actual quotient multiplication with
 the lattice operation through a continuous `Multiplicative` equivalence, and
 proves commutativity at every basepoint.  The finite-torus winding vector is
 natural under coordinate-selection maps, with the core theorem allowing
-arbitrary source and target dimensions.  Basepoint-change maps are
-The standard representatives and quotient classifier satisfy the matching
-reindexing equations as well.  Basepoint-change maps are
-additionally shown to depend only
+arbitrary source and target dimensions.  The standard representatives and
+quotient classifier satisfy the matching
+reindexing equations as well.  The continuous multiplicative lattice
+classifier satisfies the same reindexing law, including selections between
+different finite dimensions.  Basepoint-change maps are additionally shown to
+depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
 Reversing a path is proved to give the inverse transport, completing the
@@ -482,6 +484,10 @@ noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
     C(FiniteTorus n, FiniteTorus m) :=
   ⟨fun x j => x (f j), continuous_pi (fun j => continuous_apply (f j))⟩
 
+noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
+    WindingVector n → WindingVector m :=
+  fun z j => z (f j)
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -505,6 +511,11 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
         fun j => classifier q (f j)
   classifier_continuous_mul_equiv :
     LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
+  classifier_multiplicative_coordinate_projection :
+    ∀ (f : Fin n → Fin n) (q : LoopQuot n),
+      Multiplicative.ofAdd (coordinateReindex f (classifier q)) =
+        classifier_continuous_mul_equiv
+          (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
   classifier_continuous_mul_equiv_at :
     ∀ x : FiniteTorus n,
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
@@ -863,6 +874,17 @@ theorem main_result :
     classifier := FiniteTorusWinding.loopQuotHomeomorphIntVector n
     classifier_continuous_mul_equiv :=
       FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n
+    classifier_multiplicative_coordinate_projection := by
+      intro f q
+      change Multiplicative.ofAdd
+          (FiniteTorusWinding.coordinateReindex f
+            (FiniteTorusWinding.loopQuotHomeomorphIntVector n q)) =
+        (FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n)
+          (_root_.Path.Homotopic.Quotient.map q
+            (FiniteTorusWinding.coordinateProjection f))
+      exact
+        FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_coordinateProjection
+          f q
     classifier_continuous_mul_equiv_at := by
       intro x
       exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at n x
