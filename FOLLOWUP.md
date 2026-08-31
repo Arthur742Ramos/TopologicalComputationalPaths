@@ -299,7 +299,11 @@ the formalization proves:
 107. a Smith cokernel class has finite additive order exactly when every zero
      Smith factor carries a zero transformed coordinate.
 108. this finite-order torsion criterion is transported to lattice and
-     finite-torus matrix representatives.
+    finite-torus matrix representatives.
+109. the exponent of an arbitrary-rank Smith cokernel is exactly the lcm of
+     its Smith-factor moduli, with a zero factor forcing exponent zero.
+110. this exponent identity is transported to arbitrary rectangular lattice
+     and finite-torus matrix cokernels.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

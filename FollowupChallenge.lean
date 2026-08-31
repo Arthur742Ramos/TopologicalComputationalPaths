@@ -139,6 +139,9 @@ inverse witness, including at arbitrary basepoints.
     The arbitrary-rank presentation additionally proves the exact `Nat.card`
     product formula without a finiteness assumption, including infinite cases
     through the `ZMod 0` factors.
+    The same arbitrary-rank presentation identifies the additive exponent with
+    the lcm of the Smith-factor moduli, so a zero factor forces exponent zero
+    and records the free summand both elementwise and globally.
     It also supplies exact Smith-coordinate divisibility tests for lattice and
     finite-torus matrix-image membership, including the zero-factor equations.
     The topological Smith equivalence has an explicit quotient-representative

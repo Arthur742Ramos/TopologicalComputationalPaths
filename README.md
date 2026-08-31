@@ -303,6 +303,9 @@ For square nonsingular matrices, a checked arithmetic bridge identifies the
 Smith-modulus product on both sides with `Int.natAbs (Matrix.det A)`.
 The arbitrary-rank `Nat.card` formula remains exact even for infinite
 cokernels, where a `ZMod 0` factor contributes cardinality zero.
+The same arbitrary-rank presentation identifies the additive exponent with the
+lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
+records the free summand both elementwise and globally.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,

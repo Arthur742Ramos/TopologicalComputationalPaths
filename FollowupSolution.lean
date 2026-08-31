@@ -132,6 +132,9 @@ equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The arbitrary-rank presentation also proves the exact `Nat.card` product
 formula without a finiteness assumption, including the infinite `ZMod 0`
 cases.
+The same arbitrary-rank presentation identifies the additive exponent with the
+lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
+records the free summand both elementwise and globally.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative

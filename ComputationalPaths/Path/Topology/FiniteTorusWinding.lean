@@ -126,6 +126,9 @@ In the square nonsingular specialization, the Smith-modulus product is proved
 to equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
 The product formula itself is also established for arbitrary rank, with
 `Nat.card = 0` on precisely the infinite cases.
+The same arbitrary-rank presentation identifies the additive exponent with
+the lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
+records the free summand both elementwise and globally.
 The same coordinates give exact divisibility membership tests for the matrix
 images, including the vanishing equations forced by zero factors.
 The topological Smith equivalence has a proved quotient-representative formula
@@ -2578,6 +2581,19 @@ noncomputable def submoduleCokernelSmithEquiv
           ((snf.bM.equivFun : (Fin m → ℤ) →ₗ[ℤ] (Fin m → ℤ)) x i)) := by
   rfl
 
+/-- The exponent of an arbitrary-rank Smith cokernel is the lcm of the
+Smith-factor moduli.  A zero factor therefore forces exponent zero, recording
+the presence of a free summand rather than silently discarding it. -/
+theorem submoduleCokernel_exponent_eq_smithFactorLcm
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ N) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor snf i).natAbs) := by
+  rw [AddMonoid.exponent_eq_of_addEquiv (submoduleCokernelSmithEquiv snf)]
+  rw [AddMonoid.exponent_pi]
+  simp only [ZMod.exponent]
+
 /-- The additive order of a Smith cokernel class is exactly the lcm of the
 orders of its decoded cyclic coordinates.  This remains meaningful in the
 rank-deficient case because a nonzero `ZMod 0` coordinate contributes order
@@ -2850,6 +2866,19 @@ theorem matrixAction_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
           (Submodule.Quotient.mk x) i)) := by
   rw [← (matrixAction_cokernel_smithEquiv A).addOrderOf_eq]
   rw [Pi.addOrderOf]
+
+/-- The exponent of an arbitrary-rank lattice cokernel is the lcm of its
+Smith-factor moduli, including exponent zero when a free factor remains. -/
+theorem matrixAction_cokernel_exponent_eq_smithFactorLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent ((Fin m → ℤ) ⧸ ((matrixAction A).range.toIntSubmodule)) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs) := by
+  exact submoduleCokernel_exponent_eq_smithFactorLcm
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2
 
 /-- For a finite lattice cokernel, the class order is the lcm of the explicit
 Smith modulus/gcd orders of the transformed winding coordinates. -/
@@ -4661,6 +4690,20 @@ theorem matrixMapQuotientAddHom_cokernel_addOrderOf_mk_eq_smithCoordinateLcm
           (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) i)) := by
   rw [← (matrixMapQuotientAddHom_cokernel_smithAddEquiv A).addOrderOf_eq]
   rw [Pi.addOrderOf]
+
+/-- The exponent of an arbitrary-rank finite-torus cokernel is the lcm of its
+Smith-factor moduli, including exponent zero when a free factor remains. -/
+theorem matrixMapQuotientAddHom_cokernel_exponent_eq_smithFactorLcm
+    {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    AddMonoid.exponent (LoopQuot m ⧸ (matrixMapQuotientAddHom A).range) =
+      Finset.univ.lcm (fun i : Fin m =>
+        (smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i).natAbs) := by
+  rw [AddMonoid.exponent_eq_of_addEquiv
+    (matrixMapQuotientAddHom_cokernel_smithAddEquiv A)]
+  rw [AddMonoid.exponent_pi]
+  simp only [ZMod.exponent]
 
 /-- For a finite-torus cokernel, the class order is the lcm of the explicit
 Smith modulus/gcd orders of the decoded winding coordinates. -/
