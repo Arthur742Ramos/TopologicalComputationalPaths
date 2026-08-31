@@ -19,8 +19,9 @@ theorem and the finite-dimensional winding/classifier certificate.  Its
 Smith and matrix fields are integer-lattice cokernel fields carried by the
 certificate, not a claim that every repository matrix wrapper
 or arbitrary indexed product is selected.  The narrowly scoped centrality
-theorem is recorded in the metadata as an `original-proof` result with an
-independently developed proof; the classical
+theorem is recorded in the metadata as a narrowly scoped local formalization
+entry with relationship `other`; this identifies the source-linked synthesis
+without a first-publication claim.  The classical
 quotient-topology, winding, and Smith ingredients are attributed in
 `formalization.yaml`.
 
@@ -504,10 +505,10 @@ parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
 For the follow-up, the parent setting is recorded as an `adapts` source.  The
-only `original-proof` entry is the exact relative-centrality iff named in the
-follow-up metadata; the circle, quotient-topology, change-of-basepoint, and
-Smith ingredients are recorded as literature formalizations rather than as
-first discoveries here.
+narrowly scoped `other` entry identifies the exact relative-centrality iff
+named in the follow-up metadata; the circle, quotient-topology,
+change-of-basepoint, and Smith ingredients are recorded as literature
+formalizations rather than as first discoveries here.
 
 ## Publication boundary
 

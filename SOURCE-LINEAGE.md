@@ -59,10 +59,10 @@ the research lineage and exact non-novelty boundary are recorded in
 `formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
 primary literature context.
 
-The follow-up's only scoped independently-proved result is the exact
-relative-centrality criterion for equality of basepoint transports, recorded
-in the metadata as an `original-proof` entry.  This is a claim about that
-specific combined theorem statement and interface, not a claim of first
+The follow-up's exact relative-centrality criterion for equality of basepoint
+transports is recorded as a narrowly scoped local formalization entry with
+relationship `other`.  This identifies the source-linked synthesis of that
+specific combined theorem statement and interface without claiming first
 discovery for the classical change-of-basepoint construction or for the
 bundled Lean certificate.
 

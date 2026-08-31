@@ -122,21 +122,23 @@ sources:
       - "Anjolina Grisi de Oliveira"
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
-    type: "original-proof"
+    type: "formalization"
     id: "FollowupSolution.lean"
     location: "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
     relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This entry is deliberately limited to the exact necessary-and-sufficient
-      relative-centrality criterion for equality of two basepoint transports.
-      It is not a first-presentation claim for the bundled Lean certificate or
-      for the classical winding, quotient-topology, change-of-basepoint, or
-      Smith results.  The cited literature entries provide the substantive
-      context.  The audit found the standard inner-conjugation and abelian
-      endpoint-independence statements in general topology texts, but did not
-      locate this exact quotient-topological transport-equality criterion in
-      the cited sources.
+      This local formalization entry is deliberately limited to the exact
+      necessary-and-sufficient relative-centrality criterion for equality of
+      two basepoint transports.  Its relationship is recorded as other to
+      identify a source-linked synthesis without conflating a bundled Lean
+      certificate with a literature-first result.  It makes no
+      first-presentation or priority claim for the classical winding,
+      quotient-topology, change-of-basepoint, or Smith results.  The cited
+      literature entries provide the substantive context.  The audit found
+      the standard inner-conjugation and abelian endpoint-independence
+      statements in general topology texts, but did not locate this exact
+      quotient-topological transport-equality criterion in the cited sources.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -263,11 +265,11 @@ research_interest:
     Hatcher supplies the classical winding context; Norman supplies the Smith
     invariant-factor context; and the pinned parent manuscript supplies the
     computational-path setting.  The metadata records these relationships as
-    formalizes/adapts.  The exact centrality iff is separately recorded as an
-    `original-proof` entry (with the intake-required `other` relationship),
-    whose independently developed proof is limited to that theorem and its
-    stated interface.  No first-publication claim is made for the
-    classical ingredients or for the bundled Lean certificate.  The literature
+    formalizes/adapts.  The exact centrality iff is separately recorded as a
+    narrowly scoped local formalization entry with relationship `other`,
+    identifying the source-linked synthesis without a first-publication claim.
+    No first-publication claim is made for the classical ingredients or for the
+    bundled Lean certificate.  The literature
     audit found standard inner-conjugation and abelian endpoint-independence
     statements in general topology texts, but did not locate this exact
     quotient-topological transport-equality criterion stated in the cited
@@ -315,9 +317,9 @@ review:
     The selected structure, named fields, source relationships, and excluded
     repository results were audited together.  The cited literature supplies
     substantive source relationships for the formalized boundaries, and the
-    sole `original-proof` entry is scoped to the named centrality iff.  No
-    source entry claims first presentation of the bundled certificate or of
-    the classical mathematics.  Technical builds and Comparator replay do not
+    local `other` entry is scoped to the named centrality iff.  No source entry
+    claims first presentation of the bundled certificate or of the classical
+    mathematics.  Technical builds and Comparator replay do not
     constitute independent peer review or novelty approval.
 
 alignment:

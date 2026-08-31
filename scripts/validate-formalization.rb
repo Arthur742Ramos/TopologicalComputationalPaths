@@ -81,13 +81,16 @@ if followup
   substantive = %w[formalizes adapts independently-proves]
   abort "follow-up sources must record substantive literature relationships" unless
     sources.any? { |source| substantive.include?(source["relationship"]) }
-  original_sources = sources.select { |source| source["type"] == "original-proof" }
-  abort "follow-up must have exactly one scoped original-proof source" unless original_sources.length == 1
-  original = original_sources.first
-  abort "original-proof source must be scoped to the centrality iff" unless
-    original["relationship"] == "other" &&
-      original["title"].to_s.include?("centrality") &&
-      original["location"].to_s.include?("quotient_basepoint_change_relative_comm_iff")
+  abort "follow-up sources must not use original-proof mode with substantive sources" if
+    sources.any? { |source| source["type"] == "original-proof" }
+  local_sources = sources.select do |source|
+    source["title"].to_s.include?("centrality") &&
+      source["location"].to_s.include?("quotient_basepoint_change_relative_comm_iff")
+  end
+  abort "follow-up must have exactly one scoped centrality formalization source" unless local_sources.length == 1
+  local = local_sources.first
+  abort "centrality source must be a scoped other formalization entry" unless
+    local["type"] == "formalization" && local["relationship"] == "other"
 end
 
 methods = document.dig("automation", "methods")

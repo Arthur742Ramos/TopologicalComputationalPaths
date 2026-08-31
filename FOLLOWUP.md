@@ -607,9 +607,10 @@ homogeneous, and discrete for familiar semilocally simply connected spaces;
 the circle, finite-torus, and Smith normal-form calculations are classical.
 Those sources are recorded in `formalization.yaml` with `formalizes`
 relationships, and the parent computational-path manuscript is recorded with
-`adapts`.  The sole `original-proof` entry is scoped to the exact centrality
-iff below; no source entry claims first presentation of the bundled Lean
-certificate or of the classical calculations.
+`adapts`.  A narrowly scoped local formalization entry with relationship
+`other` identifies the exact centrality iff below; no source entry claims
+first presentation of the bundled Lean certificate or of the classical
+calculations.
 
 The specifically identified research contribution is the exact
 `quotient_basepoint_change_relative_comm_iff` theorem.  For arbitrary pointed
@@ -625,14 +626,13 @@ The finite-torus classifier and selected lattice Smith profiles provide a
 uniform, nontrivial test family
 for that coherence mechanism.
 
-The originality claim is limited to this source-linked formalized coherence
-synthesis and its exact theorem interface.  It is not a claim that winding,
-Smith factors, determinant indices, or the underlying change-of-basepoint
-construction were first discovered here.  The audit found standard
-inner-conjugation and abelian endpoint-independence statements in general
-topology texts, but did not locate this exact quotient-topological
-transport-equality criterion in the cited sources; the `original-proof` entry
-therefore records only this scoped theorem, not the whole bundle.  The
+The contribution claim is limited to this source-linked formalized coherence
+synthesis and its exact theorem interface; it is not a priority claim.  It is
+not a claim that winding, Smith factors, determinant indices, or the
+underlying change-of-basepoint construction were first discovered here.  The
+audit found standard inner-conjugation and abelian endpoint-independence
+statements in general topology texts, but did not locate this exact
+quotient-topological transport-equality criterion in the cited sources.  The
 repository's larger topological
 matrix-map, determinant-cardinality, CRT, free-factor, and annihilator
 developments remain useful supporting material outside the selected Comparator
