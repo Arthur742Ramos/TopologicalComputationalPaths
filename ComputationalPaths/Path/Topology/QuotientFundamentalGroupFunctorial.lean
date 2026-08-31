@@ -211,6 +211,23 @@ theorem basepointChangeContinuousMulEquiv_apply {x₀ x₁ : X}
     _ = (α.inv ≫ q) ≫ α.hom := (Category.assoc _ _ _).symm
     _ = _ := rfl
 
+/-- Basepoint transport depends only on the endpoint-fixed homotopy class of
+the chosen path.  This is the coherence needed to use path transport as a
+quotient-topological construction rather than as a choice of representative.
+-/
+theorem basepointChangeContinuousMulEquiv_eq_of_homotopic
+    {x₀ x₁ : X} (p q : _root_.Path x₀ x₁) (h : p.Homotopic q) :
+    basepointChangeContinuousMulEquiv p =
+      basepointChangeContinuousMulEquiv q := by
+  ext r
+  rw [basepointChangeContinuousMulEquiv_apply,
+    basepointChangeContinuousMulEquiv_apply]
+  apply congrArg₂ (fun a b =>
+      _root_.Path.Homotopic.Quotient.trans
+        (_root_.Path.Homotopic.Quotient.trans a r) b)
+  · exact Quotient.sound h.symm₂
+  · exact Quotient.sound h
+
 /-- Discreteness of the quotient topology is independent of the chosen
 basepoint along a path. -/
 theorem quotientDiscreteTopology_iff_of_path {x₀ x₁ : X}

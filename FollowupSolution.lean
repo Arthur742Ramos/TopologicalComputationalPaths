@@ -23,7 +23,8 @@ of openness of every homotopy class, hence the converse semilocal/discrete
 equivalence.  The finite-torus certificate transports discreteness from the
 zero basepoint to every point and records semilocal simple connectivity
 globally, together with a common integer-lattice homeomorphism for every
-based quotient.
+based quotient.  Basepoint-change maps are additionally shown to depend only
+on endpoint-fixed homotopy classes of paths.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -116,6 +117,19 @@ structure QuotientTopologicalFundamentalGroupTheory where
               (_root_.Path.Homotopic.Quotient.trans
                 (Quotient.mk' p.symm) q)
               (Quotient.mk' p)
+  quotient_basepoint_change_homotopy_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p q : _root_.Path x₀ x₁),
+      p.Homotopic q →
+        ∀ z : GenericLoopQuot X x₀,
+          _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) z)
+              (Quotient.mk' p) =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' q.symm) z)
+              (Quotient.mk' q)
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),
@@ -354,6 +368,15 @@ theorem main_result :
             p).toHomeomorph,
           ?_⟩
         exact QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply p
+      quotient_basepoint_change_homotopy_invariant := by
+        intro X _ x₀ x₁ p q h z
+        have he :=
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_homotopic
+            p q h
+        have hz := congrArg (fun E => E z) he
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
+        exact hz
       quotient_path_connected_basepoint_independent := by
         intro X _ _ x₀ x₁
         exact ⟨

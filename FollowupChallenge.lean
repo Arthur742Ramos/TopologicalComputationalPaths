@@ -28,7 +28,9 @@ criterion: semilocal simple connectivity is equivalent to discreteness of
 every based quotient fundamental group, and every based-loop homotopy class is
 open.  The finite-torus certificate additionally exposes the all-basepoint
 semilocal consequence and the all-basepoint integer-lattice classifier from
-the basepoint-transport theorem.
+the basepoint-transport theorem.  The general certificate also records that
+basepoint transport is independent of the chosen path representative up to
+endpoint-fixed homotopy.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -123,6 +125,19 @@ structure QuotientTopologicalFundamentalGroupTheory where
               (_root_.Path.Homotopic.Quotient.trans
                 (Quotient.mk' p.symm) q)
               (Quotient.mk' p)
+  quotient_basepoint_change_homotopy_invariant :
+    ∀ (X : Type u) [TopologicalSpace X] {x₀ x₁ : X}
+      (p q : _root_.Path x₀ x₁),
+      p.Homotopic q →
+        ∀ z : GenericLoopQuot X x₀,
+          _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' p.symm) z)
+              (Quotient.mk' p) =
+            _root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans
+                (Quotient.mk' q.symm) z)
+              (Quotient.mk' q)
   quotient_path_connected_basepoint_independent :
     ∀ (X : Type u) [TopologicalSpace X] [PathConnectedSpace X]
       (x₀ x₁ : X),

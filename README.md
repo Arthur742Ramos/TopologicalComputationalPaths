@@ -99,8 +99,10 @@ map, every homotopy class is open, and concatenation is jointly continuous.
 This separates the always-valid quasitopological-group laws from the stronger
 joint continuity that fails in the accepted Hawaiian-earring application.
 The follow-up also proves that quotient discreteness is invariant under
-homotopy equivalence and path-based basepoint change, and that semilocal simple
-connectivity is homotopy invariant for locally path-connected spaces.  It also
+homotopy equivalence and path-based basepoint change.  The basepoint-change map
+depends only on the path's endpoint-fixed homotopy class.  It also proves that
+semilocal simple connectivity is homotopy invariant for locally
+path-connected spaces, and that
 shows that joint continuity of quotient concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
 

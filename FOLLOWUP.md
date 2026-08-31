@@ -37,6 +37,8 @@ the formalization proves:
 15. under the exact open-null-class criterion, every homotopy class is open, the quotient map
    is open, its square is a quotient map, and concatenation is jointly
    continuous for the ordinary product topology.
+16. the basepoint-change equivalence depends only on the endpoint-fixed
+    homotopy class of the chosen path.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -88,7 +90,9 @@ equivalences induced by homotopy equivalences and basepoint paths, giving
 homotopy invariance of semilocal simple connectivity in the stated locally
 path-connected category.  The same multiplicative homeomorphisms transport
 the boundary between separate and joint continuity, so the topological-group
-failure is itself a homotopy-invariant quotient-topology phenomenon.
+failure is itself a homotopy-invariant quotient-topology phenomenon.  The
+basepoint-change maps are also proved independent of the chosen path
+representative whenever two paths are endpoint-fixed homotopic.
 
 The contribution is a focused, kernel-checked Lean realization that connects
 the general quotient-topological mechanism to explicit compact-open winding
