@@ -245,6 +245,10 @@ same exact index and cokernel cardinality, with finiteness exposed directly.
 For composable non-singular square matrices, the determinant index is proved
 multiplicative under matrix composition both on the winding lattice and on the
 canonical topological quotient obstruction.
+This multiplicativity is witnessed structurally: composition by `B` induces a
+canonical additive map from the cokernel of `A` into the cokernel of `B ∘ A`,
+and that map is proved injective whenever `det B ≠ 0`, on both the winding
+lattice and the actual topological loop-class quotient.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

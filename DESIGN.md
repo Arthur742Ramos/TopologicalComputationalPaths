@@ -228,6 +228,10 @@ topological loop-class quotient as well.
 For composable non-singular square matrices, these exact indices are proved
 multiplicative under the matrix-composition law on both sides of the winding
 classifier.
+The composition law also has a canonical structural witness: `B` induces an
+additive map from the cokernel of `A` into that of `B ∘ A`, and the map is
+injective whenever the determinant of `B` is nonzero.  The same embedding is
+proved directly for the topological quotient cokernels.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

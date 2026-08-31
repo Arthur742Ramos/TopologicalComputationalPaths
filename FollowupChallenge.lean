@@ -98,6 +98,9 @@ inverse witness, including at arbitrary basepoints.
     For composable non-singular square matrices, the determinant index is
     multiplicative under matrix composition on both the lattice and canonical
     quotient cokernel.
+    Composition by a non-singular matrix `B` also induces a canonical additive
+    map from the cokernel of `A` into that of `B ∘ A`, proved injective on both
+    the winding lattice and the topological quotient.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient

@@ -1640,6 +1640,72 @@ theorem matrixAction_cokernel_card_comp {n : ℕ}
   · rw [matrixCompose_det]
     exact mul_ne_zero hB hA
 
+/-- Composition induces the canonical additive map from the cokernel of `A`
+to the cokernel of `B ∘ A`.  The target uses the same row-by-column
+`matrixCompose` convention as the torus maps. -/
+noncomputable def matrixAction_cokernel_compMap {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    (Fin n → ℤ) ⧸ (matrixAction A).range →+
+      (Fin n → ℤ) ⧸ (matrixAction (matrixCompose A B)).range := by
+  let N : AddSubgroup (Fin n → ℤ) := (matrixAction A).range
+  let M : AddSubgroup (Fin n → ℤ) :=
+    (matrixAction (matrixCompose A B)).range
+  have hNM : N ≤ AddSubgroup.comap (matrixAction B) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    exact congrArg (fun F : (Fin n → ℤ) →+ (Fin n → ℤ) => F w)
+      (matrixAction_comp_hom A B)
+  exact QuotientAddGroup.map N M (matrixAction B) hNM
+
+/-- If `B` has nonzero determinant, the composition map on additive
+cokernels is injective.  This is the algebraic embedding behind the
+multiplicative determinant-index law. -/
+theorem matrixAction_cokernel_compMap_injective_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0) :
+    Function.Injective (matrixAction_cokernel_compMap A B) := by
+  let N : AddSubgroup (Fin n → ℤ) := (matrixAction A).range
+  let M : AddSubgroup (Fin n → ℤ) :=
+    (matrixAction (matrixCompose A B)).range
+  have hNM : N ≤ AddSubgroup.comap (matrixAction B) M := by
+    intro z hz
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hz with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    exact congrArg (fun F : (Fin n → ℤ) →+ (Fin n → ℤ) => F w)
+      (matrixAction_comp_hom A B)
+  intro x y hxy
+  obtain ⟨x', rfl⟩ := QuotientAddGroup.mk'_surjective N x
+  obtain ⟨y', rfl⟩ := QuotientAddGroup.mk'_surjective N y
+  change (QuotientAddGroup.map N M (matrixAction B) hNM)
+      ((QuotientAddGroup.mk' N) x') =
+    (QuotientAddGroup.map N M (matrixAction B) hNM)
+      ((QuotientAddGroup.mk' N) y') at hxy
+  rw [QuotientAddGroup.map_mk' N M (matrixAction B) hNM x',
+    QuotientAddGroup.map_mk' N M (matrixAction B) hNM y'] at hxy
+  change (x' : (Fin n → ℤ) ⧸ N) = (y' : (Fin n → ℤ) ⧸ N)
+  rw [QuotientAddGroup.eq_iff_sub_mem] at hxy ⊢
+  rcases hxy with ⟨z, hz⟩
+  rw [AddMonoidHom.mem_range]
+  refine ⟨z, ?_⟩
+  have hB_inj : Function.Injective (matrixAction B) :=
+    (matrixAction_injective_iff_det_ne_zero B).mpr hB
+  have hzero : matrixAction B (x' - y' - matrixAction A z) = 0 := by
+    rw [map_sub, map_sub]
+    rw [matrixAction_comp A B z, hz]
+    simp
+  have hEq : x' - y' - matrixAction A z = 0 := by
+    apply hB_inj
+    simpa using hzero
+  have hrel : x' - y' = matrixAction A z := by
+    exact sub_eq_zero.mp hEq
+  rw [hrel]
+
 /-- A nonzero determinant makes the winding-lattice cokernel finite. -/
 theorem matrixAction_cokernel_finite {n : ℕ}
     (A : Fin n → Fin n → ℤ) (hA : Matrix.det A ≠ 0) :
@@ -2748,6 +2814,85 @@ theorem matrixMapQuotientAddHom_cokernel_card_comp {n : ℕ}
     exact Nat.mul_comm _ _
   · rw [matrixCompose_det]
     exact mul_ne_zero hB hA
+
+/-- Composition induces the canonical additive map from the topological
+quotient cokernel of `A` into that of `B ∘ A`. -/
+noncomputable def matrixMapQuotientAddHom_cokernel_compMap {n : ℕ}
+    (A B : Fin n → Fin n → ℤ) :
+    LoopQuot n ⧸ (matrixMapQuotientAddHom A).range →+
+      LoopQuot n ⧸ (matrixMapQuotientAddHom (matrixCompose A B)).range := by
+  let N : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom A).range
+  let M : AddSubgroup (LoopQuot n) :=
+    (matrixMapQuotientAddHom (matrixCompose A B)).range
+  have hNM : N ≤ AddSubgroup.comap (matrixMapQuotientAddHom B) M := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    exact hcomp
+  exact QuotientAddGroup.map N M (matrixMapQuotientAddHom B) hNM
+
+/-- If `B` has nonzero determinant, the topological quotient cokernel map
+induced by composition is injective. -/
+theorem matrixMapQuotientAddHom_cokernel_compMap_injective_of_det_ne_zero
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) (hB : Matrix.det B ≠ 0) :
+    Function.Injective (matrixMapQuotientAddHom_cokernel_compMap A B) := by
+  let N : AddSubgroup (LoopQuot n) := (matrixMapQuotientAddHom A).range
+  let M : AddSubgroup (LoopQuot n) :=
+    (matrixMapQuotientAddHom (matrixCompose A B)).range
+  have hNM : N ≤ AddSubgroup.comap (matrixMapQuotientAddHom B) M := by
+    intro q hq
+    rw [AddSubgroup.mem_comap]
+    rcases (AddMonoidHom.mem_range).mp hq with ⟨w, hw⟩
+    rw [AddMonoidHom.mem_range]
+    refine ⟨w, ?_⟩
+    rw [← hw]
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) w =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A w) := by
+      change matrixMapQuotientMap (matrixCompose A B) w =
+        matrixMapQuotientMap B (matrixMapQuotientMap A w)
+      exact (matrixMapQuotientMap_comp A B w).symm
+    exact hcomp
+  intro x y hxy
+  obtain ⟨x', rfl⟩ := QuotientAddGroup.mk'_surjective N x
+  obtain ⟨y', rfl⟩ := QuotientAddGroup.mk'_surjective N y
+  change (QuotientAddGroup.map N M (matrixMapQuotientAddHom B) hNM)
+      ((QuotientAddGroup.mk' N) x') =
+    (QuotientAddGroup.map N M (matrixMapQuotientAddHom B) hNM)
+      ((QuotientAddGroup.mk' N) y') at hxy
+  rw [QuotientAddGroup.map_mk' N M (matrixMapQuotientAddHom B) hNM x',
+    QuotientAddGroup.map_mk' N M (matrixMapQuotientAddHom B) hNM y'] at hxy
+  change (x' : LoopQuot n ⧸ N) = (y' : LoopQuot n ⧸ N)
+  rw [QuotientAddGroup.eq_iff_sub_mem] at hxy ⊢
+  rcases hxy with ⟨z, hz⟩
+  rw [AddMonoidHom.mem_range]
+  refine ⟨z, ?_⟩
+  have hB_inj : Function.Injective (matrixMapQuotientAddHom B) :=
+    (matrixMapQuotientMap_injective_iff_det_ne_zero B).mpr hB
+  have hzero : matrixMapQuotientAddHom B
+      (x' - y' - matrixMapQuotientAddHom A z) = 0 := by
+    rw [map_sub, map_sub]
+    have hcomp : matrixMapQuotientAddHom (matrixCompose A B) z =
+        matrixMapQuotientAddHom B (matrixMapQuotientAddHom A z) :=
+      by
+        change matrixMapQuotientMap (matrixCompose A B) z =
+          matrixMapQuotientMap B (matrixMapQuotientMap A z)
+        exact (matrixMapQuotientMap_comp A B z).symm
+    rw [← hcomp, hz]
+    simp
+  have hEq : x' - y' - matrixMapQuotientAddHom A z = 0 := by
+    apply hB_inj
+    simpa only [map_zero] using hzero
+  have hrel : x' - y' = matrixMapQuotientAddHom A z := by
+    exact sub_eq_zero.mp hEq
+  rw [hrel]
 
 /-- The canonical topological quotient cokernel is an abelian group with the
 same Smith-normal-form decomposition as the winding-lattice cokernel. -/

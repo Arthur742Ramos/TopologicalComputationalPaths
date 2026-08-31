@@ -93,6 +93,9 @@ finite.
 For composable non-singular square matrices, the determinant index is proved
 multiplicative under matrix composition on both the winding lattice and the
 canonical quotient obstruction.
+Composition by a non-singular matrix `B` additionally induces a canonical
+additive map from the cokernel of `A` into that of `B ∘ A`; the map is proved
+injective on both the winding lattice and the actual topological quotient.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
