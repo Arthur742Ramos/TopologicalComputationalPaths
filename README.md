@@ -104,7 +104,9 @@ depends only on the path's endpoint-fixed homotopy class.  It also proves that
 semilocal simple connectivity is homotopy invariant for locally
 path-connected spaces, and that basepoint transport composes along
 concatenated paths, with transport along a constant path identified with the
-identity equivalence.  It also shows that joint continuity of quotient
+identity equivalence.  Reversing a path is proved to give the inverse
+continuous multiplicative transport, completing the groupoid-action coherence.
+It also shows that joint continuity of quotient
 concatenation—and hence the genuine
 topological-group boundary—is invariant under homotopy equivalence.
 If the target quotient group is abelian, the transport equivalence is in fact

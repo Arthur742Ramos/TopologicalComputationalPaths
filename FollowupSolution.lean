@@ -33,6 +33,8 @@ reindexing equations as well.  Basepoint-change maps are
 additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
+Reversing a path is proved to give the inverse transport, completing the
+groupoid-action coherence.
 The certificate also exposes preservation of path-class concatenation under
 continuous maps and the associated naturality square for basepoint transport.
 It also exposes the pointed conjugacy relation for homotopic maps.  The
@@ -294,6 +296,18 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (_root_.Path.Homotopic.Quotient.trans
               (Quotient.mk' (_root_.Path.refl x)) z)
             (Quotient.mk' (_root_.Path.refl x)) = z
+  quotient_basepoint_change_reverse :
+    ∀ (X : Type u) [TopologicalSpace X]
+      {x₀ x₁ : X} (p : _root_.Path x₀ x₁),
+      ∀ z : GenericLoopQuot X x₁,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm)
+              (_root_.Path.Homotopic.Quotient.trans
+                (_root_.Path.Homotopic.Quotient.trans
+                  (Quotient.mk' p) z)
+                (Quotient.mk' p.symm)))
+            (Quotient.mk' p) = z
   quotient_basepoint_change_naturality :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (f : C(X, Y)) {x₀ x₁ : X} (p : _root_.Path x₀ x₁)
@@ -718,6 +732,21 @@ theorem main_result :
         have hz := congrArg (fun E => E z) he
         rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hz
         exact hz
+      quotient_basepoint_change_reverse := by
+        intro X _ x₀ x₁ p z
+        have hsymm :=
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_symm p
+        have hcancel :=
+          (QuotientFundamentalGroup.basepointChangeContinuousMulEquiv p).apply_symm_apply z
+        rw [hsymm] at hcancel
+        rw [QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply,
+          QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_apply] at hcancel
+        change
+          (( _root_.Path.Homotopic.Quotient.mk p.symm).trans
+            (((_root_.Path.Homotopic.Quotient.mk p).trans z).trans
+              (_root_.Path.Homotopic.Quotient.mk p.symm))).trans
+            (_root_.Path.Homotopic.Quotient.mk p) = z
+        simpa only [_root_.Path.symm_symm] using hcancel
       quotient_basepoint_change_naturality := by
         intro X Y _ _ f x₀ x₁ p q
         have hz :=

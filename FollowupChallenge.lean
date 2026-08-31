@@ -37,7 +37,8 @@ standard representatives and quotient classifier satisfy the matching
 reindexing equations.  The general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
-concatenated paths.  It also records preservation of path-class concatenation
+concatenated paths; reversing a path supplies the inverse transport.  It also
+records preservation of path-class concatenation
 under continuous maps and naturality of basepoint transport, together with
 the conjugacy law for homotopic maps.  It also records basepoint invariance
 of the joint-continuity boundary, and the pointed specialization that a
@@ -301,6 +302,18 @@ structure QuotientTopologicalFundamentalGroupTheory where
             (_root_.Path.Homotopic.Quotient.trans
               (Quotient.mk' (_root_.Path.refl x)) z)
             (Quotient.mk' (_root_.Path.refl x)) = z
+  quotient_basepoint_change_reverse :
+    ∀ (X : Type u) [TopologicalSpace X]
+      {x₀ x₁ : X} (p : _root_.Path x₀ x₁),
+      ∀ z : GenericLoopQuot X x₁,
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (Quotient.mk' p.symm)
+              (_root_.Path.Homotopic.Quotient.trans
+                (_root_.Path.Homotopic.Quotient.trans
+                  (Quotient.mk' p) z)
+                (Quotient.mk' p.symm)))
+            (Quotient.mk' p) = z
   quotient_basepoint_change_naturality :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       (f : C(X, Y)) {x₀ x₁ : X} (p : _root_.Path x₀ x₁)

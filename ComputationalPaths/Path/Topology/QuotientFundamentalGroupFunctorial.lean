@@ -25,6 +25,8 @@ More generally, two paths give the same transport exactly when their relative
 loop is central in the target quotient.  When the target quotient group is
 abelian, basepoint transport is therefore independent of the chosen path even
 without an endpoint-fixed homotopy between paths.
+Reversing a path gives the inverse continuous multiplicative equivalence, so
+the transport laws form a genuine groupoid action.
 On a path-connected space, joint continuity at one basepoint is therefore
 equivalent to joint continuity at every basepoint; the same one-point test
 holds for discreteness, T1 separation, and the genuine topological-group
@@ -477,6 +479,36 @@ theorem basepointChangeContinuousMulEquiv_refl (x : X) :
   ext r
   rw [basepointChangeContinuousMulEquiv_apply]
   simp
+
+/-! The identity and composition laws make reversed paths genuine inverses. -/
+
+/-- Reversing a basepoint-changing path gives the inverse continuous
+multiplicative equivalence.  Thus basepoint transport is a groupoid action,
+not merely a family of bijections. -/
+theorem basepointChangeContinuousMulEquiv_symm
+    {x₀ x₁ : X} (p : _root_.Path x₀ x₁) :
+    (basepointChangeContinuousMulEquiv p).symm =
+      basepointChangeContinuousMulEquiv p.symm := by
+  let A := basepointChangeContinuousMulEquiv p
+  let B := basepointChangeContinuousMulEquiv p.symm
+  have hpath : p.symm.trans p |>.Homotopic (_root_.Path.refl x₁) :=
+    _root_.Path.Homotopic.symm_trans p
+  have hcomp : B.trans A = ContinuousMulEquiv.refl (LoopQuot X x₁) := by
+    calc
+      B.trans A = basepointChangeContinuousMulEquiv (p.symm.trans p) := by
+        exact basepointChangeContinuousMulEquiv_trans p.symm p
+      _ = basepointChangeContinuousMulEquiv (_root_.Path.refl x₁) :=
+        basepointChangeContinuousMulEquiv_eq_of_homotopic _ _ hpath
+      _ = ContinuousMulEquiv.refl (LoopQuot X x₁) :=
+        basepointChangeContinuousMulEquiv_refl x₁
+  apply ContinuousMulEquiv.ext
+  intro r
+  have hcomp_r := congrArg (fun E => E r) hcomp
+  change A (B r) = r at hcomp_r
+  have hAsymm : A (A.symm r) = r := A.apply_symm_apply r
+  have hresult : B r = A.symm r :=
+    A.injective (hcomp_r.trans hAsymm.symm)
+  simpa [A, B] using hresult.symm
 
 /-- Basepoint transport is natural for continuous maps: mapping a conjugated
 loop class agrees with conjugating the mapped class along the mapped path. -/

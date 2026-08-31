@@ -8,7 +8,8 @@ project:
     arbitrary pointed space.  It proves continuous induced homomorphisms with
     identity and composition laws, preservation of path-class concatenation,
     invariance under homotopy equivalence and change of basepoint along a path
-    (including path-homotopy independence, identity and composition coherence,
+    (including path-homotopy independence, identity, composition, and reversal
+    coherence,
     naturality under continuous maps, basepoint invariance of the
     joint-continuity boundary, and the pointed fixed-basepoint homotopy
     corollary, the path-connected all-basepoints joint-continuity and
@@ -139,8 +140,8 @@ status:
     pointed spaces together with the complete finite-torus family.  The
     general portion proves functoriality under continuous maps, coherence with
     identity and composition, homotopy-equivalence invariance, path-based
-    basepoint change, path-homotopy coherence, identity coherence, composition
-    coherence, continuous-map naturality, basepoint joint-continuity
+    basepoint change, path-homotopy coherence, identity, composition, and
+    reversal coherence, continuous-map naturality, basepoint joint-continuity
     invariance, the pointed fixed-basepoint homotopy corollary, the
     path-connected all-basepoints joint-continuity and discreteness criteria,
     the homotopy-invariant global continuity criterion, and
@@ -278,6 +279,11 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "Transport along a constant path is the identity continuous multiplicative equivalence."
+    - source: "Reversal coherence of basepoint transport"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_symm"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "Transport along the reversed path is the inverse continuous multiplicative equivalence."
     - source: "Naturality of basepoint transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChange_quotientMap_naturality"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"

@@ -119,7 +119,8 @@ fundamental-group theory in
 - continuous maps induce continuous homomorphisms, coherently with identity
   and composition;
 - homeomorphisms and paths between basepoints induce homeomorphisms of the
-  quotient fundamental groups;
+  quotient fundamental groups, with path reversal giving the inverse
+  continuous multiplicative equivalence;
 - binary products are preserved under the exact product-quotient hypothesis;
 - inversion and both one-variable translations are continuous;
 - translation homeomorphisms make the quotient homogeneous;
@@ -140,6 +141,8 @@ quotient makes basepoint transport independent of the chosen path, even in the
 absence of a homotopy between paths.  More precisely, it isolates centrality
 of the relative loop as the exact necessary-and-sufficient condition; the finite-torus
 classifier uses the abelian corollary to be canonical at each basepoint.
+The identity, composition, and reversal laws therefore exhibit basepoint
+transport as a genuine groupoid action on quotient fundamental groups.
 The finite-torus classifier is also natural under every coordinate-selection
 map between finite products: mapping a loop and then winding is exactly the
 corresponding reindexing of its integer lattice vector, including after

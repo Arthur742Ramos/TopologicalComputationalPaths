@@ -76,7 +76,9 @@ formalized as structural properties of the established quasitopological
 fundamental group, not claimed as new paper theorems.  In addition, when the
 target quotient group is abelian, it proves path-choice independence of
 basepoint transport even without an endpoint-fixed homotopy between paths;
-the underlying theorem only requires the relative loop to be central.
+the underlying theorem only requires the relative loop to be central.  It also
+proves that reversing a path gives the inverse continuous multiplicative
+transport, completing the groupoid-action coherence.
 
 `ComputationalPaths/Path/Topology/FiniteTorusWinding.lean` extends the earlier
 circle and two-torus validation to every finite dimension and connects its

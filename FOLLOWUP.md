@@ -77,6 +77,8 @@ the formalization proves:
 34. the coordinate-selection maps satisfy identity and composition coherence,
     giving the reindexing construction an explicit contravariant functorial
     interface.
+35. reversing a basepoint path gives the inverse continuous multiplicative
+    transport, completing the groupoid-action coherence.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces
@@ -148,7 +150,9 @@ representative whenever two paths are endpoint-fixed homotopic.
 They satisfy the corresponding composition law for concatenated paths, so
 the transport is coherent as well as homotopy-invariant.  Transport along a
 constant path is separately identified with the identity equivalence, so the
-coherence package has both its unit and composition laws explicitly.  Finally,
+coherence package has both its unit and composition laws explicitly.  Reversing
+a path is also proved to give the inverse continuous multiplicative transport,
+so these laws assemble into a genuine groupoid action.  Finally,
 when the target quotient is abelian, the path-independence statement no longer
 requires a homotopy between the paths; this is the mechanism that makes the
 finite-torus lattice classifier canonical at each basepoint.
