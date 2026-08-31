@@ -1115,19 +1115,8 @@ theorem main_result :
             A B⟩),
     matrix_cokernel_rectangular_short_exact := by
       intro n m k A B hB
-      refine ⟨
-        FiniteTorusWinding.addCokernelCompMap
-          (FiniteTorusWinding.matrixAction A)
-          (FiniteTorusWinding.matrixAction B),
-        FiniteTorusWinding.addCokernelCompProjection
-          (FiniteTorusWinding.matrixAction A)
-          (FiniteTorusWinding.matrixAction B),
-        FiniteTorusWinding.addCokernelCompProjection_quotientKerEquiv
-          (FiniteTorusWinding.matrixAction A)
-          (FiniteTorusWinding.matrixAction B),
-        ?_⟩
-      exact FiniteTorusWinding.addCokernelComp_shortExact_of_injective
-        (FiniteTorusWinding.matrixAction A)
-        (FiniteTorusWinding.matrixAction B) hB }⟩
+      exact
+        FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_injective
+          A B hB }⟩
 
 end TopologicalComputationalPathsFollowup
