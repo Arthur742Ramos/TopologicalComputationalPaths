@@ -67,7 +67,10 @@ transported addition is proved equal to path-class concatenation.  Dimensions
 `0` and `1` are included uniformly.  The new basepoint-transport theorem
 upgrades the discrete quotient statement from the zero basepoint to every
 point of the torus; the resulting theorem packages semilocal simple
-connectivity at all points for every finite torus.
+connectivity at all points for every finite torus.  The same transport gives a
+homeomorphism from every based quotient to the same integer lattice, so the
+classification is independent of the chosen basepoint as a topological
+statement, not only as a discreteness statement.
 
 ## Literature and novelty boundary
 

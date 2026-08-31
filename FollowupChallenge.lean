@@ -27,7 +27,8 @@ In locally path-connected spaces, also prove the converse finite-ladder
 criterion: semilocal simple connectivity is equivalent to discreteness of
 every based quotient fundamental group, and every based-loop homotopy class is
 open.  The finite-torus certificate additionally exposes the all-basepoint
-semilocal consequence of the basepoint-transport theorem.
+semilocal consequence and the all-basepoint integer-lattice classifier from
+the basepoint-transport theorem.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -263,6 +264,10 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_at :
+    ∀ x : FiniteTorus n,
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x ≃ₜ WindingVector n
   classifier_mk :
     ∀ γ : Loop n, classifier (Quotient.mk' γ) = winding γ
   winding_standard :

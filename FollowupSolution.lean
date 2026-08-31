@@ -22,7 +22,8 @@ spaces, it also supplies the finite compact-open subdivision and ladder proof
 of openness of every homotopy class, hence the converse semilocal/discrete
 equivalence.  The finite-torus certificate transports discreteness from the
 zero basepoint to every point and records semilocal simple connectivity
-globally.
+globally, together with a common integer-lattice homeomorphism for every
+based quotient.
 -/
 
 namespace TopologicalComputationalPathsFollowup
@@ -255,6 +256,10 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_at :
+    ∀ x : FiniteTorus n,
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x ≃ₜ WindingVector n
   classifier_mk :
     ∀ γ : Loop n, classifier (Quotient.mk' γ) = winding γ
   winding_standard :
@@ -419,6 +424,7 @@ theorem main_result :
     winding := FiniteTorusWinding.winding
     standardLoop := FiniteTorusWinding.standardLoop
     classifier := FiniteTorusWinding.loopQuotHomeomorphIntVector n
+    classifier_at := FiniteTorusWinding.loopQuotHomeomorphIntVector_at n
     classifier_mk := by
       intro γ
       rfl

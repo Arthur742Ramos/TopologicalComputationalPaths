@@ -257,6 +257,23 @@ noncomputable def loopQuotHomeomorphIntVector (n : ℕ) :
     LoopQuot n ≃ₜ (Fin n → ℤ) :=
   (windingCompleteInvariant n).classifierHomeomorph
 
+/-- Every based quotient fundamental group of a finite torus has the same
+integer-lattice model.  The model at the all-zero basepoint is transported
+along a path supplied by path-connectedness. -/
+noncomputable def loopQuotHomeomorphIntVector_at (n : ℕ) (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x ≃ₜ (Fin n → ℤ) :=
+  by
+    letI : Group
+        (QuotientFundamentalGroup.LoopQuot (Carrier n) (base n)) :=
+      inferInstanceAs (Group (FundamentalGroup (Carrier n) (base n)))
+    letI : Group
+        (QuotientFundamentalGroup.LoopQuot (Carrier n) x) :=
+      inferInstanceAs (Group (FundamentalGroup (Carrier n) x))
+    exact
+      ((QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv
+          (X := Carrier n) (base n) x).toHomeomorph.symm).trans
+        (loopQuotHomeomorphIntVector n)
+
 /-- Winding is simultaneously an additive equivalence and a homeomorphism. -/
 noncomputable def loopQuotContinuousAddEquivIntVector (n : ℕ) :
     LoopQuot n ≃ₜ+ (Fin n → ℤ) where

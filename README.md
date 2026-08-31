@@ -127,7 +127,8 @@ The proof is constructive at the representative level: coordinate winding,
 explicit standard loops, additivity, endpoint-fixed homotopy completeness,
 and openness of the null class are all checked.  Basepoint transport then
 proves discreteness of every based quotient and semilocal simple connectivity
-at every torus point, not only at the all-zero basepoint.  See
+at every torus point, not only at the all-zero basepoint.  It also transports
+the integer-lattice homeomorphism to every chosen basepoint.  See
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
 `comparator-followup.json`.  This follow-up does not alter the already
