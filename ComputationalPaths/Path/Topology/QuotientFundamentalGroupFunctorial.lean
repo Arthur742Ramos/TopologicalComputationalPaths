@@ -21,10 +21,10 @@ Homotopies of continuous maps induce the expected conjugacy relation on
 quotient maps, witnessed by the path traced by the homotopy at each basepoint.
 When that path is pointwise constant, the induced based homomorphisms agree
 after the canonical endpoint cast.
-More generally, two paths give the same transport whenever their relative loop
-is central in the target quotient.  When the target quotient group is abelian,
-basepoint transport is therefore independent of the chosen path even without
-an endpoint-fixed homotopy between paths.
+More generally, two paths give the same transport exactly when their relative
+loop is central in the target quotient.  When the target quotient group is
+abelian, basepoint transport is therefore independent of the chosen path even
+without an endpoint-fixed homotopy between paths.
 On a path-connected space, joint continuity at one basepoint is therefore
 equivalent to joint continuity at every basepoint; the same one-point test
 holds for discreteness, T1 separation, and the genuine topological-group
@@ -264,7 +264,7 @@ theorem basepointChangeContinuousMulEquiv_eq_of_homotopic
   · exact Quotient.sound h.symm₂
   · exact Quotient.sound h
 
-/-! Basepoint conjugation only depends on the relative loop being central.
+/-! Basepoint conjugation is characterized by centrality of the relative loop.
 The abelian-target statement below is the useful global corollary. -/
 
 /-- If the relative loop `p⁻¹ · q` commutes with every target loop, then all
@@ -346,6 +346,85 @@ theorem basepointChangeContinuousMulEquiv_eq_of_relative_comm
           _root_.Path.Homotopic.Quotient.symm_trans]
       rw [hcancel, _root_.Path.Homotopic.Quotient.trans_refl]
       rfl
+
+/-- Equality of two basepoint transports is equivalent to centrality of their
+relative loop in the target quotient group. -/
+theorem basepointChangeContinuousMulEquiv_eq_iff_relative_comm
+    {x₀ x₁ : X} (p q : _root_.Path x₀ x₁) :
+    basepointChangeContinuousMulEquiv p =
+      basepointChangeContinuousMulEquiv q ↔
+    (∀ b : LoopQuot X x₁,
+      _root_.Path.Homotopic.Quotient.trans
+          (_root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.mk p.symm)
+            (_root_.Path.Homotopic.Quotient.mk q)) b =
+        _root_.Path.Homotopic.Quotient.trans b
+          (_root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.mk p.symm)
+            (_root_.Path.Homotopic.Quotient.mk q))) := by
+  constructor
+  · intro heq b
+    let P := _root_.Path.Homotopic.Quotient.mk p
+    let Q := _root_.Path.Homotopic.Quotient.mk q
+    let D := _root_.Path.Homotopic.Quotient.trans P.symm Q
+    let C := _root_.Path.Homotopic.Quotient.trans Q.symm P
+    let R := _root_.Path.Homotopic.Quotient.trans
+      (_root_.Path.Homotopic.Quotient.trans Q b) Q.symm
+    have h := congrArg (fun E => E R) heq
+    rw [basepointChangeContinuousMulEquiv_apply,
+      basepointChangeContinuousMulEquiv_apply] at h
+    have hright :
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans Q.symm R) Q = b := by
+      dsimp [R]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc
+        (Q.trans b) Q.symm Q]
+      rw [_root_.Path.Homotopic.Quotient.symm_trans,
+        _root_.Path.Homotopic.Quotient.trans_refl]
+      rw [← _root_.Path.Homotopic.Quotient.trans_assoc Q.symm Q b]
+      rw [_root_.Path.Homotopic.Quotient.symm_trans,
+        _root_.Path.Homotopic.Quotient.refl_trans]
+    have hleft :
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans P.symm R) P =
+          _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans D b) C := by
+      dsimp [D, R]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc
+        (Q.trans b) Q.symm P]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc Q b C]
+      rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+        P.symm Q (b.trans C)]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc
+        (P.symm.trans Q) b C]
+    have hconj :
+        _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans D b) C = b := by
+      exact hleft.symm.trans (h.trans hright)
+    have hcancel :
+        _root_.Path.Homotopic.Quotient.trans C D =
+          _root_.Path.Homotopic.Quotient.refl x₁ := by
+      dsimp [D, C]
+      rw [_root_.Path.Homotopic.Quotient.trans_assoc]
+      rw [← _root_.Path.Homotopic.Quotient.trans_assoc
+        P P.symm Q]
+      rw [_root_.Path.Homotopic.Quotient.trans_symm,
+        _root_.Path.Homotopic.Quotient.refl_trans,
+        _root_.Path.Homotopic.Quotient.symm_trans]
+    calc
+      _root_.Path.Homotopic.Quotient.trans D b =
+          _root_.Path.Homotopic.Quotient.trans
+            (_root_.Path.Homotopic.Quotient.trans
+              (_root_.Path.Homotopic.Quotient.trans D b) C) D := by
+        rw [_root_.Path.Homotopic.Quotient.trans_assoc
+          (D.trans b) C D,
+          hcancel,
+          _root_.Path.Homotopic.Quotient.trans_refl]
+      _ = _root_.Path.Homotopic.Quotient.trans b D := by
+        rw [hconj]
+  · exact basepointChangeContinuousMulEquiv_eq_of_relative_comm p q
 
 /-! If the target quotient group is abelian, every relative loop is central,
 so the preceding criterion applies to arbitrary paths. -/

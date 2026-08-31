@@ -33,8 +33,8 @@ project:
     basepoint transport is independent of the chosen path even without an
     endpoint-fixed homotopy between paths, yielding a canonical path-based
     finite-torus lattice classifier.  More generally, equality of transports
-    follows whenever the relative loop is central in the target quotient.  The
-    winding classifier is natural under coordinate-selection maps between
+    is equivalent to centrality of the relative loop in the target quotient.
+    The winding classifier is natural under coordinate-selection maps between
     finite tori, reindexing the integer lattice vector before and after
     passage to the quotient; those coordinate maps satisfy identity and
     composition coherence laws, and the standard representatives and quotient
@@ -162,7 +162,8 @@ status:
     lattice model, and semilocal simple connectivity for every finite torus.
     In the abelian target case it also proves that the lattice classifier built
     along any explicit basepoint path is independent of that path.  The more
-    precise general statement assumes only centrality of the relative loop.
+    precise general statement is an iff: equality of transports is equivalent
+    to centrality of the relative loop.
     Coordinate-selection maps act naturally on winding vectors and on the
     quotient classifier by reindexing, with explicit identity and composition
     laws for the maps themselves; standard representatives and the quotient
@@ -214,7 +215,7 @@ fidelity:
     homotopy-invariant quasitopological-group mechanism, sharp indexed-product
     boundary, separation and covering consequences, the multiplicative
     integer-lattice/abelian finite-torus refinement, path-choice independence
-    of transport in abelian targets, the sharper relative-centrality criterion,
+    of transport in abelian targets, the exact relative-centrality criterion,
     and their integration
     with the computational-path topology comparison.  No external
     Hawaiian-earring theorem is reproved; the accepted conditional facts are
@@ -257,11 +258,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
       note: "When the target quotient group is abelian, basepoint transport is independent of the chosen path even without a homotopy between paths."
-    - source: "Relative-centrality criterion for basepoint transport"
+    - source: "Relative-centrality sufficient criterion for basepoint transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_of_relative_comm"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
       status: "proved"
-      note: "Two path transports agree when the relative loop p⁻¹·q commutes with every target loop; the global abelian statement is a corollary."
+      note: "Centrality of the relative loop p⁻¹·q implies equality of the two path transports; the iff strengthening is recorded below."
+    - source: "Relative-centrality iff witness"
+      lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_eq_iff_relative_comm"
+      module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
+      status: "proved"
+      note: "The pointwise transport equality and centrality condition are equivalent, with necessity proved by evaluating at a conjugated loop."
     - source: "Composition coherence of basepoint transport"
       lean: "ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.basepointChangeContinuousMulEquiv_trans"
       module: "ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean"
