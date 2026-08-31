@@ -28,7 +28,10 @@ criterion: semilocal simple connectivity is equivalent to discreteness of
 every based quotient fundamental group, and every based-loop homotopy class is
 open.  The finite-torus certificate additionally exposes the all-basepoint
 semilocal consequence and the all-basepoint integer-lattice classifier from
-the basepoint-transport theorem.  The general certificate also records that
+the basepoint-transport theorem.  It strengthens this family with a
+continuous multiplicative equivalence to `Multiplicative (Fin n → ℤ)` and
+explicit commutativity of quotient multiplication at every basepoint.  The
+general certificate also records that
 basepoint transport is independent of the chosen path representative up to
 endpoint-fixed homotopy, is the identity on constant paths, and composes along
 concatenated paths.  It also records preservation of path-class concatenation
@@ -419,6 +422,19 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_continuous_mul_equiv :
+    LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
+  classifier_continuous_mul_equiv_at :
+    ∀ x : FiniteTorus n,
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+  quotient_mul_commutative :
+    ∀ x y : LoopQuot n, x * y = y * x
+  quotient_mul_commutative_at :
+    ∀ (x : FiniteTorus n)
+      (p q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+        (FiniteTorus n) x),
+      p * q = q * p
   classifier_at :
     ∀ x : FiniteTorus n,
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot

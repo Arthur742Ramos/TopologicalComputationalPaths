@@ -151,7 +151,10 @@ explicit standard loops, additivity, endpoint-fixed homotopy completeness,
 and openness of the null class are all checked.  Basepoint transport then
 proves discreteness of every based quotient and semilocal simple connectivity
 at every torus point, not only at the all-zero basepoint.  It also transports
-the integer-lattice homeomorphism to every chosen basepoint.  See
+the integer-lattice homeomorphism to every chosen basepoint.  The additive
+classifier is further packaged as a continuous multiplicative equivalence to
+`Multiplicative (Fin n → ℤ)`, identifying the actual quotient multiplication
+with lattice addition and proving commutativity at every basepoint.  See
 [`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
 `FollowupSolution.lean`, `formalization-followup.yaml`, and
 `comparator-followup.json`.  This follow-up does not alter the already

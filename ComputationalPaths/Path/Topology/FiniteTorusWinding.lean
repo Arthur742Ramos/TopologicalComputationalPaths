@@ -13,7 +13,10 @@ is first proved algebraically by coordinate winding and explicit standard
 loops, then upgraded to a homeomorphism for the compact-open/final quotient
 topology.  In particular, the quotient is discrete, its quotient square is a
 quotient map, and loop-class composition and reversal are continuous for the
-ordinary product topology.
+ordinary product topology.  The classifier is also a continuous
+multiplicative equivalence to the integer lattice (viewed through
+`Multiplicative`), so quotient concatenation is commutative at the zero
+basepoint and, by continuous basepoint transport, at every torus point.
 -/
 
 namespace ComputationalPaths
@@ -30,6 +33,14 @@ namespace FiniteTorusWinding
 open ConcreteCircleWinding
 
 attribute [local instance] _root_.Path.Homotopic.setoid
+
+/-! The functorial quotient module keeps the fundamental-group instance local.
+We reuse that exact instance here so the multiplicative certificate below is
+definitionally the usual fundamental-group multiplication. -/
+noncomputable local instance functorialLoopQuotGroup
+    (X : Type*) [TopologicalSpace X] (x : X) :
+    Group (QuotientFundamentalGroup.LoopQuot X x) :=
+  QuotientFundamentalGroup.functorialLoopQuotGroup X x
 
 /-- The `n`-dimensional torus as a finite product of additive circles. -/
 abbrev Carrier (n : ℕ) : Type := Fin n → TopologicalCircle
@@ -280,6 +291,53 @@ noncomputable def loopQuotContinuousAddEquivIntVector (n : ℕ) :
   __ := loopQuotAddEquivIntVector n
   continuous_toFun := continuous_encode
   continuous_invFun := continuous_of_discreteTopology
+
+/-! The additive classifier above is also a classifier for the actual
+fundamental-group multiplication.  `Multiplicative` is only a type synonym;
+its multiplication is the addition of the integer lattice. -/
+
+/-- The finite-torus quotient fundamental group is continuously isomorphic,
+as a multiplicative group, to the integer lattice. -/
+noncomputable def loopQuotContinuousMulEquivIntVector (n : ℕ) :
+    LoopQuot n ≃ₜ* Multiplicative (Fin n → ℤ) :=
+  ContinuousMulEquiv.mk' (loopQuotHomeomorphIntVector n) <| by
+    intro x y
+    change encode (x * y) = encode x + encode y
+    change encode (_root_.Path.Homotopic.Quotient.trans y x) =
+      encode x + encode y
+    simpa [add_comm] using encode_trans y x
+
+/-- The same integer-lattice model works at every torus basepoint, and the
+basepoint transport is a continuous multiplicative equivalence. -/
+noncomputable def loopQuotContinuousMulEquivIntVector_at
+    (n : ℕ) (x : Carrier n) :
+    QuotientFundamentalGroup.LoopQuot (Carrier n) x ≃ₜ*
+      Multiplicative (Fin n → ℤ) := by
+  exact
+    (QuotientFundamentalGroup.pathConnectedBasepointContinuousMulEquiv
+      (X := Carrier n) (base n) x).symm.trans
+      (loopQuotContinuousMulEquivIntVector n)
+
+/-- Concatenation of finite-torus loop classes is commutative. -/
+theorem quotientTrans_comm {n : ℕ} (x y : LoopQuot n) :
+    _root_.Path.Homotopic.Quotient.trans x y =
+      _root_.Path.Homotopic.Quotient.trans y x := by
+  apply (loopQuotHomeomorphIntVector n).injective
+  change encode (_root_.Path.Homotopic.Quotient.trans x y) =
+    encode (_root_.Path.Homotopic.Quotient.trans y x)
+  rw [encode_trans, encode_trans, add_comm]
+
+/-- The fundamental group of every finite torus is abelian, at every chosen
+basepoint. -/
+theorem quotientMul_comm_at (n : ℕ) (x : Carrier n)
+    (p q : QuotientFundamentalGroup.LoopQuot (Carrier n) x) :
+    p * q = q * p := by
+  let e := loopQuotContinuousMulEquivIntVector_at n x
+  apply e.injective
+  calc
+    e (p * q) = e p * e q := e.map_mul p q
+    _ = e q * e p := mul_comm _ _
+    _ = e (q * p) := (e.map_mul q p).symm
 
 /-- Every finite-torus loop homotopy class is open in the compact-open loop
 space. -/

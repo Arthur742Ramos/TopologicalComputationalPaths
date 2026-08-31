@@ -80,9 +80,11 @@ circle and two-torus validation to every finite dimension and connects its
 explicit winding proof to the general null-class-openness criterion.  Its
 basepoint-transport corollary proves discreteness of every based quotient and
 semilocal simple connectivity at every point of every finite torus, together
-with a common integer-lattice homeomorphism for all based quotients.  This is
-an independently checked formalization of classical topology, not a claim of
-a new fundamental-group computation.
+with a common integer-lattice homeomorphism for all based quotients.  The
+classifier is also a continuous multiplicative equivalence to the integer
+lattice, and the quotient multiplication is proved commutative at every
+basepoint.  This is an independently checked formalization of classical
+topology, not a claim of a new fundamental-group computation.
 
 `ComputationalPaths/Path/Topology/SemilocallySimplyConnected.lean` now adds a
 finite compact-open subdivision theorem and an explicit ladder assembly.  In

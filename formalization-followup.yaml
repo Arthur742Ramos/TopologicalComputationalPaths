@@ -26,7 +26,10 @@ project:
     topological-group agreement boundary.  Every finite torus is classified
     by explicit winding as a discrete integer lattice, with discreteness
     transported to every basepoint, with a common integer-lattice model, and
-    semilocal simple connectivity proved at every torus point.
+    semilocal simple connectivity proved at every torus point.  The winding
+    classifier is also a continuous multiplicative equivalence to
+    `Multiplicative (Fin n → ℤ)`, and quotient multiplication is proved
+    commutative at every torus basepoint.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -143,9 +146,11 @@ status:
     boundary.
     The finite-torus portion proves explicit winding representatives,
     completeness, additivity, open classes, and the homeomorphism with the
-    integer lattice.  Basepoint transport then proves all-basepoint
-    discreteness, a common lattice model, and semilocal simple connectivity
-    for every finite torus.
+    integer lattice.  It also proves a continuous multiplicative equivalence
+    to `Multiplicative (Fin n → ℤ)` for the actual quotient group operation,
+    hence abelianity at the zero basepoint and every transported basepoint.
+    Basepoint transport then proves all-basepoint discreteness, a common
+    lattice model, and semilocal simple connectivity for every finite torus.
     The Comparator challenge has one deliberate statement hole; the solution
     and substantive development have none.
   sorry_count: 0
@@ -191,7 +196,8 @@ fidelity:
     construction.  The finite-torus calculation is classical; the added
     content is its explicit compact-open and final-quotient realization, the
     homotopy-invariant quasitopological-group mechanism, sharp indexed-product
-    boundary, separation and covering consequences, and their integration
+    boundary, separation and covering consequences, the multiplicative
+    integer-lattice/abelian finite-torus refinement, and their integration
     with the computational-path topology comparison.  No external
     Hawaiian-earring theorem is reproved; the accepted conditional facts are
     instantiated in a new generic sharpness theorem.
@@ -388,6 +394,16 @@ alignment:
       module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
       status: "proved"
       note: "Every based quotient is homeomorphic to the same integer lattice, transported from the all-zero classifier along a path supplied by path-connectedness."
+    - source: "Finite-torus multiplicative lattice classification"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotContinuousMulEquivIntVector"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "The actual quotient fundamental-group multiplication is continuously equivalent to the integer lattice via Multiplicative."
+    - source: "All-basepoint finite-torus abelianity"
+      lean: "ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.quotientMul_comm_at"
+      module: "ComputationalPaths/Path/Topology/FiniteTorusWinding.lean"
+      status: "proved"
+      note: "Every based finite-torus quotient fundamental group is commutative; the lattice model is transported from zero to arbitrary points."
     - source: "Follow-up publication certificate"
       lean: "TopologicalComputationalPathsFollowup.main_result"
       module: "FollowupChallenge.lean and FollowupSolution.lean"

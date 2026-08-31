@@ -23,7 +23,10 @@ of openness of every homotopy class, hence the converse semilocal/discrete
 equivalence.  The finite-torus certificate transports discreteness from the
 zero basepoint to every point and records semilocal simple connectivity
 globally, together with a common integer-lattice homeomorphism for every
-based quotient.  Basepoint-change maps are additionally shown to depend only
+based quotient.  It also identifies the actual quotient multiplication with
+the lattice operation through a continuous `Multiplicative` equivalence, and
+proves commutativity at every basepoint.  Basepoint-change maps are
+additionally shown to depend only
 on endpoint-fixed homotopy classes of paths, to act identically on constant
 paths, and to compose along concatenated paths.
 The certificate also exposes preservation of path-class concatenation under
@@ -410,6 +413,19 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
   standardLoop : WindingVector n → Loop n
   classifier : LoopQuot n ≃ₜ WindingVector n
+  classifier_continuous_mul_equiv :
+    LoopQuot n ≃ₜ* Multiplicative (WindingVector n)
+  classifier_continuous_mul_equiv_at :
+    ∀ x : FiniteTorus n,
+      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+          (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+  quotient_mul_commutative :
+    ∀ x y : LoopQuot n, x * y = y * x
+  quotient_mul_commutative_at :
+    ∀ (x : FiniteTorus n)
+      (p q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
+        (FiniteTorus n) x),
+      p * q = q * p
   classifier_at :
     ∀ x : FiniteTorus n,
       ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
@@ -672,6 +688,20 @@ theorem main_result :
     winding := FiniteTorusWinding.winding
     standardLoop := FiniteTorusWinding.standardLoop
     classifier := FiniteTorusWinding.loopQuotHomeomorphIntVector n
+    classifier_continuous_mul_equiv :=
+      FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n
+    classifier_continuous_mul_equiv_at := by
+      intro x
+      exact FiniteTorusWinding.loopQuotContinuousMulEquivIntVector_at n x
+    quotient_mul_commutative := by
+      intro x y
+      change
+        _root_.Path.Homotopic.Quotient.trans y x =
+          _root_.Path.Homotopic.Quotient.trans x y
+      exact FiniteTorusWinding.quotientTrans_comm y x
+    quotient_mul_commutative_at := by
+      intro x p q
+      exact FiniteTorusWinding.quotientMul_comm_at n x p q
     classifier_at := FiniteTorusWinding.loopQuotHomeomorphIntVector_at n
     classifier_mk := by
       intro γ

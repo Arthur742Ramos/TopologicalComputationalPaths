@@ -130,9 +130,12 @@ fundamental-group theory in
 The all-finite-dimensional torus theorem is the concrete positive family.  It
 proves the null-class hypothesis by explicit winding and supplies standard
 representatives, completeness, additivity, and a continuous integer-lattice
-classifier.  This architecture gives a direct positive counterpart to the
-accepted package's failure of the product-quotient condition without erasing
-the crucial distinction between separate and joint continuity.
+classifier.  The classifier is additionally multiplicative for the actual
+quotient fundamental-group operation (via `Multiplicative`), and transports
+commutativity to every basepoint.  This architecture gives a direct positive
+counterpart to the accepted package's failure of the product-quotient
+condition without erasing the crucial distinction between separate and joint
+continuity.
 
 ## Non-goals for the first submission
 

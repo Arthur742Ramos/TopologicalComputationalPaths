@@ -94,14 +94,18 @@ completeness and additivity, proves the null class open, and applies the
 general criterion.  It obtains a discrete quotient, an open quotient map, a
 quotient square, and continuous concatenation and reversal.  Internally,
 winding is also packaged as a continuous additive equivalence, and the
-transported addition is proved equal to path-class concatenation.  Dimensions
-`0` and `1` are included uniformly.  The new basepoint-transport theorem
+transported addition is proved equal to path-class concatenation.  The same
+classifier is exposed as a continuous multiplicative equivalence to
+`Multiplicative (Fin n → ℤ)`, so the actual quotient multiplication is
+identified with lattice addition and is commutative.  Dimensions `0` and `1`
+are included uniformly.  The new basepoint-transport theorem
 upgrades the discrete quotient statement from the zero basepoint to every
 point of the torus; the resulting theorem packages semilocal simple
 connectivity at all points for every finite torus.  The same transport gives a
-homeomorphism from every based quotient to the same integer lattice, so the
-classification is independent of the chosen basepoint as a topological
-statement, not only as a discreteness statement.
+continuous multiplicative equivalence (and hence commutativity) from every
+based quotient to the same integer lattice, so the classification is
+independent of the chosen basepoint as a topological and algebraic statement,
+not only as a discreteness statement.
 
 ## Literature and novelty boundary
 
