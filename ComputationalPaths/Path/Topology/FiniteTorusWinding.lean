@@ -106,7 +106,11 @@ Finally, the winding equivalence lifts from image subgroups to an explicit
 additive equivalence between every rectangular finite-torus cokernel and its
 integer-lattice cokernel.  In the composite form, this equivalence is proved
 natural for both the cokernel embedding and projection, so the topological and
-lattice exact sequences are related by a checked commutative diagram.
+lattice exact sequences are related by a checked commutative diagram.  The
+named square-matrix `matrixCompose` maps expose the same naturality laws
+directly at their canonical target types.  A single rectangular certificate
+packages both short-exact sequences and both commuting squares under the
+shared injectivity hypothesis.
 -/
 
 namespace ComputationalPaths
@@ -3910,6 +3914,140 @@ theorem matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_naturality
           ((matrixAction B).comp (matrixAction A)).range
           (loopQuotAddEquivIntVector k x) by rfl]
   simp only [addCokernelCompProjection, QuotientAddGroup.map_mk']
+  rfl
+
+/-! The two naturality laws and the two exactness packages can be consumed as
+one diagram-level certificate.  This avoids making downstream users recover
+the common maps from the existential rectangular statements separately. -/
+
+/-- The rectangular topological and lattice cokernel sequences are short exact
+and form a commuting winding diagram whenever the second lattice action is
+injective. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_winding_shortExact
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    Function.Injective
+          (addCokernelCompMap (matrixMapQuotientAddHom A)
+            (matrixMapQuotientAddHom B)) ∧
+      (addCokernelCompProjection (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)).ker =
+        (addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)).range ∧
+      Function.Surjective
+        (addCokernelCompProjection (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)) ∧
+      Function.Injective
+          (addCokernelCompMap (matrixAction A) (matrixAction B)) ∧
+      (addCokernelCompProjection (matrixAction A) (matrixAction B)).ker =
+        (addCokernelCompMap (matrixAction A) (matrixAction B)).range ∧
+      Function.Surjective
+        (addCokernelCompProjection (matrixAction A) (matrixAction B)) ∧
+      (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toAddMonoidHom.comp
+          (addCokernelCompMap (matrixMapQuotientAddHom A)
+            (matrixMapQuotientAddHom B)) =
+        (addCokernelCompMap (matrixAction A) (matrixAction B)).comp
+          (matrixMapQuotientAddHom_cokernel_windingEquiv A).toAddMonoidHom ∧
+      (matrixMapQuotientAddHom_cokernel_windingEquiv B).toAddMonoidHom.comp
+          (addCokernelCompProjection (matrixMapQuotientAddHom A)
+            (matrixMapQuotientAddHom B)) =
+        (addCokernelCompProjection (matrixAction A) (matrixAction B)).comp
+          (matrixMapQuotientAddHom_cokernel_windingEquiv_comp A B).toAddMonoidHom := by
+  have hB' : Function.Injective (matrixMapQuotientAddHom B) := by
+    change Function.Injective (matrixMapQuotientMap B)
+    exact (matrixMapQuotientMap_injective_iff B).mpr hB
+  have hTop := addCokernelComp_shortExact_of_injective
+    (matrixMapQuotientAddHom A) (matrixMapQuotientAddHom B) hB'
+  have hLat := addCokernelComp_shortExact_of_injective
+    (matrixAction A) (matrixAction B) hB
+  exact ⟨hTop.1, hTop.2.1, hTop.2.2,
+    hLat.1, hLat.2.1, hLat.2.2,
+    matrixMapQuotientAddHom_cokernel_windingEquiv_compMap_naturality A B,
+    matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_naturality A B⟩
+
+/-! The square-matrix cokernel maps exposed earlier use the canonical
+`matrixCompose` target ranges.  The same two naturality laws are recorded
+directly for those named maps, so users can invoke the checked diagram without
+first rewriting to explicit homomorphism compositions. -/
+
+/-- Naturality of the canonical square cokernel embedding under winding. -/
+theorem matrixMapQuotientAddHom_cokernel_windingEquiv_compMap_matrixCompose_naturality
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    (matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)).toAddMonoidHom.comp
+        (matrixMapQuotientAddHom_cokernel_compMap A B) =
+      (matrixAction_cokernel_compMap A B).comp
+        (matrixMapQuotientAddHom_cokernel_windingEquiv A).toAddMonoidHom := by
+  apply AddMonoidHom.ext
+  intro q
+  obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective
+    (matrixMapQuotientAddHom A).range q
+  simp only [AddMonoidHom.comp_apply]
+  change
+    matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)
+        (matrixMapQuotientAddHom_cokernel_compMap A B
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x)) =
+      matrixAction_cokernel_compMap A B
+        (matrixMapQuotientAddHom_cokernel_windingEquiv A
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x))
+  rw [show matrixMapQuotientAddHom_cokernel_compMap A B
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+        QuotientAddGroup.mk'
+          (matrixMapQuotientAddHom (matrixCompose A B)).range
+          (matrixMapQuotientAddHom B x) by
+    rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv A
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom A).range x) =
+        QuotientAddGroup.mk' (matrixAction A).range
+          (loopQuotAddEquivIntVector n x) by rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)
+          (QuotientAddGroup.mk'
+            (matrixMapQuotientAddHom (matrixCompose A B)).range
+            (matrixMapQuotientAddHom B x)) =
+        QuotientAddGroup.mk' (matrixAction (matrixCompose A B)).range
+          (loopQuotAddEquivIntVector n (matrixMapQuotientAddHom B x)) by
+    rfl]
+  simp only [matrixAction_cokernel_compMap, QuotientAddGroup.map_mk']
+  apply congrArg
+    (QuotientAddGroup.mk' (matrixAction (matrixCompose A B)).range)
+  change encode (matrixMapQuotientMap B x) =
+    matrixAction B (encode x)
+  exact encode_matrixMapQuotientMap B x
+
+/-- Naturality of the canonical square cokernel projection under winding. -/
+theorem matrixMapQuotientAddHom_cokernel_windingEquiv_compProjection_matrixCompose_naturality
+    {n : ℕ} (A B : Fin n → Fin n → ℤ) :
+    (matrixMapQuotientAddHom_cokernel_windingEquiv B).toAddMonoidHom.comp
+        (matrixMapQuotientAddHom_cokernel_compProjection A B) =
+      (matrixAction_cokernel_compProjection A B).comp
+        (matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)).toAddMonoidHom := by
+  apply AddMonoidHom.ext
+  intro q
+  obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective
+    (matrixMapQuotientAddHom (matrixCompose A B)).range q
+  simp only [AddMonoidHom.comp_apply]
+  change
+    matrixMapQuotientAddHom_cokernel_windingEquiv B
+        (matrixMapQuotientAddHom_cokernel_compProjection A B
+          (QuotientAddGroup.mk'
+            (matrixMapQuotientAddHom (matrixCompose A B)).range x)) =
+      matrixAction_cokernel_compProjection A B
+        (matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)
+          (QuotientAddGroup.mk'
+            (matrixMapQuotientAddHom (matrixCompose A B)).range x))
+  rw [show matrixMapQuotientAddHom_cokernel_compProjection A B
+          (QuotientAddGroup.mk'
+            (matrixMapQuotientAddHom (matrixCompose A B)).range x) =
+        QuotientAddGroup.mk' (matrixMapQuotientAddHom B).range x by
+    rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv B
+          (QuotientAddGroup.mk' (matrixMapQuotientAddHom B).range x) =
+        QuotientAddGroup.mk' (matrixAction B).range
+          (loopQuotAddEquivIntVector n x) by rfl]
+  rw [show matrixMapQuotientAddHom_cokernel_windingEquiv (matrixCompose A B)
+          (QuotientAddGroup.mk'
+            (matrixMapQuotientAddHom (matrixCompose A B)).range x) =
+        QuotientAddGroup.mk' (matrixAction (matrixCompose A B)).range
+          (loopQuotAddEquivIntVector n x) by rfl]
+  simp only [matrixAction_cokernel_compProjection, QuotientAddGroup.map_mk']
   rfl
 
 /-- The image of a rectangular finite-torus composite is independent of

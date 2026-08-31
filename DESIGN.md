@@ -252,7 +252,10 @@ the exact-sequence and iff interfaces are available in that canonical form.
 The subgroup transport is lifted to an explicit additive equivalence between
 each rectangular finite-torus cokernel and its integer-lattice cokernel, and
 both the composite embedding and complementary projection are verified natural
-under that equivalence.
+under that equivalence.  The named square-matrix `matrixCompose` maps expose
+the same two naturality laws directly at their canonical target types.  A
+diagram-level rectangular certificate packages the two exact sequences and
+both commuting squares in one reusable theorem.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

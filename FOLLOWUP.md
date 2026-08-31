@@ -214,6 +214,12 @@ the formalization proves:
     The composite cokernel embedding and complementary projection are proved
     natural under these equivalences, giving a checked commutative diagram
     between both exact sequences.
+77. the canonical square-matrix `matrixCompose` cokernel embedding and
+    projection maps are each proved natural under the winding equivalence as
+    named theorems, so clients can use the diagram without subgroup rewrites.
+78. a single rectangular diagram certificate packages topological and lattice
+    short exactness together with both winding-commuting squares under the
+    shared injectivity hypothesis.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

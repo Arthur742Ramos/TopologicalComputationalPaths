@@ -274,7 +274,11 @@ additive equivalence between the finite-torus cokernel and the lattice
 cokernel, with a representative formula.  The composite cokernel embedding is
 proved natural under these equivalences, and the complementary projection
 commutes as well, giving a checked commutative diagram between the topological
-and lattice exact sequences.
+and lattice exact sequences.  The named square-matrix `matrixCompose` maps
+reuse that result directly, with canonical embedding and projection naturality
+theorems so the diagram can be consumed without range-rewrite boilerplate.  A
+single rectangular short-exactness certificate packages both sequences and
+both commuting squares under the same injectivity hypothesis.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

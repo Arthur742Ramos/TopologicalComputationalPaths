@@ -111,7 +111,10 @@ transported theorem.  The composite ranges are also identified with the
 canonical row-by-column `matrixCompose` ranges, and the exact-sequence and
 converse-criterion interfaces are exposed in that notation.  The winding
 equivalence is lifted to rectangular cokernels and is proved natural for both
-the embedding and projection in the exact diagram.
+the embedding and projection in the exact diagram.  The canonical square
+`matrixCompose` maps expose these naturality laws directly as well.  A single
+rectangular diagram certificate packages both exact sequences and both
+commuting squares under the shared injectivity hypothesis.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of

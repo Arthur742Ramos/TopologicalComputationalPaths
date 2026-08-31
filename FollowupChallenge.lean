@@ -118,7 +118,10 @@ inverse witness, including at arbitrary basepoints.
     the exact-sequence and converse-criterion interfaces are exposed in that
     notation.  The substantive finite-torus module additionally lifts the
     winding equivalence to rectangular cokernels and verifies naturality for
-    both maps in the exact diagram.
+    both maps in the exact diagram, including direct naturality theorems for
+    the named square-matrix `matrixCompose` maps.  The substantive module also
+    packages both exact sequences and both commuting squares in one
+    rectangular diagram certificate.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
