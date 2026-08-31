@@ -246,6 +246,9 @@ The abstract map also has an exact injectivity criterion: its kernel vanishes
 precisely when the preimage of the composite image equals the first image.
 Injectivity of the second map is therefore a clear sufficient specialization,
 not an implicit extra assumption.
+The rectangular composite ranges are proved equal to the ranges of the
+canonical `matrixCompose` actions on both the lattice and finite-torus sides;
+the exact-sequence and iff interfaces are available in that canonical form.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical

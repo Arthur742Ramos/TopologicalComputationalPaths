@@ -266,6 +266,9 @@ At the abstract level, injectivity is characterized exactly by the equality
 between the preimage of the composite image and the first map's image, so the
 matrix-action hypothesis is a transparent sufficient specialization rather
 than a hidden strengthening.
+The composite-image subgroups are also identified explicitly with the ranges
+of the canonical row-by-column `matrixCompose` maps, and both the lattice and
+finite-torus exact-sequence APIs expose this notation directly.
 The lattice cokernel is also exposed through its Smith-normal-form
 decomposition into finite cyclic `ZMod` factors.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding

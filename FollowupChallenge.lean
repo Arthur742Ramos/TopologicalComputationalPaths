@@ -113,7 +113,10 @@ inverse witness, including at arbitrary basepoints.
     composable additive homomorphisms, so rectangular integer matrices in any
     composable dimensions inherit the same short-exact sequence under
     injectivity of the second action; the finite-torus quotient maps satisfy
-    the corresponding transported theorem.
+    the corresponding transported theorem.  The composite ranges are also
+    identified with the canonical row-by-column `matrixCompose` ranges, and
+    the exact-sequence and converse-criterion interfaces are exposed in that
+    notation.
     The non-singular lattice cokernel is additionally presented by an explicit
     Smith-normal-form product of finite cyclic `ZMod` factors, and the same
     cyclic-factor presentation is transported to the canonical quotient
@@ -760,12 +763,12 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       (hB : Function.Injective (matrixAction B)),
       ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
           (Fin k → ℤ) ⧸
-            ((matrixAction B).comp (matrixAction A)).range,
+            (matrixAction (matrixCompose A B)).range,
       ∃ g : (Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range →+
+          (matrixAction (matrixCompose A B)).range →+
           (Fin k → ℤ) ⧸ (matrixAction B).range,
       ∃ e : (((Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range) ⧸ g.ker) ≃+
+          (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin k → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 

@@ -204,6 +204,10 @@ the formalization proves:
     injectivity is equivalent to the preimage of the composite image being
     exactly the first image.  Injectivity of the second map is recorded as a
     transparent sufficient specialization of this criterion.
+75. the rectangular composite-image subgroups are identified with the ranges
+    of the canonical row-by-column `matrixCompose` maps on both the winding
+    lattice and finite-torus quotient.  The short-exact sequence and exact
+    injectivity-criterion APIs are exposed in this canonical notation as well.
 
 The distinction between separate and joint continuity is essential.  The
 formalization now proves that discontinuous quotient multiplication forces

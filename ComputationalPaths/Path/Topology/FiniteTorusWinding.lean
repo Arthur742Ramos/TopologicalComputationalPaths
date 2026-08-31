@@ -97,6 +97,11 @@ injective, and the corresponding finite-torus quotient maps satisfy the same
 statement.
 The induced cokernel map also has the exact converse criterion that its
 composite-image preimage equals the first image.
+The rectangular composite ranges are additionally identified with the ranges
+of `matrixAction (matrixCompose A B)` and
+`matrixMapQuotientAddHom (matrixCompose A B)`.  The short-exact statements
+and converse criteria are exposed in these canonical matrix-composition forms
+as well, so clients need not unfold the homomorphism composition.
 -/
 
 namespace ComputationalPaths
@@ -1552,6 +1557,15 @@ theorem matrixAction_comp_hom {n m k : ℕ}
   intro z
   exact (matrixAction_comp A B z).symm
 
+/-- The image of a rectangular composite is independent of whether the
+composition is written as an explicit homomorphism composition or as the
+row-by-column `matrixCompose` operation. -/
+theorem matrixAction_comp_range_eq_matrixCompose_range
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    ((matrixAction B).comp (matrixAction A)).range =
+      (matrixAction (matrixCompose A B)).range := by
+  rw [← matrixAction_comp_hom A B]
+
 /-- The identity matrix acts as the identity on the winding lattice. -/
 lemma matrixAction_id (n : ℕ) (z : Fin n → ℤ) :
     matrixAction (matrixIdentity n) z = z := by
@@ -1853,6 +1867,23 @@ theorem matrixAction_rectangular_cokernel_shortExact_of_injective
   exact addCokernelComp_shortExact_of_injective
     (matrixAction A) (matrixAction B) hB
 
+/-- The rectangular exact sequence can be consumed directly through the
+matrix-composition notation, without exposing the underlying homomorphism
+composition in the target cokernel. -/
+theorem matrixAction_rectangular_cokernel_shortExact_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixAction B)) :
+    ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
+          (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range,
+    ∃ g : (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+    ∃ e : (((Fin k → ℤ) ⧸
+          (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
+          (Fin k → ℤ) ⧸ (matrixAction B).range,
+      Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_shortExact_of_injective A B hB
+
 /-- The rectangular matrix cokernel embedding has the exact preimage-of-image
 criterion inherited from the abstract additive construction. -/
 theorem matrixAction_rectangular_cokernel_compMap_injective_iff
@@ -1864,6 +1895,18 @@ theorem matrixAction_rectangular_cokernel_compMap_injective_iff
         (matrixAction A).range := by
   exact addCokernelCompMap_injective_iff
     (matrixAction A) (matrixAction B)
+
+/-- The exact preimage-of-image criterion also has a canonical matrix-compose
+presentation. -/
+theorem matrixAction_rectangular_cokernel_compMap_injective_iff_matrixCompose
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Function.Injective
+        (addCokernelCompMap (matrixAction A) (matrixAction B)) ↔
+      AddSubgroup.comap (matrixAction B)
+          (matrixAction (matrixCompose A B)).range =
+        (matrixAction A).range := by
+  rw [← matrixAction_comp_range_eq_matrixCompose_range A B]
+  exact matrixAction_rectangular_cokernel_compMap_injective_iff A B
 
 /-! For square matrices, the winding-lattice action has a sharp determinant
 criterion.  Injectivity only asks for a nonzero determinant, whereas
@@ -3701,6 +3744,50 @@ theorem matrixMapQuotientAddHom_comp {n m k : ℕ}
       (matrixMapQuotientAddHom B).comp (matrixMapQuotientAddHom A) := by
   ext q
   exact (matrixMapQuotientMap_comp A B q).symm
+
+/-- The image of a rectangular finite-torus composite is independent of
+whether it is written as an explicit homomorphism composition or through the
+row-by-column `matrixCompose` operation. -/
+theorem matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    ((matrixMapQuotientAddHom B).comp
+      (matrixMapQuotientAddHom A)).range =
+      (matrixMapQuotientAddHom (matrixCompose A B)).range := by
+  rw [← matrixMapQuotientAddHom_comp A B]
+
+/-- The rectangular finite-torus exact sequence can be consumed directly
+through the canonical matrix-composition notation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_matrixCompose_injective
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ)
+    (hB : Function.Injective (matrixMapQuotientAddHom B)) :
+    ∃ f : LoopQuot m ⧸ (matrixMapQuotientAddHom A).range →+
+          LoopQuot k ⧸
+            (matrixMapQuotientAddHom (matrixCompose A B)).range,
+    ∃ g : LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range →+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+    ∃ e : ((LoopQuot k ⧸
+          (matrixMapQuotientAddHom (matrixCompose A B)).range) ⧸
+        g.ker) ≃+
+          LoopQuot k ⧸ (matrixMapQuotientAddHom B).range,
+      Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_shortExact_of_injective
+    A B hB
+
+/-- The exact preimage-of-image criterion for the rectangular finite-torus
+cokernel map also has a canonical matrix-compose presentation. -/
+theorem matrixMapQuotientAddHom_rectangular_cokernel_compMap_injective_iff_matrixCompose
+    {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Function.Injective
+        (addCokernelCompMap (matrixMapQuotientAddHom A)
+          (matrixMapQuotientAddHom B)) ↔
+      AddSubgroup.comap (matrixMapQuotientAddHom B)
+          (matrixMapQuotientAddHom (matrixCompose A B)).range =
+        (matrixMapQuotientAddHom A).range := by
+  rw [← matrixMapQuotientAddHom_comp_range_eq_matrixCompose_range A B]
+  exact matrixMapQuotientAddHom_rectangular_cokernel_compMap_injective_iff
+    A B
 
 theorem matrixMapQuotientAddHom_id (n : ℕ) :
     matrixMapQuotientAddHom (matrixIdentity n) =

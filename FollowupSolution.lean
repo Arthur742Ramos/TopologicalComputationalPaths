@@ -107,7 +107,9 @@ The underlying first-isomorphism argument is packaged for arbitrary
 composable additive homomorphisms, so rectangular integer matrices in any
 composable dimensions inherit the same short-exact sequence under injectivity
 of the second action; the finite-torus quotient maps satisfy the corresponding
-transported theorem.
+transported theorem.  The composite ranges are also identified with the
+canonical row-by-column `matrixCompose` ranges, and the exact-sequence and
+converse-criterion interfaces are exposed in that notation.
 The lattice cokernel also has an explicit Smith-normal-form decomposition into
 finite cyclic `ZMod` factors.  The canonical quotient cokernel itself is
 transported through the winding equivalence to the same explicit product of
@@ -717,12 +719,12 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
       (hB : Function.Injective (matrixAction B)),
       ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+
           (Fin k → ℤ) ⧸
-            ((matrixAction B).comp (matrixAction A)).range,
+            (matrixAction (matrixCompose A B)).range,
       ∃ g : (Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range →+
+          (matrixAction (matrixCompose A B)).range →+
           (Fin k → ℤ) ⧸ (matrixAction B).range,
       ∃ e : (((Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range) ⧸ g.ker) ≃+
+          (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+
           (Fin k → ℤ) ⧸ (matrixAction B).range,
         Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
 
@@ -1116,7 +1118,7 @@ theorem main_result :
     matrix_cokernel_rectangular_short_exact := by
       intro n m k A B hB
       exact
-        FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_injective
+        FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_matrixCompose_injective
           A B hB }⟩
 
 end TopologicalComputationalPathsFollowup
