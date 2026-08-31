@@ -1,85 +1,46 @@
-# Follow-up: quotient-topological fundamental groups
+# Follow-up: topological Smith classification and composition for finite-torus quotients
 
 ## Selected result
 
-The follow-up is centered on a theorem for every pointed topological space,
-not on a new computation of the fundamental group of a torus.
+The Comparator selects
+`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
+`FollowupSolution.lean`.  This declaration is a nonempty
+`TopologicalSmithExactnessCertificate` with seven fields:
 
-For the endpoint-fixed homotopy quotient of the compact-open based loop space,
-the formalization proves:
+1. `topological_winding_homeomorph` identifies every finite-torus quotient
+   loop group with its integer winding lattice by an explicit homeomorphism;
+2. `rectangular_winding_short_exact` proves injectivity, kernel=image, and
+   surjectivity for composable rectangular integer-matrix maps on the actual
+   finite-torus quotient fundamental groups and on the winding lattices, and
+   proves both winding comparison squares commute;
+3. `first_isomorphism_quotient` identifies the square quotient of the
+   composite cokernel by the projection kernel with the second topological
+   cokernel;
+4. `rectangular_composition_profile` proves the rectangular composition laws:
+   cokernel cardinalities multiply, finiteness is equivalent term-by-term,
+   prime support is the union of the successive supports, and coprime
+   successive exponents multiply exactly;
+5. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
+   equivalence, explicitly retaining `ZMod 0` free factors, and proves the
+   finite/full-rank criterion, exponent-as-lcm formula, and prime-support law;
+6. `determinant_index_compatibility` specializes the same topological cokernel
+   to nonsingular square matrices and identifies both its cardinality and its
+   Smith-modulus product with the absolute determinant.
+7. `prime_power_torsion_profile` refines every full-rank rectangular cokernel
+   into explicit prime-power cyclic factors and proves the resulting product
+   cardinality formula.
 
-1. every continuous map induces a continuous homomorphism, with formal
-   identity and composition laws;
-2. homotopy equivalences induce continuous multiplicative equivalences
-   (strictly strengthening homeomorphism invariance);
-3. every path between basepoints induces a continuous multiplicative
-   equivalence between the corresponding quotient fundamental groups;
-4. binary products are preserved by a continuous multiplicative equivalence
-   whenever the product of the two loop projections is a quotient map; the
-   selected certificate does not assert arbitrary indexed-product
-   preservation;
-5. reversal is continuous;
-6. concatenation is continuous in each variable separately;
-7. right translations are homeomorphisms, so the quotient is homogeneous;
-8. the quotient is T1 if and only if the null-homotopy class is closed,
-   equivalently if every based-loop homotopy class is closed;
-9. the quotient is discrete if and only if the null-homotopy class is open in
-   the based loop space; and
-10. discreteness implies semilocal simple connectivity at the basepoint;
-11. in locally path-connected spaces, semilocal simple connectivity implies
-    openness of every based-loop homotopy class and discreteness of every
-    based quotient fundamental group; and
-12. quotient discreteness is invariant under homotopy equivalence and under
-    basepoint change along a path; and
-13. among locally path-connected spaces, semilocal simple connectivity is a
-   homotopy invariant; and
-14. joint continuity of quotient concatenation (equivalently, the genuine
-    topological-group structure) is invariant under homotopy equivalence; and
-15. under the exact open-null-class criterion, every homotopy class is open, the quotient map
-   is open, its square is a quotient map, and concatenation is jointly
-   continuous for the ordinary product topology.
-16. the basepoint-change equivalence depends only on the endpoint-fixed
-    homotopy class of the chosen path.
-17. basepoint transport composes along concatenated paths, giving a coherent
-   transport system on the fundamental-groupoid basepoints.
-18. transport along a constant path is the identity equivalence, completing
-    the identity/composition coherence laws for basepoint transport.
-19. continuous maps preserve concatenation of endpoint-fixed path classes;
-    and
-20. basepoint transport is natural for continuous maps, so induced quotient
-    maps commute with transport along mapped paths.
-21. a homotopy between continuous maps induces the corresponding conjugacy
-    relation on quotient maps, with the homotopy's basepoint path as witness.
-22. the joint-continuity/topological-group boundary is also invariant under
-    basepoint change along a path.
-23. a homotopy that fixes the chosen basepoint throughout induces equal based
-    homomorphisms, with the endpoint equality handled by `mapOfEq`.
-24. on a path-connected space, joint continuity at one basepoint is equivalent
-    to joint continuity at every basepoint.
-25. on a path-connected space, discreteness at one basepoint is equivalent to
-    discreteness at every basepoint.
-26. between path-connected spaces, the global joint-continuity property is
-    invariant under homotopy equivalence.
-27. on a path-connected space, the genuine topological-group boundary can be
-    checked at one basepoint or at every basepoint.
-28. in locally path-connected, path-connected spaces, semilocal simple
-    connectivity is equivalent to discreteness at one chosen basepoint.
-29. T1 separation of the quotient is invariant under homotopy equivalence and
-    path-based basepoint transport.
-30. on a path-connected space, T1 separation at one basepoint is equivalent
-    to T1 separation at every basepoint, and this global property is homotopy
-    invariant between path-connected spaces.
-31. if the target quotient group is abelian, basepoint transport is independent
-    of the chosen path even without an endpoint-fixed homotopy between paths.
-32. more generally, two transports agree if and only if their relative loop is
-    central in the target quotient group.
-
-The selected declaration also contains the fixed-dimensional finite-torus
-winding/basepoint fields and the integer-lattice matrix/Smith fields named in
-`formalization.yaml`.  The numbered material below is a repository-wide
-inventory: it includes cross-dimensional and topological matrix extensions that
-are useful context but are not additional Comparator claims unless their exact
-field names occur in `main_results.selected_fields`.
+This is the selected mathematical contribution: a rectangular composition and
+Smith-classification theorem for quotient fundamental groups of finite tori.
+The theorem links the topological winding model to an exact composition law,
+then gives a complete arbitrary-rank free/torsion and prime-power description
+of every cokernel, with the determinant index as a square specialization.
+Winding, quotient fundamental groups, short exactness, and Smith normal form
+are classical ingredients.  The metadata records an `original-proof` source
+only for this exact combined theorem group and expressly does not claim
+priority for those individual ingredients.  The detailed general
+quotient-topology and finite-torus developments below are supporting inventory,
+not additional Comparator claims unless listed in `main_results.selected_fields`.
 
 ## Repository-wide supporting inventory (not selected by Comparator)
 
@@ -457,12 +418,11 @@ not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
 
-The selected finite-torus surface is the fixed-dimensional winding/basepoint
-certificate above together with the integer-lattice cokernel and Smith-profile
-fields named in `formalization.yaml`.  The cross-dimensional coordinate API
-and the broader topological matrix/Smith wrappers below are repository support;
-they are not additional Comparator claims unless their exact field names are
-listed in `main_results.selected_fields`.
+The selected finite-torus surface is exactly the seven certificate fields
+listed in `formalization.yaml`.  The fixed-dimensional winding/basepoint
+classifier and the broader topological matrix/Smith wrappers below are
+repository support; they are not additional Comparator claims unless their
+exact field names are listed in `main_results.selected_fields`.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
 
@@ -601,48 +561,38 @@ obstruction, not merely a cardinality or an unstructured equivalence.
 
 ## Literature and novelty boundary
 
-The selected follow-up has a deliberately explicit mathematical boundary.  The
-quotient fundamental group is known to be a quasitopological group,
-homogeneous, and discrete for familiar semilocally simply connected spaces;
-the circle, finite-torus, and Smith normal-form calculations are classical.
-Those sources are recorded in `formalization.yaml` with `formalizes`
-relationships, and the parent computational-path manuscript is recorded with
-`adapts`.  A narrowly scoped local formalization entry with relationship
-`other` identifies the exact centrality iff below; no source entry claims
-first presentation of the bundled Lean certificate or of the classical
-calculations.
+The selected follow-up has a deliberately explicit mathematical boundary.
+Hatcher and Norman supply the classical winding and Smith/invariant-factor
+context; Brazas--Fabel and Calcut--McCarthy supply the quotient-topological
+context; and the parent computational-path manuscript supplies the inherited
+setting.  These are recorded as `background` sources.  The local
+`Topological Smith exactness and composition for finite-torus quotient cokernels` entry is the
+only `original-proof` source and has relationship `other`.
 
-The specifically identified research contribution is the exact
-`quotient_basepoint_change_relative_comm_iff` theorem.  For arbitrary pointed
-spaces it characterizes equality of the two continuous multiplicative
-basepoint transports by centrality of their relative loop in the target
-quotient group, distinguishing equality of the actual topological maps from
-mere existence of an abstract group isomorphism.  The selected structure
-packages this iff with the transport unit, inverse, composition, naturality,
-homotopy/basepoint invariance, and the sharp binary product-quotient boundary.
-Thus it identifies the precise obstruction to path-choice independence in the
-nonabelian case; the familiar abelian path-independence result is a corollary.
-The finite-torus classifier and selected lattice Smith profiles provide a
-uniform, nontrivial test family
-for that coherence mechanism.
+The originality claim is limited to the exact bundled certificate selected by
+the Comparator.  In particular, it claims first presentation of the combined
+statement that (a) identifies the quotient loop group with its winding lattice
+by a homeomorphism, (b) transports rectangular short exactness and its
+square first-isomorphism quotient through that model, (c) proves the
+rectangular composition laws for cardinality, finiteness, exponent, and prime
+support, (d) classifies every resulting topological cokernel by arbitrary-rank
+Smith factors and finite prime-power factors, including free `ZMod 0`
+coordinates, and (e) recovers the determinant index in the nonsingular square
+case.  It does not claim first discovery of winding, quotient
+fundamental groups, short exact sequences, Smith normal form, determinant
+indices, or standard centrality and change-of-basepoint facts.
 
-The contribution claim is limited to this source-linked formalized coherence
-synthesis and its exact theorem interface; it is not a priority claim.  It is
-not a claim that winding, Smith factors, determinant indices, or the
-underlying change-of-basepoint construction were first discovered here.  The
-audit found standard inner-conjugation and abelian endpoint-independence
-statements in general topology texts, but did not locate this exact
-quotient-topological transport-equality criterion in the cited sources.  The
-repository's larger topological
-matrix-map, determinant-cardinality, CRT, free-factor, and annihilator
-developments remain useful supporting material outside the selected Comparator
-surface.
-
-The result is intended for specialists who need a canonicality criterion for
-quotient-topological transport, not merely an abstract basepoint-independent
-group.  The finite-torus family supplies a complete positive calibration, while
-the centrality iff and sharp binary product boundary expose the nonabelian and
-topological obstructions in a reusable form.
+The selected theorem is intended for specialists who need a computable,
+presentation-independent classification of induced maps between finite-torus
+quotient groups.  Its interest is the common topological object and the
+reusable rectangular composition interface: exact sequences make successive
+cokernels compose, prime support and coprime exponents give arithmetic control,
+singular maps expose free directions, full-rank maps expose finite torsion, and
+the prime-power refinement gives an explicit finite decomposition.  Square
+nonsingular maps recover the determinant index without changing presentations.
+Repository-wide centrality, product, classifier, CRT, and broader matrix
+developments remain useful supporting material but are outside the selected
+Comparator surface.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex
@@ -693,20 +643,19 @@ equivalences.  Consequently, on path-connected spaces a single based quotient
 detects the T1 status of every based quotient, and homotopy-equivalent
 path-connected spaces have the same global T1 status.
 
-The contribution is therefore a focused theorem package connecting the general
-quotient-topological mechanism to explicit compact-open winding classifiers
-and Smith profiles, with path-choice coherence and the final-versus-ordinary
-product distinction stated at the source level.  Kernel checking is evidence
-that the selected statements are proved; the research-interest claim rests on
-the exact coherence statement and its reusable topology--algebra boundary,
-not on proof size alone.  Exact source relationships are recorded in
-`formalization-followup.yaml`.
+The contribution is therefore a focused theorem package connecting actual
+quotient fundamental groups to explicit integer-matrix invariants.  Kernel
+checking is evidence that the selected statements are proved; the
+research-interest claim rests on the rectangular topology--algebra
+classification and its free/torsion/determinant boundary, not on proof size
+alone.  Exact source relationships and the narrow originality claim are
+recorded in `formalization-followup.yaml`.
 
 ## Verification surface
 
 - `FollowupChallenge.lean` and `FollowupSolution.lean`;
 - `ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean`;
-- `TopologicalComputationalPathsFollowup.main_result`;
+- `TopologicalComputationalPathsFollowup.topological_smith_exactness`;
 - `comparator-followup.json`;
 - `formalization-followup.yaml`;
 - `scripts/check-followup.sh`; and

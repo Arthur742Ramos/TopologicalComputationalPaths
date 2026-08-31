@@ -44,7 +44,7 @@ if search_lean '^axiom |native_decide|Lean\.ofReduceBool' \
   exit 1
 fi
 
-ruby -rjson -e 'config = JSON.parse(File.binread("comparator-followup.json")); abort "NanoDa replay is disabled" unless config["enable_nanoda"] == true; abort "Comparator theorem target is wrong" unless config["theorem_names"] == ["TopologicalComputationalPathsFollowup.main_result"]; puts "Follow-up Comparator configuration validation passed"'
+ruby -rjson -e 'config = JSON.parse(File.binread("comparator-followup.json")); abort "NanoDa replay is disabled" unless config["enable_nanoda"] == true; abort "Comparator theorem target is wrong" unless config["theorem_names"] == ["TopologicalComputationalPathsFollowup.topological_smith_exactness"]; puts "Follow-up Comparator configuration validation passed"'
 ruby scripts/validate-formalization.rb formalization-followup.yaml
 git diff --check
 

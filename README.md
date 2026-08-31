@@ -9,21 +9,25 @@ artifact have a small and auditable boundary.
 ## Current follow-up submission scope
 
 The current Comparator artifact is `comparator-followup.json`, which selects
-`TopologicalComputationalPathsFollowup.main_result` in `FollowupSolution.lean`.
-Its headline mathematical result is the exact
-`quotient_basepoint_change_relative_comm_iff`: for arbitrary pointed spaces,
-two continuous multiplicative basepoint transports agree if and only if their
-relative loop is central in the target quotient fundamental group.  The same
-selected declaration includes the explicitly conditional binary product
-theorem and the finite-dimensional winding/classifier certificate.  Its
-Smith and matrix fields are integer-lattice cokernel fields carried by the
-certificate, not a claim that every repository matrix wrapper
-or arbitrary indexed product is selected.  The narrowly scoped centrality
-theorem is recorded in the metadata as a narrowly scoped local formalization
-entry with relationship `other`; this identifies the source-linked synthesis
-without a first-publication claim.  The classical
-quotient-topology, winding, and Smith ingredients are attributed in
-`formalization.yaml`.
+`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
+`FollowupSolution.lean`.  The selected declaration is a named
+`TopologicalSmithExactnessCertificate` with seven mathematically linked parts:
+an explicit homeomorphism from each finite-torus quotient loop group to its
+integer winding lattice; winding-compatible rectangular short exactness on
+the actual quotient fundamental groups; the associated square
+first-isomorphism quotient; rectangular composition laws for cardinality,
+finiteness, exponent, and prime support; an arbitrary-rank Smith additive
+classification with explicit `ZMod 0` free factors, the finite/full-rank
+criterion, exponent, and
+prime support; the nonsingular square determinant-index specialization; and a
+prime-power refinement in the finite case.  The certificate is a reusable
+topology--algebra comparison theorem, not a proof-size claim.  Its exact
+bundled comparison is recorded as
+`original-proof` with a deliberately narrow scope; Hatcher, Norman,
+Brazas--Fabel, Calcut--McCarthy, and the parent manuscript are listed as
+background rather than as priority sources.  Centrality, binary/indexed
+products, and the broader matrix APIs remain repository context and are
+explicitly outside this Comparator selection.
 
 The accepted first-submission package and the repository-wide extensions below
 are retained as context.  They are not additional claims about the selected
@@ -66,21 +70,17 @@ an explicit standard-representative map, and both inverse/completeness laws.
 
 The baseline mathematical point is the exact separation between the canonical
 topology forced by explicitly composable representatives and the ordinary
-pullback topology on quotient arrows.  The follow-up extends that setting to
-the source-independent quotient fundamental group and makes path-choice
-dependence exact through the centrality criterion above.  This is relevant to
-quotient fundamental groupoids, topological groupoids, and formalized
-rewriting: it isolates the product-quotient condition needed to transport
-composition and locates the strict Hawaiian-earring failure at that comparison
-map.  The observable based fiber deliberately retains the universal
-computational-path trace and coherence witness while using the induced
-topology of its geometric loop observation; this makes the comparison with
-the standard based loop quotient explicit without conflating trace-sensitive
-and observable topologies.  The winding and Smith calculations remain
-classical validation families; the selected follow-up contribution is the
-source-linked formalized topology--algebra coherence interface, not a claim of
-first publication for those classical calculations.  Synthetic integer and
-finite-trace examples are not used as the relevance evidence.
+pullback topology on quotient arrows.  The follow-up instead selects the
+topological Smith composition certificate described below: it transports
+rectangular exactness through the winding model, proves the exact composition
+laws for the resulting topological cokernels, and classifies them by their
+Smith and prime-power factors.  The centrality and product results, the
+observable based fiber, and the strict Hawaiian-earring comparison remain
+useful repository context but are not selected by the follow-up Comparator.
+The winding and Smith calculations are classical validation ingredients; the
+follow-up claim is the explicitly scoped bundled topology--algebra comparison theorem,
+not first publication of those individual calculations.  Synthetic integer
+and finite-trace examples are not used as relevance evidence.
 
 The baseline Palomar declaration (the accepted first submission) is the
 comparison in item 3, the genuine
@@ -105,64 +105,47 @@ application of the comparison theorem.
 
 The repository now also contains a separate, non-destructive follow-up
 surface.  For the follow-up submission, `comparator-followup.json` selects
-`TopologicalComputationalPathsFollowup.main_result` in
+`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
-Its central theorem applies to the compact-open based-loop quotient
-of every pointed topological space.  It first proves continuous functoriality
-under continuous maps, the identity and composition laws, invariance under
-homotopy equivalences, and basepoint-change equivalences along arbitrary
-paths.  It also proves that quotient fundamental groups preserve binary
-products for arbitrary pointed spaces under the exact hypothesis that the
-product of the two loop-quotient projections is a quotient map.  The selected
-certificate does not assert preservation of arbitrary indexed products; any
-broader indexed construction elsewhere in the repository is supporting
-material outside the selected Comparator theorem.
+The selected declaration is a `TopologicalSmithExactnessCertificate` with
+seven linked fields.  First, it gives an explicit homeomorphism from each
+finite-torus quotient loop group to its integer winding lattice.  Second, for
+composable rectangular integer matrices it proves short exactness on the
+actual quotient fundamental groups and on their winding lattices, together
+with both commuting comparison maps.  Third, it identifies the associated
+square first-isomorphism quotient.  Fourth, it proves the rectangular
+composition laws: cardinalities multiply, finiteness is equivalent for the
+successive and composite cokernels, prime support is the union of successive
+supports, and coprime exponents multiply.  Fifth, it gives an arbitrary-rank
+Smith additive equivalence, retaining `ZMod 0` free factors and proving the
+finite/full-rank criterion, the exponent-lcm identity, and the prime-support
+identity.  Sixth, for a nonsingular square matrix it identifies the
+topological cokernel cardinality and Smith-modulus product with the absolute
+determinant.  Seventh, in the finite case it refines the Smith factors into
+explicit prime-power cyclic factors with an exact cardinality product.  This
+is the publication-facing topology--algebra comparison theorem; the older
+centrality, product, classifier, and broader matrix APIs remain repository
+support.
 
 ### Research contribution and selected boundary
 
-The follow-up is not presented as a new calculation of a classical
-fundamental group.  Its paper-sized mathematical contribution is the exact
-path-choice coherence theorem
-`QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff`:
-for arbitrary pointed spaces, two continuous multiplicative basepoint
-transports agree if and only if the relative loop between their paths is
-central in the target quotient fundamental group.  The same selected
-certificate proves the unit, inverse, and composition laws for these
-transports, the sharp binary product-quotient boundary, and the homotopy and
-basepoint invariance needed to use the criterion globally.  It distinguishes
-equality of the actual topological maps from mere existence of an abstract
-group isomorphism.  This identifies a precise obstruction to canonical
-transport in the nonabelian case; the abelian path-independence theorem is a
-corollary.
-This exact iff is the narrowly scoped independently-proved result recorded in
-the metadata; the surrounding continuity, winding, and Smith statements are
-classical-source formalizations or explicitly identified corollaries.
-It answers a structural question that ordinary change-of-basepoint notation
-usually leaves implicit: when do two path choices define the same continuous
-multiplicative map, rather than merely isomorphic groups?  That reusable
-nonabelian criterion has an explicit witness form: any target element that
-fails to commute with the relative loop certifies that the two transports are
-different.  In the abelian finite-torus family the obstruction vanishes, so
-the path-based classifiers collapse to canonical classifiers.  Together with
-the sharp binary product-topology hypothesis, this positive/negative pairing
-is the reason the follow-up is offered as a mathematical submission rather
-than as a proof-size report.
+The follow-up is not presented as a new discovery of winding or Smith normal
+form.  Its paper-sized contribution is the exact composition-and-classification
+theorem above: it makes the topological winding model, its rectangular exact
+sequence, square first-isomorphism quotient, composition arithmetic,
+free-versus-torsion Smith profile, prime-power refinement, and square
+determinant index one reusable result group.  The finite/full-rank and
+prime-support statements remain valid for singular and rectangular maps,
+while the determinant formula appears only after the square nonsingularity
+specialization.  This is a structural classification result, not a proof-size
+report.  The metadata records the exact comparison as `original-proof`, with
+the claim limited to this comparison; the classical ingredients and their
+literature context are explicitly separated in `formalization.yaml`.
 
-The finite-torus portion supplies a uniform test family: explicit winding and
-standard representatives, continuous multiplicative classifiers at every
-basepoint, and the selected integer-lattice-cokernel/Smith-factor profile
-fields carried by the certificate.
-The winding and Smith ingredients are classical and are cited as such.  The
-claim made for this follow-up is the explicit source-linked formalized
-topology--algebra coherence synthesis and theorem interface, not first
-publication of those classical ingredients.  The larger topological
-matrix-map, determinant-cardinality, CRT, free-factor, and annihilator APIs in
-the repository are useful supporting results but are outside this selected
-Comparator claim unless named in `formalization.yaml`.
-
-The same theorem proves continuous reversal, separate continuity of
-concatenation, explicit translation homeomorphisms and homogeneity, and the
-exact equivalence
+For completeness, the repository also contains a separate supporting
+quotient-topology package.  It proves continuous reversal, separate
+continuity of concatenation, explicit translation homeomorphisms and
+homogeneity, and the exact equivalence
 
 ```text
 quotient fundamental group discrete ↔ null-homotopy class open.
@@ -239,12 +222,11 @@ The classifier can also be constructed along any explicit path from the
 canonical basepoint, and the abelian target theorem proves that all such
 path-based classifiers are equal as continuous multiplicative equivalences.
 
-This fixed-dimensional winding/basepoint surface, together with the named
-integer-lattice cokernel and Smith-profile fields in the follow-up metadata,
-is the selected finite-torus portion.  The cross-dimensional coordinate API
-and the broader matrix/Smith inventory that follows are repository support;
-only fields explicitly listed in `formalization.yaml` are part of the
-Comparator account.
+The fixed-dimensional winding/basepoint and matrix material described above
+is useful context for the selected certificate.  The cross-dimensional
+coordinate API and the broader matrix/Smith inventory that follows are
+repository support; only the seven fields explicitly listed in
+`formalization.yaml` are part of the Comparator account.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
 
@@ -504,11 +486,13 @@ This focused repo is the publication-oriented extraction of that layer.  The
 parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
-For the follow-up, the parent setting is recorded as an `adapts` source.  The
-narrowly scoped `other` entry identifies the exact relative-centrality iff
-named in the follow-up metadata; the circle, quotient-topology,
-change-of-basepoint, and Smith ingredients are recorded as literature
-formalizations rather than as first discoveries here.
+For the follow-up, the parent setting is recorded as a `background` source
+and as an `adapts` related formalization.  The local `original-proof` entry
+identifies the exact bundled Topological Smith certificate selected by the
+Comparator.  That entry claims first presentation of this combined
+topology--algebra statement only; the circle, quotient-topology,
+change-of-basepoint, and Smith ingredients are classical background and are
+not claimed as first discoveries here.
 
 ## Publication boundary
 

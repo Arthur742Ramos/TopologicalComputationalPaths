@@ -2,7 +2,7 @@
   "challenge_module": "FollowupChallenge",
   "solution_module": "FollowupSolution",
   "theorem_names": [
-    "TopologicalComputationalPathsFollowup.main_result"
+    "TopologicalComputationalPathsFollowup.topological_smith_exactness"
   ],
   "definition_names": [],
   "permitted_axioms": [

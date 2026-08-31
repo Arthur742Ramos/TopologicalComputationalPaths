@@ -2,37 +2,32 @@
 version: "v0.4"
 
 project:
-  name: "Path-Choice Centrality with Finite-Torus Winding and Lattice Smith Profiles"
+  name: "Topological Smith Classification and Composition for Finite-Torus Quotients"
   description: >-
-    Companion metadata for the selected follow-up declaration
-    `TopologicalComputationalPathsFollowup.main_result`.  The declaration is
-    a conjunction of a general functorial quotient-topological fundamental-
-    group theory and, for every finite `n`, a finite-torus certificate.  Its
-    principal contribution is the exact relative-centrality iff: two
-    continuous multiplicative basepoint transports agree exactly when their
-    relative loop is central in the target quotient.  The general structure
-    also proves induced-map, homotopy, homeomorphism, basepoint, T1,
-    discreteness, semilocal, covering, and topological-group boundary results.
-    Its product result is binary and conditional on the product of the two
-    quotient projections being a quotient map; it does not assert arbitrary
-    indexed-product preservation.  The finite-torus structure
-    proves winding/standard-loop classification by `Fin n → ℤ`, coordinate
-    naturality, continuous multiplicative and arbitrary-basepoint classifiers,
-    path independence, commutativity, discreteness, openness, and semilocal
-    simple connectivity.  Its selected algebraic layer consists exactly of
-    the integer-lattice square/rectangular cokernel short-exact fields, lcm
-    and coprime-product exponent fields, determinant-coprime and prime-support
-    fields, and the named Smith-factor lcm, Smith-factor prime-support,
-    exponent p-adic, and class-order p-adic fields carried by the certificate.
-    Broader repository matrix-map, determinant
-    cardinality, CRT, free-factor, annihilator, image, kernel, and
-    injectivity/surjectivity declarations are supporting material and are not
-    attributed to this selected certificate.  Winding and Smith ingredients
-    are classical.  The claimed mathematical contribution is the exact
-    centrality criterion together with its coherent quotient-topological
-    boundary; the Lean certificate is its checked presentation, not a
-    substitute for that claim, and no priority claim is made for the classical
-    calculations.
+    This follow-up selects
+    `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
+    It is a checked comparison theorem for quotient fundamental groups of
+    finite tori under arbitrary rectangular integer-matrix maps.  The
+    certificate first identifies every quotient loop group with the integer
+    winding lattice by an explicit homeomorphism.  It then transports a
+    rectangular short-exact cokernel sequence across that model, including
+    both naturality squares and the square first-isomorphism quotient.  The
+    composition profile proves multiplicativity of cokernel cardinalities,
+    the exact finite/infinite boundary, prime-support union, and the coprime
+    exponent product law.  Finally it gives an arbitrary-rank Smith
+    decomposition of each topological cokernel, including `ZMod 0` free
+    factors and a prime-power refinement in the finite case, and recovers the
+    nonsingular square determinant index.  Thus the selected result is a
+    reusable topology--algebra composition and classification theorem: it
+    connects actual quotient topology to rectangular exactness, detects free
+    versus torsion directions without a full-rank hypothesis, and exposes
+    computable composition invariants.  Winding, quotient fundamental groups,
+    short exact sequences, first-isomorphism arguments, Smith normal form, and
+    prime-power factorization are classical ingredients; the originality claim
+    is limited to this exact bundled composition-and-classification theorem.
+    Broader quotient-topology, centrality, indexed-product, CRT, and matrix
+    APIs elsewhere in the repository are supporting material, not selected
+    claims.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -55,49 +50,46 @@ sources:
     authors: ["Jack S. Calcut", "John D. McCarthy"]
     type: "paper"
     id: "https://arxiv.org/abs/0904.4739"
-    location: "Homogeneity and discreteness boundary"
-    relationship: "formalizes"
+    location: "Quotient-topological homogeneity and discreteness context"
+    relationship: "background"
     author_endorsement: "not-contacted"
     note: >-
-      The selected Lean fields formalize the homogeneity and null-class/
-      discreteness boundary used here, together with its homotopy/basepoint
-      transport consequences.  They do not claim to reproduce every theorem
-      in the paper.
+      Background for the topology of quotient fundamental groups and the
+      discreteness boundary.  This source is not cited as the source of the
+      selected topological Smith comparison theorem.
   - title: "On Fundamental Groups with the Quotient Topology"
     authors: ["Jeremy Brazas", "Paul Fabel"]
     type: "paper"
     id: "https://arxiv.org/abs/1304.6453"
     location: "Quotient-topology and quasitopological-group context"
-    relationship: "formalizes"
+    relationship: "background"
     author_endorsement: "not-contacted"
     note: >-
-      The selected Lean fields formalize the quotient-topology and
-      quasitopological-group boundary, including the distinction between
-      separate and joint continuity.  The source is not cited as priority for
-      the centrality iff or for the combined certificate.
+      Background for quotient and quasitopological fundamental-group
+      constructions and their continuity boundary.  It is not claimed as a
+      source for the exact rectangular Smith certificate selected here.
   - title: "Algebraic Topology"
     authors: ["Allen Hatcher"]
     type: "book"
     id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
-    location: "Chapter 1: circle, winding, products, and change of basepoint"
-    relationship: "formalizes"
+    location: "Chapter 1: circle winding, products, and fundamental groups"
+    relationship: "background"
     author_endorsement: "n/a"
     note: >-
-      The selected artifact formalizes the classical winding classification
-      with explicit representatives, compact-open/quotient-topological
-      statements, coordinate naturality, and all-basepoint forms; it does not
-      claim the classical calculation as a new mathematical theorem.
+      Classical background for winding-number and torus fundamental-group
+      calculations.  No novelty claim is made for those ingredients.
   - title: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
     authors: ["Christopher Norman"]
     type: "book"
     id: "https://doi.org/10.1007/978-1-4471-2730-7"
-    location: "Smith normal form and invariant factors"
-    relationship: "formalizes"
+    location: "Smith normal form and invariant-factor decompositions"
+    relationship: "background"
     author_endorsement: "n/a"
     note: >-
-      Algebraic context for the Smith-factor and invariant-factor fields in the
-      selected matrix-cokernel layer; the Lean certificate formalizes the
-      explicitly listed exponent and p-adic consequences.
+      Classical algebraic background for Smith factors, finite/free
+      decomposition, exponents, and determinant-index formulas.  The selected
+      theorem transports these ingredients through the topological winding
+      equivalence and does not claim to discover Smith normal form.
   - title: "Topological Semantics for Scoped Computational Paths"
     authors:
       - "Arthur Freitas Ramos"
@@ -106,268 +98,262 @@ sources:
       - "Tiago M. L. de Veras"
     type: "paper"
     id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex"
-    location: "Pinned parent manuscript and computational-path topology boundary"
-    relationship: "adapts"
+    location: "Pinned parent manuscript and computational-path topology"
+    relationship: "background"
     author_endorsement: "participated"
     note: >-
-      The follow-up adapts the parent computational-path setting while adding
-      the space-independent quotient-fundamental-group coherence theorem and
-      finite-torus profile certificate selected here.  This entry records
-      source lineage, not a first-publication claim for the underlying
-      classical mathematics.
-  - title: "Path-choice centrality criterion for quotient fundamental groups"
+      Provides the parent computational-path setting.  The present selection
+      is a distinct topological Smith certificate and does not transfer the
+      parent manuscript's claims or priority.
+  - title: "Topological Smith exactness and composition for finite-torus quotient cokernels"
     authors:
       - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
       - "Anjolina Grisi de Oliveira"
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
-    type: "formalization"
-    id: "FollowupSolution.lean"
-    location: "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
+    type: "original-proof"
+    id: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+    location: "TopologicalComputationalPathsFollowup.topological_smith_exactness"
     relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This local formalization entry is deliberately limited to the exact
-      necessary-and-sufficient relative-centrality criterion for equality of
-      two basepoint transports.  Its relationship is recorded as other to
-      identify a source-linked synthesis without conflating a bundled Lean
-      certificate with a literature-first result.  It makes no
-      first-presentation or priority claim for the classical winding,
-      quotient-topology, change-of-basepoint, or Smith results.  The cited
-      literature entries provide the substantive context.  The audit found
-      the standard inner-conjugation and abelian endpoint-independence
-      statements in general topology texts, but did not locate this exact
-      quotient-topological transport-equality criterion in the cited sources.
+      This original-proof entry is limited to the exact combined theorem
+      group selected here: the explicit winding homeomorphism, the
+      winding-compatible rectangular short-exact sequence and square
+      first-isomorphism quotient, the rectangular cardinality/finiteness/
+      exponent composition laws, the arbitrary-rank Smith decomposition with
+      `ZMod 0` free factors, the finite prime-power refinement, and the square
+      determinant-index compatibility.  It records the first presentation of
+      this bundled topology--algebra composition-and-classification theorem in
+      this artifact, not first discovery of winding, quotient fundamental
+      groups, short exact sequences, Smith normal form, or their classical
+      individual consequences.  The cited literature is background context
+      rather than a claim that it contains this exact certificate.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
     relationship: "builds-on"
-    note: "Accepted baseline final-versus-ordinary topology package."
+    note: "Accepted baseline package; the follow-up selects a different declaration."
   - id: "https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/2a2baa1f31c68f0e696021db91f8381dd2854652"
     relationship: "adapts"
-    note: "Pinned parent manuscript and computational-path development."
+    note: "Pinned parent computational-path development and manuscript."
   - id: "https://github.com/leanprover-community/mathlib4/commit/81a5d257c8e410db227a6665ed08f64fea08e997"
     relationship: "builds-on"
     note: "Pinned Mathlib APIs used by the proof development."
 
 status:
   scope: >-
-    `TopologicalComputationalPathsFollowup.main_result` selects one
-    `QuotientTopologicalFundamentalGroupTheory` and one
-    `FiniteTorusTopologicalClassification n` for every finite `n`.  Product
-    preservation is binary and hypothesis-conditional, and the general theory
-    includes the exact relative-centrality iff for equality of basepoint
-    transports.  The selected matrix and Smith fields are integer-lattice
-    cokernel fields carried by the certificate; corresponding topological
-    matrix wrappers and cross-dimensional extensions elsewhere in the
-    repository remain supporting material.  The selected fields are exactly
-    the short-exact, exponent, prime-support,
-    Smith-factor, exponent-factorization, and class-order-factorization fields
-    named in `main_results`; repository-wide wrappers outside those fields are
-    not part of the submission claim.  The Challenge has one deliberate
-    statement-side sorry, while the selected Solution has none.
+    The selected declaration is exactly
+    `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
+    `FollowupSolution.lean`.  It asserts a nonempty
+    `TopologicalSmithExactnessCertificate` over the actual finite-torus
+    quotient fundamental groups.  Its seven selected fields are (i) the
+    explicit quotient-to-winding homeomorphism; (ii) the rectangular
+    winding-compatible short-exact sequence for composable integer matrices,
+    including the topological/lattice comparison maps; (iii) the associated
+    square first-isomorphism quotient; (iv) the rectangular composition profile
+    for cardinality, finiteness, exponent, and prime support; (v) the
+    arbitrary-rank Smith additive equivalence, finite iff full target rank,
+    exponent-lcm identity, and prime-support identity; (vi) square determinant
+    cardinality and Smith-product compatibility; and (vii) the finite
+    prime-power refinement with its exact cardinality product.
+    Free directions are represented explicitly by `ZMod 0`; no hidden
+    full-rank assumption is made in the rectangular profile.  The older
+    centrality, binary product, finite-torus classifier, and repository-wide
+    matrix declarations remain supporting results outside the selected
+    certificate.  The Challenge has one deliberate statement-side `sorry`;
+    the selected Solution and imported development have none.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
-    - declaration: "TopologicalComputationalPathsFollowup.main_result"
+    - declaration: "TopologicalComputationalPathsFollowup.topological_smith_exactness"
       file: "FollowupSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator-followup.json"
       selected_fields:
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_homotopy_invariant"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_target_comm"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_identity"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_naturality"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_preserved"
-        - "QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
-        - "FiniteTorusTopologicalClassification.winding"
-        - "FiniteTorusTopologicalClassification.standardLoop"
-        - "FiniteTorusTopologicalClassification.classifier"
-        - "FiniteTorusTopologicalClassification.classifier_coordinate_projection"
-        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv"
-        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at"
-        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path"
-        - "FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
-        - "FiniteTorusTopologicalClassification.quotient_mul_commutative_at"
-        - "FiniteTorusTopologicalClassification.quotient_discrete_at"
-        - "FiniteTorusTopologicalClassification.semilocally_simply_connected"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_short_exact"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_lcm_dvd"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_eq_mul_of_coprime"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor"
-        - "FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor"
+        - "TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
+        - "TopologicalSmithExactnessCertificate.rectangular_winding_short_exact"
+        - "TopologicalSmithExactnessCertificate.first_isomorphism_quotient"
+        - "TopologicalSmithExactnessCertificate.rectangular_composition_profile"
+        - "TopologicalSmithExactnessCertificate.smith_cokernel_profile"
+        - "TopologicalSmithExactnessCertificate.determinant_index_compatibility"
+        - "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
       literature_dependencies:
-        - statement: "Homogeneity and the quotient-topology discreteness boundary"
-          source: "Discreteness and Homogeneity of the Topological Fundamental Group"
-        - statement: "Quotient-topology and quasitopological-group continuity context"
-          source: "On Fundamental Groups with the Quotient Topology"
-        - statement: "Circle and finite-torus winding classification"
+        - statement: "Quotient fundamental groups and winding classification"
           source: "Algebraic Topology"
-        - statement: "Smith factors and invariant-factor consequences"
+        - statement: "Short exact sequences and Smith invariant factors"
           source: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
+        - statement: "Quotient-topological fundamental-group context"
+          source: "On Fundamental Groups with the Quotient Topology"
         - statement: "Computational-path parent setting"
           source: "Topological Semantics for Scoped Computational Paths"
       excluded_repository_results:
-        - "arbitrary indexed-product preservation"
-        - "unselected matrix-map and determinant-cardinality wrappers"
-        - "CRT, free-factor, annihilator, image, kernel, and iff-wrapper families"
+        - "relative-centrality and path-choice transport criteria"
+        - "binary or indexed product-preservation claims"
+        - "unselected CRT, annihilator, image, kernel, and matrix-wrapper families"
 
 research_interest:
-  audience: "Researchers in algebraic topology, general topology, formalized mathematics, and computational homotopy"
+  audience: "Researchers in algebraic topology, geometric group theory, general topology, and formalized mathematics"
   selected_contribution: >-
-    The selected paper-sized mathematical theorem is the exact iff
-    `quotient_basepoint_change_relative_comm_iff`: for arbitrary pointed
-    spaces, equality of the two continuous multiplicative transports induced
-    by paths with common endpoints is equivalent to centrality of their
-    relative loop in the target quotient fundamental group.  It is coupled to
-    homotopy/basepoint invariance, the sharp binary product-quotient boundary,
-    and the all-basepoint finite-torus winding plus lattice-Smith profile.  This
-    exact theorem, rather than proof size or kernel checking, is the
-    mathematical result submitted for specialist consideration.
+    `TopologicalComputationalPathsFollowup.topological_smith_exactness` is a
+    topology--algebra composition and classification theorem for maps of
+    finite-torus quotient fundamental groups.  It exposes a single reusable
+    certificate whose first field is a quotient-to-lattice homeomorphism,
+    whose rectangular part proves short exactness, naturality, the square
+    first-isomorphism quotient, and the exact composition laws for cardinality,
+    finiteness, exponent, and prime support, and whose Smith part classifies
+    the resulting cokernel at arbitrary rank, including its free directions,
+    finite/full-rank boundary, prime-power factors, exponent, and prime
+    support.  The determinant-index identity is then the nonsingular square
+    specialization of the same topological object.
   why_nontrivial: >-
-    This is a quantified topology--algebra coherence result, not a restatement
-    of an isolated group isomorphism.  It controls path-choice dependence of
-    the actual quotient-topological transport maps rather than merely their
-    abstract isomorphism type, identifies the precise obstruction to canonical
-    transport in the nonabelian case, and gives a reusable criterion whose
-    abelian and homotopy-invariant corollaries are explicit.  It then
-    specializes the mechanism to a uniform family of finite tori with exact
-    coordinate and lattice p-adic profile fields.
+    The result is not just an isolated cardinality calculation or a list of
+    lattice lemmas.  It identifies the actual quotient fundamental group with
+    the winding lattice by a homeomorphism, proves that rectangular exactness
+    and the square first-isomorphism quotient survive that comparison, and
+    gives an exact composition calculus for the resulting topological
+    cokernels.  One Smith profile then distinguishes free from torsion
+    obstruction in every target dimension and refines finite cases into
+    prime-power factors.  The finite criterion and prime-support law remain
+    meaningful for singular and rectangular maps, while the determinant
+    formula follows only after the square nonsingularity specialization.  This
+    common composition-and-classification theorem is what makes the result
+    reusable for induced maps between finite-torus quotient groups.
   paper_worthiness: >-
-    The theorem answers a structural question left implicit by ordinary
-    change-of-basepoint notation: exactly when do two path choices define the
-    same continuous multiplicative map, rather than merely isomorphic groups?
-    In a nonabelian target, one element witnessing failure of centrality is a
-    concrete certificate that the two transports differ; in the abelian
-    finite-torus family the obstruction vanishes and the classifiers become
-    canonical.  The theorem is reusable for quotient fundamental groups,
-    supplies a sharp binary product-topology boundary, and is calibrated by a
-    complete positive finite-torus family and its lattice profiles.
+    The selected theorem group supplies a compact, auditable bridge between
+    quotient topology and computable integer invariants: a homeomorphic
+    winding model, a natural rectangular short-exact diagram, a square
+    first-isomorphism quotient, exact composition laws for successive
+    cokernels, an arbitrary-rank Smith/prime-power classification with
+    explicit free factors, and a determinant-index specialization all refer
+    to one canonical topological cokernel.  It can serve as a reusable
+    composition-and-classification theorem for finite-torus maps rather than
+    as a proof-size report.  The claim is a first presentation of this exact
+    combined theorem, with the classical ingredients and their literature
+    boundary stated openly; it does not claim first discovery of winding or
+    Smith normal form.
   literature_boundary: >-
-    Calcut--McCarthy and Brazas--Fabel are the substantive sources for the
-    quotient-topology, homogeneity, discreteness, and continuity boundaries;
-    Hatcher supplies the classical winding context; Norman supplies the Smith
-    invariant-factor context; and the pinned parent manuscript supplies the
-    computational-path setting.  The metadata records these relationships as
-    formalizes/adapts.  The exact centrality iff is separately recorded as a
-    narrowly scoped local formalization entry with relationship `other`,
-    identifying the source-linked synthesis without a first-publication claim.
-    No first-publication claim is made for the classical ingredients or for the
-    bundled Lean certificate.  The literature
-    audit found standard inner-conjugation and abelian endpoint-independence
-    statements in general topology texts, but did not locate this exact
-    quotient-topological transport-equality criterion stated in the cited
-    sources.  The originality claim is therefore scoped to this combined
-    theorem statement, not to the underlying classical change-of-basepoint
-    construction.
+    Hatcher and Norman provide the classical winding and Smith/invariant-factor
+    background, while Brazas--Fabel and Calcut--McCarthy provide the
+    quotient-topological context.  The parent computational-path manuscript
+    is recorded as background and the pinned Mathlib revision as a related
+    formalization dependency.  The exact combination selected by the
+    certificate was not identified as a single theorem in those sources; the
+    local source is therefore recorded as `original-proof` with relationship
+    `other`.  That originality claim is deliberately limited to the bundled
+    winding-homeomorphism, rectangular exactness and composition laws, square
+    first-isomorphism quotient, Smith/prime-power classification, and
+    determinant statement and does not claim priority for any classical
+    ingredient.
   evidence:
-    - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff"
-    - "FollowupChallenge.lean: QuotientTopologicalFundamentalGroupTheory.quotient_product_hypothesis_sharp"
-    - "FollowupChallenge.lean: FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path_independent"
-    - "FollowupChallenge.lean: FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.rectangular_winding_short_exact"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.first_isomorphism_quotient"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.determinant_index_compatibility"
+    - "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean: TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
+    - "FollowupSolution.lean: TopologicalComputationalPathsFollowup.topological_smith_exactness"
 
 automation:
   methods:
     - method: "manual"
-      tool_setup: "Scope, provenance, attribution, and metadata review."
+      tool_setup: "Mathematical scope selection, literature/provenance audit, and final metadata review."
     - method: "agent"
       models: ["Codex"]
       framework: "Lean 4.32.0 and Lake"
-      tool_setup: "AI-assisted proof review and compatibility repair; Lean checks every selected theorem."
+      tool_setup: "AI-assisted proof review and compatibility repair; the Lean kernel checks every selected theorem."
       cost:
         wall_time: "multi-session local development"
         spend_usd: "not tracked"
         hardware: "local machine"
-      prompting_notes: "Align selected declaration, provenance, and submission narrative."
+      prompting_notes: "Align the selected theorem group, provenance, and submission narrative."
   spend_usd: "not tracked"
-  notes: "Lake, repository quality gates, and Palomar Comparator/NanoDa replay are used."
+  notes: "Lake, repository quality gates, and an independent Palomar Comparator replay are used."
 
 fidelity:
   divergences: >-
-    This is a source-linked formalization contribution, not a claim of a new
-    classical winding or Smith-normal-form theorem.  Its specifically
-    identified independently-proved contribution is the exact
-    relative-centrality criterion for equality of topological basepoint
-    transports, packaged with the quotient-topology continuity boundary and
-    the finite-torus winding/lattice profile.  The declaration preserves the
-    binary quotient-map hypothesis and excludes arbitrary indexed products.
-    Broader repository matrix developments are supporting material, not
-    selected results.
+    The selected artifact is an original-proof presentation of one exact
+    bundled topology--algebra composition-and-classification theorem, not a
+    new claim about the individual classical ingredients.  The certificate is
+    limited to the seven named fields and makes the arbitrary-rank/free-factor
+    and finite prime-power boundaries explicit.
+    The determinant statement is only the square nonzero-determinant
+    specialization.
+    Centrality, product, classifier, CRT, and broader matrix results remain
+    repository context and are not attributed to the selected declaration.
 
 review:
   status: "self-assessed"
   reviewers: []
   notes: >-
-    The selected structure, named fields, source relationships, and excluded
-    repository results were audited together.  The cited literature supplies
-    substantive source relationships for the formalized boundaries, and the
-    local `other` entry is scoped to the named centrality iff.  No source entry
-    claims first presentation of the bundled certificate or of the classical
-    mathematics.  Technical builds and Comparator replay do not
-    constitute independent peer review or novelty approval.
+    The selected declaration, seven certificate fields, source relationships,
+    originality boundary, and excluded repository results were audited
+    together.  Technical builds and Comparator replay establish reproducible
+    checking, not independent peer review or novelty approval.
 
 alignment:
   namespace: "TopologicalComputationalPathsFollowup"
   statements:
-    - source: "General quotient-topological fundamental-group theory"
-      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory"
-      module: "FollowupChallenge.lean and FollowupSolution.lean"
+    - source: "Finite-torus quotient-to-winding homeomorphism"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
       status: "proved"
       note: >-
-        Includes the binary product and sharpness fields, not indexed products,
-        and the exact relative-centrality iff for path-transport equality.
-    - source: "Path-choice centrality and coherent basepoint transport"
-      lean: "TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_homotopy_invariant; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_target_comm; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_composition; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_identity; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_reverse; TopologicalComputationalPathsFollowup.QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_naturality"
-      module: "FollowupChallenge.lean and FollowupSolution.lean"
+        The compact-open/final quotient loop space of every finite torus is
+        homeomorphic to its integer winding lattice.
+    - source: "Winding-compatible rectangular topological Smith exactness"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.rectangular_winding_short_exact"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
       status: "proved"
       note: >-
-        The exact iff identifies centrality of the relative loop as the
-        necessary-and-sufficient obstruction to path-choice independence and
-        is accompanied by homotopy invariance, naturality, unit, inverse, and
-        composition coherence.  This is the specifically identified
-        independently-proved contribution; no priority claim is made for the
-        classical change-of-basepoint construction.
-    - source: "Finite-torus winding/basepoint certificate"
-      lean: "TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.winding; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at; TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.classifier_continuous_mul_equiv_at_path"
-      module: "FollowupChallenge.lean and FollowupSolution.lean"
+        For composable rectangular integer matrices, the actual finite-torus
+        quotient cokernel and the winding-lattice cokernel have the same
+        injectivity, kernel=image, and surjectivity sequence, and both
+        winding comparison squares commute.
+    - source: "First-isomorphism quotient for composable torus maps"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.first_isomorphism_quotient"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
       status: "proved"
-      note: "Winding, coordinate naturality, continuous classifiers, and global discrete/semilocal consequences."
-    - source: "Selected matrix and Smith p-adic certificate"
-      lean: >-
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_short_exact;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_short_exact;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_lcm_dvd;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_lcm_dvd;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_coprime;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_eq_mul_of_coprime;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_mul_of_det_coprime;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_of_det_ne_zero;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_eq_smithFactorLcm;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_factorization_eq_smithFactor_sup;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_addOrderOf_factorization_eq_smithCoordinate_sup;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_exponent_prime_dvd_iff_smithFactor;
-        TopologicalComputationalPathsFollowup.FiniteTorusTopologicalClassification.matrix_cokernel_rectangular_exponent_prime_dvd_iff_smithFactor
-      module: "FollowupChallenge.lean and FollowupSolution.lean"
+      note: >-
+        Quotienting the square composite cokernel by the projection kernel
+        recovers the second topological cokernel by an explicit additive
+        equivalence.
+    - source: "Rectangular topological cokernel composition profile"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.rectangular_composition_profile"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
       status: "proved"
-      note: "Exact selected fields only; broader repository arithmetic wrappers are excluded."
+      note: >-
+        Under injectivity of the second rectangular matrix action, successive
+        topological cokernel cardinalities multiply, finiteness is equivalent
+        to finiteness of the composite, prime support is the union of the
+        successive supports, and coprime exponents multiply exactly.
+    - source: "Arbitrary-rank Smith classification of the topological cokernel"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.smith_cokernel_profile"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      status: "proved"
+      note: >-
+        The selected field gives the additive Smith equivalence, preserves
+        `ZMod 0` free factors, characterizes finiteness by full target rank,
+        and identifies exponent and prime support from the Smith moduli.
+    - source: "Square determinant-index specialization"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.determinant_index_compatibility"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      status: "proved"
+      note: >-
+        For a nonsingular square matrix, the topological cokernel cardinality
+        and the Smith-modulus product both equal the absolute determinant.
+    - source: "Finite prime-power Smith refinement"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
+      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      status: "proved"
+      note: >-
+        When every Smith modulus is nonzero, the finite topological cokernel
+        is explicitly equivalent to its product of prime-power cyclic factors,
+        with the exact product cardinality formula.
 
 acknowledgements: >-
   Thanks to the cited authors and to the contributors of Lean, Mathlib, the

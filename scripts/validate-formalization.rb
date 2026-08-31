@@ -36,17 +36,17 @@ expected_axioms = ["propext", "Classical.choice", "Quot.sound"]
 abort "status.axioms must list the three standard proof axioms" unless status["axioms"] == expected_axioms
 main_result = status.dig("main_results", 0)
 followup = File.basename(path) == "formalization-followup.yaml" ||
-  main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.main_result"
+  main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.topological_smith_exactness"
 unless followup
   source = sources.first
   abort "the source must be adapted" unless source["relationship"] == "adapts"
   abort "the source must be pinned to a full commit" unless source["id"].to_s.match?(%r{/\b[0-9a-f]{40}\b/})
   abort "the source must identify the topological manuscript" unless source["id"].to_s.end_with?("/paper/topological/main.tex")
 end
-expected_declaration = followup ? "TopologicalComputationalPathsFollowup.main_result" : "TopologicalComputationalPaths.main_result"
+expected_declaration = followup ? "TopologicalComputationalPathsFollowup.topological_smith_exactness" : "TopologicalComputationalPaths.main_result"
 expected_file = followup ? "FollowupSolution.lean" : "Solution.lean"
 expected_comparator = followup ? "comparator-followup.json" : "comparator.json"
-abort "status.main_results must identify main_result" unless main_result.is_a?(Hash) &&
+  abort "status.main_results must identify the follow-up declaration" unless main_result.is_a?(Hash) &&
   main_result["declaration"] == expected_declaration &&
   main_result["file"] == expected_file &&
   main_result["sorry_count"] == 0 &&
@@ -60,37 +60,41 @@ if followup
   interest = document.fetch("research_interest")
   abort "follow-up metadata must describe research interest" unless interest.is_a?(Hash)
   contribution = interest["selected_contribution"].to_s
-  abort "research-interest statement must identify the centrality iff" unless
-    contribution.include?("quotient_basepoint_change_relative_comm_iff")
+  abort "research-interest statement must identify the Topological Smith certificate" unless
+    contribution.include?("topological_smith_exactness")
   abort "research-interest statement must explain paper-worthiness" unless
     interest["paper_worthiness"].to_s.strip.length >= 80
 
   fields = main_result.fetch("selected_fields")
-  abort "selected fields must include the centrality iff" unless
-    fields.include?("QuotientTopologicalFundamentalGroupTheory.quotient_basepoint_change_relative_comm_iff")
+  expected_fields = [
+    "TopologicalSmithExactnessCertificate.topological_winding_homeomorph",
+    "TopologicalSmithExactnessCertificate.rectangular_winding_short_exact",
+    "TopologicalSmithExactnessCertificate.first_isomorphism_quotient",
+    "TopologicalSmithExactnessCertificate.rectangular_composition_profile",
+    "TopologicalSmithExactnessCertificate.smith_cokernel_profile",
+    "TopologicalSmithExactnessCertificate.determinant_index_compatibility",
+    "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
+  ]
+  abort "selected fields must match the Topological Smith certificate" unless fields == expected_fields
   # Validate against the statement-facing structure, not merely a token that
   # happens to occur somewhere in the proof file.  This keeps metadata scope
   # tied to fields the Comparator actually asks the Challenge to expose.
-  selected_source = File.binread("FollowupChallenge.lean")
+  selected_source = File.binread("ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean")
   fields.each do |field|
     leaf = field.split(".").last
     abort "selected field is not declared in FollowupChallenge.lean: #{field}" unless
       selected_source.match?(/^\s+#{Regexp.escape(leaf)}\s*:/)
   end
 
-  substantive = %w[formalizes adapts independently-proves]
-  abort "follow-up sources must record substantive literature relationships" unless
-    sources.any? { |source| substantive.include?(source["relationship"]) }
-  abort "follow-up sources must not use original-proof mode with substantive sources" if
-    sources.any? { |source| source["type"] == "original-proof" }
-  local_sources = sources.select do |source|
-    source["title"].to_s.include?("centrality") &&
-      source["location"].to_s.include?("quotient_basepoint_change_relative_comm_iff")
-  end
-  abort "follow-up must have exactly one scoped centrality formalization source" unless local_sources.length == 1
-  local = local_sources.first
-  abort "centrality source must be a scoped other formalization entry" unless
-    local["type"] == "formalization" && local["relationship"] == "other"
+  original_sources = sources.select { |source| source["type"] == "original-proof" }
+  abort "follow-up must have exactly one original-proof source" unless original_sources.length == 1
+  original = original_sources.first
+  abort "original-proof source must identify the selected Topological Smith theorem" unless
+    original["title"].to_s.include?("Topological Smith exactness") &&
+      original["location"].to_s.include?("topological_smith_exactness") &&
+      original["relationship"] == "other"
+  invalid_relationships = sources.reject { |source| %w[background other].include?(source["relationship"]) }
+  abort "original-proof follow-up sources may only use background/other relationships" unless invalid_relationships.empty?
 end
 
 methods = document.dig("automation", "methods")

@@ -8,3 +8,4 @@ import ComputationalPaths.Path.Topology.QuotientFundamentalGroupFunctorial
 import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
 import ComputationalPaths.Path.Topology.FiniteTorusWinding
+import ComputationalPaths.Path.Topology.TopologicalSmithExactness

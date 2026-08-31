@@ -40,7 +40,7 @@ if config.get("enable_nanoda") is not True:
     raise SystemExit("error: comparator.json must enable the NanoDa replay")
 expected = {
     "comparator.json": ["TopologicalComputationalPaths.main_result"],
-    "comparator-followup.json": ["TopologicalComputationalPathsFollowup.main_result"],
+    "comparator-followup.json": ["TopologicalComputationalPathsFollowup.topological_smith_exactness"],
 }[path.name]
 if config.get("theorem_names") != expected:
     raise SystemExit(f"error: {path.name} names an unexpected theorem target")

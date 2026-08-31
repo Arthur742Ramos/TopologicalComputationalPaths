@@ -1416,4 +1416,12 @@ theorem main_result :
         FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
           A p hp }⟩
 
+/- The selected follow-up theorem is the topological--Smith
+   composition-and-classification theorem, assembled from the independently
+   checked finite-torus module. -/
+theorem topological_smith_exactness :
+    Nonempty
+      _root_.ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.TopologicalSmithExactnessCertificate := by
+  exact ⟨FiniteTorusWinding.topologicalSmithExactnessCertificate⟩
+
 end TopologicalComputationalPathsFollowup

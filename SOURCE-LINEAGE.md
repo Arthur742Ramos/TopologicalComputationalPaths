@@ -59,12 +59,19 @@ the research lineage and exact non-novelty boundary are recorded in
 `formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
 primary literature context.
 
-The follow-up's exact relative-centrality criterion for equality of basepoint
-transports is recorded as a narrowly scoped local formalization entry with
-relationship `other`.  This identifies the source-linked synthesis of that
-specific combined theorem statement and interface without claiming first
-discovery for the classical change-of-basepoint construction or for the
-bundled Lean certificate.
+The selected follow-up is the local
+`TopologicalSmithExactnessCertificate` in
+`ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean`.  Its
+`original-proof` source entry has relationship `other` and is limited to the
+exact bundled composition-and-classification theorem: the quotient-to-winding
+homeomorphism, winding-compatible rectangular short exactness, its square
+first-isomorphism quotient, the rectangular cardinality/finiteness/exponent
+composition laws, arbitrary-rank Smith classification with `ZMod 0` free
+factors, the finite prime-power refinement, and the nonsingular square
+determinant-index specialization.  This records first presentation of that
+combined theorem group, not first discovery of the classical winding,
+quotient-fundamental-group, short-exact, Smith, or change-of-basepoint
+ingredients.
 
 `ComputationalPaths/Path/Topology/QuotientFundamentalGroupFunctorial.lean`
 adds direct compact-open/quotient proofs of continuous induced maps,
