@@ -231,7 +231,11 @@ The mathematical facts that the quotient fundamental group is a
 quasitopological group, is homogeneous, and is discrete for familiar
 semilocally simply connected spaces are established in the literature.  The
 circle and finite-torus fundamental-group calculations are classical.  This
-package makes no novelty claim for those paper theorems.
+The integer-matrix maps on finite tori are likewise classical; this package
+makes no novelty claim for those underlying constructions.  Its added value
+is the independently checked Lean interface carrying them through compact-open
+paths, endpoint casts, quotient classifiers, and exact algebraic image/kernel
+criteria.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex
