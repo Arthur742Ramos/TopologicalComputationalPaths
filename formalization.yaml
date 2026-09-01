@@ -36,7 +36,10 @@ project:
     every winding vector it also supplies a canonical one-step representative
     of trace length exactly one, proves that representative has the chosen
     winding, and proves every traced path is homotopic to the representative
-    selected by its winding.  Two explicit compatibility fields identify the bridge's winding and quotient
+    selected by its winding.  It also proves path-level Smith realizability:
+    a traced target path is homotopic to the mapped geometric path of some
+    source loop exactly when its Smith coordinates satisfy the divisibility
+    equations.  Two explicit compatibility fields identify the bridge's winding and quotient
     classifier with the selected certificate's own fields.
     Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
@@ -246,7 +249,10 @@ research_interest:
     rank, including `ZMod 0` free factors; cardinality and prime-support
     interpretations are asserted only in the finite regime, while the
     arbitrary-rank exponent uses the explicit zero convention for free
-    factors.  Its finite refinement exposes prime-power cyclic factors.  The
+    factors.  Its finite refinement exposes prime-power cyclic factors.  At the
+    path level, a target is homotopic to the mapped geometric path of some
+    source loop exactly when its winding coordinates satisfy the Smith
+    divisibility equations.  The
     determinant-index identity is the nonsingular square specialization.  The selected statement does not include the repository's
     separate torus-map short-exact or first-isomorphism wrappers.
   why_nontrivial: >-
@@ -271,7 +277,10 @@ research_interest:
     identified with the ordinary based loop quotient, so the arithmetic class
     is not detached from the computational-path semantics.  The canonical
     one-step representatives provide an explicit normal-form operation on
-    traced paths, with homotopy completeness proved in the certificate.  These interfaces provide a reusable formal theorem for subsequent
+    traced paths, with homotopy completeness proved in the certificate.  The
+    path-level Smith realizability theorem gives a complete decision interface
+    for mapped computational paths, rather than only for quotient classes.
+    These interfaces provide a reusable formal theorem for subsequent
     maps of finite tori without claiming new topology for unrelated spaces.
     The bridge is instantiated by the universal open geometric computational-
     path carrier, so trace operations and their geometric loop classes are
@@ -299,6 +308,11 @@ research_interest:
     and its geometric loop semantics, not merely to an arbitrary homeomorphism.
     The winding-indexed one-step normal form is a concrete reusable method for
     reducing traced representatives before applying the Smith obstruction.
+    The new path-level realizability equivalence makes that obstruction
+    constructive at the semantic boundary: it decides whether a prescribed
+    traced target can be obtained, up to geometric homotopy, from a source loop
+    by a matrix map.  This is a consequence about the computational-path
+    carrier, not a restatement about bare quotient elements.
     This makes the certificate a reusable note-sized interface between
     algebraic topology and computational abelian-group calculations.  The
     classical ingredients and their sources are listed explicitly; no claim
@@ -320,6 +334,7 @@ research_interest:
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_traceLength"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_complete"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_map_path_smith_iff"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -354,7 +369,10 @@ fidelity:
     realizes every loop through the universal traced computational-path
     presentation, supplies a winding-indexed one-step normal form with proved
     trace length and homotopy completeness, and applies the same winding/Smith
-    test to its geometric representatives; the remaining profiles are on integer
+    test to its geometric representatives.  It also proves path-level Smith
+    realizability: a traced target is homotopic to a mapped source loop iff its
+    Smith coordinates satisfy the displayed divisibility equations.  The
+    remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
@@ -393,7 +411,10 @@ alignment:
         the outer certificate, and applies the Smith test to every geometric
         representative.  In addition, Smith
         coordinates decide image membership for every induced quotient map,
-        including zero-factor constraints in rank-deficient cases.
+        including zero-factor constraints in rank-deficient cases.  The
+        path-level realizability field proves that a target geometric path is
+        homotopic to the matrix image of some source loop exactly when those
+        Smith divisibility equations hold.
     - source: "Canonical winding-lattice matrix composition"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.matrix_composition"
       module: "FollowupSolution.lean"

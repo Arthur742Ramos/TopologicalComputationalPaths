@@ -137,7 +137,10 @@ equivalent to the ordinary based loop quotient, with the representative
 equation checked in the selected certificate.  It also supplies a canonical
 one-step traced representative for each winding vector, proves the
 representative has trace length one and the chosen winding, and proves homotopy
-completeness for every traced path.
+completeness for every traced path.  It also proves path-level Smith
+realizability: for every integer matrix and traced target path, a source loop
+whose mapped geometric path is homotopic to that target exists exactly when
+the target winding coordinates satisfy the Smith divisibility equations.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather

@@ -1477,6 +1477,11 @@ noncomputable def matrixMapQuotientMap {n m : ℕ}
     (_root_.Path.Homotopic.Quotient.map q (matrixMap A)).cast
       (matrixMap_base A).symm (matrixMap_base A).symm
 
+noncomputable def matrixMapLoop {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (γ : Loop n) : Loop m :=
+  (γ.map (matrixMap A).continuous).cast
+    (matrixMap_base A).symm (matrixMap_base A).symm
+
 noncomputable def smithNormalFormFactor
     {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
     (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
@@ -1539,6 +1544,19 @@ structure ComputationalPathWindingPresentation where
     ∀ (n : ℕ) (p : raw n),
       (geometric n (standard n (winding n (geometric n p)))).Homotopic
         (geometric n p)
+  homotopy_iff_winding_eq :
+    ∀ (n : ℕ) (p q : raw n), (geometric n p).Homotopic (geometric n q) ↔
+      winding n (geometric n p) = winding n (geometric n q)
+  matrix_map_path_smith_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
+      (∃ γ : Loop n,
+        (matrixMapLoop A γ).Homotopic (geometric m p)) ↔
+        ∀ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i ∣
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (classifier m (Quotient.mk' (geometric m p)))) i
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
@@ -1873,6 +1891,65 @@ theorem topological_smith_exactness :
                   (FiniteTorusWinding.winding p.geometric)).Homotopic
                     p.geometric
               exact FiniteTorusWinding.standardLoop_homotopic p.geometric
+            homotopy_iff_winding_eq := by
+              intro n p q
+              change p.geometric.Homotopic q.geometric ↔
+                FiniteTorusWinding.winding p.geometric =
+                  FiniteTorusWinding.winding q.geometric
+              exact FiniteTorusWinding.homotopic_iff_winding_eq _ _
+            matrix_map_path_smith_iff := by
+              intro n m A p
+              change
+                (∃ γ : _root_.Path (base n) (base n),
+                  (matrixMapLoop A γ).Homotopic p.geometric) ↔
+                ∀ i : Fin m, smithNormalFormFactor
+                  (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ∣
+                  ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
+                    (FiniteTorusWinding.loopQuotAddEquivIntVector m
+                      (Quotient.mk' p.geometric))) i
+              have hfactor : ∀ i : Fin m, smithNormalFormFactor
+                  (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i =
+                  FiniteTorusWinding.smithNormalFormFactor
+                    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+                intro i
+                rfl
+              constructor
+              · rintro ⟨γ, hγ⟩
+                have hq : Quotient.mk' p.geometric ∈
+                    Set.range (FiniteTorusWinding.matrixMapQuotientMap A) := by
+                  refine ⟨Quotient.mk' γ, ?_⟩
+                  change Quotient.mk' (matrixMapLoop A γ) =
+                    Quotient.mk' p.geometric
+                  exact Quotient.sound hγ
+                have hsmith :=
+                  (FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
+                    A (Quotient.mk' p.geometric)).mp hq
+                simpa only [hfactor] using hsmith
+              · intro hs
+                have hs' : ∀ i : Fin m,
+                    FiniteTorusWinding.smithNormalFormFactor
+                      (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                        (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ∣
+                    ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
+                      (FiniteTorusWinding.loopQuotAddEquivIntVector m
+                        (Quotient.mk' p.geometric))) i := by
+                  simpa only [hfactor] using hs
+                have hq :=
+                  (FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
+                    A (Quotient.mk' p.geometric)).mpr hs'
+                rcases hq with ⟨q, hq⟩
+                revert hq
+                refine Quotient.inductionOn q ?_
+                intro γ hq
+                refine ⟨γ, ?_⟩
+                change Quotient.mk' (matrixMapLoop A γ) =
+                  Quotient.mk' p.geometric at hq
+                exact Quotient.exact hq
             smith_image_iff := by
               intro n m A p
               change Quotient.mk' p.geometric ∈

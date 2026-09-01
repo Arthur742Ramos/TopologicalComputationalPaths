@@ -28,7 +28,11 @@ explicitly selected nested fields):
    compatibility equalities.  It also supplies a canonical one-step
    representative for every winding vector, proves its trace length is one and
    its winding is the chosen vector, and proves every traced path is homotopic
-   to the representative selected by its winding;
+   to the representative selected by its winding.  More strongly, a traced
+   target path is homotopic to the matrix image of some source loop exactly
+   when its Smith coordinates satisfy the displayed divisibility equations;
+   this is a path-level realizability criterion, not only a quotient-image
+   restatement;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -59,6 +63,11 @@ bridge makes this topology-to-arithmetic comparison apply to a concrete
    homeomorphism; its homotopy quotient is explicitly equivalent to the ordinary
    loop quotient.  The bridge also gives a winding-indexed one-step normal form
    for traced paths, with a proved homotopy-completeness theorem.  It then gives a complete
+path-level Smith realizability decision theorem: for every matrix and every
+traced target, a source loop with homotopic mapped geometric path exists iff
+the target winding coordinates satisfy the Smith divisibility test.  This
+connects the arithmetic obstruction to an explicit computational-path
+workflow.
 arbitrary-rank free/torsion and prime-power description of every lattice
 cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only

@@ -486,18 +486,17 @@ noncomputable def matrixMap {n m : ℕ} (A : Fin m → Fin n → ℤ) :
     continuous_pi (fun j =>
       continuous_finsetSum Finset.univ (fun i _ =>
         (continuous_apply i).zsmul (A j i)))⟩
-
 lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
     matrixMap A (base n) = base m := by
   funext j
   simp [matrixMap, base]
-
 noncomputable def matrixMapQuotientMap {n m : ℕ}
     (A : Fin m → Fin n → ℤ) : LoopQuot n → LoopQuot m :=
   fun q =>
     (_root_.Path.Homotopic.Quotient.map q (matrixMap A)).cast
       (matrixMap_base A).symm (matrixMap_base A).symm
-
+noncomputable def matrixMapLoop {n m : ℕ} (A : Fin m → Fin n → ℤ) (γ : Loop n) : Loop m :=
+  (γ.map (matrixMap A).continuous).cast (matrixMap_base A).symm (matrixMap_base A).symm
 /-! Smith factors are copied into the standalone statement surface so the
     Comparator challenge can expose the arithmetic criterion without
     importing the substantive project implementation. -/
@@ -505,9 +504,7 @@ noncomputable def smithNormalFormFactor
     {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
     (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
   if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
-
 noncomputable def smithFactor {n m : ℕ} (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ := smithNormalFormFactor (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2 i
-
 /-! A statement-side interface for the geometric realization of
     computational paths.  The raw carrier retains a trace-length observable,
     while its geometric coordinate is an ordinary continuous path. -/
@@ -559,6 +556,17 @@ structure ComputationalPathWindingPresentation where
     ∀ (n : ℕ) (p : raw n),
       (geometric n (standard n (winding n (geometric n p)))).Homotopic
         (geometric n p)
+  homotopy_iff_winding_eq :
+    ∀ (n : ℕ) (p q : raw n), (geometric n p).Homotopic (geometric n q) ↔
+      winding n (geometric n p) = winding n (geometric n q)
+  matrix_map_path_smith_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
+      (∃ γ : Loop n, (matrixMapLoop A γ).Homotopic (geometric m p)) ↔
+        ∀ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i ∣
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (classifier m (Quotient.mk' (geometric m p)))) i
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
@@ -568,7 +576,6 @@ structure ComputationalPathWindingPresentation where
           ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2.bM.equivFun
             (classifier m (Quotient.mk' (geometric m p)))) i
-
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -984,11 +991,10 @@ structure TopologicalSmithExactnessCertificate where
               (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
             (p : ℕ) ^ ((smithNormalFormFactor
               (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-                (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
-/-- The substantive topological--Smith composition-and-classification theorem
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
+/-! The substantive topological--Smith composition-and-classification theorem
     selected by Comparator. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   sorry
-
 end TopologicalComputationalPathsFollowup

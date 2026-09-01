@@ -32,7 +32,11 @@ classifier by checked compatibility equalities.  It also supplies a canonical
 one-step representative for every winding vector: the representative has trace
 length exactly one, realizes that winding vector, and every traced path is
 homotopic to the representative chosen from its winding.  The same Smith image
-test applies to its winding class.  This is a reusable
+test applies to its winding class.  More strongly, for every integer matrix and
+every traced target path, the existence of a source loop whose mapped geometric
+path is homotopic to that target is equivalent to the displayed Smith
+divisibility test.  This is a path-level realizability decision procedure, not
+just a quotient-membership restatement.  This is a reusable
 topology--arithmetic certificate, not a proof-size claim.  The first field also
 decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
@@ -142,6 +146,10 @@ winding vector, homotopy completeness of that normal form, an explicit
 equivalence of its homotopy quotient with the ordinary loop quotient, checked
 compatibility with the selected classifier, and the same Smith test after
 geometric realization.
+For every integer matrix and traced target path, the bridge additionally proves
+that a source loop maps to a homotopic target path exactly when the target's
+Smith coordinates satisfy those divisibility equations.  This is the selected
+path-level realizability decision theorem.
 The remaining fields give the canonical
 matrix-composition identity, finite-cokernel rectangular lattice-cokernel
 cardinality and prime-support laws (plus finiteness and exponent composition),
@@ -167,7 +175,12 @@ identified with the ordinary loop quotient.  Its canonical one-step
 representatives provide a winding-indexed normal form, and every traced path is
 proved homotopic to the normal form selected by its winding.  The quotient-to-
 lattice bridge is then coupled to arbitrary-rank composition,
-Smith, determinant, and prime-power profiles.  The
+Smith, determinant, and prime-power profiles.  At the path level, it also gives
+a complete realizability criterion: a traced
+target is homotopic to the matrix image of some source loop iff its winding
+coordinates pass the Smith divisibility test.  Thus the arithmetic obstruction
+is an executable decision interface for computational paths, not only a fact
+about quotient classes.
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
 after the square nonsingularity specialization.  Zero Smith factors are
