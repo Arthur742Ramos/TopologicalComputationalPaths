@@ -141,13 +141,22 @@ completeness for every traced path.  It also proves path-level Smith
 realizability: for every integer matrix and traced target path, a source loop
 whose mapped geometric path is homotopic to that target exists exactly when
 the target winding coordinates satisfy the Smith divisibility equations.
+The path presentation additionally has an exact shortest-trace law: zero
+winding classes have a zero-step representative, while every nonzero-winding
+class has a one-step representative and no homotopic zero-step representative.
+The standard representatives are natural for matrix maps up to endpoint-fixed
+homotopy, and successive matrix maps compose up to endpoint-fixed homotopy on
+every traced path.  These fields are the selected computational-path
+normalization and functoriality method.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather
 than serving as a circular mathematical source.  Hatcher and Norman are
 ingredient-only background.  The exact priority of the assembled synthesis is
 unknown, so no first-presentation or priority claim is made for it or for those
-classical ingredients.
+classical ingredients.  The `original-proof` label records the independently
+assembled proof artifact and its path-normalization method, not first
+presentation or priority for the underlying classical results.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration or selected nested field is

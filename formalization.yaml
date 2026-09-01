@@ -36,7 +36,12 @@ project:
     every winding vector it also supplies a canonical one-step representative
     of trace length exactly one, proves that representative has the chosen
     winding, and proves every traced path is homotopic to the representative
-    selected by its winding.  It also proves path-level Smith realizability:
+    selected by its winding.  The minimum trace length in a homotopy class is
+    exactly zero for zero winding and exactly one otherwise, with the latter
+    lower bound proved for every homotopic representative.  Matrix maps send
+    each standard trace to the standard trace of the matrix-action winding up
+    to endpoint-fixed homotopy, and successive path maps compose up to
+    endpoint-fixed homotopy.  It also proves path-level Smith realizability:
     a traced target path is homotopic to the mapped geometric path of some
     source loop exactly when its Smith coordinates satisfy the divisibility
     equations.  Two explicit compatibility fields identify the bridge's winding and quotient
@@ -136,7 +141,8 @@ sources:
     note: >-
       This entry records an independently assembled original-proof artifact,
       including the topological Smith-coordinate image-obstruction theorem and
-      the winding-indexed one-step computational-path normal form.
+      the winding-indexed shortest computational-path normal form and its
+      matrix-natural, composition-coherent reduction laws.
       Priority for this exact mathematical synthesis is unknown: no
       first-presentation or priority claim is made.  The Lean files implement
       and check the proof but are not being cited as an external mathematical
@@ -181,7 +187,9 @@ status:
     finite-torus loop quotients.  The declaration does not state short-exact
     or first-isomorphism wrappers for torus maps.  The nested computational-path
     bridge makes this connection explicit at the selected statement boundary
-    rather than leaving it as repository-only context.
+    rather than leaving it as repository-only context.  Its selected path
+    fields prove the exact zero/one shortest-trace law, matrix naturality of
+    standard traces, and composition coherence on every traced path.
     Free directions are represented explicitly by `ZMod 0`; their totalized
     `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
     finite cardinality or torsion-prime support.  Centrality,
@@ -243,7 +251,14 @@ research_interest:
     explicit homotopy-class quotient is
     equivalent to the ordinary loop quotient, with the representative equation
     proved before applying the Smith test.  Its winding-indexed one-step normal
-    form has a proved trace-length and homotopy-completeness law.  The remaining fields record matrix composition and exact rectangular
+    form has a proved trace-length and homotopy-completeness law.  More
+    precisely, its minimum trace length is zero exactly for zero winding and
+    one otherwise, and the standard representatives are natural under matrix
+    maps up to endpoint-fixed homotopy; matrix-map composition is coherent on
+    every traced path (the fields are
+    `trace_zero_winding_zero`, `minimal_trace_normal_form`,
+    `matrix_normal_form_naturality`, and
+    `matrix_map_composition_homotopy`).  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -278,6 +293,11 @@ research_interest:
     is not detached from the computational-path semantics.  The canonical
     one-step representatives provide an explicit normal-form operation on
     traced paths, with homotopy completeness proved in the certificate.  The
+    certificate also proves the exact lower bound: zero winding is precisely
+    the zero-step case, while nonzero winding forces every homotopic trace to
+    have at least one step.  The normal form is natural under every integer
+    matrix map, and path-map composition agrees up to endpoint-fixed homotopy.
+    The
     path-level Smith realizability theorem gives a complete decision interface
     for mapped computational paths, rather than only for quotient classes.
     These interfaces provide a reusable formal theorem for subsequent
@@ -308,13 +328,21 @@ research_interest:
     and its geometric loop semantics, not merely to an arbitrary homeomorphism.
     The winding-indexed one-step normal form is a concrete reusable method for
     reducing traced representatives before applying the Smith obstruction.
+    It is a shortest-trace theorem rather than an existence-only statement:
+    the certificate identifies the exact minimum cost of every homotopy class
+    (zero for zero winding, one otherwise), proves the nonzero lower bound, and
+    shows that matrix transformations preserve the chosen normal forms up to
+    homotopy and compose coherently.  This gives a reusable normalization
+    semantics for computational-path transformations.
     The new path-level realizability equivalence makes that obstruction
     constructive at the semantic boundary: it decides whether a prescribed
     traced target can be obtained, up to geometric homotopy, from a source loop
     by a matrix map.  This is a consequence about the computational-path
     carrier, not a restatement about bare quotient elements.
     This makes the certificate a reusable note-sized interface between
-    algebraic topology and computational abelian-group calculations.  The
+    algebraic topology and computational abelian-group calculations: the
+    classical lattice calculations become a certified decision and reduction
+    method on an actual path syntax.  The
     classical ingredients and their sources are listed explicitly; no claim
     is made that winding or Smith normal form was first discovered here.
   literature_boundary: >-
@@ -327,7 +355,9 @@ research_interest:
     this synthesis is unknown, so no first-presentation or priority claim is
     made.  Its Lean files are implementations rather than circular
     mathematical sources; no priority claim is made for the classical
-    ingredients.
+    ingredients.  The `original-proof` label describes the independently
+    assembled proof artifact and the path-normalization method, not a claim
+    that the underlying classical mathematics is first presented here.
   evidence:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
@@ -335,6 +365,10 @@ research_interest:
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_traceLength"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_complete"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_map_path_smith_iff"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.trace_zero_winding_zero"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.minimal_trace_normal_form"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_normal_form_naturality"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_map_composition_homotopy"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -369,9 +403,12 @@ fidelity:
     realizes every loop through the universal traced computational-path
     presentation, supplies a winding-indexed one-step normal form with proved
     trace length and homotopy completeness, and applies the same winding/Smith
-    test to its geometric representatives.  It also proves path-level Smith
-    realizability: a traced target is homotopic to a mapped source loop iff its
-    Smith coordinates satisfy the displayed divisibility equations.  The
+    test to its geometric representatives.  It proves the exact shortest-trace
+    law (zero winding iff minimum length zero, otherwise minimum length one),
+    matrix naturality of the normal form, and path-map composition up to
+    endpoint-fixed homotopy.  It also proves path-level Smith realizability: a
+    traced target is homotopic to a mapped source loop iff its Smith coordinates
+    satisfy the displayed divisibility equations.  The
     remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
@@ -409,12 +446,26 @@ alignment:
         trace length and homotopy completeness, identifies the traced homotopy
         quotient with the ordinary loop quotient, ties its winding/classifier to
         the outer certificate, and applies the Smith test to every geometric
-        representative.  In addition, Smith
+        representative.  It also proves the exact shortest-trace law, naturality
+        of standard traces under matrix maps, and composition coherence on all
+        traced paths.  In addition, Smith
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.  The
         path-level realizability field proves that a target geometric path is
         homotopic to the matrix image of some source loop exactly when those
         Smith divisibility equations hold.
+    - source: "Computational-path shortest normal form and matrix functoriality"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; ComputationalPathWindingPresentation.trace_zero_winding_zero; ComputationalPathWindingPresentation.minimal_trace_normal_form; ComputationalPathWindingPresentation.matrix_normal_form_naturality; ComputationalPathWindingPresentation.matrix_map_composition_homotopy"
+      module: "FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        The universal traced carrier has an exact minimum trace length in every
+        geometric homotopy class: zero precisely for zero winding and one for
+        nonzero winding, with a lower bound for every homotopic representative.
+        The canonical standard trace is natural under every integer matrix map
+        up to endpoint-fixed homotopy, and composable path maps agree up to
+        endpoint-fixed homotopy.  This is the selected normalization and
+        functoriality method on computational paths.
     - source: "Canonical winding-lattice matrix composition"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.matrix_composition"
       module: "FollowupSolution.lean"

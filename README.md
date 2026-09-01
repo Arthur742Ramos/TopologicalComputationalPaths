@@ -42,6 +42,15 @@ decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
 rank-deficient cases.  The cardinality and prime-support clauses are
 deliberately gated by finite-cokernel hypotheses.
+The normal-form statement is exact at the level of the computational-path
+observable: the minimum trace length in a homotopy class is `0` exactly for
+zero winding and is `1` otherwise, with the latter lower bound proved for every
+homotopic representative.  Integer-matrix maps send each canonical normal
+form to the canonical normal form of the matrix-action winding up to
+endpoint-fixed homotopy, and successive path maps compose up to
+endpoint-fixed homotopy on every traced path.  Thus the selected bridge is a
+certified trace-complexity normalization and functoriality method, not merely
+an equivalence witness.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.
@@ -130,8 +139,8 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six top-level fields (and explicitly selected Smith-image and computational-
-path bridge subfields).  Its first field is an explicit all-dimensional winding
+six top-level fields and explicit Smith-image and computational-path bridge
+subfields.  Its first field is an explicit all-dimensional winding
 classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
 lattice by equations.  It also characterizes their image, injectivity, and
@@ -181,6 +190,13 @@ target is homotopic to the matrix image of some source loop iff its winding
 coordinates pass the Smith divisibility test.  Thus the arithmetic obstruction
 is an executable decision interface for computational paths, not only a fact
 about quotient classes.
+The normal form has an exact complexity law: a class has a zero-step
+representative iff its winding is zero; every nonzero-winding class has a
+one-step representative and no homotopic zero-step representative.  The
+matrix image of a standard trace is homotopic to the standard trace of the
+matrix-action winding, and two successive matrix maps agree up to homotopy on
+every traced path.  These fields make the bridge a reusable normalization and
+functoriality interface for computational-path transformations.
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
 after the square nonsingularity specialization.  Zero Smith factors are
@@ -277,7 +293,8 @@ The fixed-dimensional winding/basepoint and matrix material described above
 is useful context for the selected certificate.  The cross-dimensional
 coordinate API and the broader matrix/Smith inventory that follows are
 repository support; only the six top-level fields and explicitly selected
-nested fields listed in `formalization.yaml` are part of the Comparator account.
+nested fields named in the declaration and evidence list in
+`formalization.yaml` are part of the Comparator account.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
 
@@ -557,7 +574,10 @@ image obstruction, is recorded as an `original-proof` source with relationship
 mathematical source.  Hatcher and Norman are ingredient-only background, while
 Brazas--Fabel and Calcut--McCarthy provide quotient-topological context.  The
 exact priority of the synthesis is unknown, and no first-presentation or
-priority claim is made for it or for the classical ingredients.
+priority claim is made for it or for the classical ingredients.  In particular,
+`original-proof` records the independently assembled proof artifact and its
+trace-normalization method; it does not claim first presentation or priority
+for the underlying winding, fundamental-group, or Smith results.
 
 ## Publication boundary
 

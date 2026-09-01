@@ -5,8 +5,8 @@
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  This declaration is a nonempty
-`TopologicalSmithExactnessCertificate` with six top-level fields (and two
-explicitly selected nested fields):
+`TopologicalSmithExactnessCertificate` with six top-level fields, including
+the explicitly stated Smith-image and computational-path bridge fields:
 
 1. `winding_matrix_compatibility` packages an all-dimensional family of
    complete winding classifiers: each classifier agrees with winding on loop
@@ -58,18 +58,25 @@ quotient multiplication to the integer lattice, proves naturality and exact
 image/injectivity/surjectivity transfer for induced matrix maps between
 finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
 for realizing any prescribed quotient loop class.  The computational-path
-bridge makes this topology-to-arithmetic comparison apply to a concrete
-   traced carrier and its geometric realization, rather than to an arbitrary
-   homeomorphism; its homotopy quotient is explicitly equivalent to the ordinary
-   loop quotient.  The bridge also gives a winding-indexed one-step normal form
-   for traced paths, with a proved homotopy-completeness theorem.  It then gives a complete
-path-level Smith realizability decision theorem: for every matrix and every
-traced target, a source loop with homotopic mapped geometric path exists iff
-the target winding coordinates satisfy the Smith divisibility test.  This
-connects the arithmetic obstruction to an explicit computational-path
-workflow.
-arbitrary-rank free/torsion and prime-power description of every lattice
-cokernel, with the determinant index as a square specialization.
+bridge makes this comparison apply to a concrete traced carrier and its
+geometric realization, rather than to an arbitrary homeomorphism; its homotopy
+quotient is explicitly equivalent to the ordinary loop quotient.  The bridge
+also gives a winding-indexed one-step normal form for traced paths, with a
+proved homotopy-completeness theorem, and a complete path-level Smith
+realizability decision theorem: for every matrix and traced target, a source
+loop with homotopic mapped geometric path exists iff the target winding
+coordinates satisfy the Smith divisibility test.  This connects the arithmetic
+obstruction to an explicit computational-path workflow.
+The bridge also certifies the exact trace-complexity normal form: a homotopy
+class has a zero-step representative exactly when its winding is zero, while
+every nonzero-winding class has a one-step representative and every homotopic
+representative has at least one step.  Matrix maps carry canonical standard
+traces to canonical standard traces for the matrix-action winding up to
+endpoint-fixed homotopy, and successive matrix maps agree up to homotopy on
+every traced path.  These are path-level normalization and functoriality laws,
+not properties of an unstructured quotient presentation.  The remaining
+fields give an arbitrary-rank free/torsion and prime-power description of every
+lattice cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only
 in its explicitly finite-cokernel regimes.  A zero Smith modulus is a free
 `ZMod 0` factor; the supporting totalized identities then use `Nat.card = 0`
@@ -626,7 +633,10 @@ image obstructions, and cokernel composition for finite-torus quotient maps`
 entry is an `original-proof` source with relationship `other`: it records an
 independently assembled proof artifact; the exact priority of this synthesis is
 unknown, so no first-presentation or priority claim is made.  The local Lean
-files are its implementation rather than a circular mathematical source.
+files are its implementation rather than a circular mathematical source.  The
+`original-proof` label records the assembled proof artifact and its
+trace-normalization method; it does not claim first presentation or priority
+for the underlying winding, fundamental-group, or Smith results.
 
 The selected theorem is intended for specialists who need a computable,
 presentation-independent bridge from finite-torus quotient loop groups to
@@ -641,6 +651,12 @@ zero-cardinality and zero-exponent conventions rather than ordinary finite
 invariants.  Repository-wide centrality, product, torus-map short-exact,
 first-isomorphism, CRT, and broader matrix developments remain useful
 supporting material but are outside the selected Comparator surface.
+The selected path theorem is the method-level part of that boundary: it gives
+a canonical reduction of arbitrary traced representatives to a shortest
+normal form, and the reduction is stable under the integer-matrix path action
+and its composition.  This supplies a concrete semantics for trace complexity
+and matrix transformations that is absent from the classical quotient and
+lattice statements alone.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex

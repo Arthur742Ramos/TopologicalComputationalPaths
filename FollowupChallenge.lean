@@ -10,7 +10,6 @@ import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
-
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
 
@@ -28,12 +27,9 @@ open Set Topology
 open scoped ContinuousMap Topology
 open scoped BigOperators
 attribute [local instance] _root_.Path.Homotopic.setoid
-
 universe u
-
 abbrev GenericLoop (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
   _root_.Path x x
-
 abbrev GenericLoopQuot (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
   _root_.Path.Homotopic.Quotient x x
 
@@ -567,6 +563,10 @@ structure ComputationalPathWindingPresentation where
             (matrixAction A).range.toIntSubmodule).2 i ∣
           ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2.bM.equivFun
             (classifier m (Quotient.mk' (geometric m p)))) i
+  trace_zero_winding_zero : ∀ (n : ℕ) (p : raw n), traceLength n p = 0 → winding n (geometric n p) = 0
+  minimal_trace_normal_form : ∀ (n : ℕ) (p : raw n), (winding n (geometric n p) = 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 0) ∧ (winding n (geometric n p) ≠ 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 1 ∧ ∀ r : raw n, (geometric n r).Homotopic (geometric n p) → 1 ≤ traceLength n r)
+  matrix_normal_form_naturality : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n), (matrixMapLoop A (geometric n (standard n z))).Homotopic (geometric m (standard m (matrixAction A z)))
+  matrix_map_composition_homotopy : ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (p : raw n), (matrixMapLoop B (matrixMapLoop A (geometric n p))).Homotopic (matrixMapLoop (matrixCompose A B) (geometric n p))
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
