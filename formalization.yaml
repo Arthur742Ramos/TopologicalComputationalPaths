@@ -2,7 +2,7 @@
 version: "v0.4"
 
 project:
-  name: "Computational-Path Winding Normal Forms and Topological Smith Obstructions"
+  name: "Finite-Torus Winding/Smith Exactness with an Abstract Traced Presentation"
   description: >-
     This follow-up selects
     `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
@@ -29,29 +29,31 @@ project:
     `Nat.card = 0` and exponent-zero conventions are recorded, not ordinary
     finite cardinality or torsion-prime support.  The selected declaration
     therefore records a precise topology-to-arithmetic bridge.  Its selected
-    nested bridge is instantiated by the universal traced computational-path
-    presentation: trace length is preserved by identity, composition, and
-    reversal, every continuous loop has a geometric representative, and the
-    same Smith image test applies to that representative's winding class.  For
-    every winding vector it also supplies a canonical one-step representative
-    of trace length exactly one, proves that representative has the chosen
-    winding, and proves every traced path is homotopic to the representative
-    selected by its winding.  The minimum trace length in a homotopy class is
-    exactly zero for zero winding and exactly one otherwise, with the latter
-    lower bound proved for every homotopic representative.  Matrix maps send
-    each standard trace to the standard trace of the matrix-action winding up
-    to endpoint-fixed homotopy, and successive path maps compose up to
-    endpoint-fixed homotopy.  The standard trace for a sum of winding vectors
-    is homotopic to the concatenation of the corresponding standard traces,
-    and the zero-winding standard trace is homotopic to the traced identity.
-    Whenever the matrix-action winding is nonzero, the mapped canonical trace
-    has a one-step target representative and every homotopic target trace has
-    at least one step.
-    It also proves path-level Smith realizability:
-    a traced target path is homotopic to the mapped geometric path of some
-    source loop exactly when its Smith coordinates satisfy the divisibility
-    equations.  Two explicit compatibility fields identify the bridge's winding and quotient
-    classifier with the selected certificate's own fields.
+    nested bridge is an abstract traced presentation of based finite-torus
+    loops.  Its raw family, trace operations, geometric loop map, and
+    homotopy-class quotient are explicit interface data: trace length is
+    preserved by identity, composition, and reversal, every continuous loop
+    has a representative, and the same Smith image test applies to that
+    representative's winding class.  For every winding vector it supplies a
+    canonical one-step representative, proves its chosen winding, and proves
+    homotopy completeness.  The minimum trace length in a homotopy class is
+    exactly zero for zero winding and exactly one otherwise.  Matrix maps send
+    each standard traced loop to the standard trace of the matrix-action
+    winding up to endpoint-fixed homotopy, and successive maps compose up to
+    endpoint-fixed homotopy.  The standard trace for a sum is homotopic to the
+    concatenation of the summand traces, and the zero-winding standard trace
+    is homotopic to the traced identity.  Whenever the matrix-action winding
+    is nonzero, the mapped canonical trace has a one-step target
+    representative and every homotopic target trace has at least one step.
+    It also proves abstract path-level Smith realizability: a traced target
+    loop is homotopic to the mapped geometric loop of some source loop exactly
+    when its Smith coordinates satisfy the divisibility equations.  Two
+    explicit compatibility fields identify the abstract bridge's winding and
+    quotient classifier with the selected certificate's own fields.  The
+    declaration does not identify this abstract raw family with the
+    repository's `ComputationalPaths.Path` syntax and does not assert an
+    endpoint-varying open-path carrier; those developments are repository
+    support outside this Comparator selection.
     Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
     matrix APIs remain repository support and are not selected claims.
@@ -133,7 +135,7 @@ sources:
       Provides the parent computational-path setting.  The present selection
       is a distinct topological Smith certificate and does not transfer the
       parent manuscript's claims or priority.
-  - title: "Topological Smith exactness and computational-path winding normal forms"
+  - title: "Topological Smith exactness with an abstract traced presentation"
     authors:
       - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
@@ -141,21 +143,22 @@ sources:
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
     type: "original-proof"
-    location: "The selected topology-to-arithmetic synthesis in this submission"
+    location: "First presentation of the exact selected topology-to-arithmetic synthesis"
     relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This entry records an independently assembled original-proof artifact,
-      including the topological Smith-coordinate image-obstruction theorem and
-      the winding-indexed shortest computational-path normal form and its
-      matrix-natural, composition-coherent reduction laws, including
-      compatibility with winding addition and the traced identity.
-      Priority for this exact mathematical synthesis is unknown: no
-      first-presentation or priority claim is made.  The Lean files implement
-      and check the proof but are not being cited as an external mathematical
-      source.  Winding, quotient fundamental groups, Smith factors, and
-      determinant-index calculations are classical ingredients and are listed
-      above only as background.
+      This is the first presentation, in the bounded sense documented in
+      FIRST-PRESENTATION-AUDIT.md, of the exact six-field theorem group selected
+      by comparator-followup.json.  The claim covers the quotient-to-winding
+      classifier, arbitrary rectangular matrix naturality and Smith image test,
+      the lattice-cokernel composition profiles, arbitrary-rank Smith factors,
+      the nonsingular determinant index, the finite prime-power refinement, and
+      the abstract traced-presentation normal-form fields.  It does not claim
+      first discovery of winding, quotient fundamental groups, Smith normal
+      form, determinant-index calculations, or the computational-path
+      ingredients.  The local Lean files are the implementation of this first
+      presentation, not an external mathematical source; the cited classical
+      and contextual works remain separately classified as background.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -192,12 +195,16 @@ status:
     lattice-cokernel fields concern the integer winding lattice; the first
     field additionally connects that lattice action to actual induced maps of
     finite-torus loop quotients.  The declaration does not state short-exact
-    or first-isomorphism wrappers for torus maps.  The nested computational-path
+    or first-isomorphism wrappers for torus maps.  The nested abstract-trace
     bridge makes this connection explicit at the selected statement boundary
-    rather than leaving it as repository-only context.  Its selected path
-    fields prove the exact zero/one shortest-trace law, matrix naturality of
-    standard traces, composition coherence on every traced path, and the
-    optimal one-step representative for every nonzero matrix image.
+    rather than leaving it as repository-only context.  Its selected fields
+    prove the exact zero/one shortest-trace law, matrix naturality of standard
+    traced loops, composition coherence on every traced loop, and the optimal
+    one-step representative for every nonzero matrix image.  The
+    statement-side interface intentionally has arbitrary raw types and
+    based-loop realizations: it is an abstract traced presentation, not an
+    identification with `ComputationalPaths.Path` or with the repository's
+    endpoint-varying open-path carrier.
     Free directions are represented explicitly by `ZMod 0`; their totalized
     `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
     finite cardinality or torsion-prime support.  Centrality,
@@ -224,9 +231,9 @@ status:
         - "TopologicalSmithExactnessCertificate.determinant_index"
         - "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
       literature_dependencies:
-        - statement: "Quotient fundamental groups, winding classification, and matrix-map naturality"
+        - statement: "Circle winding, products, and classical torus fundamental-group ingredients"
           source: "Algebraic Topology"
-        - statement: "Smith invariant factors and determinant index"
+        - statement: "Smith invariant factors and determinant-index ingredients"
           source: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
         - statement: "Quotient-topological fundamental-group context"
           source: "On Fundamental Groups with the Quotient Topology"
@@ -250,20 +257,17 @@ research_interest:
     determinant criteria in the square case.  Crucially, the same selected
     classifier turns image membership for every induced quotient map into
     finite Smith-coordinate divisibility tests, including zero-factor
-    constraints when rank is deficient.  The selected nested computational-path
-    bridge instantiates that classifier
-    on universal traced open paths, preserving trace-length algebra and
-    geometric coherence for identity, composition, and reversal while
-    covering every continuous loop.  Two compatibility equalities identify its
-    winding and quotient classifier with the selected outer classifier.  Its
-    explicit homotopy-class quotient is
-    equivalent to the ordinary loop quotient, with the representative equation
-    proved before applying the Smith test.  Its winding-indexed one-step normal
-    form has a proved trace-length and homotopy-completeness law.  More
-    precisely, its minimum trace length is zero exactly for zero winding and
-    one otherwise, and the standard representatives are natural under matrix
-    maps up to endpoint-fixed homotopy; matrix-map composition is coherent on
-    every traced path (the fields are
+    constraints when rank is deficient.  The selected nested abstract-trace
+    bridge supplies a quantified raw family, trace-length algebra, geometric
+    based-loop coherence, a section covering every continuous loop, and a
+    homotopy-class quotient equivalent to the ordinary loop quotient.  Two
+    compatibility equalities identify its winding and quotient classifier with
+    the selected outer classifier.  Its winding-indexed one-step normal form
+    has a proved trace-length and homotopy-completeness law.  More precisely,
+    its minimum trace length is zero exactly for zero winding and one
+    otherwise, and the standard representatives are natural under matrix maps
+    up to endpoint-fixed homotopy; matrix-map composition is coherent on every
+    traced loop (the fields are
     `trace_zero_winding_zero`, `minimal_trace_normal_form`,
     `matrix_normal_form_naturality`, and
     `matrix_map_composition_homotopy`, plus `normal_form_trans`,
@@ -275,8 +279,8 @@ research_interest:
     interpretations are asserted only in the finite regime, while the
     arbitrary-rank exponent uses the explicit zero convention for free
     factors.  Its finite refinement exposes prime-power cyclic factors.  At the
-    path level, a target is homotopic to the mapped geometric path of some
-    source loop exactly when its winding coordinates satisfy the Smith
+    path level, a target traced loop is homotopic to the mapped geometric loop
+    of some source loop exactly when its winding coordinates satisfy the Smith
     divisibility equations.  The
     determinant-index identity is the nonsingular square specialization.  The selected statement does not include the repository's
     separate torus-map short-exact or first-isomorphism wrappers.
@@ -295,28 +299,25 @@ research_interest:
     the stated totalized zero convention in free cases.  The Smith and
     prime-power fields make the invariants usable for computation, while
     the determinant formula is isolated to the square nonzero-determinant
-    case.  The traced realization adds a genuine semantic layer: the universal
-    open computational-path carrier preserves trace-length algebra and
-    geometric coherence, while its section covers every continuous loop before
-    the Smith obstruction is applied.  Its homotopy quotient is explicitly
-    identified with the ordinary based loop quotient, so the arithmetic class
-    is not detached from the computational-path semantics.  The canonical
-    one-step representatives provide an explicit normal-form operation on
-    traced paths, with homotopy completeness proved in the certificate.  The
+    case.  The abstract traced presentation adds a semantic layer at the
+    statement boundary: its quantified raw family preserves trace-length
+    algebra and geometric based-loop coherence, while its section covers every
+    continuous loop before the Smith obstruction is applied.  Its homotopy
+    quotient is explicitly equivalent to the ordinary based loop quotient, so
+    the arithmetic class is tied to the declared abstract presentation.  The
+    canonical one-step representatives provide a normal-form operation on
+    traced loops, with homotopy completeness proved in the certificate.  The
     certificate also proves the exact lower bound: zero winding is precisely
     the zero-step case, while nonzero winding forces every homotopic trace to
     have at least one step.  The normal form is natural under every integer
     matrix map, and path-map composition agrees up to endpoint-fixed homotopy.
     The standard trace for `z + w` is homotopic to the concatenation of the
     standard traces for `z` and `w`, and the zero-winding standard trace is
-    homotopic to the traced identity.  The
-    path-level Smith realizability theorem gives a complete decision interface
-    for mapped computational paths, rather than only for quotient classes.
-    These interfaces provide a reusable formal theorem for subsequent
-    maps of finite tori without claiming new topology for unrelated spaces.
-    The bridge is instantiated by the universal open geometric computational-
-    path carrier, so trace operations and their geometric loop classes are
-    part of the selected theorem rather than an informal analogy.
+    homotopic to the traced identity.  The path-level Smith realizability
+    theorem gives a complete decision interface for this abstract traced
+    presentation, rather than only for quotient classes.  The repository's
+    concrete endpoint-varying `ComputationalPaths.Path` constructions remain
+    supporting material and are not asserted by the selected declaration.
   paper_worthiness: >-
     The selected theorem is a compact, auditable formal synthesis with a
     substantive topological consequence: a genuine
@@ -335,11 +336,12 @@ research_interest:
     hypotheses, while free cases retain explicit `ZMod 0`, `Nat.card = 0`,
     and exponent-zero conventions.  The square determinant identity supplies
     a sharp finite specialization.
-    The direct traced realization closes the former scope gap: the advertised
-    arithmetic obstruction is attached to an actual computational-path carrier
-    and its geometric loop semantics, not merely to an arbitrary homeomorphism.
-    The winding-indexed one-step normal form is a concrete reusable method for
-    reducing traced representatives before applying the Smith obstruction.
+    The abstract traced interface closes the statement-level scope gap: the
+    advertised arithmetic obstruction is attached to a declared traced family
+    and its geometric loop semantics, not merely to an arbitrary
+    homeomorphism.  The winding-indexed one-step normal form is a reusable
+    method for reducing representatives in that abstract presentation before
+    applying the Smith obstruction.
     It is a shortest-trace theorem rather than an existence-only statement:
     the certificate identifies the exact minimum cost of every homotopy class
     (zero for zero winding, one otherwise), proves the nonzero lower bound, and
@@ -355,27 +357,26 @@ research_interest:
     The new path-level realizability equivalence makes that obstruction
     constructive at the semantic boundary: it decides whether a prescribed
     traced target can be obtained, up to geometric homotopy, from a source loop
-    by a matrix map.  This is a consequence about the computational-path
-    carrier, not a restatement about bare quotient elements.
-    This makes the certificate a reusable note-sized interface between
-    algebraic topology and computational abelian-group calculations: the
-    classical lattice calculations become a certified decision and reduction
-    method on an actual path syntax.  The
-    classical ingredients and their sources are listed explicitly; no claim
-    is made that winding or Smith normal form was first discovered here.
+    by a matrix map.  This is a consequence about the declared abstract traced
+    presentation, not a restatement about bare quotient elements.  This makes
+    the certificate a reusable note-sized interface between algebraic topology
+    and computational abelian-group calculations: the classical lattice
+    calculations become a certified decision and reduction method on an
+    explicit trace interface.  The classical ingredients and their sources are
+    listed explicitly; the bounded first-presentation claim is only for the
+    exact bundle documented in `FIRST-PRESENTATION-AUDIT.md`.
   literature_boundary: >-
     Hatcher and Norman provide ingredient-only winding and Smith/invariant-
     factor background, while Brazas--Fabel and Calcut--McCarthy provide the
     quotient-topological context.  The parent computational-path manuscript
     is recorded as background and the pinned Mathlib revision as a related
     formalization dependency.  The selected bundle is recorded as an
-    `original-proof` source with relationship `other`: the exact priority of
-    this synthesis is unknown, so no first-presentation or priority claim is
-    made.  Its Lean files are implementations rather than circular
-    mathematical sources; no priority claim is made for the classical
-    ingredients.  The `original-proof` label describes the independently
-    assembled proof artifact and the path-normalization method, not a claim
-    that the underlying classical mathematics is first presented here.
+    `original-proof` source with relationship `other`; the bounded
+    first-presentation claim for this exact conjunction is documented in
+    `FIRST-PRESENTATION-AUDIT.md`.  The claim does not extend to the classical
+    ingredients or to the repository's concrete endpoint-varying path APIs.
+    The local Lean files implement this first presentation and are not cited as
+    an external mathematical source.
   evidence:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
@@ -396,6 +397,7 @@ research_interest:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.determinant_index"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
     - "FollowupSolution.lean: TopologicalComputationalPathsFollowup.topological_smith_exactness"
+    - "FIRST-PRESENTATION-AUDIT.md: bounded first-presentation comparison record"
 
 automation:
   methods:
@@ -420,16 +422,16 @@ fidelity:
     about the individual classical ingredients.  The first field includes the
     actual winding/group classifier, its naturality for induced matrix maps,
     exact image/faithfulness criteria, and the Smith-coordinate image
-    obstruction for actual induced quotient maps.  The selected nested bridge
-    realizes every loop through the universal traced computational-path
-    presentation, supplies a winding-indexed one-step normal form with proved
-    trace length and homotopy completeness, and applies the same winding/Smith
-    test to its geometric representatives.  It proves the exact shortest-trace
-    law (zero winding iff minimum length zero, otherwise minimum length one),
-    matrix naturality of the normal form, and path-map composition up to
-    endpoint-fixed homotopy.  It also proves path-level Smith realizability: a
-    traced target is homotopic to a mapped source loop iff its Smith coordinates
-    satisfy the displayed divisibility equations.  The
+    obstruction for actual induced quotient maps.  The selected abstract-trace
+    bridge supplies an explicit raw family, realizes every loop through its
+    declared section, supplies a winding-indexed one-step normal form with
+    proved trace length and homotopy completeness, and applies the same
+    winding/Smith test to its geometric representatives.  It proves the exact
+    shortest-trace law (zero winding iff minimum length zero, otherwise minimum
+    length one), matrix naturality of the normal form, and path-map composition
+    up to endpoint-fixed homotopy.  It also proves abstract path-level Smith
+    realizability: a traced target is homotopic to a mapped source loop iff its
+    Smith coordinates satisfy the displayed divisibility equations.  The
     remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
@@ -441,7 +443,7 @@ review:
   reviewers: []
   notes: >-
     The selected declaration, six top-level fields (including the nested
-    Smith-coordinate image criterion and computational-path winding bridge), source relationships, scope boundary,
+    Smith-coordinate image criterion and abstract traced winding bridge), source relationships, scope boundary,
     and excluded repository results were audited together.
     Technical builds and Comparator replay establish reproducible checking,
     not independent peer review or novelty approval.
@@ -460,37 +462,39 @@ alignment:
         model, and commutes with the induced integer-matrix map.  Its image,
         injectivity, and surjectivity are characterized by the corresponding
         lattice action, with determinant criteria in the square case; quotient-
-        level matrix composition is also stated.  The nested computational-path
-        bridge instantiates this classifier on universal traced open paths,
-        proves trace-length coherence for identity/composition/reversal, supplies
-        a canonical one-step representative for each winding vector, proves its
-        trace length and homotopy completeness, identifies the traced homotopy
-        quotient with the ordinary loop quotient, ties its winding/classifier to
-        the outer certificate, and applies the Smith test to every geometric
-        representative.  It also proves the exact shortest-trace law, naturality
-        of standard traces under matrix maps, and composition coherence on all
-        traced paths.  The standard trace of a winding sum is homotopic to the
+        level matrix composition is also stated.  The nested abstract-trace
+        bridge supplies the quantified raw family, based-loop realization,
+        trace-length coherence for identity/composition/reversal, a section for
+        every continuous loop, and an explicit homotopy-class quotient.  It
+        supplies a canonical one-step representative for each winding vector,
+        proves its trace length and homotopy completeness, ties its
+        winding/classifier to the outer certificate, and applies the Smith test
+        to every geometric representative.  It also proves the exact
+        shortest-trace law, naturality of standard traces under matrix maps,
+        and composition coherence on all traced loops.  The standard trace of a winding sum is homotopic to the
         concatenation of the summand standard traces, and the zero-winding
         standard trace is homotopic to the traced identity.  Smith coordinates
         also certify that every nonzero matrix image has an optimal one-step
         target trace; no homotopic target trace has zero steps.  The same
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.  The
-        path-level realizability field proves that a target geometric path is
-        homotopic to the matrix image of some source loop exactly when those
+        abstract path-level realizability field proves that a target traced loop
+        is homotopic to the matrix image of some source loop exactly when those
         Smith divisibility equations hold.
     - source: "Computational-path shortest normal form and matrix functoriality"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; ComputationalPathWindingPresentation.trace_zero_winding_zero; ComputationalPathWindingPresentation.minimal_trace_normal_form; ComputationalPathWindingPresentation.matrix_normal_form_naturality; ComputationalPathWindingPresentation.matrix_map_composition_homotopy"
       module: "FollowupSolution.lean"
       status: "proved"
       note: >-
-        The universal traced carrier has an exact minimum trace length in every
-        geometric homotopy class: zero precisely for zero winding and one for
-        nonzero winding, with a lower bound for every homotopic representative.
-        The canonical standard trace is natural under every integer matrix map
-        up to endpoint-fixed homotopy, and composable path maps agree up to
-        endpoint-fixed homotopy.  This is the selected normalization and
-        functoriality method on computational paths.
+        The abstract traced presentation has an exact minimum trace length in
+        every geometric homotopy class: zero precisely for zero winding and one
+        for nonzero winding, with a lower bound for every homotopic
+        representative.  The canonical standard trace is natural under every
+        integer matrix map up to endpoint-fixed homotopy, and composable maps
+        agree up to endpoint-fixed homotopy.  This is the selected
+        normalization and functoriality method for the declared trace family;
+        it is not a claim about the repository's concrete endpoint-varying
+        `ComputationalPaths.Path` APIs.
     - source: "Canonical winding-lattice matrix composition"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.matrix_composition"
       module: "FollowupSolution.lean"

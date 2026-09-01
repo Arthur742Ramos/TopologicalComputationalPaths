@@ -13,14 +13,15 @@ import Mathlib.GroupTheory.SpecificGroups.Cyclic
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
 
-This statement-side module exposes the selected certificate: finite-torus
-winding classification together with rectangular lattice-cokernel composition,
-Smith-normal-form, determinant-index, and prime-power torsion profiles.  In
-addition, the selected classifier exposes a topological image-obstruction
-criterion: an induced finite-torus quotient map lands in a class exactly when
-its Smith coordinates satisfy the corresponding divisibility equations.  The
-challenge deliberately imports only Mathlib and allowed packages so Palomar
-can compile it in a clean canonical environment.
+This module exposes the selected finite-torus winding/Smith certificate,
+including rectangular composition, determinant-index, prime-power profiles,
+and the induced-map image obstruction given by Smith-coordinate divisibility.
+The traced part intentionally uses an abstract interface (raw family, trace
+operations, and based-loop realization); it does not identify that family with
+the repository's `ComputationalPaths.Path` syntax or assert an endpoint-varying
+open-path carrier; stronger constructions remain repository support.  The
+challenge imports only Mathlib and allowed packages so Palomar can compile it
+in a clean canonical environment.
 -/
 namespace TopologicalComputationalPathsFollowup
 open Set Topology
@@ -500,9 +501,8 @@ noncomputable def smithNormalFormFactor
     (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
   if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
 noncomputable def smithFactor {n m : ℕ} (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ := smithNormalFormFactor (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2 i
-/-! A statement-side interface for the geometric realization of
-    computational paths.  The raw carrier retains a trace-length observable,
-    while its geometric coordinate is an ordinary continuous path. -/
+/-! Abstract traced based-loop interface; not an identification with the
+    repository's concrete `ComputationalPaths.Path` or endpoint-varying API. -/
 structure ComputationalPathWindingPresentation where
   raw : ∀ n : ℕ, Type 0
   geometric : ∀ n : ℕ, raw n → Loop n

@@ -22,33 +22,33 @@ finite-cokernel rectangular lattice-cokernel cardinality products, finiteness,
 finite-cokernel prime support, and coprime exponents; an arbitrary-rank Smith
 additive classification with explicit `ZMod 0` free factors, the finite/full-
 rank criterion, and the exponent law; the nonsingular square determinant-index
-formula; and a finite prime-power refinement.  Its selected nested bridge
-instantiates the classifier on the universal open geometric computational-path
-carrier: trace length is preserved by identity, composition, and reversal,
-every continuous loop has a geometric representative, and the homotopy
-quotient of that carrier is explicitly equivalent to the ordinary loop
-quotient.  Its winding and quotient classifier are tied to the selected outer
-classifier by checked compatibility equalities.  It also supplies a canonical
-one-step representative for every winding vector: the representative has trace
-length exactly one, realizes that winding vector, and every traced path is
-homotopic to the representative chosen from its winding.  The same Smith image
-test applies to its winding class.  More strongly, for every integer matrix and
-every traced target path, the existence of a source loop whose mapped geometric
-path is homotopic to that target is equivalent to the displayed Smith
-divisibility test.  This is a path-level realizability decision procedure, not
-just a quotient-membership restatement.  This is a reusable
+formula; and a finite prime-power refinement.  Its selected nested bridge is
+an abstract traced presentation of based finite-torus loops: the declaration
+quantifies a raw family, trace-length operations, a geometric loop map, a
+section for every continuous loop, and a homotopy-class quotient.  It proves
+the corresponding identity/composition/reversal laws, a one-step normal
+representative for each winding vector, homotopy completeness, and the same
+Smith image test after geometric realization.  Its winding and quotient
+classifier are tied to the selected outer classifier by checked compatibility
+equalities.  More strongly, for every integer matrix and every traced target
+loop, the existence of a source loop whose mapped geometric loop is homotopic
+to that target is equivalent to the displayed Smith divisibility test.  This
+is an abstract-interface realizability theorem, not a claim about the
+repository's concrete `ComputationalPaths.Path` syntax or endpoint-varying
+open-path carrier.  The latter remains repository support outside this
+Comparator selection.  This is a reusable
 topology--arithmetic certificate, not a proof-size claim.  The first field also
 decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
 rank-deficient cases.  The cardinality and prime-support clauses are
 deliberately gated by finite-cokernel hypotheses.
-The normal-form statement is exact at the level of the computational-path
+The normal-form statement is exact at the level of the abstract trace
 observable: the minimum trace length in a homotopy class is `0` exactly for
 zero winding and is `1` otherwise, with the latter lower bound proved for every
 homotopic representative.  Integer-matrix maps send each canonical normal
 form to the canonical normal form of the matrix-action winding up to
 endpoint-fixed homotopy, and successive path maps compose up to
-endpoint-fixed homotopy on every traced path.  Thus the selected bridge is a
+endpoint-fixed homotopy on every traced loop.  Thus the selected bridge is a
 certified trace-complexity normalization and functoriality method, not merely
 an equivalence witness.  The canonical normal form also respects winding
 addition: the standard trace for `z + w` is homotopic to the concatenation of
@@ -59,10 +59,12 @@ target trace in that homotopy class has at least one step.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.
-The selected bundle is recorded as an independently assembled `original-proof`
-artifact, while Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent
-manuscript provide ingredient and contextual background.  Priority for this
-exact synthesis is unknown; no first-presentation or priority claim is made.
+The selected bundle is recorded as an `original-proof`: the bounded
+first-presentation claim for this exact conjunction is documented in
+[`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).  Hatcher, Norman,
+Brazas--Fabel, Calcut--McCarthy, and the parent manuscript provide ingredient
+and contextual background only; no first-discovery claim is made for those
+classical ingredients or for the repository's separate concrete path APIs.
 Centrality, binary/indexed products, torus-map short exactness, first-isomorphism
 packaging, and broader matrix APIs remain repository context and are explicitly
 outside this Comparator selection.
@@ -144,7 +146,7 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six top-level fields and explicit Smith-image and computational-path bridge
+six top-level fields and explicit Smith-image and abstract-trace bridge
 subfields.  Its first field is an explicit all-dimensional winding
 classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
@@ -153,17 +155,20 @@ surjectivity, including the square determinant criteria, and states
 quotient-level matrix composition.  The same selected classifier decides
 whether a prescribed quotient loop class lies in the image of an induced
 matrix map by Smith-coordinate divisibility, including rank-deficient
-zero-factor constraints.  The nested computational-path bridge supplies the
-raw traced carrier, trace-length laws, geometric coherence, a section covering
-all continuous loops, an explicit one-step canonical representative for each
-winding vector, homotopy completeness of that normal form, an explicit
-equivalence of its homotopy quotient with the ordinary loop quotient, checked
-compatibility with the selected classifier, and the same Smith test after
-geometric realization.
-For every integer matrix and traced target path, the bridge additionally proves
-that a source loop maps to a homotopic target path exactly when the target's
-Smith coordinates satisfy those divisibility equations.  This is the selected
-path-level realizability decision theorem.
+zero-factor constraints.  The nested bridge is an abstract traced
+presentation: it supplies a quantified raw family, trace-length laws,
+geometric based-loop coherence, a section covering all continuous loops, an
+explicit one-step canonical representative for each winding vector, homotopy
+completeness, an equivalence of its homotopy quotient with the ordinary loop
+quotient, checked compatibility with the selected classifier, and the same
+Smith test after geometric realization.  For every integer matrix and traced
+target loop, the bridge additionally proves that a source loop maps to a
+homotopic target loop exactly when the target's Smith coordinates satisfy those
+divisibility equations.  This is the selected abstract-interface
+realizability theorem.  It does not identify the raw family with the
+repository's `ComputationalPaths.Path` syntax or assert an endpoint-varying
+open-path carrier; those constructions remain repository support outside this
+Comparator selection.
 The remaining fields give the canonical
 matrix-composition identity, finite-cokernel rectangular lattice-cokernel
 cardinality and prime-support laws (plus finiteness and exponent composition),
@@ -182,26 +187,26 @@ certificate above: a single checked declaration combines the actual winding
 and quotient-group laws, their matrix-map naturality, exact image/
 faithfulness criteria, and a Smith-coordinate divisibility test for whether a
 prescribed quotient loop class is realizable by an induced torus map.  The
-computational-path bridge makes that obstruction apply to universal traced
-open paths and their geometric loop classes, rather than merely to an
-unstructured quotient presentation; the traced homotopy quotient is explicitly
+abstract traced bridge makes that obstruction apply to the explicitly
+quantified traced presentation and its geometric loop classes, rather than
+merely to an unstructured quotient; the traced homotopy quotient is explicitly
 identified with the ordinary loop quotient.  Its canonical one-step
-representatives provide a winding-indexed normal form, and every traced path is
+representatives provide a winding-indexed normal form, and every traced loop is
 proved homotopic to the normal form selected by its winding.  The quotient-to-
 lattice bridge is then coupled to arbitrary-rank composition,
 Smith, determinant, and prime-power profiles.  At the path level, it also gives
 a complete realizability criterion: a traced
-target is homotopic to the matrix image of some source loop iff its winding
+target loop is homotopic to the matrix image of some source loop iff its winding
 coordinates pass the Smith divisibility test.  Thus the arithmetic obstruction
-is an executable decision interface for computational paths, not only a fact
-about quotient classes.
+is an executable decision interface for the declared abstract trace family,
+not only a fact about quotient classes.
 The normal form has an exact complexity law: a class has a zero-step
 representative iff its winding is zero; every nonzero-winding class has a
 one-step representative and no homotopic zero-step representative.  The
 matrix image of a standard trace is homotopic to the standard trace of the
 matrix-action winding, and two successive matrix maps agree up to homotopy on
-every traced path.  These fields make the bridge a reusable normalization and
-functoriality interface for computational-path transformations.  The selected
+every traced loop.  These fields make the bridge a reusable normalization and
+functoriality interface for the declared abstract trace transformations.  The selected
 `normal_form_trans` field makes the reduction compatible with the quotient
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
@@ -210,10 +215,12 @@ explicitly free `ZMod 0` directions; their totalized `Nat.card = 0` and
 exponent-zero behavior is not presented as finite cardinality or torsion
 support.  This is a structural classification and obstruction interface, not a
 proof-size report.  The metadata records the selected six-top-level-field
-bundle as an independently assembled `original-proof` source with relationship
-`other`; the exact priority is unknown, so no first-presentation or priority
-claim is made.  Ingredient literature and contextual sources are listed
-separately in `formalization.yaml`.
+bundle as an `original-proof` source with relationship `other`; the bounded
+first-presentation claim for this exact conjunction is documented in
+[`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).  Ingredient
+literature and contextual sources are listed separately in
+`formalization.yaml`; no first-discovery claim is made for those ingredients or
+for the repository's concrete endpoint-varying path APIs.
 
 For completeness, the repository also contains a separate supporting
 quotient-topology package.  It proves continuous reversal, separate
@@ -576,14 +583,13 @@ For the follow-up, the parent setting is recorded as a `background` source and
 as an `adapts` related formalization.  The selected six-top-level-field
 Topological Smith synthesis, including the quotient-map Smith-coordinate
 image obstruction, is recorded as an `original-proof` source with relationship
-`other`; the local Lean files are its implementation, not a circular
-mathematical source.  Hatcher and Norman are ingredient-only background, while
-Brazas--Fabel and Calcut--McCarthy provide quotient-topological context.  The
-exact priority of the synthesis is unknown, and no first-presentation or
-priority claim is made for it or for the classical ingredients.  In particular,
-`original-proof` records the independently assembled proof artifact and its
-trace-normalization method; it does not claim first presentation or priority
-for the underlying winding, fundamental-group, or Smith results.
+`other`; the bounded first-presentation claim for this exact conjunction is
+documented in [`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).
+Hatcher and Norman are ingredient-only background, while Brazas--Fabel and
+Calcut--McCarthy provide quotient-topological context.  The claim does not
+extend to the classical ingredients or to the repository's separate concrete
+endpoint-varying path APIs.  The local Lean files implement this first
+presentation and are not cited as an external mathematical source.
 
 ## Publication boundary
 

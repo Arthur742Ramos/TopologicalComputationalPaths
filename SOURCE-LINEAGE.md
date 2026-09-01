@@ -68,7 +68,10 @@ homeomorphism, winding-compatible rectangular short exactness, its square
 first-isomorphism quotient, the rectangular cardinality/finiteness/exponent
 composition laws, arbitrary-rank Smith classification with `ZMod 0` free
 factors, the finite prime-power refinement, and the nonsingular square
-determinant-index specialization.  This records first presentation of that
+determinant-index specialization.  The selected traced fields are intentionally
+an abstract based-loop presentation, not a claim about the concrete
+endpoint-varying `ComputationalPaths.Path` carrier.  As documented in
+`FIRST-PRESENTATION-AUDIT.md`, this records first presentation of that exact
 combined theorem group, not first discovery of the classical winding,
 quotient-fundamental-group, short-exact, Smith, or change-of-basepoint
 ingredients.

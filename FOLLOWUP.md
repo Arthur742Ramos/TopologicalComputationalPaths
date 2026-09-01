@@ -1,4 +1,4 @@
-# Follow-up: computational-path winding normal forms and topological Smith obstructions
+# Follow-up: finite-torus winding/Smith exactness with an abstract traced presentation
 
 ## Selected result
 
@@ -6,7 +6,7 @@ The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  This declaration is a nonempty
 `TopologicalSmithExactnessCertificate` with six top-level fields, including
-the explicitly stated Smith-image and computational-path bridge fields:
+the explicitly stated Smith-image and abstract traced bridge fields:
 
 1. `winding_matrix_compatibility` packages an all-dimensional family of
    complete winding classifiers: each classifier agrees with winding on loop
@@ -18,21 +18,23 @@ the explicitly stated Smith-image and computational-path bridge fields:
    composition is also stated at the quotient level.  In addition, the image
    of an actual induced quotient map is decided by finite Smith-coordinate
    divisibility tests, including the zero-factor equations in rank-deficient
-   cases.  The selected nested computational-path bridge instantiates the
-   classifier on universal open geometric computational paths, preserves
-   trace-length algebra under identity/composition/reversal, supplies a
-   representative for every continuous loop, identifies the traced homotopy
-   quotient with the ordinary loop quotient, and applies the same Smith test to
-   the representative's geometric loop class.  Its winding and quotient
-   classifier are tied to the selected outer certificate by explicit
-   compatibility equalities.  It also supplies a canonical one-step
-   representative for every winding vector, proves its trace length is one and
-   its winding is the chosen vector, and proves every traced path is homotopic
-   to the representative selected by its winding.  More strongly, a traced
-   target path is homotopic to the matrix image of some source loop exactly
-   when its Smith coordinates satisfy the displayed divisibility equations;
-   this is a path-level realizability criterion, not only a quotient-image
-   restatement;
+   cases.  The selected nested bridge is an abstract traced presentation of
+   based finite-torus loops: it quantifies a raw family, preserves trace-length
+   algebra under identity/composition/reversal, supplies a representative for
+   every continuous loop, identifies its traced homotopy quotient with the
+   ordinary loop quotient, and applies the same Smith test to the representative's
+   geometric loop class.  Its winding and quotient classifier are tied to the
+   selected outer certificate by explicit compatibility equalities.  It also
+   supplies a canonical one-step representative for every winding vector,
+   proves its trace length is one and its winding is the chosen vector, and
+   proves every traced loop is homotopic to the representative selected by its
+   winding.  More strongly, a traced target loop is homotopic to the matrix
+   image of some source loop exactly when its Smith coordinates satisfy the
+   displayed divisibility equations; this is an abstract-interface
+   realizability criterion, not a claim about the repository's concrete
+   `ComputationalPaths.Path` syntax or endpoint-varying open-path carrier;
+   those constructions remain repository support outside this Comparator
+   selection;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -57,23 +59,24 @@ their winding-lattice cokernels.  It links the actual winding invariant and
 quotient multiplication to the integer lattice, proves naturality and exact
 image/injectivity/surjectivity transfer for induced matrix maps between
 finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
-for realizing any prescribed quotient loop class.  The computational-path
-bridge makes this comparison apply to a concrete traced carrier and its
-geometric realization, rather than to an arbitrary homeomorphism; its homotopy
-quotient is explicitly equivalent to the ordinary loop quotient.  The bridge
-also gives a winding-indexed one-step normal form for traced paths, with a
-proved homotopy-completeness theorem, and a complete path-level Smith
-realizability decision theorem: for every matrix and traced target, a source
-loop with homotopic mapped geometric path exists iff the target winding
+for realizing any prescribed quotient loop class.  The abstract traced bridge
+makes this comparison apply to the declared traced family and its geometric
+realization, rather than to an arbitrary homeomorphism; its homotopy quotient
+is explicitly equivalent to the ordinary loop quotient.  The bridge also gives
+a winding-indexed one-step normal form for traced loops, with a proved
+homotopy-completeness theorem, and a complete abstract-interface Smith
+realizability decision theorem: for every matrix and traced target loop, a
+source loop with homotopic mapped geometric loop exists iff the target winding
 coordinates satisfy the Smith divisibility test.  This connects the arithmetic
-obstruction to an explicit computational-path workflow.
+obstruction to the declared trace interface without claiming an identification
+with the repository's concrete computational-path syntax.
 The bridge also certifies the exact trace-complexity normal form: a homotopy
 class has a zero-step representative exactly when its winding is zero, while
 every nonzero-winding class has a one-step representative and every homotopic
 representative has at least one step.  Matrix maps carry canonical standard
 traces to canonical standard traces for the matrix-action winding up to
 endpoint-fixed homotopy, and successive matrix maps agree up to homotopy on
-every traced path.  These are path-level normalization and functoriality laws,
+every traced loop.  These are abstract-trace normalization and functoriality laws,
 not properties of an unstructured quotient presentation.  The canonical
 normal form is also compatible with the path-group operation: the standard
 trace for `z + w` is homotopic to the concatenation of the standard traces for
@@ -88,9 +91,11 @@ and exponent `0`, rather than assigning ordinary finite-cardinality or
 torsion-support meanings to those values.  Winding, quotient fundamental
 groups, and Smith normal form are classical ingredients.  The selected
 six-top-level-field bundle is recorded as an `original-proof` source with
-relationship `other`; the local Lean files are its implementation, not a
-circular mathematical source.  The exact priority of this synthesis is
-unknown, so no first-presentation or priority claim is made.
+relationship `other`; the bounded first-presentation claim for this exact
+conjunction is documented in `FIRST-PRESENTATION-AUDIT.md`.  The claim does
+not extend to the classical ingredients or to the repository's concrete
+endpoint-varying path APIs.  The local Lean files implement this first
+presentation and are not cited as an external mathematical source.
 The detailed general
 quotient-topology and finite-torus developments below are supporting inventory,
 not additional Comparator claims unless listed in `main_results.selected_fields`.
@@ -634,13 +639,13 @@ Calcut--McCarthy provide the quotient-topological context, and the parent
 computational-path manuscript provides the inherited setting; those entries
 are recorded as `background`.  The selected `Topological Smith exactness,
 image obstructions, and cokernel composition for finite-torus quotient maps`
-entry is an `original-proof` source with relationship `other`: it records an
-independently assembled proof artifact; the exact priority of this synthesis is
-unknown, so no first-presentation or priority claim is made.  The local Lean
-files are its implementation rather than a circular mathematical source.  The
-`original-proof` label records the assembled proof artifact and its
-trace-normalization method; it does not claim first presentation or priority
-for the underlying winding, fundamental-group, or Smith results.
+entry is an `original-proof` source with relationship `other`: it records the
+first presentation, in the bounded sense documented in
+`FIRST-PRESENTATION-AUDIT.md`, of this exact conjunction of fields.  The claim
+does not extend to the underlying winding, fundamental-group, or Smith
+results, nor to the repository's separate concrete endpoint-varying path
+APIs.  The local Lean files implement this first presentation rather than
+serving as an external mathematical source.
 
 The selected theorem is intended for specialists who need a computable,
 presentation-independent bridge from finite-torus quotient loop groups to
@@ -655,12 +660,13 @@ zero-cardinality and zero-exponent conventions rather than ordinary finite
 invariants.  Repository-wide centrality, product, torus-map short-exact,
 first-isomorphism, CRT, and broader matrix developments remain useful
 supporting material but are outside the selected Comparator surface.
-The selected path theorem is the method-level part of that boundary: it gives
-a canonical reduction of arbitrary traced representatives to a shortest
-normal form, and the reduction is stable under the integer-matrix path action
-and its composition.  This supplies a concrete semantics for trace complexity
-and matrix transformations that is absent from the classical quotient and
-lattice statements alone.  The selected `matrix_normal_form_minimal` field
+The selected traced theorem is the method-level part of that boundary: it gives
+a canonical reduction of arbitrary representatives in the declared abstract
+trace family to a shortest normal form, and the reduction is stable under the
+integer-matrix action and its composition.  This supplies an explicit
+abstract-trace semantics for trace complexity and matrix transformations that
+is absent from the classical quotient and lattice statements alone.  The
+selected `matrix_normal_form_minimal` field
 adds an optimal image theorem: when the matrix-action winding is nonzero, the
 mapped canonical trace has a one-step target representative, and every
 homotopic target trace has at least one step.

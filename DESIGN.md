@@ -129,25 +129,25 @@ lattice; the first field explicitly ties that lattice to induced maps of
 finite-torus loop quotients and gives determinant criteria for square maps.
 The declaration does not assert torus-map short exactness,
 first-isomorphism wrappers, indexed-product preservation, or centrality.
-The selected nested computational-path bridge instantiates the winding
-classifier on the universal open geometric computational-path carrier, with
-trace-length laws, geometric coherence, a loop section, and the Smith image
-test on geometric representatives.  Its homotopy quotient is explicitly
-equivalent to the ordinary based loop quotient, with the representative
-equation checked in the selected certificate.  It also supplies a canonical
-one-step traced representative for each winding vector, proves the
-representative has trace length one and the chosen winding, and proves homotopy
-completeness for every traced path.  It also proves path-level Smith
-realizability: for every integer matrix and traced target path, a source loop
-whose mapped geometric path is homotopic to that target exists exactly when
-the target winding coordinates satisfy the Smith divisibility equations.
-The path presentation additionally has an exact shortest-trace law: zero
-winding classes have a zero-step representative, while every nonzero-winding
-class has a one-step representative and no homotopic zero-step representative.
-The standard representatives are natural for matrix maps up to endpoint-fixed
-homotopy, and successive matrix maps compose up to endpoint-fixed homotopy on
-every traced path.  These fields are the selected computational-path
-normalization and functoriality method.  The standard trace for a sum of
+The selected nested bridge is an abstract traced presentation of based
+finite-torus loops.  It supplies a quantified raw family, trace-length laws,
+geometric coherence, a loop section, and the Smith image test on geometric
+representatives.  Its homotopy quotient is explicitly equivalent to the
+ordinary based loop quotient, with the representative equation checked in the
+selected certificate.  It also supplies a canonical one-step traced
+representative for each winding vector, proves the representative has trace
+length one and the chosen winding, and proves homotopy completeness for every
+traced loop.  It also proves abstract-interface Smith realizability: for every
+integer matrix and traced target loop, a source loop whose mapped geometric
+loop is homotopic to that target exists exactly when the target winding
+coordinates satisfy the Smith divisibility equations.  The path presentation
+additionally has an exact shortest-trace law: zero winding classes have a
+zero-step representative, while every nonzero-winding class has a one-step
+representative and no homotopic zero-step representative.  The standard
+representatives are natural for matrix maps up to endpoint-fixed homotopy, and
+successive matrix maps compose up to endpoint-fixed homotopy on every traced
+loop.  These fields are the selected abstract-trace normalization and
+functoriality method.  The standard trace for a sum of
 winding vectors is homotopic to the concatenation of the corresponding
 standard traces, and the zero-winding standard trace is homotopic to the
 traced identity, so the reduction is compatible with the path-group operation.
@@ -156,13 +156,12 @@ one-step target representative and no homotopic target trace can have zero
 steps; this is the selected optimal-image refinement.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
-with relationship `other`; the local Lean files implement that result rather
-than serving as a circular mathematical source.  Hatcher and Norman are
-ingredient-only background.  The exact priority of the assembled synthesis is
-unknown, so no first-presentation or priority claim is made for it or for those
-classical ingredients.  The `original-proof` label records the independently
-assembled proof artifact and its path-normalization method, not first
-presentation or priority for the underlying classical results.
+with relationship `other`; the bounded first-presentation claim for this exact
+conjunction is documented in `FIRST-PRESENTATION-AUDIT.md`.  Hatcher and Norman
+are ingredient-only background.  The claim does not extend to the classical
+ingredients or to the repository's concrete endpoint-varying path APIs.  The
+local Lean files implement this first presentation and are not cited as an
+external mathematical source.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration or selected nested field is

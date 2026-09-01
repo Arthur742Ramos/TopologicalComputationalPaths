@@ -1594,9 +1594,11 @@ noncomputable def smithFactor {n m : ℕ}
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 i
 
-/-! A statement-side interface for the geometric realization of
-    computational paths.  The raw carrier retains a trace-length observable,
-    while its geometric coordinate is an ordinary continuous path. -/
+/-! A statement-side interface for an abstract traced presentation of based
+    finite-torus loops.  The raw family retains a trace-length observable,
+    while its geometric coordinate is an ordinary continuous based loop.  It
+    is deliberately not an identification with the repository's concrete
+    `ComputationalPaths.Path` syntax or endpoint-varying open-path API. -/
 structure ComputationalPathWindingPresentation where
   raw : ∀ n : ℕ, Type 0
   geometric : ∀ n : ℕ, raw n → Loop n
@@ -1872,11 +1874,15 @@ structure TopologicalSmithExactnessCertificate where
 
 /- The selected follow-up theorem is the topological--Smith
    composition-and-classification theorem, assembled from independently
-   checked supporting lemmas.  Its selected computational-path fields add the
+   checked supporting lemmas.  Its selected abstract-trace fields add the
    exact shortest-trace normal form, matrix-map functoriality, and optimal
-   one-step image representatives on geometric paths.  Its provenance is
-   declared as an original proof in the submission
-   metadata; the imported module is not a mathematical source for the result. -/
+   one-step image representatives on based geometric loops.  The statement
+   intentionally does not identify the abstract raw family with the
+   repository's `ComputationalPaths.Path` syntax; the endpoint-varying open
+   computational-path constructions are supporting developments outside this
+   Comparator declaration.  Its provenance is documented as a first
+   presentation of this exact bundled theorem group, not as a first discovery
+   of the classical winding or Smith ingredients. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   refine ⟨{
