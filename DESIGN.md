@@ -133,40 +133,27 @@ lattice; the fourth field explicitly ties that lattice to induced maps of
 finite-torus loop quotients and gives determinant criteria for square maps.
 The declaration does not assert the repository's separate topological torus-map
 short-exact wrappers, indexed-product preservation, or centrality.
-The selected nested bridge is an abstract traced presentation of based
-finite-torus loops.  It supplies a quantified raw family, trace-length laws,
-geometric coherence, a loop section, and the Smith image test on geometric
-representatives.  Its homotopy quotient is explicitly equivalent to the
-ordinary based loop quotient, with the representative equation checked in the
-selected certificate.  It also supplies a canonical one-step traced
-representative for each winding vector, proves the representative has trace
-length one and the chosen winding, and proves homotopy completeness for every
-traced loop.  It also proves abstract-interface Smith realizability: for every
-integer matrix and traced target loop, a source loop whose mapped geometric
-loop is homotopic to that target exists exactly when the target winding
-coordinates satisfy the Smith divisibility equations.  The path presentation
-additionally has an exact shortest-trace law: zero winding classes have a
-zero-step representative, while every nonzero-winding class has a one-step
-representative and no homotopic zero-step representative.  The standard
-representatives are natural for matrix maps up to endpoint-fixed homotopy, and
-successive matrix maps compose up to endpoint-fixed homotopy on every traced
-loop.  These fields are the selected abstract-trace normalization and
-functoriality method.  The standard trace for a sum of
-winding vectors is homotopic to the concatenation of the corresponding
-standard traces, and the zero-winding standard trace is homotopic to the
-traced identity, so the reduction is compatible with the path-group operation.
-For a nonzero matrix-action winding, the mapped canonical trace has a
-one-step target representative and no homotopic target trace can have zero
-steps; this is the selected optimal-image refinement.
-Winding, quotient fundamental groups, and Smith normal form are classical
-ingredients.  The selected bundle is recorded as an `original-proof` source
-with relationship `other`; the bounded provenance record for this exact
-certificate is documented in `FIRST-PRESENTATION-AUDIT.md`, with mathematical
-novelty and priority left unknown.  Hatcher and Norman
-are ingredient-only background.  The claim does not extend to the classical
-ingredients or to the repository's concrete endpoint-varying path APIs.  The
-local Lean files implement this checked proof and are not cited as an
-external mathematical source.
+The selected trace bridge is concrete rather than an abstract raw
+presentation.  It fixes
+`WindingWord n := List (Fin n -> Int)`, with `List.length` as its derived
+trace cost, append as concatenation, and a recursive realization by the actual
+standard torus loops.  The selected certificate proves representation by the
+winding standard loop, homotopy iff winding equality, exact zero/one
+minimality, matrix naturality and composition, normal-form sum/unit laws, and
+the Smith-coordinate realizability iff for an induced quotient map.  Thus
+the cost observable and its normal forms come from an independently typed
+syntax and its topological semantics; no arbitrary raw family or
+certificate-supplied cost is selected.
+
+The surrounding winding classifier identifies actual quotient loop classes
+with the integer lattice and transports image, kernel, injectivity,
+surjectivity, rectangular exactness, and Smith finite/free consequences
+through every rectangular matrix map.  Finite cardinality and torsion-prime
+claims retain explicit finite-cokernel hypotheses, while zero Smith factors
+remain free `ZMod 0` directions.  This is a compatibility/methods
+contribution, not a first-discovery claim for classical winding, quotient
+fundamental groups, or Smith normal form.  Provenance is bounded to the
+exact checked synthesis and priority is recorded as unknown.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration or selected nested field is

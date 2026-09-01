@@ -11,6 +11,12 @@ import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
 import Mathlib.LinearAlgebra.Matrix.ToLin
 
+/- The standalone statement surface below supplies its own quotient topology.
+   Disable the imported finite-torus instance so the exported Challenge and
+   Solution declarations elaborate with the same explicit instance. -/
+attribute [-instance]
+  ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.loopQuotTopologicalSpace
+
 /-!
 # Follow-up solution: quotient-topological fundamental groups
 
@@ -297,6 +303,8 @@ noncomputable local instance genericLoopQuotTopologicalSpace
     TopologicalSpace (GenericLoopQuot X x) :=
   TopologicalSpace.coinduced
     (Quotient.mk' : GenericLoop X x → GenericLoopQuot X x) inferInstance
+
+attribute [local instance 2000] genericLoopQuotTopologicalSpace
 
 noncomputable local instance genericLoopQuotGroup
     (X : Type u) [TopologicalSpace X] (x : X) :
@@ -727,7 +735,7 @@ noncomputable def smithNormalFormFactor
 
 noncomputable def smithFactor {n m : ℕ} (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ := smithNormalFormFactor (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2 i
 
-noncomputable instance loopQuotTopology (n : ℕ) :
+noncomputable local instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
     (Quotient.mk' : Loop n → LoopQuot n) inferInstance
@@ -1452,6 +1460,8 @@ noncomputable local instance genericLoopQuotTopologicalSpace
   TopologicalSpace.coinduced
     (Quotient.mk' : GenericLoop X x → GenericLoopQuot X x) inferInstance
 
+attribute [local instance 2000] genericLoopQuotTopologicalSpace
+
 abbrev Circle : Type := AddCircle (1 : ℝ)
 abbrev FiniteTorus (n : ℕ) : Type := Fin n → Circle
 noncomputable abbrev base (n : ℕ) : FiniteTorus n := fun _ => 0
@@ -1459,9 +1469,63 @@ abbrev Loop (n : ℕ) : Type := _root_.Path (base n) (base n)
 abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
+/-! Concrete winding-word traces.  The syntax is a finite list of winding
+    generators; realization concatenates the corresponding actual torus loops. -/
+abbrev WindingWord (n : ℕ) := List (WindingVector n)
+namespace WindingWord
+def traceLength {n : ℕ} (w : WindingWord n) : ℕ := w.length
+def winding {n : ℕ} : WindingWord n → WindingVector n
+  | [] => 0
+  | z :: w => z + winding w
+def trans {n : ℕ} (p q : WindingWord n) : WindingWord n := p ++ q
+def symm {n : ℕ} (p : WindingWord n) : WindingWord n := p.reverse.map (fun z => -z)
+def standard {n : ℕ} (z : WindingVector n) : WindingWord n := if z = 0 then [] else [z]
+noncomputable def realize {n : ℕ}
+    (standardLoop : ∀ n : ℕ, WindingVector n → Loop n) :
+    WindingWord n → Loop n
+  | [] => _root_.Path.refl (base n)
+  | z :: w => _root_.Path.trans (standardLoop n z) (realize standardLoop w)
+@[simp] theorem traceLength_nil {n : ℕ} : traceLength ([] : WindingWord n) = 0 := rfl
+theorem traceLength_trans {n : ℕ} (p q : WindingWord n) :
+    traceLength (trans p q) = traceLength p + traceLength q := by
+  simp [traceLength, trans, List.length_append]
+theorem traceLength_symm {n : ℕ} (p : WindingWord n) : traceLength (symm p) = traceLength p := by
+  simp [traceLength, symm]
+theorem winding_trans {n : ℕ} (p q : WindingWord n) : winding (trans p q) = winding p + winding q := by
+  induction p with
+  | nil => simp [trans, winding]
+  | cons z p ih =>
+      change z + winding (p ++ q) = (z + winding p) + winding q
+      have ih' : winding (p ++ q) = winding p + winding q := by
+        simpa [trans] using ih
+      rw [ih']
+      simp [add_assoc]
+theorem winding_standard {n : ℕ} (z : WindingVector n) : winding (standard z) = z := by
+  by_cases h : z = 0 <;> simp [standard, winding, h]
+theorem traceLength_standard {n : ℕ} (z : WindingVector n) :
+    traceLength (standard z) = if z = 0 then 0 else 1 := by
+  by_cases h : z = 0 <;> simp [standard, traceLength, h]
+end WindingWord
 
 noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
     (Fin n → ℤ) →+ (Fin m → ℤ) := (Matrix.mulVecLin A).toAddMonoidHom
+
+namespace WindingWord
+noncomputable def mapMatrix {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    WindingWord n → WindingWord m := List.map (matrixAction A)
+theorem winding_mapMatrix {n m : ℕ} (A : Fin m → Fin n → ℤ) (w : WindingWord n) :
+    winding (mapMatrix A w) = matrixAction A (winding w) := by
+  induction w with
+  | nil => simp [mapMatrix, winding]
+  | cons z w ih =>
+      change matrixAction A z + winding (List.map (matrixAction A) w) =
+        matrixAction A (z + winding w)
+      have ih' : winding (List.map (matrixAction A) w) =
+          matrixAction A (winding w) := by
+        simpa [mapMatrix] using ih
+      rw [ih']
+      exact ((matrixAction A).map_add z (winding w)).symm
+end WindingWord
 
 def matrixCompose {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
@@ -1501,62 +1565,6 @@ private theorem matrixMapLoop_comp_homotopic {n m k : ℕ}
   exact @Quotient.exact _ (_root_.Path.Homotopic.setoid (base k) (base k))
     _ _ (FiniteTorusWinding.matrixMapQuotientMap_comp A B (Quotient.mk' γ))
 
-private theorem zero_length_trace_end_eq
-    {A : Type*} [TopologicalSpace A] {Step : Type*}
-    (S : GeometricStepSystem A Step) {a b : A}
-    (t : GeometricTrace S a b) :
-    GeometricTrace.traceLength t = 0 → a = b := by
-  induction t with
-  | refl a =>
-      intro
-      rfl
-  | single s =>
-      intro h
-      simp [GeometricTrace.traceLength] at h
-  | trans p q ihp ihq =>
-      intro h
-      simp only [GeometricTrace.traceLength] at h
-      have hp : GeometricTrace.traceLength p = 0 := by omega
-      have hq : GeometricTrace.traceLength q = 0 := by omega
-      exact (ihp hp).trans (ihq hq)
-  | symm p ihp =>
-      intro h
-      exact (ihp h).symm
-
-private theorem zero_length_trace_homotopic_refl
-    {A : Type*} [TopologicalSpace A] {Step : Type*}
-    (S : GeometricStepSystem A Step) {a b : A}
-    (t : GeometricTrace S a b) :
-    ∀ h : GeometricTrace.traceLength t = 0, ∀ hab : a = b,
-      _root_.Path.Homotopic (GeometricTrace.realize t)
-        ((_root_.Path.refl a).cast rfl hab.symm) := by
-  induction t with
-  | refl a =>
-      intro h hab
-      cases hab
-      exact _root_.Path.Homotopic.refl _
-  | single s =>
-      intro h
-      simp [GeometricTrace.traceLength] at h
-  | trans p q ihp ihq =>
-      intro h hab
-      simp only [GeometricTrace.traceLength] at h
-      have hp : GeometricTrace.traceLength p = 0 := by omega
-      have hq : GeometricTrace.traceLength q = 0 := by omega
-      have hpEnd := zero_length_trace_end_eq S p hp
-      have hqEnd := zero_length_trace_end_eq S q hq
-      cases hpEnd
-      cases hqEnd
-      cases hab
-      have hcomp := (ihp hp rfl).hcomp (ihq hq rfl)
-      exact hcomp.trans (_root_.Path.Homotopic.trans_refl _)
-  | symm p ihp =>
-      intro h hab
-      have hpEnd := zero_length_trace_end_eq S p h
-      cases hpEnd
-      cases hab
-      exact (ihp h rfl).symm₂
-
 private theorem winding_matrixMapLoop {n m : ℕ}
     (A : Fin m → Fin n → ℤ) (γ : Loop n) :
     FiniteTorusWinding.winding (matrixMapLoop A γ) =
@@ -1584,16 +1592,25 @@ private theorem standard_matrix_naturality {n m : ℕ}
   rw [winding_matrixMapLoop, FiniteTorusWinding.winding_standardLoop]
   exact (FiniteTorusWinding.winding_standardLoop _).symm
 
-private theorem universal_trace_zero_winding_zero (n : ℕ)
-    (p : UniversalCompPathHomotopyEquivalence.UniversalOpen
-      (A := FiniteTorus n) (a := base n) (b := base n))
-    (hp : GeometricTrace.traceLength p.trace = 0) :
-    FiniteTorusWinding.winding p.geometric = 0 := by
-  have ht := zero_length_trace_homotopic_refl
-    (UniversalCompPathHomotopyEquivalence.UniversalSystem
-      (A := FiniteTorus n)).toGeometricStepSystem p.trace hp rfl
-  have hw := FiniteTorusWinding.winding_eq_of_homotopic (p.coherent.trans ht)
-  simpa [FiniteTorusWinding.winding_identity] using hw
+private theorem winding_realize_word {n : ℕ} (p : WindingWord n) :
+    FiniteTorusWinding.winding
+        (WindingWord.realize (fun n => FiniteTorusWinding.standardLoop) p) =
+      WindingWord.winding p := by
+  induction p with
+  | nil =>
+      change FiniteTorusWinding.winding
+          (_root_.Path.refl (FiniteTorusWinding.base n)) = 0
+      exact FiniteTorusWinding.winding_identity
+  | cons z p ih =>
+      rw [WindingWord.realize, FiniteTorusWinding.winding_trans,
+        FiniteTorusWinding.winding_standardLoop, ih]
+      rfl
+
+private theorem word_representation {n : ℕ} (p : WindingWord n) :
+    (WindingWord.realize (fun n => FiniteTorusWinding.standardLoop) p).Homotopic
+      (FiniteTorusWinding.standardLoop (WindingWord.winding p)) := by
+  apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+  rw [winding_realize_word, FiniteTorusWinding.winding_standardLoop]
 
 noncomputable def smithNormalFormFactor
     {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
@@ -1606,121 +1623,73 @@ noncomputable def smithFactor {n m : ℕ}
     (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
       (matrixAction A).range.toIntSubmodule).2 i
 
-/-! A statement-side interface for an abstract traced presentation of based
-    finite-torus loops.  The raw family retains a trace-length observable,
-    while its geometric coordinate is an ordinary continuous based loop.  It
-    is deliberately not an identification with the repository's concrete
-    `ComputationalPaths.Path` syntax or endpoint-varying open-path API. -/
-structure ComputationalPathWindingPresentation where
-  raw : ∀ n : ℕ, Type 0
-  geometric : ∀ n : ℕ, raw n → Loop n
-  traceLength : ∀ n : ℕ, raw n → ℕ
-  refl : ∀ n : ℕ, raw n
-  trans : ∀ n : ℕ, raw n → raw n → raw n
-  symm : ∀ n : ℕ, raw n → raw n
-  traceLength_refl : ∀ n : ℕ, traceLength n (refl n) = 0
-  traceLength_trans :
-    ∀ (n : ℕ) (p q : raw n),
-      traceLength n (trans n p q) = traceLength n p + traceLength n q
-  traceLength_symm :
-    ∀ (n : ℕ) (p : raw n), traceLength n (symm n p) = traceLength n p
-  geometric_refl :
-    ∀ n : ℕ,
-      (geometric n (refl n)).Homotopic (_root_.Path.refl (base n))
-  geometric_trans :
-    ∀ (n : ℕ) (p q : raw n),
-      (geometric n (trans n p q)).Homotopic
-        (_root_.Path.trans (geometric n p) (geometric n q))
-  geometric_symm :
-    ∀ (n : ℕ) (p : raw n),
-      (geometric n (symm n p)).Homotopic
-        (_root_.Path.symm (geometric n p))
-  section_ : ∀ n : ℕ, Loop n → raw n
-  section_geometric :
-    ∀ (n : ℕ) (γ : Loop n), geometric n (section_ n γ) = γ
-  rawClass : ∀ n : ℕ, Type 0
-  quotientMk : ∀ n : ℕ, raw n → rawClass n
-  quotientEquiv : ∀ n : ℕ, rawClass n ≃ LoopQuot n
-  quotientEquiv_mk :
-    ∀ (n : ℕ) (p : raw n),
-      quotientEquiv n (quotientMk n p) = Quotient.mk' (geometric n p)
-  winding : ∀ n : ℕ, Loop n → WindingVector n
-  classifier : ∀ n : ℕ, LoopQuot n → WindingVector n
-  classifier_mk :
-    ∀ (n : ℕ) (γ : Loop n),
-      classifier n (Quotient.mk' γ) = winding n γ
-  standard : ∀ n : ℕ, WindingVector n → raw n
-  standard_traceLength :
-    ∀ (n : ℕ) (z : WindingVector n), traceLength n (standard n z) = 1
-  standard_winding :
-    ∀ (n : ℕ) (z : WindingVector n),
-      winding n (geometric n (standard n z)) = z
-  standard_complete :
-    ∀ (n : ℕ) (p : raw n),
-      (geometric n (standard n (winding n (geometric n p)))).Homotopic
-        (geometric n p)
-  homotopy_iff_winding_eq :
-    ∀ (n : ℕ) (p q : raw n), (geometric n p).Homotopic (geometric n q) ↔
-      winding n (geometric n p) = winding n (geometric n q)
-  matrix_map_path_smith_iff :
-    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
-      (∃ γ : Loop n,
-        (matrixMapLoop A γ).Homotopic (geometric m p)) ↔
-        ∀ i : Fin m, smithNormalFormFactor
-          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-            (matrixAction A).range.toIntSubmodule).2 i ∣
-          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
-            (classifier m (Quotient.mk' (geometric m p)))) i
-  trace_zero_winding_zero :
-    ∀ (n : ℕ) (p : raw n), traceLength n p = 0 →
-      winding n (geometric n p) = 0
-  minimal_trace_normal_form :
-    ∀ (n : ℕ) (p : raw n),
-      (winding n (geometric n p) = 0 →
-        ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧
-          traceLength n q = 0) ∧
-      (winding n (geometric n p) ≠ 0 →
-        ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧
-          traceLength n q = 1 ∧
-          ∀ r : raw n, (geometric n r).Homotopic (geometric n p) →
-            1 ≤ traceLength n r)
-  matrix_normal_form_naturality :
-    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n),
-      (matrixMapLoop A (geometric n (standard n z))).Homotopic
-        (geometric m (standard m (matrixAction A z)))
-  matrix_normal_form_minimal :
-    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n),
-      matrixAction A z ≠ 0 →
-        ∃ q : raw m, traceLength m q = 1 ∧
-          (geometric m q).Homotopic
-            (matrixMapLoop A (geometric n (standard n z))) ∧
-          ∀ r : raw m,
-            (geometric m r).Homotopic
-              (matrixMapLoop A (geometric n (standard n z))) →
-              1 ≤ traceLength m r
-  matrix_map_composition_homotopy :
-    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
-      (B : Fin k → Fin m → ℤ) (p : raw n),
-      (matrixMapLoop B
-        (matrixMapLoop A (geometric n p))).Homotopic
-        (matrixMapLoop (matrixCompose A B) (geometric n p))
-  normal_form_trans :
-    ∀ (n : ℕ) (z w : WindingVector n),
-      (geometric n (standard n (z + w))).Homotopic
-        (geometric n (trans n (standard n z) (standard n w)))
-  normal_form_unit :
-    ∀ (n : ℕ), (geometric n (standard n 0)).Homotopic (geometric n (refl n))
-  smith_image_iff :
-    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
-      Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
-        ∀ i : Fin m, smithNormalFormFactor
-          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-            (matrixAction A).range.toIntSubmodule).2 i ∣
-          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
-            (classifier m (Quotient.mk' (geometric m p)))) i
-
+/-! The selected trace bridge uses the fixed concrete winding-word syntax
+    above.  Its length is List.length; realization is an actual
+    concatenation of standard torus loops, and all normal-form laws below are
+    proved for that syntax rather than supplied as representation data. -/
+structure ConcreteWindingWordPresentation
+    (winding : ∀ n : ℕ, Loop n → WindingVector n)
+    (standardLoop : ∀ n : ℕ, WindingVector n → Loop n)
+    (classifier : ∀ n : ℕ, LoopQuot n ≃ Multiplicative (WindingVector n)) where
+  classifier_mk : ∀ (n : ℕ) (γ : Loop n),
+    Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ
+  winding_standard : ∀ (n : ℕ) (z : WindingVector n), winding n (standardLoop n z) = z
+  winding_identity : ∀ (n : ℕ), winding n (_root_.Path.refl (base n)) = 0
+  winding_trans : ∀ (n : ℕ) (γ δ : Loop n),
+    winding n (γ.trans δ) = winding n γ + winding n δ
+  homotopy_iff_winding_eq : ∀ (n : ℕ) (p q : WindingWord n),
+    (WindingWord.realize standardLoop p).Homotopic
+      (WindingWord.realize standardLoop q) ↔
+      winding n (WindingWord.realize standardLoop p) =
+        winding n (WindingWord.realize standardLoop q)
+  representation : ∀ (n : ℕ) (p : WindingWord n),
+    (WindingWord.realize standardLoop p).Homotopic
+      (standardLoop n (WindingWord.winding p))
+  trace_zero_winding_zero : ∀ (n : ℕ) (p : WindingWord n),
+    WindingWord.traceLength p = 0 →
+      winding n (WindingWord.realize standardLoop p) = 0
+  minimal_trace_normal_form : ∀ (n : ℕ) (p : WindingWord n),
+    (winding n (WindingWord.realize standardLoop p) = 0 →
+      ∃ q : WindingWord n, (WindingWord.realize standardLoop q).Homotopic
+        (WindingWord.realize standardLoop p) ∧ WindingWord.traceLength q = 0) ∧
+    (winding n (WindingWord.realize standardLoop p) ≠ 0 →
+      ∃ q : WindingWord n, (WindingWord.realize standardLoop q).Homotopic
+        (WindingWord.realize standardLoop p) ∧ WindingWord.traceLength q = 1 ∧
+        ∀ r : WindingWord n, (WindingWord.realize standardLoop r).Homotopic
+          (WindingWord.realize standardLoop p) → 1 ≤ WindingWord.traceLength r)
+  matrix_naturality : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : WindingWord n),
+    (matrixMapLoop A (WindingWord.realize standardLoop p)).Homotopic
+      (WindingWord.realize standardLoop (WindingWord.mapMatrix A p))
+  matrix_normal_form_minimal : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+    (z : WindingVector n), matrixAction A z ≠ 0 →
+      ∃ q : WindingWord m, WindingWord.traceLength q = 1 ∧
+        (WindingWord.realize standardLoop q).Homotopic
+          (matrixMapLoop A (WindingWord.realize standardLoop
+            (WindingWord.standard z))) ∧
+        ∀ r : WindingWord m, (WindingWord.realize standardLoop r).Homotopic
+          (matrixMapLoop A (WindingWord.realize standardLoop
+            (WindingWord.standard z))) → 1 ≤ WindingWord.traceLength r
+  matrix_map_composition_homotopy : ∀ {n m k : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (p : WindingWord n),
+    (matrixMapLoop B (matrixMapLoop A (WindingWord.realize standardLoop p))).Homotopic
+      (matrixMapLoop (matrixCompose A B) (WindingWord.realize standardLoop p))
+  normal_form_trans : ∀ (n : ℕ) (z w : WindingVector n),
+    (WindingWord.realize standardLoop (WindingWord.standard (z + w))).Homotopic
+      (WindingWord.realize standardLoop
+        (WindingWord.trans (WindingWord.standard z) (WindingWord.standard w)))
+  normal_form_unit : ∀ (n : ℕ),
+    (WindingWord.realize standardLoop (WindingWord.standard 0)).Homotopic
+      (WindingWord.realize standardLoop ([] : WindingWord n))
+  matrix_map_path_smith_iff : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : WindingWord m),
+    (∃ γ : Loop n, (matrixMapLoop A γ).Homotopic
+      (WindingWord.realize standardLoop p)) ↔
+      ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ∣
+        ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+          (Multiplicative.toAdd (classifier m (Quotient.mk'
+            (WindingWord.realize standardLoop p))))) i
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -1729,7 +1698,7 @@ noncomputable instance loopQuotTopology (n : ℕ) :
 structure FiniteTorusWindingMatrixCompatibility where
   winding : ∀ n : ℕ, Loop n → WindingVector n
   standardLoop : ∀ n : ℕ, WindingVector n → Loop n
-  classifier : ∀ n : ℕ, LoopQuot n ≃ₜ Multiplicative (WindingVector n)
+  classifier : ∀ n : ℕ, LoopQuot n ≃ Multiplicative (WindingVector n)
   classifier_mk :
     ∀ (n : ℕ) (γ : Loop n),
       Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ
@@ -1771,19 +1740,11 @@ structure FiniteTorusWindingMatrixCompatibility where
           ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2.bM.equivFun
             (Multiplicative.toAdd (classifier m q))) i
-  /-- The Smith image test also applies to geometric representatives of the
-      traced computational-path presentation. -/
-  computational_path_winding_bridge :
-    ComputationalPathWindingPresentation
-  computational_path_winding_bridge_winding :
-    ∀ (n : ℕ) (p : computational_path_winding_bridge.raw n),
-      computational_path_winding_bridge.winding n
-          (computational_path_winding_bridge.geometric n p) =
-        winding n (computational_path_winding_bridge.geometric n p)
-  computational_path_winding_bridge_classifier :
-    ∀ (n : ℕ) (q : LoopQuot n),
-      computational_path_winding_bridge.classifier n q =
-        Multiplicative.toAdd (classifier n q)
+  /-- Concrete list traces are realized by concatenating the actual standard
+      torus loops; their length and normal forms are derived from that syntax. -/
+  concrete_winding_word_bridge :
+    ConcreteWindingWordPresentation winding standardLoop
+      classifier
   matrix_map_injective_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
       Function.Injective (matrixMapQuotientMap A) ↔
@@ -1888,19 +1849,14 @@ structure TopologicalSmithExactnessCertificate where
                 (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
 
 /- The selected follow-up theorem is the quotient-topology and topological--Smith
-   composition-and-classification theorem, assembled from independently
-   checked supporting lemmas.  Its first two fields state the general
-   monodromy-stabilizer and sharp product-quotient criteria; its third field
-   states the rectangular winding-lattice short exact sequence; the remaining
-   fields add the
-   exact shortest-trace normal form, matrix-map functoriality, and optimal
-   one-step image representatives on based geometric loops.  The statement
-   intentionally does not identify the abstract raw family with the
-   repository's `ComputationalPaths.Path` syntax; the endpoint-varying open
-   computational-path constructions are supporting developments outside this
-   Comparator declaration.  Its provenance is documented as a bounded local
-   checked proof of this exact bundled theorem group, with mathematical
-   novelty and priority left unknown. -/
+   compatibility certificate.  Its traced component uses the fixed concrete
+   `WindingWord` list syntax: `List.length` and loop concatenation are
+   definitions, while representation, homotopy, matrix naturality, Smith
+   realizability, and zero/one minimality are proved for those definitions.
+   The endpoint-varying computational-path APIs remain supporting material
+   outside this Comparator declaration.  The provenance record is bounded to
+   this exact checked synthesis; mathematical novelty and priority are left
+   unknown. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   refine ⟨{
@@ -1971,137 +1927,184 @@ theorem topological_smith_exactness :
           exact
             FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
               A q
-        computational_path_winding_bridge := by
+        concrete_winding_word_bridge := by
           refine {
-            raw := fun n =>
-              UniversalCompPathHomotopyEquivalence.UniversalOpen
-                (A := FiniteTorus n) (a := base n) (b := base n)
-            geometric := fun n p => p.geometric
-            traceLength := fun n p =>
-              GeometricTrace.traceLength p.trace
-            refl := fun n =>
-              openRefl
-                (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                  (A := FiniteTorus n)).toGeometricStepSystem
-                (base n)
-            trans := fun n p q =>
-              openTrans
-                (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                  (A := FiniteTorus n)).toGeometricStepSystem p q
-            symm := fun n p =>
-              openSymm
-                (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                  (A := FiniteTorus n)).toGeometricStepSystem p
-            traceLength_refl := by
-              intro n
-              rfl
-            traceLength_trans := by
-              intro n p q
-              rfl
-            traceLength_symm := by
-              intro n p
-              rfl
-            geometric_refl := by
-              intro n
-              change _root_.Path.Homotopic
-                (_root_.Path.refl (base n))
-                (_root_.Path.refl (base n))
-              exact _root_.Path.Homotopic.refl _
-            geometric_trans := by
-              intro n p q
-              change _root_.Path.Homotopic
-                (_root_.Path.trans p.geometric q.geometric)
-                (_root_.Path.trans p.geometric q.geometric)
-              exact _root_.Path.Homotopic.refl _
-            geometric_symm := by
-              intro n p
-              change _root_.Path.Homotopic
-                (_root_.Path.symm p.geometric)
-                (_root_.Path.symm p.geometric)
-              exact _root_.Path.Homotopic.refl _
-            section_ := fun n γ =>
-              UniversalCompPathHomotopyEquivalence.universalOpenSection γ
-            section_geometric := by
-              intro n γ
-              exact
-                UniversalCompPathHomotopyEquivalence.universalOpenSection_geometric γ
-            rawClass := fun n =>
-              UniversalCompPathHomotopyEquivalence.UniversalClass
-                (A := FiniteTorus n) (a := base n) (b := base n)
-            quotientMk := fun n p =>
-              TotalOpenGeometricCompPath.quotientMk
-                (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                  (A := FiniteTorus n)) p
-            quotientEquiv := fun n =>
-              UniversalCompPathHomotopyEquivalence.quotientEquiv
-                (A := FiniteTorus n) (a := base n) (b := base n)
-            quotientEquiv_mk := by
-              intro n p
-              exact
-                UniversalCompPathHomotopyEquivalence.toPathClass_quotientMk p
-            winding := fun n => FiniteTorusWinding.winding
-            classifier := fun n =>
-              FiniteTorusWinding.loopQuotAddEquivIntVector n
             classifier_mk := by
               intro n γ
               rfl
-            standard := fun n z =>
-              UniversalCompPathHomotopyEquivalence.universalOpenSection
-                (FiniteTorusWinding.standardLoop z)
-            standard_traceLength := by
+            winding_standard := by
               intro n z
-              exact
-                UniversalCompPathHomotopyEquivalence.universalOpenSection_traceLength
-                  (FiniteTorusWinding.standardLoop z)
-            standard_winding := by
-              intro n z
-              change FiniteTorusWinding.winding
-                (FiniteTorusWinding.standardLoop z) = z
               exact FiniteTorusWinding.winding_standardLoop z
-            standard_complete := by
-              intro n p
-              change
-                (FiniteTorusWinding.standardLoop
-                  (FiniteTorusWinding.winding p.geometric)).Homotopic
-                    p.geometric
-              exact FiniteTorusWinding.standardLoop_homotopic p.geometric
+            winding_identity := by
+              intro n
+              exact FiniteTorusWinding.winding_identity
+            winding_trans := by
+              intro n γ δ
+              exact FiniteTorusWinding.winding_trans γ δ
             homotopy_iff_winding_eq := by
               intro n p q
-              change p.geometric.Homotopic q.geometric ↔
-                FiniteTorusWinding.winding p.geometric =
-                  FiniteTorusWinding.winding q.geometric
-              exact FiniteTorusWinding.homotopic_iff_winding_eq _ _
+              simpa only [winding_realize_word] using
+                (FiniteTorusWinding.homotopic_iff_winding_eq
+                  (WindingWord.realize
+                    (fun n => FiniteTorusWinding.standardLoop) p)
+                  (WindingWord.realize
+                    (fun n => FiniteTorusWinding.standardLoop) q))
+            representation := by
+              intro n p
+              exact word_representation p
+            trace_zero_winding_zero := by
+              intro n p hp
+              have hp0 : p.length = 0 := hp
+              have hnil : p = [] := List.length_eq_zero_iff.mp hp0
+              subst p
+              simpa [WindingWord.realize] using
+                (FiniteTorusWinding.winding_identity (n := n))
+            minimal_trace_normal_form := by
+              intro n p
+              constructor
+              · intro hz
+                refine ⟨[], ?_, rfl⟩
+                apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+                have h0 : FiniteTorusWinding.winding
+                    (WindingWord.realize
+                      (fun n => FiniteTorusWinding.standardLoop)
+                      ([] : WindingWord n)) = 0 := by
+                  change FiniteTorusWinding.winding
+                      (_root_.Path.refl (FiniteTorusWinding.base n)) = 0
+                  exact FiniteTorusWinding.winding_identity
+                exact h0.trans hz.symm
+              · intro hnz
+                have hword : WindingWord.winding p ≠ 0 := by
+                  simpa [winding_realize_word] using hnz
+                let q := WindingWord.standard
+                  (FiniteTorusWinding.winding
+                    (WindingWord.realize
+                      (fun n => FiniteTorusWinding.standardLoop) p))
+                refine ⟨q, ?_, ?_, ?_⟩
+                · apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+                  rw [winding_realize_word, WindingWord.winding_standard]
+                · simp [q, WindingWord.traceLength_standard, hnz]
+                · intro r hr
+                  have hne : WindingWord.traceLength r ≠ 0 := by
+                    intro hzero
+                    have hnil : r = [] :=
+                      List.length_eq_zero_iff.mp (show r.length = 0 from hzero)
+                    subst r
+                    have hw := FiniteTorusWinding.winding_eq_of_homotopic hr
+                    apply hnz
+                    calc
+                      FiniteTorusWinding.winding
+                          (WindingWord.realize
+                            (fun n => FiniteTorusWinding.standardLoop) p) =
+                          FiniteTorusWinding.winding
+                            (WindingWord.realize
+                              (fun n => FiniteTorusWinding.standardLoop) []) :=
+                        hw.symm
+                      _ = 0 := by
+                        change FiniteTorusWinding.winding
+                            (_root_.Path.refl (FiniteTorusWinding.base n)) = 0
+                        exact FiniteTorusWinding.winding_identity
+                  omega
+            matrix_naturality := by
+              intro n m A p
+              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+              rw [winding_matrixMapLoop, winding_realize_word,
+                winding_realize_word, WindingWord.winding_mapMatrix]
+              rfl
+            matrix_normal_form_minimal := by
+              intro n m A z hz
+              let q := WindingWord.standard
+                (FiniteTorusWinding.matrixAction A z)
+              refine ⟨q, ?_, ?_, ?_⟩
+              · have hAz : FiniteTorusWinding.matrixAction A z ≠ 0 := hz
+                simp [q, WindingWord.traceLength_standard, hAz]
+              · apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+                rw [winding_realize_word, WindingWord.winding_standard,
+                  winding_matrixMapLoop, winding_realize_word,
+                  WindingWord.winding_standard]
+              · intro r hr
+                have hne : WindingWord.traceLength r ≠ 0 := by
+                  intro hzero
+                  have hnil : r = [] :=
+                    List.length_eq_zero_iff.mp (show r.length = 0 from hzero)
+                  subst r
+                  have hw := FiniteTorusWinding.winding_eq_of_homotopic hr
+                  apply hz
+                  calc
+                    FiniteTorusWinding.matrixAction A z =
+                        FiniteTorusWinding.winding
+                          (matrixMapLoop A
+                            (WindingWord.realize
+                              (fun n => FiniteTorusWinding.standardLoop)
+                              (WindingWord.standard z))) := by
+                      rw [winding_matrixMapLoop, winding_realize_word,
+                        WindingWord.winding_standard]
+                    _ = FiniteTorusWinding.winding
+                        (WindingWord.realize
+                          (fun n => FiniteTorusWinding.standardLoop) []) :=
+                      hw.symm
+                    _ = 0 := by
+                      simpa [WindingWord.realize] using
+                        (FiniteTorusWinding.winding_identity (n := m))
+                omega
+            matrix_map_composition_homotopy := by
+              intro n m k A B p
+              exact matrixMapLoop_comp_homotopic A B
+                (WindingWord.realize
+                  (fun n => FiniteTorusWinding.standardLoop) p)
+            normal_form_trans := by
+              intro n z w
+              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+              rw [winding_realize_word, WindingWord.winding_standard,
+                winding_realize_word, WindingWord.winding_trans,
+                WindingWord.winding_standard, WindingWord.winding_standard]
+            normal_form_unit := by
+              intro n
+              have hz : WindingWord.standard (0 : WindingVector n) = [] := by
+                simp [WindingWord.standard]
+              rw [hz]
             matrix_map_path_smith_iff := by
               intro n m A p
+              have hfactor : ∀ i : Fin m,
+                  smithNormalFormFactor
+                    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i =
+                  FiniteTorusWinding.smithNormalFormFactor
+                    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+                intro i
+                rfl
               change
                 (∃ γ : _root_.Path (base n) (base n),
-                  (matrixMapLoop A γ).Homotopic p.geometric) ↔
+                  (matrixMapLoop A γ).Homotopic
+                    (WindingWord.realize
+                      (fun n => FiniteTorusWinding.standardLoop) p)) ↔
                 ∀ i : Fin m, smithNormalFormFactor
                   (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
                     (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ∣
                   ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
                     (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
                     (FiniteTorusWinding.loopQuotAddEquivIntVector m
-                      (Quotient.mk' p.geometric))) i
-              have hfactor : ∀ i : Fin m, smithNormalFormFactor
-                  (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i =
-                  FiniteTorusWinding.smithNormalFormFactor
-                    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
-                intro i
-                rfl
+                      (Quotient.mk'
+                        (WindingWord.realize
+                          (fun n => FiniteTorusWinding.standardLoop) p)))) i
               constructor
               · rintro ⟨γ, hγ⟩
-                have hq : Quotient.mk' p.geometric ∈
+                have hq : Quotient.mk'
+                      (WindingWord.realize
+                        (fun n => FiniteTorusWinding.standardLoop) p) ∈
                     Set.range (FiniteTorusWinding.matrixMapQuotientMap A) := by
                   refine ⟨Quotient.mk' γ, ?_⟩
                   change Quotient.mk' (matrixMapLoop A γ) =
-                    Quotient.mk' p.geometric
+                    Quotient.mk'
+                      (WindingWord.realize
+                        (fun n => FiniteTorusWinding.standardLoop) p)
                   exact Quotient.sound hγ
                 have hsmith :=
                   (FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
-                    A (Quotient.mk' p.geometric)).mp hq
+                    A (Quotient.mk'
+                      (WindingWord.realize
+                        (fun n => FiniteTorusWinding.standardLoop) p))).mp hq
                 simpa only [hfactor] using hsmith
               · intro hs
                 have hs' : ∀ i : Fin m,
@@ -2111,139 +2114,26 @@ theorem topological_smith_exactness :
                     ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
                       (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
                       (FiniteTorusWinding.loopQuotAddEquivIntVector m
-                        (Quotient.mk' p.geometric))) i := by
+                        (Quotient.mk'
+                          (WindingWord.realize
+                            (fun n => FiniteTorusWinding.standardLoop) p)))) i := by
                   simpa only [hfactor] using hs
                 have hq :=
                   (FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
-                    A (Quotient.mk' p.geometric)).mpr hs'
+                    A (Quotient.mk'
+                      (WindingWord.realize
+                        (fun n => FiniteTorusWinding.standardLoop) p))).mpr hs'
                 rcases hq with ⟨q, hq⟩
                 revert hq
                 refine Quotient.inductionOn q ?_
                 intro γ hq
                 refine ⟨γ, ?_⟩
                 change Quotient.mk' (matrixMapLoop A γ) =
-                  Quotient.mk' p.geometric at hq
+                  Quotient.mk'
+                    (WindingWord.realize
+                      (fun n => FiniteTorusWinding.standardLoop) p) at hq
                 exact Quotient.exact hq
-            trace_zero_winding_zero := by
-              intro n p hp
-              have ht := zero_length_trace_homotopic_refl
-                (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                  (A := FiniteTorus n)).toGeometricStepSystem p.trace hp rfl
-              have hgeom := p.coherent.trans ht
-              have hw := FiniteTorusWinding.winding_eq_of_homotopic hgeom
-              simpa [FiniteTorusWinding.winding_identity] using hw
-            minimal_trace_normal_form := by
-              intro n p
-              constructor
-              · intro hz
-                let r := openRefl
-                  (UniversalCompPathHomotopyEquivalence.UniversalSystem
-                    (A := FiniteTorus n)).toGeometricStepSystem
-                  (base n)
-                refine ⟨r, ?_, ?_⟩
-                apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
-                change FiniteTorusWinding.winding (_root_.Path.refl (base n)) =
-                  FiniteTorusWinding.winding p.geometric
-                rw [FiniteTorusWinding.winding_identity, hz]
-                rfl
-              · intro hnz
-                let q := UniversalCompPathHomotopyEquivalence.universalOpenSection
-                  (FiniteTorusWinding.standardLoop
-                    (FiniteTorusWinding.winding p.geometric))
-                refine ⟨q, ?_, ?_, ?_⟩
-                · exact FiniteTorusWinding.standardLoop_homotopic p.geometric
-                · exact UniversalCompPathHomotopyEquivalence.universalOpenSection_traceLength _
-                · intro r hr
-                  have hne : GeometricTrace.traceLength r.trace ≠ 0 := by
-                    intro hzero
-                    apply hnz
-                    calc
-                      FiniteTorusWinding.winding p.geometric =
-                          FiniteTorusWinding.winding r.geometric :=
-                        (FiniteTorusWinding.winding_eq_of_homotopic hr).symm
-                      _ = 0 := universal_trace_zero_winding_zero n r hzero
-                  omega
-            matrix_normal_form_naturality := by
-              intro n m A z
-              change (matrixMapLoop A
-                (FiniteTorusWinding.standardLoop z)).Homotopic
-                (FiniteTorusWinding.standardLoop
-                  (FiniteTorusWinding.matrixAction A z))
-              exact standard_matrix_naturality A z
-            matrix_normal_form_minimal := by
-              intro n m A z hz
-              refine ⟨UniversalCompPathHomotopyEquivalence.universalOpenSection
-                  (FiniteTorusWinding.standardLoop
-                    (FiniteTorusWinding.matrixAction A z)),
-                UniversalCompPathHomotopyEquivalence.universalOpenSection_traceLength
-                  _, ?_, ?_⟩
-              · change
-                  ((FiniteTorusWinding.standardLoop
-                    (FiniteTorusWinding.matrixAction A z)).Homotopic
-                    (matrixMapLoop A (FiniteTorusWinding.standardLoop z)))
-                exact (standard_matrix_naturality A z).symm
-              · intro r hr
-                have hwind := FiniteTorusWinding.winding_eq_of_homotopic hr
-                have hnonzero :
-                    FiniteTorusWinding.winding r.geometric ≠ 0 := by
-                  intro hzero
-                  apply hz
-                  calc
-                    FiniteTorusWinding.matrixAction A z =
-                        FiniteTorusWinding.winding
-                          (matrixMapLoop A
-                            (FiniteTorusWinding.standardLoop z)) := by
-                      rw [winding_matrixMapLoop,
-                        FiniteTorusWinding.winding_standardLoop]
-                    _ = FiniteTorusWinding.winding r.geometric := hwind.symm
-                    _ = 0 := hzero
-                have hne : GeometricTrace.traceLength r.trace ≠ 0 := by
-                  intro hzero
-                  apply hnonzero
-                  exact universal_trace_zero_winding_zero m r hzero
-                omega
-            matrix_map_composition_homotopy := by
-              intro n m k A B p
-              exact matrixMapLoop_comp_homotopic A B p.geometric
-            normal_form_trans := by
-              intro n z w
-              change (FiniteTorusWinding.standardLoop (z + w)).Homotopic
-                (_root_.Path.trans (FiniteTorusWinding.standardLoop z)
-                  (FiniteTorusWinding.standardLoop w))
-              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
-              rw [FiniteTorusWinding.winding_standardLoop,
-                FiniteTorusWinding.winding_trans,
-                FiniteTorusWinding.winding_standardLoop,
-                FiniteTorusWinding.winding_standardLoop]
-            normal_form_unit := by
-              intro n
-              change (FiniteTorusWinding.standardLoop (0 : WindingVector n)).Homotopic
-                (_root_.Path.refl (base n))
-              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
-              rw [FiniteTorusWinding.winding_standardLoop,
-                FiniteTorusWinding.winding_identity]
-            smith_image_iff := by
-              intro n m A p
-              change Quotient.mk' p.geometric ∈
-                  Set.range (FiniteTorusWinding.matrixMapQuotientMap A) ↔
-                ∀ i : Fin m,
-                  FiniteTorusWinding.smithNormalFormFactor
-                    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-                      (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ∣
-                  ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
-                    (FiniteTorusWinding.loopQuotAddEquivIntVector m
-                      (Quotient.mk' p.geometric))) i
-              exact
-                FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
-                  A (Quotient.mk' p.geometric)
           }
-        computational_path_winding_bridge_winding := by
-          intro n p
-          rfl
-        computational_path_winding_bridge_classifier := by
-          intro n q
-          rfl
         matrix_map_injective_iff := by
           intro n m A
           change Function.Injective (FiniteTorusWinding.matrixMapQuotientMap A) ↔

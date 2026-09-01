@@ -73,9 +73,9 @@ its first-isomorphism quotient, the quotient-to-winding
 homeomorphism and matrix naturality, the rectangular cardinality/finiteness/
 exponent composition laws, arbitrary-rank Smith classification with `ZMod 0`
 free factors, the finite prime-power refinement, and the nonsingular square
-determinant-index specialization.  The selected traced fields are intentionally
-an abstract based-loop presentation, not a claim about the concrete
-endpoint-varying `ComputationalPaths.Path` carrier.  As documented in
+determinant-index specialization.  The selected traced fields fix `WindingWord n := List (Fin n -> Int)` and
+realize words by concatenating actual standard torus loops; they are not a
+claim about the separate endpoint-varying `ComputationalPaths.Path` carrier.  As documented in
 `FIRST-PRESENTATION-AUDIT.md`, this records the local checked proof of that
 exact combined theorem group while leaving mathematical novelty and priority
 unknown; it does not claim first discovery of the classical winding,

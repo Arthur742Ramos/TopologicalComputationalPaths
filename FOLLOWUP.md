@@ -4,119 +4,46 @@
 
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`.  Its proposition is the nonemptiness of a
-`TopologicalSmithExactnessCertificate` with nine top-level fields, grouped
-into three layers.  The first two fields are the covering-map
-image-equals-monodromy-stabilizer criterion and the sharp product-quotient
-obstruction when quotient multiplication is discontinuous; the third field is
-the rectangular winding-lattice short exact sequence and its
-first-isomorphism quotient, while the remaining six fields are the winding/Smith certificate, including the explicitly stated
-Smith-image and abstract traced bridge fields.  These are selected certificate
-fields, not repository-only inventory.
+`FollowupSolution.lean`.  The selected proposition is the nonemptiness of a
+`TopologicalSmithExactnessCertificate` whose three layers are: (i) the
+covering-map image/monodromy-stabilizer criterion and the sharp
+product-quotient obstruction; (ii) rectangular winding-lattice exactness and
+finite/free Smith profiles; and (iii) a concrete finite-torus winding/matrix
+compatibility package.
 
-1. `covering_map_image_is_monodromy_stabilizer` identifies the image of every
-   covering-induced quotient fundamental-group map with the subgroup fixed by
-   monodromy at the chosen lift;
-2. `quotient_product_hypothesis_sharp` proves that failure of joint quotient
-   multiplication continuity rules out the product quotient map;
-3. `rectangular_cokernel_short_exact` gives, for composable rectangular
-   integer matrices with injective second action, an exact sequence of
-   winding-lattice cokernels: the induced embedding is injective, its image is
-   the projection kernel, the projection is surjective, and the quotient by
-   that kernel is explicitly additively equivalent to the second cokernel;
-4. `winding_matrix_compatibility` packages an all-dimensional family of
-   complete winding classifiers: each classifier agrees with winding on loop
-   representatives, identifies quotient concatenation with lattice addition
-   through a continuous equivalence into the multiplicative lattice model,
-   and commutes with the induced integer-matrix map on quotient loop groups.
-   Its image, injectivity, and surjectivity are characterized by the same
-   lattice action, including the square determinant criteria; matrix-map
-   composition is also stated at the quotient level.  In addition, the image
-   of an actual induced quotient map is decided by finite Smith-coordinate
-   divisibility tests, including the zero-factor equations in rank-deficient
-   cases.  The selected nested bridge is an abstract traced presentation of
-   based finite-torus loops: it quantifies a raw family, preserves trace-length
-   algebra under identity/composition/reversal, supplies a representative for
-   every continuous loop, identifies its traced homotopy quotient with the
-   ordinary loop quotient, and applies the same Smith test to the representative's
-   geometric loop class.  Its winding and quotient classifier are tied to the
-   selected outer certificate by explicit compatibility equalities.  It also
-   supplies a canonical one-step representative for every winding vector,
-   proves its trace length is one and its winding is the chosen vector, and
-   proves every traced loop is homotopic to the representative selected by its
-   winding.  More strongly, a traced target loop is homotopic to the matrix
-   image of some source loop exactly when its Smith coordinates satisfy the
-   displayed divisibility equations; this is an abstract-interface
-   realizability criterion, not a claim about the repository's concrete
-   `ComputationalPaths.Path` syntax or endpoint-varying open-path carrier;
-   those constructions remain repository support outside this Comparator
-   selection;
-5. `matrix_composition` proves that the canonical additive matrix action
-   composes according to the stated row-by-column `matrixCompose` law;
-6. `rectangular_composition_profile` proves the rectangular lattice-cokernel
-   composition laws.  After both successive cokernels are known to be finite,
-   their ordinary cardinalities multiply and their torsion-prime support is
-   the union of the successive supports; the field also proves finiteness
-   equivalence and coprime successive exponent multiplication;
-7. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
-   equivalence, explicitly retaining `ZMod 0` free factors, and proves the
-   finite/full-rank criterion and exponent-as-lcm formula.  Its prime-support
-   law is stated only for finite cokernels;
-8. `determinant_index` specializes the winding-lattice cokernel to
-   nonsingular square matrices and identifies its cardinality with the
-   absolute determinant;
-9. `prime_power_torsion_profile` refines every full-rank rectangular lattice
-   cokernel into explicit prime-power cyclic factors and proves the resulting
-   product cardinality formula.
+The third layer is not an arbitrary homeomorphism or an abstract cost
+interface.  It fixes
+`WindingWord n := List (Fin n -> Int)`.  Its `traceLength`, concatenation,
+winding sum, reversal, standard form, and matrix action are definitions or
+recursive list operations.  `WindingWord.realize` concatenates the actual
+standard torus loops.  The selected bridge proves:
 
-This is the selected mathematical contribution: a quantified topology-to-
-arithmetic certificate for quotient fundamental groups of finite tori and
-their winding-lattice cokernels.  It links the actual winding invariant and
-quotient multiplication to the integer lattice, proves naturality and exact
-image/injectivity/surjectivity transfer for induced matrix maps between
-finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
-for realizing any prescribed quotient loop class.  The abstract traced bridge
-makes this comparison apply to the declared traced family and its geometric
-realization, rather than to an arbitrary homeomorphism; its homotopy quotient
-is explicitly equivalent to the ordinary loop quotient.  The bridge also gives
-a winding-indexed one-step normal form for traced loops, with a proved
-homotopy-completeness theorem, and a complete abstract-interface Smith
-realizability decision theorem: for every matrix and traced target loop, a
-source loop with homotopic mapped geometric loop exists iff the target winding
-coordinates satisfy the Smith divisibility test.  This connects the arithmetic
-obstruction to the declared trace interface without claiming an identification
-with the repository's concrete computational-path syntax.
-The bridge also certifies the exact trace-complexity normal form: a homotopy
-class has a zero-step representative exactly when its winding is zero, while
-every nonzero-winding class has a one-step representative and every homotopic
-representative has at least one step.  Matrix maps carry canonical standard
-traces to canonical standard traces for the matrix-action winding up to
-endpoint-fixed homotopy, and successive matrix maps agree up to homotopy on
-every traced loop.  These are abstract-trace normalization and functoriality laws,
-not properties of an unstructured quotient presentation.  The canonical
-normal form is also compatible with the path-group operation: the standard
-trace for `z + w` is homotopic to the concatenation of the standard traces for
-`z` and `w`, and the zero-winding standard trace is homotopic to the traced
-identity.  The remaining
-fields give an arbitrary-rank free/torsion and prime-power description of every
-lattice cokernel, with the determinant index as a square specialization.
-The certificate reports ordinary cardinality and torsion-prime support only
-in its explicitly finite-cokernel regimes.  A zero Smith modulus is a free
-`ZMod 0` factor; the supporting totalized identities then use `Nat.card = 0`
-and exponent `0`, rather than assigning ordinary finite-cardinality or
-torsion-support meanings to those values.  Winding, quotient fundamental
-groups, and Smith normal form are classical ingredients.  The selected
-three-layer bundle (two general quotient-topology criteria plus the nine-field
-certificate) is recorded as an `original-proof` source with
-relationship `other`; the bounded provenance record for this exact certificate
-is documented in `FIRST-PRESENTATION-AUDIT.md`, with novelty and priority left
-unknown.  The record does
-not extend to the classical ingredients or to the repository's concrete
-endpoint-varying path APIs.  The local Lean files implement this checked proof
-and are not cited as an external mathematical source.
-The detailed general
-quotient-topology and finite-torus developments below are supporting inventory,
-not additional Comparator claims unless listed in `main_results.selected_fields`.
+- every realized word is homotopic to the standard loop of its winding;
+- homotopy of realized words is exactly equality of their winding vectors;
+- zero winding has a derived zero-length normal form, and nonzero winding has
+  a derived one-letter representative with the lower bound for every
+  homotopic word;
+- realization commutes with every rectangular integer matrix up to homotopy,
+  including matrix composition and the normal-form sum/unit laws; and
+- a target word is realizable by an actual induced quotient map exactly when
+  its Smith coordinates satisfy the displayed divisibility equations.
+
+The surrounding classifier separately identifies the image, kernel,
+injectivity, and surjectivity of the actual quotient matrix map with the
+integer-lattice action.  Rectangular cokernel composition, arbitrary-rank
+Smith factors (with explicit `ZMod 0` free directions), finite-cokernel
+cardinality/support gates, determinant index, and prime-power factors are
+selected with their hypotheses.  No infinite/free case is advertised as an
+ordinary finite invariant.
+
+The mathematical contribution claimed here is the all-dimensional,
+rank-aware compatibility theorem connecting quotient topology, a concrete
+winding-word normalizer, and Smith image decision for induced maps.  It is
+a formalization/methods result, not a claim of discovery for classical
+winding or Smith theory.  The provenance entry is bounded to this exact
+checked synthesis and leaves novelty and priority unknown.  Repository-wide
+endpoint-varying `ComputationalPaths.Path` APIs and other supporting
+theorems are outside this Comparator selection.
 
 ## Repository-wide supporting inventory (not selected by Comparator)
 
@@ -681,11 +608,11 @@ invariants.  Repository-wide centrality, product, torus-map short-exact,
 first-isomorphism, CRT, and broader matrix developments remain useful
 supporting material but are outside the selected Comparator surface.
 The selected traced theorem is the method-level part of that boundary: it gives
-a canonical reduction of arbitrary representatives in the declared abstract
-trace family to a shortest normal form, and the reduction is stable under the
-integer-matrix action and its composition.  This supplies an explicit
-abstract-trace semantics for trace complexity and matrix transformations that
-is absent from the classical quotient and lattice statements alone.  The
+a canonical reduction of words in the fixed `WindingWord` list language to a
+shortest normal form, and the reduction is stable under the integer-matrix
+action and its composition.  This supplies an explicit syntax-derived trace
+semantics for complexity and matrix transformations that is absent from the
+classical quotient and lattice statements alone.  The
 selected `matrix_normal_form_minimal` field
 adds an optimal image theorem: when the matrix-action winding is nonzero, the
 mapped canonical trace has a one-step target representative, and every

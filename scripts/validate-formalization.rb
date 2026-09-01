@@ -74,7 +74,7 @@ if followup
     "TopologicalSmithExactnessCertificate.rectangular_cokernel_short_exact",
     "TopologicalSmithExactnessCertificate.winding_matrix_compatibility",
     "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff",
-    "FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge",
+    "FiniteTorusWindingMatrixCompatibility.concrete_winding_word_bridge",
     "TopologicalSmithExactnessCertificate.matrix_composition",
     "TopologicalSmithExactnessCertificate.rectangular_composition_profile",
     "TopologicalSmithExactnessCertificate.smith_cokernel_profile",
