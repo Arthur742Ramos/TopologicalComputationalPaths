@@ -53,7 +53,9 @@ certified trace-complexity normalization and functoriality method, not merely
 an equivalence witness.  The canonical normal form also respects winding
 addition: the standard trace for `z + w` is homotopic to the concatenation of
 the standard traces for `z` and `w`, and the standard trace for zero winding is
-homotopic to the traced identity.
+homotopic to the traced identity.  More sharply, a nonzero matrix image of a
+canonical trace has a canonical one-step target representative, and every
+target trace in that homotopy class has at least one step.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.

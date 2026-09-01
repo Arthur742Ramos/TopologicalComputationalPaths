@@ -660,7 +660,10 @@ a canonical reduction of arbitrary traced representatives to a shortest
 normal form, and the reduction is stable under the integer-matrix path action
 and its composition.  This supplies a concrete semantics for trace complexity
 and matrix transformations that is absent from the classical quotient and
-lattice statements alone.
+lattice statements alone.  The selected `matrix_normal_form_minimal` field
+adds an optimal image theorem: when the matrix-action winding is nonzero, the
+mapped canonical trace has a one-step target representative, and every
+homotopic target trace has at least one step.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex

@@ -1675,6 +1675,16 @@ structure ComputationalPathWindingPresentation where
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n),
       (matrixMapLoop A (geometric n (standard n z))).Homotopic
         (geometric m (standard m (matrixAction A z)))
+  matrix_normal_form_minimal :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n),
+      matrixAction A z ≠ 0 →
+        ∃ q : raw m, traceLength m q = 1 ∧
+          (geometric m q).Homotopic
+            (matrixMapLoop A (geometric n (standard n z))) ∧
+          ∀ r : raw m,
+            (geometric m r).Homotopic
+              (matrixMapLoop A (geometric n (standard n z))) →
+              1 ≤ traceLength m r
   matrix_map_composition_homotopy :
     ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
       (B : Fin k → Fin m → ℤ) (p : raw n),
@@ -1863,8 +1873,9 @@ structure TopologicalSmithExactnessCertificate where
 /- The selected follow-up theorem is the topological--Smith
    composition-and-classification theorem, assembled from independently
    checked supporting lemmas.  Its selected computational-path fields add the
-   exact shortest-trace normal form and matrix-map functoriality on geometric
-   paths.  Its provenance is declared as an original proof in the submission
+   exact shortest-trace normal form, matrix-map functoriality, and optimal
+   one-step image representatives on geometric paths.  Its provenance is
+   declared as an original proof in the submission
    metadata; the imported module is not a mathematical source for the result. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
@@ -2127,6 +2138,38 @@ theorem topological_smith_exactness :
                 (FiniteTorusWinding.standardLoop
                   (FiniteTorusWinding.matrixAction A z))
               exact standard_matrix_naturality A z
+            matrix_normal_form_minimal := by
+              intro n m A z hz
+              refine ⟨UniversalCompPathHomotopyEquivalence.universalOpenSection
+                  (FiniteTorusWinding.standardLoop
+                    (FiniteTorusWinding.matrixAction A z)),
+                UniversalCompPathHomotopyEquivalence.universalOpenSection_traceLength
+                  _, ?_, ?_⟩
+              · change
+                  ((FiniteTorusWinding.standardLoop
+                    (FiniteTorusWinding.matrixAction A z)).Homotopic
+                    (matrixMapLoop A (FiniteTorusWinding.standardLoop z)))
+                exact (standard_matrix_naturality A z).symm
+              · intro r hr
+                have hwind := FiniteTorusWinding.winding_eq_of_homotopic hr
+                have hnonzero :
+                    FiniteTorusWinding.winding r.geometric ≠ 0 := by
+                  intro hzero
+                  apply hz
+                  calc
+                    FiniteTorusWinding.matrixAction A z =
+                        FiniteTorusWinding.winding
+                          (matrixMapLoop A
+                            (FiniteTorusWinding.standardLoop z)) := by
+                      rw [winding_matrixMapLoop,
+                        FiniteTorusWinding.winding_standardLoop]
+                    _ = FiniteTorusWinding.winding r.geometric := hwind.symm
+                    _ = 0 := hzero
+                have hne : GeometricTrace.traceLength r.trace ≠ 0 := by
+                  intro hzero
+                  apply hnonzero
+                  exact universal_trace_zero_winding_zero m r hzero
+                omega
             matrix_map_composition_homotopy := by
               intro n m k A B p
               exact matrixMapLoop_comp_homotopic A B p.geometric

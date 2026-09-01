@@ -151,6 +151,9 @@ normalization and functoriality method.  The standard trace for a sum of
 winding vectors is homotopic to the concatenation of the corresponding
 standard traces, and the zero-winding standard trace is homotopic to the
 traced identity, so the reduction is compatible with the path-group operation.
+For a nonzero matrix-action winding, the mapped canonical trace has a
+one-step target representative and no homotopic target trace can have zero
+steps; this is the selected optimal-image refinement.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather

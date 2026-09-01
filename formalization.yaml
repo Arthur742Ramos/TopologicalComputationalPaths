@@ -44,6 +44,9 @@ project:
     endpoint-fixed homotopy.  The standard trace for a sum of winding vectors
     is homotopic to the concatenation of the corresponding standard traces,
     and the zero-winding standard trace is homotopic to the traced identity.
+    Whenever the matrix-action winding is nonzero, the mapped canonical trace
+    has a one-step target representative and every homotopic target trace has
+    at least one step.
     It also proves path-level Smith realizability:
     a traced target path is homotopic to the mapped geometric path of some
     source loop exactly when its Smith coordinates satisfy the divisibility
@@ -193,7 +196,8 @@ status:
     bridge makes this connection explicit at the selected statement boundary
     rather than leaving it as repository-only context.  Its selected path
     fields prove the exact zero/one shortest-trace law, matrix naturality of
-    standard traces, and composition coherence on every traced path.
+    standard traces, composition coherence on every traced path, and the
+    optimal one-step representative for every nonzero matrix image.
     Free directions are represented explicitly by `ZMod 0`; their totalized
     `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
     finite cardinality or torsion-prime support.  Centrality,
@@ -262,8 +266,9 @@ research_interest:
     every traced path (the fields are
     `trace_zero_winding_zero`, `minimal_trace_normal_form`,
     `matrix_normal_form_naturality`, and
-    `matrix_map_composition_homotopy`, plus `normal_form_trans` and
-    `normal_form_unit`).  The remaining fields record matrix composition and exact rectangular
+    `matrix_map_composition_homotopy`, plus `normal_form_trans`,
+    `normal_form_unit`, and `matrix_normal_form_minimal`).  The remaining
+    fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -342,6 +347,11 @@ research_interest:
     homotopy, compose coherently, respect winding addition, and preserve the
     traced identity.  This gives a reusable normalization
     semantics for computational-path transformations.
+    For a nonzero matrix-action winding, the same certificate proves that the
+    mapped canonical trace admits a one-step target normal form and that no
+    homotopic target trace can use zero steps.  Thus matrix image membership is
+    coupled to an optimal path-level realization, not just to existence of a
+    quotient class.
     The new path-level realizability equivalence makes that obstruction
     constructive at the semantic boundary: it decides whether a prescribed
     traced target can be obtained, up to geometric homotopy, from a source loop
@@ -376,6 +386,7 @@ research_interest:
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.trace_zero_winding_zero"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.minimal_trace_normal_form"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_normal_form_naturality"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_normal_form_minimal"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_map_composition_homotopy"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.normal_form_trans"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.normal_form_unit"
@@ -460,7 +471,9 @@ alignment:
         of standard traces under matrix maps, and composition coherence on all
         traced paths.  The standard trace of a winding sum is homotopic to the
         concatenation of the summand standard traces, and the zero-winding
-        standard trace is homotopic to the traced identity.  In addition, Smith
+        standard trace is homotopic to the traced identity.  Smith coordinates
+        also certify that every nonzero matrix image has an optimal one-step
+        target trace; no homotopic target trace has zero steps.  The same
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.  The
         path-level realizability field proves that a target geometric path is

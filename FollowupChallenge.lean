@@ -471,7 +471,6 @@ noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
 noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
     WindingVector n → WindingVector m :=
   fun z j => z (f j)
-
 /-! Integer matrices act on the finite torus itself, not only on its winding
     lattice.  The endpoint cast in the quotient map is kept explicit so that
     the selected certificate can state the actual topological naturality
@@ -566,6 +565,7 @@ structure ComputationalPathWindingPresentation where
   trace_zero_winding_zero : ∀ (n : ℕ) (p : raw n), traceLength n p = 0 → winding n (geometric n p) = 0
   minimal_trace_normal_form : ∀ (n : ℕ) (p : raw n), (winding n (geometric n p) = 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 0) ∧ (winding n (geometric n p) ≠ 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 1 ∧ ∀ r : raw n, (geometric n r).Homotopic (geometric n p) → 1 ≤ traceLength n r)
   matrix_normal_form_naturality : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n), (matrixMapLoop A (geometric n (standard n z))).Homotopic (geometric m (standard m (matrixAction A z)))
+  matrix_normal_form_minimal : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n), matrixAction A z ≠ 0 → ∃ q : raw m, traceLength m q = 1 ∧ (geometric m q).Homotopic (matrixMapLoop A (geometric n (standard n z))) ∧ ∀ r : raw m, (geometric m r).Homotopic (matrixMapLoop A (geometric n (standard n z))) → 1 ≤ traceLength m r
   matrix_map_composition_homotopy : ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (p : raw n), (matrixMapLoop B (matrixMapLoop A (geometric n p))).Homotopic (matrixMapLoop (matrixCompose A B) (geometric n p))
   normal_form_trans : ∀ (n : ℕ) (z w : WindingVector n), (geometric n (standard n (z + w))).Homotopic (geometric n (trans n (standard n z) (standard n w)))
   normal_form_unit : ∀ (n : ℕ), (geometric n (standard n 0)).Homotopic (geometric n (refl n))
