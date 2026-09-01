@@ -134,7 +134,10 @@ classifier on the universal open geometric computational-path carrier, with
 trace-length laws, geometric coherence, a loop section, and the Smith image
 test on geometric representatives.  Its homotopy quotient is explicitly
 equivalent to the ordinary based loop quotient, with the representative
-equation checked in the selected certificate.
+equation checked in the selected certificate.  It also supplies a canonical
+one-step traced representative for each winding vector, proves the
+representative has trace length one and the chosen winding, and proves homotopy
+completeness for every traced path.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather

@@ -1529,6 +1529,16 @@ structure ComputationalPathWindingPresentation where
   classifier_mk :
     ∀ (n : ℕ) (γ : Loop n),
       classifier n (Quotient.mk' γ) = winding n γ
+  standard : ∀ n : ℕ, WindingVector n → raw n
+  standard_traceLength :
+    ∀ (n : ℕ) (z : WindingVector n), traceLength n (standard n z) = 1
+  standard_winding :
+    ∀ (n : ℕ) (z : WindingVector n),
+      winding n (geometric n (standard n z)) = z
+  standard_complete :
+    ∀ (n : ℕ) (p : raw n),
+      (geometric n (standard n (winding n (geometric n p)))).Homotopic
+        (geometric n p)
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
@@ -1843,6 +1853,26 @@ theorem topological_smith_exactness :
             classifier_mk := by
               intro n γ
               rfl
+            standard := fun n z =>
+              UniversalCompPathHomotopyEquivalence.universalOpenSection
+                (FiniteTorusWinding.standardLoop z)
+            standard_traceLength := by
+              intro n z
+              exact
+                UniversalCompPathHomotopyEquivalence.universalOpenSection_traceLength
+                  (FiniteTorusWinding.standardLoop z)
+            standard_winding := by
+              intro n z
+              change FiniteTorusWinding.winding
+                (FiniteTorusWinding.standardLoop z) = z
+              exact FiniteTorusWinding.winding_standardLoop z
+            standard_complete := by
+              intro n p
+              change
+                (FiniteTorusWinding.standardLoop
+                  (FiniteTorusWinding.winding p.geometric)).Homotopic
+                    p.geometric
+              exact FiniteTorusWinding.standardLoop_homotopic p.geometric
             smith_image_iff := by
               intro n m A p
               change Quotient.mk' p.geometric ∈

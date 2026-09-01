@@ -549,6 +549,16 @@ structure ComputationalPathWindingPresentation where
   classifier_mk :
     ∀ (n : ℕ) (γ : Loop n),
       classifier n (Quotient.mk' γ) = winding n γ
+  standard : ∀ n : ℕ, WindingVector n → raw n
+  standard_traceLength :
+    ∀ (n : ℕ) (z : WindingVector n), traceLength n (standard n z) = 1
+  standard_winding :
+    ∀ (n : ℕ) (z : WindingVector n),
+      winding n (geometric n (standard n z)) = z
+  standard_complete :
+    ∀ (n : ℕ) (p : raw n),
+      (geometric n (standard n (winding n (geometric n p)))).Homotopic
+        (geometric n p)
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔

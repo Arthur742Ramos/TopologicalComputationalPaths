@@ -2,7 +2,7 @@
 version: "v0.4"
 
 project:
-  name: "Topological Smith Image Obstructions and Cokernel Composition for Finite-Torus Quotient Maps"
+  name: "Computational-Path Winding Normal Forms and Topological Smith Obstructions"
   description: >-
     This follow-up selects
     `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
@@ -32,8 +32,11 @@ project:
     nested bridge is instantiated by the universal traced computational-path
     presentation: trace length is preserved by identity, composition, and
     reversal, every continuous loop has a geometric representative, and the
-    same Smith image test applies to that representative's winding class.  Two
-    explicit compatibility fields identify the bridge's winding and quotient
+    same Smith image test applies to that representative's winding class.  For
+    every winding vector it also supplies a canonical one-step representative
+    of trace length exactly one, proves that representative has the chosen
+    winding, and proves every traced path is homotopic to the representative
+    selected by its winding.  Two explicit compatibility fields identify the bridge's winding and quotient
     classifier with the selected certificate's own fields.
     Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
@@ -116,7 +119,7 @@ sources:
       Provides the parent computational-path setting.  The present selection
       is a distinct topological Smith certificate and does not transfer the
       parent manuscript's claims or priority.
-  - title: "Topological Smith exactness, image obstructions, and cokernel composition for finite-torus quotient maps"
+  - title: "Topological Smith exactness and computational-path winding normal forms"
     authors:
       - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
@@ -129,7 +132,8 @@ sources:
     author_endorsement: "participated"
     note: >-
       This entry records an independently assembled original-proof artifact,
-      including the topological Smith-coordinate image-obstruction theorem.
+      including the topological Smith-coordinate image-obstruction theorem and
+      the winding-indexed one-step computational-path normal form.
       Priority for this exact mathematical synthesis is unknown: no
       first-presentation or priority claim is made.  The Lean files implement
       and check the proof but are not being cited as an external mathematical
@@ -235,7 +239,8 @@ research_interest:
     winding and quotient classifier with the selected outer classifier.  Its
     explicit homotopy-class quotient is
     equivalent to the ordinary loop quotient, with the representative equation
-    proved before applying the Smith test.  The remaining fields record matrix composition and exact rectangular
+    proved before applying the Smith test.  Its winding-indexed one-step normal
+    form has a proved trace-length and homotopy-completeness law.  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -264,7 +269,9 @@ research_interest:
     geometric coherence, while its section covers every continuous loop before
     the Smith obstruction is applied.  Its homotopy quotient is explicitly
     identified with the ordinary based loop quotient, so the arithmetic class
-    is not detached from the computational-path semantics.  These interfaces provide a reusable formal theorem for subsequent
+    is not detached from the computational-path semantics.  The canonical
+    one-step representatives provide an explicit normal-form operation on
+    traced paths, with homotopy completeness proved in the certificate.  These interfaces provide a reusable formal theorem for subsequent
     maps of finite tori without claiming new topology for unrelated spaces.
     The bridge is instantiated by the universal open geometric computational-
     path carrier, so trace operations and their geometric loop classes are
@@ -290,6 +297,8 @@ research_interest:
     The direct traced realization closes the former scope gap: the advertised
     arithmetic obstruction is attached to an actual computational-path carrier
     and its geometric loop semantics, not merely to an arbitrary homeomorphism.
+    The winding-indexed one-step normal form is a concrete reusable method for
+    reducing traced representatives before applying the Smith obstruction.
     This makes the certificate a reusable note-sized interface between
     algebraic topology and computational abelian-group calculations.  The
     classical ingredients and their sources are listed explicitly; no claim
@@ -309,6 +318,8 @@ research_interest:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_traceLength"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.standard_complete"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -341,8 +352,9 @@ fidelity:
     exact image/faithfulness criteria, and the Smith-coordinate image
     obstruction for actual induced quotient maps.  The selected nested bridge
     realizes every loop through the universal traced computational-path
-    presentation and applies the same winding/Smith test to its geometric
-    representatives; the remaining profiles are on integer
+    presentation, supplies a winding-indexed one-step normal form with proved
+    trace length and homotopy completeness, and applies the same winding/Smith
+    test to its geometric representatives; the remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
@@ -374,10 +386,12 @@ alignment:
         lattice action, with determinant criteria in the square case; quotient-
         level matrix composition is also stated.  The nested computational-path
         bridge instantiates this classifier on universal traced open paths,
-        proves trace-length coherence for identity/composition/reversal, identifies
-        the traced homotopy quotient with the ordinary loop quotient, ties its
-        winding/classifier to the outer certificate, and applies the Smith test
-        to every geometric representative.  In addition, Smith
+        proves trace-length coherence for identity/composition/reversal, supplies
+        a canonical one-step representative for each winding vector, proves its
+        trace length and homotopy completeness, identifies the traced homotopy
+        quotient with the ordinary loop quotient, ties its winding/classifier to
+        the outer certificate, and applies the Smith test to every geometric
+        representative.  In addition, Smith
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.
     - source: "Canonical winding-lattice matrix composition"

@@ -1,4 +1,4 @@
-# Follow-up: topological Smith image obstructions and cokernel composition for finite-torus quotient maps
+# Follow-up: computational-path winding normal forms and topological Smith obstructions
 
 ## Selected result
 
@@ -25,7 +25,10 @@ explicitly selected nested fields):
    quotient with the ordinary loop quotient, and applies the same Smith test to
    the representative's geometric loop class.  Its winding and quotient
    classifier are tied to the selected outer certificate by explicit
-   compatibility equalities;
+   compatibility equalities.  It also supplies a canonical one-step
+   representative for every winding vector, proves its trace length is one and
+   its winding is the chosen vector, and proves every traced path is homotopic
+   to the representative selected by its winding;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -52,9 +55,10 @@ image/injectivity/surjectivity transfer for induced matrix maps between
 finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
 for realizing any prescribed quotient loop class.  The computational-path
 bridge makes this topology-to-arithmetic comparison apply to a concrete
-traced carrier and its geometric realization, rather than to an arbitrary
-homeomorphism; its homotopy quotient is explicitly equivalent to the ordinary
-loop quotient.  It then gives a complete
+   traced carrier and its geometric realization, rather than to an arbitrary
+   homeomorphism; its homotopy quotient is explicitly equivalent to the ordinary
+   loop quotient.  The bridge also gives a winding-indexed one-step normal form
+   for traced paths, with a proved homotopy-completeness theorem.  It then gives a complete
 arbitrary-rank free/torsion and prime-power description of every lattice
 cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only

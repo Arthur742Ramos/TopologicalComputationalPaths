@@ -28,8 +28,11 @@ carrier: trace length is preserved by identity, composition, and reversal,
 every continuous loop has a geometric representative, and the homotopy
 quotient of that carrier is explicitly equivalent to the ordinary loop
 quotient.  Its winding and quotient classifier are tied to the selected outer
-classifier by checked compatibility equalities, and the same Smith image test
-applies to its winding class.  This is a reusable
+classifier by checked compatibility equalities.  It also supplies a canonical
+one-step representative for every winding vector: the representative has trace
+length exactly one, realizes that winding vector, and every traced path is
+homotopic to the representative chosen from its winding.  The same Smith image
+test applies to its winding class.  This is a reusable
 topology--arithmetic certificate, not a proof-size claim.  The first field also
 decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
@@ -134,9 +137,11 @@ whether a prescribed quotient loop class lies in the image of an induced
 matrix map by Smith-coordinate divisibility, including rank-deficient
 zero-factor constraints.  The nested computational-path bridge supplies the
 raw traced carrier, trace-length laws, geometric coherence, a section covering
-all continuous loops, an explicit equivalence of its homotopy quotient with
-the ordinary loop quotient, checked compatibility with the selected classifier,
-and the same Smith test after geometric realization.
+all continuous loops, an explicit one-step canonical representative for each
+winding vector, homotopy completeness of that normal form, an explicit
+equivalence of its homotopy quotient with the ordinary loop quotient, checked
+compatibility with the selected classifier, and the same Smith test after
+geometric realization.
 The remaining fields give the canonical
 matrix-composition identity, finite-cokernel rectangular lattice-cokernel
 cardinality and prime-support laws (plus finiteness and exponent composition),
@@ -158,7 +163,10 @@ prescribed quotient loop class is realizable by an induced torus map.  The
 computational-path bridge makes that obstruction apply to universal traced
 open paths and their geometric loop classes, rather than merely to an
 unstructured quotient presentation; the traced homotopy quotient is explicitly
-identified with the ordinary loop quotient.  The quotient-to-lattice bridge is then coupled to arbitrary-rank composition,
+identified with the ordinary loop quotient.  Its canonical one-step
+representatives provide a winding-indexed normal form, and every traced path is
+proved homotopic to the normal form selected by its winding.  The quotient-to-
+lattice bridge is then coupled to arbitrary-rank composition,
 Smith, determinant, and prime-power profiles.  The
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
