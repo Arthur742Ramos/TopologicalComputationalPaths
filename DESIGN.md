@@ -114,13 +114,18 @@ The follow-up has its own non-destructive Comparator and metadata surface.  The
 selected declaration is
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`, whose statement-side certificate has exactly six
-fields: (1) a quotient-loop-to-winding-lattice homeomorphism for every finite
-torus, (2) canonical integer-matrix composition, (3) rectangular lattice-
-cokernel cardinality/finiteness/prime-support/copime-exponent laws, (4) an
+fields: (1) a coherent all-dimensional winding-classifier family, including
+representative winding, quotient multiplication, naturality for induced
+integer-matrix maps, exact image/injectivity/surjectivity transfer, and their
+quotient-level composition, (2) canonical
+integer-matrix composition, (3) rectangular lattice-cokernel
+cardinality/finiteness/prime-support/copime-exponent laws, (4) an
 arbitrary-rank Smith classification with explicit `ZMod 0` free factors, (5)
 the nonsingular square determinant index, and (6) a finite prime-power
-refinement.  The matrix fields are deliberately about integer winding-lattice
-cokernels; the declaration does not assert torus-map short exactness,
+refinement.  The lattice-cokernel fields are about the integer winding
+lattice; the first field explicitly ties that lattice to induced maps of
+finite-torus loop quotients and gives determinant criteria for square maps.
+The declaration does not assert torus-map short exactness,
 first-isomorphism wrappers, indexed-product preservation, or centrality.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The local substantive source is recorded as a `formalization`

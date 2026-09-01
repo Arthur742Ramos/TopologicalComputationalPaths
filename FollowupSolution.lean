@@ -1440,6 +1440,27 @@ def matrixCompose {n m k : ℕ}
     Fin k → Fin n → ℤ :=
   fun l i => ∑ j : Fin m, B l j * A j i
 
+/-! Integer matrices act on the finite torus itself, not only on its winding
+    lattice.  The endpoint cast in the quotient map is kept explicit so that
+    the selected certificate states the actual topological naturality square. -/
+noncomputable def matrixMap {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    C(FiniteTorus n, FiniteTorus m) :=
+  ⟨fun x j => ∑ i : Fin n, A j i • x i,
+    continuous_pi (fun j =>
+      continuous_finsetSum Finset.univ (fun i _ =>
+        (continuous_apply i).zsmul (A j i)))⟩
+
+lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    matrixMap A (base n) = base m := by
+  funext j
+  simp [matrixMap, base]
+
+noncomputable def matrixMapQuotientMap {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) : LoopQuot n → LoopQuot m :=
+  fun q =>
+    (_root_.Path.Homotopic.Quotient.map q (matrixMap A)).cast
+      (matrixMap_base A).symm (matrixMap_base A).symm
+
 noncomputable def smithNormalFormFactor
     {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
     (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
@@ -1456,9 +1477,58 @@ noncomputable instance loopQuotTopology (n : ℕ) :
   TopologicalSpace.coinduced
     (Quotient.mk' : Loop n → LoopQuot n) inferInstance
 
+structure FiniteTorusWindingMatrixCompatibility where
+  winding : ∀ n : ℕ, Loop n → WindingVector n
+  standardLoop : ∀ n : ℕ, WindingVector n → Loop n
+  classifier : ∀ n : ℕ, LoopQuot n ≃ₜ Multiplicative (WindingVector n)
+  classifier_mk :
+    ∀ (n : ℕ) (γ : Loop n),
+      Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ
+  winding_standard :
+    ∀ (n : ℕ) (z : WindingVector n), winding n (standardLoop n z) = z
+  standard_complete :
+    ∀ (n : ℕ) (γ : Loop n),
+      (standardLoop n (winding n γ)).Homotopic γ
+  winding_identity :
+    ∀ (n : ℕ), winding n (_root_.Path.refl (base n)) = 0
+  winding_trans :
+    ∀ (n : ℕ) (γ δ : Loop n),
+      winding n (γ.trans δ) = winding n γ + winding n δ
+  classifier_trans :
+    ∀ (n : ℕ) (x y : LoopQuot n),
+      Multiplicative.toAdd (classifier n (_root_.Path.Homotopic.Quotient.trans x y)) =
+        Multiplicative.toAdd (classifier n x) + Multiplicative.toAdd (classifier n y)
+  classifier_matrix_map :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot n),
+      Multiplicative.toAdd (classifier m (matrixMapQuotientMap A q)) =
+        matrixAction A (Multiplicative.toAdd (classifier n q))
+  matrix_map_composition :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ) (q : LoopQuot n),
+      matrixMapQuotientMap B (matrixMapQuotientMap A q) =
+        matrixMapQuotientMap (matrixCompose A B) q
+  matrix_map_image_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
+      q ∈ Set.range (matrixMapQuotientMap A) ↔
+        Multiplicative.toAdd (classifier m q) ∈ Set.range (matrixAction A)
+  matrix_map_injective_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Function.Injective (matrixMapQuotientMap A) ↔
+        Function.Injective (matrixAction A)
+  matrix_map_surjective_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Function.Surjective (matrixMapQuotientMap A) ↔
+        Function.Surjective (matrixAction A)
+  matrix_map_injective_iff_det_ne_zero :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
+      Function.Injective (matrixMapQuotientMap A) ↔ Matrix.det A ≠ 0
+  matrix_map_surjective_iff_isUnit_det :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
+      Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A)
+
 structure TopologicalSmithExactnessCertificate where
-  topological_winding_homeomorph :
-    ∀ (n : ℕ), Nonempty (LoopQuot n ≃ₜ (Fin n → ℤ))
+  winding_matrix_compatibility :
+    Nonempty FiniteTorusWindingMatrixCompatibility
   matrix_composition :
     ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
       (B : Fin k → Fin m → ℤ) (z : Fin n → ℤ),
@@ -1542,9 +1612,72 @@ structure TopologicalSmithExactnessCertificate where
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   refine ⟨{
-    topological_winding_homeomorph := by
-      intro n
-      exact ⟨FiniteTorusWinding.loopQuotHomeomorphIntVector n⟩
+    winding_matrix_compatibility := by
+      refine ⟨{
+        winding := fun n => FiniteTorusWinding.winding
+        standardLoop := fun n => FiniteTorusWinding.standardLoop
+        classifier := fun n =>
+          FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n
+        classifier_mk := by
+          intro n γ
+          rfl
+        winding_standard := by
+          intro n z
+          exact FiniteTorusWinding.winding_standardLoop z
+        standard_complete := by
+          intro n γ
+          exact FiniteTorusWinding.standardLoop_homotopic γ
+        winding_identity := by
+          intro n
+          exact FiniteTorusWinding.winding_identity
+        winding_trans := by
+          intro n γ δ
+          exact FiniteTorusWinding.winding_trans γ δ
+        classifier_trans := by
+          intro n x y
+          change FiniteTorusWinding.encode
+              (_root_.Path.Homotopic.Quotient.trans x y) =
+            FiniteTorusWinding.encode x + FiniteTorusWinding.encode y
+          exact FiniteTorusWinding.encode_trans x y
+        classifier_matrix_map := by
+          intro n m A q
+          change FiniteTorusWinding.encode
+              (FiniteTorusWinding.matrixMapQuotientMap A q) =
+            FiniteTorusWinding.matrixAction A
+              (FiniteTorusWinding.encode q)
+          exact FiniteTorusWinding.encode_matrixMapQuotientMap A q
+        matrix_map_composition := by
+          intro n m k A B q
+          change
+            FiniteTorusWinding.matrixMapQuotientMap B
+                (FiniteTorusWinding.matrixMapQuotientMap A q) =
+              FiniteTorusWinding.matrixMapQuotientMap (FiniteTorusWinding.matrixCompose A B) q
+          exact FiniteTorusWinding.matrixMapQuotientMap_comp A B q
+        matrix_map_image_iff := by
+          intro n m A q
+          change q ∈ Set.range (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            FiniteTorusWinding.encode q ∈ Set.range (FiniteTorusWinding.matrixAction A)
+          exact FiniteTorusWinding.matrixMapQuotientMap_mem_range_iff A q
+        matrix_map_injective_iff := by
+          intro n m A
+          change Function.Injective (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            Function.Injective (FiniteTorusWinding.matrixAction A)
+          exact FiniteTorusWinding.matrixMapQuotientMap_injective_iff A
+        matrix_map_surjective_iff := by
+          intro n m A
+          change Function.Surjective (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            Function.Surjective (FiniteTorusWinding.matrixAction A)
+          exact FiniteTorusWinding.matrixMapQuotientMap_surjective_iff A
+        matrix_map_injective_iff_det_ne_zero := by
+          intro n A
+          change Function.Injective (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            Matrix.det A ≠ 0
+          exact FiniteTorusWinding.matrixMapQuotientMap_injective_iff_det_ne_zero A
+        matrix_map_surjective_iff_isUnit_det := by
+          intro n A
+          change Function.Surjective (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            IsUnit (Matrix.det A)
+          exact FiniteTorusWinding.matrixMapQuotientMap_surjective_iff_isUnit_det A }⟩
     matrix_composition := by
       intro n m k A B z
       have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by

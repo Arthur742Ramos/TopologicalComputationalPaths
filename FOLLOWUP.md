@@ -7,8 +7,14 @@ The Comparator selects
 `FollowupSolution.lean`.  This declaration is a nonempty
 `TopologicalSmithExactnessCertificate` with six fields:
 
-1. `topological_winding_homeomorph` identifies every finite-torus quotient
-   loop group with its integer winding lattice by an explicit homeomorphism;
+1. `winding_matrix_compatibility` packages an all-dimensional family of
+   complete winding classifiers: each classifier agrees with winding on loop
+   representatives, identifies quotient concatenation with lattice addition
+   through a continuous equivalence into the multiplicative lattice model,
+   and commutes with the induced integer-matrix map on quotient loop groups.
+   Its image, injectivity, and surjectivity are characterized by the same
+   lattice action, including the square determinant criteria; matrix-map
+   composition is also stated at the quotient level;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -27,13 +33,16 @@ The Comparator selects
 
 This is the selected mathematical contribution: a quantified topology-to-
 arithmetic certificate for quotient fundamental groups of finite tori and
-their winding-lattice cokernels.  It links the topological winding model to
-matrix composition, then gives a complete arbitrary-rank free/torsion and
-prime-power description of every lattice cokernel, with the determinant index
-as a square specialization.  Winding, quotient fundamental groups, and
-Smith normal form are classical ingredients.  The substantive local source is
-recorded as a `formalization` with relationship `formalizes`, and no priority
-claim is made for the bundled formal packaging.  The detailed general
+their winding-lattice cokernels.  It links the actual winding invariant and
+quotient multiplication to the integer lattice, proves naturality and exact
+image/injectivity/surjectivity transfer for induced matrix maps between
+finite-torus loop quotients, and then gives a complete arbitrary-rank
+free/torsion and prime-power description of every
+lattice cokernel, with the determinant index as a square specialization.
+Winding, quotient fundamental groups, and Smith normal form are classical
+ingredients.  The substantive local source is recorded as a `formalization`
+with relationship `formalizes`, and no priority claim is made for the bundled
+formal packaging.  The detailed general
 quotient-topology and finite-torus developments below are supporting inventory,
 not additional Comparator claims unless listed in `main_results.selected_fields`.
 

@@ -472,6 +472,29 @@ noncomputable def coordinateProjection {n m : ℕ} (f : Fin m → Fin n) :
 noncomputable def coordinateReindex {n m : ℕ} (f : Fin m → Fin n) :
     WindingVector n → WindingVector m :=
   fun z j => z (f j)
+
+/-! Integer matrices act on the finite torus itself, not only on its winding
+    lattice.  The endpoint cast in the quotient map is kept explicit so that
+    the selected certificate can state the actual topological naturality
+    square. -/
+noncomputable def matrixMap {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    C(FiniteTorus n, FiniteTorus m) :=
+  ⟨fun x j => ∑ i : Fin n, A j i • x i,
+    continuous_pi (fun j =>
+      continuous_finsetSum Finset.univ (fun i _ =>
+        (continuous_apply i).zsmul (A j i)))⟩
+
+lemma matrixMap_base {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    matrixMap A (base n) = base m := by
+  funext j
+  simp [matrixMap, base]
+
+noncomputable def matrixMapQuotientMap {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) : LoopQuot n → LoopQuot m :=
+  fun q =>
+    (_root_.Path.Homotopic.Quotient.map q (matrixMap A)).cast
+      (matrixMap_base A).symm (matrixMap_base A).symm
+
 /-! Smith factors are copied into the standalone statement surface so the
     Comparator challenge can expose the arithmetic criterion without
     importing the substantive project implementation. -/
@@ -724,15 +747,70 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs
 
-/-! This is the selected, self-contained follow-up certificate.  It keeps
-    the topological winding comparison together with the substantive
-    rectangular lattice exactness, Smith decomposition, determinant index,
-    and prime-power torsion consequences.  Every type in this declaration is
-    defined above or supplied by Mathlib, so the canonical challenge does not
-    depend on candidate-local compiled modules. -/
+/-! This is the selected, self-contained follow-up certificate.  Its first
+    field is a family of complete winding classifiers: each classifier agrees
+    with the concrete winding invariant on representatives, identifies
+    quotient concatenation with lattice addition through a continuous
+    equivalence into the multiplicative lattice model, and intertwines the
+    induced matrix map on finite-torus loop quotients with the integer matrix
+    action.  It also records exact image, injectivity, and surjectivity
+    transfer, including the square determinant criteria.  The remaining
+    fields record the rectangular lattice exactness, Smith decomposition,
+    determinant index, and prime-power torsion consequences.  Every type in
+    this declaration is defined above or supplied by Mathlib, so the canonical
+    challenge does not depend on candidate-local compiled modules. -/
+structure FiniteTorusWindingMatrixCompatibility where
+  winding : ∀ n : ℕ, Loop n → WindingVector n
+  standardLoop : ∀ n : ℕ, WindingVector n → Loop n
+  classifier : ∀ n : ℕ, LoopQuot n ≃ₜ Multiplicative (WindingVector n)
+  classifier_mk :
+    ∀ (n : ℕ) (γ : Loop n),
+      Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ
+  winding_standard :
+    ∀ (n : ℕ) (z : WindingVector n), winding n (standardLoop n z) = z
+  standard_complete :
+    ∀ (n : ℕ) (γ : Loop n),
+      (standardLoop n (winding n γ)).Homotopic γ
+  winding_identity :
+    ∀ (n : ℕ), winding n (_root_.Path.refl (base n)) = 0
+  winding_trans :
+    ∀ (n : ℕ) (γ δ : Loop n),
+      winding n (γ.trans δ) = winding n γ + winding n δ
+  classifier_trans :
+    ∀ (n : ℕ) (x y : LoopQuot n),
+      Multiplicative.toAdd (classifier n (_root_.Path.Homotopic.Quotient.trans x y)) =
+        Multiplicative.toAdd (classifier n x) + Multiplicative.toAdd (classifier n y)
+  classifier_matrix_map :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot n),
+      Multiplicative.toAdd (classifier m (matrixMapQuotientMap A q)) =
+        matrixAction A (Multiplicative.toAdd (classifier n q))
+  matrix_map_composition :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ) (q : LoopQuot n),
+      matrixMapQuotientMap B (matrixMapQuotientMap A q) =
+        matrixMapQuotientMap (matrixCompose A B) q
+  matrix_map_image_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
+      q ∈ Set.range (matrixMapQuotientMap A) ↔
+        Multiplicative.toAdd (classifier m q) ∈ Set.range (matrixAction A)
+  matrix_map_injective_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Function.Injective (matrixMapQuotientMap A) ↔
+        Function.Injective (matrixAction A)
+  matrix_map_surjective_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Function.Surjective (matrixMapQuotientMap A) ↔
+        Function.Surjective (matrixAction A)
+  matrix_map_injective_iff_det_ne_zero :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
+      Function.Injective (matrixMapQuotientMap A) ↔ Matrix.det A ≠ 0
+  matrix_map_surjective_iff_isUnit_det :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
+      Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A)
+
 structure TopologicalSmithExactnessCertificate where
-  topological_winding_homeomorph :
-    ∀ (n : ℕ), Nonempty (LoopQuot n ≃ₜ (Fin n → ℤ))
+  winding_matrix_compatibility :
+    Nonempty FiniteTorusWindingMatrixCompatibility
   matrix_composition :
     ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
       (B : Fin k → Fin m → ℤ) (z : Fin n → ℤ),

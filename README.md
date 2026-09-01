@@ -11,16 +11,19 @@ artifact have a small and auditable boundary.
 The current Comparator artifact is `comparator-followup.json`, which selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  The selected declaration is a named
-`TopologicalSmithExactnessCertificate` with six fields: an explicit
-homeomorphism from each finite-torus quotient loop group to its integer
-winding lattice; the canonical matrix-composition identity; rectangular
-lattice-cokernel laws for cardinality, finiteness, prime support, and coprime
-exponents; an arbitrary-rank Smith additive classification with explicit
-`ZMod 0` free factors, the finite/full-rank criterion, exponent, and prime
-support; the nonsingular square determinant-index formula; and a finite
-prime-power refinement.  The matrix fields concern the integer winding
-lattice, while the topological field supplies the quotient-to-lattice bridge.
-This is a reusable topology--arithmetic certificate, not a proof-size claim.
+`TopologicalSmithExactnessCertificate` with six fields: an all-dimensional
+family of complete winding classifiers that agree with the explicit winding
+invariant on representatives, identify quotient concatenation with lattice
+addition through a continuous equivalence into the multiplicative lattice
+model, and commute with the induced integer-matrix maps; exact image,
+injectivity, and surjectivity transfer for those quotient maps, including the
+square determinant criteria; the canonical matrix-composition identity;
+rectangular lattice-cokernel laws for cardinality, finiteness, prime support,
+and coprime exponents; an arbitrary-rank Smith additive classification with
+explicit `ZMod 0` free factors, the finite/full-rank criterion, exponent, and
+prime support; the nonsingular square determinant-index formula; and a finite
+prime-power refinement.  This is a reusable topology--arithmetic certificate,
+not a proof-size claim.
 The local source is recorded as a `formalization` that `formalizes` this
 surface; Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent
 manuscript provide the mathematical context.  Centrality, binary/indexed
@@ -105,24 +108,29 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six linked fields.  It gives an explicit homeomorphism from each finite-torus
-quotient loop group to its integer winding lattice, the canonical
-matrix-composition identity, rectangular lattice-cokernel laws for
-cardinality/finiteness/prime support/copime exponents, an arbitrary-rank
-Smith additive equivalence with `ZMod 0` free factors, the nonsingular square
-determinant-index formula, and a finite prime-power refinement.  The
-matrix-cokernel fields are deliberately stated on the winding lattice; this
-declaration does not claim the repository's separate torus-map short-exact or
-first-isomorphism wrappers.  The older centrality, product, classifier, and
-broader matrix APIs remain repository support.
+six linked fields.  Its first field is an explicit all-dimensional winding
+classifier package: representative winding, quotient multiplication, and
+the induced integer-matrix maps on finite-torus loop quotients are tied to the
+same lattice by equations.  It also characterizes their image,
+injectivity, and surjectivity, including the square determinant criteria, and
+states quotient-level matrix composition.  The remaining fields give the canonical matrix-composition identity, rectangular
+lattice-cokernel laws for cardinality/finiteness/prime support/copime
+exponents, an arbitrary-rank Smith additive equivalence with `ZMod 0` free
+factors, the nonsingular square determinant-index formula, and a finite
+prime-power refinement.  The lattice-cokernel fields are stated on the
+winding lattice; this declaration does not claim the repository's separate
+torus-map short-exact or first-isomorphism wrappers.  The older centrality,
+product, classifier, and broader matrix APIs remain repository support.
 
 ### Research contribution and selected boundary
 
 The follow-up is not presented as a new discovery of winding or Smith normal
 form.  Its contribution is the exact, quantified topology-to-arithmetic
-certificate above: a single checked declaration combines the quotient-to-
-lattice homeomorphism with arbitrary-rank composition, Smith, determinant,
-and prime-power profiles.  The finite/full-rank and prime-support statements
+certificate above: a single checked declaration combines the actual winding
+and quotient-group laws, their matrix-map naturality and exact image/
+faithfulness criteria, and the quotient-to-lattice bridge with arbitrary-rank
+composition, Smith, determinant, and prime-power profiles.  The
+finite/full-rank and prime-support statements
 remain valid for singular and rectangular maps, while the determinant formula
 appears only after the square nonsingularity specialization.  This is a
 structural classification interface, not a proof-size report.  The metadata

@@ -6,15 +6,21 @@ project:
   description: >-
     This follow-up selects
     `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
-    It is a kernel-checked certificate with six fields.  The first field gives
-    a homeomorphism from the compact-open quotient of based loops in each
-    finite torus to its integer winding lattice.  The remaining fields state
-    canonical matrix composition and exact rectangular lattice-cokernel
-    profiles: cardinality, finiteness, prime support, and coprime exponent
-    composition; arbitrary-rank Smith factors including `ZMod 0` free
-    directions; the nonsingular square determinant index; and a finite
-    prime-power refinement.  The selected declaration therefore records a
-    precise topology-to-arithmetic bridge.  Short-exact torus-map wrappers,
+    It is a kernel-checked certificate with six fields.  The first field is a
+    coherent family of complete winding classifiers: each classifier agrees
+    with the explicit winding invariant on every loop representative,
+    identifies quotient concatenation with addition in the integer lattice
+    through a continuous equivalence into the multiplicative lattice model,
+    and intertwines the induced integer-matrix map on finite-torus loop
+    quotients with the matrix action on winding vectors.  It also proves exact
+    image, injectivity, and surjectivity transfer for those quotient maps,
+    including the square determinant criteria.  The remaining fields state
+    canonical matrix composition and exact rectangular lattice-cokernel profiles: cardinality,
+    finiteness, prime support, and coprime exponent composition; arbitrary-rank
+    Smith factors including `ZMod 0` free directions; the nonsingular square
+    determinant index; and a finite prime-power refinement.  The selected
+    declaration therefore records a precise topology-to-arithmetic bridge.
+    Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
     matrix APIs remain repository support and are not selected claims.
   authors:
@@ -102,14 +108,15 @@ sources:
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
     type: "formalization"
-    id: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+    id: "FollowupSolution.lean"
     location: "TopologicalComputationalPathsFollowup.topological_smith_exactness"
     relationship: "formalizes"
     author_endorsement: "participated"
     note: >-
       This is the substantive Lean development from which the selected
-      six-field declaration is adapted.  It formalizes the winding
-      homeomorphism and the lattice-cokernel composition, Smith,
+      six-field declaration is adapted.  It formalizes the complete winding
+      classifier, quotient-group law, and induced matrix-map naturality, as
+      well as the lattice-cokernel composition, Smith,
       determinant-index, and prime-power results.  Hatcher and Norman are
       identified above as substantive mathematical sources for the classical
       ingredients; this entry makes no priority or first-discovery claim for
@@ -132,16 +139,21 @@ status:
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
     `FollowupSolution.lean`.  It asserts a nonempty
     `TopologicalSmithExactnessCertificate`.  Its six fields are: (i) a
-    quotient-to-winding homeomorphism for the based loop quotient of every
-    finite torus; (ii) the canonical matrix-composition identity; (iii) the
+    coherent family of winding classifiers for the based loop quotient of
+    every finite torus, including representative, group-law, induced
+    matrix-map naturality, exact image/injectivity/surjectivity transfer, and
+    matrix-map composition equations; (ii) the
+    canonical matrix-composition identity; (iii) the
     rectangular lattice-cokernel profile under injectivity of the second map,
     giving cardinality, finiteness, prime-support, and coprime-exponent laws;
     (iv) the arbitrary-rank Smith additive equivalence, finite iff full target
     rank, exponent-lcm identity, and prime-support identity; (v) the
     nonsingular square determinant-index formula; and (vi) the finite
-    prime-power refinement with its exact cardinality product.  The matrix
-    fields concern the integer winding lattice cokernels; the declaration does
-    not state short-exact or first-isomorphism wrappers for torus maps.
+    prime-power refinement with its exact cardinality product.  The
+    lattice-cokernel fields concern the integer winding lattice; the first
+    field additionally connects that lattice action to actual induced maps of
+    finite-torus loop quotients.  The declaration does not state short-exact
+    or first-isomorphism wrappers for torus maps.
     Free directions are represented explicitly by `ZMod 0`.  Centrality,
     binary/indexed products, broader matrix APIs, and other quotient-topology
     declarations remain repository support outside this Comparator target.
@@ -157,14 +169,14 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator-followup.json"
       selected_fields:
-        - "TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
+        - "TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
         - "TopologicalSmithExactnessCertificate.matrix_composition"
         - "TopologicalSmithExactnessCertificate.rectangular_composition_profile"
         - "TopologicalSmithExactnessCertificate.smith_cokernel_profile"
         - "TopologicalSmithExactnessCertificate.determinant_index"
         - "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
       literature_dependencies:
-        - statement: "Quotient fundamental groups and winding classification"
+        - statement: "Quotient fundamental groups, winding classification, and matrix-map naturality"
           source: "Algebraic Topology"
         - statement: "Smith invariant factors and determinant index"
           source: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
@@ -176,15 +188,18 @@ status:
         - "torus-map short exactness and first-isomorphism wrappers"
         - "relative-centrality and path-choice transport criteria"
         - "binary or indexed product-preservation claims"
-        - "unselected CRT, annihilator, image, kernel, and broader matrix families"
+        - "unselected CRT, annihilator, kernel, and broader matrix families"
 
 research_interest:
   audience: "Researchers in algebraic topology, general topology, computational algebra, and formalized mathematics"
   selected_contribution: >-
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` is a
     six-field certificate connecting a topological quotient with computable
-    integer invariants.  It identifies each finite-torus based loop quotient
-    with `Fin n → ℤ`, then records matrix composition and exact rectangular
+    integer invariants.  Its first field is an all-dimensional family of
+    explicit winding classifiers: representatives, quotient multiplication,
+    and induced integer-matrix maps are tied together by stated equations;
+    exact image, injectivity, and surjectivity transfer is also proved, with
+    determinant criteria in the square case.  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for cardinality, finiteness, prime support, and
     coprime exponents.  Its Smith profile handles arbitrary rank, including
     `ZMod 0` free factors, and its finite refinement exposes prime-power
@@ -193,8 +208,10 @@ research_interest:
     separate torus-map short-exact or first-isomorphism wrappers.
   why_nontrivial: >-
     The content is a quantified bridge rather than a single determinant
-    calculation: the topological quotient is identified with a lattice model,
-    and one certificate simultaneously covers all finite dimensions and all
+    calculation: the actual winding invariant, quotient multiplication, and
+    induced matrix maps are identified with one lattice model; image,
+    injectivity, and surjectivity of the topological maps are characterized by
+    the corresponding lattice action, and one certificate simultaneously covers all finite dimensions and all
     rectangular ranks.  The composition profile remains meaningful for
     singular maps, separates finite torsion from `ZMod 0` free directions,
     and gives exact prime support and coprime-exponent behavior.  The Smith
@@ -204,8 +221,11 @@ research_interest:
     maps of finite tori without claiming new topology for unrelated spaces.
   paper_worthiness: >-
     The selected theorem is a compact, auditable formal synthesis: a genuine
-    quotient-topological fundamental group is reduced to an integer lattice,
-    and the same declaration supplies arbitrary-rank composition, Smith,
+    quotient-topological fundamental group is reduced to its explicit winding
+    lattice, quotient multiplication is certified as lattice addition, and
+    maps induced by arbitrary integer matrices commute with that classifier;
+    their image, injectivity, and surjectivity are characterized exactly.
+    The same declaration supplies arbitrary-rank composition, Smith,
     determinant-index, and prime-power invariants.  The exact finite/free
     boundary and prime-support laws apply uniformly to rectangular maps,
     while the square determinant identity supplies a sharp specialization.
@@ -224,7 +244,7 @@ research_interest:
     makes no priority claim for the bundled theorem; it distinguishes the
     repository's formal packaging from the classical mathematical results.
   evidence:
-    - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
+    - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -252,9 +272,11 @@ fidelity:
   divergences: >-
     The selected artifact is a standalone Comparator presentation of one
     six-field topology-to-arithmetic certificate, not a new claim about the
-    individual classical ingredients.  The matrix profiles are on integer
-    winding-lattice cokernels; only the winding homeomorphism mentions the
-    quotient-topological loop group.  Centrality, product, torus-map exactness,
+    individual classical ingredients.  The first field includes the actual
+    winding/group classifier, its naturality for induced matrix maps, and
+    exact image/faithfulness criteria; the remaining profiles are on integer
+    winding-lattice cokernels.
+    Centrality, product, torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
     repository context and are not attributed to the selected declaration.
 
@@ -270,23 +292,28 @@ review:
 alignment:
   namespace: "TopologicalComputationalPathsFollowup"
   statements:
-    - source: "Finite-torus quotient-to-winding homeomorphism"
-      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.topological_winding_homeomorph"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+    - source: "Finite-torus winding classifier and matrix-map naturality"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
-        The compact-open/final quotient loop space of every finite torus is
-        homeomorphic to its integer winding lattice.
+        The explicit winding classifier is complete on every finite-torus
+        quotient, identifies quotient concatenation with lattice addition
+        through a continuous equivalence into the multiplicative lattice
+        model, and commutes with the induced integer-matrix map.  Its image,
+        injectivity, and surjectivity are characterized by the corresponding
+        lattice action, with determinant criteria in the square case; quotient-
+        level matrix composition is also stated.
     - source: "Canonical winding-lattice matrix composition"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.matrix_composition"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
         The canonical additive matrix action composes according to the stated
         row-by-column `matrixCompose` law in all finite dimensions.
     - source: "Rectangular lattice-cokernel composition profile"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.rectangular_composition_profile"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
         Under injectivity of the second rectangular lattice action, successive
@@ -295,7 +322,7 @@ alignment:
         supports, and coprime exponents multiply exactly.
     - source: "Arbitrary-rank Smith classification of the winding-lattice cokernel"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.smith_cokernel_profile"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
         The selected field gives the additive Smith equivalence, preserves
@@ -304,14 +331,14 @@ alignment:
         Smith moduli.
     - source: "Square determinant-index specialization"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.determinant_index"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
         For a nonsingular square matrix, the winding-lattice cokernel
         cardinality equals the absolute determinant.
     - source: "Finite prime-power Smith refinement"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
-      module: "ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean"
+      module: "FollowupSolution.lean"
       status: "proved"
       note: >-
         When every Smith modulus is nonzero, the finite winding-lattice

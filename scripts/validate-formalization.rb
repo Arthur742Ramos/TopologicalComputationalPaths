@@ -67,7 +67,7 @@ if followup
 
   fields = main_result.fetch("selected_fields")
   expected_fields = [
-    "TopologicalSmithExactnessCertificate.topological_winding_homeomorph",
+    "TopologicalSmithExactnessCertificate.winding_matrix_compatibility",
     "TopologicalSmithExactnessCertificate.matrix_composition",
     "TopologicalSmithExactnessCertificate.rectangular_composition_profile",
     "TopologicalSmithExactnessCertificate.smith_cokernel_profile",
