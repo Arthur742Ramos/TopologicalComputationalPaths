@@ -74,7 +74,11 @@ representative has at least one step.  Matrix maps carry canonical standard
 traces to canonical standard traces for the matrix-action winding up to
 endpoint-fixed homotopy, and successive matrix maps agree up to homotopy on
 every traced path.  These are path-level normalization and functoriality laws,
-not properties of an unstructured quotient presentation.  The remaining
+not properties of an unstructured quotient presentation.  The canonical
+normal form is also compatible with the path-group operation: the standard
+trace for `z + w` is homotopic to the concatenation of the standard traces for
+`z` and `w`, and the zero-winding standard trace is homotopic to the traced
+identity.  The remaining
 fields give an arbitrary-rank free/torsion and prime-power description of every
 lattice cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only

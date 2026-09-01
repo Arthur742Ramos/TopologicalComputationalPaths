@@ -147,7 +147,10 @@ class has a one-step representative and no homotopic zero-step representative.
 The standard representatives are natural for matrix maps up to endpoint-fixed
 homotopy, and successive matrix maps compose up to endpoint-fixed homotopy on
 every traced path.  These fields are the selected computational-path
-normalization and functoriality method.
+normalization and functoriality method.  The standard trace for a sum of
+winding vectors is homotopic to the concatenation of the corresponding
+standard traces, and the zero-winding standard trace is homotopic to the
+traced identity, so the reduction is compatible with the path-group operation.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather

@@ -41,7 +41,10 @@ project:
     lower bound proved for every homotopic representative.  Matrix maps send
     each standard trace to the standard trace of the matrix-action winding up
     to endpoint-fixed homotopy, and successive path maps compose up to
-    endpoint-fixed homotopy.  It also proves path-level Smith realizability:
+    endpoint-fixed homotopy.  The standard trace for a sum of winding vectors
+    is homotopic to the concatenation of the corresponding standard traces,
+    and the zero-winding standard trace is homotopic to the traced identity.
+    It also proves path-level Smith realizability:
     a traced target path is homotopic to the mapped geometric path of some
     source loop exactly when its Smith coordinates satisfy the divisibility
     equations.  Two explicit compatibility fields identify the bridge's winding and quotient
@@ -142,7 +145,8 @@ sources:
       This entry records an independently assembled original-proof artifact,
       including the topological Smith-coordinate image-obstruction theorem and
       the winding-indexed shortest computational-path normal form and its
-      matrix-natural, composition-coherent reduction laws.
+      matrix-natural, composition-coherent reduction laws, including
+      compatibility with winding addition and the traced identity.
       Priority for this exact mathematical synthesis is unknown: no
       first-presentation or priority claim is made.  The Lean files implement
       and check the proof but are not being cited as an external mathematical
@@ -258,7 +262,8 @@ research_interest:
     every traced path (the fields are
     `trace_zero_winding_zero`, `minimal_trace_normal_form`,
     `matrix_normal_form_naturality`, and
-    `matrix_map_composition_homotopy`).  The remaining fields record matrix composition and exact rectangular
+    `matrix_map_composition_homotopy`, plus `normal_form_trans` and
+    `normal_form_unit`).  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -297,7 +302,9 @@ research_interest:
     the zero-step case, while nonzero winding forces every homotopic trace to
     have at least one step.  The normal form is natural under every integer
     matrix map, and path-map composition agrees up to endpoint-fixed homotopy.
-    The
+    The standard trace for `z + w` is homotopic to the concatenation of the
+    standard traces for `z` and `w`, and the zero-winding standard trace is
+    homotopic to the traced identity.  The
     path-level Smith realizability theorem gives a complete decision interface
     for mapped computational paths, rather than only for quotient classes.
     These interfaces provide a reusable formal theorem for subsequent
@@ -332,7 +339,8 @@ research_interest:
     the certificate identifies the exact minimum cost of every homotopy class
     (zero for zero winding, one otherwise), proves the nonzero lower bound, and
     shows that matrix transformations preserve the chosen normal forms up to
-    homotopy and compose coherently.  This gives a reusable normalization
+    homotopy, compose coherently, respect winding addition, and preserve the
+    traced identity.  This gives a reusable normalization
     semantics for computational-path transformations.
     The new path-level realizability equivalence makes that obstruction
     constructive at the semantic boundary: it decides whether a prescribed
@@ -369,6 +377,8 @@ research_interest:
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.minimal_trace_normal_form"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_normal_form_naturality"
     - "FollowupChallenge.lean: ComputationalPathWindingPresentation.matrix_map_composition_homotopy"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.normal_form_trans"
+    - "FollowupChallenge.lean: ComputationalPathWindingPresentation.normal_form_unit"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -448,7 +458,9 @@ alignment:
         the outer certificate, and applies the Smith test to every geometric
         representative.  It also proves the exact shortest-trace law, naturality
         of standard traces under matrix maps, and composition coherence on all
-        traced paths.  In addition, Smith
+        traced paths.  The standard trace of a winding sum is homotopic to the
+        concatenation of the summand standard traces, and the zero-winding
+        standard trace is homotopic to the traced identity.  In addition, Smith
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.  The
         path-level realizability field proves that a target geometric path is

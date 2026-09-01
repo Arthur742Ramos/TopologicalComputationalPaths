@@ -567,6 +567,8 @@ structure ComputationalPathWindingPresentation where
   minimal_trace_normal_form : ∀ (n : ℕ) (p : raw n), (winding n (geometric n p) = 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 0) ∧ (winding n (geometric n p) ≠ 0 → ∃ q : raw n, (geometric n q).Homotopic (geometric n p) ∧ traceLength n q = 1 ∧ ∀ r : raw n, (geometric n r).Homotopic (geometric n p) → 1 ≤ traceLength n r)
   matrix_normal_form_naturality : ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (z : WindingVector n), (matrixMapLoop A (geometric n (standard n z))).Homotopic (geometric m (standard m (matrixAction A z)))
   matrix_map_composition_homotopy : ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (p : raw n), (matrixMapLoop B (matrixMapLoop A (geometric n p))).Homotopic (matrixMapLoop (matrixCompose A B) (geometric n p))
+  normal_form_trans : ∀ (n : ℕ) (z w : WindingVector n), (geometric n (standard n (z + w))).Homotopic (geometric n (trans n (standard n z) (standard n w)))
+  normal_form_unit : ∀ (n : ℕ), (geometric n (standard n 0)).Homotopic (geometric n (refl n))
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
@@ -817,7 +819,6 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
         ∃ i : Fin m, p ∣ (smithNormalFormFactor
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs
-
 /-! This is the selected, self-contained follow-up certificate.  Its first
     field is a family of complete winding classifiers: each classifier agrees
     with the concrete winding invariant on representatives, identifies
@@ -907,7 +908,6 @@ structure FiniteTorusWindingMatrixCompatibility where
   matrix_map_surjective_iff_isUnit_det :
     ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
       Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A)
-
 structure TopologicalSmithExactnessCertificate where
   winding_matrix_compatibility :
     Nonempty FiniteTorusWindingMatrixCompatibility

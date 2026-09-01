@@ -1681,6 +1681,12 @@ structure ComputationalPathWindingPresentation where
       (matrixMapLoop B
         (matrixMapLoop A (geometric n p))).Homotopic
         (matrixMapLoop (matrixCompose A B) (geometric n p))
+  normal_form_trans :
+    ∀ (n : ℕ) (z w : WindingVector n),
+      (geometric n (standard n (z + w))).Homotopic
+        (geometric n (trans n (standard n z) (standard n w)))
+  normal_form_unit :
+    ∀ (n : ℕ), (geometric n (standard n 0)).Homotopic (geometric n (refl n))
   smith_image_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
       Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
@@ -2124,6 +2130,23 @@ theorem topological_smith_exactness :
             matrix_map_composition_homotopy := by
               intro n m k A B p
               exact matrixMapLoop_comp_homotopic A B p.geometric
+            normal_form_trans := by
+              intro n z w
+              change (FiniteTorusWinding.standardLoop (z + w)).Homotopic
+                (_root_.Path.trans (FiniteTorusWinding.standardLoop z)
+                  (FiniteTorusWinding.standardLoop w))
+              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+              rw [FiniteTorusWinding.winding_standardLoop,
+                FiniteTorusWinding.winding_trans,
+                FiniteTorusWinding.winding_standardLoop,
+                FiniteTorusWinding.winding_standardLoop]
+            normal_form_unit := by
+              intro n
+              change (FiniteTorusWinding.standardLoop (0 : WindingVector n)).Homotopic
+                (_root_.Path.refl (base n))
+              apply (FiniteTorusWinding.homotopic_iff_winding_eq _ _).2
+              rw [FiniteTorusWinding.winding_standardLoop,
+                FiniteTorusWinding.winding_identity]
             smith_image_iff := by
               intro n m A p
               change Quotient.mk' p.geometric ∈

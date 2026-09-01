@@ -50,7 +50,10 @@ form to the canonical normal form of the matrix-action winding up to
 endpoint-fixed homotopy, and successive path maps compose up to
 endpoint-fixed homotopy on every traced path.  Thus the selected bridge is a
 certified trace-complexity normalization and functoriality method, not merely
-an equivalence witness.
+an equivalence witness.  The canonical normal form also respects winding
+addition: the standard trace for `z + w` is homotopic to the concatenation of
+the standard traces for `z` and `w`, and the standard trace for zero winding is
+homotopic to the traced identity.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.
@@ -196,7 +199,8 @@ one-step representative and no homotopic zero-step representative.  The
 matrix image of a standard trace is homotopic to the standard trace of the
 matrix-action winding, and two successive matrix maps agree up to homotopy on
 every traced path.  These fields make the bridge a reusable normalization and
-functoriality interface for computational-path transformations.
+functoriality interface for computational-path transformations.  The selected
+`normal_form_trans` field makes the reduction compatible with the quotient
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
 after the square nonsingularity specialization.  Zero Smith factors are
