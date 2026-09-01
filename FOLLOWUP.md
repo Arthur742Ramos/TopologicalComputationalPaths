@@ -595,11 +595,12 @@ and Smith/invariant-factor material; they are not claimed as the origin of the
 selected synthesis or as prior formalizations of it.  Brazas--Fabel and
 Calcut--McCarthy provide the quotient-topological context, and the parent
 computational-path manuscript provides the inherited setting; those entries
-are recorded as `background`.  The selected `Topological Smith exactness and
-composition for finite-torus quotient cokernels` entry is an `original-proof`
-source with relationship `other`: this exact bundled synthesis is first
-presented here, while the local Lean files are its implementation rather than
-a circular mathematical source.
+are recorded as `background`.  The selected `Topological Smith exactness,
+image obstructions, and cokernel composition for finite-torus quotient maps`
+entry is an `original-proof` source with relationship `other`: it records an
+independently assembled proof artifact; the exact priority of this synthesis is
+unknown, so no first-presentation or priority claim is made.  The local Lean
+files are its implementation rather than a circular mathematical source.
 
 The selected theorem is intended for specialists who need a computable,
 presentation-independent bridge from finite-torus quotient loop groups to

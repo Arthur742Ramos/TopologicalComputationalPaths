@@ -116,7 +116,7 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six linked fields.  Its first field is an explicit all-dimensional winding
+six top-level fields (and an explicitly selected Smith-image subfield).  Its first field is an explicit all-dimensional winding
 classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
 lattice by equations.  It also characterizes their image, injectivity, and
