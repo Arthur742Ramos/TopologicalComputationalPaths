@@ -68,6 +68,7 @@ if followup
   fields = main_result.fetch("selected_fields")
   expected_fields = [
     "TopologicalSmithExactnessCertificate.winding_matrix_compatibility",
+    "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff",
     "TopologicalSmithExactnessCertificate.matrix_composition",
     "TopologicalSmithExactnessCertificate.rectangular_composition_profile",
     "TopologicalSmithExactnessCertificate.smith_cokernel_profile",

@@ -2,19 +2,22 @@
 version: "v0.4"
 
 project:
-  name: "Topological Smith Classification and Composition for Finite-Torus Quotients"
+  name: "Topological Smith Image Obstructions and Cokernel Composition for Finite-Torus Quotient Maps"
   description: >-
     This follow-up selects
     `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
-    It is a kernel-checked certificate with six fields.  The first field is a
-    coherent family of complete winding classifiers: each classifier agrees
+    It is a kernel-checked certificate with six top-level fields.  The first
+    field is a coherent family of complete winding classifiers: each classifier agrees
     with the explicit winding invariant on every loop representative,
     identifies quotient concatenation with addition in the integer lattice
     through a continuous equivalence into the multiplicative lattice model,
     and intertwines the induced integer-matrix map on finite-torus loop
     quotients with the matrix action on winding vectors.  It also proves exact
     image, injectivity, and surjectivity transfer for those quotient maps,
-    including the square determinant criteria.  The remaining fields state
+    including the square determinant criteria.  It also decides image
+    membership for the induced quotient map by finite Smith-coordinate
+    divisibility tests, including the zero-factor constraints in rank-deficient
+    cases.  The remaining fields state
     canonical matrix composition and exact rectangular lattice-cokernel
     profiles: finite-cokernel cardinality products, finiteness equivalences,
     finite-cokernel prime support, and coprime exponent composition;
@@ -107,7 +110,7 @@ sources:
       Provides the parent computational-path setting.  The present selection
       is a distinct topological Smith certificate and does not transfer the
       parent manuscript's claims or priority.
-  - title: "Topological Smith exactness and composition for finite-torus quotient cokernels"
+  - title: "Topological Smith exactness, image obstructions, and cokernel composition for finite-torus quotient maps"
     authors:
       - "Arthur Freitas Ramos"
       - "Ruy J. G. B. de Queiroz"
@@ -119,13 +122,14 @@ sources:
     relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This entry records the selected six-field topology-to-arithmetic
-      synthesis as an original-proof result: this exact bundled statement is
-      first presented here.  The Lean files implement and check the proof but
-      are not being cited as an external mathematical source.  Winding,
-      quotient fundamental groups, Smith factors, and determinant-index
-      calculations are classical ingredients and are listed above only as
-      background; no priority claim is made for those ingredients.
+      This entry records an independently assembled original-proof artifact,
+      including the topological Smith-coordinate image-obstruction theorem.
+      Priority for this exact mathematical synthesis is unknown: no
+      first-presentation or priority claim is made.  The Lean files implement
+      and check the proof but are not being cited as an external mathematical
+      source.  Winding, quotient fundamental groups, Smith factors, and
+      determinant-index calculations are classical ingredients and are listed
+      above only as background.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -143,11 +147,13 @@ status:
     The selected declaration is exactly
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
     `FollowupSolution.lean`.  It asserts a nonempty
-    `TopologicalSmithExactnessCertificate`.  Its six fields are: (i) a
+    `TopologicalSmithExactnessCertificate`.  Its six top-level fields are: (i) a
     coherent family of winding classifiers for the based loop quotient of
     every finite torus, including representative, group-law, induced
     matrix-map naturality, exact image/injectivity/surjectivity transfer, and
-    matrix-map composition equations; (ii) the
+    matrix-map composition equations, together with a Smith-coordinate
+    divisibility criterion deciding image membership for the actual quotient
+    map; (ii) the
     canonical matrix-composition identity; (iii) the
     rectangular lattice-cokernel profile under injectivity of the second map,
     giving finite-cokernel cardinality products, finiteness equivalence,
@@ -179,6 +185,7 @@ status:
       comparator_config: "comparator-followup.json"
       selected_fields:
         - "TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
+        - "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
         - "TopologicalSmithExactnessCertificate.matrix_composition"
         - "TopologicalSmithExactnessCertificate.rectangular_composition_profile"
         - "TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -203,12 +210,15 @@ research_interest:
   audience: "Researchers in algebraic topology, general topology, computational algebra, and formalized mathematics"
   selected_contribution: >-
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` is a
-    six-field certificate connecting a topological quotient with computable
-    integer invariants.  Its first field is an all-dimensional family of
+    six-top-level-field certificate connecting a topological quotient with
+    computable integer invariants.  Its first field is an all-dimensional family of
     explicit winding classifiers: representatives, quotient multiplication,
     and induced integer-matrix maps are tied together by stated equations;
     exact image, injectivity, and surjectivity transfer is also proved, with
-    determinant criteria in the square case.  The remaining fields record matrix composition and exact rectangular
+    determinant criteria in the square case.  Crucially, the same selected
+    classifier turns image membership for every induced quotient map into
+    finite Smith-coordinate divisibility tests, including zero-factor
+    constraints when rank is deficient.  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -223,7 +233,10 @@ research_interest:
     induced matrix maps are identified with one lattice model; image,
     injectivity, and surjectivity of the topological maps are characterized by
     the corresponding lattice action, and one certificate simultaneously covers all finite dimensions and all
-    rectangular ranks.  The composition profile separates finite torsion from
+    rectangular ranks.  The Smith-coordinate image criterion is a concrete
+    topological consequence: it decides whether a prescribed quotient loop
+    class is realizable by the induced matrix map using finitely many integer
+    divisibility checks, even in rank-deficient cases.  The composition profile separates finite torsion from
     `ZMod 0` free directions: its cardinality and prime-support conclusions
     are explicitly finite-cokernel statements, while exponent identities use
     the stated totalized zero convention in free cases.  The Smith and
@@ -232,11 +245,16 @@ research_interest:
     case.  These interfaces provide a reusable formal theorem for subsequent
     maps of finite tori without claiming new topology for unrelated spaces.
   paper_worthiness: >-
-    The selected theorem is a compact, auditable formal synthesis: a genuine
+    The selected theorem is a compact, auditable formal synthesis with a
+    substantive topological consequence: a genuine
     quotient-topological fundamental group is reduced to its explicit winding
     lattice, quotient multiplication is certified as lattice addition, and
     maps induced by arbitrary integer matrices commute with that classifier;
-    their image, injectivity, and surjectivity are characterized exactly.
+    their image, injectivity, and surjectivity are characterized exactly, and
+    the image of every induced quotient map is decided directly in Smith
+    coordinates.  This makes the arithmetic obstruction a theorem about
+    actual quotient fundamental-group maps, not merely a lattice-side
+    decomposition.
     The same declaration supplies arbitrary-rank composition, Smith,
     determinant-index, and prime-power invariants.  The exact finite/free
     boundary applies uniformly to rectangular maps; prime support and
@@ -254,12 +272,14 @@ research_interest:
     quotient-topological context.  The parent computational-path manuscript
     is recorded as background and the pinned Mathlib revision as a related
     formalization dependency.  The selected bundle is recorded as an
-    `original-proof` source with relationship `other`: this exact synthesis is
-    first presented here, while its Lean files are implementations rather
-    than circular mathematical sources.  No priority claim is made for the
-    classical ingredients.
+    `original-proof` source with relationship `other`: the exact priority of
+    this synthesis is unknown, so no first-presentation or priority claim is
+    made.  Its Lean files are implementations rather than circular
+    mathematical sources; no priority claim is made for the classical
+    ingredients.
   evidence:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
+    - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -286,10 +306,11 @@ automation:
 fidelity:
   divergences: >-
     The selected artifact is a standalone Comparator presentation of one
-    six-field topology-to-arithmetic certificate, not a new claim about the
-    individual classical ingredients.  The first field includes the actual
-    winding/group classifier, its naturality for induced matrix maps, and
-    exact image/faithfulness criteria; the remaining profiles are on integer
+    six-top-level-field topology-to-arithmetic certificate, not a new claim
+    about the individual classical ingredients.  The first field includes the
+    actual winding/group classifier, its naturality for induced matrix maps,
+    exact image/faithfulness criteria, and the Smith-coordinate image
+    obstruction for actual induced quotient maps; the remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
@@ -299,8 +320,9 @@ review:
   status: "self-assessed"
   reviewers: []
   notes: >-
-    The selected declaration, six certificate fields, source relationships,
-    scope boundary, and excluded repository results were audited together.
+    The selected declaration, six top-level fields (including the nested
+    Smith-coordinate image criterion), source relationships, scope boundary,
+    and excluded repository results were audited together.
     Technical builds and Comparator replay establish reproducible checking,
     not independent peer review or novelty approval.
 
@@ -318,7 +340,9 @@ alignment:
         model, and commutes with the induced integer-matrix map.  Its image,
         injectivity, and surjectivity are characterized by the corresponding
         lattice action, with determinant criteria in the square case; quotient-
-        level matrix composition is also stated.
+        level matrix composition is also stated.  In addition, Smith
+        coordinates decide image membership for every induced quotient map,
+        including zero-factor constraints in rank-deficient cases.
     - source: "Canonical winding-lattice matrix composition"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.matrix_composition"
       module: "FollowupSolution.lean"

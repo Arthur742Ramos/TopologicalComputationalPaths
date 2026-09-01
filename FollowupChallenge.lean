@@ -16,9 +16,12 @@ import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 This statement-side module exposes the selected certificate: finite-torus
 winding classification together with rectangular lattice-cokernel composition,
-Smith-normal-form, determinant-index, and prime-power torsion profiles.  The
-challenge deliberately imports only Mathlib and allowed packages so Palomar can
-compile it in a clean canonical environment.
+Smith-normal-form, determinant-index, and prime-power torsion profiles.  In
+addition, the selected classifier exposes a topological image-obstruction
+criterion: an induced finite-torus quotient map lands in a class exactly when
+its Smith coordinates satisfy the corresponding divisibility equations.  The
+challenge deliberately imports only Mathlib and allowed packages so Palomar
+can compile it in a clean canonical environment.
 -/
 namespace TopologicalComputationalPathsFollowup
 open Set Topology
@@ -797,6 +800,18 @@ structure FiniteTorusWindingMatrixCompatibility where
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
       q ∈ Set.range (matrixMapQuotientMap A) ↔
         Multiplicative.toAdd (classifier m q) ∈ Set.range (matrixAction A)
+  /-- The topological image of an induced matrix map is decided by Smith
+      coordinate divisibility, including the zero-factor equations in the
+      rank-deficient case. -/
+  matrix_map_smith_image_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
+      q ∈ Set.range (matrixMapQuotientMap A) ↔
+        ∀ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i ∣
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (Multiplicative.toAdd (classifier m q))) i
   matrix_map_injective_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
       Function.Injective (matrixMapQuotientMap A) ↔

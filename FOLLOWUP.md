@@ -1,11 +1,11 @@
-# Follow-up: topological Smith classification and composition for finite-torus quotients
+# Follow-up: topological Smith image obstructions and cokernel composition for finite-torus quotient maps
 
 ## Selected result
 
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  This declaration is a nonempty
-`TopologicalSmithExactnessCertificate` with six fields:
+`TopologicalSmithExactnessCertificate` with six top-level fields:
 
 1. `winding_matrix_compatibility` packages an all-dimensional family of
    complete winding classifiers: each classifier agrees with winding on loop
@@ -14,7 +14,10 @@ The Comparator selects
    and commutes with the induced integer-matrix map on quotient loop groups.
    Its image, injectivity, and surjectivity are characterized by the same
    lattice action, including the square determinant criteria; matrix-map
-   composition is also stated at the quotient level;
+   composition is also stated at the quotient level.  In addition, the image
+   of an actual induced quotient map is decided by finite Smith-coordinate
+   divisibility tests, including the zero-factor equations in rank-deficient
+   cases;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -38,17 +41,20 @@ arithmetic certificate for quotient fundamental groups of finite tori and
 their winding-lattice cokernels.  It links the actual winding invariant and
 quotient multiplication to the integer lattice, proves naturality and exact
 image/injectivity/surjectivity transfer for induced matrix maps between
-finite-torus loop quotients, and then gives a complete arbitrary-rank
-free/torsion and prime-power description of every
-lattice cokernel, with the determinant index as a square specialization.
+finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
+for realizing any prescribed quotient loop class.  It then gives a complete
+arbitrary-rank free/torsion and prime-power description of every lattice
+cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only
 in its explicitly finite-cokernel regimes.  A zero Smith modulus is a free
 `ZMod 0` factor; the supporting totalized identities then use `Nat.card = 0`
 and exponent `0`, rather than assigning ordinary finite-cardinality or
 torsion-support meanings to those values.  Winding, quotient fundamental
-groups, and Smith normal form are classical ingredients.  The selected bundle
-is recorded as an `original-proof` source with relationship `other`; the
-local Lean files are its implementation, not a circular mathematical source.
+groups, and Smith normal form are classical ingredients.  The selected
+six-top-level-field bundle is recorded as an `original-proof` source with
+relationship `other`; the local Lean files are its implementation, not a
+circular mathematical source.  The exact priority of this synthesis is
+unknown, so no first-presentation or priority claim is made.
 The detailed general
 quotient-topology and finite-torus developments below are supporting inventory,
 not additional Comparator claims unless listed in `main_results.selected_fields`.
@@ -440,7 +446,7 @@ not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
 
-The selected finite-torus surface is exactly the six certificate fields
+The selected finite-torus surface is exactly the six top-level certificate fields
 listed in `formalization.yaml`.  The fixed-dimensional winding/basepoint
 classifier and the broader topological matrix/Smith wrappers below are
 repository support; they are not additional Comparator claims unless their

@@ -114,10 +114,12 @@ The follow-up has its own non-destructive Comparator and metadata surface.  The
 selected declaration is
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`, whose statement-side certificate has exactly six
-fields: (1) a coherent all-dimensional winding-classifier family, including
+top-level fields: (1) a coherent all-dimensional winding-classifier family, including
 representative winding, quotient multiplication, naturality for induced
 integer-matrix maps, exact image/injectivity/surjectivity transfer, and their
-quotient-level composition, (2) canonical
+quotient-level composition, plus a Smith-coordinate divisibility criterion for
+membership in the image of every actual induced quotient map (including
+rank-deficient zero factors), (2) canonical
 integer-matrix composition, (3) rectangular lattice-cokernel
 finiteness plus finite-cokernel cardinality and torsion-prime-support laws
 with coprime-exponent composition, (4) an arbitrary-rank Smith classification
@@ -131,8 +133,9 @@ Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather
 than serving as a circular mathematical source.  Hatcher and Norman are
-ingredient-only background, and no priority claim is made for those classical
-ingredients.
+ingredient-only background.  The exact priority of the assembled synthesis is
+unknown, so no first-presentation or priority claim is made for it or for those
+classical ingredients.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration is one of the six fields

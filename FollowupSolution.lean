@@ -205,6 +205,12 @@ Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
 formula for evaluating the coordinate decoder on loop classes.
+The selected classifier also exposes a direct topological obstruction theorem:
+an induced matrix map hits a loop class exactly when the Smith coordinates of
+its winding vector satisfy coordinatewise divisibility.  Thus the Smith data
+is not merely a lattice decomposition; it decides image membership for actual
+maps of finite-torus quotient fundamental groups, including the zero-factor
+constraints in rank-deficient cases.
 For every square matrix, the adjugate gives an explicit preimage of each
 determinant multiple, so the determinant annihilates both lattice and
 finite-torus cokernel classes even in the singular case.
@@ -1521,6 +1527,17 @@ structure FiniteTorusWindingMatrixCompatibility where
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
       q ∈ Set.range (matrixMapQuotientMap A) ↔
         Multiplicative.toAdd (classifier m q) ∈ Set.range (matrixAction A)
+  /-- Smith coordinates decide image membership for the actual induced
+      finite-torus quotient map, including rank-deficient zero factors. -/
+  matrix_map_smith_image_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (q : LoopQuot m),
+      q ∈ Set.range (matrixMapQuotientMap A) ↔
+        ∀ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i ∣
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (Multiplicative.toAdd (classifier m q))) i
   matrix_map_injective_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
       Function.Injective (matrixMapQuotientMap A) ↔
@@ -1675,6 +1692,19 @@ theorem topological_smith_exactness :
           change q ∈ Set.range (FiniteTorusWinding.matrixMapQuotientMap A) ↔
             FiniteTorusWinding.encode q ∈ Set.range (FiniteTorusWinding.matrixAction A)
           exact FiniteTorusWinding.matrixMapQuotientMap_mem_range_iff A q
+        matrix_map_smith_image_iff := by
+          intro n m A q
+          change q ∈ Set.range (FiniteTorusWinding.matrixMapQuotientMap A) ↔
+            ∀ i : Fin m,
+              FiniteTorusWinding.smithNormalFormFactor
+                  (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                    (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ∣
+                ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                  (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2.bM.equivFun
+                  (FiniteTorusWinding.loopQuotAddEquivIntVector m q)) i
+          exact
+            FiniteTorusWinding.matrixMapQuotientAddHom_mem_range_iff_smithNormalFormFactor_dvd
+              A q
         matrix_map_injective_iff := by
           intro n m A
           change Function.Injective (FiniteTorusWinding.matrixMapQuotientMap A) ↔

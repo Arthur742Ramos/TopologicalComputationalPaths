@@ -23,17 +23,21 @@ finite-cokernel prime support, and coprime exponents; an arbitrary-rank Smith
 additive classification with explicit `ZMod 0` free factors, the finite/full-
 rank criterion, and the exponent law; the nonsingular square determinant-index
 formula; and a finite prime-power refinement.  This is a reusable
-topology--arithmetic certificate, not a proof-size claim.  The cardinality and
-prime-support clauses are deliberately gated by finite-cokernel hypotheses.
+topology--arithmetic certificate, not a proof-size claim.  The first field also
+decides image membership for every induced quotient map by finite Smith-
+coordinate divisibility tests, including the zero-factor equations in
+rank-deficient cases.  The cardinality and prime-support clauses are
+deliberately gated by finite-cokernel hypotheses.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.
-The selected bundle is recorded as an `original-proof` source: this exact
-synthesis is first presented here, while Hatcher, Norman, Brazas--Fabel,
-Calcut--McCarthy, and the parent manuscript provide ingredient and contextual
-background.  Centrality, binary/indexed products, torus-map short exactness,
-first-isomorphism packaging, and broader matrix APIs remain repository context
-and are explicitly outside this Comparator selection.
+The selected bundle is recorded as an independently assembled `original-proof`
+artifact, while Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent
+manuscript provide ingredient and contextual background.  Priority for this
+exact synthesis is unknown; no first-presentation or priority claim is made.
+Centrality, binary/indexed products, torus-map short exactness, first-isomorphism
+packaging, and broader matrix APIs remain repository context and are explicitly
+outside this Comparator selection.
 
 The accepted first-submission package and the repository-wide extensions below
 are retained as context.  They are not additional claims about the selected
@@ -117,7 +121,10 @@ classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
 lattice by equations.  It also characterizes their image, injectivity, and
 surjectivity, including the square determinant criteria, and states
-quotient-level matrix composition.  The remaining fields give the canonical
+quotient-level matrix composition.  The same selected classifier decides
+whether a prescribed quotient loop class lies in the image of an induced
+matrix map by Smith-coordinate divisibility, including rank-deficient
+zero-factor constraints.  The remaining fields give the canonical
 matrix-composition identity, finite-cokernel rectangular lattice-cokernel
 cardinality and prime-support laws (plus finiteness and exponent composition),
 an arbitrary-rank Smith additive equivalence with `ZMod 0` free factors, the
@@ -132,18 +139,22 @@ product, classifier, and broader matrix APIs remain repository support.
 The follow-up is not presented as a new discovery of winding or Smith normal
 form.  Its contribution is the exact, quantified topology-to-arithmetic
 certificate above: a single checked declaration combines the actual winding
-and quotient-group laws, their matrix-map naturality and exact image/
-faithfulness criteria, and the quotient-to-lattice bridge with arbitrary-rank
-composition, Smith, determinant, and prime-power profiles.  The
+and quotient-group laws, their matrix-map naturality, exact image/
+faithfulness criteria, and a Smith-coordinate divisibility test for whether a
+prescribed quotient loop class is realizable by an induced torus map.  The
+quotient-to-lattice bridge is then coupled to arbitrary-rank composition,
+Smith, determinant, and prime-power profiles.  The
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
 after the square nonsingularity specialization.  Zero Smith factors are
 explicitly free `ZMod 0` directions; their totalized `Nat.card = 0` and
 exponent-zero behavior is not presented as finite cardinality or torsion
-support.  This is a structural classification interface, not a proof-size
-report.  The metadata records the selected bundle as an `original-proof`
-source with relationship `other`; ingredient literature and contextual
-sources are listed separately in `formalization.yaml`.
+support.  This is a structural classification and obstruction interface, not a
+proof-size report.  The metadata records the selected six-top-level-field
+bundle as an independently assembled `original-proof` source with relationship
+`other`; the exact priority is unknown, so no first-presentation or priority
+claim is made.  Ingredient literature and contextual sources are listed
+separately in `formalization.yaml`.
 
 For completeness, the repository also contains a separate supporting
 quotient-topology package.  It proves continuous reversal, separate
@@ -501,14 +512,15 @@ This focused repo is the publication-oriented extraction of that layer.  The
 parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
- For the follow-up, the parent setting is recorded as a `background` source
- and as an `adapts` related formalization.  The selected six-field
- Topological Smith synthesis is recorded as an `original-proof` source with
- relationship `other`; the local Lean files are its implementation, not a
- circular mathematical source.  Hatcher and Norman are ingredient-only
- background, while Brazas--Fabel and Calcut--McCarthy provide quotient-
- topological context.  No priority claim is made for the classical
- ingredients.
+For the follow-up, the parent setting is recorded as a `background` source and
+as an `adapts` related formalization.  The selected six-top-level-field
+Topological Smith synthesis, including the quotient-map Smith-coordinate
+image obstruction, is recorded as an `original-proof` source with relationship
+`other`; the local Lean files are its implementation, not a circular
+mathematical source.  Hatcher and Norman are ingredient-only background, while
+Brazas--Fabel and Calcut--McCarthy provide quotient-topological context.  The
+exact priority of the synthesis is unknown, and no first-presentation or
+priority claim is made for it or for the classical ingredients.
 
 ## Publication boundary
 
