@@ -1437,8 +1437,20 @@ end Legacy
     Comparator compare the selected theorem while the proof itself continues
     to use the substantive `ComputationalPaths` development above. -/
 open scoped BigOperators
+open Set Topology
 open ComputationalPaths.Path.GeometricTopology
 attribute [local instance] _root_.Path.Homotopic.setoid
+universe u
+
+abbrev GenericLoop (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
+  _root_.Path x x
+abbrev GenericLoopQuot (X : Type u) [TopologicalSpace X] (x : X) : Type u :=
+  _root_.Path.Homotopic.Quotient x x
+noncomputable local instance genericLoopQuotTopologicalSpace
+    (X : Type u) [TopologicalSpace X] (x : X) :
+    TopologicalSpace (GenericLoopQuot X x) :=
+  TopologicalSpace.coinduced
+    (Quotient.mk' : GenericLoop X x → GenericLoopQuot X x) inferInstance
 
 abbrev Circle : Type := AddCircle (1 : ℝ)
 abbrev FiniteTorus (n : ℕ) : Type := Fin n → Circle
@@ -1788,6 +1800,9 @@ structure FiniteTorusWindingMatrixCompatibility where
       Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A)
 
 structure TopologicalSmithExactnessCertificate where
+  covering_map_image_is_monodromy_stabilizer : ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B] (p : E → B) (hp : IsCoveringMap p) (e : E) (q : GenericLoopQuot B (p e)), q ∈ Set.range (fun r : GenericLoopQuot E e => _root_.Path.Homotopic.Quotient.map r ⟨p, hp.continuous⟩) ↔ hp.monodromy q ⟨e, rfl⟩ = ⟨e, rfl⟩
+  quotient_product_hypothesis_sharp : ∀ (X : Type u) [TopologicalSpace X] (x : X), (¬ Continuous (fun p : GenericLoopQuot X x × GenericLoopQuot X x => _root_.Path.Homotopic.Quotient.trans p.1 p.2)) → ¬ IsQuotientMap (fun p : GenericLoop X x × GenericLoop X x => ((Quotient.mk' p.1 : GenericLoopQuot X x), (Quotient.mk' p.2 : GenericLoopQuot X x)))
+  rectangular_cokernel_short_exact : ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (_hB : Function.Injective (matrixAction B)), ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+ (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range, ∃ g : (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+ (Fin k → ℤ) ⧸ (matrixAction B).range, ∃ e : (((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+ (Fin k → ℤ) ⧸ (matrixAction B).range, Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
   winding_matrix_compatibility :
     Nonempty FiniteTorusWindingMatrixCompatibility
   matrix_composition :
@@ -1872,20 +1887,31 @@ structure TopologicalSmithExactnessCertificate where
               (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
                 (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
 
-/- The selected follow-up theorem is the topological--Smith
+/- The selected follow-up theorem is the quotient-topology and topological--Smith
    composition-and-classification theorem, assembled from independently
-   checked supporting lemmas.  Its selected abstract-trace fields add the
+   checked supporting lemmas.  Its first two fields state the general
+   monodromy-stabilizer and sharp product-quotient criteria; its third field
+   states the rectangular winding-lattice short exact sequence; the remaining
+   fields add the
    exact shortest-trace normal form, matrix-map functoriality, and optimal
    one-step image representatives on based geometric loops.  The statement
    intentionally does not identify the abstract raw family with the
    repository's `ComputationalPaths.Path` syntax; the endpoint-varying open
    computational-path constructions are supporting developments outside this
-   Comparator declaration.  Its provenance is documented as a first
-   presentation of this exact bundled theorem group, not as a first discovery
-   of the classical winding or Smith ingredients. -/
+   Comparator declaration.  Its provenance is documented as a bounded local
+   checked proof of this exact bundled theorem group, with mathematical
+   novelty and priority left unknown. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   refine ⟨{
+    covering_map_image_is_monodromy_stabilizer := by
+      intro E B _ _ p hp e q
+      exact QuotientFundamentalGroup.mem_range_inducedContinuousMonoidHom_iff_monodromy_fixed hp e q
+    quotient_product_hypothesis_sharp :=
+      QuotientFundamentalGroup.not_isQuotientMap_loopQuotientProd_of_not_continuous
+    rectangular_cokernel_short_exact := by
+      intro n m k A B hB
+      exact FiniteTorusWinding.matrixAction_rectangular_cokernel_shortExact_of_matrixCompose_injective A B hB
     winding_matrix_compatibility := by
       refine ⟨{
         winding := fun n => FiniteTorusWinding.winding

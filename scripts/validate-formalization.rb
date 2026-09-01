@@ -60,13 +60,18 @@ if followup
   interest = document.fetch("research_interest")
   abort "follow-up metadata must describe research interest" unless interest.is_a?(Hash)
   contribution = interest["selected_contribution"].to_s
-  abort "research-interest statement must identify the Topological Smith certificate" unless
-    contribution.include?("topological_smith_exactness")
+  abort "research-interest statement must identify the selected quotient-topology and Smith theorem" unless
+    contribution.include?("topological_smith_exactness") &&
+      contribution.include?("monodromy-stabilizer") &&
+      contribution.include?("product")
   abort "research-interest statement must explain paper-worthiness" unless
     interest["paper_worthiness"].to_s.strip.length >= 80
 
   fields = main_result.fetch("selected_fields")
   expected_fields = [
+    "TopologicalSmithExactnessCertificate.covering_map_image_is_monodromy_stabilizer",
+    "TopologicalSmithExactnessCertificate.quotient_product_hypothesis_sharp",
+    "TopologicalSmithExactnessCertificate.rectangular_cokernel_short_exact",
     "TopologicalSmithExactnessCertificate.winding_matrix_compatibility",
     "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff",
     "FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge",
@@ -76,7 +81,7 @@ if followup
     "TopologicalSmithExactnessCertificate.determinant_index",
     "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
   ]
-  abort "selected fields must match the Topological Smith certificate" unless fields == expected_fields
+  abort "selected fields must match the selected quotient-topology and Smith theorem" unless fields == expected_fields
   # Validate against the statement-facing structure, not merely a token that
   # happens to occur somewhere in the proof file.  This keeps metadata scope
   # tied to fields the Comparator actually asks the Challenge to expose.

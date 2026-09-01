@@ -59,20 +59,26 @@ the research lineage and exact non-novelty boundary are recorded in
 `formalization-followup.yaml`, with Calcut--McCarthy and Brazas--Fabel as the
 primary literature context.
 
-The selected follow-up is the local
-`TopologicalSmithExactnessCertificate` in
-`ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean`.  Its
+The selected follow-up is the three-layer certificate
+`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
+`FollowupSolution.lean`: its first two fields are the covering-map
+image-equals-monodromy-stabilizer criterion and the sharp product-quotient
+obstruction, followed by the rectangular winding-lattice short exact
+sequence/first-isomorphism field and the six remaining winding/Smith fields of the
+`TopologicalSmithExactnessCertificate`.  Its
 `original-proof` source entry has relationship `other` and is limited to the
-exact bundled composition-and-classification theorem: the quotient-to-winding
-homeomorphism, winding-compatible rectangular short exactness, its square
-first-isomorphism quotient, the rectangular cardinality/finiteness/exponent
-composition laws, arbitrary-rank Smith classification with `ZMod 0` free
-factors, the finite prime-power refinement, and the nonsingular square
+exact bundled composition-and-classification theorem together with those two
+general quotient-topology criteria: the lattice cokernel short exact sequence,
+its first-isomorphism quotient, the quotient-to-winding
+homeomorphism and matrix naturality, the rectangular cardinality/finiteness/
+exponent composition laws, arbitrary-rank Smith classification with `ZMod 0`
+free factors, the finite prime-power refinement, and the nonsingular square
 determinant-index specialization.  The selected traced fields are intentionally
 an abstract based-loop presentation, not a claim about the concrete
 endpoint-varying `ComputationalPaths.Path` carrier.  As documented in
-`FIRST-PRESENTATION-AUDIT.md`, this records first presentation of that exact
-combined theorem group, not first discovery of the classical winding,
+`FIRST-PRESENTATION-AUDIT.md`, this records the local checked proof of that
+exact combined theorem group while leaving mathematical novelty and priority
+unknown; it does not claim first discovery of the classical winding,
 quotient-fundamental-group, short-exact, Smith, or change-of-basepoint
 ingredients.
 

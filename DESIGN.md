@@ -113,22 +113,26 @@ supporting material.
 The follow-up has its own non-destructive Comparator and metadata surface.  The
 selected declaration is
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`, whose statement-side certificate has exactly six
-top-level fields: (1) a coherent all-dimensional winding-classifier family, including
+`FollowupSolution.lean`.  Its proposition is the nonemptiness of a certificate
+with exactly nine top-level fields, grouped into three layers: (1) the
+monodromy-stabilizer criterion, (2) the sharp product-quotient obstruction,
+and (3) the rectangular winding-lattice cokernel short exact sequence and
+first-isomorphism quotient, followed by (4) a coherent all-dimensional
+winding-classifier family, including
 representative winding, quotient multiplication, naturality for induced
 integer-matrix maps, exact image/injectivity/surjectivity transfer, and their
 quotient-level composition, plus a Smith-coordinate divisibility criterion for
 membership in the image of every actual induced quotient map (including
-rank-deficient zero factors), (2) canonical
-integer-matrix composition, (3) rectangular lattice-cokernel
+rank-deficient zero factors), (5) canonical
+integer-matrix composition, (6) rectangular lattice-cokernel
 finiteness plus finite-cokernel cardinality and torsion-prime-support laws
-with coprime-exponent composition, (4) an arbitrary-rank Smith classification
-with explicit `ZMod 0` free factors, (5) the nonsingular square determinant
-index, and (6) a finite prime-power refinement.  The lattice-cokernel fields are about the integer winding
-lattice; the first field explicitly ties that lattice to induced maps of
+with coprime-exponent composition, (7) an arbitrary-rank Smith classification
+with explicit `ZMod 0` free factors, (8) the nonsingular square determinant
+index, and (9) a finite prime-power refinement.  The lattice-cokernel fields are about the integer winding
+lattice; the fourth field explicitly ties that lattice to induced maps of
 finite-torus loop quotients and gives determinant criteria for square maps.
-The declaration does not assert torus-map short exactness,
-first-isomorphism wrappers, indexed-product preservation, or centrality.
+The declaration does not assert the repository's separate topological torus-map
+short-exact wrappers, indexed-product preservation, or centrality.
 The selected nested bridge is an abstract traced presentation of based
 finite-torus loops.  It supplies a quantified raw family, trace-length laws,
 geometric coherence, a loop section, and the Smith image test on geometric
@@ -156,16 +160,17 @@ one-step target representative and no homotopic target trace can have zero
 steps; this is the selected optimal-image refinement.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
-with relationship `other`; the bounded first-presentation claim for this exact
-conjunction is documented in `FIRST-PRESENTATION-AUDIT.md`.  Hatcher and Norman
+with relationship `other`; the bounded provenance record for this exact
+certificate is documented in `FIRST-PRESENTATION-AUDIT.md`, with mathematical
+novelty and priority left unknown.  Hatcher and Norman
 are ingredient-only background.  The claim does not extend to the classical
 ingredients or to the repository's concrete endpoint-varying path APIs.  The
-local Lean files implement this first presentation and are not cited as an
+local Lean files implement this checked proof and are not cited as an
 external mathematical source.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration or selected nested field is
-one of the six top-level fields listed above.  It is retained to document the reusable theory from which the
+one of the two explicit topological criteria or nine top-level certificate fields listed above.  It is retained to document the reusable theory from which the
 selected certificate was assembled.  In particular, it does not turn the
 supporting quotient-topology or torus-map exactness results into selected
 claims:

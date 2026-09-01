@@ -1,14 +1,30 @@
-# Follow-up: finite-torus winding/Smith exactness with an abstract traced presentation
+# Follow-up: quotient fundamental groups, winding, and Smith exactness
 
 ## Selected result
 
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`.  This declaration is a nonempty
-`TopologicalSmithExactnessCertificate` with six top-level fields, including
-the explicitly stated Smith-image and abstract traced bridge fields:
+`FollowupSolution.lean`.  Its proposition is the nonemptiness of a
+`TopologicalSmithExactnessCertificate` with nine top-level fields, grouped
+into three layers.  The first two fields are the covering-map
+image-equals-monodromy-stabilizer criterion and the sharp product-quotient
+obstruction when quotient multiplication is discontinuous; the third field is
+the rectangular winding-lattice short exact sequence and its
+first-isomorphism quotient, while the remaining six fields are the winding/Smith certificate, including the explicitly stated
+Smith-image and abstract traced bridge fields.  These are selected certificate
+fields, not repository-only inventory.
 
-1. `winding_matrix_compatibility` packages an all-dimensional family of
+1. `covering_map_image_is_monodromy_stabilizer` identifies the image of every
+   covering-induced quotient fundamental-group map with the subgroup fixed by
+   monodromy at the chosen lift;
+2. `quotient_product_hypothesis_sharp` proves that failure of joint quotient
+   multiplication continuity rules out the product quotient map;
+3. `rectangular_cokernel_short_exact` gives, for composable rectangular
+   integer matrices with injective second action, an exact sequence of
+   winding-lattice cokernels: the induced embedding is injective, its image is
+   the projection kernel, the projection is surjective, and the quotient by
+   that kernel is explicitly additively equivalent to the second cokernel;
+4. `winding_matrix_compatibility` packages an all-dimensional family of
    complete winding classifiers: each classifier agrees with winding on loop
    representatives, identifies quotient concatenation with lattice addition
    through a continuous equivalence into the multiplicative lattice model,
@@ -35,21 +51,21 @@ the explicitly stated Smith-image and abstract traced bridge fields:
    `ComputationalPaths.Path` syntax or endpoint-varying open-path carrier;
    those constructions remain repository support outside this Comparator
    selection;
-2. `matrix_composition` proves that the canonical additive matrix action
+5. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
-3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
+6. `rectangular_composition_profile` proves the rectangular lattice-cokernel
    composition laws.  After both successive cokernels are known to be finite,
    their ordinary cardinalities multiply and their torsion-prime support is
    the union of the successive supports; the field also proves finiteness
    equivalence and coprime successive exponent multiplication;
-4. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
+7. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
    equivalence, explicitly retaining `ZMod 0` free factors, and proves the
    finite/full-rank criterion and exponent-as-lcm formula.  Its prime-support
    law is stated only for finite cokernels;
-5. `determinant_index` specializes the winding-lattice cokernel to
+8. `determinant_index` specializes the winding-lattice cokernel to
    nonsingular square matrices and identifies its cardinality with the
    absolute determinant;
-6. `prime_power_torsion_profile` refines every full-rank rectangular lattice
+9. `prime_power_torsion_profile` refines every full-rank rectangular lattice
    cokernel into explicit prime-power cyclic factors and proves the resulting
    product cardinality formula.
 
@@ -90,12 +106,14 @@ in its explicitly finite-cokernel regimes.  A zero Smith modulus is a free
 and exponent `0`, rather than assigning ordinary finite-cardinality or
 torsion-support meanings to those values.  Winding, quotient fundamental
 groups, and Smith normal form are classical ingredients.  The selected
-six-top-level-field bundle is recorded as an `original-proof` source with
-relationship `other`; the bounded first-presentation claim for this exact
-conjunction is documented in `FIRST-PRESENTATION-AUDIT.md`.  The claim does
+three-layer bundle (two general quotient-topology criteria plus the nine-field
+certificate) is recorded as an `original-proof` source with
+relationship `other`; the bounded provenance record for this exact certificate
+is documented in `FIRST-PRESENTATION-AUDIT.md`, with novelty and priority left
+unknown.  The record does
 not extend to the classical ingredients or to the repository's concrete
-endpoint-varying path APIs.  The local Lean files implement this first
-presentation and are not cited as an external mathematical source.
+endpoint-varying path APIs.  The local Lean files implement this checked proof
+and are not cited as an external mathematical source.
 The detailed general
 quotient-topology and finite-torus developments below are supporting inventory,
 not additional Comparator claims unless listed in `main_results.selected_fields`.
@@ -487,8 +505,9 @@ not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
 
-The selected finite-torus surface is exactly the six top-level certificate fields
-and the explicitly named nested fields listed in `formalization.yaml`.  The
+The selected surface is exactly the two general quotient-topology criteria,
+the nine top-level certificate fields, and the explicitly named nested fields
+listed in `formalization.yaml`.  The
 fixed-dimensional winding/basepoint
 classifier and the broader topological matrix/Smith wrappers below are
 repository support; they are not additional Comparator claims unless their
@@ -640,11 +659,12 @@ computational-path manuscript provides the inherited setting; those entries
 are recorded as `background`.  The selected `Topological Smith exactness,
 image obstructions, and cokernel composition for finite-torus quotient maps`
 entry is an `original-proof` source with relationship `other`: it records the
-first presentation, in the bounded sense documented in
-`FIRST-PRESENTATION-AUDIT.md`, of this exact conjunction of fields.  The claim
+local checked proof, in the bounded sense documented in
+`FIRST-PRESENTATION-AUDIT.md`, of this exact certificate's fields; mathematical
+novelty and priority remain unknown.  The record
 does not extend to the underlying winding, fundamental-group, or Smith
 results, nor to the repository's separate concrete endpoint-varying path
-APIs.  The local Lean files implement this first presentation rather than
+APIs.  The local Lean files implement this checked proof rather than
 serving as an external mathematical source.
 
 The selected theorem is intended for specialists who need a computable,

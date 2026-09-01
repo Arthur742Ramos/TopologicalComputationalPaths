@@ -10,8 +10,13 @@ artifact have a small and auditable boundary.
 
 The current Comparator artifact is `comparator-followup.json`, which selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`.  The selected declaration is a named
-`TopologicalSmithExactnessCertificate` with six top-level fields: an all-dimensional
+`FollowupSolution.lean`.  The selected declaration is a nonempty
+`TopologicalSmithExactnessCertificate` with nine top-level fields, grouped into
+three layers: the first two fields are a general covering-map
+image-equals-monodromy-stabilizer theorem and a sharp product-quotient
+obstruction when quotient multiplication is discontinuous; the third field
+records the rectangular winding-lattice short exact sequence and its
+first-isomorphism quotient, while the remaining six fields give an all-dimensional
 family of complete winding classifiers that agree with the explicit winding
 invariant on representatives, identify quotient concatenation with lattice
 addition through a continuous equivalence into the multiplicative lattice
@@ -37,8 +42,8 @@ is an abstract-interface realizability theorem, not a claim about the
 repository's concrete `ComputationalPaths.Path` syntax or endpoint-varying
 open-path carrier.  The latter remains repository support outside this
 Comparator selection.  This is a reusable
-topology--arithmetic certificate, not a proof-size claim.  The first field also
-decides image membership for every induced quotient map by finite Smith-
+topology--arithmetic certificate, not a proof-size claim.  The winding-classifier
+field also decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
 rank-deficient cases.  The cardinality and prime-support clauses are
 deliberately gated by finite-cokernel hypotheses.
@@ -59,13 +64,13 @@ target trace in that homotopy class has at least one step.
 When a zero Smith factor remains, `ZMod 0` records a free direction and the
 totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
 not described as ordinary finite cardinality or torsion-prime support.
-The selected bundle is recorded as an `original-proof`: the bounded
-first-presentation claim for this exact conjunction is documented in
+The selected bundle is recorded as an `original-proof` checked proof: the
+bounded provenance record for this exact certificate is documented in
 [`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).  Hatcher, Norman,
 Brazas--Fabel, Calcut--McCarthy, and the parent manuscript provide ingredient
 and contextual background only; no first-discovery claim is made for those
 classical ingredients or for the repository's separate concrete path APIs.
-Centrality, binary/indexed products, torus-map short exactness, first-isomorphism
+Centrality, unrestricted binary/indexed product preservation, torus-map short exactness, first-isomorphism
 packaging, and broader matrix APIs remain repository context and are explicitly
 outside this Comparator selection.
 
@@ -145,9 +150,9 @@ The repository now also contains a separate, non-destructive follow-up
 surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
-The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six top-level fields and explicit Smith-image and abstract-trace bridge
-subfields.  Its first field is an explicit all-dimensional winding
+The selected declaration has a `TopologicalSmithExactnessCertificate` with
+nine top-level fields and explicit Smith-image and abstract-trace bridge
+subfields.  Its fourth certificate field is an explicit all-dimensional winding
 classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
 lattice by equations.  It also characterizes their image, injectivity, and
@@ -214,9 +219,10 @@ after the square nonsingularity specialization.  Zero Smith factors are
 explicitly free `ZMod 0` directions; their totalized `Nat.card = 0` and
 exponent-zero behavior is not presented as finite cardinality or torsion
 support.  This is a structural classification and obstruction interface, not a
-proof-size report.  The metadata records the selected six-top-level-field
-bundle as an `original-proof` source with relationship `other`; the bounded
-first-presentation claim for this exact conjunction is documented in
+proof-size report.  The metadata records the selected three-layer theorem (with
+its nine-field certificate component) as an `original-proof` source with
+relationship `other`; the bounded provenance record for this exact certificate
+is documented in
 [`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).  Ingredient
 literature and contextual sources are listed separately in
 `formalization.yaml`; no first-discovery claim is made for those ingredients or
@@ -305,7 +311,7 @@ path-based classifiers are equal as continuous multiplicative equivalences.
 The fixed-dimensional winding/basepoint and matrix material described above
 is useful context for the selected certificate.  The cross-dimensional
 coordinate API and the broader matrix/Smith inventory that follows are
-repository support; only the six top-level fields and explicitly selected
+repository support; only the two explicit topological criteria, the nine certificate fields, and explicitly selected
 nested fields named in the declaration and evidence list in
 `formalization.yaml` are part of the Comparator account.
 
@@ -580,16 +586,17 @@ parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
 For the follow-up, the parent setting is recorded as a `background` source and
-as an `adapts` related formalization.  The selected six-top-level-field
-Topological Smith synthesis, including the quotient-map Smith-coordinate
-image obstruction, is recorded as an `original-proof` source with relationship
-`other`; the bounded first-presentation claim for this exact conjunction is
-documented in [`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).
+as an `adapts` related formalization.  The selected three-layer theorem (two
+general quotient-topology criteria plus the nine-field Topological Smith
+synthesis, including the quotient-map Smith-coordinate image obstruction) is
+recorded as an `original-proof` source with relationship `other`; the bounded
+provenance record for this exact certificate is documented in
+[`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).
 Hatcher and Norman are ingredient-only background, while Brazas--Fabel and
 Calcut--McCarthy provide quotient-topological context.  The claim does not
 extend to the classical ingredients or to the repository's separate concrete
-endpoint-varying path APIs.  The local Lean files implement this first
-presentation and are not cited as an external mathematical source.
+endpoint-varying path APIs.  The local Lean files implement this checked
+certificate and are not cited as an external mathematical source.
 
 ## Publication boundary
 

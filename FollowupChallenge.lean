@@ -12,10 +12,10 @@ import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
-
-This module exposes the selected finite-torus winding/Smith certificate,
-including rectangular composition, determinant-index, prime-power profiles,
-and the induced-map image obstruction given by Smith-coordinate divisibility.
+This module exposes the selected quotient-topology and finite-torus theorem:
+the covering-map monodromy-stabilizer criterion, the sharp product-quotient
+obstruction, the rectangular winding-lattice short exact sequence, and the winding/Smith certificate with rectangular composition,
+determinant-index, prime-power profiles, and an induced-map image obstruction.
 The traced part intentionally uses an abstract interface (raw family, trace
 operations, and based-loop realization); it does not identify that family with
 the repository's `ComputationalPaths.Path` syntax or assert an endpoint-varying
@@ -909,6 +909,9 @@ structure FiniteTorusWindingMatrixCompatibility where
     ∀ {n : ℕ} (A : Fin n → Fin n → ℤ),
       Function.Surjective (matrixMapQuotientMap A) ↔ IsUnit (Matrix.det A)
 structure TopologicalSmithExactnessCertificate where
+  covering_map_image_is_monodromy_stabilizer : ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B] (p : E → B) (hp : IsCoveringMap p) (e : E) (q : GenericLoopQuot B (p e)), q ∈ Set.range (fun r : GenericLoopQuot E e => _root_.Path.Homotopic.Quotient.map r ⟨p, hp.continuous⟩) ↔ hp.monodromy q ⟨e, rfl⟩ = ⟨e, rfl⟩
+  quotient_product_hypothesis_sharp : ∀ (X : Type u) [TopologicalSpace X] (x : X), (¬ Continuous (fun p : GenericLoopQuot X x × GenericLoopQuot X x => _root_.Path.Homotopic.Quotient.trans p.1 p.2)) → ¬ IsQuotientMap (fun p : GenericLoop X x × GenericLoop X x => ((Quotient.mk' p.1 : GenericLoopQuot X x), (Quotient.mk' p.2 : GenericLoopQuot X x)))
+  rectangular_cokernel_short_exact : ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) (_hB : Function.Injective (matrixAction B)), ∃ f : (Fin m → ℤ) ⧸ (matrixAction A).range →+ (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range, ∃ g : (Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range →+ (Fin k → ℤ) ⧸ (matrixAction B).range, ∃ e : (((Fin k → ℤ) ⧸ (matrixAction (matrixCompose A B)).range) ⧸ g.ker) ≃+ (Fin k → ℤ) ⧸ (matrixAction B).range, Function.Injective f ∧ g.ker = f.range ∧ Function.Surjective g
   winding_matrix_compatibility :
     Nonempty FiniteTorusWindingMatrixCompatibility
   matrix_composition :
@@ -992,9 +995,6 @@ structure TopologicalSmithExactnessCertificate where
             (p : ℕ) ^ ((smithNormalFormFactor
               (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
               (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
-/-! The substantive topological--Smith composition-and-classification theorem
-    selected by Comparator. -/
-theorem topological_smith_exactness :
-    Nonempty TopologicalSmithExactnessCertificate := by
+theorem topological_smith_exactness : Nonempty TopologicalSmithExactnessCertificate := by
   sorry
 end TopologicalComputationalPathsFollowup

@@ -2,12 +2,20 @@
 version: "v0.4"
 
 project:
-  name: "Finite-Torus Winding/Smith Exactness with an Abstract Traced Presentation"
+  name: "Quotient Fundamental Groups, Winding, and Smith Exactness"
   description: >-
     This follow-up selects
     `TopologicalComputationalPathsFollowup.topological_smith_exactness`.
-    It is a kernel-checked certificate with six top-level fields.  The first
-    field is a coherent family of complete winding classifiers: each classifier agrees
+    Its proposition is the nonemptiness of a kernel-checked certificate with
+    nine top-level fields, grouped into three layers.  The first two fields are
+    the general covering-map theorem that the image of the induced quotient
+    fundamental-group map is exactly the stabilizer of the lifted endpoint
+    under monodromy, and the sharp product theorem: if quotient multiplication
+    is not jointly continuous, the product of the two loop-quotient projections
+    cannot be a quotient map.  The third field records the rectangular
+    winding-lattice short exact sequence and its first-isomorphism quotient;
+    the remaining six fields give a coherent family
+    of complete winding classifiers: each classifier agrees
     with the explicit winding invariant on every loop representative,
     identifies quotient concatenation with addition in the integer lattice
     through a continuous equivalence into the multiplicative lattice model,
@@ -28,7 +36,8 @@ project:
     explicit `ZMod 0` free direction; in that case Mathlib's totalized
     `Nat.card = 0` and exponent-zero conventions are recorded, not ordinary
     finite cardinality or torsion-prime support.  The selected declaration
-    therefore records a precise topology-to-arithmetic bridge.  Its selected
+    therefore records a precise topology-to-arithmetic bridge with an explicit
+    covering-space image criterion and a sharp quotient-topology boundary.  Its selected
     nested bridge is an abstract traced presentation of based finite-torus
     loops.  Its raw family, trace operations, geometric loop map, and
     homotopy-class quotient are explicit interface data: trace length is
@@ -143,21 +152,25 @@ sources:
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
     type: "original-proof"
-    location: "First presentation of the exact selected topology-to-arithmetic synthesis"
+    location: "Local checked proof of the exact selected topology-to-arithmetic synthesis"
     relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This is the first presentation, in the bounded sense documented in
-      FIRST-PRESENTATION-AUDIT.md, of the exact six-field theorem group selected
-      by comparator-followup.json.  The claim covers the quotient-to-winding
-      classifier, arbitrary rectangular matrix naturality and Smith image test,
+      This entry records the local kernel-checked proof, in the bounded sense
+      documented in FIRST-PRESENTATION-AUDIT.md, of the exact three-layer certificate
+      selected by comparator-followup.json.  Mathematical novelty and priority
+      are intentionally left unknown.  The claim covers the monodromy-stabilizer
+      image criterion, the sharp product-quotient obstruction, the rectangular
+      winding-lattice cokernel short exact sequence and first-isomorphism
+      quotient, and the quotient-to-winding classifier with arbitrary
+      rectangular matrix naturality and Smith image test,
       the lattice-cokernel composition profiles, arbitrary-rank Smith factors,
       the nonsingular determinant index, the finite prime-power refinement, and
       the abstract traced-presentation normal-form fields.  It does not claim
       first discovery of winding, quotient fundamental groups, Smith normal
       form, determinant-index calculations, or the computational-path
-      ingredients.  The local Lean files are the implementation of this first
-      presentation, not an external mathematical source; the cited classical
+      ingredients.  The local Lean files are the implementation of this checked
+      proof, not an external mathematical source; the cited classical
       and contextual works remain separately classified as background.
 
 related_formalizations:
@@ -175,27 +188,38 @@ status:
   scope: >-
     The selected declaration is exactly
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-    `FollowupSolution.lean`.  It asserts a nonempty
-    `TopologicalSmithExactnessCertificate`.  Its six top-level fields are: (i) a
+    `FollowupSolution.lean`.  It is the nonemptiness of an
+    `TopologicalSmithExactnessCertificate` with nine top-level fields.  The
+    first two fields identify the image of every covering-induced quotient
+    fundamental-group map with the monodromy stabilizer of the lifted endpoint,
+    and state the sharp product boundary: failure of joint quotient
+    multiplication continuity implies that the product of loop-quotient
+    projections is not a quotient map.  The certificate's remaining fields
+    provide the winding/Smith synthesis.  The nine fields are: (i) the
+    monodromy-stabilizer criterion; (ii) the sharp product-quotient
+    obstruction; (iii) the rectangular winding-lattice cokernel short exact
+    sequence and its first-isomorphism quotient; (iv) a
     coherent family of winding classifiers for the based loop quotient of
     every finite torus, including representative, group-law, induced
     matrix-map naturality, exact image/injectivity/surjectivity transfer, and
     matrix-map composition equations, together with a Smith-coordinate
     divisibility criterion deciding image membership for the actual quotient
-    map; (ii) the
-    canonical matrix-composition identity; (iii) the
+    map; (v) the
+    canonical matrix-composition identity; (vi) the
     rectangular lattice-cokernel profile under injectivity of the second map,
     giving finite-cokernel cardinality products, finiteness equivalence,
-    finite-cokernel prime-support, and coprime-exponent laws; (iv) the
+    finite-cokernel prime-support, and coprime-exponent laws; (vii) the
     arbitrary-rank Smith additive equivalence, finite iff full target rank,
     and exponent-lcm identity, with its prime-support identity likewise
-    gated by finiteness; (v) the nonsingular square determinant-index formula;
-    and (vi) the finite prime-power refinement with its exact cardinality
+    gated by finiteness; (viii) the nonsingular square determinant-index formula;
+    and (ix) the finite prime-power refinement with its exact cardinality
     product.  The
-    lattice-cokernel fields concern the integer winding lattice; the first
-    field additionally connects that lattice action to actual induced maps of
-    finite-torus loop quotients.  The declaration does not state short-exact
-    or first-isomorphism wrappers for torus maps.  The nested abstract-trace
+    lattice-cokernel fields concern the integer winding lattice; the fourth field
+    additionally connects that lattice action to actual induced maps of
+    finite-torus loop quotients.  The selected third field states the exact
+    winding-lattice cokernel sequence and its first-isomorphism quotient; the
+    declaration does not state the repository's separate topological torus-map
+    short-exact wrappers.  The nested abstract-trace
     bridge makes this connection explicit at the selected statement boundary
     rather than leaving it as repository-only context.  Its selected fields
     prove the exact zero/one shortest-trace law, matrix naturality of standard
@@ -208,8 +232,12 @@ status:
     Free directions are represented explicitly by `ZMod 0`; their totalized
     `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
     finite cardinality or torsion-prime support.  Centrality,
-    binary/indexed products, broader matrix APIs, and other quotient-topology
-    declarations remain repository support outside this Comparator target.
+    binary/indexed product preservation, broader matrix APIs, and other
+    quotient-topology declarations remain repository support outside this
+    Comparator target.  The generic criteria are statement-level results, while
+    the concrete endpoint-varying computational-path APIs remain supporting
+    repository developments; the selected nested trace field is the declared
+    abstract interface.
     The Challenge has one deliberate statement-side `sorry`; the selected
     Solution and imported development have none.
   sorry_count: 0
@@ -222,6 +250,9 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator-followup.json"
       selected_fields:
+        - "TopologicalSmithExactnessCertificate.covering_map_image_is_monodromy_stabilizer"
+        - "TopologicalSmithExactnessCertificate.quotient_product_hypothesis_sharp"
+        - "TopologicalSmithExactnessCertificate.rectangular_cokernel_short_exact"
         - "TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
         - "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
         - "FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
@@ -249,8 +280,15 @@ research_interest:
   audience: "Researchers in algebraic topology, general topology, computational algebra, and formalized mathematics"
   selected_contribution: >-
     `TopologicalComputationalPathsFollowup.topological_smith_exactness` is a
-    six-top-level-field certificate connecting a topological quotient with
-    computable integer invariants.  Its first field is an all-dimensional family of
+    three-layer certificate.  Its first layer proves, for every covering map, the
+    exact image-equals-monodromy-stabilizer criterion for the induced quotient
+    fundamental-group map.  Its second layer proves the sharp converse boundary
+    for products: discontinuous quotient multiplication rules out the product
+    quotient map.  Its third layer is a nine-top-level-field certificate connecting
+    a finite-torus topological quotient with computable integer invariants.  Its
+    third certificate field gives a rectangular winding-lattice cokernel short
+    exact sequence and an explicit first-isomorphism quotient.  Its fourth
+    certificate field is an all-dimensional family of
     explicit winding classifiers: representatives, quotient multiplication,
     and induced integer-matrix maps are tied together by stated equations;
     exact image, injectivity, and surjectivity transfer is also proved, with
@@ -272,8 +310,12 @@ research_interest:
     `matrix_normal_form_naturality`, and
     `matrix_map_composition_homotopy`, plus `normal_form_trans`,
     `normal_form_unit`, and `matrix_normal_form_minimal`).  The remaining
-    fields record matrix composition and exact rectangular
-    lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
+    The selected rectangular exactness field supplies an injective cokernel
+    embedding, a surjective projection with exactly that image as kernel, and
+    the corresponding first-isomorphism quotient for every composable pair with
+    injective second action.  The remaining fields record matrix composition
+    and exact rectangular lattice-cokernel laws for finite-cokernel cardinality,
+    finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
     interpretations are asserted only in the finite regime, while the
@@ -283,14 +325,19 @@ research_interest:
     of some source loop exactly when its winding coordinates satisfy the Smith
     divisibility equations.  The
     determinant-index identity is the nonsingular square specialization.  The selected statement does not include the repository's
-    separate torus-map short-exact or first-isomorphism wrappers.
+    separate topological torus-map short-exact or first-isomorphism wrappers.
   why_nontrivial: >-
     The content is a quantified bridge rather than a single determinant
     calculation: the actual winding invariant, quotient multiplication, and
     induced matrix maps are identified with one lattice model; image,
     injectivity, and surjectivity of the topological maps are characterized by
     the corresponding lattice action, and one certificate simultaneously covers all finite dimensions and all
-    rectangular ranks.  The Smith-coordinate image criterion is a concrete
+    rectangular ranks.  The two preceding general topological fields are
+    substantive scope: they identify the exact subgroup realized by a covering
+    map through monodromy and prove a necessary obstruction for product
+    quotient constructions.  Together they place the finite-torus arithmetic
+    certificate inside the general quotient-fundamental-group framework rather
+    than presenting an isolated lattice calculation.  The Smith-coordinate image criterion is a concrete
     topological consequence: it decides whether a prescribed quotient loop
     class is realizable by the induced matrix map using finitely many integer
     divisibility checks, even in rank-deficient cases.  The composition profile separates finite torsion from
@@ -319,7 +366,15 @@ research_interest:
     concrete endpoint-varying `ComputationalPaths.Path` constructions remain
     supporting material and are not asserted by the selected declaration.
   paper_worthiness: >-
-    The selected theorem is a compact, auditable formal synthesis with a
+    The selected theorem is a compact, auditable formal synthesis with two
+    general topological consequences and a finite-torus application.  For every
+    covering map it identifies the image subgroup of the induced quotient
+    fundamental-group map with the monodromy stabilizer, and it proves that
+    discontinuous quotient multiplication prevents the product of quotient
+    projections from being a quotient map.  The selected exactness field also
+    gives a short exact sequence of rectangular winding-lattice cokernels and
+    an explicit first-isomorphism quotient whenever the second action is
+    injective.  On the finite torus it then gives a
     substantive topological consequence: a genuine
     quotient-topological fundamental group is reduced to its explicit winding
     lattice, quotient multiplication is certified as lattice addition, and
@@ -363,21 +418,26 @@ research_interest:
     and computational abelian-group calculations: the classical lattice
     calculations become a certified decision and reduction method on an
     explicit trace interface.  The classical ingredients and their sources are
-    listed explicitly; the bounded first-presentation claim is only for the
-    exact bundle documented in `FIRST-PRESENTATION-AUDIT.md`.
+    listed explicitly; the bounded provenance record is only for the exact
+    bundle documented in `FIRST-PRESENTATION-AUDIT.md`, and makes no priority
+    claim.
   literature_boundary: >-
     Hatcher and Norman provide ingredient-only winding and Smith/invariant-
     factor background, while Brazas--Fabel and Calcut--McCarthy provide the
     quotient-topological context.  The parent computational-path manuscript
     is recorded as background and the pinned Mathlib revision as a related
     formalization dependency.  The selected bundle is recorded as an
-    `original-proof` source with relationship `other`; the bounded
-    first-presentation claim for this exact conjunction is documented in
-    `FIRST-PRESENTATION-AUDIT.md`.  The claim does not extend to the classical
+    `original-proof` source with relationship `other`; the bounded provenance
+    record for this exact certificate is documented in
+    `FIRST-PRESENTATION-AUDIT.md`; mathematical novelty and priority remain
+    unknown.  The record does not extend to the classical
     ingredients or to the repository's concrete endpoint-varying path APIs.
-    The local Lean files implement this first presentation and are not cited as
+    The local Lean files implement this checked proof and are not cited as
     an external mathematical source.
   evidence:
+    - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.covering_map_image_is_monodromy_stabilizer"
+    - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.quotient_product_hypothesis_sharp"
+    - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_cokernel_short_exact"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
@@ -397,7 +457,7 @@ research_interest:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.determinant_index"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
     - "FollowupSolution.lean: TopologicalComputationalPathsFollowup.topological_smith_exactness"
-    - "FIRST-PRESENTATION-AUDIT.md: bounded first-presentation comparison record"
+    - "FIRST-PRESENTATION-AUDIT.md: bounded provenance comparison record"
 
 automation:
   methods:
@@ -417,9 +477,14 @@ automation:
 
 fidelity:
   divergences: >-
-    The selected artifact is a standalone Comparator presentation of one
-    six-top-level-field topology-to-arithmetic certificate, not a new claim
-    about the individual classical ingredients.  The first field includes the
+    The selected artifact is a standalone Comparator presentation of a
+    three-layer certificate: two general quotient-topology criteria followed by
+    a nine-top-level-field topology-to-arithmetic certificate.  It is not a
+    new claim about the individual classical ingredients.  The first two
+    selected fields identify covering-map images with monodromy stabilizers and state
+    the sharp product-quotient obstruction.  The certificate's third field gives the
+    rectangular winding-lattice short exact sequence and first-isomorphism quotient;
+    its fourth field includes the
     actual winding/group classifier, its naturality for induced matrix maps,
     exact image/faithfulness criteria, and the Smith-coordinate image
     obstruction for actual induced quotient maps.  The selected abstract-trace
@@ -434,7 +499,7 @@ fidelity:
     Smith coordinates satisfy the displayed divisibility equations.  The
     remaining profiles are on integer
     winding-lattice cokernels.
-    Centrality, product, torus-map exactness,
+    Centrality, unrestricted product preservation, topological torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
     repository context and are not attributed to the selected declaration.
 
@@ -442,7 +507,7 @@ review:
   status: "self-assessed"
   reviewers: []
   notes: >-
-    The selected declaration, six top-level fields (including the nested
+    The selected declaration and its nine certificate fields (including the nested
     Smith-coordinate image criterion and abstract traced winding bridge), source relationships, scope boundary,
     and excluded repository results were audited together.
     Technical builds and Comparator replay establish reproducible checking,
@@ -451,6 +516,35 @@ review:
 alignment:
   namespace: "TopologicalComputationalPathsFollowup"
   statements:
+    - source: "Covering-map image and monodromy stabilizer"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.covering_map_image_is_monodromy_stabilizer"
+      module: "FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        For every covering map, the image of the induced map on quotient
+        fundamental groups is exactly the subgroup fixed by monodromy at the
+        chosen lift.  This is a statement-level topological consequence of the
+        selected theorem, not merely supporting repository context.
+    - source: "Sharp product-quotient obstruction"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.quotient_product_hypothesis_sharp"
+      module: "FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        For every based space, failure of joint continuity of quotient loop
+        multiplication implies that the product of the two quotient
+        projections is not a quotient map.  The explicit hypothesis records
+        the exact boundary rather than claiming unrestricted product
+        preservation.
+    - source: "Rectangular winding-lattice cokernel short exactness"
+      lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.rectangular_cokernel_short_exact"
+      module: "FollowupSolution.lean"
+      status: "proved"
+      note: >-
+        For every composable pair of rectangular integer matrices whose second
+        action is injective, the induced winding-lattice cokernel embedding is
+        injective, its image is the projection kernel, the projection is
+        surjective, and quotienting by that kernel gives the second cokernel by
+        an explicit additive first-isomorphism equivalence.
     - source: "Finite-torus winding classifier and matrix-map naturality"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
       module: "FollowupSolution.lean"
