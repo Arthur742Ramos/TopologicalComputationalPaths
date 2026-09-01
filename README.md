@@ -11,7 +11,7 @@ artifact have a small and auditable boundary.
 The current Comparator artifact is `comparator-followup.json`, which selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  The selected declaration is a named
-`TopologicalSmithExactnessCertificate` with six fields: an all-dimensional
+`TopologicalSmithExactnessCertificate` with six top-level fields: an all-dimensional
 family of complete winding classifiers that agree with the explicit winding
 invariant on representatives, identify quotient concatenation with lattice
 addition through a continuous equivalence into the multiplicative lattice
@@ -22,7 +22,14 @@ finite-cokernel rectangular lattice-cokernel cardinality products, finiteness,
 finite-cokernel prime support, and coprime exponents; an arbitrary-rank Smith
 additive classification with explicit `ZMod 0` free factors, the finite/full-
 rank criterion, and the exponent law; the nonsingular square determinant-index
-formula; and a finite prime-power refinement.  This is a reusable
+formula; and a finite prime-power refinement.  Its selected nested bridge
+instantiates the classifier on the universal open geometric computational-path
+carrier: trace length is preserved by identity, composition, and reversal,
+every continuous loop has a geometric representative, and the homotopy
+quotient of that carrier is explicitly equivalent to the ordinary loop
+quotient.  Its winding and quotient classifier are tied to the selected outer
+classifier by checked compatibility equalities, and the same Smith image test
+applies to its winding class.  This is a reusable
 topology--arithmetic certificate, not a proof-size claim.  The first field also
 decides image membership for every induced quotient map by finite Smith-
 coordinate divisibility tests, including the zero-factor equations in
@@ -116,7 +123,8 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-six top-level fields (and an explicitly selected Smith-image subfield).  Its first field is an explicit all-dimensional winding
+six top-level fields (and explicitly selected Smith-image and computational-
+path bridge subfields).  Its first field is an explicit all-dimensional winding
 classifier package: representative winding, quotient multiplication, and the
 induced integer-matrix maps on finite-torus loop quotients are tied to the same
 lattice by equations.  It also characterizes their image, injectivity, and
@@ -124,7 +132,12 @@ surjectivity, including the square determinant criteria, and states
 quotient-level matrix composition.  The same selected classifier decides
 whether a prescribed quotient loop class lies in the image of an induced
 matrix map by Smith-coordinate divisibility, including rank-deficient
-zero-factor constraints.  The remaining fields give the canonical
+zero-factor constraints.  The nested computational-path bridge supplies the
+raw traced carrier, trace-length laws, geometric coherence, a section covering
+all continuous loops, an explicit equivalence of its homotopy quotient with
+the ordinary loop quotient, checked compatibility with the selected classifier,
+and the same Smith test after geometric realization.
+The remaining fields give the canonical
 matrix-composition identity, finite-cokernel rectangular lattice-cokernel
 cardinality and prime-support laws (plus finiteness and exponent composition),
 an arbitrary-rank Smith additive equivalence with `ZMod 0` free factors, the
@@ -142,7 +155,10 @@ certificate above: a single checked declaration combines the actual winding
 and quotient-group laws, their matrix-map naturality, exact image/
 faithfulness criteria, and a Smith-coordinate divisibility test for whether a
 prescribed quotient loop class is realizable by an induced torus map.  The
-quotient-to-lattice bridge is then coupled to arbitrary-rank composition,
+computational-path bridge makes that obstruction apply to universal traced
+open paths and their geometric loop classes, rather than merely to an
+unstructured quotient presentation; the traced homotopy quotient is explicitly
+identified with the ordinary loop quotient.  The quotient-to-lattice bridge is then coupled to arbitrary-rank composition,
 Smith, determinant, and prime-power profiles.  The
 finite/full-rank and finite-cokernel prime-support statements remain valid for
 singular and rectangular maps, while the determinant formula appears only
@@ -239,8 +255,8 @@ path-based classifiers are equal as continuous multiplicative equivalences.
 The fixed-dimensional winding/basepoint and matrix material described above
 is useful context for the selected certificate.  The cross-dimensional
 coordinate API and the broader matrix/Smith inventory that follows are
-repository support; only the six fields explicitly listed in
-`formalization.yaml` are part of the Comparator account.
+repository support; only the six top-level fields and explicitly selected
+nested fields listed in `formalization.yaml` are part of the Comparator account.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
 

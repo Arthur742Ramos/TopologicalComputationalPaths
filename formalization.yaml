@@ -28,7 +28,13 @@ project:
     explicit `ZMod 0` free direction; in that case Mathlib's totalized
     `Nat.card = 0` and exponent-zero conventions are recorded, not ordinary
     finite cardinality or torsion-prime support.  The selected declaration
-    therefore records a precise topology-to-arithmetic bridge.
+    therefore records a precise topology-to-arithmetic bridge.  Its selected
+    nested bridge is instantiated by the universal traced computational-path
+    presentation: trace length is preserved by identity, composition, and
+    reversal, every continuous loop has a geometric representative, and the
+    same Smith image test applies to that representative's winding class.  Two
+    explicit compatibility fields identify the bridge's winding and quotient
+    classifier with the selected certificate's own fields.
     Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
     matrix APIs remain repository support and are not selected claims.
@@ -166,7 +172,9 @@ status:
     lattice-cokernel fields concern the integer winding lattice; the first
     field additionally connects that lattice action to actual induced maps of
     finite-torus loop quotients.  The declaration does not state short-exact
-    or first-isomorphism wrappers for torus maps.
+    or first-isomorphism wrappers for torus maps.  The nested computational-path
+    bridge makes this connection explicit at the selected statement boundary
+    rather than leaving it as repository-only context.
     Free directions are represented explicitly by `ZMod 0`; their totalized
     `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
     finite cardinality or torsion-prime support.  Centrality,
@@ -186,6 +194,7 @@ status:
       selected_fields:
         - "TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
         - "FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
+        - "FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
         - "TopologicalSmithExactnessCertificate.matrix_composition"
         - "TopologicalSmithExactnessCertificate.rectangular_composition_profile"
         - "TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -218,7 +227,15 @@ research_interest:
     determinant criteria in the square case.  Crucially, the same selected
     classifier turns image membership for every induced quotient map into
     finite Smith-coordinate divisibility tests, including zero-factor
-    constraints when rank is deficient.  The remaining fields record matrix composition and exact rectangular
+    constraints when rank is deficient.  The selected nested computational-path
+    bridge instantiates that classifier
+    on universal traced open paths, preserving trace-length algebra and
+    geometric coherence for identity, composition, and reversal while
+    covering every continuous loop.  Two compatibility equalities identify its
+    winding and quotient classifier with the selected outer classifier.  Its
+    explicit homotopy-class quotient is
+    equivalent to the ordinary loop quotient, with the representative equation
+    proved before applying the Smith test.  The remaining fields record matrix composition and exact rectangular
     lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
     prime support, and coprime exponents.  Its Smith profile handles arbitrary
     rank, including `ZMod 0` free factors; cardinality and prime-support
@@ -242,8 +259,16 @@ research_interest:
     the stated totalized zero convention in free cases.  The Smith and
     prime-power fields make the invariants usable for computation, while
     the determinant formula is isolated to the square nonzero-determinant
-    case.  These interfaces provide a reusable formal theorem for subsequent
+    case.  The traced realization adds a genuine semantic layer: the universal
+    open computational-path carrier preserves trace-length algebra and
+    geometric coherence, while its section covers every continuous loop before
+    the Smith obstruction is applied.  Its homotopy quotient is explicitly
+    identified with the ordinary based loop quotient, so the arithmetic class
+    is not detached from the computational-path semantics.  These interfaces provide a reusable formal theorem for subsequent
     maps of finite tori without claiming new topology for unrelated spaces.
+    The bridge is instantiated by the universal open geometric computational-
+    path carrier, so trace operations and their geometric loop classes are
+    part of the selected theorem rather than an informal analogy.
   paper_worthiness: >-
     The selected theorem is a compact, auditable formal synthesis with a
     substantive topological consequence: a genuine
@@ -262,6 +287,9 @@ research_interest:
     hypotheses, while free cases retain explicit `ZMod 0`, `Nat.card = 0`,
     and exponent-zero conventions.  The square determinant identity supplies
     a sharp finite specialization.
+    The direct traced realization closes the former scope gap: the advertised
+    arithmetic obstruction is attached to an actual computational-path carrier
+    and its geometric loop semantics, not merely to an arbitrary homeomorphism.
     This makes the certificate a reusable note-sized interface between
     algebraic topology and computational abelian-group calculations.  The
     classical ingredients and their sources are listed explicitly; no claim
@@ -280,6 +308,7 @@ research_interest:
   evidence:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
+    - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.computational_path_winding_bridge"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.rectangular_composition_profile"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.smith_cokernel_profile"
@@ -310,7 +339,10 @@ fidelity:
     about the individual classical ingredients.  The first field includes the
     actual winding/group classifier, its naturality for induced matrix maps,
     exact image/faithfulness criteria, and the Smith-coordinate image
-    obstruction for actual induced quotient maps; the remaining profiles are on integer
+    obstruction for actual induced quotient maps.  The selected nested bridge
+    realizes every loop through the universal traced computational-path
+    presentation and applies the same winding/Smith test to its geometric
+    representatives; the remaining profiles are on integer
     winding-lattice cokernels.
     Centrality, product, torus-map exactness,
     first-isomorphism packaging, CRT, and broader matrix results remain
@@ -321,7 +353,7 @@ review:
   reviewers: []
   notes: >-
     The selected declaration, six top-level fields (including the nested
-    Smith-coordinate image criterion), source relationships, scope boundary,
+    Smith-coordinate image criterion and computational-path winding bridge), source relationships, scope boundary,
     and excluded repository results were audited together.
     Technical builds and Comparator replay establish reproducible checking,
     not independent peer review or novelty approval.
@@ -340,7 +372,12 @@ alignment:
         model, and commutes with the induced integer-matrix map.  Its image,
         injectivity, and surjectivity are characterized by the corresponding
         lattice action, with determinant criteria in the square case; quotient-
-        level matrix composition is also stated.  In addition, Smith
+        level matrix composition is also stated.  The nested computational-path
+        bridge instantiates this classifier on universal traced open paths,
+        proves trace-length coherence for identity/composition/reversal, identifies
+        the traced homotopy quotient with the ordinary loop quotient, ties its
+        winding/classifier to the outer certificate, and applies the Smith test
+        to every geometric representative.  In addition, Smith
         coordinates decide image membership for every induced quotient map,
         including zero-factor constraints in rank-deficient cases.
     - source: "Canonical winding-lattice matrix composition"

@@ -508,6 +508,57 @@ noncomputable def smithNormalFormFactor
 
 noncomputable def smithFactor {n m : ℕ} (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ := smithNormalFormFactor (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m)) (matrixAction A).range.toIntSubmodule).2 i
 
+/-! A statement-side interface for the geometric realization of
+    computational paths.  The raw carrier retains a trace-length observable,
+    while its geometric coordinate is an ordinary continuous path. -/
+structure ComputationalPathWindingPresentation where
+  raw : ∀ n : ℕ, Type 0
+  geometric : ∀ n : ℕ, raw n → Loop n
+  traceLength : ∀ n : ℕ, raw n → ℕ
+  refl : ∀ n : ℕ, raw n
+  trans : ∀ n : ℕ, raw n → raw n → raw n
+  symm : ∀ n : ℕ, raw n → raw n
+  traceLength_refl : ∀ n : ℕ, traceLength n (refl n) = 0
+  traceLength_trans :
+    ∀ (n : ℕ) (p q : raw n),
+      traceLength n (trans n p q) = traceLength n p + traceLength n q
+  traceLength_symm :
+    ∀ (n : ℕ) (p : raw n), traceLength n (symm n p) = traceLength n p
+  geometric_refl :
+    ∀ n : ℕ,
+      (geometric n (refl n)).Homotopic (_root_.Path.refl (base n))
+  geometric_trans :
+    ∀ (n : ℕ) (p q : raw n),
+      (geometric n (trans n p q)).Homotopic
+        (_root_.Path.trans (geometric n p) (geometric n q))
+  geometric_symm :
+    ∀ (n : ℕ) (p : raw n),
+      (geometric n (symm n p)).Homotopic
+        (_root_.Path.symm (geometric n p))
+  section_ : ∀ n : ℕ, Loop n → raw n
+  section_geometric :
+    ∀ (n : ℕ) (γ : Loop n), geometric n (section_ n γ) = γ
+  rawClass : ∀ n : ℕ, Type 0
+  quotientMk : ∀ n : ℕ, raw n → rawClass n
+  quotientEquiv : ∀ n : ℕ, rawClass n ≃ LoopQuot n
+  quotientEquiv_mk :
+    ∀ (n : ℕ) (p : raw n),
+      quotientEquiv n (quotientMk n p) = Quotient.mk' (geometric n p)
+  winding : ∀ n : ℕ, Loop n → WindingVector n
+  classifier : ∀ n : ℕ, LoopQuot n → WindingVector n
+  classifier_mk :
+    ∀ (n : ℕ) (γ : Loop n),
+      classifier n (Quotient.mk' γ) = winding n γ
+  smith_image_iff :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ) (p : raw m),
+      Quotient.mk' (geometric m p) ∈ Set.range (matrixMapQuotientMap A) ↔
+        ∀ i : Fin m, smithNormalFormFactor
+          (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2 i ∣
+          ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+            (matrixAction A).range.toIntSubmodule).2.bM.equivFun
+            (classifier m (Quotient.mk' (geometric m p)))) i
+
 noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
@@ -812,6 +863,19 @@ structure FiniteTorusWindingMatrixCompatibility where
           ((Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2.bM.equivFun
             (Multiplicative.toAdd (classifier m q))) i
+  /-- The Smith image test also applies to geometric representatives of the
+      traced computational-path presentation. -/
+  computational_path_winding_bridge :
+    ComputationalPathWindingPresentation
+  computational_path_winding_bridge_winding :
+    ∀ (n : ℕ) (p : computational_path_winding_bridge.raw n),
+      computational_path_winding_bridge.winding n
+          (computational_path_winding_bridge.geometric n p) =
+        winding n (computational_path_winding_bridge.geometric n p)
+  computational_path_winding_bridge_classifier :
+    ∀ (n : ℕ) (q : LoopQuot n),
+      computational_path_winding_bridge.classifier n q =
+        Multiplicative.toAdd (classifier n q)
   matrix_map_injective_iff :
     ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
       Function.Injective (matrixMapQuotientMap A) ↔

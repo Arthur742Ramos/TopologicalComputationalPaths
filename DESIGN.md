@@ -129,6 +129,12 @@ lattice; the first field explicitly ties that lattice to induced maps of
 finite-torus loop quotients and gives determinant criteria for square maps.
 The declaration does not assert torus-map short exactness,
 first-isomorphism wrappers, indexed-product preservation, or centrality.
+The selected nested computational-path bridge instantiates the winding
+classifier on the universal open geometric computational-path carrier, with
+trace-length laws, geometric coherence, a loop section, and the Smith image
+test on geometric representatives.  Its homotopy quotient is explicitly
+equivalent to the ordinary based loop quotient, with the representative
+equation checked in the selected certificate.
 Winding, quotient fundamental groups, and Smith normal form are classical
 ingredients.  The selected bundle is recorded as an `original-proof` source
 with relationship `other`; the local Lean files implement that result rather
@@ -138,8 +144,8 @@ unknown, so no first-presentation or priority claim is made for it or for those
 classical ingredients.
 
 Everything below this boundary is repository-wide supporting inventory, not an
-additional Comparator claim unless its declaration is one of the six fields
-listed above.  It is retained to document the reusable theory from which the
+additional Comparator claim unless its declaration or selected nested field is
+one of the six top-level fields listed above.  It is retained to document the reusable theory from which the
 selected certificate was assembled.  In particular, it does not turn the
 supporting quotient-topology or torus-map exactness results into selected
 claims:

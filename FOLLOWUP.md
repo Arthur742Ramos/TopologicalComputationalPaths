@@ -5,7 +5,8 @@
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  This declaration is a nonempty
-`TopologicalSmithExactnessCertificate` with six top-level fields:
+`TopologicalSmithExactnessCertificate` with six top-level fields (and two
+explicitly selected nested fields):
 
 1. `winding_matrix_compatibility` packages an all-dimensional family of
    complete winding classifiers: each classifier agrees with winding on loop
@@ -17,7 +18,14 @@ The Comparator selects
    composition is also stated at the quotient level.  In addition, the image
    of an actual induced quotient map is decided by finite Smith-coordinate
    divisibility tests, including the zero-factor equations in rank-deficient
-   cases;
+   cases.  The selected nested computational-path bridge instantiates the
+   classifier on universal open geometric computational paths, preserves
+   trace-length algebra under identity/composition/reversal, supplies a
+   representative for every continuous loop, identifies the traced homotopy
+   quotient with the ordinary loop quotient, and applies the same Smith test to
+   the representative's geometric loop class.  Its winding and quotient
+   classifier are tied to the selected outer certificate by explicit
+   compatibility equalities;
 2. `matrix_composition` proves that the canonical additive matrix action
    composes according to the stated row-by-column `matrixCompose` law;
 3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
@@ -42,7 +50,11 @@ their winding-lattice cokernels.  It links the actual winding invariant and
 quotient multiplication to the integer lattice, proves naturality and exact
 image/injectivity/surjectivity transfer for induced matrix maps between
 finite-torus loop quotients, and gives a concrete Smith-coordinate obstruction
-for realizing any prescribed quotient loop class.  It then gives a complete
+for realizing any prescribed quotient loop class.  The computational-path
+bridge makes this topology-to-arithmetic comparison apply to a concrete
+traced carrier and its geometric realization, rather than to an arbitrary
+homeomorphism; its homotopy quotient is explicitly equivalent to the ordinary
+loop quotient.  It then gives a complete
 arbitrary-rank free/torsion and prime-power description of every lattice
 cokernel, with the determinant index as a square specialization.
 The certificate reports ordinary cardinality and torsion-prime support only
@@ -447,7 +459,8 @@ defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
 
 The selected finite-torus surface is exactly the six top-level certificate fields
-listed in `formalization.yaml`.  The fixed-dimensional winding/basepoint
+and the explicitly named nested fields listed in `formalization.yaml`.  The
+fixed-dimensional winding/basepoint
 classifier and the broader topological matrix/Smith wrappers below are
 repository support; they are not additional Comparator claims unless their
 exact field names are listed in `main_results.selected_fields`.
