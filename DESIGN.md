@@ -119,19 +119,20 @@ representative winding, quotient multiplication, naturality for induced
 integer-matrix maps, exact image/injectivity/surjectivity transfer, and their
 quotient-level composition, (2) canonical
 integer-matrix composition, (3) rectangular lattice-cokernel
-cardinality/finiteness/prime-support/copime-exponent laws, (4) an
-arbitrary-rank Smith classification with explicit `ZMod 0` free factors, (5)
-the nonsingular square determinant index, and (6) a finite prime-power
-refinement.  The lattice-cokernel fields are about the integer winding
+finiteness plus finite-cokernel cardinality and torsion-prime-support laws
+with coprime-exponent composition, (4) an arbitrary-rank Smith classification
+with explicit `ZMod 0` free factors, (5) the nonsingular square determinant
+index, and (6) a finite prime-power refinement.  The lattice-cokernel fields are about the integer winding
 lattice; the first field explicitly ties that lattice to induced maps of
 finite-torus loop quotients and gives determinant criteria for square maps.
 The declaration does not assert torus-map short exactness,
 first-isomorphism wrappers, indexed-product preservation, or centrality.
 Winding, quotient fundamental groups, and Smith normal form are classical
-ingredients.  The local substantive source is recorded as a `formalization`
-with relationship `formalizes`, while Hatcher and Norman are recorded as
-substantive literature that the repository independently proves in this
-setting.  No priority claim is made for the bundled formal packaging.
+ingredients.  The selected bundle is recorded as an `original-proof` source
+with relationship `other`; the local Lean files implement that result rather
+than serving as a circular mathematical source.  Hatcher and Norman are
+ingredient-only background, and no priority claim is made for those classical
+ingredients.
 
 Everything below this boundary is repository-wide supporting inventory, not an
 additional Comparator claim unless its declaration is one of the six fields
@@ -283,7 +284,10 @@ both commuting squares in one reusable theorem.
 The abstract map and projection have explicit quotient-representative
 formulas, so downstream proofs do not need to unfold `QuotientAddGroup.map`.
 The equivalence also gives cardinality and finiteness transport for individual
-rectangular matrices and their explicit composites, including infinite cases.
+rectangular matrices and their explicit composites.  The selected ordinary
+cardinality claims are made only after finite-cokernel hypotheses; in an
+infinite case Mathlib's totalized `Nat.card` is zero and is not called an
+ordinary cardinality.
 The lattice interface additionally exposes the corresponding finite cyclic
 invariant-factor decomposition supplied by Smith normal form.  The same
 decomposition is transported through the winding equivalence to the canonical
@@ -292,15 +296,17 @@ topological obstruction, and the transport is packaged as an explicit additive
 equivalence.  The Smith-normal-form interface now accepts arbitrary-rank
 rectangular maps: zero `ZMod 0` factors retain the free cokernel summand while
 nonzero factors describe torsion.  Under full target rank it gives the finite
-cyclic-factor decomposition and exact product cardinality on both the lattice
-and finite-torus sides; lattice finiteness is equivalent to that full-rank
-hypothesis.  The arbitrary-rank factors also give a direct criterion on both
-sides: the cokernel is finite exactly when every Smith modulus is nonzero,
-equivalently when no `ZMod 0` free coordinate remains.
+cyclic-factor decomposition and exact ordinary product cardinality on both the
+lattice and finite-torus sides; lattice finiteness is equivalent to that
+full-rank hypothesis.  The arbitrary-rank factors also give a direct criterion
+on both sides: the cokernel is finite exactly when every Smith modulus is
+nonzero, equivalently when no `ZMod 0` free coordinate remains.
 For square nonsingular maps, the invariant-factor product is also proved equal
 to the determinant index `Int.natAbs (Matrix.det A)` on both sides.
-The same Smith-product formula is proved without a rank assumption, including
-the infinite cases via `Nat.card = 0` for a surviving `ZMod 0` factor.
+The same Smith-product formula is proved without a rank assumption as a
+totalized `Nat.card` identity; in the infinite cases a surviving `ZMod 0`
+factor forces the value zero, which is not an ordinary finite-cardinality
+claim.
 The same arbitrary-rank presentation identifies the additive exponent with the
 lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
 records the free summand both elementwise and globally.
@@ -325,9 +331,12 @@ exponent divides the product of the two successive cokernel exponents,
 without an injectivity hypothesis.  Rectangular lattice and finite-torus
 matrix sequences inherit this bound, including their canonical
 `matrixCompose` presentations.
-When the second map is injective, exactness also gives a multiplicative
-`Nat.card` identity: the composite cokernel has the product cardinality of the
-two successive cokernels, in both rectangular presentations.
+When the second map is injective and both successive cokernels are finite,
+exactness gives the ordinary multiplicative cardinality identity: the
+composite cokernel has the product cardinality of the two successive
+cokernels, in both rectangular presentations.  The supporting development's
+unconditional `Nat.card` equation is only a totalized zero identity outside
+that finite regime.
 The finite-torus identity is additionally exposed from injectivity of the
 underlying lattice action through the quotient-injectivity equivalence.
 The same hypothesis gives a finiteness equivalence: the composite cokernel is
@@ -347,17 +356,22 @@ For square matrices, coprime determinant absolute values imply coprime
 successive exponents by the adjugate bounds.  A nonzero determinant for the
 second matrix therefore gives the exact exponent product directly on lattice
 and finite-torus cokernels, including canonical `matrixCompose` forms.
-The exponent bounds also determine prime support exactly: for every prime
-`p`, divisibility of the composite exponent is equivalent to divisibility of
-at least one successive exponent.  This prime-support theorem is exposed for
-rectangular lattice and finite-torus maps, including canonical `matrixCompose`
-notation, and interfaces directly with the prime-power Smith factors.
+In the finite-cokernel regime, the exponent bounds determine torsion-prime
+support exactly: for every prime `p`, divisibility of the composite exponent
+is equivalent to divisibility of at least one successive exponent.  This
+finite prime-support theorem is exposed for rectangular lattice and
+finite-torus maps, including canonical `matrixCompose` notation, and
+interfaces directly with the prime-power Smith factors.  If a `ZMod 0` free
+factor is present, the totalized exponent is zero and divisibility by every
+prime is not interpreted as torsion-prime support.
 For square maps, a nonzero determinant of the second factor supplies
 injectivity, so determinant-based lattice and finite-torus corollaries expose
 the same support law without requiring users to construct an injectivity proof.
-At the Smith level, the support is exact factor-by-factor: a prime divides the
-cokernel exponent exactly when it divides one of the Smith-factor moduli, for
-both lattice and finite-torus presentations.
+At the Smith level, after finiteness is established, support is exact
+factor-by-factor: a prime divides the cokernel exponent exactly when it
+divides one of the Smith-factor moduli, for both lattice and finite-torus
+presentations.  A zero modulus is instead the explicitly recorded free case
+with exponent-zero totalization.
 The corresponding image-membership interface is exact as well: after the
 Smith basis change, each coordinate is divisible by its factor, with zero
 factors imposing the complementary-coordinate equations.
@@ -367,9 +381,9 @@ Whenever the Smith factors are nonzero, the cyclic factors are further
 decomposed by the Chinese remainder theorem into an explicit product of
 prime-power cyclic groups on both the lattice and finite-torus cokernels,
 with a representative formula for the refined decoder.
-The refined product has an exact cardinality bridge: the prime-power orders
-multiply back to each Smith modulus, and both cokernel cardinalities equal the
-resulting full double product.
+The refined finite product has an exact ordinary-cardinality bridge: the
+prime-power orders multiply back to each Smith modulus, and both finite
+cokernel cardinalities equal the resulting full double product.
 The additive exponent is also identified exactly with the least common
 multiple of the Smith moduli, exposing the precise finite-cokernel annihilator.
 When every Smith factor is nonzero, this lcm identity refines pointwise: the

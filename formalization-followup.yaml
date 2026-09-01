@@ -15,11 +15,17 @@ project:
     quotients with the matrix action on winding vectors.  It also proves exact
     image, injectivity, and surjectivity transfer for those quotient maps,
     including the square determinant criteria.  The remaining fields state
-    canonical matrix composition and exact rectangular lattice-cokernel profiles: cardinality,
-    finiteness, prime support, and coprime exponent composition; arbitrary-rank
-    Smith factors including `ZMod 0` free directions; the nonsingular square
-    determinant index; and a finite prime-power refinement.  The selected
-    declaration therefore records a precise topology-to-arithmetic bridge.
+    canonical matrix composition and exact rectangular lattice-cokernel
+    profiles: finite-cokernel cardinality products, finiteness equivalences,
+    finite-cokernel prime support, and coprime exponent composition;
+    arbitrary-rank Smith factors including `ZMod 0` free directions; the
+    nonsingular square determinant index; and a finite prime-power refinement.
+    The certificate deliberately restricts cardinality and prime-support
+    conclusions to finite cokernels.  A zero Smith factor is instead an
+    explicit `ZMod 0` free direction; in that case Mathlib's totalized
+    `Nat.card = 0` and exponent-zero conventions are recorded, not ordinary
+    finite cardinality or torsion-prime support.  The selected declaration
+    therefore records a precise topology-to-arithmetic bridge.
     Short-exact torus-map wrappers,
     first-isomorphism packaging, indexed products, centrality, CRT, and other
     matrix APIs remain repository support and are not selected claims.
@@ -68,23 +74,24 @@ sources:
     type: "book"
     id: "https://pi.math.cornell.edu/~hatcher/AT/AT.pdf"
     location: "Chapter 1: circle winding, products, and fundamental groups"
-    relationship: "independently-proves"
+    relationship: "background"
     author_endorsement: "n/a"
     note: >-
-      Classical background for winding-number and torus fundamental-group
-      calculations.  No novelty claim is made for those ingredients.
+      Ingredient-only background for winding-number and torus
+      fundamental-group calculations.  This source is not claimed as the
+      origin of the selected bundled theorem.
   - title: "Finitely Generated Abelian Groups and Similarity of Matrices over a Field"
     authors: ["Christopher Norman"]
     type: "book"
     id: "https://doi.org/10.1007/978-1-4471-2730-7"
     location: "Smith normal form and invariant-factor decompositions"
-    relationship: "independently-proves"
+    relationship: "background"
     author_endorsement: "n/a"
     note: >-
-      Classical algebraic background for Smith factors, finite/free
-      decomposition, exponents, and determinant-index formulas.  The selected
-      theorem transports these ingredients through the topological winding
-      equivalence and does not claim to discover Smith normal form.
+      Ingredient-only algebraic background for Smith factors, finite/free
+      decomposition, exponents, and determinant-index formulas.  This source
+      is not claimed as the origin of the selected bundled theorem or as a
+      prior formalization of its topology-to-arithmetic synthesis.
   - title: "Topological Semantics for Scoped Computational Paths"
     authors:
       - "Arthur Freitas Ramos"
@@ -107,20 +114,18 @@ sources:
       - "Anjolina Grisi de Oliveira"
       - "Tiago M. L. de Veras"
       - "David Barros Hulak"
-    type: "formalization"
-    id: "FollowupSolution.lean"
-    location: "TopologicalComputationalPathsFollowup.topological_smith_exactness"
-    relationship: "formalizes"
+    type: "original-proof"
+    location: "The selected topology-to-arithmetic synthesis in this submission"
+    relationship: "other"
     author_endorsement: "participated"
     note: >-
-      This is the substantive Lean development from which the selected
-      six-field declaration is adapted.  It formalizes the complete winding
-      classifier, quotient-group law, and induced matrix-map naturality, as
-      well as the lattice-cokernel composition, Smith,
-      determinant-index, and prime-power results.  Hatcher and Norman are
-      identified above as substantive mathematical sources for the classical
-      ingredients; this entry makes no priority or first-discovery claim for
-      the bundled formalization.
+      This entry records the selected six-field topology-to-arithmetic
+      synthesis as an original-proof result: this exact bundled statement is
+      first presented here.  The Lean files implement and check the proof but
+      are not being cited as an external mathematical source.  Winding,
+      quotient fundamental groups, Smith factors, and determinant-index
+      calculations are classical ingredients and are listed above only as
+      background; no priority claim is made for those ingredients.
 
 related_formalizations:
   - id: "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/e5d8495df101bab49bdd21b236a37040fced8097"
@@ -145,16 +150,20 @@ status:
     matrix-map composition equations; (ii) the
     canonical matrix-composition identity; (iii) the
     rectangular lattice-cokernel profile under injectivity of the second map,
-    giving cardinality, finiteness, prime-support, and coprime-exponent laws;
-    (iv) the arbitrary-rank Smith additive equivalence, finite iff full target
-    rank, exponent-lcm identity, and prime-support identity; (v) the
-    nonsingular square determinant-index formula; and (vi) the finite
-    prime-power refinement with its exact cardinality product.  The
+    giving finite-cokernel cardinality products, finiteness equivalence,
+    finite-cokernel prime-support, and coprime-exponent laws; (iv) the
+    arbitrary-rank Smith additive equivalence, finite iff full target rank,
+    and exponent-lcm identity, with its prime-support identity likewise
+    gated by finiteness; (v) the nonsingular square determinant-index formula;
+    and (vi) the finite prime-power refinement with its exact cardinality
+    product.  The
     lattice-cokernel fields concern the integer winding lattice; the first
     field additionally connects that lattice action to actual induced maps of
     finite-torus loop quotients.  The declaration does not state short-exact
     or first-isomorphism wrappers for torus maps.
-    Free directions are represented explicitly by `ZMod 0`.  Centrality,
+    Free directions are represented explicitly by `ZMod 0`; their totalized
+    `Nat.card = 0` and exponent-zero behavior is not presented as ordinary
+    finite cardinality or torsion-prime support.  Centrality,
     binary/indexed products, broader matrix APIs, and other quotient-topology
     declarations remain repository support outside this Comparator target.
     The Challenge has one deliberate statement-side `sorry`; the selected
@@ -200,11 +209,13 @@ research_interest:
     and induced integer-matrix maps are tied together by stated equations;
     exact image, injectivity, and surjectivity transfer is also proved, with
     determinant criteria in the square case.  The remaining fields record matrix composition and exact rectangular
-    lattice-cokernel laws for cardinality, finiteness, prime support, and
-    coprime exponents.  Its Smith profile handles arbitrary rank, including
-    `ZMod 0` free factors, and its finite refinement exposes prime-power
-    cyclic factors.  The determinant-index identity is the nonsingular square
-    specialization.  The selected statement does not include the repository's
+    lattice-cokernel laws for finite-cokernel cardinality, finiteness, finite
+    prime support, and coprime exponents.  Its Smith profile handles arbitrary
+    rank, including `ZMod 0` free factors; cardinality and prime-support
+    interpretations are asserted only in the finite regime, while the
+    arbitrary-rank exponent uses the explicit zero convention for free
+    factors.  Its finite refinement exposes prime-power cyclic factors.  The
+    determinant-index identity is the nonsingular square specialization.  The selected statement does not include the repository's
     separate torus-map short-exact or first-isomorphism wrappers.
   why_nontrivial: >-
     The content is a quantified bridge rather than a single determinant
@@ -212,10 +223,11 @@ research_interest:
     induced matrix maps are identified with one lattice model; image,
     injectivity, and surjectivity of the topological maps are characterized by
     the corresponding lattice action, and one certificate simultaneously covers all finite dimensions and all
-    rectangular ranks.  The composition profile remains meaningful for
-    singular maps, separates finite torsion from `ZMod 0` free directions,
-    and gives exact prime support and coprime-exponent behavior.  The Smith
-    and prime-power fields make the invariants usable for computation, while
+    rectangular ranks.  The composition profile separates finite torsion from
+    `ZMod 0` free directions: its cardinality and prime-support conclusions
+    are explicitly finite-cokernel statements, while exponent identities use
+    the stated totalized zero convention in free cases.  The Smith and
+    prime-power fields make the invariants usable for computation, while
     the determinant formula is isolated to the square nonzero-determinant
     case.  These interfaces provide a reusable formal theorem for subsequent
     maps of finite tori without claiming new topology for unrelated spaces.
@@ -227,22 +239,25 @@ research_interest:
     their image, injectivity, and surjectivity are characterized exactly.
     The same declaration supplies arbitrary-rank composition, Smith,
     determinant-index, and prime-power invariants.  The exact finite/free
-    boundary and prime-support laws apply uniformly to rectangular maps,
-    while the square determinant identity supplies a sharp specialization.
+    boundary applies uniformly to rectangular maps; prime support and
+    ordinary cardinality are asserted only after the relevant finiteness
+    hypotheses, while free cases retain explicit `ZMod 0`, `Nat.card = 0`,
+    and exponent-zero conventions.  The square determinant identity supplies
+    a sharp finite specialization.
     This makes the certificate a reusable note-sized interface between
     algebraic topology and computational abelian-group calculations.  The
     classical ingredients and their sources are listed explicitly; no claim
     is made that winding or Smith normal form was first discovered here.
   literature_boundary: >-
-    Hatcher and Norman provide the classical winding and Smith/invariant-factor
-    background, while Brazas--Fabel and Calcut--McCarthy provide the
+    Hatcher and Norman provide ingredient-only winding and Smith/invariant-
+    factor background, while Brazas--Fabel and Calcut--McCarthy provide the
     quotient-topological context.  The parent computational-path manuscript
     is recorded as background and the pinned Mathlib revision as a related
-    formalization dependency.  The local source is recorded as a
-    `formalization` with relationship `formalizes`: it is the substantive Lean
-    development adapted into the standalone Comparator surface.  The metadata
-    makes no priority claim for the bundled theorem; it distinguishes the
-    repository's formal packaging from the classical mathematical results.
+    formalization dependency.  The selected bundle is recorded as an
+    `original-proof` source with relationship `other`: this exact synthesis is
+    first presented here, while its Lean files are implementations rather
+    than circular mathematical sources.  No priority claim is made for the
+    classical ingredients.
   evidence:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.matrix_composition"
@@ -316,10 +331,12 @@ alignment:
       module: "FollowupSolution.lean"
       status: "proved"
       note: >-
-        Under injectivity of the second rectangular lattice action, successive
-        lattice-cokernel cardinalities multiply, finiteness is equivalent to
-        finiteness of the composite, prime support is the union of successive
-        supports, and coprime exponents multiply exactly.
+        Under injectivity of the second rectangular lattice action, when both
+        successive lattice cokernels are finite, their ordinary
+        cardinalities multiply and their prime support is the union of the
+        successive supports; the field also proves the finiteness equivalence
+        and the coprime-exponent identity.  Outside that finite regime the
+        certificate makes no ordinary cardinality or torsion-support claim.
     - source: "Arbitrary-rank Smith classification of the winding-lattice cokernel"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.smith_cokernel_profile"
       module: "FollowupSolution.lean"
@@ -327,8 +344,10 @@ alignment:
       note: >-
         The selected field gives the additive Smith equivalence, preserves
         `ZMod 0` free factors, characterizes lattice-cokernel finiteness by
-        full target rank, and identifies exponent and prime support from the
-        Smith moduli.
+        full target rank, and identifies the exponent from the Smith moduli.
+        Its prime-support statement is explicitly conditional on finite
+        cokernel; a zero modulus is handled as a free direction with the
+        totalized exponent-zero convention.
     - source: "Square determinant-index specialization"
       lean: "TopologicalComputationalPathsFollowup.topological_smith_exactness; TopologicalSmithExactnessCertificate.determinant_index"
       module: "FollowupSolution.lean"

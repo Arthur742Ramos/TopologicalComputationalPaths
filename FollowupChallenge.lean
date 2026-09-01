@@ -755,10 +755,14 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     induced matrix map on finite-torus loop quotients with the integer matrix
     action.  It also records exact image, injectivity, and surjectivity
     transfer, including the square determinant criteria.  The remaining
-    fields record the rectangular lattice exactness, Smith decomposition,
-    determinant index, and prime-power torsion consequences.  Every type in
-    this declaration is defined above or supplied by Mathlib, so the canonical
-    challenge does not depend on candidate-local compiled modules. -/
+    fields record rectangular lattice exactness, Smith decomposition,
+    determinant index, and prime-power torsion consequences.  Cardinality
+    products and prime-support statements are deliberately supplied only with
+    finite-cokernel hypotheses; the arbitrary-rank Smith equivalence retains
+    `ZMod 0` free factors and its exponent uses Mathlib's explicit zero
+    convention outside the finite regime.  Every type in this declaration is
+    defined above or supplied by Mathlib, so the canonical challenge does not
+    depend on candidate-local compiled modules. -/
 structure FiniteTorusWindingMatrixCompatibility where
   winding : ∀ n : ℕ, Loop n → WindingVector n
   standardLoop : ∀ n : ℕ, WindingVector n → Loop n
@@ -820,19 +824,23 @@ structure TopologicalSmithExactnessCertificate where
     ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
       (B : Fin k → Fin m → ℤ)
       (_hB : Function.Injective (matrixAction B)),
-      Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
-          Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
-        Nat.card ((Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) →
+        Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+            Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+          Nat.card ((Fin k → ℤ) ⧸
+            ((matrixAction B).comp (matrixAction A)).range)) ∧
       ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
           Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
         Finite ((Fin k → ℤ) ⧸
           ((matrixAction B).comp (matrixAction A)).range)) ∧
-      (∀ (p : ℕ) (_hp : Nat.Prime p),
-        p ∣ AddMonoid.exponent
-            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
-          p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
-            p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) →
+        (∀ (p : ℕ) (_hp : Nat.Prime p),
+          p ∣ AddMonoid.exponent
+              ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+            p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+              p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))) ∧
       (∀ (_hcop : Nat.Coprime
           (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
           (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))),
@@ -856,12 +864,13 @@ structure TopologicalSmithExactnessCertificate where
           (smithNormalFormFactor
             (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
               (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
-      (∀ (p : ℕ) (_hp : Nat.Prime p),
-        p ∣ AddMonoid.exponent
-            ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
-          ∃ i : Fin m, p ∣ (smithNormalFormFactor
-            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-              (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+      (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) →
+        ∀ (p : ℕ) (_hp : Nat.Prime p),
+          p ∣ AddMonoid.exponent
+              ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+            ∃ i : Fin m, p ∣ (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs)
   determinant_index :
     ∀ {n : ℕ} (A : Fin n → Fin n → ℤ)
       (hA : Matrix.det A ≠ 0),

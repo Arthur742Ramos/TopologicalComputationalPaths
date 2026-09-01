@@ -120,20 +120,24 @@ commuting squares under the shared injectivity hypothesis.
 The reusable abstract map and projection expose simp-normalized formulas on
 quotient representatives for downstream calculations.
 Cardinality and finiteness are transported across the rectangular winding
-equivalence for individual matrices and explicit composites as well.
+equivalence for individual matrices and explicit composites as well.  The
+selected cardinality assertions are made only after finite-cokernel hypotheses;
+the supporting development's unconditional `Nat.card` equations use Mathlib's
+totalized zero value in infinite cases.
 The Smith-normal-form product is generalized to arbitrary-rank rectangular
 maps: complementary coordinates are explicit `ZMod 0` free factors, while
 embedded Smith coordinates give cyclic torsion factors.  Under full target
-rank, the exact product of Smith moduli is exposed as the lattice and
+rank, the ordinary product of Smith moduli is exposed as the lattice and
 finite-torus cokernel cardinality; lattice finiteness is equivalent to that
 full-rank condition.  The arbitrary-rank factorization additionally proves
 that both cokernels are finite exactly when every Smith modulus is nonzero,
 equivalently when no `ZMod 0` free factor remains.
 For square nonsingular matrices, the product of the Smith moduli is proved to
 equal the determinant index `Int.natAbs (Matrix.det A)` on both sides.
-The arbitrary-rank presentation also proves the exact `Nat.card` product
-formula without a finiteness assumption, including the infinite `ZMod 0`
-cases.
+The supporting arbitrary-rank presentation also proves a totalized `Nat.card`
+product formula without a finiteness assumption: an infinite `ZMod 0` case
+evaluates to zero, which is not reported as an ordinary finite cardinality by
+the selected certificate.
 The same arbitrary-rank presentation identifies the additive exponent with the
 lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
 records the free summand both elementwise and globally.
@@ -158,9 +162,11 @@ exponent divides the product of the two successive cokernel exponents,
 without an injectivity hypothesis.  Rectangular lattice and finite-torus
 matrix sequences inherit this bound in explicit composition and canonical
 `matrixCompose` notation.
-Under injectivity of the second map, the exact sequence also gives a
-multiplicative `Nat.card` identity for the composite and successive cokernels,
-in both rectangular lattice and finite-torus presentations.
+Under injectivity of the second map and finiteness of both successive
+cokernels, the selected exact sequence gives the ordinary multiplicative
+`Nat.card` identity for the composite and successive cokernels, in both
+rectangular lattice and finite-torus presentations.  The supporting
+unconditional equation is only totalized zero arithmetic outside that regime.
 The finite-torus identity is also exposed from injectivity of the underlying
 lattice action via the quotient-injectivity equivalence.
 Under the same hypothesis, the composite cokernel is finite exactly when both
@@ -180,17 +186,21 @@ For square matrices, the adjugate determinant bounds turn coprime determinant
 absolute values into coprime successive exponents.  If the second determinant
 is nonzero, the exact exponent product therefore follows on both lattice and
 finite-torus cokernels, including canonical `matrixCompose` forms.
-For every prime `p`, the composite exponent is divisible by `p` exactly when
-at least one successive exponent is.  This prime-support law is transported
-to rectangular lattice and finite-torus matrices, including canonical
-`matrixCompose` notation, and links the exact sequence to the prime-power
-Smith decomposition.
+For every prime `p`, when both successive cokernels are finite, the composite
+exponent is divisible by `p` exactly when at least one successive exponent is.
+This finite torsion-prime-support law is transported to rectangular lattice
+and finite-torus matrices, including canonical `matrixCompose` notation, and
+links the exact sequence to the prime-power Smith decomposition.  A free
+`ZMod 0` factor instead has totalized exponent zero, which is not interpreted
+as torsion-prime support.
 For square matrices, a nonzero determinant of the second factor supplies
-injectivity automatically, exposing the same prime-support law directly from
-determinant hypotheses on both cokernel presentations.
-The Smith presentation gives a factor-level refinement: for every prime `p`,
-divisibility of a cokernel exponent by `p` is equivalent to divisibility of at
-least one Smith-factor modulus, on both sides.
+injectivity and finite cokernels automatically, exposing the same finite
+torsion-prime-support law directly from determinant hypotheses on both
+cokernel presentations.
+The Smith presentation gives a finite factor-level refinement: after the
+cokernel is finite, for every prime `p`, divisibility of its exponent by `p` is
+equivalent to divisibility of at least one Smith-factor modulus, on both
+sides.  A zero modulus is explicitly the free `ZMod 0` case.
 Smith coordinates additionally give exact coordinatewise divisibility tests
 for membership in both lattice and finite-torus matrix images.
 The topological Smith equivalence includes an explicit quotient-representative
@@ -202,9 +212,9 @@ Whenever all Smith moduli are nonzero, the cyclic factors are further
 decomposed by the Chinese remainder theorem into explicit prime-power cyclic
 factors on both lattice and finite-torus cokernels, with a representative
 formula for the refined decoder.
-The refined product has an exact cardinality certificate: its prime-power
-orders multiply back to each Smith modulus, identifying both cokernel
-cardinalities with the resulting full double product.
+The refined finite product has an exact ordinary-cardinality certificate: its
+prime-power orders multiply back to each Smith modulus, identifying both
+finite cokernel cardinalities with the resulting full double product.
 Its additive exponent is also identified exactly with the least common
 multiple of the Smith moduli, exposing the precise finite-cokernel annihilator.
 The same Smith coordinates give an elementwise annihilation criterion: a
@@ -1538,19 +1548,23 @@ structure TopologicalSmithExactnessCertificate where
     ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
       (B : Fin k → Fin m → ℤ)
       (_hB : Function.Injective (matrixAction B)),
-      Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
-          Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
-        Nat.card ((Fin k → ℤ) ⧸
-          ((matrixAction B).comp (matrixAction A)).range) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) →
+        Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+            Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+          Nat.card ((Fin k → ℤ) ⧸
+            ((matrixAction B).comp (matrixAction A)).range)) ∧
       ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
           Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
         Finite ((Fin k → ℤ) ⧸
           ((matrixAction B).comp (matrixAction A)).range)) ∧
-      (∀ (p : ℕ) (_hp : Nat.Prime p),
-        p ∣ AddMonoid.exponent
-            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
-          p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
-            p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) →
+        (∀ (p : ℕ) (_hp : Nat.Prime p),
+          p ∣ AddMonoid.exponent
+              ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+            p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+              p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))) ∧
       (∀ (_hcop : Nat.Coprime
           (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
           (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))),
@@ -1574,12 +1588,13 @@ structure TopologicalSmithExactnessCertificate where
           (smithNormalFormFactor
             (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
               (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
-      (∀ (p : ℕ) (_hp : Nat.Prime p),
-        p ∣ AddMonoid.exponent
-            ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
-          ∃ i : Fin m, p ∣ (smithNormalFormFactor
-            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
-              (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+      (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) →
+        ∀ (p : ℕ) (_hp : Nat.Prime p),
+          p ∣ AddMonoid.exponent
+              ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+            ∃ i : Fin m, p ∣ (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs)
   determinant_index :
     ∀ {n : ℕ} (A : Fin n → Fin n → ℤ)
       (hA : Matrix.det A ≠ 0),
@@ -1607,8 +1622,10 @@ structure TopologicalSmithExactnessCertificate where
                 (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
 
 /- The selected follow-up theorem is the topological--Smith
-   composition-and-classification theorem, assembled from the independently
-   checked finite-torus module. -/
+   composition-and-classification theorem, assembled from independently
+   checked supporting lemmas.  Its provenance is declared as an original proof
+   in the submission metadata; the imported module is not a mathematical
+   source for the result. -/
 theorem topological_smith_exactness :
     Nonempty TopologicalSmithExactnessCertificate := by
   refine ⟨{
@@ -1705,7 +1722,8 @@ theorem topological_smith_exactness :
         rw [← hBeq]
         exact hB
       refine ⟨?_, ?_, ?_, ?_⟩
-      · rw [hAeq, hBeq]
+      · intro _hfinite
+        rw [hAeq, hBeq]
         exact
           FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_injective
             A B hB'
@@ -1713,7 +1731,7 @@ theorem topological_smith_exactness :
         exact
           FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_injective
             A B hB'
-      · intro p hp
+      · intro _hfinite p hp
         rw [hAeq, hBeq]
         exact
           FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
@@ -1775,7 +1793,7 @@ theorem topological_smith_exactness :
       · simp_rw [hfactor]
         rw [hAeq]
         exact FiniteTorusWinding.matrixAction_cokernel_exponent_eq_smithFactorLcm A
-      · intro p hp
+      · intro _hfinite p hp
         simp_rw [hfactor]
         rw [hAeq]
         exact

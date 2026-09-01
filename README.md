@@ -18,18 +18,22 @@ addition through a continuous equivalence into the multiplicative lattice
 model, and commute with the induced integer-matrix maps; exact image,
 injectivity, and surjectivity transfer for those quotient maps, including the
 square determinant criteria; the canonical matrix-composition identity;
-rectangular lattice-cokernel laws for cardinality, finiteness, prime support,
-and coprime exponents; an arbitrary-rank Smith additive classification with
-explicit `ZMod 0` free factors, the finite/full-rank criterion, exponent, and
-prime support; the nonsingular square determinant-index formula; and a finite
-prime-power refinement.  This is a reusable topology--arithmetic certificate,
-not a proof-size claim.
-The local source is recorded as a `formalization` that `formalizes` this
-surface; Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent
-manuscript provide the mathematical context.  Centrality, binary/indexed
-products, torus-map short exactness, first-isomorphism packaging, and broader
-matrix APIs remain repository context and are explicitly outside this
-Comparator selection.
+finite-cokernel rectangular lattice-cokernel cardinality products, finiteness,
+finite-cokernel prime support, and coprime exponents; an arbitrary-rank Smith
+additive classification with explicit `ZMod 0` free factors, the finite/full-
+rank criterion, and the exponent law; the nonsingular square determinant-index
+formula; and a finite prime-power refinement.  This is a reusable
+topology--arithmetic certificate, not a proof-size claim.  The cardinality and
+prime-support clauses are deliberately gated by finite-cokernel hypotheses.
+When a zero Smith factor remains, `ZMod 0` records a free direction and the
+totalized conventions `Nat.card = 0` and exponent `0` apply; those cases are
+not described as ordinary finite cardinality or torsion-prime support.
+The selected bundle is recorded as an `original-proof` source: this exact
+synthesis is first presented here, while Hatcher, Norman, Brazas--Fabel,
+Calcut--McCarthy, and the parent manuscript provide ingredient and contextual
+background.  Centrality, binary/indexed products, torus-map short exactness,
+first-isomorphism packaging, and broader matrix APIs remain repository context
+and are explicitly outside this Comparator selection.
 
 The accepted first-submission package and the repository-wide extensions below
 are retained as context.  They are not additional claims about the selected
@@ -109,15 +113,16 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
 six linked fields.  Its first field is an explicit all-dimensional winding
-classifier package: representative winding, quotient multiplication, and
-the induced integer-matrix maps on finite-torus loop quotients are tied to the
-same lattice by equations.  It also characterizes their image,
-injectivity, and surjectivity, including the square determinant criteria, and
-states quotient-level matrix composition.  The remaining fields give the canonical matrix-composition identity, rectangular
-lattice-cokernel laws for cardinality/finiteness/prime support/copime
-exponents, an arbitrary-rank Smith additive equivalence with `ZMod 0` free
-factors, the nonsingular square determinant-index formula, and a finite
-prime-power refinement.  The lattice-cokernel fields are stated on the
+classifier package: representative winding, quotient multiplication, and the
+induced integer-matrix maps on finite-torus loop quotients are tied to the same
+lattice by equations.  It also characterizes their image, injectivity, and
+surjectivity, including the square determinant criteria, and states
+quotient-level matrix composition.  The remaining fields give the canonical
+matrix-composition identity, finite-cokernel rectangular lattice-cokernel
+cardinality and prime-support laws (plus finiteness and exponent composition),
+an arbitrary-rank Smith additive equivalence with `ZMod 0` free factors, the
+nonsingular square determinant-index formula, and a finite prime-power
+refinement.  The lattice-cokernel fields are stated on the
 winding lattice; this declaration does not claim the repository's separate
 torus-map short-exact or first-isomorphism wrappers.  The older centrality,
 product, classifier, and broader matrix APIs remain repository support.
@@ -130,13 +135,15 @@ certificate above: a single checked declaration combines the actual winding
 and quotient-group laws, their matrix-map naturality and exact image/
 faithfulness criteria, and the quotient-to-lattice bridge with arbitrary-rank
 composition, Smith, determinant, and prime-power profiles.  The
-finite/full-rank and prime-support statements
-remain valid for singular and rectangular maps, while the determinant formula
-appears only after the square nonsingularity specialization.  This is a
-structural classification interface, not a proof-size report.  The metadata
-records the substantive source as a `formalization` with relationship
-`formalizes`; classical ingredients and their literature context are listed
-separately in `formalization.yaml`.
+finite/full-rank and finite-cokernel prime-support statements remain valid for
+singular and rectangular maps, while the determinant formula appears only
+after the square nonsingularity specialization.  Zero Smith factors are
+explicitly free `ZMod 0` directions; their totalized `Nat.card = 0` and
+exponent-zero behavior is not presented as finite cardinality or torsion
+support.  This is a structural classification interface, not a proof-size
+report.  The metadata records the selected bundle as an `original-proof`
+source with relationship `other`; ingredient literature and contextual
+sources are listed separately in `formalization.yaml`.
 
 For completeness, the repository also contains a separate supporting
 quotient-topology package.  It proves continuous reversal, separate
@@ -345,17 +352,20 @@ The abstract induced map and projection also expose simp-normalized formulas
 on quotient representatives, making the certificate directly usable in
 downstream calculations.
 The rectangular winding equivalence additionally transports `Nat.card` and
-`Finite` exactly, for individual matrices and explicit composites, without
-assuming square dimensions or finiteness in advance.
+`Finite` exactly, for individual matrices and explicit composites.  The
+selected cardinality conclusions use the finite-cokernel hypotheses below;
+outside that regime `Nat.card` is the totalized value zero rather than an
+ordinary finite cardinality.
 The lattice cokernel is also exposed through its Smith-normal-form
-decomposition into finite cyclic `ZMod` factors.  The canonical quotient
+decomposition into cyclic `ZMod` factors: nonzero moduli are finite cyclic
+factors and a zero modulus is the free `ZMod 0` factor.  The canonical quotient
 cokernel of the induced torus homomorphism is transported through the winding
 equivalence to that same explicit product as an additive equivalence of finite
 abelian groups, identifying the obstruction structurally at the topological
 level rather than only by cardinality.  The Smith-normal-form construction is
 now generalized to arbitrary-rank rectangular maps: zero `ZMod 0` factors
 record the free part while nonzero factors record torsion.  Under full target
-rank, the same cyclic product is finite and its exact cardinality is the
+rank, the same cyclic product is finite and its ordinary cardinality is the
 product of the Smith moduli; both the lattice and finite-torus cokernels carry
 this decomposition, and lattice finiteness is exactly the full-rank condition.
 More precisely, finiteness on either side is equivalent to every Smith modulus
@@ -363,8 +373,9 @@ being nonzero, so the criterion detects exactly when no `ZMod 0` free factor
 survives (and is equivalent to full target rank).
 For square nonsingular matrices, a checked arithmetic bridge identifies the
 Smith-modulus product on both sides with `Int.natAbs (Matrix.det A)`.
-The arbitrary-rank `Nat.card` formula remains exact even for infinite
-cokernels, where a `ZMod 0` factor contributes cardinality zero.
+The supporting arbitrary-rank `Nat.card` formula is a totalized identity: an
+infinite cokernel with a surviving `ZMod 0` factor contributes `Nat.card = 0`.
+The selected statement does not call that zero an ordinary cardinality.
 The same arbitrary-rank presentation identifies the additive exponent with the
 lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
 records the free summand both elementwise and globally.
@@ -389,11 +400,14 @@ exponent divides the product of the exponents of the two successive
 cokernels, without an injectivity hypothesis.  Rectangular lattice and
 finite-torus matrix sequences inherit this bound, both for explicit homomorphism
 composition and for canonical `matrixCompose` ranges.
-Under the injectivity hypothesis needed for exactness, the corresponding
-`Nat.card` identity is multiplicative as well: the composite cokernel has the
-product cardinality of the two successive cokernels, on both rectangular
-interfaces.  On the finite-torus side it is also exposed from injectivity of
-the underlying lattice action, via the proved quotient-injectivity transport.
+Under the injectivity hypothesis needed for exactness, the selected `Nat.card`
+identity is asserted after both successive cokernels are known to be finite:
+the ordinary composite cardinality is the product of the two successive
+cardinalities, on both rectangular interfaces.  The supporting development
+also proves the totalized equation outside that regime; there it is only zero
+arithmetic.  On the finite-torus side the finite identity is exposed from
+injectivity of the underlying lattice action, via the proved quotient-
+injectivity transport.
 Under the same hypothesis, finiteness is equivalent across the exact
 sequence: the composite cokernel is finite exactly when both successive
 cokernels are finite, including the canonical `matrixCompose` forms.
@@ -411,17 +425,21 @@ For square matrices, the adjugate exponent bounds let coprime determinant
 absolute values certify coprime successive exponents.  Thus, when the second
 determinant is nonzero, the exact product theorem applies directly to both
 lattice and finite-torus cokernels, including canonical `matrixCompose` forms.
-For every prime `p`, the exact sequence has an exact prime-support law: `p`
-divides the composite exponent iff it divides one of the two successive
-exponents.  Rectangular lattice and finite-torus wrappers expose this law in
-explicit and canonical `matrixCompose` forms, connecting the sequence bounds
-to the prime-power Smith decomposition.
+For every prime `p`, the selected exact-sequence prime-support law is stated
+when both successive cokernels are finite: `p` divides the composite exponent
+iff it divides one of the two successive exponents.  Rectangular lattice and
+finite-torus wrappers expose this finite torsion-support law in explicit and
+canonical `matrixCompose` forms, connecting the sequence bounds to the
+prime-power Smith decomposition.  In a free `ZMod 0` case the totalized
+exponent is zero, so divisibility by every prime is not interpreted as
+torsion-prime support.
 For square matrices, a nonzero determinant of the second factor discharges
 injectivity automatically, so the same law is directly available from
 determinant hypotheses on both lattice and finite-torus cokernels.
-The Smith presentation gives the corresponding factor-level test: a prime
-divides a cokernel exponent exactly when it divides at least one Smith modulus,
-on both lattice and finite-torus sides.
+The Smith presentation gives the corresponding factor-level finite test: after
+the cokernel is finite, a prime divides its exponent exactly when it divides
+at least one Smith modulus, on both lattice and finite-torus sides.  A zero
+modulus is instead the explicitly recorded free case.
 The Smith coordinates also expose exact coordinatewise divisibility tests for
 membership in the lattice and finite-torus matrix images.
 The topological Smith equivalence includes a quotient-representative formula,
@@ -430,9 +448,10 @@ Whenever the Smith factors are nonzero, the cyclic factors are further
 decomposed by the Chinese remainder theorem into an explicit product of
 prime-power cyclic groups, on both lattice and finite-torus cokernels, with
 a representative formula for the refined decoder.
-The refined product also carries an exact cardinality certificate: the
-prime-power orders multiply back to each Smith modulus, so both cokernel
-cardinalities are identified with the resulting full double product.
+The refined finite product also carries an exact ordinary-cardinality
+ certificate: the prime-power orders multiply back to each Smith modulus, so
+ both finite cokernel cardinalities are identified with the resulting full
+ double product.
 The additive exponent of the finite cokernel is likewise proved to be the
 least common multiple of the Smith moduli, giving its precise annihilator.
 Under the explicit all-factors-nonzero hypothesis, the full `Nat.factorization`
@@ -482,13 +501,14 @@ This focused repo is the publication-oriented extraction of that layer.  The
 parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
-For the follow-up, the parent setting is recorded as a `background` source
-and as an `adapts` related formalization.  The local substantive source is a
-`formalization` with relationship `formalizes`, identifying the exact
-six-field Topological Smith certificate selected by the Comparator.  Hatcher,
-Norman, Brazas--Fabel, and Calcut--McCarthy provide the classical mathematical
-sources and context; no first-discovery or priority claim is made for the
-bundled formalization.
+ For the follow-up, the parent setting is recorded as a `background` source
+ and as an `adapts` related formalization.  The selected six-field
+ Topological Smith synthesis is recorded as an `original-proof` source with
+ relationship `other`; the local Lean files are its implementation, not a
+ circular mathematical source.  Hatcher and Norman are ingredient-only
+ background, while Brazas--Fabel and Calcut--McCarthy provide quotient-
+ topological context.  No priority claim is made for the classical
+ ingredients.
 
 ## Publication boundary
 

@@ -85,17 +85,18 @@ if followup
       selected_source.match?(/^\s+#{Regexp.escape(leaf)}\s*:/)
   end
 
+  original_sources = sources.select { |source| source["type"] == "original-proof" }
+  abort "follow-up must declare exactly one original-proof source" unless original_sources.length == 1
+  original_source = original_sources.first
+  abort "original-proof source must identify the selected Topological Smith theorem" unless
+    original_source["title"].to_s.include?("Topological Smith exactness") &&
+      original_source["relationship"] == "other"
   local_sources = sources.select { |source| source["type"] == "formalization" }
-  abort "follow-up must have exactly one substantive formalization source" unless local_sources.length == 1
-  local_source = local_sources.first
-  abort "formalization source must identify the selected Topological Smith theorem" unless
-    local_source["title"].to_s.include?("Topological Smith exactness") &&
-      local_source["location"].to_s.include?("topological_smith_exactness") &&
-      local_source["relationship"] == "formalizes"
+  abort "follow-up must not cite its local Lean development as a source" unless local_sources.empty?
   invalid_relationships = sources.reject do |source|
-    %w[background independently-proves formalizes adapts builds-on other].include?(source["relationship"])
+    %w[background other].include?(source["relationship"])
   end
-  abort "follow-up sources use an unsupported relationship" unless invalid_relationships.empty?
+  abort "original-proof follow-up sources must be background or other" unless invalid_relationships.empty?
 end
 
 methods = document.dig("automation", "methods")
