@@ -9,6 +9,7 @@ import Mathlib.Topology.Homotopy.Lifting
 import ComputationalPaths
 import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
+import Mathlib.LinearAlgebra.Matrix.ToLin
 
 /-!
 # Follow-up solution: quotient-topological fundamental groups
@@ -256,6 +257,11 @@ spaces, and is homotopy-invariant as a global property.
 -/
 
 namespace TopologicalComputationalPathsFollowup
+
+/-! The large general-theory development below is retained as supporting
+    material, but kept in a private namespace so importing the standalone
+    statement module does not redeclare its public names. -/
+namespace Legacy
 
 open Set Topology
 open scoped ContinuousMap Topology
@@ -677,17 +683,9 @@ abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
 
-/-! Statement-facing matrix actions used to expose the cokernel composition
-certificate without changing the standalone comparison imports. -/
+/-! Use the same canonical Mathlib matrix action as the challenge surface. -/
 noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
-    (Fin n → ℤ) →+ (Fin m → ℤ) where
-  toFun z j := ∑ i : Fin n, A j i * z i
-  map_zero' := by
-    ext j
-    simp
-  map_add' z w := by
-    ext j
-    simp [mul_add, Finset.sum_add_distrib]
+    (Fin n → ℤ) →+ (Fin m → ℤ) := (Matrix.mulVecLin A).toAddMonoidHom
 
 def matrixCompose {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
@@ -1416,12 +1414,306 @@ theorem main_result :
         FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
           A p hp }⟩
 
+end Legacy
+
+/-! Statement-side definitions duplicated verbatim from `FollowupChallenge`.
+    Keeping this small surface outside the supporting proof namespace lets the
+    Comparator compare the selected theorem while the proof itself continues
+    to use the substantive `ComputationalPaths` development above. -/
+open scoped BigOperators
+open ComputationalPaths.Path.GeometricTopology
+attribute [local instance] _root_.Path.Homotopic.setoid
+
+abbrev Circle : Type := AddCircle (1 : ℝ)
+abbrev FiniteTorus (n : ℕ) : Type := Fin n → Circle
+noncomputable abbrev base (n : ℕ) : FiniteTorus n := fun _ => 0
+abbrev Loop (n : ℕ) : Type := _root_.Path (base n) (base n)
+abbrev LoopQuot (n : ℕ) : Type :=
+  _root_.Path.Homotopic.Quotient (base n) (base n)
+abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
+
+noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
+    (Fin n → ℤ) →+ (Fin m → ℤ) := (Matrix.mulVecLin A).toAddMonoidHom
+
+def matrixCompose {n m k : ℕ}
+    (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
+    Fin k → Fin n → ℤ :=
+  fun l i => ∑ j : Fin m, B l j * A j i
+
+noncomputable def smithNormalFormFactor
+    {m r : ℕ} {N : Submodule ℤ (Fin m → ℤ)}
+    (snf : Module.Basis.SmithNormalForm N (Fin m) r) (i : Fin m) : ℤ :=
+  if h : i ∈ Set.range snf.f then snf.a (Classical.choose h) else 0
+
+noncomputable def smithFactor {n m : ℕ}
+    (A : Fin m → Fin n → ℤ) (i : Fin m) : ℤ :=
+  smithNormalFormFactor
+    (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+      (matrixAction A).range.toIntSubmodule).2 i
+
+noncomputable instance loopQuotTopology (n : ℕ) :
+    TopologicalSpace (LoopQuot n) :=
+  TopologicalSpace.coinduced
+    (Quotient.mk' : Loop n → LoopQuot n) inferInstance
+
+structure TopologicalSmithExactnessCertificate where
+  topological_winding_homeomorph :
+    ∀ (n : ℕ), Nonempty (LoopQuot n ≃ₜ (Fin n → ℤ))
+  matrix_composition :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ) (z : Fin n → ℤ),
+      matrixAction B (matrixAction A z) =
+        matrixAction (matrixCompose A B) z
+  rectangular_composition_profile :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (_hB : Function.Injective (matrixAction B)),
+      Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+          Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+        Nat.card ((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
+        Finite ((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range)) ∧
+      (∀ (p : ℕ) (_hp : Nat.Prime p),
+        p ∣ AddMonoid.exponent
+            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+          p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+            p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)) ∧
+      (∀ (_hcop : Nat.Coprime
+          (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+          (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))),
+        AddMonoid.exponent
+            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) =
+          AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+            AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))
+  smith_cokernel_profile :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Nonempty
+          (((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ≃+
+            (∀ i : Fin m, ZMod (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
+      (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+        Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+          Module.finrank ℤ (Fin m → ℤ)) ∧
+      (AddMonoid.exponent
+          ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+        Finset.univ.lcm (fun i : Fin m =>
+          (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
+      (∀ (p : ℕ) (_hp : Nat.Prime p),
+        p ∣ AddMonoid.exponent
+            ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+          ∃ i : Fin m, p ∣ (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+  determinant_index :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ)
+      (hA : Matrix.det A ≠ 0),
+      Nat.card ((Fin n → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+        Int.natAbs (Matrix.det A)
+  prime_power_torsion_profile :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+      (_hA : ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0),
+      Nonempty
+          (((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ≃+
+            (∀ i : Fin m, ∀ p : (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+              ZMod (p ^ ((smithNormalFormFactor
+                (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                  (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)))) ∧
+        Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+          ∏ i : Fin m, ∏ p : (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+            (p : ℕ) ^ ((smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
+
 /- The selected follow-up theorem is the topological--Smith
    composition-and-classification theorem, assembled from the independently
    checked finite-torus module. -/
 theorem topological_smith_exactness :
-    Nonempty
-      _root_.ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.TopologicalSmithExactnessCertificate := by
-  exact ⟨FiniteTorusWinding.topologicalSmithExactnessCertificate⟩
+    Nonempty TopologicalSmithExactnessCertificate := by
+  refine ⟨{
+    topological_winding_homeomorph := by
+      intro n
+      exact ⟨FiniteTorusWinding.loopQuotHomeomorphIntVector n⟩
+    matrix_composition := by
+      intro n m k A B z
+      have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by
+        ext w j
+        rfl
+      have hBeq : matrixAction B = FiniteTorusWinding.matrixAction B := by
+        ext w j
+        rfl
+      have hABeq : matrixAction (matrixCompose A B) =
+          FiniteTorusWinding.matrixAction
+            (FiniteTorusWinding.matrixCompose A B) := by
+        ext w j
+        rfl
+      rw [hAeq, hBeq, hABeq]
+      exact FiniteTorusWinding.matrixAction_comp A B z
+    rectangular_composition_profile := by
+      intro n m k A B hB
+      have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by
+        ext z j
+        rfl
+      have hBeq : matrixAction B = FiniteTorusWinding.matrixAction B := by
+        ext z j
+        rfl
+      have hB' : Function.Injective (FiniteTorusWinding.matrixAction B) := by
+        rw [← hBeq]
+        exact hB
+      refine ⟨?_, ?_, ?_, ?_⟩
+      · rw [hAeq, hBeq]
+        exact
+          FiniteTorusWinding.matrixAction_rectangular_cokernel_card_mul_of_injective
+            A B hB'
+      · rw [hAeq, hBeq]
+        exact
+          FiniteTorusWinding.matrixAction_rectangular_cokernel_finite_iff_of_injective
+            A B hB'
+      · intro p hp
+        rw [hAeq, hBeq]
+        exact
+          FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_prime_dvd_iff_of_injective
+            A B hB' p hp
+      · intro hcop
+        have hcop' : Nat.Coprime
+            (AddMonoid.exponent
+              ((Fin m → ℤ) ⧸ (FiniteTorusWinding.matrixAction A).range))
+            (AddMonoid.exponent
+              ((Fin k → ℤ) ⧸ (FiniteTorusWinding.matrixAction B).range)) := by
+          rw [← hAeq, ← hBeq]
+          exact hcop
+        rw [hAeq, hBeq]
+        exact
+          FiniteTorusWinding.matrixAction_rectangular_cokernel_exponent_eq_mul_of_coprime_of_injective
+            A B hB' hcop'
+    smith_cokernel_profile := by
+      intro n m A
+      have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by
+        ext z j
+        rfl
+      have hsmith : ∀ i : Fin m, smithFactor A i =
+          FiniteTorusWinding.smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+        intro i
+        unfold smithFactor
+        rw [hAeq]
+        rfl
+      have hsf : (fun i : Fin m => smithFactor A i) =
+          (fun i : Fin m =>
+            FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i) := by
+        funext i
+        exact hsmith i
+      have hfactor : ∀ i : Fin m,
+          smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i =
+            FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+        intro i
+        rw [hAeq]
+        rfl
+      have hcod : (∀ i : Fin m, ZMod (smithFactor A i).natAbs) =
+          (∀ i : Fin m,
+            ZMod (FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i).natAbs) := by
+        exact congrArg (fun s : Fin m → ℤ => ∀ i : Fin m, ZMod (s i).natAbs) hsf
+      refine ⟨?_, ?_, ?_, ?_⟩
+      · rw [hAeq]
+        cases hsf
+        exact ⟨FiniteTorusWinding.matrixAction_cokernel_smithEquiv A⟩
+      · rw [hAeq]
+        exact FiniteTorusWinding.matrixAction_cokernel_finite_iff_full_rank A
+      · simp_rw [hfactor]
+        rw [hAeq]
+        exact FiniteTorusWinding.matrixAction_cokernel_exponent_eq_smithFactorLcm A
+      · intro p hp
+        simp_rw [hfactor]
+        rw [hAeq]
+        exact
+          FiniteTorusWinding.matrixAction_cokernel_exponent_prime_dvd_iff_smithFactor
+            A p hp
+    determinant_index := by
+      intro n A hA
+      have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by
+        ext z j
+        rfl
+      rw [hAeq]
+      exact FiniteTorusWinding.matrixAction_cokernel_card_eq_natAbs_det A hA
+    prime_power_torsion_profile := by
+      intro n m A hA
+      have hAeq : matrixAction A = FiniteTorusWinding.matrixAction A := by
+        ext z j
+        rfl
+      have hsmith : ∀ i : Fin m, smithFactor A i =
+          FiniteTorusWinding.smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+        intro i
+        unfold smithFactor
+        rw [hAeq]
+        rfl
+      have hsf : (fun i : Fin m => smithFactor A i) =
+          (fun i : Fin m =>
+            FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i) := by
+        funext i
+        exact hsmith i
+      have hfactor : ∀ i : Fin m,
+          smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i =
+            FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i := by
+        intro i
+        rw [hAeq]
+        rfl
+      have hcod :
+          (∀ i : Fin m, ∀ p : (smithFactor A i).natAbs.primeFactors,
+            ZMod (p ^ ((smithFactor A i).natAbs.factorization p))) =
+          (∀ i : Fin m, ∀ p :
+            (FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+            ZMod (p ^ ((FiniteTorusWinding.smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p))) := by
+        exact congrArg (fun s : Fin m → ℤ =>
+          ∀ i : Fin m, ∀ p : (s i).natAbs.primeFactors,
+            ZMod (p ^ ((s i).natAbs.factorization p))) hsf
+      have hA' : ∀ i : Fin m,
+          FiniteTorusWinding.smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (FiniteTorusWinding.matrixAction A).range.toIntSubmodule).2 i ≠ 0 := by
+        intro i
+        rw [← hfactor i]
+        exact hA i
+      refine ⟨?_, ?_⟩
+      · rw [hAeq]
+        cases hsf
+        exact ⟨FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv A hA'⟩
+      · simp_rw [hfactor]
+        rw [hAeq]
+        exact
+          FiniteTorusWinding.matrixAction_cokernel_smithPrimePowerEquiv_card_eq_primePowerProduct
+            A hA'
+  }⟩
 
 end TopologicalComputationalPathsFollowup

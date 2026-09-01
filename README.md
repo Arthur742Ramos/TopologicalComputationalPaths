@@ -11,23 +11,22 @@ artifact have a small and auditable boundary.
 The current Comparator artifact is `comparator-followup.json`, which selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  The selected declaration is a named
-`TopologicalSmithExactnessCertificate` with seven mathematically linked parts:
-an explicit homeomorphism from each finite-torus quotient loop group to its
-integer winding lattice; winding-compatible rectangular short exactness on
-the actual quotient fundamental groups; the associated square
-first-isomorphism quotient; rectangular composition laws for cardinality,
-finiteness, exponent, and prime support; an arbitrary-rank Smith additive
-classification with explicit `ZMod 0` free factors, the finite/full-rank
-criterion, exponent, and
-prime support; the nonsingular square determinant-index specialization; and a
-prime-power refinement in the finite case.  The certificate is a reusable
-topology--algebra comparison theorem, not a proof-size claim.  Its exact
-bundled comparison is recorded as
-`original-proof` with a deliberately narrow scope; Hatcher, Norman,
-Brazas--Fabel, Calcut--McCarthy, and the parent manuscript are listed as
-background rather than as priority sources.  Centrality, binary/indexed
-products, and the broader matrix APIs remain repository context and are
-explicitly outside this Comparator selection.
+`TopologicalSmithExactnessCertificate` with six fields: an explicit
+homeomorphism from each finite-torus quotient loop group to its integer
+winding lattice; the canonical matrix-composition identity; rectangular
+lattice-cokernel laws for cardinality, finiteness, prime support, and coprime
+exponents; an arbitrary-rank Smith additive classification with explicit
+`ZMod 0` free factors, the finite/full-rank criterion, exponent, and prime
+support; the nonsingular square determinant-index formula; and a finite
+prime-power refinement.  The matrix fields concern the integer winding
+lattice, while the topological field supplies the quotient-to-lattice bridge.
+This is a reusable topology--arithmetic certificate, not a proof-size claim.
+The local source is recorded as a `formalization` that `formalizes` this
+surface; Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent
+manuscript provide the mathematical context.  Centrality, binary/indexed
+products, torus-map short exactness, first-isomorphism packaging, and broader
+matrix APIs remain repository context and are explicitly outside this
+Comparator selection.
 
 The accepted first-submission package and the repository-wide extensions below
 are retained as context.  They are not additional claims about the selected
@@ -71,16 +70,14 @@ an explicit standard-representative map, and both inverse/completeness laws.
 The baseline mathematical point is the exact separation between the canonical
 topology forced by explicitly composable representatives and the ordinary
 pullback topology on quotient arrows.  The follow-up instead selects the
-topological Smith composition certificate described below: it transports
-rectangular exactness through the winding model, proves the exact composition
-laws for the resulting topological cokernels, and classifies them by their
-Smith and prime-power factors.  The centrality and product results, the
-observable based fiber, and the strict Hawaiian-earring comparison remain
-useful repository context but are not selected by the follow-up Comparator.
-The winding and Smith calculations are classical validation ingredients; the
-follow-up claim is the explicitly scoped bundled topology--algebra comparison theorem,
-not first publication of those individual calculations.  Synthetic integer
-and finite-trace examples are not used as relevance evidence.
+topological Smith certificate described below: it identifies the quotient loop
+group with the winding lattice and records the lattice-cokernel composition,
+Smith, determinant-index, and prime-power profiles.  The centrality and
+product results, the observable based fiber, and the strict Hawaiian-earring
+comparison remain useful repository context but are not selected by the
+follow-up Comparator.  Winding and Smith calculations are classical
+ingredients; the follow-up account distinguishes that mathematics from its
+formal packaging and makes no priority claim for the individual results.
 
 The baseline Palomar declaration (the accepted first submission) is the
 comparison in item 3, the genuine
@@ -108,39 +105,30 @@ surface.  For the follow-up submission, `comparator-followup.json` selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`; it does not select the baseline `main_result` above.
 The selected declaration is a `TopologicalSmithExactnessCertificate` with
-seven linked fields.  First, it gives an explicit homeomorphism from each
-finite-torus quotient loop group to its integer winding lattice.  Second, for
-composable rectangular integer matrices it proves short exactness on the
-actual quotient fundamental groups and on their winding lattices, together
-with both commuting comparison maps.  Third, it identifies the associated
-square first-isomorphism quotient.  Fourth, it proves the rectangular
-composition laws: cardinalities multiply, finiteness is equivalent for the
-successive and composite cokernels, prime support is the union of successive
-supports, and coprime exponents multiply.  Fifth, it gives an arbitrary-rank
-Smith additive equivalence, retaining `ZMod 0` free factors and proving the
-finite/full-rank criterion, the exponent-lcm identity, and the prime-support
-identity.  Sixth, for a nonsingular square matrix it identifies the
-topological cokernel cardinality and Smith-modulus product with the absolute
-determinant.  Seventh, in the finite case it refines the Smith factors into
-explicit prime-power cyclic factors with an exact cardinality product.  This
-is the publication-facing topology--algebra comparison theorem; the older
-centrality, product, classifier, and broader matrix APIs remain repository
-support.
+six linked fields.  It gives an explicit homeomorphism from each finite-torus
+quotient loop group to its integer winding lattice, the canonical
+matrix-composition identity, rectangular lattice-cokernel laws for
+cardinality/finiteness/prime support/copime exponents, an arbitrary-rank
+Smith additive equivalence with `ZMod 0` free factors, the nonsingular square
+determinant-index formula, and a finite prime-power refinement.  The
+matrix-cokernel fields are deliberately stated on the winding lattice; this
+declaration does not claim the repository's separate torus-map short-exact or
+first-isomorphism wrappers.  The older centrality, product, classifier, and
+broader matrix APIs remain repository support.
 
 ### Research contribution and selected boundary
 
 The follow-up is not presented as a new discovery of winding or Smith normal
-form.  Its paper-sized contribution is the exact composition-and-classification
-theorem above: it makes the topological winding model, its rectangular exact
-sequence, square first-isomorphism quotient, composition arithmetic,
-free-versus-torsion Smith profile, prime-power refinement, and square
-determinant index one reusable result group.  The finite/full-rank and
-prime-support statements remain valid for singular and rectangular maps,
-while the determinant formula appears only after the square nonsingularity
-specialization.  This is a structural classification result, not a proof-size
-report.  The metadata records the exact comparison as `original-proof`, with
-the claim limited to this comparison; the classical ingredients and their
-literature context are explicitly separated in `formalization.yaml`.
+form.  Its contribution is the exact, quantified topology-to-arithmetic
+certificate above: a single checked declaration combines the quotient-to-
+lattice homeomorphism with arbitrary-rank composition, Smith, determinant,
+and prime-power profiles.  The finite/full-rank and prime-support statements
+remain valid for singular and rectangular maps, while the determinant formula
+appears only after the square nonsingularity specialization.  This is a
+structural classification interface, not a proof-size report.  The metadata
+records the substantive source as a `formalization` with relationship
+`formalizes`; classical ingredients and their literature context are listed
+separately in `formalization.yaml`.
 
 For completeness, the repository also contains a separate supporting
 quotient-topology package.  It proves continuous reversal, separate
@@ -225,7 +213,7 @@ path-based classifiers are equal as continuous multiplicative equivalences.
 The fixed-dimensional winding/basepoint and matrix material described above
 is useful context for the selected certificate.  The cross-dimensional
 coordinate API and the broader matrix/Smith inventory that follows are
-repository support; only the seven fields explicitly listed in
+repository support; only the six fields explicitly listed in
 `formalization.yaml` are part of the Comparator account.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
@@ -487,12 +475,12 @@ parent repository remains the canonical broad development tree for the other
 topological and geometric constructions.
 
 For the follow-up, the parent setting is recorded as a `background` source
-and as an `adapts` related formalization.  The local `original-proof` entry
-identifies the exact bundled Topological Smith certificate selected by the
-Comparator.  That entry claims first presentation of this combined
-topology--algebra statement only; the circle, quotient-topology,
-change-of-basepoint, and Smith ingredients are classical background and are
-not claimed as first discoveries here.
+and as an `adapts` related formalization.  The local substantive source is a
+`formalization` with relationship `formalizes`, identifying the exact
+six-field Topological Smith certificate selected by the Comparator.  Hatcher,
+Norman, Brazas--Fabel, and Calcut--McCarthy provide the classical mathematical
+sources and context; no first-discovery or priority claim is made for the
+bundled formalization.
 
 ## Publication boundary
 

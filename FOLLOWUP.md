@@ -5,40 +5,35 @@
 The Comparator selects
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  This declaration is a nonempty
-`TopologicalSmithExactnessCertificate` with seven fields:
+`TopologicalSmithExactnessCertificate` with six fields:
 
 1. `topological_winding_homeomorph` identifies every finite-torus quotient
    loop group with its integer winding lattice by an explicit homeomorphism;
-2. `rectangular_winding_short_exact` proves injectivity, kernel=image, and
-   surjectivity for composable rectangular integer-matrix maps on the actual
-   finite-torus quotient fundamental groups and on the winding lattices, and
-   proves both winding comparison squares commute;
-3. `first_isomorphism_quotient` identifies the square quotient of the
-   composite cokernel by the projection kernel with the second topological
-   cokernel;
-4. `rectangular_composition_profile` proves the rectangular composition laws:
-   cokernel cardinalities multiply, finiteness is equivalent term-by-term,
-   prime support is the union of the successive supports, and coprime
-   successive exponents multiply exactly;
-5. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
+2. `matrix_composition` proves that the canonical additive matrix action
+   composes according to the stated row-by-column `matrixCompose` law;
+3. `rectangular_composition_profile` proves the rectangular lattice-cokernel
+   composition laws: cardinalities multiply, finiteness is equivalent
+   term-by-term, prime support is the union of the successive supports, and
+   coprime successive exponents multiply exactly;
+4. `smith_cokernel_profile` gives an arbitrary-rank additive Smith
    equivalence, explicitly retaining `ZMod 0` free factors, and proves the
    finite/full-rank criterion, exponent-as-lcm formula, and prime-support law;
-6. `determinant_index_compatibility` specializes the same topological cokernel
-   to nonsingular square matrices and identifies both its cardinality and its
-   Smith-modulus product with the absolute determinant.
-7. `prime_power_torsion_profile` refines every full-rank rectangular cokernel
-   into explicit prime-power cyclic factors and proves the resulting product
-   cardinality formula.
+5. `determinant_index` specializes the winding-lattice cokernel to
+   nonsingular square matrices and identifies its cardinality with the
+   absolute determinant;
+6. `prime_power_torsion_profile` refines every full-rank rectangular lattice
+   cokernel into explicit prime-power cyclic factors and proves the resulting
+   product cardinality formula.
 
-This is the selected mathematical contribution: a rectangular composition and
-Smith-classification theorem for quotient fundamental groups of finite tori.
-The theorem links the topological winding model to an exact composition law,
-then gives a complete arbitrary-rank free/torsion and prime-power description
-of every cokernel, with the determinant index as a square specialization.
-Winding, quotient fundamental groups, short exactness, and Smith normal form
-are classical ingredients.  The metadata records an `original-proof` source
-only for this exact combined theorem group and expressly does not claim
-priority for those individual ingredients.  The detailed general
+This is the selected mathematical contribution: a quantified topology-to-
+arithmetic certificate for quotient fundamental groups of finite tori and
+their winding-lattice cokernels.  It links the topological winding model to
+matrix composition, then gives a complete arbitrary-rank free/torsion and
+prime-power description of every lattice cokernel, with the determinant index
+as a square specialization.  Winding, quotient fundamental groups, and
+Smith normal form are classical ingredients.  The substantive local source is
+recorded as a `formalization` with relationship `formalizes`, and no priority
+claim is made for the bundled formal packaging.  The detailed general
 quotient-topology and finite-torus developments below are supporting inventory,
 not additional Comparator claims unless listed in `main_results.selected_fields`.
 
@@ -418,7 +413,7 @@ not only as a discreteness statement.  More strongly, the classifier may be
 defined along any explicit path from the canonical basepoint, and all such
 path-based classifiers are equal by the abelian-target transport theorem.
 
-The selected finite-torus surface is exactly the seven certificate fields
+The selected finite-torus surface is exactly the six certificate fields
 listed in `formalization.yaml`.  The fixed-dimensional winding/basepoint
 classifier and the broader topological matrix/Smith wrappers below are
 repository support; they are not additional Comparator claims unless their
@@ -562,37 +557,29 @@ obstruction, not merely a cardinality or an unstructured equivalence.
 ## Literature and novelty boundary
 
 The selected follow-up has a deliberately explicit mathematical boundary.
-Hatcher and Norman supply the classical winding and Smith/invariant-factor
-context; Brazas--Fabel and Calcut--McCarthy supply the quotient-topological
-context; and the parent computational-path manuscript supplies the inherited
-setting.  These are recorded as `background` sources.  The local
-`Topological Smith exactness and composition for finite-torus quotient cokernels` entry is the
-only `original-proof` source and has relationship `other`.
-
-The originality claim is limited to the exact bundled certificate selected by
-the Comparator.  In particular, it claims first presentation of the combined
-statement that (a) identifies the quotient loop group with its winding lattice
-by a homeomorphism, (b) transports rectangular short exactness and its
-square first-isomorphism quotient through that model, (c) proves the
-rectangular composition laws for cardinality, finiteness, exponent, and prime
-support, (d) classifies every resulting topological cokernel by arbitrary-rank
-Smith factors and finite prime-power factors, including free `ZMod 0`
-coordinates, and (e) recovers the determinant index in the nonsingular square
-case.  It does not claim first discovery of winding, quotient
-fundamental groups, short exact sequences, Smith normal form, determinant
-indices, or standard centrality and change-of-basepoint facts.
+Hatcher and Norman are the substantive sources for the classical winding and
+Smith/invariant-factor results that the certificate uses; the repository
+independently proves those ingredients in the selected setting.  They are
+therefore recorded with relationship `independently-proves`.  Brazas--Fabel
+and Calcut--McCarthy provide the quotient-topological context, and the parent
+computational-path manuscript provides the inherited setting; those entries
+are recorded as `background`.  The local `Topological Smith exactness and
+composition for finite-torus quotient cokernels` entry is a `formalization`
+with relationship `formalizes`: it is the substantive Lean development from
+which the six-field Comparator surface is adapted.  This provenance account
+makes no first-presentation or priority claim for the bundled mathematics.
 
 The selected theorem is intended for specialists who need a computable,
-presentation-independent classification of induced maps between finite-torus
-quotient groups.  Its interest is the common topological object and the
-reusable rectangular composition interface: exact sequences make successive
-cokernels compose, prime support and coprime exponents give arithmetic control,
-singular maps expose free directions, full-rank maps expose finite torsion, and
-the prime-power refinement gives an explicit finite decomposition.  Square
-nonsingular maps recover the determinant index without changing presentations.
-Repository-wide centrality, product, classifier, CRT, and broader matrix
-developments remain useful supporting material but are outside the selected
-Comparator surface.
+presentation-independent bridge from finite-torus quotient loop groups to
+integer-lattice cokernels.  Its interest is the common topological object and
+the reusable quantified interface: matrix composition supports rectangular
+cokernel profiles, Smith factors expose free `ZMod 0` directions and finite
+torsion, prime support and coprime exponents give arithmetic control, and the
+square nonsingular specialization recovers the determinant index.  The
+finite/full-rank boundary and prime-power refinement are stated uniformly for
+all dimensions and ranks.  Repository-wide centrality, product, torus-map
+short-exact, first-isomorphism, CRT, and broader matrix developments remain
+useful supporting material but are outside the selected Comparator surface.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex

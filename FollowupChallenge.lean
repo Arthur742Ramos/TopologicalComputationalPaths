@@ -7,267 +7,23 @@ import Mathlib.Topology.Algebra.ContinuousMonoidHom
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
 import Mathlib.Topology.Homotopy.Lifting
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
-import ComputationalPaths.Path.Topology.TopologicalSmithExactness
 
 /-!
 # Follow-up challenge: quotient-topological fundamental groups
 
-First prove that the compact-open based-loop quotient is functorial under
-continuous maps, invariant under homeomorphism and change of basepoint along
-a path, and preserves binary products whenever the product of the two loop
-projections is a quotient map.  For every pointed space, prove that it is a
-quasitopological group: reversal and both one-variable translations are
-continuous.  Prove the exact criterion that this quotient is discrete if and
-only if the null-homotopy class is open.  Derive open quotient projection,
-the quotient-square property, and joint continuity of multiplication in the
-positive case.
-
-Then instantiate the criterion for every finite product of additive circles,
-including an explicit winding classification by the integer lattice.
-In locally path-connected spaces, also prove the converse finite-ladder
-criterion: semilocal simple connectivity is equivalent to discreteness of
-every based quotient fundamental group, and every based-loop homotopy class is
-open.  The finite-torus certificate additionally exposes the all-basepoint
-semilocal consequence and the all-basepoint integer-lattice classifier from
-the basepoint-transport theorem.  It strengthens this family with a
-continuous multiplicative equivalence to `Multiplicative (Fin n → ℤ)` and
-explicit commutativity of quotient multiplication at every basepoint.  The
-finite-torus winding vector is natural under coordinate-selection maps (the
-certificate records the fixed-dimensional reindexing instance), and the
-standard representatives and quotient classifier satisfy the matching
-reindexing equations.  The multiplicative lattice classifier satisfies the
-same reindexing law, including selections between different finite dimensions.
-The path-based classifier also satisfies the corresponding naturality square
-at arbitrary torus basepoints after mapping the chosen transport path.
-By abelian-target path independence, the canonical classifier satisfies the
-same square without exposing a path choice.
-The lattice reindexings are continuous additive morphisms with their own
-identity and composition coherence.
-For finite index equivalences, the coordinate map is a torus homeomorphism
-and the lattice reindexing is a continuous additive equivalence with matching
-coherence.
-The arbitrary-basepoint classifier naturality squares are also stated through
-the continuous additive reindexing morphism.
-Surjective and injective index maps additionally yield the matching
-injectivity and surjectivity results for torus maps, lattice reindexing, and
-typed quotient maps.
-For an arbitrary index map, the image is characterized exactly by winding
-vectors constant on its fibers, at both the lattice and typed quotient levels.
-The converses are included as exact iff criteria at the raw torus, lattice,
-and typed quotient levels.  Typed quotient coordinate maps also compose
-contravariantly and preserve the transported additive structure continuously
-for the discrete quotient topologies, with their kernels characterized by
-vanishing on the index-map image.  At arbitrary torus basepoints, coordinate
-selection is also exposed as a continuous multiplicative homomorphism between
-the corresponding quotient fundamental groups, with explicit
-identity/composition coherence and a direct classifier-naturality statement.
-The canonical classifiers also transport the exact fiber-constant image,
-injectivity/surjectivity converse, and kernel descriptions to every torus
-basepoint.  The induced homomorphism also commutes with explicit basepoint
-transport, giving a naturality square before any classifier is chosen.
-The supporting finite-torus module additionally extends these coordinate
-selection results to arbitrary integer matrices: matrix maps act continuously
-on the torus and on its integer lattice, compose with the usual row-by-column
-law, and transfer exact image, kernel, injectivity, and surjectivity statements
-through winding.  It also exposes the induced continuous multiplicative
-homomorphisms at arbitrary basepoints, proves their compatibility with
-basepoint transport, and states the path-based classifier square with the
-endpoint cast made explicit.  Abelian-target path independence then gives
-the same matrix naturality square for the canonical classifier without a
-path parameter.  The canonical classifier also transfers the exact matrix
-image and kernel descriptions, and the injectivity/surjectivity iff criteria,
-to every chosen basepoint, each as an explicit iff theorem.
-The arbitrary-basepoint homomorphisms additionally satisfy typed
-contravariant composition and identity laws with explicit endpoint casts.
-An explicit two-sided integer-matrix inverse further yields a continuous
-additive lattice equivalence, a torus homeomorphism, and quotient
-homeomorphism and continuous additive equivalence for the transported
-loop-class groups.  At every arbitrary torus basepoint, it also yields a
-continuous multiplicative quotient equivalence with explicit injectivity and
-surjectivity consequences.
-For square matrices, injectivity of the lattice and canonical quotient action
-is equivalent to a nonzero determinant, while surjectivity is equivalent to a
-unit determinant.  The canonical nonsingular inverse of a unimodular matrix
-therefore supplies all of the preceding equivalence layers without an extra
-inverse witness, including at arbitrary basepoints.
-    For every nonzero determinant, the winding-lattice cokernel is finite with
-    cardinality exactly `Int.natAbs (Matrix.det A)`, and finiteness is exposed
-    explicitly as a quantitative index certificate.
-    At the canonical finite-torus basepoint, the induced quotient image has the
-    same exact index and cokernel cardinality, with an explicit finiteness
-    theorem identifying the topological quotient obstruction with the
-    determinant index.
-    For composable non-singular square matrices, the determinant index is
-    multiplicative under matrix composition on both the lattice and canonical
-    quotient cokernel.
-    Composition by a non-singular matrix `B` also induces a canonical additive
-    map from the cokernel of `A` into that of `B ∘ A`, proved injective on both
-    the winding lattice and the topological quotient.
-    The projection from the cokernel of `B ∘ A` onto the cokernel of `B` is
-    surjective with exactly that image as its kernel, giving a short exact
-    sequence on both sides.
-    The quotient of the composition cokernel by the projection kernel is also
-    equipped with an explicit first-isomorphism additive equivalence to the
-    cokernel of `B`, including its action on quotient representatives.
-    The underlying first-isomorphism argument is packaged for arbitrary
-    composable additive homomorphisms, so rectangular integer matrices in any
-    composable dimensions inherit the same short-exact sequence under
-    injectivity of the second action; the finite-torus quotient maps satisfy
-    the corresponding transported theorem.  The composite ranges are also
-    identified with the canonical row-by-column `matrixCompose` ranges, and
-    the exact-sequence and converse-criterion interfaces are exposed in that
-    notation.  The substantive finite-torus module additionally lifts the
-    winding equivalence to rectangular cokernels and verifies naturality for
-    both maps in the exact diagram, including direct naturality theorems for
-    the named square-matrix `matrixCompose` maps.  The substantive module also
-    packages both exact sequences and both commuting squares in one
-    rectangular diagram certificate.  The abstract map and projection also
-    have explicit quotient-representative formulas.  The substantive module
-    transports cardinality and finiteness across the rectangular winding
-    equivalence for individual matrices and explicit composites.
-    It also generalizes the Smith-normal-form product to arbitrary-rank
-    rectangular maps: complementary coordinates contribute explicit `ZMod 0`
-    free factors and embedded Smith coordinates contribute cyclic torsion
-    factors.  Under full target rank, the exact product of Smith moduli is
-    transported to the torus cokernel as well, and the lattice finite-cokernel
-    condition is characterized exactly by full target rank.  The arbitrary-rank
-    factorization also gives a direct finiteness test on both sides: every
-    Smith modulus is nonzero exactly when the corresponding cokernel is finite.
-    In the square nonsingular specialization, the product of Smith moduli is
-    also identified with the determinant index `Int.natAbs (Matrix.det A)` on
-    both the lattice and finite-torus sides.
-    The arbitrary-rank presentation additionally proves the exact `Nat.card`
-    product formula without a finiteness assumption, including infinite cases
-    through the `ZMod 0` factors.
-    The same arbitrary-rank presentation identifies the additive exponent with
-    the lcm of the Smith-factor moduli, so a zero factor forces exponent zero
-    and records the free summand both elementwise and globally.
-    Equivalently, exponent zero is characterized by a zero Smith factor; for
-    rectangular lattice and finite-torus cokernels this is exactly failure of
-    full target rank.
-    More generally, a proposed global annihilator `k` is divisible by the
-    Smith exponent exactly when every Smith-factor modulus divides `k`, with a
-    zero factor forcing `k = 0`.
-    The sharp trivial-cokernel boundary is the exponent-one case: the
-    exponent is one exactly when every Smith factor has unit absolute value.
-    Consequently, a rectangular lattice or finite-torus matrix action is
-    surjective exactly when all of its Smith factors have unit absolute value.
-    For square matrices, the adjugate annihilator also gives the global bound
-    `AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
-    singular case.
-    The finite/infinite dichotomy is equivalently global: each Smith cokernel
-    is finite exactly when its exponent is nonzero, so the zero-exponent
-    criterion is also a complete finiteness test.
-    For every composable additive cokernel sequence, the composite cokernel
-    exponent divides the product of the two successive cokernel exponents,
-    without an injectivity hypothesis; rectangular lattice and finite-torus
-    matrix sequences inherit the bound in explicit composition and canonical
-    `matrixCompose` notation.
-    Under injectivity of the second map, the exact sequence also gives a
-    multiplicative `Nat.card` identity for the composite and successive
-    cokernels, in both rectangular lattice and finite-torus presentations.
-    The finite-torus identity is also exposed from injectivity of the
-    underlying lattice action via the quotient-injectivity equivalence.
-    Under the same hypothesis, the composite cokernel is finite exactly when
-    both successive cokernels are finite, including canonical `matrixCompose`
-    presentations.
-    Under injectivity of the second map, the least common multiple of the two
-    successive cokernel exponents divides the composite exponent.  Together
-    with the product upper bound, this gives a sharp lcm-to-product interval
-    for every such exact sequence.
-    If the two successive cokernel exponents are coprime, injectivity of the
-    second map sharpens the exponent divisibility bound to an exact product.
-    The abstract theorem is transported to rectangular lattice and
-    finite-torus matrix cokernels, with explicit and canonical `matrixCompose`
-    forms; finite-torus users may also discharge injectivity through the
-    underlying lattice action.
-    For square matrices, the adjugate determinant bounds turn coprime
-    determinant absolute values into coprime successive exponents.  If the
-    second determinant is nonzero, the exact exponent product therefore
-    follows on both lattice and finite-torus cokernels, including canonical
-    `matrixCompose` forms.
-    For every prime `p`, the composite exponent is divisible by `p` exactly
-    when at least one successive exponent is.  The prime-support law is
-    transported to rectangular lattice and finite-torus matrices, including
-    canonical `matrixCompose` notation, and links the exact sequence to the
-    prime-power Smith decomposition.
-    For square matrices, a nonzero determinant of the second factor supplies
-    injectivity automatically, exposing the same prime-support law directly
-    from determinant hypotheses on both cokernel presentations.
-    The Smith presentation gives a factor-level refinement: for every prime
-    `p`, divisibility of a cokernel exponent by `p` is equivalent to
-    divisibility of at least one Smith-factor modulus, on both sides.
-    It also supplies exact Smith-coordinate divisibility tests for lattice and
-    finite-torus matrix-image membership, including the zero-factor equations.
-    The topological Smith equivalence has an explicit quotient-representative
-    formula, making the decoder directly usable on loop classes.
-    For every square matrix, the adjugate gives an explicit preimage of each
-    determinant multiple, and the determinant annihilates both the lattice and
-    finite-torus cokernel classes without a nonzero-determinant hypothesis.
-    Whenever all Smith moduli are nonzero, the cyclic factors are further
-    decomposed by the Chinese remainder theorem into explicit prime-power
-    cyclic factors on both lattice and finite-torus cokernels, with a
-    representative formula for the refined decoder.
-    The refined product has an exact cardinality certificate: its prime-power
-    orders multiply back to each Smith modulus, identifying both cokernel
-    cardinalities with the resulting full double product.
-    Its additive exponent is also identified exactly with the least common
-    multiple of the Smith moduli, exposing the precise finite-cokernel
-    annihilator.
-    The same Smith coordinates give an elementwise annihilation criterion:
-    a multiple of a lattice or finite-torus cokernel class vanishes exactly
-    when each transformed coordinate is divisible by the corresponding
-    multiple of its Smith factor, including the zero-factor equations.
-    The additive order of each class is the lcm of the additive orders of its
-    decoded Smith coordinates; a nonzero free `ZMod 0` coordinate records
-    infinite class order.
-    When all factors are nonzero, each coordinate order is computed explicitly
-    as its Smith modulus divided by the gcd with the transformed integer
-    coordinate.
-    For arbitrary rank, infinite order is characterized elementwise: it occurs
-    exactly when a zero Smith factor carries a nonzero transformed coordinate,
-    and the same free-coordinate criterion is exposed on lattice and
-    finite-torus matrix representatives.
-    Equivalently, a natural number is a multiple of a class's additive order
-    exactly when it satisfies the corresponding coordinatewise Smith
-    divisibility equations, including the free-coordinate vanishing
-    constraints.
-    Conversely, a class has finite additive order exactly when every zero
-    Smith factor carries a zero transformed coordinate; this torsion test is
-    exposed on the lattice and finite-torus matrix representatives as well.
-    The non-singular lattice cokernel is additionally presented by an explicit
-    Smith-normal-form product of finite cyclic `ZMod` factors, and the same
-    cyclic-factor presentation is transported to the canonical quotient
-    cokernel of the induced torus homomorphism as an explicit additive
-    equivalence of finite abelian groups.
-The general certificate also records that basepoint transport is independent
-of the chosen path representative up to
-endpoint-fixed homotopy, is the identity on constant paths, and composes along
-concatenated paths; reversing a path supplies the inverse transport.  It also
-records preservation of path-class concatenation
-under continuous maps and naturality of basepoint transport, together with
-the conjugacy law for homotopic maps.  It also records basepoint invariance
-of the joint-continuity boundary, and the pointed specialization that a
-basepoint-fixing homotopy induces equal based homomorphisms.
-On path-connected spaces it also records that joint continuity at one
-basepoint is equivalent to joint continuity at every basepoint, discreteness
-at one basepoint is equivalent to discreteness at every basepoint, and the
-genuine topological-group boundary has the same one-point criterion.  The
-global joint-continuity property is invariant under homotopy equivalence of
-path-connected spaces, and locally path-connected path-connected spaces admit
-a one-basepoint semilocal criterion.
-It also records homotopy and path invariance of the T1 separation boundary,
-its all-basepoint reduction on path-connected spaces, and homotopy invariance
-of that global T1 property.  Finally, it records the exact central-relative
-criterion for equality of two transports, and its abelian-target
-corollary: in an abelian target quotient, transport is independent of the
-chosen path even without an endpoint-fixed homotopy between the paths.
+This statement-side module exposes the selected certificate: finite-torus
+winding classification together with rectangular lattice-cokernel composition,
+Smith-normal-form, determinant-index, and prime-power torsion profiles.  The
+challenge deliberately imports only Mathlib and allowed packages so Palomar can
+compile it in a clean canonical environment.
 -/
 namespace TopologicalComputationalPathsFollowup
 open Set Topology
 open scoped ContinuousMap Topology
+open scoped BigOperators
 attribute [local instance] _root_.Path.Homotopic.setoid
 
 universe u
@@ -283,6 +39,21 @@ noncomputable local instance genericLoopQuotTopologicalSpace
     TopologicalSpace (GenericLoopQuot X x) :=
   TopologicalSpace.coinduced
     (Quotient.mk' : GenericLoop X x → GenericLoopQuot X x) inferInstance
+
+/-! The challenge intentionally contains only statement-side definitions.  In
+    particular, these aliases avoid depending on the candidate's compiled
+    `ComputationalPaths` library when Palomar compiles the challenge in its
+    clean scratch environment. -/
+
+def semilocallySimplyConnectedAt
+    (X : Type u) [TopologicalSpace X] (x : X) : Prop :=
+  ∃ U : Set X, IsOpen U ∧ x ∈ U ∧
+    ∀ γ : GenericLoop X x, Set.range γ ⊆ U →
+      γ.Homotopic (_root_.Path.refl x)
+
+def semilocallySimplyConnected
+    (X : Type u) [TopologicalSpace X] : Prop :=
+  ∀ x : X, semilocallySimplyConnectedAt X x
 
 noncomputable local instance genericLoopQuotGroup
     (X : Type u) [TopologicalSpace X] (x : X) :
@@ -612,29 +383,28 @@ structure QuotientTopologicalFundamentalGroupTheory where
   quotient_discrete_implies_semilocally_simply_connected :
     ∀ (X : Type u) [TopologicalSpace X] (x : X),
       DiscreteTopology (GenericLoopQuot X x) →
-        ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnectedAt
-          X x
+        semilocallySimplyConnectedAt X x
   quotient_discrete_iff_semilocally_simply_connected_in_locally_path_connected_spaces :
     ∀ (X : Type u) [TopologicalSpace X]
       [LocallyPathConnectedSpace X],
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+      semilocallySimplyConnected X ↔
         ∀ x : X, DiscreteTopology (GenericLoopQuot X x)
   homotopy_classes_open_of_semilocally_simply_connected :
     ∀ (X : Type u) [TopologicalSpace X]
       [LocallyPathConnectedSpace X],
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X →
+      semilocallySimplyConnected X →
         ∀ x : X, ∀ γ : GenericLoop X x,
           IsOpen {δ : GenericLoop X x | γ.Homotopic δ}
   semilocally_simply_connected_homotopy_invariant :
     ∀ (X Y : Type u) [TopologicalSpace X] [TopologicalSpace Y]
       [LocallyPathConnectedSpace X] [LocallyPathConnectedSpace Y]
       (e : ContinuousMap.HomotopyEquiv X Y),
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
-        ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected Y
+      semilocallySimplyConnected X ↔
+        semilocallySimplyConnected Y
   semilocally_simply_connected_iff_quotient_discrete_at_of_path_connected :
     ∀ (X : Type u) [TopologicalSpace X]
       [LocallyPathConnectedSpace X] [PathConnectedSpace X] (x₀ : X),
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected X ↔
+      semilocallySimplyConnected X ↔
         DiscreteTopology (GenericLoopQuot X x₀)
   covering_map_induces_injection :
     ∀ (E B : Type u) [TopologicalSpace E] [TopologicalSpace B]
@@ -684,18 +454,12 @@ noncomputable abbrev base (n : ℕ) : FiniteTorus n := fun _ => 0
 abbrev Loop (n : ℕ) : Type := _root_.Path (base n) (base n)
 abbrev LoopQuot (n : ℕ) : Type :=
   _root_.Path.Homotopic.Quotient (base n) (base n)
+abbrev BasepointLoopQuot (n : ℕ) (x : FiniteTorus n) : Type :=
+  _root_.Path.Homotopic.Quotient x x
 abbrev WindingVector (n : ℕ) : Type := Fin n → ℤ
-/-! Statement-facing matrix actions used to expose the cokernel composition
-certificate without importing the substantive finite-torus module. -/
+/-! Matrix actions are the canonical Mathlib linear maps, viewed additively. -/
 noncomputable def matrixAction {n m : ℕ} (A : Fin m → Fin n → ℤ) :
-    (Fin n → ℤ) →+ (Fin m → ℤ) where
-  toFun z j := ∑ i : Fin n, A j i * z i
-  map_zero' := by
-    ext j
-    simp
-  map_add' z w := by
-    ext j
-    simp [mul_add, Finset.sum_add_distrib]
+    (Fin n → ℤ) →+ (Fin m → ℤ) := (Matrix.mulVecLin A).toAddMonoidHom
 def matrixCompose {n m k : ℕ}
     (A : Fin m → Fin n → ℤ) (B : Fin k → Fin m → ℤ) :
     Fin k → Fin n → ℤ :=
@@ -722,6 +486,10 @@ noncomputable instance loopQuotTopology (n : ℕ) :
     TopologicalSpace (LoopQuot n) :=
   TopologicalSpace.coinduced
     (Quotient.mk' : Loop n → LoopQuot n) inferInstance
+noncomputable instance basepointLoopQuotTopology (n : ℕ) (x : FiniteTorus n) :
+    TopologicalSpace (BasepointLoopQuot n x) :=
+  TopologicalSpace.coinduced
+    (Quotient.mk' : _root_.Path x x → BasepointLoopQuot n x) inferInstance
 /-- Full publication-facing certificate for the finite-torus theorem. -/
 structure FiniteTorusTopologicalClassification (n : ℕ) where
   winding : Loop n → WindingVector n
@@ -748,17 +516,14 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
           (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f))
   classifier_continuous_mul_equiv_at :
     ∀ x : FiniteTorus n,
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-          (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+      BasepointLoopQuot n x ≃ₜ* Multiplicative (WindingVector n)
   classifier_continuous_mul_equiv_at_path :
     ∀ (x : FiniteTorus n) (p : _root_.Path (base n) x),
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-          (FiniteTorus n) x ≃ₜ* Multiplicative (WindingVector n)
+      BasepointLoopQuot n x ≃ₜ* Multiplicative (WindingVector n)
   classifier_at_path_coordinate_projection :
     ∀ (f : Fin n → Fin n) (x : FiniteTorus n)
       (p : _root_.Path (base n) x)
-      (q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-        (FiniteTorus n) x),
+      (q : BasepointLoopQuot n x),
       classifier_continuous_mul_equiv_at_path
           (coordinateProjection f x)
           (p.map (coordinateProjection f).continuous)
@@ -769,8 +534,7 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
               (classifier_continuous_mul_equiv_at_path x p q)))
   classifier_at_coordinate_projection :
     ∀ (f : Fin n → Fin n) (x : FiniteTorus n)
-      (q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-        (FiniteTorus n) x),
+      (q : BasepointLoopQuot n x),
       classifier_continuous_mul_equiv_at
           (coordinateProjection f x)
           (_root_.Path.Homotopic.Quotient.map q (coordinateProjection f)) =
@@ -786,13 +550,11 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     ∀ x y : LoopQuot n, x * y = y * x
   quotient_mul_commutative_at :
     ∀ (x : FiniteTorus n)
-      (p q : ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-        (FiniteTorus n) x),
+      (p q : BasepointLoopQuot n x),
       p * q = q * p
   classifier_at :
     ∀ x : FiniteTorus n,
-      ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-          (FiniteTorus n) x ≃ₜ WindingVector n
+      BasepointLoopQuot n x ≃ₜ WindingVector n
   classifier_mk :
     ∀ γ : Loop n, classifier (Quotient.mk' γ) = winding γ
   winding_standard :
@@ -811,11 +573,9 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
   quotient_discrete_at :
     ∀ x : FiniteTorus n,
       DiscreteTopology
-        (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot
-          (FiniteTorus n) x)
+        (BasepointLoopQuot n x)
   semilocally_simply_connected :
-    ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.SemilocallySimplyConnected
-      (FiniteTorus n)
+    semilocallySimplyConnected (FiniteTorus n)
   null_class_open :
     IsOpen (nullHomotopyClass (FiniteTorus n) (base n))
   homotopy_classes_open :
@@ -963,11 +723,96 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
         ∃ i : Fin m, p ∣ (smithNormalFormFactor
           (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
             (matrixAction A).range.toIntSubmodule).2 i).natAbs
+
+/-! This is the selected, self-contained follow-up certificate.  It keeps
+    the topological winding comparison together with the substantive
+    rectangular lattice exactness, Smith decomposition, determinant index,
+    and prime-power torsion consequences.  Every type in this declaration is
+    defined above or supplied by Mathlib, so the canonical challenge does not
+    depend on candidate-local compiled modules. -/
+structure TopologicalSmithExactnessCertificate where
+  topological_winding_homeomorph :
+    ∀ (n : ℕ), Nonempty (LoopQuot n ≃ₜ (Fin n → ℤ))
+  matrix_composition :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ) (z : Fin n → ℤ),
+      matrixAction B (matrixAction A z) =
+        matrixAction (matrixCompose A B) z
+  rectangular_composition_profile :
+    ∀ {n m k : ℕ} (A : Fin m → Fin n → ℤ)
+      (B : Fin k → Fin m → ℤ)
+      (_hB : Function.Injective (matrixAction B)),
+      Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+          Nat.card ((Fin k → ℤ) ⧸ (matrixAction B).range) =
+        Nat.card ((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range) ∧
+      ((Finite ((Fin m → ℤ) ⧸ (matrixAction A).range) ∧
+          Finite ((Fin k → ℤ) ⧸ (matrixAction B).range)) ↔
+        Finite ((Fin k → ℤ) ⧸
+          ((matrixAction B).comp (matrixAction A)).range)) ∧
+      (∀ (p : ℕ) (_hp : Nat.Prime p),
+        p ∣ AddMonoid.exponent
+            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) ↔
+          p ∣ AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) ∨
+            p ∣ AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range)) ∧
+      (∀ (_hcop : Nat.Coprime
+          (AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range))
+          (AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))),
+        AddMonoid.exponent
+            ((Fin k → ℤ) ⧸ ((matrixAction B).comp (matrixAction A)).range) =
+          AddMonoid.exponent ((Fin m → ℤ) ⧸ (matrixAction A).range) *
+            AddMonoid.exponent ((Fin k → ℤ) ⧸ (matrixAction B).range))
+  smith_cokernel_profile :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ),
+      Nonempty
+          (((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ≃+
+            (∀ i : Fin m, ZMod (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
+      (Finite ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+        Module.finrank ℤ ((matrixAction A).range.toIntSubmodule) =
+          Module.finrank ℤ (Fin m → ℤ)) ∧
+      (AddMonoid.exponent
+          ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+        Finset.univ.lcm (fun i : Fin m =>
+          (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs)) ∧
+      (∀ (p : ℕ) (_hp : Nat.Prime p),
+        p ∣ AddMonoid.exponent
+            ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ↔
+          ∃ i : Fin m, p ∣ (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs)
+  determinant_index :
+    ∀ {n : ℕ} (A : Fin n → Fin n → ℤ)
+      (hA : Matrix.det A ≠ 0),
+      Nat.card ((Fin n → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+        Int.natAbs (Matrix.det A)
+  prime_power_torsion_profile :
+    ∀ {n m : ℕ} (A : Fin m → Fin n → ℤ)
+      (_hA : ∀ i : Fin m, smithNormalFormFactor
+        (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+          (matrixAction A).range.toIntSubmodule).2 i ≠ 0),
+      Nonempty
+          (((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) ≃+
+            (∀ i : Fin m, ∀ p : (smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+              ZMod (p ^ ((smithNormalFormFactor
+                (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                  (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)))) ∧
+        Nat.card ((Fin m → ℤ) ⧸ (matrixAction A).range.toIntSubmodule) =
+          ∏ i : Fin m, ∏ p : (smithNormalFormFactor
+            (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+              (matrixAction A).range.toIntSubmodule).2 i).natAbs.primeFactors,
+            (p : ℕ) ^ ((smithNormalFormFactor
+              (Submodule.smithNormalForm (Pi.basisFun ℤ (Fin m))
+                (matrixAction A).range.toIntSubmodule).2 i).natAbs.factorization p)
 /-- The substantive topological--Smith composition-and-classification theorem
     selected by Comparator. -/
 theorem topological_smith_exactness :
-    Nonempty
-      _root_.ComputationalPaths.Path.GeometricTopology.FiniteTorusWinding.TopologicalSmithExactnessCertificate := by
+    Nonempty TopologicalSmithExactnessCertificate := by
   sorry
 
 end TopologicalComputationalPathsFollowup

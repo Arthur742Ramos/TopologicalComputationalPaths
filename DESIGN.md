@@ -110,11 +110,30 @@ supporting material.
 
 ## Follow-up package
 
-The follow-up has its own non-destructive Comparator and metadata surface.  It
-does not present the classical identity `π₁(Tⁿ) ≅ ℤⁿ` as a new result.  Its
-publication-facing center is the arbitrary-space quotient-topological
-fundamental-group theory in
-`ComputationalPaths/Path/Topology/QuotientFundamentalGroup.lean`:
+The follow-up has its own non-destructive Comparator and metadata surface.  The
+selected declaration is
+`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
+`FollowupSolution.lean`, whose statement-side certificate has exactly six
+fields: (1) a quotient-loop-to-winding-lattice homeomorphism for every finite
+torus, (2) canonical integer-matrix composition, (3) rectangular lattice-
+cokernel cardinality/finiteness/prime-support/copime-exponent laws, (4) an
+arbitrary-rank Smith classification with explicit `ZMod 0` free factors, (5)
+the nonsingular square determinant index, and (6) a finite prime-power
+refinement.  The matrix fields are deliberately about integer winding-lattice
+cokernels; the declaration does not assert torus-map short exactness,
+first-isomorphism wrappers, indexed-product preservation, or centrality.
+Winding, quotient fundamental groups, and Smith normal form are classical
+ingredients.  The local substantive source is recorded as a `formalization`
+with relationship `formalizes`, while Hatcher and Norman are recorded as
+substantive literature that the repository independently proves in this
+setting.  No priority claim is made for the bundled formal packaging.
+
+Everything below this boundary is repository-wide supporting inventory, not an
+additional Comparator claim unless its declaration is one of the six fields
+listed above.  It is retained to document the reusable theory from which the
+selected certificate was assembled.  In particular, it does not turn the
+supporting quotient-topology or torus-map exactness results into selected
+claims:
 
 - continuous maps induce continuous homomorphisms, coherently with identity
   and composition;

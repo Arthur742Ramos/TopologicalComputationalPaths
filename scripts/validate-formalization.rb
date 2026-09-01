@@ -68,33 +68,34 @@ if followup
   fields = main_result.fetch("selected_fields")
   expected_fields = [
     "TopologicalSmithExactnessCertificate.topological_winding_homeomorph",
-    "TopologicalSmithExactnessCertificate.rectangular_winding_short_exact",
-    "TopologicalSmithExactnessCertificate.first_isomorphism_quotient",
+    "TopologicalSmithExactnessCertificate.matrix_composition",
     "TopologicalSmithExactnessCertificate.rectangular_composition_profile",
     "TopologicalSmithExactnessCertificate.smith_cokernel_profile",
-    "TopologicalSmithExactnessCertificate.determinant_index_compatibility",
+    "TopologicalSmithExactnessCertificate.determinant_index",
     "TopologicalSmithExactnessCertificate.prime_power_torsion_profile"
   ]
   abort "selected fields must match the Topological Smith certificate" unless fields == expected_fields
   # Validate against the statement-facing structure, not merely a token that
   # happens to occur somewhere in the proof file.  This keeps metadata scope
   # tied to fields the Comparator actually asks the Challenge to expose.
-  selected_source = File.binread("ComputationalPaths/Path/Topology/TopologicalSmithExactness.lean")
+  selected_source = File.binread("FollowupChallenge.lean")
   fields.each do |field|
     leaf = field.split(".").last
     abort "selected field is not declared in FollowupChallenge.lean: #{field}" unless
       selected_source.match?(/^\s+#{Regexp.escape(leaf)}\s*:/)
   end
 
-  original_sources = sources.select { |source| source["type"] == "original-proof" }
-  abort "follow-up must have exactly one original-proof source" unless original_sources.length == 1
-  original = original_sources.first
-  abort "original-proof source must identify the selected Topological Smith theorem" unless
-    original["title"].to_s.include?("Topological Smith exactness") &&
-      original["location"].to_s.include?("topological_smith_exactness") &&
-      original["relationship"] == "other"
-  invalid_relationships = sources.reject { |source| %w[background other].include?(source["relationship"]) }
-  abort "original-proof follow-up sources may only use background/other relationships" unless invalid_relationships.empty?
+  local_sources = sources.select { |source| source["type"] == "formalization" }
+  abort "follow-up must have exactly one substantive formalization source" unless local_sources.length == 1
+  local_source = local_sources.first
+  abort "formalization source must identify the selected Topological Smith theorem" unless
+    local_source["title"].to_s.include?("Topological Smith exactness") &&
+      local_source["location"].to_s.include?("topological_smith_exactness") &&
+      local_source["relationship"] == "formalizes"
+  invalid_relationships = sources.reject do |source|
+    %w[background independently-proves formalizes adapts builds-on other].include?(source["relationship"])
+  end
+  abort "follow-up sources use an unsupported relationship" unless invalid_relationships.empty?
 end
 
 methods = document.dig("automation", "methods")
