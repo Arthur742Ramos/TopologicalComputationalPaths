@@ -1,0 +1,94 @@
+{
+  "seed": 134,
+  "known_image_trials": 0,
+  "environment": {
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.14.7",
+    "sympy": "1.14.0"
+  },
+  "fixtures": [
+    {
+      "name": "Benchmark3x5",
+      "rows": 3,
+      "cols": 5,
+      "producer_seconds": 0.000984749996860046,
+      "certificate_json_bytes": 239,
+      "outcome": {
+        "solved": [
+          -7,
+          -30,
+          5,
+          15,
+          0
+        ]
+      }
+    },
+    {
+      "name": "Benchmark5x3",
+      "rows": 5,
+      "cols": 3,
+      "producer_seconds": 0.0006527500008814968,
+      "certificate_json_bytes": 352,
+      "outcome": {
+        "solved": [
+          8,
+          10,
+          -2
+        ]
+      }
+    },
+    {
+      "name": "Benchmark6x6",
+      "rows": 6,
+      "cols": 6,
+      "producer_seconds": 0.0010882909991778433,
+      "certificate_json_bytes": 660,
+      "outcome": {
+        "solved": [
+          -7,
+          -5,
+          -7,
+          1,
+          -3,
+          10
+        ]
+      }
+    },
+    {
+      "name": "Benchmark8x5",
+      "rows": 8,
+      "cols": 5,
+      "producer_seconds": 0.0014224589976947755,
+      "certificate_json_bytes": 939,
+      "outcome": {
+        "solved": [
+          9,
+          6,
+          6,
+          -7,
+          9
+        ]
+      }
+    },
+    {
+      "name": "Benchmark5x8",
+      "rows": 5,
+      "cols": 8,
+      "producer_seconds": 0.0013153750041965395,
+      "certificate_json_bytes": 603,
+      "outcome": {
+        "solved": [
+          970879,
+          2416147,
+          1156219,
+          3172983,
+          -977496,
+          -2550744,
+          0,
+          0
+        ]
+      }
+    }
+  ],
+  "timing_scope": "untrusted Python producer only; not Lean replay"
+}

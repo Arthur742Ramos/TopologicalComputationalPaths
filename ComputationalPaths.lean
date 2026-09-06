@@ -9,3 +9,5 @@ import ComputationalPaths.Path.Topology.SemilocallySimplyConnected
 import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
 import ComputationalPaths.Path.Topology.FiniteTorusWinding
 import ComputationalPaths.Path.Topology.TopologicalSmithExactness
+import ComputationalPaths.Path.Topology.CertifiedTorusPreimageExistence
+import ComputationalPaths.Path.Topology.TorusConstraintApplication

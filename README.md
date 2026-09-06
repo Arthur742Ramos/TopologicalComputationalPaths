@@ -6,7 +6,21 @@ broader [ComputationalPathsLean](https://github.com/Arthur742Ramos/Computational
 development so that the mathematical claim, dependencies, and publication
 artifact have a small and auditable boundary.
 
-## Current follow-up submission scope
+## Certified preimage solver (new research prototype)
+
+The new `comparator-preimage.json` selects a focused executable witness-and-
+obstruction interface for arbitrary rectangular integer torus maps. It proves
+certificate existence, checks each certificate, returns concrete preimages or
+arithmetic obstructions, and parameterizes every solution class by a computed
+integer-kernel projection. It includes generated kernel-checked examples and
+a parameterized simultaneous-constraint application.
+
+See [the research note](PREIMAGE-RESEARCH-NOTE.md) for exact statements,
+reproduction commands, prior work, and the untrusted-producer boundary.
+This prototype is not submitted; research significance and independent expert
+review remain open. The older artifact and its metadata remain separate below.
+
+## Existing follow-up submission scope
 
 The current Comparator artifact is `comparator-followup.json`, selecting
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
@@ -142,7 +156,7 @@ The same classifier proves that target classes of the actual topological map
 are exactly the integer-lattice image, so the Smith equations are not
 detached arithmetic.
 
-The nonroutine selected contribution is the reusable compatibility diagram
+The selected formalization provides a reusable compatibility diagram
 from quotient topology through concrete winding-word normalization to
 rectangular Smith image decision.  It is an all-dimensional, rank-aware
 certificate for induced maps, with explicit free directions and finite
@@ -151,6 +165,14 @@ not as a discovery claim for winding or Smith normal form; the bounded
 provenance audit records priority as unknown.  Supporting centrality,
 indexed-product, endpoint-varying path, CRT, and broader matrix results are
 outside this Comparator selection unless a field is named in the declaration.
+
+The word alphabet contains **every integer vector**, not just signed coordinate
+generators. Consequently the zero/one minimum is elementary: any nonzero vector
+is already one letter. It measures neither geometric length, rewrite steps,
+bit complexity, nor the repository's separate `ComputationalPaths.Path` traces.
+No nonroutine mathematical novelty or research-interest threshold is established
+by bundling these classical results. See [REVIEW-AUDIT.md](REVIEW-AUDIT.md) for
+the remaining submission blocker and the exact theorem boundary.
 
 ### Repository-wide finite-torus extensions (not selected by Comparator)
 

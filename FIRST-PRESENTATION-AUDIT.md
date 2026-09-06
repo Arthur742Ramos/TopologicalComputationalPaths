@@ -2,6 +2,12 @@
 
 Audit date: 2026-09-01
 
+Reassessment, 2026-09-06: absence of the exact bundle in these sources does
+not establish novelty, nonroutine content, or paper-worthiness. The earlier
+comparison is a provenance inventory, not an exhaustive literature search.
+In particular, the whole-vector alphabet makes the zero/one minimum elementary.
+See REVIEW-AUDIT.md for the selected statement's corrected scope and open issues.
+
 This note documents the provenance boundary for the exact declaration selected
 by `comparator-followup.json`:
 

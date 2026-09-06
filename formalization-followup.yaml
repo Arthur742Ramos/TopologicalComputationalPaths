@@ -131,7 +131,9 @@ status:
     WindingWord n to List (Fin n -> Int), fixes traceLength to List.length,
     realizes a word by concatenating standard torus loops, and proves the
     representation, winding, homotopy, matrix-naturality, Smith-realizability,
-    and shortest zero/one normal-form laws.  No arbitrary raw family,
+    and zero/one normal-form laws for the all-integer-vector alphabet.
+    The classifier and its inverse are continuous for the explicitly
+    coinduced loop-quotient topology. No arbitrary raw family,
     certificate-supplied cost observable, or unstructured homeomorphism is
     part of the selected trace result.  Cardinality and prime-support claims
     remain explicitly restricted to finite cokernels; zero Smith factors are
@@ -194,20 +196,18 @@ research_interest:
     matrix, proves the topological image iff the Smith divisibility equations,
     and isolates free directions instead of silently applying finite formulas
     to infinite cokernels.  This is a reusable certified decision interface
-    with explicit normal-form complexity, not an existence claim for an
+    with explicit whole-vector word normalization, not an existence claim for an
     arbitrary homeomorphism.
   paper_worthiness: >-
-    This is plausibly a serious formalization note or methods note for a
-    specialist audience because it supplies a precise, independently replayable
-    interface between quotient fundamental groups and certified integer-linear
-    computation.  The contribution is not the classical winding or Smith
-    theorem in isolation: it is the uniform rectangular matrix-map image
-    equivalence, together with a concrete word language whose realization,
-    matrix naturality, and optimal zero/one representatives are all kernel
-    checked.  The finite/free boundary is explicit and testable, making the
-    certificate suitable as a reusable benchmark for formal topological
-    algebra.  Novelty and priority of the mathematical synthesis are recorded
-    as unknown pending specialist comparison.
+    Research-level paper-worthiness is not established by the present bundle.
+    The artifact supplies a checked interface between quotient fundamental
+    groups and integer-linear algebra, but its principal ingredients are
+    classical. Every integer vector is a single word letter, so the zero/one
+    minimum is elementary and establishes neither rewrite complexity nor
+    shortest paths for a finite generating set. A nonroutine application,
+    theorem, or independently evaluated formalization method is still needed
+    to substantiate the research-interest claim. Novelty and priority remain
+    unknown; see REVIEW-AUDIT.md for the current boundary.
   literature_boundary: >-
     Hatcher and Norman are ingredient-only background; Brazas--Fabel and
     Calcut--McCarthy provide quotient-topology context; the parent
@@ -223,8 +223,8 @@ research_interest:
     - "FollowupChallenge.lean: TopologicalSmithExactnessCertificate.winding_matrix_compatibility"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.matrix_map_smith_image_iff"
     - "FollowupChallenge.lean: FiniteTorusWindingMatrixCompatibility.concrete_winding_word_bridge"
-    - "FollowupChallenge.lean: FollowupChallenge.WindingWord.traceLength"
-    - "FollowupChallenge.lean: FollowupChallenge.WindingWord.realize"
+    - "FollowupChallenge.lean: TopologicalComputationalPathsFollowup.WindingWord.traceLength"
+    - "FollowupChallenge.lean: TopologicalComputationalPathsFollowup.WindingWord.realize"
     - "FollowupChallenge.lean: TopologicalComputationalPathsFollowup.topological_smith_exactness"
 
 automation:

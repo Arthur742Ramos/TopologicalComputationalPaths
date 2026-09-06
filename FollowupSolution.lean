@@ -1699,6 +1699,12 @@ structure FiniteTorusWindingMatrixCompatibility where
   winding : ∀ n : ℕ, Loop n → WindingVector n
   standardLoop : ∀ n : ℕ, WindingVector n → Loop n
   classifier : ∀ n : ℕ, LoopQuot n ≃ Multiplicative (WindingVector n)
+  classifier_continuous : ∀ n, @Continuous _ _
+    (TopologicalSpace.coinduced (Quotient.mk' : Loop n → LoopQuot n) inferInstance)
+    inferInstance (classifier n)
+  classifier_inverse_continuous : ∀ n, @Continuous _ _ inferInstance
+    (TopologicalSpace.coinduced (Quotient.mk' : Loop n → LoopQuot n) inferInstance)
+    (classifier n).symm
   classifier_mk :
     ∀ (n : ℕ) (γ : Loop n),
       Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ
@@ -1874,6 +1880,10 @@ theorem topological_smith_exactness :
         standardLoop := fun n => FiniteTorusWinding.standardLoop
         classifier := fun n =>
           FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n
+        classifier_continuous := fun n =>
+          (FiniteTorusWinding.loopQuotContinuousMulEquivIntVector n).continuous
+        classifier_inverse_continuous := fun n =>
+          (FiniteTorusWinding.loopQuotHomeomorphIntVector n).continuous_invFun
         classifier_mk := by
           intro n γ
           rfl

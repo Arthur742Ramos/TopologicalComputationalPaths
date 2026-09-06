@@ -29,6 +29,11 @@ jobs:
         run: ./scripts/check-palomar.sh --skip-build
       - name: Run follow-up theorem quality gate
         run: ./scripts/check-followup.sh --skip-build
+      - name: Check certified preimage solver and generated fixtures
+        run: |
+          python3 -m venv .cache/preimage-venv
+          .cache/preimage-venv/bin/python -m pip install -r scripts/requirements-preimage.txt
+          PATH="$PWD/.cache/preimage-venv/bin:$PATH" bash scripts/check-preimage.sh
 
   comparator:
     name: Comparator and NanoDa (${{ matrix.config }})
@@ -37,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [comparator.json, comparator-followup.json]
+        config: [comparator.json, comparator-followup.json, comparator-preimage.json]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:

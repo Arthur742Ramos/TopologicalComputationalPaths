@@ -10,7 +10,6 @@ import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
-/-! Follow-up quotient-topology and concrete winding-word/Smith certificate. -/
 namespace TopologicalComputationalPathsFollowup
 open Set Topology
 open scoped ContinuousMap Topology
@@ -837,16 +836,17 @@ structure FiniteTorusTopologicalClassification (n : ℕ) where
     action.  It also records exact image, injectivity, and surjectivity
     transfer, including the square determinant criteria.  The remaining
     fields record rectangular lattice exactness, Smith decomposition,
-    determinant index, and prime-power torsion consequences.  Cardinality
-    products and prime-support statements are deliberately supplied only with
-    finite-cokernel hypotheses; the arbitrary-rank Smith equivalence retains
-    `ZMod 0` free factors and its exponent uses Mathlib's explicit zero convention outside
-    the finite regime.  Every type in this declaration is defined above or supplied by Mathlib, so the canonical challenge does not
-    depend on candidate-local compiled modules. -/
+    determinant index and prime-power torsion, with explicit finite-cokernel gates. -/
 structure FiniteTorusWindingMatrixCompatibility where
   winding : ∀ n : ℕ, Loop n → WindingVector n
   standardLoop : ∀ n : ℕ, WindingVector n → Loop n
   classifier : ∀ n : ℕ, LoopQuot n ≃ Multiplicative (WindingVector n)
+  classifier_continuous : ∀ n, @Continuous _ _
+    (TopologicalSpace.coinduced (Quotient.mk' : Loop n → LoopQuot n) inferInstance)
+    inferInstance (classifier n)
+  classifier_inverse_continuous : ∀ n, @Continuous _ _ inferInstance
+    (TopologicalSpace.coinduced (Quotient.mk' : Loop n → LoopQuot n) inferInstance)
+    (classifier n).symm
   classifier_mk :
     ∀ (n : ℕ) (γ : Loop n),
       Multiplicative.toAdd (classifier n (Quotient.mk' γ)) = winding n γ

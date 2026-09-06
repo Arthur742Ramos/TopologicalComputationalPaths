@@ -1,6 +1,6 @@
 name = "TopologicalComputationalPaths"
 version = "0.1.0"
-defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution"]
+defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution", "PreimageChallenge", "PreimageSolution", "PreimageTests", "PreimageAdversarial", "PreimageBenchmarks"]
 
 [[require]]
 name = "mathlib"
@@ -26,3 +26,23 @@ roots = ["FollowupChallenge"]
 [[lean_lib]]
 name = "FollowupSolution"
 roots = ["FollowupSolution"]
+
+[[lean_lib]]
+name = "PreimageTests"
+roots = ["PreimageTests"]
+
+[[lean_lib]]
+name = "PreimageAdversarial"
+roots = ["PreimageAdversarial"]
+
+[[lean_lib]]
+name = "PreimageBenchmarks"
+roots = ["PreimageBenchmarks"]
+
+[[lean_lib]]
+name = "PreimageChallenge"
+roots = ["PreimageChallenge"]
+
+[[lean_lib]]
+name = "PreimageSolution"
+roots = ["PreimageSolution"]

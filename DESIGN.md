@@ -146,9 +146,10 @@ syntax and its topological semantics; no arbitrary raw family or
 certificate-supplied cost is selected.
 
 The surrounding winding classifier identifies actual quotient loop classes
-with the integer lattice and transports image, kernel, injectivity,
-surjectivity, rectangular exactness, and Smith finite/free consequences
-through every rectangular matrix map.  Finite cardinality and torsion-prime
+with the integer lattice and transports image, injectivity and surjectivity
+through every rectangular matrix map. Rectangular exactness and Smith profiles
+are separate lattice fields, not selected quotient-level exact sequences.
+Finite cardinality and torsion-prime
 claims retain explicit finite-cokernel hypotheses, while zero Smith factors
 remain free `ZMod 0` directions.  This is a compatibility/methods
 contribution, not a first-discovery claim for classical winding, quotient

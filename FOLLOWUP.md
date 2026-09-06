@@ -28,7 +28,7 @@ standard torus loops.  The selected bridge proves:
 - a target word is realizable by an actual induced quotient map exactly when
   its Smith coordinates satisfy the displayed divisibility equations.
 
-The surrounding classifier separately identifies the image, kernel,
+The surrounding classifier separately identifies the image,
 injectivity, and surjectivity of the actual quotient matrix map with the
 integer-lattice action.  Rectangular cokernel composition, arbitrary-rank
 Smith factors (with explicit `ZMod 0` free directions), finite-cokernel
@@ -611,12 +611,20 @@ The selected traced theorem is the method-level part of that boundary: it gives
 a canonical reduction of words in the fixed `WindingWord` list language to a
 shortest normal form, and the reduction is stable under the integer-matrix
 action and its composition.  This supplies an explicit syntax-derived trace
-semantics for complexity and matrix transformations that is absent from the
+semantics for whole-vector letter counts and matrix transformations beyond the
 classical quotient and lattice statements alone.  The
 selected `matrix_normal_form_minimal` field
 adds an optimal image theorem: when the matrix-action winding is nonzero, the
 mapped canonical trace has a one-step target representative, and every
 homotopic target trace has at least one step.
+
+Here "step" means one arbitrary integer-vector letter, not one elementary
+coordinate move or one computational-path rewrite. The zero/one bound follows
+from this alphabet choice and is not evidence of a nonroutine complexity result.
+The selected classifier includes continuity in both directions for the explicit
+coinduced loop-quotient topology. The winding function and standard-loop family
+remain existential witnesses constrained by the displayed laws, not fixed
+definitions of a unique oriented winding invariant in the challenge.
 
 The new follow-up proof closes the locally path-connected converse explicitly
 at the compact-open level: a finite path subdivision, path-connected vertex

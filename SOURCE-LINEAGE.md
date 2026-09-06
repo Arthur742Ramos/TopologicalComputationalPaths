@@ -75,7 +75,11 @@ exponent composition laws, arbitrary-rank Smith classification with `ZMod 0`
 free factors, the finite prime-power refinement, and the nonsingular square
 determinant-index specialization.  The selected traced fields fix `WindingWord n := List (Fin n -> Int)` and
 realize words by concatenating actual standard torus loops; they are not a
-claim about the separate endpoint-varying `ComputationalPaths.Path` carrier.  As documented in
+claim about the separate endpoint-varying `ComputationalPaths.Path` carrier.
+The homeomorphism property is selected via an equivalence plus explicit
+continuity fields for it and its inverse. Word length counts whole integer
+vectors; its elementary zero/one minimum is not a complexity contribution.
+As documented in
 `FIRST-PRESENTATION-AUDIT.md`, this records the local checked proof of that
 exact combined theorem group while leaving mathematical novelty and priority
 unknown; it does not claim first discovery of the classical winding,
