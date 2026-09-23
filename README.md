@@ -6,6 +6,12 @@ broader [ComputationalPathsLean](https://github.com/Arthur742Ramos/Computational
 development so that the mathematical claim, dependencies, and publication
 artifact have a small and auditable boundary.
 
+## Roadmap
+
+[ROADMAP.md](ROADMAP.md) lists results that would strengthen the
+topological semantics paper (arXiv:2608.04228), with the Lean work each
+one needs and the existing modules it can build on.
+
 ## Certified preimage solver (new research prototype)
 
 The new `comparator-preimage.json` selects a focused executable witness-and-
