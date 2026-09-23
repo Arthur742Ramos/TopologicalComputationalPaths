@@ -16,6 +16,14 @@ name = "Challenge"
 roots = ["Challenge"]
 
 [[lean_lib]]
+name = "ChallengePrelude"
+roots = ["ChallengePrelude"]
+
+[[lean_lib]]
+name = "ChallengeCertificate"
+roots = ["ChallengeCertificate"]
+
+[[lean_lib]]
 name = "Solution"
 roots = ["Solution"]
 

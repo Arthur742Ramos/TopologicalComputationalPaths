@@ -113,9 +113,7 @@ abbrev HawaiianUniversalOpen :=
   UniversalOpen (A := HawaiianEarring)
     (a := hawaiianBase) (b := hawaiianBase)
 
-/-- The based fiber of the universal open computational-path system.  The
-`val` field retains the trace and coherence witness; the observable topology
-below records the geometric loop that the witness presents. -/
+/-- The based fiber of the universal open computational-path system. -/
 structure HawaiianObservableOpenFiber where
   val : HawaiianUniversalOpen
 
@@ -123,9 +121,26 @@ noncomputable def hawaiianObservableGeometric
     (p : HawaiianObservableOpenFiber) : HawaiianLoop :=
   p.val.geometric
 
+noncomputable def hawaiianObservableTotal
+    (p : HawaiianObservableOpenFiber) :
+    TotalOpenGeometricCompPath HawaiianEarring
+      (ContinuousPathStep HawaiianEarring) HawaiianUniversalSystem :=
+  ⟨hawaiianBase, hawaiianBase, p.val⟩
+
+/-- The actual subspace topology from the observable total carrier. -/
 noncomputable instance hawaiianObservableOpenFiberTopology :
     TopologicalSpace HawaiianObservableOpenFiber :=
-  TopologicalSpace.induced hawaiianObservableGeometric inferInstance
+  TopologicalSpace.induced hawaiianObservableTotal inferInstance
+
+theorem continuous_hawaiianObservableGeometric :
+    Continuous (hawaiianObservableGeometric :
+      HawaiianObservableOpenFiber → HawaiianLoop) := by
+  apply continuous_induced_rng.mpr
+  change Continuous (fun p : HawaiianObservableOpenFiber =>
+    TotalOpenGeometricCompPath.geometricMap HawaiianUniversalSystem
+      (hawaiianObservableTotal p))
+  exact (TotalOpenGeometricCompPath.continuous_geometricMap
+    HawaiianUniversalSystem).comp continuous_induced_dom
 
 noncomputable def hawaiianObservableSection (γ : HawaiianLoop) :
     HawaiianObservableOpenFiber :=
@@ -139,18 +154,33 @@ theorem continuous_hawaiianObservableSection :
     Continuous (hawaiianObservableSection : HawaiianLoop →
       HawaiianObservableOpenFiber) := by
   apply continuous_induced_rng.mpr
-  change Continuous (fun γ : HawaiianLoop =>
-    hawaiianObservableGeometric (hawaiianObservableSection γ))
-  rw [show (fun γ : HawaiianLoop =>
-      hawaiianObservableGeometric (hawaiianObservableSection γ)) = id by
+  apply continuous_induced_rng.mpr
+  have hloop : Continuous (fun γ : HawaiianLoop => γ.toContinuousMap) :=
+    continuous_induced_dom
+  have hobs :
+      (fun γ : HawaiianLoop =>
+        TotalOpenGeometricCompPath.observation HawaiianUniversalSystem
+          (hawaiianObservableTotal (hawaiianObservableSection γ))) =
+      (fun γ : HawaiianLoop =>
+        (hawaiianBase, (hawaiianBase,
+          (1, (γ.toContinuousMap, γ.toContinuousMap))))) := by
     funext γ
-    exact hawaiianObservableSection_geometric γ]
-  exact continuous_id
-
-theorem continuous_hawaiianObservableGeometric :
-    Continuous (hawaiianObservableGeometric :
-      HawaiianObservableOpenFiber → HawaiianLoop) :=
-  continuous_induced_dom
+    simp only [hawaiianObservableTotal, hawaiianObservableSection,
+      TotalOpenGeometricCompPath.observation,
+      TotalOpenGeometricCompPath.trace,
+      TotalOpenGeometricCompPath.traceMap,
+      TotalOpenGeometricCompPath.geometricMap,
+      TotalOpenGeometricCompPath.geometricPath,
+      universalOpenSection_traceLength,
+      universalOpenSection_traceRealize,
+      universalOpenSection_geometric]
+  change Continuous (fun γ : HawaiianLoop =>
+    TotalOpenGeometricCompPath.observation HawaiianUniversalSystem
+      (hawaiianObservableTotal (hawaiianObservableSection γ)))
+  rw [hobs]
+  exact continuous_const.prodMk
+    (continuous_const.prodMk
+      (continuous_const.prodMk (hloop.prodMk hloop)))
 
 theorem surjective_hawaiianObservableGeometric :
     Function.Surjective hawaiianObservableGeometric := by
@@ -159,8 +189,10 @@ theorem surjective_hawaiianObservableGeometric :
 
 theorem quotient_hawaiianObservableGeometric :
     Topology.IsQuotientMap hawaiianObservableGeometric := by
-  exact (Topology.IsInducing.induced hawaiianObservableGeometric).isQuotientMap_of_surjective
-    surjective_hawaiianObservableGeometric
+  exact Topology.IsQuotientMap.of_inverse
+    continuous_hawaiianObservableSection
+    continuous_hawaiianObservableGeometric
+    hawaiianObservableSection_geometric
 
 noncomputable instance hawaiianObservableSetoid :
     Setoid HawaiianObservableOpenFiber where
@@ -421,16 +453,59 @@ noncomputable def hawaiianBasedRawTrans
   ⟨openTrans HawaiianUniversalSystem.toGeometricStepSystem
       pq.1.val pq.2.val⟩
 
+noncomputable def hawaiianBasedRawComposable
+    (pq : HawaiianObservableOpenFiber × HawaiianObservableOpenFiber) :
+    TotalComposable HawaiianEarring (ContinuousPathStep HawaiianEarring)
+      HawaiianUniversalSystem :=
+  ⟨hawaiianBase, hawaiianBase, hawaiianBase, pq.1.val, pq.2.val⟩
+
+theorem continuous_hawaiianBasedRawComposable :
+    Continuous hawaiianBasedRawComposable := by
+  apply continuous_induced_rng.mpr
+  have htotal : Continuous (hawaiianObservableTotal :
+      HawaiianObservableOpenFiber →
+        TotalOpenGeometricCompPath HawaiianEarring
+          (ContinuousPathStep HawaiianEarring) HawaiianUniversalSystem) :=
+    continuous_induced_dom
+  have hleft : Continuous (fun pq : HawaiianObservableOpenFiber ×
+      HawaiianObservableOpenFiber => hawaiianObservableTotal pq.1) :=
+    htotal.comp continuous_fst
+  have hright : Continuous (fun pq : HawaiianObservableOpenFiber ×
+      HawaiianObservableOpenFiber => hawaiianObservableTotal pq.2) :=
+    htotal.comp continuous_snd
+  change Continuous (fun pq : HawaiianObservableOpenFiber ×
+      HawaiianObservableOpenFiber =>
+    (hawaiianBase, (hawaiianBase, (hawaiianBase,
+      (GeometricTrace.traceLength pq.1.val.trace,
+        (GeometricTrace.traceLength pq.2.val.trace,
+          ((GeometricTrace.realize pq.1.val.trace).toContinuousMap,
+            ((GeometricTrace.realize pq.2.val.trace).toContinuousMap,
+              (pq.1.val.geometric.toContinuousMap,
+                pq.2.val.geometric.toContinuousMap)))))))))
+  exact continuous_const.prodMk <|
+    continuous_const.prodMk <|
+      continuous_const.prodMk <|
+        ((TotalOpenGeometricCompPath.continuous_traceLength
+            HawaiianUniversalSystem).comp hleft).prodMk <|
+          ((TotalOpenGeometricCompPath.continuous_traceLength
+            HawaiianUniversalSystem).comp hright).prodMk <|
+            ((TotalOpenGeometricCompPath.continuous_traceMap
+              HawaiianUniversalSystem).comp hleft).prodMk <|
+              ((TotalOpenGeometricCompPath.continuous_traceMap
+                HawaiianUniversalSystem).comp hright).prodMk <|
+                ((TotalOpenGeometricCompPath.continuous_geometricMap
+                  HawaiianUniversalSystem).comp hleft).prodMk
+                  ((TotalOpenGeometricCompPath.continuous_geometricMap
+                    HawaiianUniversalSystem).comp hright)
+
 theorem continuous_hawaiianBasedRawTrans :
     Continuous hawaiianBasedRawTrans := by
   apply continuous_induced_rng.mpr
-  change Continuous (fun pq : HawaiianObservableOpenFiber ×
-      HawaiianObservableOpenFiber =>
-    (hawaiianObservableGeometric pq.1).trans
-      (hawaiianObservableGeometric pq.2))
-  exact _root_.Path.continuous_trans.comp
-    ((continuous_hawaiianObservableGeometric.comp continuous_fst).prodMk
-      (continuous_hawaiianObservableGeometric.comp continuous_snd))
+  change Continuous
+    (TotalOpenGeometricCompPath.totalTrans HawaiianUniversalSystem ∘
+      hawaiianBasedRawComposable)
+  exact (TotalOpenGeometricCompPath.continuous_totalTrans
+    HawaiianUniversalSystem).comp continuous_hawaiianBasedRawComposable
 
 noncomputable def hawaiianBasedFinalOperation :
     HawaiianBasedFinalPair → HawaiianObservableClass :=
@@ -684,8 +759,7 @@ structure OrdinaryTopologyComparisonCertificate
       Topology.IsQuotientMap (finalToOrdinary P) ∧
         Continuous (ordinaryComposition P)
   discrete_recovers_ordinary :
-    ∀ [DiscreteTopology (ScopedClass P)]
-      [DiscreteTopology (ScopedComposableClass P)],
+    ∀ [DiscreteTopology (ScopedClass P)],
       Topology.IsQuotientMap (finalToOrdinary P) ∧
         Continuous (ordinaryComposition P)
   hawaiian_earring_obstruction :
@@ -824,9 +898,9 @@ theorem main_result
         exact ⟨h.pair_map_is_quotient,
           continuous_scopedCompositionOnProduct P h⟩
       discrete_recovers_ordinary := by
-        intro _ _
+        intro _
         let h :=
-          scopedProductCompatibility_of_discrete_arrow_and_final_domain P
+          scopedProductCompatibility_of_discrete_arrow P
         exact ⟨h.pair_map_is_quotient,
           continuous_scopedCompositionOnProduct P h⟩
       hawaiian_earring_obstruction := by

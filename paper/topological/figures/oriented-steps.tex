@@ -1,0 +1,29 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node[anchor=west,font=\small\bfseries] at (0,2.4) {(a) Step labels};
+\draw[rounded corners,fill=pathblue!5,draw=pathblue] (0,0.95) rectangle (2.25,1.95);
+\draw[rounded corners,fill=pathorange!5,draw=pathorange] (0,-0.55) rectangle (2.25,0.45);
+\node at (1.12,1.45) {$e^+\in E^+\cong E$};
+\node at (1.12,-0.05) {$e^-\in E^-\cong E$};
+\draw[->,pathblue,thick] (2.4,1.45) -- node[above] {$\widetilde\rho$} (4.05,1.45);
+\draw[->,pathorange,thick] (2.4,-0.05) -- node[above] {$\widetilde\rho$} (4.05,-0.05);
+\node[anchor=west,font=\small\bfseries] at (4.25,2.4) {(b) Paths in $X$};
+\draw[->,pathblue,thick] (4.5,1.45) .. controls (5.1,2.05) and (6.45,2.05) .. (7.1,1.45);
+\fill (4.5,1.45) circle (1.5pt) node[below] {$s(e)$};
+\fill (7.1,1.45) circle (1.5pt) node[below] {$t(e)$};
+\node at (5.8,2.03) {$\rho(e)$};
+\draw[<-,pathorange,thick] (4.5,-0.05) .. controls (5.1,0.55) and (6.45,0.55) .. (7.1,-0.05);
+\fill (4.5,-0.05) circle (1.5pt) node[below] {$s(e)$};
+\fill (7.1,-0.05) circle (1.5pt) node[below] {$t(e)$};
+\node at (5.8,0.53) {$\rho(e)^{-1}$};
+\node[align=center] at (3.6,-1.15) {$\widetilde s(e^-)=t(e),\quad
+ \widetilde t(e^-)=s(e),\qquad
+ \widetilde\rho(e^-)(t)=\rho(e)(1-t)$};
+\end{tikzpicture}
+\caption{Formal reversal changes the direction of a represented path and
+leaves the topology of the step space unchanged.  The two curves depict the same geometric
+route traversed in opposite directions.  Endpoint maps take values in $X$;
+the realization map takes values in $X^I$.}
+\label{fig:oriented-steps}
+\end{figure}

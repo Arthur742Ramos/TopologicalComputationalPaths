@@ -1,0 +1,73 @@
+14 August 2026
+
+Jane Spurr
+Editorial Office
+Logic Journal of the IGPL
+
+Re: Submission of “Topological Semantics for Scoped Computational Paths”
+
+Dear Ms. Spurr,
+
+On behalf of my coauthors, I am pleased to submit the manuscript “Topological
+Semantics for Scoped Computational Paths” for consideration for publication in
+the Logic Journal of the IGPL.
+
+The manuscript develops a topological semantics for scoped computational-path
+presentations.  Its main contributions are:
+
+1. a coherent representative carrier equipped with both a full
+   trace-sensitive topology and its observable semantic coarsening, together
+   with the continuous comparison between them;
+2. a scoped quotient and final-domain topological groupoid construction whose multiplication is
+   continuous without an additional product-quotient assumption;
+3. an exact four-way criterion comparing the final composable-pair topology
+   with the ordinary pullback topology, together with useful sufficient
+   conditions;
+4. a universal presentation theorem, a comparison and completeness interface,
+   and a normal-form certificate; and
+5. applications to finite-generator circle and genuine torus presentations,
+   supported by a Lean development checking the principal scoped-rewrite,
+   topology-comparison, and finite-generator interfaces.
+
+Relative to our earlier work on the computational-path calculus, higher
+coherence, and individual fundamental-group calculations, this manuscript
+supplies the general continuous quotient semantics, the exact comparison
+between final and ordinary composable-pair topologies, and a reusable
+soundness-and-completeness interface.
+
+We believe the paper is well suited to the journal’s interests in logic,
+rewriting, type theory, logic and computation, and formalized mathematics.  The
+paper is 30 pages in the submitted PDF.  The accompanying Lean 4.24.0 artifact,
+version 0.6.1+lean-only-v3, is available through the version-specific Zenodo
+record https://doi.org/10.5281/zenodo.21938980 and permanent concept DOI
+https://doi.org/10.5281/zenodo.21817207, with the corresponding source in the
+ComputationalPathsLean repository:
+https://github.com/Arthur742Ramos/ComputationalPathsLean.
+
+The manuscript is original, has not been published previously, and is not
+under consideration by another journal.  All authors have read and approved
+the submitted version.
+
+AI-assisted tools were used during manuscript preparation for editorial
+support, reference auditing, and assistance with software and documentation.
+The authors reviewed the resulting material and take responsibility for the
+final content.
+
+One coauthor, Ruy J. G. B. de Queiroz, is listed among the Editors-in-Chief of
+the journal.  We therefore request that he be recused from all editorial
+handling and decision-making for this submission.  We leave the assignment of
+the handling editor to the journal.
+
+The corresponding author is:
+
+Arthur Freitas Ramos
+Microsoft, USA
+Email: arfreita@microsoft.com
+
+Thank you for considering our submission.  We would be grateful for the
+opportunity to have the manuscript evaluated by the journal.
+
+Sincerely,
+
+Arthur Freitas Ramos
+on behalf of all authors

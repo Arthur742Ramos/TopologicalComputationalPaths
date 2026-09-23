@@ -34,13 +34,14 @@ if [ "$(search_lean '\bsorry\b' Challenge.lean | wc -l | tr -d ' ')" -ne 1 ]; th
 fi
 
 if search_lean '\bsorry\b|\badmit\b|^axiom |native_decide|Lean\.ofReduceBool' \
-  Solution.lean ComputationalPaths; then
+  ChallengePrelude.lean ChallengeCertificate.lean Solution.lean ComputationalPaths; then
   echo "forbidden proof marker found in the proof development" >&2
   exit 1
 fi
 
 if search_lean '^axiom |native_decide|Lean\.ofReduceBool' \
-  Challenge.lean Solution.lean ComputationalPaths; then
+  Challenge.lean ChallengePrelude.lean ChallengeCertificate.lean \
+  Solution.lean ComputationalPaths; then
   echo "forbidden axiom or evaluator escape found" >&2
   exit 1
 fi

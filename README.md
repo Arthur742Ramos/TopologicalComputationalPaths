@@ -12,6 +12,30 @@ artifact have a small and auditable boundary.
 topological semantics paper (arXiv:2608.04228), with the Lean work each
 one needs and the existing modules it can build on.
 
+The revised manuscript source from `ComputationalPathsLean` commit
+`b6f47117` is mirrored at [paper/topological/main.tex](paper/topological/main.tex).
+It now contains an open-quotient compatibility theorem, a positive universal
+example with explicit credit to prior work, and a criterion for when the
+trace-sensitive and observable quotient topologies agree. It also proves
+closure of based completeness under product presentations. The progress table
+in the roadmap distinguishes these mathematical results from the Lean proofs
+and the immutable registered result.
+The general open-arrow compatibility criterion is checked in
+`ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
+checks that the universal compact-open path projection is quotient and that
+its openness gives continuous ordinary multiplication. The published theorem
+that supplies openness for locally path-connected, semilocally simply
+connected spaces is used in the paper and is still outside the Lean proof.
+`UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
+discrete positive case. The trace-sensitive carrier, general section
+criterion, universal collapse, integer-indexed circle case, finite-generator
+circle/torus trace choices with conditional comparison, and finite separation
+model are also checked. `ProductGeometricStepSystem.lean` defines
+the continuous horizontal/vertical step system and proves interchange sound.
+`ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
+rules, trace sorting, and based completeness for a presentation that names
+both primitive and whole-trace interchange.
+
 ## Certified preimage solver (new research prototype)
 
 The new `comparator-preimage.json` selects a focused executable witness-and-
@@ -490,9 +514,10 @@ composition additivity, standard-representative completeness, and both
 directions of the classification, so the result names actual quotient loop
 spaces rather than an abstract placeholder for a classification.
 
-`Challenge.lean` duplicates the statement-facing definitions needed for that
-theorem using Lean core and Mathlib; it does not import the extracted project
-implementation.  `Solution.lean` imports the extracted, checked comparison
+`ChallengePrelude.lean` and `ChallengeCertificate.lean` contain the independent
+statement-facing definitions using Lean core and Mathlib. `Challenge.lean`
+imports them and states the selected theorem. These files do not import the
+extracted project implementation. `Solution.lean` imports the extracted, checked comparison
 theory and supplies the complete certificate, including the additive
 classification and based-fiber proofs.
 

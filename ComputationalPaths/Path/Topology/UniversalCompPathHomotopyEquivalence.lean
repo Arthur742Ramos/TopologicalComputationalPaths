@@ -62,6 +62,18 @@ theorem universalOpenSection_geometric {a b : A} (γ : _root_.Path a b) :
     (universalOpenSection γ).geometric = γ :=
   rfl
 
+theorem universalOpenSection_traceRealize {a b : A}
+    (γ : _root_.Path a b) :
+    GeometricTrace.realize (universalOpenSection γ).trace = γ := by
+  change GeometricTrace.realize
+      (ContinuousGeometricStepSystemMap.castTrace
+        (S := UniversalSystem) γ.source.symm γ.target.symm
+        (GeometricTrace.single
+          (S := UniversalSystem.toGeometricStepSystem) γ.toContinuousMap)) = γ
+  rw [ContinuousGeometricStepSystemMap.castTrace_realize]
+  ext t
+  rfl
+
 /-! ## The two quotient maps -/
 
 noncomputable def toPathClass {a b : A} :
@@ -114,6 +126,22 @@ theorem universalOpenSection_traceLength {a b : A} (γ : _root_.Path a b) :
         (S := UniversalSystem.toGeometricStepSystem) γ.toContinuousMap)) = 1
   rw [ContinuousGeometricStepSystemMap.castTrace_length]
   rfl
+
+theorem continuous_universalOpenSection {a b : A} :
+    Continuous (universalOpenSection (A := A) :
+      _root_.Path a b → UniversalOpen (A := A) (a := a) (b := b)) := by
+  apply continuous_induced_rng.mpr
+  have htrace : Continuous (fun γ : _root_.Path a b =>
+      (universalOpenSection (A := A) γ).trace) := by
+    apply continuous_induced_rng.mpr
+    change Continuous (fun γ : _root_.Path a b =>
+      (GeometricTrace.traceLength (universalOpenSection (A := A) γ).trace,
+        GeometricTrace.realize (universalOpenSection (A := A) γ).trace))
+    simpa only [universalOpenSection_traceLength,
+      universalOpenSection_traceRealize, id_eq] using
+      (continuous_const.prodMk (continuous_id :
+        Continuous (id : _root_.Path a b → _root_.Path a b)))
+  exact htrace.prodMk continuous_id
 
 noncomputable def universalOpenSection_traceLengthPath
     {a b : A} (γ : _root_.Path a b) :

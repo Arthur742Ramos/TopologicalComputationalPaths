@@ -1,0 +1,26 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,x=4.7cm,y=2.8cm]
+\draw[->] (0,0) -- (1.12,0) node[right] {$t$};
+\draw[->] (0,0) -- (0,1.18) node[above] {parameter of $\alpha$};
+\draw[pathblue,very thick] (0,0) -- (0.5,1) -- (1,0);
+\draw[pathorange,thick,dashed] (0,0) -- (0.25,0.5) -- (0.75,0.5) -- (1,0);
+\draw[pathteal,thick,dash dot] (0,0) -- (0.125,0.25) -- (0.875,0.25) -- (1,0);
+\draw[black,very thick] (0,0) -- (1,0);
+\node[below left] at (0,0) {$0$};
+\node[below] at (0.5,0) {$\tfrac12$};
+\node[below] at (1,0) {$1$};
+\node[left] at (0,1) {$1$};
+\node[pathblue,anchor=west] at (1.22,0.95) {$u=0$: full out-and-back};
+\node[pathorange,anchor=west] at (1.22,0.65) {$u=\tfrac12$: turn halfway};
+\node[pathteal,anchor=west] at (1.22,0.35) {$u=\tfrac34$: turn at one quarter};
+\node[anchor=west] at (1.22,0.05) {$u=1$: constant at $\alpha(0)$};
+\end{tikzpicture}
+\caption{Backtracking cancellation as an explicit homotopy.
+The plotted function is $r_u(t)=\min\{2t,2(1-t),1-u\}$;
+the actual path is $H(u,t)=\alpha(r_u(t))$.
+As $u$ increases, the turning point retreats along $\alpha$ and the path
+waits there before returning.  All intermediate paths stay in $\alpha(I)$,
+so even a hole surrounded by $\alpha$ cannot obstruct this cancellation.}
+\label{fig:backtracking}
+\end{figure}
