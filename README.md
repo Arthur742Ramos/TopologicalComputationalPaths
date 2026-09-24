@@ -12,6 +12,83 @@ artifact have a small and auditable boundary.
 topological semantics paper (arXiv:2608.04228), with the Lean work each
 one needs and the existing modules it can build on.
 
+The revised manuscript source from `ComputationalPathsLean` commit
+`b6f47117` is mirrored at [paper/topological/main.tex](paper/topological/main.tex).
+It now contains an open-quotient compatibility theorem, a positive universal
+example with explicit credit to prior work, and a criterion for when the
+trace-sensitive and observable quotient topologies agree. It also proves
+closure of based completeness under product presentations. A complete
+discrete-label presentation over the harmonic archipelago shows that
+geometric completeness alone does not force those quotient topologies to
+agree; this counterexample is proved in the manuscript and is outside the
+Lean selection. The progress table
+in the roadmap distinguishes these mathematical results from the Lean proofs
+and the immutable registered result.
+The general open-arrow compatibility criterion is checked in
+`ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
+checks that the universal compact-open path projection is quotient and that
+its openness gives continuous ordinary multiplication.
+`UniversalSemilocallySimplyConnected.lean` now proves that openness directly
+under local path-connectedness and semilocal simple connectivity. The paper
+credits the earlier published theorem and explains the checked proof.
+`UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
+discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
+with the compact-open subspace and, when the global projection is open,
+identifies the global based-arrow subspace with the ordinary loop quotient
+and proves its discreteness under the semilocal hypothesis. The trace-sensitive
+carrier, general section criterion, universal collapse, and duplicate-circle
+example with non-homeomorphic scoped quotient topologies are checked. The
+integer-indexed circle and the exact finite-generator circle and torus
+presentations have checked based normal forms; the finite based scoped
+quotients are homeomorphic to discrete `ℤ` and `ℤ × ℤ`, and their two trace
+topologies agree. `FiniteCircleGlobalBasedFiber.lean` and
+`FiniteTorusGlobalBasedFiber.lean` also identify the actual based subspaces
+of the global scoped arrow quotients with these discrete winding groups and
+with the ordinary geometric loop quotients.
+`ProductGeometricStepSystem.lean` defines
+the continuous horizontal/vertical step system and proves interchange sound.
+`ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
+rules, trace sorting, and based completeness for a presentation that names
+whole-trace interchange. `ProductPrimitiveInterchange.lean` derives that
+rule from primitive rectangles, proves that the two scoped rewrite
+relations agree, and transfers based completeness to the primitive-only
+presentation.
+`UniversalTotallyDisconnected.lean` proves that the global universal
+path-class projection is a homeomorphism for every totally disconnected
+space, giving unconditional ordinary composition continuity in this class.
+`EndpointVaryingLadder.lean` now proves the local endpoint-varying ladder
+under local path-connectedness and semilocal simple connectivity. The
+`EndpointAbsorption.lean` squeeze and connector lemmas place a representative
+of each short-endpoint concatenation inside a given compact-open set.
+Together they prove openness of the global path-class projection, ordinary
+pair compatibility, continuous composition, and the global based-fiber
+homeomorphism in `UniversalSemilocallySimplyConnected.lean`.
+
+## Roadmap verification
+
+`comparator-roadmap.json` selects
+`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 24 fields name the
+checked open-arrow, general universal, product, finite global-fiber,
+and trace-topology results. `RoadmapChallenge.lean` imports the substantive
+development, and `RoadmapSolution.lean` assembles its proved declarations;
+the selection is an explicit aggregation of those proofs. CI has replayed this
+bundle with Comparator, NanoDa, and Lean's kernel. It is an internal check:
+Palomar's current provenance rule does not allow a Challenge to import this
+local development.
+
+`comparator-registry-roadmap.json` selects four standalone theorems: an open
+quotient on arrows induces a quotient on ordinary composable pairs,
+continuity of raw composition descends to ordinary composition, and the
+ordinary circle and torus based-loop quotients are homeomorphic to discrete
+`ℤ` and `ℤ × ℤ`. `RoadmapRegistryChallenge.lean` imports only Mathlib;
+`RoadmapRegistrySolution.lean` proves all four statements. The corresponding
+`palomar-roadmap/formalization.yaml` records this narrower scope for a
+possible new Palomar record. Its different Comparator path prevents it from
+becoming version 2 of the existing ID under Palomar's current policy. No new
+record is registered. The direct Lean proof of global universal path-class
+openness is now in `UniversalSemilocallySimplyConnected.lean` and the internal
+bundle records it alongside the earlier conditional statement.
+
 ## Certified preimage solver (new research prototype)
 
 The new `comparator-preimage.json` selects a focused executable witness-and-
@@ -28,7 +105,7 @@ review remain open. The older artifact and its metadata remain separate below.
 
 ## Existing follow-up submission scope
 
-The current Comparator artifact is `comparator-followup.json`, selecting
+The earlier follow-up Comparator artifact is `comparator-followup.json`, selecting
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  The selected declaration is a nonempty
 `TopologicalSmithExactnessCertificate` whose core is a compatibility
@@ -490,9 +567,10 @@ composition additivity, standard-representative completeness, and both
 directions of the classification, so the result names actual quotient loop
 spaces rather than an abstract placeholder for a classification.
 
-`Challenge.lean` duplicates the statement-facing definitions needed for that
-theorem using Lean core and Mathlib; it does not import the extracted project
-implementation.  `Solution.lean` imports the extracted, checked comparison
+`ChallengePrelude.lean` and `ChallengeCertificate.lean` contain the independent
+statement-facing definitions using Lean core and Mathlib. `Challenge.lean`
+imports them and states the selected theorem. These files do not import the
+extracted project implementation. `Solution.lean` imports the extracted, checked comparison
 theory and supplies the complete certificate, including the additive
 classification and based-fiber proofs.
 

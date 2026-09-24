@@ -1,0 +1,208 @@
+version: v0.4
+project:
+  name: Topological semantics of scoped computational paths
+  description: 'A standalone selection from the revised topological-semantics paper: the open-arrow
+    ordinary-pair criterion and the circle and torus geometric loop-quotient homeomorphisms.
+    The broader scoped-presentation roadmap development is available in this repository but
+    is not part of this Comparator selection.'
+  authors:
+  - Arthur Freitas Ramos
+  - Ruy J. G. B. de Queiroz
+  - Anjolina Grisi de Oliveira
+  - Tiago M. L. de Veras
+  license: MIT
+  responsible_maintainers:
+  - Arthur Freitas Ramos
+repository:
+  role: substantive-development
+classification:
+  arxiv:
+  - math.AT
+  - math.GN
+  msc2020:
+  - 55Q05
+  - 54B15
+  - 55M20
+sources:
+- title: Topological Semantics for Scoped Computational Paths
+  authors:
+  - Arthur Freitas Ramos
+  - Ruy J. G. B. de Queiroz
+  - Anjolina Grisi de Oliveira
+  - Tiago M. L. de Veras
+  type: paper
+  id: https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/b6f47117b06662e47416921b5227e8d0772b9cfc/paper/topological/main.tex
+  location: Parent manuscript revised in this repository
+  relationship: adapts
+  author_endorsement: participated
+  note: The source manuscript is mirrored and expanded under paper/topological. This selection
+    covers the four standalone statements named below.
+- title: 'The Fundamental Groupoid: Topology, Haar System and Actions'
+  authors:
+  - Rohit Dilip Holkar
+  - Md Amir Hossain
+  - Dheeraj Kulkarni
+  type: paper
+  id: https://www.uni-muenster.de/FB10/mjm/vol_17/mjm_vol_17_06.pdf
+  location: Corollary 3.7 and Theorem 3.9
+  relationship: background
+  author_endorsement: not-contacted
+  note: Supplies the compact-open path-class openness and ordinary topological groupoid theorem
+    under local path-connectedness and semilocal simple connectivity. The selected Lean result
+    treats openness as a hypothesis.
+- title: On fundamental groups with the quotient topology
+  authors:
+  - Jeremy Brazas
+  - Paul Fabel
+  type: paper
+  id: https://arxiv.org/abs/1304.6453
+  location: Quotient-topological fundamental-group context
+  relationship: background
+  author_endorsement: not-contacted
+- title: Algebraic Topology
+  authors:
+  - Allen Hatcher
+  type: book
+  id: https://pi.math.cornell.edu/~hatcher/AT/AT.pdf
+  location: 'Chapter 1: circle and torus winding'
+  relationship: background
+  author_endorsement: n/a
+related_formalizations:
+- id: https://github.com/Arthur742Ramos/TopologicalComputationalPaths/commit/8254c40d0de03ff469c7c9c05087b8bc154e9a87
+  relationship: builds-on
+  note: Registered Palomar version 1 of the earlier scoped-topology selection.
+- id: https://github.com/Arthur742Ramos/ComputationalPathsLean/commit/b6f47117b06662e47416921b5227e8d0772b9cfc
+  relationship: builds-on
+  note: Parent Lean development and manuscript source.
+- id: https://github.com/leanprover-community/mathlib4/commit/81a5d257c8e410db227a6665ed08f64fea08e997
+  relationship: builds-on
+  note: Pinned Mathlib APIs.
+status:
+  scope: Four Mathlib-only statements select the ordinary composable-pair quotient under an
+    open arrow quotient, continuity transfer for multiplication, and the ordinary based circle
+    and torus loop-quotient homeomorphisms with discrete winding groups. The direct Lean proof
+    of universal path-class openness, product sorting, finite scoped global based-fiber homeomorphisms,
+    and trace-sensitive separation remain outside this external selection. Source proofs for
+    all of these claims are present in the repository.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient
+    file: RoadmapRegistrySolution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator-registry-roadmap.json
+  - declaration: TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous
+    file: RoadmapRegistrySolution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator-registry-roadmap.json
+  - declaration: TopologicalComputationalPathsRoadmapRegistry.circle_loop_quotient_homeomorph
+    file: RoadmapRegistrySolution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator-registry-roadmap.json
+  - declaration: TopologicalComputationalPathsRoadmapRegistry.torus_loop_quotient_homeomorph
+    file: RoadmapRegistrySolution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator-registry-roadmap.json
+research_interest:
+  audience: Researchers studying quotient topologies, fundamental groupoids, and formalized
+    algebraic topology.
+  selected_contribution: An open quotient on arrows induces a quotient on ordinary composable
+    pairs, giving a continuity test for multiplication. The ordinary based loop quotients
+    of the circle and torus are homeomorphic to discrete integers and integer pairs through
+    winding.
+  why_nontrivial: The composable-pair subspace is a full inverse image under the product arrow
+    map, so openness survives restriction. For the circle and torus, the geometric winding
+    invariants are locally constant on compact-open loop spaces and descend to homeomorphisms
+    of their quotient spaces.
+  paper_worthiness: These four statements check the paper's positive topology examples and
+    its open-arrow transfer. The finite scoped-presentation and trace-separation results are
+    stronger claims in the working source and remain outside this selection. The global universal
+    openness theorem is published prior art and now also has a Lean proof in the repository.
+  literature_boundary: The open-map step is standard general topology, and circle and torus
+    winding are classical. Holkar, Hossain, and Kulkarni supply the published global path-class
+    openness theorem applied in the paper. The selection packages these ingredients for the
+    scoped-path topology comparison without claiming priority for them. The repository now
+    contains an independent Lean proof of global path-class openness under the published
+    hypotheses, outside this Mathlib-only selection.
+  evidence:
+  - 'RoadmapRegistryChallenge.lean: four standalone statements'
+  - 'RoadmapRegistrySolution.lean: four proofs'
+  - 'ComputationalPaths/Path/Topology/TopologicalWindingHomeomorph.lean: circle and torus
+    winding homeomorphisms'
+  - 'ComputationalPaths/Path/Topology/ScopedGeometricRewriteGroupoid.lean: scoped open-arrow
+    application'
+automation:
+  methods:
+  - method: manual
+    tool_setup: Roadmap interpretation, literature checks, manuscript revision, and source
+      audit.
+  - method: agent
+    models:
+    - Codex
+    framework: Lean 4.32.0 and Lake
+    tool_setup: Lean proofs, PDF build, source checks, and Comparator preparation.
+    cost:
+      wall_time: multi-session local development
+      spend_usd: not tracked
+      hardware: local machine
+    prompting_notes: Keep conditional results and the cited classical theorem distinct.
+  spend_usd: not tracked
+  notes: Local Lean checks and GitHub Comparator replay are recorded against the selected
+    commit; full Palomar preflight is pending.
+fidelity:
+  divergences: The Comparator challenge states the abstract open-arrow pair quotient, multiplication-continuity
+    transfer, and ordinary geometric circle and torus loop-quotient homeomorphisms. It does
+    not select the 24-field internal roadmap bundle, the finite scoped global based-fiber
+    homeomorphisms, product sorting, or trace-sensitive separation. The universal path-class
+    open-map theorem is proved in this repository's Lean development but lies outside this
+    standalone Mathlib-only selection.
+alignment:
+  namespace: TopologicalComputationalPathsRoadmapRegistry
+  statements:
+  - source: Open-arrow criterion for ordinary composable pairs
+    lean: TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient
+    module: RoadmapRegistrySolution.lean
+    status: proved
+    note: Abstract statement; its scoped-path specialization is proved separately in the repository.
+  - source: Continuous multiplication through the ordinary quotient
+    lean: TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous
+    module: RoadmapRegistrySolution.lean
+    status: proved
+    note: Assumes continuity of the raw composite.
+  - source: Circle quotient-topology winding classification
+    lean: TopologicalComputationalPathsRoadmapRegistry.circle_loop_quotient_homeomorph
+    module: RoadmapRegistrySolution.lean
+    status: proved
+    note: Ordinary geometric based-loop quotient, not the finite scoped-arrow subspace.
+  - source: Torus quotient-topology winding classification
+    lean: TopologicalComputationalPathsRoadmapRegistry.torus_loop_quotient_homeomorph
+    module: RoadmapRegistrySolution.lean
+    status: proved
+    note: Ordinary geometric based-loop quotient, not the finite scoped-arrow subspace.
+review:
+  status: self-assessed
+  reviewers: []
+  notes: Local Lean verification is complete; external mathematical and editorial review is
+    pending.
+acknowledgements: Thanks to the cited authors and to contributors to Lean, Mathlib, and the
+  Calculus of Computational Paths.

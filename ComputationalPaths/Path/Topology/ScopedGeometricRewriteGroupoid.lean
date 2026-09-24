@@ -1,4 +1,6 @@
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteQuotient
+import Mathlib.Topology.LocalAtTarget
+import Mathlib.Topology.Maps.OpenQuotient
 
 /-!
 # The scoped rewrite groupoid
@@ -17,6 +19,114 @@ namespace GeometricTopology
 open scoped ContinuousMap Topology
 
 universe u v
+
+/-! ## The explicit composable carrier is the raw endpoint pullback -/
+
+section RawPair
+
+variable {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  (S : ContinuousGeometricStepSystem A Step)
+
+/-- The ordinary endpoint pullback of two raw coherent paths. -/
+abbrev RawPair :=
+  {pq : TotalOpenGeometricCompPath A Step S ×
+      TotalOpenGeometricCompPath A Step S // pq.1.tgt = pq.2.src}
+
+def totalComposableToRawPair (c : TotalComposable A Step S) :
+    RawPair S :=
+  ⟨(⟨c.src, c.mid, c.left⟩, ⟨c.mid, c.tgt, c.right⟩), rfl⟩
+
+noncomputable def rawPairToTotalComposable (p : RawPair S) :
+    TotalComposable A Step S := by
+  rcases p with ⟨⟨⟨a, b, l⟩, ⟨b', c, r⟩⟩, h⟩
+  cases h
+  exact ⟨a, b, c, l, r⟩
+
+theorem rawPairToTotalComposable_to (c : TotalComposable A Step S) :
+    rawPairToTotalComposable S (totalComposableToRawPair S c) = c := by
+  cases c
+  rfl
+
+theorem totalComposableToRawPair_to (p : RawPair S) :
+    totalComposableToRawPair S (rawPairToTotalComposable S p) = p := by
+  rcases p with ⟨⟨⟨a, b, l⟩, ⟨b', c, r⟩⟩, h⟩
+  cases h
+  rfl
+
+theorem continuous_totalComposableToRawPair :
+    Continuous (totalComposableToRawPair S :
+      TotalComposable A Step S → RawPair S) := by
+  have hleft : Continuous (fun c : TotalComposable A Step S =>
+      (⟨c.src, c.mid, c.left⟩ : TotalOpenGeometricCompPath A Step S)) := by
+    apply continuous_induced_rng.mpr
+    change Continuous (fun c : TotalComposable A Step S =>
+      (c.src, (c.mid, (c.leftTraceLength,
+        (c.leftTraceMap S, c.leftGeometricMap S)))))
+    exact (TotalComposable.continuous_src S).prodMk <|
+      (TotalComposable.continuous_mid S).prodMk <|
+        (TotalComposable.continuous_leftTraceLength S).prodMk <|
+          (TotalComposable.continuous_leftTraceMap S).prodMk
+            (TotalComposable.continuous_leftGeometricMap S)
+  have hright : Continuous (fun c : TotalComposable A Step S =>
+      (⟨c.mid, c.tgt, c.right⟩ : TotalOpenGeometricCompPath A Step S)) := by
+    apply continuous_induced_rng.mpr
+    change Continuous (fun c : TotalComposable A Step S =>
+      (c.mid, (c.tgt, (c.rightTraceLength,
+        (c.rightTraceMap S, c.rightGeometricMap S)))))
+    exact (TotalComposable.continuous_mid S).prodMk <|
+      (TotalComposable.continuous_tgt S).prodMk <|
+        (TotalComposable.continuous_rightTraceLength S).prodMk <|
+          (TotalComposable.continuous_rightTraceMap S).prodMk
+            (TotalComposable.continuous_rightGeometricMap S)
+  exact Continuous.subtype_mk (hleft.prodMk hright) _
+
+theorem continuous_rawPairToTotalComposable :
+    Continuous (rawPairToTotalComposable S :
+      RawPair S → TotalComposable A Step S) := by
+  apply continuous_induced_rng.mpr
+  have hfirst : Continuous (fun p : RawPair S => p.val.1) :=
+    continuous_fst.comp continuous_subtype_val
+  have hsecond : Continuous (fun p : RawPair S => p.val.2) :=
+    continuous_snd.comp continuous_subtype_val
+  have hobs :
+      (fun p : RawPair S =>
+        TotalComposable.observation S (rawPairToTotalComposable S p)) =
+      (fun p : RawPair S =>
+        (p.val.1.src, (p.val.1.tgt, (p.val.2.tgt,
+          (GeometricTrace.traceLength p.val.1.trace,
+            (GeometricTrace.traceLength p.val.2.trace,
+              (p.val.1.traceMap S, (p.val.2.traceMap S,
+                (p.val.1.geometricMap S, p.val.2.geometricMap S))))))))) := by
+    funext p
+    rcases p with ⟨⟨⟨a, b, l⟩, ⟨b', c, r⟩⟩, h⟩
+    cases h
+    rfl
+  change Continuous (fun p : RawPair S =>
+    TotalComposable.observation S (rawPairToTotalComposable S p))
+  rw [hobs]
+  exact ((TotalOpenGeometricCompPath.continuous_src S).comp hfirst).prodMk <|
+    ((TotalOpenGeometricCompPath.continuous_tgt S).comp hfirst).prodMk <|
+      ((TotalOpenGeometricCompPath.continuous_tgt S).comp hsecond).prodMk <|
+        ((TotalOpenGeometricCompPath.continuous_traceLength S).comp hfirst).prodMk <|
+          ((TotalOpenGeometricCompPath.continuous_traceLength S).comp hsecond).prodMk <|
+            ((TotalOpenGeometricCompPath.continuous_traceMap S).comp hfirst).prodMk <|
+              ((TotalOpenGeometricCompPath.continuous_traceMap S).comp hsecond).prodMk <|
+                ((TotalOpenGeometricCompPath.continuous_geometricMap S).comp hfirst).prodMk
+                  ((TotalOpenGeometricCompPath.continuous_geometricMap S).comp hsecond)
+
+/-- The explicit three-endpoint carrier and the ordinary raw pullback have
+the same topology, including both trace and geometric coordinates. -/
+noncomputable def totalComposableRawPairHomeomorph :
+    TotalComposable A Step S ≃ₜ RawPair S where
+  toFun := totalComposableToRawPair S
+  invFun := rawPairToTotalComposable S
+  left_inv := rawPairToTotalComposable_to S
+  right_inv := totalComposableToRawPair_to S
+  continuous_toFun := continuous_totalComposableToRawPair S
+  continuous_invFun := continuous_rawPairToTotalComposable S
+
+end RawPair
 
 namespace ScopedGeometricRewrite
 
@@ -176,6 +286,20 @@ theorem scopedOrdinaryPairMap_surjective :
   refine ⟨c', ?_⟩
   rw [scopedOrdinaryPairMap, hc']
 
+/-- An open arrow quotient remains a quotient map on the full inverse image
+of any set of arrow pairs. In particular this applies to the composable
+pullback in the product of raw arrow spaces. -/
+theorem scopedRawPair_isQuotient_of_open_arrow
+    (hopen : IsOpenMap (scopedQuotientMk P)) :
+    Topology.IsQuotientMap
+      (({pq : ScopedClass P × ScopedClass P |
+          scopedTgt P pq.1 = scopedSrc P pq.2}).restrictPreimage
+        (Prod.map (scopedQuotientMk P) (scopedQuotientMk P))) := by
+  have hq : IsOpenQuotientMap (scopedQuotientMk P) :=
+    IsOpenQuotientMap.of_isOpenMap_isQuotientMap hopen
+      (scopedQuotientMk_isQuotient P)
+  exact ((hq.prodMap hq).restrictPreimage _).isQuotientMap
+
 theorem scopedProductCompatibility_iff_raw_pair_map_quotient :
     ProductQuotientCompatibility P ↔
       Topology.IsQuotientMap (scopedOrdinaryPairMap P :
@@ -194,6 +318,27 @@ theorem scopedProductCompatibility_iff_raw_pair_map_quotient :
         (continuous_scopedPairToOrdinary P)
         hraw
     exact ⟨hclass⟩
+
+/-- The ordinary pair map is the restriction of the product arrow quotient,
+transported across the raw-pullback homeomorphism. -/
+theorem scopedOrdinaryPairMap_eq_restricted :
+    (scopedOrdinaryPairMap P : TotalComposable A Step S → ScopedComposablePair P) =
+      (({pq : ScopedClass P × ScopedClass P |
+          scopedTgt P pq.1 = scopedSrc P pq.2}).restrictPreimage
+        (Prod.map (scopedQuotientMk P) (scopedQuotientMk P))) ∘
+          totalComposableToRawPair S := by
+  funext c
+  rfl
+
+/-- Openness of the arrow quotient suffices for ordinary-pair
+compatibility, with no compactness or discreteness assumption. -/
+theorem scopedProductCompatibility_of_open_arrow
+    (hopen : IsOpenMap (scopedQuotientMk P)) :
+    ProductQuotientCompatibility P := by
+  apply (scopedProductCompatibility_iff_raw_pair_map_quotient P).2
+  rw [scopedOrdinaryPairMap_eq_restricted]
+  exact (scopedRawPair_isQuotient_of_open_arrow P hopen).comp
+    (totalComposableRawPairHomeomorph S).isQuotientMap
 
 theorem scopedProductCompatibility_iff_ordinary_to_final_continuous :
     ProductQuotientCompatibility P ↔
@@ -317,6 +462,15 @@ theorem scopedProductCompatibility_of_discrete_arrow_and_final_domain
   apply scopedProductCompatibility_of_open_pair_map P
   intro U hU
   exact isOpen_discrete _
+
+/-- Discreteness of the arrow space alone makes the ordinary pullback
+discrete. Hence the inverse comparison map is continuous without a separate
+assumption on the final composable domain. -/
+theorem scopedProductCompatibility_of_discrete_arrow
+    [DiscreteTopology (ScopedClass P)] :
+    ProductQuotientCompatibility P := by
+  apply (scopedProductCompatibility_iff_ordinary_to_final_continuous P).2
+  exact continuous_of_discreteTopology
 
 /-! ## Canonical strong composable pairs -/
 
@@ -519,6 +673,10 @@ structure ScopedFinalTopologicalGroupoidCertificate where
   target_continuous : Continuous (scopedTgt P)
   identity_continuous : Continuous (scopedRefl P)
   inverse_continuous : Continuous (scopedSymm P)
+  left_projection_continuous :
+    Continuous (fun c : ScopedStrongComposablePair P => c.val.val.1)
+  right_projection_continuous :
+    Continuous (fun c : ScopedStrongComposablePair P => c.val.val.2)
   final_composition_continuous :
     Continuous (scopedCompositionOnStrong P :
       ScopedStrongComposablePair P → ScopedClass P)
@@ -540,6 +698,12 @@ noncomputable def scopedFinalTopologicalGroupoidCertificate :
   target_continuous := continuous_scopedTgt P
   identity_continuous := continuous_scopedRefl P
   inverse_continuous := continuous_scopedSymm P
+  left_projection_continuous :=
+    (continuous_fst.comp continuous_subtype_val).comp
+      (continuous_scopedStrongToOrdinary P)
+  right_projection_continuous :=
+    (continuous_snd.comp continuous_subtype_val).comp
+      (continuous_scopedStrongToOrdinary P)
   final_composition_continuous := continuous_scopedCompositionOnStrong P
   left_unit := scopedCompositionOnStrong_leftUnit P
   right_unit := scopedCompositionOnStrong_rightUnit P

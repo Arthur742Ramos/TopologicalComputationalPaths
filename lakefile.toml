@@ -1,6 +1,6 @@
 name = "TopologicalComputationalPaths"
 version = "0.1.0"
-defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution", "PreimageChallenge", "PreimageSolution", "PreimageTests", "PreimageAdversarial", "PreimageBenchmarks"]
+defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution", "PreimageChallenge", "PreimageSolution", "PreimageTests", "PreimageAdversarial", "PreimageBenchmarks", "RoadmapChallenge", "RoadmapSolution", "RoadmapRegistryChallenge", "RoadmapRegistrySolution"]
 
 [[require]]
 name = "mathlib"
@@ -14,6 +14,14 @@ roots = ["ComputationalPaths"]
 [[lean_lib]]
 name = "Challenge"
 roots = ["Challenge"]
+
+[[lean_lib]]
+name = "ChallengePrelude"
+roots = ["ChallengePrelude"]
+
+[[lean_lib]]
+name = "ChallengeCertificate"
+roots = ["ChallengeCertificate"]
 
 [[lean_lib]]
 name = "Solution"
@@ -46,3 +54,19 @@ roots = ["PreimageChallenge"]
 [[lean_lib]]
 name = "PreimageSolution"
 roots = ["PreimageSolution"]
+
+[[lean_lib]]
+name = "RoadmapChallenge"
+roots = ["RoadmapChallenge"]
+
+[[lean_lib]]
+name = "RoadmapSolution"
+roots = ["RoadmapSolution"]
+
+[[lean_lib]]
+name = "RoadmapRegistryChallenge"
+roots = ["RoadmapRegistryChallenge"]
+
+[[lean_lib]]
+name = "RoadmapRegistrySolution"
+roots = ["RoadmapRegistrySolution"]

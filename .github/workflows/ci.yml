@@ -5,6 +5,18 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      preflight_commit:
+        description: Full source commit for Palomar's mechanical preflight
+        required: false
+        type: string
+      authorization_relationship:
+        description: Relationship declared by the responsible person
+        required: false
+        type: choice
+        options:
+          - I am a responsible author or maintainer
+          - I have approval from a responsible author or maintainer
 
 permissions:
   contents: read
@@ -16,6 +28,7 @@ concurrency:
 jobs:
   palomar-quality:
     name: Lean and Palomar contract
+    if: github.event_name != 'workflow_dispatch' || inputs.preflight_commit == ''
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -29,6 +42,8 @@ jobs:
         run: ./scripts/check-palomar.sh --skip-build
       - name: Run follow-up theorem quality gate
         run: ./scripts/check-followup.sh --skip-build
+      - name: Check roadmap selection
+        run: ./scripts/check-roadmap.sh --skip-build
       - name: Check certified preimage solver and generated fixtures
         run: |
           python3 -m venv .cache/preimage-venv
@@ -37,12 +52,13 @@ jobs:
 
   comparator:
     name: Comparator and NanoDa (${{ matrix.config }})
+    if: github.event_name != 'workflow_dispatch' || inputs.preflight_commit == ''
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        config: [comparator.json, comparator-followup.json, comparator-preimage.json]
+        config: [comparator.json, comparator-followup.json, comparator-preimage.json, comparator-roadmap.json, comparator-registry-roadmap.json]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -56,3 +72,16 @@ jobs:
           cache: false
       - name: Run pinned Comparator and NanoDa
         run: ./scripts/verify-comparator.sh "${{ matrix.config }}"
+
+  palomar-roadmap-preflight:
+    name: Full Palomar mechanical preflight
+    if: github.event_name == 'workflow_dispatch' && inputs.preflight_commit != ''
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@1703d7babd984ccc3831cdf89c28221abe34808f
+    with:
+      repository: Arthur742Ramos/TopologicalComputationalPaths
+      commit: ${{ inputs.preflight_commit }}
+      pipeline_commit: 1703d7babd984ccc3831cdf89c28221abe34808f
+      request_id: roadmaptest1
+      mode: full
+      options: >-
+        {"authorization_relationship":"${{ inputs.authorization_relationship }}","comparator_config_path":"comparator-registry-roadmap.json","formalization_metadata_path":"palomar-roadmap/formalization.yaml"}

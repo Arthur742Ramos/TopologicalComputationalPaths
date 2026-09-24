@@ -2,26 +2,43 @@
 
 This file lists results that would make *Topological Semantics for Scoped
 Computational Paths* (arXiv:2608.04228) a substantially stronger paper, and
-the Lean work each one needs. The revised manuscript source lives in
-[ComputationalPathsLean](https://github.com/Arthur742Ramos/ComputationalPathsLean)
-under `paper/topological/`.
+the Lean work each one needs. The revised manuscript source from
+`ComputationalPathsLean` commit `b6f47117` is mirrored at
+[`paper/topological/main.tex`](paper/topological/main.tex). The parent
+repository remains the source for its broader Lean artifact.
+
+## Progress in this working tree
+
+| Goal | Current state |
+| --- | --- |
+| 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace. The now-checked global open-map theorem makes the homeomorphism from the ordinary loop quotient to the global based-arrow subspace unconditional under local path-connectedness and semilocal simple connectivity. |
+| 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
+| 3. Global theorem | The paper credits Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. Lean now proves the general open-map theorem directly from an endpoint-varying ladder and a compact-open endpoint absorption lemma. It derives ordinary composable-pair compatibility, continuous composition, and the global based-fiber homeomorphism under local path-connectedness and semilocal simple connectivity. A separate totally disconnected case gives a homeomorphic projection without those hypotheses. |
+| 4. Products | The paper and Lean define a sound product presentation with lifted factor rules and primitive rectangle interchange. Lean derives whole-trace interchange by induction, proves equivalence with the earlier presentation that named it, and transfers based trace completeness from complete factors. |
+| 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. A complete discrete-path-label presentation over the harmonic archipelago now answers the completeness-alone question negatively. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 24 fields and includes the general semilocal universal theorem and primitive-only product closure. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
+
+The registered Palomar version 1 is an immutable earlier snapshot. Current
+working-tree improvements must not be attributed to that registration.
 
 ## Where the paper stands
 
-The mathematics is correct, and the paper separates two problems cleanly:
+The paper separates two problems cleanly:
 geometric completeness (which arrows are equal) and product-quotient
 compatibility (which topology composition needs). Its weaknesses are these:
 
 - Most theorems are standard quotient-topology facts written in the language
   of scoped presentations. The normal-form completeness criterion is close to
   a tautology once it is set up.
-- The only sufficient conditions for compatibility are compact-Hausdorff and
-  discrete. The carrier contains path spaces, so these almost never apply to
-  geometric examples. The paper has one negative example (the Hawaiian earring)
-  and no positive geometric one.
-- Completeness is shown only for the circle and torus, by ad hoc arguments.
-- The trace-sensitive topology is only shown to differ from the observable
-  one on a one-point space with two constant steps.
+- The earlier manuscript offered compact-Hausdorff and discrete sufficient
+  conditions, which rarely apply to geometric path spaces. The revision adds
+  an open-quotient criterion and a positive universal example.
+- The earlier manuscript showed completeness only for the circle and torus.
+  The revision adds a product closure theorem and finite-torus corollaries.
+- The revised paper now separates the two topologies using distinct labels
+  for the same nonconstant circle loop. Lean checks the actual scoped quotient
+  separation, including continuity of the forward comparison and failure of
+  continuity of its inverse.
 
 The goals below address these weaknesses in order of payoff per unit of effort.
 
@@ -48,11 +65,18 @@ positive case to set against its negative one.
 - `discrete_recovers_ordinary` in the registered certificate
 
 The based fiber must carry the subspace topology from the observable carrier.
-The Hawaiian module currently uses a coarser topology (see Goal 6b).
+`UniversalGlobalBasedFiber.lean` proves this comparison under the open-map
+hypothesis, which `UniversalSemilocallySimplyConnected.lean` now discharges
+under the stated geometric assumptions. The Hawaiian
+module's full observable based topology is handled separately (see Goal 6b).
 
-**Check before citing.** The converse appears to fail, because the harmonic
-archipelago has an indiscrete $\pi_1^q$, which is still a topological group.
-Confirm against the literature before stating it.
+**Converse check.** Fabel proves that the harmonic archipelago has an
+uncountable fundamental group with the indiscrete quotient topology
+([*The fundamental group of the harmonic archipelago*](https://arxiv.org/abs/math/0501426)).
+Every indiscrete group has continuous multiplication and inversion, so
+discreteness is not necessary for $\pi_1^q$ to be a topological group. This
+observation alone does not give a converse statement about the global
+fundamental groupoid or the universal presentation's based subspace topology.
 
 ## Goal 2: open-quotient criterion
 
@@ -78,8 +102,11 @@ A general version also holds for any presentation: if $q:T\to G_{\mathcal P}$
 is open, then $q_{\mathrm{ord}}^{(2)}$ is an open surjection and
 compatibility holds.
 
-**Lean work: small to moderate.** It is general topology plus the existing
-universal section.
+**Lean work.** The general open-arrow theorem is
+`scopedProductCompatibility_of_open_arrow` in
+`ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
+now proves the universal path projection quotient and derives ordinary
+product compatibility from its openness. Goal 3 now supplies the open map.
 
 ## Goal 3: the global theorem for semilocally simply connected spaces
 
@@ -88,18 +115,19 @@ connected, then $q_I : X^I\to\Pi_1^q(X)$ is open. With Goal 2, the whole
 quotient-topologized fundamental groupoid is then a topological groupoid,
 not just its based fibers.
 
-**Proof sketch.** This has been checked on paper, not yet written carefully.
+**Proof.** The cited literature proves the theorem. The Lean formalization
+uses the following local argument.
 Let $W$ be open and let $\delta$ be homotopic to some $\gamma\in W$. We need a
 neighbourhood of $\delta$ inside the saturation of $W$.
 
-1. **Absorption (needs no semilocal hypothesis).** Shrink $W$ to a
-   subdivision-type basic set $\bigcap_j\langle I_j,O_j\rangle$ around
-   $\gamma$. There are neighbourhoods $U$ of $\gamma(0)$ and $V$ of
-   $\gamma(1)$ with the following property. For all paths $\alpha$ in $U$
-   and $\beta$ in $V$, a reparametrization of $\alpha^{-1}\gamma\beta$ lies
-   in $W$. The reparametrization spends a small time $\varepsilon$ on each
-   end, and a Lebesgue-number argument controls the shift of $\gamma$ on the
-   middle part.
+1. **Absorption (needs no semilocal hypothesis).** Choose a small positive
+   reparametrization of $\gamma$ with constant tails that remains in $W$.
+   A finite compact-open subbasis around this path gives neighbourhoods
+   $U$ of $\gamma(0)$ and $V$ of $\gamma(1)$. Every endpoint connector
+   contained in $U$ or $V$ can be inserted into the corresponding tail
+   while keeping the modified path in $W$. An explicit piecewise linear
+   reparametrization proves that this path is homotopic to the three-part
+   concatenation.
 2. **Ladder (needs local path-connectedness and the semilocal hypothesis).**
    Every path $\delta'$ close enough to $\delta$ is homotopic to
    $\alpha^{-1}\delta\beta$ for short paths $\alpha$ and $\beta$ in chosen
@@ -109,21 +137,32 @@ neighbourhood of $\delta$ inside the saturation of $W$.
 Then $\delta'\simeq\alpha^{-1}\delta\beta\simeq\alpha^{-1}\gamma\beta$, which
 is homotopic to a path in $W$.
 
-**Novelty check.** Compare with Brown and Danesh-Naruie's lifted topology
-and with Brazas's work on quotient-topologized fundamental groups. The
-identification of the quotient and lifted topologies in this setting may be
-known. Its value here is in pinning down exactly where the Hawaiian
-obstruction disappears.
+**Prior art.** Holkar, Hossain, and Kulkarni prove openness of the compact-open
+path-class quotient under these hypotheses in Corollary 3.7, and the
+topological-groupoid conclusion in Theorem 3.9 of
+[their 2024 paper](https://www.uni-muenster.de/FB10/mjm/vol_17/mjm_vol_17_06.pdf).
+The manuscript credits this theorem and uses it to explain where the
+Hawaiian-earring obstruction disappears. The global statement is not a new
+result of this project.
 
-**Lean work: substantial.** Useful assets in
-`SemilocallySimplyConnected.lean`: `exists_finite_null_subdivision`,
-`homotopic_concat_of_homotopic_ladder`, `isOpen_loops_mapsTo`, and
-`isOpen_homotopyClass_of_semilocallySimplyConnected`. The last one covers
-fixed endpoints only. Still missing:
-- an endpoint-varying ladder
-- a subdivision basis for the compact-open topology on `C(I, X)`; check
-  Mathlib first
-- the reparametrization estimate
+**Lean work: complete for this theorem.** `EndpointVaryingLadder.lean` proves an
+endpoint-varying local ladder from the finite null-homotopy subdivision in
+`SemilocallySimplyConnected.lean`. For any open neighborhoods of a path's
+endpoints, it produces a compact-open neighborhood of that path and shows
+that every nearby path differs by endpoint connectors confined to those
+neighborhoods. `EndpointAbsorption.lean` constructs the positive-tail
+reparametrization, inserts both connectors, and checks its concatenation
+homotopy class. `UniversalSemilocallySimplyConnected.lean` proves the
+universal path-class projection open by showing that the saturation of
+every compact-open set is open. It then derives ordinary pair compatibility,
+continuous composition, and the global based-fiber homeomorphism.
+
+`UniversalTotallyDisconnected.lean` settles a different global case without
+these lemmas. Every interval path into a totally disconnected space is
+constant; the universal path-class projection is quotient and injective,
+hence a homeomorphism. The module also checks ordinary pair compatibility,
+ordinary multiplication continuity, and the global based-fiber comparison.
+This provides a second, independent open-map class.
 
 ## Goal 4: products preserve completeness
 
@@ -132,30 +171,36 @@ the based fiber at $x$, and $\mathcal Q$ one on $Y$ that is complete at $y$.
 Define the product presentation $\mathcal P\boxtimes\mathcal Q$ on $X\times Y$:
 - its steps are $E\times Y\sqcup X\times F$, where $(e,y')$ realizes
   $t\mapsto(\rho(e)(t),y')$;
-- its named rules are the lifted rules of $\mathcal P$ and $\mathcal Q$,
-  plus the commuting squares $(e,s f);(t e,f)\simeq(s e,f);(e,t f)$.
+- its named rules are the lifted rules of $\mathcal P$ and $\mathcal Q$
+  and the commuting squares $(e,s f);(t e,f)\simeq(s e,f);(e,t f)$.
+  Interchange for arbitrary factor traces is derivable from these rules.
 
 Then $\mathcal P\boxtimes\mathcal Q$ is complete on the based fiber at
 $(x,y)$.
 
 **Proof sketch.**
-1. Use the commuting squares to sort every loop word into a lifted
-   $\mathcal P$-loop at $x$ followed by a lifted $\mathcal Q$-loop at $y$. An
-   inversion count decreases at each step.
-2. Project to $X$ and $Y$. The $\mathcal Q$-letters project to constant
+1. Derive whole-trace interchange from primitive rectangles by induction on
+   both factor traces, pasting squares under concatenation and reversing
+   them under inversion.
+2. Induct on product traces, using the derived interchange to sort every
+   loop into a lifted $\mathcal P$-loop at $x$ followed by a lifted
+   $\mathcal Q$-loop at $y$.
+3. Project to $X$ and $Y$. The $\mathcal Q$-letters project to constant
    paths, so homotopic loops have homotopic $\mathcal P$-parts and homotopic
    $\mathcal Q$-parts.
-3. Completeness of each factor gives derivations, and these lift along the
+4. Completeness of each factor gives derivations, and these lift along the
    inclusion presentation maps $x'\mapsto(x',y)$ and $y'\mapsto(x,y')$.
 
 **Why it matters.** It replaces the ad hoc torus proof with a general
 theorem. The torus and the $n$-torus become corollaries of the circle.
 
-**Lean work: substantial but well-scoped.** It needs:
-- a product step system, with a sum of step types
-- the commuting-square rules and their soundness
-- the sorting normalization
-- lifting of derivations along presentation maps
+**Lean work.** `ProductGeometricStepSystem.lean`,
+`ProductScopedPresentation.lean`, and `ProductScopedSorting.lean` check
+the continuous step system, soundness, lifted derivations, sorting, and
+based trace completeness with a named whole-trace rule.
+`ProductPrimitiveInterchange.lean` derives that rule from primitive squares,
+shows equality of the two scoped rewrite relations, and proves based
+completeness for the primitive-only presentation.
 
 Existing assets: the sorting argument in `ConcreteTorusWinding.lean`,
 functoriality in `ContinuousGeometricStepSystemMap.lean`, and the
@@ -179,43 +224,82 @@ so $J^{-1}\circ q_{\mathrm{obs}}$ is continuous.
   $\gamma\mapsto(c_{w(\gamma)},\gamma)$, which is continuous because winding
   is locally constant.
 
-So the two topologies can differ only where completeness or the section
-fails. Example 2.5 is incomplete.
+The two topologies can differ only where completeness or the section
+fails. The duplicate-label circle example is incomplete; the complete
+example below lacks a continuous trace section.
 
-**Open questions.** Does completeness alone force $J$ to be a homeomorphism?
-Is there a geometric, non-degenerate presentation where $J$ fails to be one?
-If neither pans out, shrink the trace-sensitive material to a remark.
+**Completeness alone.** The answer is no. The revised paper gives every path
+in the harmonic archipelago a discrete step label and declares all
+endpoint-fixed homotopies as rewrites. This is geometrically complete. Its
+trace-sensitive based quotient is discrete, while its observable based
+quotient is the indiscrete $\pi_1^q$ computed by
+[Fabel](https://arxiv.org/abs/math/0501426). The global comparison also
+fails to be a homeomorphism. This example is proved in the manuscript; the
+Lean trace-separation example below instead uses two distinct labels for a
+nonconstant circle loop and does not assert completeness.
 
-**Lean work: small for the criterion, moderate for the corollaries.**
+**Lean work.** `TraceSensitiveTopologicalCompPath.lean` supplies the two
+representative topologies, `TraceSensitiveUniversalCollapse.lean` now states
+`traceSensitiveHomeomorph_of_complete_section`, and
+`TraceSensitiveSeparation.lean` checks the finite separation model.
+`ScopedCircleTraceCollapse.lean` checks the fixed-endpoint integer-indexed
+circle section. `TraceSensitiveSeparation.lean` proves that two labels for
+the same nonconstant circle loop give distinct scoped classes while their
+observable codes coincide, and that the two quotient topologies differ.
+`FiniteCircleTorusTraceSection.lean` checks continuous choices
+of signed finite-generator words for the circle and torus.
+`FiniteCircleScopedCompleteness.lean` and `FiniteTorusScopedCompleteness.lean`
+prove based completeness for the exact finite rule sets, instantiate those
+topology comparisons, and identify their based scoped quotients with
+$\mathbb Z$ and $\mathbb Z^2$ and directly with the ordinary geometric loop
+quotients.
 
 ## Goal 6: close the gaps between paper and Lean
 
-a. **Projections.** Add continuity of the two projections from the final
-   domain to `ScopedFinalTopologicalGroupoidCertificate`. The paper's
-   definition now requires it. It follows from
-   `pr_i ∘ q_fin = q ∘ pr_i`. Effort: easy.
+a. **Projections.** The working source now includes continuity of both
+   projections from the final domain in
+   `ScopedFinalTopologicalGroupoidCertificate`.
 
-b. **Hawaiian topology.** `hawaiianObservableOpenFiberTopology` is induced by
-   the geometric projection alone. Restate the based-fiber certificate with
-   the subspace topology from the observable carrier, which
-   `TotalOpenGeometricCompPath.instTopologicalSpace` already induces from
-   `observation`. That removes the caveat in Section 10.2 of the paper.
-   Effort: modest.
+b. **Hawaiian topology.** The working source now induces
+   `hawaiianObservableOpenFiberTopology` from the full observable carrier
+   and proves the one-letter section continuous. Section 10 of the paper
+   retains the caveat for the immutable registered version 1.
 
-c. **Scoped-side homeomorphisms.** Connect the scoped based fiber
-   $G_{\mathcal P}(0,0)$ of the finite circle and torus presentations to the
-   geometric homeomorphisms that already exist. Those are
-   `topologicalLoopQuotHomeomorphInt` in `TopologicalWindingHomeomorph.lean`
-   and the $n$-torus version in `FiniteTorusWinding.lean`. Effort: moderate.
+c. **Scoped-side homeomorphisms.** The finite circle and torus presentations
+   now have checked homeomorphisms from the actual based subspaces of their
+   global scoped arrow quotients to $\mathbb Z$ and $\mathbb Z^2$, and hence to
+   the corresponding ordinary geometric loop quotients. The proof extends
+   winding continuously over all global scoped arrows by translating each
+   variable-basepoint loop to the identity. It then uses finite based
+   completeness to show that winding is injective on the based subspace.
+   These results are in `FiniteCircleGlobalBasedFiber.lean` and
+   `FiniteTorusGlobalBasedFiber.lean`.
 
-d. **Discrete field.** Weaken the hypotheses of `discrete_recovers_ordinary`
-   to discreteness of $G_{\mathcal P}$ alone. The final domain is then
-   discrete automatically. Effort: easy.
+d. **Discrete field.** The working source now assumes discreteness of
+   $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
+   supporting compatibility theorem.
 
-e. **New selection.** Bundle Goals 1, 2, 5 and 6a to 6d, plus 3 and 4 if finished,
-   into a new comparator selection, following the pattern of
-   `comparator-followup.json`. Register it as a new Palomar version, and
-   update Section 10 and Table 2 of the paper to match.
+e. **New selection.** `comparator-roadmap.json` selects a 24-field
+   `RoadmapCertificate` covering the checked universal open-map theorem and its
+   consequences, the conditional universal results,
+   open-arrow and projection results, primitive-only product closure, finite based
+   completeness and global subspace homeomorphisms, trace-section criterion,
+   and quotient-topology separation. `formalization-roadmap.yaml` records the
+   exact boundary. The challenge imports the substantive Lean development,
+   and the solution assembles its declarations. CI has replayed this bundle
+   with Comparator, NanoDa, and Lean's kernel. Palomar's current Challenge
+   provenance rule does not permit that local import, so the bundle is an
+   internal check rather than a registration candidate.
+   `comparator-registry-roadmap.json` separately selects four standalone
+   Mathlib-only statements: the open-arrow ordinary-pair quotient, the
+   continuity transfer for multiplication, and the ordinary circle and torus
+   loop-quotient homeomorphisms. Its preflight, external review,
+   registration as a new Palomar record, and the corresponding Section 10
+   manuscript update remain. Palomar requires a later version to retain the
+   earlier Comparator path, so this separate configuration cannot become
+   version 2 of the existing ID. The direct Lean proof of Goal 3 is now in
+   `UniversalSemilocallySimplyConnected.lean` and remains outside this
+   standalone Mathlib-only selection.
 
 ## Longer-term goals (not planned yet)
 
@@ -235,11 +319,9 @@ classical inputs.
   presentation. This connects to the existing SVK preprint and would tie the
   paper series together.
 
-## Suggested order
+## Remaining order
 
-1. Goals 1, 2, 5 and 6a/6d. They are cheap, and they change the paper's
-   story from "an obstruction exists" to "here is exactly where it goes
-   away".
-2. Goal 3 or Goal 4 as the headline theorem of the next version.
-3. Goal 6b/6c, then the new registration in 6e.
-4. The longer-term goals, as separate projects.
+1. Run Palomar's full mechanical preflight on a final commit and the
+   Mathlib-only Comparator selection. Seek review and register a new record
+   only after the required maintainer authorization and registration decision
+   (Goal 6e). Treat the longer-term goals as separate projects.
