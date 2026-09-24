@@ -274,4 +274,3 @@ theorem exists_endpoint_varying_ladder
         convert hfinal using 1 <;> ext s <;> rfl
 
 end ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup
-

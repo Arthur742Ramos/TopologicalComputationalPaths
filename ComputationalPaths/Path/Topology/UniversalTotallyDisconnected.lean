@@ -72,5 +72,3 @@ noncomputable def universalBasedFiberHomeomorph_of_totallyDisconnected (x : A) :
     (universalPathClassProjection_isOpenMap_of_totallyDisconnected (A := A))
 
 end ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewrite
-
-
