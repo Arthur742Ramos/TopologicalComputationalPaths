@@ -37,15 +37,23 @@ abort "status.axioms must list the three standard proof axioms" unless status["a
 main_result = status.dig("main_results", 0)
 followup = File.basename(path) == "formalization-followup.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.topological_smith_exactness"
+roadmap = File.basename(path) == "formalization-roadmap.yaml" ||
+  main_result&.dig("declaration") == "TopologicalComputationalPathsRoadmap.roadmap_result"
 unless followup
   source = sources.first
   abort "the source must be adapted" unless source["relationship"] == "adapts"
   abort "the source must be pinned to a full commit" unless source["id"].to_s.match?(%r{/\b[0-9a-f]{40}\b/})
   abort "the source must identify the topological manuscript" unless source["id"].to_s.end_with?("/paper/topological/main.tex")
 end
-expected_declaration = followup ? "TopologicalComputationalPathsFollowup.topological_smith_exactness" : "TopologicalComputationalPaths.main_result"
-expected_file = followup ? "FollowupSolution.lean" : "Solution.lean"
-expected_comparator = followup ? "comparator-followup.json" : "comparator.json"
+expected_declaration = if roadmap
+  "TopologicalComputationalPathsRoadmap.roadmap_result"
+elsif followup
+  "TopologicalComputationalPathsFollowup.topological_smith_exactness"
+else
+  "TopologicalComputationalPaths.main_result"
+end
+expected_file = roadmap ? "RoadmapSolution.lean" : (followup ? "FollowupSolution.lean" : "Solution.lean")
+expected_comparator = roadmap ? "comparator-roadmap.json" : (followup ? "comparator-followup.json" : "comparator.json")
   abort "status.main_results must identify the follow-up declaration" unless main_result.is_a?(Hash) &&
   main_result["declaration"] == expected_declaration &&
   main_result["file"] == expected_file &&
@@ -104,6 +112,23 @@ if followup
     %w[background other].include?(source["relationship"])
   end
   abort "original-proof follow-up sources must be background or other" unless invalid_relationships.empty?
+end
+
+if roadmap
+  fields = main_result.fetch("selected_fields")
+  selected_source = File.binread("RoadmapChallenge.lean")
+  abort "roadmap selection must have at least 15 explicit fields" unless fields.length >= 15
+  fields.each do |field|
+    leaf = field.split(".").last
+    abort "roadmap field is absent from RoadmapChallenge.lean: #{field}" unless
+      selected_source.match?(/^\s+#{Regexp.escape(leaf)}\s*:/)
+  end
+  interest = document.fetch("research_interest")
+  abort "roadmap metadata must explain the selected contribution" unless
+    interest["selected_contribution"].to_s.include?("based-fiber") &&
+      interest["why_nontrivial"].to_s.length >= 80
+  abort "roadmap metadata must state the global open-map limit" unless
+    document.dig("status", "scope").to_s.include?("open-map theorem")
 end
 
 methods = document.dig("automation", "methods")

@@ -16,7 +16,7 @@ repository remains the source for its broader Lean artifact.
 | 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This classical theorem is not newly proved in Lean. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The statement side has been split into two independent modules so `Challenge.lean` stays under the Palomar file limit. A new registration remains. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. A separate 17-field roadmap Comparator candidate and metadata now select the completed results. Its replay, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -257,10 +257,16 @@ d. **Discrete field.** The working source now assumes discreteness of
    $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
    supporting compatibility theorem.
 
-e. **New selection.** Bundle Goals 1, 2, 5 and 6a to 6d, plus 3 and 4 if finished,
-   into a new comparator selection, following the pattern of
-   `comparator-followup.json`. Register it as a new Palomar version, and
-   update Section 10 and Table 2 of the paper to match.
+e. **New selection.** `comparator-roadmap.json` now selects a 17-field
+   `RoadmapCertificate` covering the checked conditional universal results,
+   open-arrow and projection results, product closure, finite based
+   completeness and global subspace homeomorphisms, trace-section criterion,
+   and quotient-topology separation. `formalization-roadmap.yaml` records the
+   exact boundary. The challenge imports the substantive Lean development,
+   and the solution assembles its declarations. Comparator replay, external
+   review, registration as a new Palomar version, and the corresponding
+   Section 10/Table 2 manuscript update remain. The direct Lean proof of
+   Goal 3 is absent and is excluded from the selection.
 
 ## Longer-term goals (not planned yet)
 

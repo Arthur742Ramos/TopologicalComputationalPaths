@@ -46,6 +46,19 @@ the continuous horizontal/vertical step system and proves interchange sound.
 rules, trace sorting, and based completeness for a presentation that names
 both primitive and whole-trace interchange.
 
+## Roadmap Comparator candidate
+
+`comparator-roadmap.json` selects
+`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 17 fields name the
+checked open-arrow, conditional universal, product, finite global-fiber,
+and trace-topology results. `RoadmapChallenge.lean` imports the substantive
+development, and `RoadmapSolution.lean` assembles its proved declarations;
+the selection is an explicit aggregation of those proofs. The current
+`formalization.yaml` and `formalization-roadmap.yaml` describe this candidate.
+It is not yet a registered Palomar version. The direct Lean proof of global
+universal path-class openness is still missing, so the universal global
+results in this candidate retain that hypothesis.
+
 ## Certified preimage solver (new research prototype)
 
 The new `comparator-preimage.json` selects a focused executable witness-and-
@@ -62,7 +75,7 @@ review remain open. The older artifact and its metadata remain separate below.
 
 ## Existing follow-up submission scope
 
-The current Comparator artifact is `comparator-followup.json`, selecting
+The earlier follow-up Comparator artifact is `comparator-followup.json`, selecting
 `TopologicalComputationalPathsFollowup.topological_smith_exactness` in
 `FollowupSolution.lean`.  The selected declaration is a nonempty
 `TopologicalSmithExactnessCertificate` whose core is a compatibility
