@@ -482,6 +482,15 @@ structure OrdinaryTopologyComparisonCertificate
   ordinary_composition_of_quotient :
     Topology.IsQuotientMap (finalToOrdinary P) →
       Continuous (ordinaryComposition P)
+  open_arrow_recovers_ordinary :
+    IsOpenMap (scopedQuotientMk P) →
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
+  final_projections_continuous :
+    Continuous (fun c : ScopedComposableClass P =>
+      (finalToOrdinary P c).val.1) ∧
+    Continuous (fun c : ScopedComposableClass P =>
+      (finalToOrdinary P c).val.2)
   discontinuity_obstructs_compatibility :
     ¬ Continuous (ordinaryComposition P) →
       ¬ Topology.IsQuotientMap (finalToOrdinary P)

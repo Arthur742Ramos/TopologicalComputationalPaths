@@ -750,6 +750,15 @@ structure OrdinaryTopologyComparisonCertificate
   ordinary_composition_of_quotient :
     Topology.IsQuotientMap (finalToOrdinary P) →
       Continuous (ordinaryComposition P)
+  open_arrow_recovers_ordinary :
+    IsOpenMap (scopedQuotientMk P) →
+      Topology.IsQuotientMap (finalToOrdinary P) ∧
+        Continuous (ordinaryComposition P)
+  final_projections_continuous :
+    Continuous (fun c : ScopedComposableClass P =>
+      (finalToOrdinary P c).val.1) ∧
+    Continuous (fun c : ScopedComposableClass P =>
+      (finalToOrdinary P c).val.2)
   discontinuity_obstructs_compatibility :
     ¬ Continuous (ordinaryComposition P) →
       ¬ Topology.IsQuotientMap (finalToOrdinary P)
@@ -889,6 +898,16 @@ theorem main_result
           exact
             ((scopedProductCompatibility_iff_final_topology_agreement P).2 h).pair_map_is_quotient
       ordinary_composition_of_quotient := hComposition
+      open_arrow_recovers_ordinary := by
+        intro hopen
+        let h := scopedProductCompatibility_of_open_arrow P hopen
+        exact ⟨h.pair_map_is_quotient,
+          continuous_scopedCompositionOnProduct P h⟩
+      final_projections_continuous := by
+        have hpair : Continuous (fun c : ScopedComposableClass P =>
+            (finalToOrdinary P c).val) :=
+          continuous_subtype_val.comp hContinuous
+        exact ⟨hpair.fst, hpair.snd⟩
       discontinuity_obstructs_compatibility := by
         intro hnot hquot
         exact hnot (hComposition hquot)

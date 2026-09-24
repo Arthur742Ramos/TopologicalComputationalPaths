@@ -229,7 +229,8 @@ of signed finite-generator words for the circle and torus.
 `FiniteCircleScopedCompleteness.lean` and `FiniteTorusScopedCompleteness.lean`
 prove based completeness for the exact finite rule sets, instantiate those
 topology comparisons, and identify their based scoped quotients with
-$\mathbb Z$ and $\mathbb Z^2$.
+$\mathbb Z$ and $\mathbb Z^2$ and directly with the ordinary geometric loop
+quotients.
 
 ## Goal 6: close the gaps between paper and Lean
 
@@ -249,7 +250,8 @@ c. **Scoped-side homeomorphisms.** Connect the scoped based fiber
 and the $n$-torus version in `FiniteTorusWinding.lean`. The integer-indexed
 circle presentation has a fixed-endpoint quotient homeomorphism with
 $\mathbb Z$. The finite presentations now have checked based quotient
-homeomorphisms with $\mathbb Z$ and $\mathbb Z^2$; their global subspace
+homeomorphisms with $\mathbb Z$, $\mathbb Z^2$, and the corresponding ordinary
+geometric loop quotients; their global subspace
 fibers remain.
 
 d. **Discrete field.** The working source now assumes discreteness of

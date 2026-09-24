@@ -106,7 +106,8 @@ finite tori.  A continuous trace choice makes the trace-sensitive and
 observable quotients homeomorphic when the presentation is complete.
 Lean checks the quotient comparison, the conditional open-map transfer,
 the universal fixed-endpoint result, product sorting and based completeness,
-and several circle certificates.
+the finite circle and torus based winding classifications, and the
+nonconstant circle separation example.
 The registered Palomar selection is an earlier, narrower snapshot; the
 manuscript distinguishes its claims from the current source.
 
@@ -2200,7 +2201,9 @@ finite presentations. The circle proof uses only the structural groupoid
 laws; the torus proof adds its single named commuting square. Both prove
 based geometric completeness, instantiate the trace-topology comparison,
 and identify the based scoped quotients with discrete $\mathbb Z$ and
-$\mathbb Z^2$, respectively.
+$\mathbb Z^2$, respectively. Composing with the geometric winding
+homeomorphisms gives explicit homeomorphisms from the scoped based quotients
+to the ordinary circle and torus loop quotients.
 The separate torus development in
 \LeanName{ComputationalPaths/Path/Topology/TopologicalTorusScoped.lean}
 includes the comparison between simultaneous and sequential loop

@@ -259,6 +259,14 @@ noncomputable def torusFiniteWindingHomeomorph :
       (continuous_open_geometric torusStepSystem.toGeometricStepSystem)
   continuous_invFun := continuous_of_discreteTopology
 
+noncomputable def torusFiniteGeometricHomeomorph :
+    @Homeomorph TorusFiniteBasedQuotient TopologicalTorus.LoopQuot
+      (TotalOpenGeometricCompPath.TraceSensitiveQuotient.quotientTopology
+        (finiteTorusBasedSetoid torusFinitePresentation) inferInstance)
+      inferInstance :=
+  torusFiniteWindingHomeomorph.trans
+    TopologicalTorus.loopQuotHomeomorphIntProd.symm
+
 end FiniteCircleTorusPresentation
 end GeometricTopology
 end Path

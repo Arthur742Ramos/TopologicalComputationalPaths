@@ -218,6 +218,15 @@ noncomputable def circleFiniteWindingHomeomorph :
       (continuous_open_geometric circleStepSystem.toGeometricStepSystem)
   continuous_invFun := continuous_of_discreteTopology
 
+noncomputable def circleFiniteGeometricHomeomorph :
+    @Homeomorph CircleFiniteBasedQuotient
+      ConcreteCircleWinding.TopologicalLoopQuot
+      (TotalOpenGeometricCompPath.TraceSensitiveQuotient.quotientTopology
+        (finiteCircleBasedSetoid circleFinitePresentation) inferInstance)
+      inferInstance :=
+  circleFiniteWindingHomeomorph.trans
+    ConcreteCircleWinding.topologicalLoopQuotHomeomorphInt.symm
+
 end FiniteCircleTorusPresentation
 end GeometricTopology
 end Path
