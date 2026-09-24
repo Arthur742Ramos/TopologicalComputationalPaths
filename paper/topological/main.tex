@@ -1747,10 +1747,27 @@ simple connectivity make the quotient fundamental group discrete
 therefore discrete, and multiplication is continuous.
 \end{proof}
 
+\begin{corollary}[totally disconnected spaces]
+\label{cor:totally-disconnected-universal}
+If $X$ is totally disconnected, $q_I^{\mathcal U}$ is a homeomorphism.
+The universal presentation has product-quotient compatibility and
+continuous multiplication on the ordinary composable-pair space.
+This conclusion does not require local path-connectedness.
+\end{corollary}
+
+\begin{proof}
+The interval is connected, so every continuous path in $X$ is constant.
+Two such paths with the same scoped class have the same source and are
+therefore equal. Thus $q_I^{\mathcal U}$ is injective. It is quotient by
+Proposition~\ref{prop:universal-path-projection}, hence a homeomorphism.
+The remaining claims follow from the resulting openness of
+$q_I^{\mathcal U}$ and the open-projection criterion.
+\end{proof}
+
 The Hawaiian earring in Proposition~\ref{prop:hawaiian-earring} is locally
 path-connected and fails the semilocal hypothesis at its common base point.
-The two cases show how the ordinary-pullback obstruction behaves in geometric
-presentations.  The positive groupoid theorem above is an application of the
+These examples show how the ordinary-pullback obstruction behaves in geometric
+presentations. The positive groupoid theorem above is an application of the
 published compact-open quotient result; the presentation-level comparison is
 the contribution here.
 
@@ -2361,6 +2378,10 @@ Under this open-map hypothesis, Lean identifies that subspace fiber with
 the ordinary based-loop quotient and proves it discrete under local
 path-connectedness and semilocal simple connectivity. The open-map
 hypothesis itself is supplied by the cited theorem, not by a Lean proof.
+The module \LeanName{UniversalTotallyDisconnected} proves the unconditional
+case of Corollary~\ref{cor:totally-disconnected-universal}. Its projection is
+a homeomorphism, and ordinary composition is continuous. The general
+locally path-connected open-map theorem still lacks a Lean proof here.
 The integer-indexed scoped circle presentation has a checked normal form;
 its fixed endpoint quotient is homeomorphic to $\mathbb Z$, and a continuous
 winding-based trace choice identifies its trace-sensitive and observable
@@ -2384,8 +2405,9 @@ subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
 None of these working-source additions has been registered as a new Palomar
 version. The internal \LeanName{comparator-roadmap.json} bundle selects a
-17-field certificate containing the checked conditional universal, product,
-finite global-fiber, and trace-topology results. Its Challenge imports the
+18-field certificate containing the checked conditional universal and totally
+disconnected cases, product results, finite global fibers, and trace-topology
+comparisons. Its Challenge imports the
 substantive development, and its Solution assembles the proved declarations.
 Comparator, NanoDa, and Lean's kernel replayed this bundle in CI. Palomar's
 current Challenge provenance rule excludes local imports, so the bundle is

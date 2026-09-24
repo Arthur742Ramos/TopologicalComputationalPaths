@@ -5,11 +5,13 @@ project:
   name: "Topological semantics of scoped computational paths"
   description: >-
     A selected Lean certificate for the revised topological-semantics paper:
-    open-arrow product compatibility, conditional universal based-fiber
-    topology, product closure of based completeness, finite circle and torus
+    open-arrow product compatibility, the totally disconnected universal
+    open-map case, conditional universal based-fiber topology, product closure
+    of based completeness, finite circle and torus
     global based-fiber homeomorphisms, and trace-sensitive quotient comparisons.
-    The openness of the universal endpoint-varying path-class projection is
-    a cited classical theorem and is not selected as a new Lean proof.
+    General openness of the universal endpoint-varying path-class projection
+    under local path-connectedness is cited from classical work; only the
+    totally disconnected special case is selected as a Lean proof.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -85,8 +87,8 @@ status:
     roadmap results. The challenge imports the substantive development, and
     the solution assembles its independently checked declarations. It is an
     aggregation selection, not a claim that the imported proofs are new to
-    the bundle. The universal global open-map theorem and an unconditional
-    global universal based-fiber theorem are excluded.
+    the bundle. The general locally path-connected universal open-map theorem
+    remains excluded; the totally disconnected case is selected.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -98,6 +100,7 @@ status:
       comparator_config: "comparator-roadmap.json"
       selected_fields:
         - "RoadmapCertificate.universal_projection_quotient"
+        - "RoadmapCertificate.universal_totally_disconnected_homeomorph"
         - "RoadmapCertificate.open_arrow_product"
         - "RoadmapCertificate.final_projections"
         - "RoadmapCertificate.universal_open_product"
@@ -131,7 +134,8 @@ research_interest:
     computational-path semantics, and formalized mathematics.
   selected_contribution: >-
     The selected certificate connects an open-arrow criterion for ordinary
-    multiplication to a conditional universal based-fiber theorem, a general
+    multiplication to a totally disconnected universal homeomorphism, a
+    conditional universal based-fiber theorem, a general
     product-closure result for based trace completeness, and unconditional
     finite circle and torus global based-fiber homeomorphisms. It also proves
     when trace-sensitive and observable quotient topologies agree and gives a
@@ -159,6 +163,7 @@ research_interest:
   evidence:
     - "RoadmapChallenge.lean: RoadmapCertificate"
     - "RoadmapSolution.lean: TopologicalComputationalPathsRoadmap.roadmap_result"
+    - "UniversalTotallyDisconnected.lean: universalPathClassProjection_isHomeomorph_of_totallyDisconnected"
     - "FiniteCircleGlobalBasedFiber.lean: circleGlobalBasedGeometricHomeomorph"
     - "FiniteTorusGlobalBasedFiber.lean: torusGlobalBasedGeometricHomeomorph"
     - "ProductScopedSorting.lean: productBasedTraceCompleteness"
@@ -203,6 +208,11 @@ alignment:
       module: "RoadmapSolution.lean"
       status: "proved"
       note: "Homeomorphism uses the actual based-arrow subspace under an open projection."
+    - source: "Totally disconnected universal path-class topology"
+      lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.universal_totally_disconnected_homeomorph"
+      module: "RoadmapSolution.lean"
+      status: "proved"
+      note: "Every interval path is constant, so the quotient projection is a homeomorphism."
     - source: "Product closure of based completeness"
       lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.product_based_complete"
       module: "RoadmapSolution.lean"

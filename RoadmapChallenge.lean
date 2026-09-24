@@ -17,6 +17,9 @@ structure RoadmapCertificate : Prop where
   universal_projection_quotient :
     ∀ {A : Type u} [TopologicalSpace A],
       Topology.IsQuotientMap (universalPathClassProjection (A := A))
+  universal_totally_disconnected_homeomorph :
+    ∀ {A : Type u} [TopologicalSpace A] [TotallyDisconnectedSpace A],
+      IsHomeomorph (universalPathClassProjection (A := A))
   open_arrow_product :
     ∀ {A : Type u} [TopologicalSpace A]
       {Step : Type v} [TopologicalSpace Step]

@@ -17,6 +17,9 @@ structure RoadmapCertificate : Prop where
   universal_projection_quotient :
     ∀ {A : Type u} [TopologicalSpace A],
       Topology.IsQuotientMap (universalPathClassProjection (A := A))
+  universal_totally_disconnected_homeomorph :
+    ∀ {A : Type u} [TopologicalSpace A] [TotallyDisconnectedSpace A],
+      IsHomeomorph (universalPathClassProjection (A := A))
   open_arrow_product :
     ∀ {A : Type u} [TopologicalSpace A]
       {Step : Type v} [TopologicalSpace Step]
@@ -140,6 +143,7 @@ structure RoadmapCertificate : Prop where
 theorem roadmap_result : RoadmapCertificate := by
   refine {
     universal_projection_quotient := ?_
+    universal_totally_disconnected_homeomorph := ?_
     open_arrow_product := ?_
     final_projections := ?_
     universal_open_product := ?_
@@ -159,6 +163,8 @@ theorem roadmap_result : RoadmapCertificate := by
       TraceSensitiveSeparation.duplicateQuotientComparison_not_continuous
     discrete_arrow_product := ?_ }
   · exact universalPathClassProjection_isQuotient
+  · intro A _ _
+    exact universalPathClassProjection_isHomeomorph_of_totallyDisconnected
   · exact scopedProductCompatibility_of_open_arrow
   · intro A _ Step _ S P
     have h : Continuous (fun c : ScopedComposableClass P =>

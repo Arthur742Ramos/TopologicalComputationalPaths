@@ -13,6 +13,7 @@ import ComputationalPaths.Path.Topology.FiniteTorusGlobalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalGlobalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalQuotientTransfer
+import ComputationalPaths.Path.Topology.UniversalTotallyDisconnected
 import ComputationalPaths.Path.Topology.ProductGeometricStepSystem
 import ComputationalPaths.Path.Topology.ProductScopedSorting
 import ComputationalPaths.Path.Topology.TraceSensitiveTopologicalCompPath
