@@ -172,9 +172,10 @@ automation:
 fidelity:
   divergences: The Comparator challenge states the abstract open-arrow pair quotient, multiplication-continuity
     transfer, and ordinary geometric circle and torus loop-quotient homeomorphisms. It does
-    not select the 17-field internal roadmap bundle, the finite scoped global based-fiber
-    homeomorphisms, product sorting, or trace-sensitive separation. Universal path-class openness
-    remains cited rather than formalized.
+    not select the 24-field internal roadmap bundle, the finite scoped global based-fiber
+    homeomorphisms, product sorting, or trace-sensitive separation. The universal path-class
+    open-map theorem is proved in this repository's Lean development but lies outside this
+    standalone Mathlib-only selection.
 alignment:
   namespace: TopologicalComputationalPathsRoadmapRegistry
   statements:
