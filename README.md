@@ -30,10 +30,13 @@ connected spaces is used in the paper and is still outside the Lean proof.
 discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
 with the compact-open subspace and, when the global projection is open,
 identifies the global based-arrow subspace with the ordinary loop quotient
-and proves its discreteness under the semilocal hypothesis. The trace-sensitive carrier, general section
-criterion, universal collapse, integer-indexed circle case, finite-generator
-circle/torus trace choices with conditional comparison, and the duplicate-circle
-example with non-homeomorphic scoped quotient topologies are also checked.
+and proves its discreteness under the semilocal hypothesis. The trace-sensitive
+carrier, general section criterion, universal collapse, and duplicate-circle
+example with non-homeomorphic scoped quotient topologies are checked. The
+integer-indexed circle and the exact finite-generator circle and torus
+presentations have checked based normal forms; the finite based scoped
+quotients are homeomorphic to discrete `ℤ` and `ℤ × ℤ`, and their two trace
+topologies agree.
 `ProductGeometricStepSystem.lean` defines
 the continuous horizontal/vertical step system and proves interchange sound.
 `ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted

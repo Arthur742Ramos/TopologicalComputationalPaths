@@ -15,8 +15,8 @@ repository remains the source for its broader Lean artifact.
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
 | 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This classical theorem is not newly proved in Lean. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
-| 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion, universal collapse, and a fixed-endpoint trace collapse for the integer-indexed circle presentation. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. Continuous finite-generator circle/torus trace choices and conditional quotient comparisons are checked; exact finite scoped completeness remains. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean now builds the realized fundamental-groupoid comparison and an integer-indexed scoped circle certificate. The statement side has been split into two independent modules so `Challenge.lean` stays under the Palomar file limit. Finite scoped-side circle/torus subspace homeomorphisms and a new registration remain. |
+| 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms. The statement side has been split into two independent modules so `Challenge.lean` stays under the Palomar file limit. Global subspace versions for the finite presentations and a new registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -36,9 +36,9 @@ compatibility (which topology composition needs). Its weaknesses are these:
 - The earlier manuscript showed completeness only for the circle and torus.
   The revision adds a product closure theorem and finite-torus corollaries.
 - The revised paper now separates the two topologies using distinct labels
-  for the same nonconstant circle loop. The Lean finite-code model checks
-  the separation mechanism, while its scoped quotient proof remains in the
-  manuscript.
+  for the same nonconstant circle loop. Lean checks the actual scoped quotient
+  separation, including continuity of the forward comparison and failure of
+  continuity of its inverse.
 
 The goals below address these weaknesses in order of payoff per unit of effort.
 
@@ -225,9 +225,11 @@ circle section. `TraceSensitiveSeparation.lean` proves that two labels for
 the same nonconstant circle loop give distinct scoped classes while their
 observable codes coincide, and that the two quotient topologies differ.
 `FiniteCircleTorusTraceSection.lean` checks continuous choices
-of signed finite-generator words for the circle and torus and proves the
-fixed-endpoint topology comparison conditional on based completeness of
-the selected scoped rules. Those completeness instances remain.
+of signed finite-generator words for the circle and torus.
+`FiniteCircleScopedCompleteness.lean` and `FiniteTorusScopedCompleteness.lean`
+prove based completeness for the exact finite rule sets, instantiate those
+topology comparisons, and identify their based scoped quotients with
+$\mathbb Z$ and $\mathbb Z^2$.
 
 ## Goal 6: close the gaps between paper and Lean
 
@@ -245,8 +247,10 @@ c. **Scoped-side homeomorphisms.** Connect the scoped based fiber
    geometric homeomorphisms that already exist. Those are
 `topologicalLoopQuotHomeomorphInt` in `TopologicalWindingHomeomorph.lean`
 and the $n$-torus version in `FiniteTorusWinding.lean`. The integer-indexed
-circle presentation now has a fixed-endpoint quotient homeomorphism with
-$\mathbb Z$; the finite presentations and global subspace fibers remain.
+circle presentation has a fixed-endpoint quotient homeomorphism with
+$\mathbb Z$. The finite presentations now have checked based quotient
+homeomorphisms with $\mathbb Z$ and $\mathbb Z^2$; their global subspace
+fibers remain.
 
 d. **Discrete field.** The working source now assumes discreteness of
    $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
@@ -282,9 +286,8 @@ classical inputs.
    global subspace based-fiber comparison are already checked (Goals 1--3).
 2. Derive whole-trace interchange from primitive squares if a presentation
    with only primitive interchange is needed (Goal 4).
-3. Instantiate the trace-section theorem for the finite circle and torus
-   presentations, and connect their scoped fibers to the geometric
-   homeomorphisms (Goals 5 and 6c).
+3. Connect the finite circle and torus based quotient homeomorphisms to the
+   subspace fibers of their global scoped arrow carriers (Goal 6c).
 4. Select the completed results in a new comparator artifact, seek review,
    and register a new Palomar version before changing any claim about its
    coverage (Goal 6e). Treat the longer-term goals as separate projects.

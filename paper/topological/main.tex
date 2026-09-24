@@ -2193,9 +2193,14 @@ section and the homeomorphism between the two universal quotient topologies.
 The module \LeanName{FiniteCircleTorusPresentation} uses one circle generator
 and two torus generators.  It checks integer and integer-pair codes for
 traces, completion certificates, and soundness of the torus commuting square.
-The cancellation and sorting proofs of Section~\ref{sec:circle-torus} are still needed: they
-establish normalization in the minimal scoped presentations, whereas the
-completion certificates package normal forms through a specified relation.
+The modules \LeanName{BasedScopedTraceGroup},
+\LeanName{FiniteCircleScopedCompleteness}, and
+\LeanName{FiniteTorusScopedCompleteness} prove normalization for the exact
+finite presentations. The circle proof uses only the structural groupoid
+laws; the torus proof adds its single named commuting square. Both prove
+based geometric completeness, instantiate the trace-topology comparison,
+and identify the based scoped quotients with discrete $\mathbb Z$ and
+$\mathbb Z^2$, respectively.
 The separate torus development in
 \LeanName{ComputationalPaths/Path/Topology/TopologicalTorusScoped.lean}
 includes the comparison between simultaneous and sequential loop
@@ -2337,11 +2342,11 @@ fundamental-groupoid arrow comparison.  For products it defines the
 horizontal and vertical continuous step system, checks geometric soundness
 of primitive and trace interchange, and proves sorting and based trace
 completeness for the presentation in Theorem~\ref{thm:product-completeness}.
-For the finite-generator circle and torus, it also checks continuous
-winding-based choices of signed traces and the consequent based quotient
-comparison under an explicit completeness hypothesis.  The completeness
-proofs for those exact finite scoped presentations remain manuscript
-arguments.
+For the finite-generator circle and torus, it checks the continuous
+winding-based choices of signed traces and proves the required based
+completeness for their exact scoped rules. The resulting based quotient
+homeomorphisms and trace-topology comparisons are unconditional. A comparison
+with the subspace fibers of their global arrow quotients is still absent.
 None of these working-source additions has been registered as a new Palomar
 version.
 
