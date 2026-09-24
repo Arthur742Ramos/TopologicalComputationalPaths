@@ -8,6 +8,8 @@ import ComputationalPaths.Path.Topology.FiniteCircleTorusPresentation
 import ComputationalPaths.Path.Topology.FiniteCircleTorusTraceSection
 import ComputationalPaths.Path.Topology.FiniteCircleScopedCompleteness
 import ComputationalPaths.Path.Topology.FiniteTorusScopedCompleteness
+import ComputationalPaths.Path.Topology.FiniteCircleGlobalBasedFiber
+import ComputationalPaths.Path.Topology.FiniteTorusGlobalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalGlobalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalQuotientTransfer

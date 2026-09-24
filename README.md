@@ -36,7 +36,10 @@ example with non-homeomorphic scoped quotient topologies are checked. The
 integer-indexed circle and the exact finite-generator circle and torus
 presentations have checked based normal forms; the finite based scoped
 quotients are homeomorphic to discrete `ℤ` and `ℤ × ℤ`, and their two trace
-topologies agree.
+topologies agree. `FiniteCircleGlobalBasedFiber.lean` and
+`FiniteTorusGlobalBasedFiber.lean` also identify the actual based subspaces
+of the global scoped arrow quotients with these discrete winding groups and
+with the ordinary geometric loop quotients.
 `ProductGeometricStepSystem.lean` defines
 the continuous horizontal/vertical step system and proves interchange sound.
 `ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
