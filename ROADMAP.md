@@ -70,9 +70,13 @@ hypothesis, which `UniversalSemilocallySimplyConnected.lean` now discharges
 under the stated geometric assumptions. The Hawaiian
 module's full observable based topology is handled separately (see Goal 6b).
 
-**Check before citing.** The converse appears to fail, because the harmonic
-archipelago has an indiscrete $\pi_1^q$, which is still a topological group.
-Confirm against the literature before stating it.
+**Converse check.** Fabel proves that the harmonic archipelago has an
+uncountable fundamental group with the indiscrete quotient topology
+([*The fundamental group of the harmonic archipelago*](https://arxiv.org/abs/math/0501426)).
+Every indiscrete group has continuous multiplication and inversion, so
+discreteness is not necessary for $\pi_1^q$ to be a topological group. This
+observation alone does not give a converse statement about the global
+fundamental groupoid or the universal presentation's based subspace topology.
 
 ## Goal 2: open-quotient criterion
 
