@@ -1894,9 +1894,29 @@ continuously from $L$ to discrete $\Z$.
 Choosing $(c_n,\lambda_n)$ for each $n$ gives a continuous map from
 discrete $\Z$ to the coherent carrier and then to its scoped quotient.
 This constructs $S_0$ continuously; projection to the chosen loop
-supplies its continuous inverse.  The argument needs no result about
-restrictions of quotient maps.  What it shows to be discrete is the based
-loop-class quotient; it says nothing about the loop space itself.
+supplies its continuous inverse on the fixed-endpoint quotient.
+
+\enlargethispage{2\baselineskip}
+To check the topology inherited by $G_{\mathcal P}(0,0)$ from the
+\emph{global} scoped arrow space, consider a coherent raw representative
+with source $x$ and chosen geometric loop $\gamma$. Every trace in this
+finite presentation has equal source and target. Define
+\[
+  W(x,\gamma)=\operatorname{wind}
+    \bigl(t\mapsto\gamma(t)-x\bigr).
+\]
+Translation of a variable-basepoint loop to zero is continuous in the
+compact-open topology. The observable raw topology includes both $x$ and
+$\gamma$, and winding is locally constant on based loops, so $W$ is
+continuous on the full raw carrier. Scoped equivalence preserves the
+source and gives an endpoint-fixed homotopy of the chosen loops. Thus $W$
+descends continuously to the global arrow quotient. On the based subspace
+it is ordinary winding. Normal-form completeness makes this restriction
+injective, while the classes of $(c_n,\lambda_n)$ make it surjective. Its
+inverse is continuous because $\mathbb Z$ is discrete. This proves the
+claimed homeomorphism for the actual subspace topology without restricting
+a quotient map. The based loop-class quotient is discrete; the loop space
+itself need not be.
 \end{proof}
 
 
@@ -2029,8 +2049,15 @@ descends continuously to discrete $\Z^2$, and the map
 $(m,n)\mapsto(a^m;b^n,d_{m,n})$ is continuous because its domain is discrete.
 Lemma~\ref{lem:torus-sequential} ensures that each pair is coherent.
 Composing these maps with the scoped quotient map gives $S_{\mathbb T^2}$.
-As for the circle, only the based loop-class quotient is shown to be
-discrete.
+For the topology inherited from the global scoped arrow space, translate
+each variable-basepoint torus loop $\gamma$ by its source $x$ and take the
+two coordinate windings of $t\mapsto\gamma(t)-x$. This gives a continuous
+$\mathbb Z^2$-valued map on the global quotient: translation and winding
+are continuous, and scoped soundness makes the value independent of the
+representative. Its restriction to the based subspace is bijective by the
+normal form above, with continuous inverse from discrete $\mathbb Z^2$.
+This proves the stated subspace homeomorphism. As for the circle, the
+loop space itself is not asserted to be discrete.
 \end{proof}
 
 Figure~\ref{fig:winding} illustrates the lifted paths used in both proofs.

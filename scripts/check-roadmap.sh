@@ -4,6 +4,16 @@ set -euo pipefail
 repository_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$repository_root"
 
+search_lean() {
+  local pattern=$1
+  shift
+  if command -v rg >/dev/null 2>&1; then
+    rg -n "$pattern" "$@" --glob '*.lean'
+  else
+    grep -REn --include='*.lean' "$pattern" "$@"
+  fi
+}
+
 case "${1:-}" in
   "") lake build RoadmapChallenge RoadmapSolution ;;
   --skip-build) ;;
@@ -17,12 +27,12 @@ if [ "$challenge_lines" -gt 1000 ] || [ "$challenge_bytes" -gt 102400 ]; then
   exit 1
 fi
 
-if [ "$(rg -n '\bsorry\b' RoadmapChallenge.lean | wc -l | tr -d ' ')" -ne 1 ]; then
+if [ "$(search_lean '\bsorry\b' RoadmapChallenge.lean | wc -l | tr -d ' ')" -ne 1 ]; then
   echo "RoadmapChallenge.lean must have one statement-side placeholder" >&2
   exit 1
 fi
 
-if rg -n '\bsorry\b|\badmit\b|^axiom |native_decide|Lean\.ofReduceBool' \
+if search_lean '\bsorry\b|\badmit\b|^axiom |native_decide|Lean\.ofReduceBool' \
     RoadmapSolution.lean ComputationalPaths; then
   echo "forbidden proof marker in roadmap solution or development" >&2
   exit 1
