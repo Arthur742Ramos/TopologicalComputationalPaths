@@ -11,7 +11,7 @@ repository remains the source for its broader Lean artifact.
 
 | Goal | Current state |
 | --- | --- |
-| 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It now identifies the fixed-endpoint path space with the compact-open based-path subspace and proves that an open global quotient restricts to an open quotient onto the based-arrow subspace. The class-level homeomorphism and a Lean proof of the global open-map theorem remain. |
+| 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace and, assuming an open global quotient, proves a homeomorphism from the ordinary loop quotient to the global based-arrow subspace and its discreteness under the semilocal hypothesis. A Lean proof of the global open-map theorem remains. |
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
 | 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This classical theorem is not newly proved in Lean. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
@@ -65,7 +65,9 @@ positive case to set against its negative one.
 - `discrete_recovers_ordinary` in the registered certificate
 
 The based fiber must carry the subspace topology from the observable carrier.
-The Hawaiian module currently uses a coarser topology (see Goal 6b).
+`UniversalGlobalBasedFiber.lean` now proves this comparison under the open-map
+hypothesis. The global open-map theorem still needs a Lean proof. The Hawaiian
+module's full observable based topology is handled separately (see Goal 6b).
 
 **Check before citing.** The converse appears to fail, because the harmonic
 archipelago has an indiscrete $\pi_1^q$, which is still a topological group.
@@ -274,7 +276,7 @@ classical inputs.
 
 1. Formalize the universal path-class open map under local path-connectedness
    and semilocal simple connectivity. The conditional transfer and the
-   fixed-endpoint based theorem are already checked (Goals 1--3).
+   global subspace based-fiber comparison are already checked (Goals 1--3).
 2. Derive whole-trace interchange from primitive squares if a presentation
    with only primitive interchange is needed (Goal 4).
 3. Instantiate the trace-section theorem for the finite circle and torus

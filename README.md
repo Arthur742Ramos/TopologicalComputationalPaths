@@ -28,8 +28,9 @@ that supplies openness for locally path-connected, semilocally simply
 connected spaces is used in the paper and is still outside the Lean proof.
 `UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
 discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
-with the compact-open subspace and restricts an open global quotient to the
-based-arrow subspace. The trace-sensitive carrier, general section
+with the compact-open subspace and, when the global projection is open,
+identifies the global based-arrow subspace with the ordinary loop quotient
+and proves its discreteness under the semilocal hypothesis. The trace-sensitive carrier, general section
 criterion, universal collapse, integer-indexed circle case, finite-generator
 circle/torus trace choices with conditional comparison, and finite separation
 model are also checked. `ProductGeometricStepSystem.lean` defines
