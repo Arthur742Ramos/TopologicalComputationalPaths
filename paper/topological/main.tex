@@ -2180,9 +2180,12 @@ separation mechanism on a finite code space: the one-letter trace codes
 differ, their observable codes agree, and the identity from the discrete
 trace topology to the indiscrete observable topology is continuous while its
 inverse is not. It also checks that the two circle labels realize the same
-nonconstant loop. Example~\ref{ex:quotient-topology-separation} proves scoped
-distinctness with a signed-count invariant; that quotient-level argument is
-not yet in Lean. The module
+nonconstant loop, proves the signed-count invariant for every structural
+scoped rewrite, and separates their scoped quotient classes. Their full
+observable codes agree. Signed count descends continuously to the
+trace-sensitive quotient; the comparison to the observable quotient is
+continuous, but its inverse is not. Thus the topological separation in
+Example~\ref{ex:quotient-topology-separation} is checked in Lean. The module
 \LeanName{TraceSensitiveUniversalCollapse} checks the continuous one-letter
 section and the homeomorphism between the two universal quotient topologies.
 

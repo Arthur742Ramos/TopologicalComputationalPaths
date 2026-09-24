@@ -32,8 +32,9 @@ with the compact-open subspace and, when the global projection is open,
 identifies the global based-arrow subspace with the ordinary loop quotient
 and proves its discreteness under the semilocal hypothesis. The trace-sensitive carrier, general section
 criterion, universal collapse, integer-indexed circle case, finite-generator
-circle/torus trace choices with conditional comparison, and finite separation
-model are also checked. `ProductGeometricStepSystem.lean` defines
+circle/torus trace choices with conditional comparison, and the duplicate-circle
+example with non-homeomorphic scoped quotient topologies are also checked.
+`ProductGeometricStepSystem.lean` defines
 the continuous horizontal/vertical step system and proves interchange sound.
 `ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
 rules, trace sorting, and based completeness for a presentation that names

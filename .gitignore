@@ -8,3 +8,7 @@ output/
 tmp/
 .DS_Store
 __pycache__/
+paper/topological/main.aux
+paper/topological/main.bbl
+paper/topological/main.out
+paper/topological/main.pdf
