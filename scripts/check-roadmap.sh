@@ -74,7 +74,7 @@ assert registry['enable_nanoda'] is True
 print('Roadmap Comparator configuration validation passed')
 PY
 
-ruby scripts/validate-formalization.rb formalization-registry-roadmap.yaml
+ruby scripts/validate-formalization.rb palomar-roadmap/formalization.yaml
 
 git diff --check
 echo "Roadmap selection gate passed: ${challenge_lines} lines/${challenge_bytes} bytes"

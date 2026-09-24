@@ -28,4 +28,4 @@ jobs:
       request_id: roadmaptest1
       mode: full
       options: >-
-        {"authorization_relationship":"${{ inputs.authorization_relationship }}","comparator_config_path":"comparator-registry-roadmap.json","formalization_metadata_path":"formalization-registry-roadmap.yaml"}
+        {"authorization_relationship":"${{ inputs.authorization_relationship }}","comparator_config_path":"comparator-registry-roadmap.json","formalization_metadata_path":"palomar-roadmap/formalization.yaml"}

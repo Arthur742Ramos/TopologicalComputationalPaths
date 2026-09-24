@@ -271,8 +271,10 @@ e. **New selection.** `comparator-roadmap.json` selects a 17-field
    Mathlib-only statements: the open-arrow ordinary-pair quotient, the
    continuity transfer for multiplication, and the ordinary circle and torus
    loop-quotient homeomorphisms. Its preflight, external review,
-   registration as a new Palomar version, and the corresponding Section 10
-   manuscript update remain. The direct Lean proof of Goal 3 is absent.
+   registration as a new Palomar record, and the corresponding Section 10
+   manuscript update remain. Palomar requires a later version to retain the
+   earlier Comparator path, so this separate configuration cannot become
+   version 2 of the existing ID. The direct Lean proof of Goal 3 is absent.
 
 ## Longer-term goals (not planned yet)
 
@@ -300,6 +302,6 @@ classical inputs.
 2. Derive whole-trace interchange from primitive squares if a presentation
    with only primitive interchange is needed (Goal 4).
 3. Run Palomar's full mechanical preflight on a final commit and the
-   Mathlib-only Comparator selection. Seek review and register a new version
+   Mathlib-only Comparator selection. Seek review and register a new record
    only after the required maintainer authorization and registration decision
    (Goal 6e). Treat the longer-term goals as separate projects.

@@ -39,7 +39,7 @@ followup = File.basename(path) == "formalization-followup.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.topological_smith_exactness"
 roadmap = File.basename(path) == "formalization-roadmap.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsRoadmap.roadmap_result"
-registry_roadmap = File.basename(path) == "formalization-registry-roadmap.yaml" ||
+registry_roadmap = path.tr('\\', '/') == "palomar-roadmap/formalization.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient"
 unless followup
   source = sources.first

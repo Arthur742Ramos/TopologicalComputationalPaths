@@ -64,8 +64,10 @@ continuity of raw composition descends to ordinary composition, and the
 ordinary circle and torus based-loop quotients are homeomorphic to discrete
 `ℤ` and `ℤ × ℤ`. `RoadmapRegistryChallenge.lean` imports only Mathlib;
 `RoadmapRegistrySolution.lean` proves all four statements. The corresponding
-`formalization-registry-roadmap.yaml` records this narrower scope for a
-possible new Palomar version. No new version is registered. The direct Lean proof of global
+`palomar-roadmap/formalization.yaml` records this narrower scope for a
+possible new Palomar record. Its different Comparator path prevents it from
+becoming version 2 of the existing ID under Palomar's current policy. No new
+record is registered. The direct Lean proof of global
 universal path-class openness is still missing, so the universal global
 results in the internal bundle retain that hypothesis.
 
