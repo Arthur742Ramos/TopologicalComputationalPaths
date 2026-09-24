@@ -2316,8 +2316,11 @@ Theorem~\ref{thm:universal-open-groupoid} has not been formalized here.
 On fixed endpoint quotients, Lean now identifies the universal based fiber
 with the ordinary based-loop quotient.  It proves discreteness, a quotient
 pair map, and continuous ordinary multiplication under the semilocal
-hypothesis.  The identification with the \emph{subspace} fiber of the global
-arrow quotient still depends on the open-map argument in the manuscript.
+hypothesis. It also identifies based paths with the endpoint-defined
+subspace of the compact-open path space and checks that an open global
+projection restricts to an open quotient onto the based-arrow subspace.
+The class-level identification with that \emph{subspace} fiber still depends
+on the open-map argument in the manuscript.
 The integer-indexed scoped circle presentation has a checked normal form;
 its fixed endpoint quotient is homeomorphic to $\mathbb Z$, and a continuous
 winding-based trace choice identifies its trace-sensitive and observable

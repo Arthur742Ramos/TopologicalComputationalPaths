@@ -7,6 +7,7 @@ import ComputationalPaths.Path.Topology.ScopedCircleTraceCollapse
 import ComputationalPaths.Path.Topology.FiniteCircleTorusPresentation
 import ComputationalPaths.Path.Topology.FiniteCircleTorusTraceSection
 import ComputationalPaths.Path.Topology.UniversalBasedFiber
+import ComputationalPaths.Path.Topology.UniversalGlobalBasedFiber
 import ComputationalPaths.Path.Topology.UniversalQuotientTransfer
 import ComputationalPaths.Path.Topology.ProductGeometricStepSystem
 import ComputationalPaths.Path.Topology.ProductScopedSorting

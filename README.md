@@ -27,7 +27,9 @@ its openness gives continuous ordinary multiplication. The published theorem
 that supplies openness for locally path-connected, semilocally simply
 connected spaces is used in the paper and is still outside the Lean proof.
 `UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
-discrete positive case. The trace-sensitive carrier, general section
+discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
+with the compact-open subspace and restricts an open global quotient to the
+based-arrow subspace. The trace-sensitive carrier, general section
 criterion, universal collapse, integer-indexed circle case, finite-generator
 circle/torus trace choices with conditional comparison, and finite separation
 model are also checked. `ProductGeometricStepSystem.lean` defines
