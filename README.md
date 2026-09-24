@@ -58,11 +58,12 @@ bundle with Comparator, NanoDa, and Lean's kernel. It is an internal check:
 Palomar's current provenance rule does not allow a Challenge to import this
 local development.
 
-`comparator-registry-roadmap.json` selects a separate, standalone pair of
-theorems: an open quotient on arrows induces a quotient on ordinary
-composable pairs, and continuity of raw composition descends to ordinary
-composition. `RoadmapRegistryChallenge.lean` imports only Mathlib;
-`RoadmapRegistrySolution.lean` proves both statements. The corresponding
+`comparator-registry-roadmap.json` selects four standalone theorems: an open
+quotient on arrows induces a quotient on ordinary composable pairs,
+continuity of raw composition descends to ordinary composition, and the
+ordinary circle and torus based-loop quotients are homeomorphic to discrete
+`ℤ` and `ℤ × ℤ`. `RoadmapRegistryChallenge.lean` imports only Mathlib;
+`RoadmapRegistrySolution.lean` proves all four statements. The corresponding
 `formalization-registry-roadmap.yaml` records this narrower scope for a
 possible new Palomar version. No new version is registered. The direct Lean proof of global
 universal path-class openness is still missing, so the universal global

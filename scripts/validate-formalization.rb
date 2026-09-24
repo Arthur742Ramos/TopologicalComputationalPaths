@@ -141,7 +141,9 @@ if registry_roadmap
   names = document.fetch("status").fetch("main_results").map { |result| result["declaration"] }
   expected = [
     "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient",
-    "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous"
+    "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous",
+    "TopologicalComputationalPathsRoadmapRegistry.circle_loop_quotient_homeomorph",
+    "TopologicalComputationalPathsRoadmapRegistry.torus_loop_quotient_homeomorph"
   ]
   abort "registry roadmap selection must name both open-arrow conclusions" unless names == expected
   challenge = File.binread("RoadmapRegistryChallenge.lean")

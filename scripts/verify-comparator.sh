@@ -46,6 +46,8 @@ expected = {
     "comparator-registry-roadmap.json": [
         "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient",
         "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous",
+        "TopologicalComputationalPathsRoadmapRegistry.circle_loop_quotient_homeomorph",
+        "TopologicalComputationalPathsRoadmapRegistry.torus_loop_quotient_homeomorph",
     ],
 }[path.name]
 if config.get("theorem_names") != expected:

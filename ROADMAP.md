@@ -16,7 +16,7 @@ repository remains the source for its broader Lean artifact.
 | 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This classical theorem is not newly proved in Lean. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. CI replayed a 17-field internal roadmap bundle with Comparator, NanoDa, and Lean's kernel. A separate Mathlib-only selection states the open-arrow pair quotient and composition transfer for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. CI replayed a 17-field internal roadmap bundle with Comparator, NanoDa, and Lean's kernel. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -267,9 +267,10 @@ e. **New selection.** `comparator-roadmap.json` selects a 17-field
    with Comparator, NanoDa, and Lean's kernel. Palomar's current Challenge
    provenance rule does not permit that local import, so the bundle is an
    internal check rather than a registration candidate.
-   `comparator-registry-roadmap.json` separately selects two standalone
-   Mathlib-only statements: the open-arrow ordinary-pair quotient and the
-   continuity transfer for multiplication. Its preflight, external review,
+   `comparator-registry-roadmap.json` separately selects four standalone
+   Mathlib-only statements: the open-arrow ordinary-pair quotient, the
+   continuity transfer for multiplication, and the ordinary circle and torus
+   loop-quotient homeomorphisms. Its preflight, external review,
    registration as a new Palomar version, and the corresponding Section 10
    manuscript update remain. The direct Lean proof of Goal 3 is absent.
 

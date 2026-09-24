@@ -1,8 +1,13 @@
 import Mathlib.Topology.Constructions.SumProd
 import Mathlib.Topology.LocalAtTarget
 import Mathlib.Topology.Maps.OpenQuotient
+import Mathlib.Topology.Instances.AddCircle.Real
+import Mathlib.Topology.Homotopy.Path
+import ComputationalPaths.Path.Topology.TopologicalWindingHomeomorph
 
 namespace TopologicalComputationalPathsRoadmapRegistry
+
+attribute [local instance] _root_.Path.Homotopic.setoid
 
 universe u v w
 
@@ -40,5 +45,33 @@ theorem ordinary_composition_continuous
     (hraw : Continuous (multiply ∘ pairProjection q source target)) :
     Continuous multiply :=
   (open_arrow_pair_quotient q source target hq).continuous_iff.mpr hraw
+
+theorem circle_loop_quotient_homeomorph :
+    Nonempty (@Homeomorph
+      (_root_.Path.Homotopic.Quotient
+        (0 : AddCircle (1 : ℝ)) (0 : AddCircle (1 : ℝ)))
+      ℤ
+      (TopologicalSpace.coinduced
+        (Quotient.mk' : _root_.Path (0 : AddCircle (1 : ℝ)) 0 →
+          _root_.Path.Homotopic.Quotient
+            (0 : AddCircle (1 : ℝ)) (0 : AddCircle (1 : ℝ))) inferInstance)
+      inferInstance) := by
+  exact ⟨ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.topologicalLoopQuotHomeomorphInt⟩
+
+theorem torus_loop_quotient_homeomorph :
+    Nonempty (@Homeomorph
+      (_root_.Path.Homotopic.Quotient
+        ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+        ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ))))
+      (ℤ × ℤ)
+      (TopologicalSpace.coinduced
+        (Quotient.mk' : _root_.Path
+          ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+          ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ))) →
+          _root_.Path.Homotopic.Quotient
+            ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))
+            ((0 : AddCircle (1 : ℝ)), (0 : AddCircle (1 : ℝ)))) inferInstance)
+      inferInstance) := by
+  exact ⟨ComputationalPaths.Path.GeometricTopology.TopologicalTorus.loopQuotHomeomorphIntProd⟩
 
 end TopologicalComputationalPathsRoadmapRegistry

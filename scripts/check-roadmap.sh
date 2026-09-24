@@ -38,8 +38,8 @@ if [ "$registry_lines" -gt 1000 ] || [ "$registry_bytes" -gt 102400 ]; then
   echo "RoadmapRegistryChallenge.lean exceeds Palomar's statement limit" >&2
   exit 1
 fi
-if [ "$(search_lean '\bsorry\b' RoadmapRegistryChallenge.lean | wc -l | tr -d ' ')" -ne 2 ]; then
-  echo "RoadmapRegistryChallenge.lean must have two statement placeholders" >&2
+if [ "$(search_lean '\bsorry\b' RoadmapRegistryChallenge.lean | wc -l | tr -d ' ')" -ne 4 ]; then
+  echo "RoadmapRegistryChallenge.lean must have four statement placeholders" >&2
   exit 1
 fi
 if grep '^import ' RoadmapRegistryChallenge.lean | grep -Ev '^import (Mathlib|Lean)(\.|$)'; then
@@ -67,6 +67,8 @@ assert registry['solution_module'] == 'RoadmapRegistrySolution'
 assert registry['theorem_names'] == [
     'TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient',
     'TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous',
+    'TopologicalComputationalPathsRoadmapRegistry.circle_loop_quotient_homeomorph',
+    'TopologicalComputationalPathsRoadmapRegistry.torus_loop_quotient_homeomorph',
 ]
 assert registry['enable_nanoda'] is True
 print('Roadmap Comparator configuration validation passed')
