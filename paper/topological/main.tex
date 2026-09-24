@@ -2122,21 +2122,24 @@ every $x'$.  Add interchange around every primitive rectangle:
  (x_0,f);(e,y_1),
  \quad e:x_0\to x_1,\quad f:y_0\to y_1.
 \]
-We also name the corresponding rule for arbitrary factor traces $p:x_0\to x_1$
-and $q:y_0\to y_1$:
+The corresponding interchange for arbitrary factor traces $p:x_0\to x_1$
+and $q:y_0\to y_1$ follows from these primitive squares:
 \[
  H_{y_0}(p);V_{x_1}(q)\ \simeq_{\mathcal P\boxtimes\mathcal Q}\
  V_{x_0}(q);H_{y_1}(p).
 \]
 Here $H_y$ and $V_x$ lift entire traces while holding the other coordinate
-fixed.  Write $\mathcal P\boxtimes\mathcal Q$ for this presentation.
-The rules are sound: the two paths are the two edge routes from $(x_0,y_0)$
+fixed. To derive the displayed relation, fix a vertical primitive step
+$f$ and induct on $p$. The single-step case is the named rectangle rule;
+the unit case uses the groupoid unit laws. For a concatenation, paste the
+two previously derived squares along their common edge. For an inverse,
+reverse a square and cancel the resulting inverse pairs. Induction on $q$
+then gives the general trace relation by the same pasting and inverse steps.
+Write $\mathcal P\boxtimes\mathcal Q$ for the presentation with primitive
+rectangle rules. Its rules are sound: the two paths are the two edge routes from $(x_0,y_0)$
 to $(x_1,y_1)$ in the square
 $(u,v)\mapsto(\rho(e)(u),\rho(f)(v))$.  The routes are homotopic relative
-to their endpoints inside the square.  The same construction with the
-realizations of $p$ and $q$ proves soundness for the trace rule.  Naming it
-makes the sorting argument direct; we do not claim here that all such rules
-have been derived from the primitive squares in the formalization.
+to their endpoints inside the square.
 
 \begin{theorem}[product closure of based completeness]
 \label{thm:product-completeness}
@@ -2149,7 +2152,7 @@ complete on the based-loop fiber at $(x,y)$.
 \begin{proof}
 Induct on a product trace.  Reflection and single letters are already
 sorted after inserting a unit trace.  For a concatenation, first sort both
-parts, then use the trace interchange rule to move the first part's
+parts, then use the derived trace interchange to move the first part's
 vertical projection past the second part's horizontal projection.
 For an inverse, reverse the sorted trace and use interchange once more.
 Thus every trace rewrites to its horizontal projection followed by its
@@ -2172,11 +2175,15 @@ the original product words, as required.
 
 Iterating the theorem from the finite oriented circle presentation gives
 completeness of the corresponding product presentation of every
-$n$-torus on its based-loop fiber.  It has finitely many primitive steps,
-though its named trace-interchange rules form a schema.  For $n=2$, it
-recovers the completeness conclusion of Theorem~\ref{thm:torus-winding}.
-The Lean development checks the product presentation, its sorting derivation,
-and the based trace-completeness theorem under exactly these rules.
+$n$-torus on its based-loop fiber. The product construction includes a
+horizontal or vertical copy of each factor step at every point of the other
+factor, so its step space is generally infinite. It is distinct from the
+finite-generator torus presentation of Theorem~\ref{thm:torus-winding}.
+The Lean development checks sorting and based trace completeness for a
+presentation that names whole-trace interchange. It also derives every
+such rule from primitive squares, proves equivalence of the two scoped
+rewrite relations, and transfers completeness to the primitive-only
+presentation.
 
 \section{Relation to logic and rewriting}
 \label{sec:logic}
@@ -2428,8 +2435,12 @@ The current source also checks the general trace-section criterion, the
 universal trace collapse, a finite separation model, and the realized
 fundamental-groupoid arrow comparison.  For products it defines the
 horizontal and vertical continuous step system, checks geometric soundness
-of primitive and trace interchange, and proves sorting and based trace
-completeness for the presentation in Theorem~\ref{thm:product-completeness}.
+of primitive interchange, and proves sorting and based trace completeness
+for the presentation in Theorem~\ref{thm:product-completeness}. The module
+\LeanName{ProductPrimitiveInterchange} derives the whole-trace rule from
+primitive rectangles, shows that the two presentations induce the same
+scoped rewrite relation, and transfers based completeness to the smaller
+presentation.
 For the finite-generator circle and torus, it checks the continuous
 winding-based choices of signed traces and proves the required based
 completeness for their exact scoped rules. The resulting based quotient
@@ -2442,7 +2453,7 @@ subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
 None of these working-source additions has been registered as a new Palomar
 version. The internal \LeanName{comparator-roadmap.json} bundle selects a
-22-field certificate containing the checked semilocal and totally disconnected
+24-field certificate containing the checked semilocal and totally disconnected
 universal cases, product results, finite global fibers, and trace-topology
 comparisons. Its Challenge imports the
 substantive development, and its Solution assembles the proved declarations.

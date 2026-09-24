@@ -14,9 +14,9 @@ repository remains the source for its broader Lean artifact.
 | 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace. The now-checked global open-map theorem makes the homeomorphism from the ordinary loop quotient to the global based-arrow subspace unconditional under local path-connectedness and semilocal simple connectivity. |
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
 | 3. Global theorem | The paper credits Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. Lean now proves the general open-map theorem directly from an endpoint-varying ladder and a compact-open endpoint absorption lemma. It derives ordinary composable-pair compatibility, continuous composition, and the global based-fiber homeomorphism under local path-connectedness and semilocal simple connectivity. A separate totally disconnected case gives a homeomorphic projection without those hypotheses. |
-| 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
+| 4. Products | The paper and Lean define a sound product presentation with lifted factor rules and primitive rectangle interchange. Lean derives whole-trace interchange by induction, proves equivalence with the earlier presentation that named it, and transfers based trace completeness from complete factors. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 22 fields and includes the general semilocal universal theorem. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 24 fields and includes the general semilocal universal theorem and primitive-only product closure. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -167,31 +167,36 @@ the based fiber at $x$, and $\mathcal Q$ one on $Y$ that is complete at $y$.
 Define the product presentation $\mathcal P\boxtimes\mathcal Q$ on $X\times Y$:
 - its steps are $E\times Y\sqcup X\times F$, where $(e,y')$ realizes
   $t\mapsto(\rho(e)(t),y')$;
-- its named rules are the lifted rules of $\mathcal P$ and $\mathcal Q$,
-  the commuting squares $(e,s f);(t e,f)\simeq(s e,f);(e,t f)$, and the
-  corresponding interchange for arbitrary factor traces.
+- its named rules are the lifted rules of $\mathcal P$ and $\mathcal Q$
+  and the commuting squares $(e,s f);(t e,f)\simeq(s e,f);(e,t f)$.
+  Interchange for arbitrary factor traces is derivable from these rules.
 
 Then $\mathcal P\boxtimes\mathcal Q$ is complete on the based fiber at
 $(x,y)$.
 
 **Proof sketch.**
-1. Induct on product traces, using whole-trace interchange to sort every
+1. Derive whole-trace interchange from primitive rectangles by induction on
+   both factor traces, pasting squares under concatenation and reversing
+   them under inversion.
+2. Induct on product traces, using the derived interchange to sort every
    loop into a lifted $\mathcal P$-loop at $x$ followed by a lifted
    $\mathcal Q$-loop at $y$.
-2. Project to $X$ and $Y$. The $\mathcal Q$-letters project to constant
+3. Project to $X$ and $Y$. The $\mathcal Q$-letters project to constant
    paths, so homotopic loops have homotopic $\mathcal P$-parts and homotopic
    $\mathcal Q$-parts.
-3. Completeness of each factor gives derivations, and these lift along the
+4. Completeness of each factor gives derivations, and these lift along the
    inclusion presentation maps $x'\mapsto(x',y)$ and $y'\mapsto(x,y')$.
 
 **Why it matters.** It replaces the ad hoc torus proof with a general
 theorem. The torus and the $n$-torus become corollaries of the circle.
 
 **Lean work.** `ProductGeometricStepSystem.lean`,
-`ProductScopedPresentation.lean`, and `ProductScopedSorting.lean` now check
+`ProductScopedPresentation.lean`, and `ProductScopedSorting.lean` check
 the continuous step system, soundness, lifted derivations, sorting, and
-based trace completeness. A smaller presentation with only primitive
-interchange would require deriving the whole-trace rule.
+based trace completeness with a named whole-trace rule.
+`ProductPrimitiveInterchange.lean` derives that rule from primitive squares,
+shows equality of the two scoped rewrite relations, and proves based
+completeness for the primitive-only presentation.
 
 Existing assets: the sorting argument in `ConcreteTorusWinding.lean`,
 functoriality in `ContinuousGeometricStepSystemMap.lean`, and the
@@ -265,10 +270,10 @@ d. **Discrete field.** The working source now assumes discreteness of
    $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
    supporting compatibility theorem.
 
-e. **New selection.** `comparator-roadmap.json` selects a 22-field
+e. **New selection.** `comparator-roadmap.json` selects a 24-field
    `RoadmapCertificate` covering the checked universal open-map theorem and its
    consequences, the conditional universal results,
-   open-arrow and projection results, product closure, finite based
+   open-arrow and projection results, primitive-only product closure, finite based
    completeness and global subspace homeomorphisms, trace-section criterion,
    and quotient-topology separation. `formalization-roadmap.yaml` records the
    exact boundary. The challenge imports the substantive Lean development,
@@ -307,9 +312,7 @@ classical inputs.
 
 ## Remaining order
 
-1. Derive whole-trace interchange from primitive squares if a presentation
-   with only primitive interchange is needed (Goal 4).
-2. Run Palomar's full mechanical preflight on a final commit and the
+1. Run Palomar's full mechanical preflight on a final commit and the
    Mathlib-only Comparator selection. Seek review and register a new record
    only after the required maintainer authorization and registration decision
    (Goal 6e). Treat the longer-term goals as separate projects.

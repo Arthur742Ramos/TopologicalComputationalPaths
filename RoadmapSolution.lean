@@ -90,6 +90,40 @@ structure RoadmapCertificate : Prop where
         _root_.Path.Homotopic (GeometricTrace.realize p)
           (GeometricTrace.realize q) →
           ScopedRwEq (productScopedPresentation P Q) p q
+  primitive_product_rewrite_equivalence :
+    ∀ {X : Type u} [TopologicalSpace X]
+      {Y : Type w} [TopologicalSpace Y]
+      {E : Type v} [TopologicalSpace E]
+      {F : Type z} [TopologicalSpace F]
+      {S : ContinuousGeometricStepSystem X E}
+      {T : ContinuousGeometricStepSystem Y F}
+      (P : ScopedGeometricRewritePresentation S)
+      (Q : ScopedGeometricRewritePresentation T)
+      {a b : X × Y}
+      {p q : GeometricTrace (ProductSystem S T).toGeometricStepSystem a b},
+      ScopedRwEq (primitiveProductPresentation P Q) p q ↔
+        ScopedRwEq (productScopedPresentation P Q) p q
+  primitive_product_based_complete :
+    ∀ {X : Type u} [TopologicalSpace X]
+      {Y : Type w} [TopologicalSpace Y]
+      {E : Type v} [TopologicalSpace E]
+      {F : Type z} [TopologicalSpace F]
+      {S : ContinuousGeometricStepSystem X E}
+      {T : ContinuousGeometricStepSystem Y F}
+      (P : ScopedGeometricRewritePresentation S)
+      (Q : ScopedGeometricRewritePresentation T)
+      (x : X) (y : Y),
+      (∀ {p q : GeometricTrace S.toGeometricStepSystem x x},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) → ScopedRwEq P p q) →
+      (∀ {p q : GeometricTrace T.toGeometricStepSystem y y},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) → ScopedRwEq Q p q) →
+      ∀ {p q : GeometricTrace (ProductSystem S T).toGeometricStepSystem
+        (x, y) (x, y)},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) →
+          ScopedRwEq (primitiveProductPresentation P Q) p q
   finite_circle_complete :
     ∀ (p q : FiniteCircleOpenLoop),
       _root_.Path.Homotopic p.geometric q.geometric →
@@ -173,6 +207,8 @@ theorem roadmap_result : RoadmapCertificate := by
     universal_based_fiber := ?_
     universal_based_discrete := ?_
     product_based_complete := ?_
+    primitive_product_rewrite_equivalence := ?_
+    primitive_product_based_complete := ?_
     finite_circle_complete := ?_
     finite_torus_complete := ?_
     circle_trace_comparison := ⟨circleFiniteTraceHomeomorph⟩
@@ -208,6 +244,8 @@ theorem roadmap_result : RoadmapCertificate := by
   · intro A _ _ x hsemi hopen
     exact basedGlobalFiber_discrete x hsemi hopen
   · exact productBasedTraceCompleteness
+  · exact primitiveProduct_rwEq_iff_full
+  · exact primitiveProductBasedTraceCompleteness
   · exact circleFinite_basedComplete
   · exact torusFinite_basedComplete
   · intro A _ Step _ S P H C _ realize choose hrealize hchoose hgeometry

@@ -90,6 +90,40 @@ structure RoadmapCertificate : Prop where
         _root_.Path.Homotopic (GeometricTrace.realize p)
           (GeometricTrace.realize q) →
           ScopedRwEq (productScopedPresentation P Q) p q
+  primitive_product_rewrite_equivalence :
+    ∀ {X : Type u} [TopologicalSpace X]
+      {Y : Type w} [TopologicalSpace Y]
+      {E : Type v} [TopologicalSpace E]
+      {F : Type z} [TopologicalSpace F]
+      {S : ContinuousGeometricStepSystem X E}
+      {T : ContinuousGeometricStepSystem Y F}
+      (P : ScopedGeometricRewritePresentation S)
+      (Q : ScopedGeometricRewritePresentation T)
+      {a b : X × Y}
+      {p q : GeometricTrace (ProductSystem S T).toGeometricStepSystem a b},
+      ScopedRwEq (primitiveProductPresentation P Q) p q ↔
+        ScopedRwEq (productScopedPresentation P Q) p q
+  primitive_product_based_complete :
+    ∀ {X : Type u} [TopologicalSpace X]
+      {Y : Type w} [TopologicalSpace Y]
+      {E : Type v} [TopologicalSpace E]
+      {F : Type z} [TopologicalSpace F]
+      {S : ContinuousGeometricStepSystem X E}
+      {T : ContinuousGeometricStepSystem Y F}
+      (P : ScopedGeometricRewritePresentation S)
+      (Q : ScopedGeometricRewritePresentation T)
+      (x : X) (y : Y),
+      (∀ {p q : GeometricTrace S.toGeometricStepSystem x x},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) → ScopedRwEq P p q) →
+      (∀ {p q : GeometricTrace T.toGeometricStepSystem y y},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) → ScopedRwEq Q p q) →
+      ∀ {p q : GeometricTrace (ProductSystem S T).toGeometricStepSystem
+        (x, y) (x, y)},
+        _root_.Path.Homotopic (GeometricTrace.realize p)
+          (GeometricTrace.realize q) →
+          ScopedRwEq (primitiveProductPresentation P Q) p q
   finite_circle_complete :
     ∀ (p q : FiniteCircleOpenLoop),
       _root_.Path.Homotopic p.geometric q.geometric →

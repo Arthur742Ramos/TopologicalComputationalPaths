@@ -111,6 +111,8 @@ status:
         - "RoadmapCertificate.universal_based_fiber"
         - "RoadmapCertificate.universal_based_discrete"
         - "RoadmapCertificate.product_based_complete"
+        - "RoadmapCertificate.primitive_product_rewrite_equivalence"
+        - "RoadmapCertificate.primitive_product_based_complete"
         - "RoadmapCertificate.finite_circle_complete"
         - "RoadmapCertificate.finite_torus_complete"
         - "RoadmapCertificate.circle_trace_comparison"
@@ -148,7 +150,8 @@ research_interest:
     classifying an isolated fixed-endpoint quotient: the result uses the actual
     subspace topology inherited from the global arrow carrier. Product
     completeness is proved for a presentation with lifted factor rules and
-    named whole-trace interchange. The trace separation concerns the quotient
+    primitive rectangle interchange. Whole-trace interchange is derived.
+    The trace separation concerns the quotient
     topologies themselves, not only the raw code spaces.
   paper_worthiness: >-
     The revised manuscript offers a clearer formal and mathematical boundary,
@@ -171,6 +174,7 @@ research_interest:
     - "FiniteCircleGlobalBasedFiber.lean: circleGlobalBasedGeometricHomeomorph"
     - "FiniteTorusGlobalBasedFiber.lean: torusGlobalBasedGeometricHomeomorph"
     - "ProductScopedSorting.lean: productBasedTraceCompleteness"
+    - "ProductPrimitiveInterchange.lean: primitiveInterchangeTrace and primitiveProductBasedTraceCompleteness"
     - "TraceSensitiveSeparation.lean: duplicateQuotientComparison_not_continuous"
 
 automation:
@@ -195,9 +199,9 @@ fidelity:
     already checked declarations. Its deliberate statement placeholder is
     not an unfinished proof in the solution. The positive universal global
     based-fiber field records both the conditional transfer and its semilocal
-    unconditional consequence. The product
-    presentation includes whole-trace interchange as a named rule; no
-    derivation of that rule from primitive squares is claimed. The finite
+    unconditional consequence. The product presentation first names
+    whole-trace interchange for sorting; a second presentation derives it
+    from primitive squares and has the same scoped rewrite relation. The finite
     circle and torus results use their exact structural presentations.
 
 alignment:
@@ -227,7 +231,7 @@ alignment:
       lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.product_based_complete"
       module: "RoadmapSolution.lean"
       status: "proved"
-      note: "Includes named whole-trace interchange."
+      note: "Whole-trace interchange is derivable from primitive rectangles."
     - source: "Finite global based fibers and trace comparisons"
       lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.circle_global_fiber; RoadmapCertificate.torus_global_fiber"
       module: "RoadmapSolution.lean"

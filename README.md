@@ -45,7 +45,10 @@ with the ordinary geometric loop quotients.
 the continuous horizontal/vertical step system and proves interchange sound.
 `ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
 rules, trace sorting, and based completeness for a presentation that names
-both primitive and whole-trace interchange.
+whole-trace interchange. `ProductPrimitiveInterchange.lean` derives that
+rule from primitive rectangles, proves that the two scoped rewrite
+relations agree, and transfers based completeness to the primitive-only
+presentation.
 `UniversalTotallyDisconnected.lean` proves that the global universal
 path-class projection is a homeomorphism for every totally disconnected
 space, giving unconditional ordinary composition continuity in this class.
@@ -60,7 +63,7 @@ homeomorphism in `UniversalSemilocallySimplyConnected.lean`.
 ## Roadmap verification
 
 `comparator-roadmap.json` selects
-`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 22 fields name the
+`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 24 fields name the
 checked open-arrow, general universal, product, finite global-fiber,
 and trace-topology results. `RoadmapChallenge.lean` imports the substantive
 development, and `RoadmapSolution.lean` assembles its proved declarations;
