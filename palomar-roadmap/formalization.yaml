@@ -82,8 +82,8 @@ status:
     open arrow quotient, continuity transfer for multiplication, and the ordinary based circle
     and torus loop-quotient homeomorphisms with discrete winding groups. The direct Lean proof
     of universal path-class openness, product sorting, finite scoped global based-fiber homeomorphisms,
-    and trace-sensitive separation remain outside this external selection; source proofs for
-    all but universal openness are present in the repository.
+    and trace-sensitive separation remain outside this external selection. Source proofs for
+    all of these claims are present in the repository.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -137,11 +137,13 @@ research_interest:
   paper_worthiness: These four statements check the paper's positive topology examples and
     its open-arrow transfer. The finite scoped-presentation and trace-separation results are
     stronger claims in the working source and remain outside this selection. The global universal
-    openness theorem is a published input, not a newly formalized result.
+    openness theorem is published prior art and now also has a Lean proof in the repository.
   literature_boundary: The open-map step is standard general topology, and circle and torus
     winding are classical. Holkar, Hossain, and Kulkarni supply the published global path-class
     openness theorem applied in the paper. The selection packages these ingredients for the
-    scoped-path topology comparison without claiming priority for them.
+    scoped-path topology comparison without claiming priority for them. The repository now
+    contains an independent Lean proof of global path-class openness under the published
+    hypotheses, outside this Mathlib-only selection.
   evidence:
   - 'RoadmapRegistryChallenge.lean: four standalone statements'
   - 'RoadmapRegistrySolution.lean: four proofs'

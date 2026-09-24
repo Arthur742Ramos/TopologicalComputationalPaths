@@ -11,12 +11,12 @@ repository remains the source for its broader Lean artifact.
 
 | Goal | Current state |
 | --- | --- |
-| 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace and, assuming an open global quotient, proves a homeomorphism from the ordinary loop quotient to the global based-arrow subspace and its discreteness under the semilocal hypothesis. A Lean proof of the global open-map theorem remains. |
+| 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace. The now-checked global open-map theorem makes the homeomorphism from the ordinary loop quotient to the global based-arrow subspace unconditional under local path-connectedness and semilocal simple connectivity. |
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
-| 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. The general open-map theorem is not yet proved in Lean. Lean proves the endpoint-varying local ladder, a positive-tail compact-open reparametrization, and an unconditional global special case: for a totally disconnected space, the universal path-class projection is a homeomorphism and ordinary composition is continuous. |
+| 3. Global theorem | The paper credits Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. Lean now proves the general open-map theorem directly from an endpoint-varying ladder and a compact-open endpoint absorption lemma. It derives ordinary composable-pair compatibility, continuous composition, and the global based-fiber homeomorphism under local path-connectedness and semilocal simple connectivity. A separate totally disconnected case gives a homeomorphic projection without those hypotheses. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 18 fields and includes the totally disconnected universal case. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 22 fields and includes the general semilocal universal theorem. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -65,8 +65,9 @@ positive case to set against its negative one.
 - `discrete_recovers_ordinary` in the registered certificate
 
 The based fiber must carry the subspace topology from the observable carrier.
-`UniversalGlobalBasedFiber.lean` now proves this comparison under the open-map
-hypothesis. The global open-map theorem still needs a Lean proof. The Hawaiian
+`UniversalGlobalBasedFiber.lean` proves this comparison under the open-map
+hypothesis, which `UniversalSemilocallySimplyConnected.lean` now discharges
+under the stated geometric assumptions. The Hawaiian
 module's full observable based topology is handled separately (see Goal 6b).
 
 **Check before citing.** The converse appears to fail, because the harmonic
@@ -101,8 +102,7 @@ compatibility holds.
 `scopedProductCompatibility_of_open_arrow` in
 `ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
 now proves the universal path projection quotient and derives ordinary
-product compatibility from its openness. The open-map theorem itself is
-Goal 3.
+product compatibility from its openness. Goal 3 now supplies the open map.
 
 ## Goal 3: the global theorem for semilocally simply connected spaces
 
@@ -111,20 +111,19 @@ connected, then $q_I : X^I\to\Pi_1^q(X)$ is open. With Goal 2, the whole
 quotient-topologized fundamental groupoid is then a topological groupoid,
 not just its based fibers.
 
-**Proof sketch for a future Lean formalization.** The cited literature proves
-the theorem; the following geometric argument indicates the local lemmas a
-direct formal proof would need.
+**Proof.** The cited literature proves the theorem. The Lean formalization
+uses the following local argument.
 Let $W$ be open and let $\delta$ be homotopic to some $\gamma\in W$. We need a
 neighbourhood of $\delta$ inside the saturation of $W$.
 
-1. **Absorption (needs no semilocal hypothesis).** Shrink $W$ to a
-   subdivision-type basic set $\bigcap_j\langle I_j,O_j\rangle$ around
-   $\gamma$. There are neighbourhoods $U$ of $\gamma(0)$ and $V$ of
-   $\gamma(1)$ with the following property. For all paths $\alpha$ in $U$
-   and $\beta$ in $V$, a reparametrization of $\alpha^{-1}\gamma\beta$ lies
-   in $W$. The reparametrization spends a small time $\varepsilon$ on each
-   end, and a Lebesgue-number argument controls the shift of $\gamma$ on the
-   middle part.
+1. **Absorption (needs no semilocal hypothesis).** Choose a small positive
+   reparametrization of $\gamma$ with constant tails that remains in $W$.
+   A finite compact-open subbasis around this path gives neighbourhoods
+   $U$ of $\gamma(0)$ and $V$ of $\gamma(1)$. Every endpoint connector
+   contained in $U$ or $V$ can be inserted into the corresponding tail
+   while keeping the modified path in $W$. An explicit piecewise linear
+   reparametrization proves that this path is homotopic to the three-part
+   concatenation.
 2. **Ladder (needs local path-connectedness and the semilocal hypothesis).**
    Every path $\delta'$ close enough to $\delta$ is homotopic to
    $\alpha^{-1}\delta\beta$ for short paths $\alpha$ and $\beta$ in chosen
@@ -142,25 +141,24 @@ The manuscript credits this theorem and uses it to explain where the
 Hawaiian-earring obstruction disappears. The global statement is not a new
 result of this project.
 
-**Lean work: substantial.** `EndpointVaryingLadder.lean` now proves an
+**Lean work: complete for this theorem.** `EndpointVaryingLadder.lean` proves an
 endpoint-varying local ladder from the finite null-homotopy subdivision in
 `SemilocallySimplyConnected.lean`. For any open neighborhoods of a path's
 endpoints, it produces a compact-open neighborhood of that path and shows
 that every nearby path differs by endpoint connectors confined to those
-neighborhoods. `EndpointAbsorption.lean` also proves that every compact-open
-neighborhood contains a positive-tail reparametrization of its center path.
-Still missing:
-- the rest of absorption: insert small endpoint connectors into that
-  reparametrization within the given open set and prove the resulting path
-  retains the required endpoint-fixed homotopy class;
-- the final saturation and quotient-map argument applying both lemmas.
+neighborhoods. `EndpointAbsorption.lean` constructs the positive-tail
+reparametrization, inserts both connectors, and checks its concatenation
+homotopy class. `UniversalSemilocallySimplyConnected.lean` proves the
+universal path-class projection open by showing that the saturation of
+every compact-open set is open. It then derives ordinary pair compatibility,
+continuous composition, and the global based-fiber homeomorphism.
 
 `UniversalTotallyDisconnected.lean` settles a different global case without
 these lemmas. Every interval path into a totally disconnected space is
 constant; the universal path-class projection is quotient and injective,
 hence a homeomorphism. The module also checks ordinary pair compatibility,
 ordinary multiplication continuity, and the global based-fiber comparison.
-This does not prove the locally path-connected semilocal theorem above.
+This provides a second, independent open-map class.
 
 ## Goal 4: products preserve completeness
 
@@ -267,8 +265,9 @@ d. **Discrete field.** The working source now assumes discreteness of
    $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
    supporting compatibility theorem.
 
-e. **New selection.** `comparator-roadmap.json` selects an 18-field
-   `RoadmapCertificate` covering the checked conditional universal results,
+e. **New selection.** `comparator-roadmap.json` selects a 22-field
+   `RoadmapCertificate` covering the checked universal open-map theorem and its
+   consequences, the conditional universal results,
    open-arrow and projection results, product closure, finite based
    completeness and global subspace homeomorphisms, trace-section criterion,
    and quotient-topology separation. `formalization-roadmap.yaml` records the
@@ -284,7 +283,9 @@ e. **New selection.** `comparator-roadmap.json` selects an 18-field
    registration as a new Palomar record, and the corresponding Section 10
    manuscript update remain. Palomar requires a later version to retain the
    earlier Comparator path, so this separate configuration cannot become
-   version 2 of the existing ID. The direct Lean proof of Goal 3 is absent.
+   version 2 of the existing ID. The direct Lean proof of Goal 3 is now in
+   `UniversalSemilocallySimplyConnected.lean` and remains outside this
+   standalone Mathlib-only selection.
 
 ## Longer-term goals (not planned yet)
 
@@ -306,12 +307,9 @@ classical inputs.
 
 ## Remaining order
 
-1. Formalize the universal path-class open map under local path-connectedness
-   and semilocal simple connectivity. The conditional transfer and the
-   global subspace based-fiber comparison are already checked (Goals 1--3).
-2. Derive whole-trace interchange from primitive squares if a presentation
+1. Derive whole-trace interchange from primitive squares if a presentation
    with only primitive interchange is needed (Goal 4).
-3. Run Palomar's full mechanical preflight on a final commit and the
+2. Run Palomar's full mechanical preflight on a final commit and the
    Mathlib-only Comparator selection. Seek review and register a new record
    only after the required maintainer authorization and registration decision
    (Goal 6e). Treat the longer-term goals as separate projects.

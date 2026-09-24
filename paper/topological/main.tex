@@ -104,8 +104,9 @@ classes to homotopy classes.  Normal forms prove completeness for based
 circle and torus presentations, and a product argument extends it to
 finite tori.  A continuous trace choice makes the trace-sensitive and
 observable quotients homeomorphic when the presentation is complete.
-Lean checks the quotient comparison, conditional open-map transfer,
-universal fixed-endpoint result, product sorting, finite circle and torus
+Lean checks the quotient comparison, the open-map theorem for locally
+path-connected, semilocally simply connected spaces, the universal
+fixed-endpoint result, product sorting, finite circle and torus
 based completeness and homeomorphisms from their global based-arrow
 subspaces to discrete winding groups, and nonconstant circle separation.
 The registered Palomar selection is an earlier, narrower snapshot; the
@@ -1730,6 +1731,32 @@ Holkar, Hossain, and Kulkarni prove that the path-class projection
 $q_I:X^I\to\Pi_1^q(X)$ is open under these hypotheses
 \cite[Corollary~3.7]{HolkarHossainKulkarni24}; their
 Theorem~3.9 also identifies the resulting ordinary topological groupoid.
+The companion Lean proof makes the openness argument explicit. Let $W$ be
+open in $X^I$, and choose $\gamma\in W$. For sufficiently small
+$\varepsilon>0$, the path
+\[
+  t\longmapsto \gamma\bigl(\max(0,\min(1,(1+2\varepsilon)t-\varepsilon))\bigr)
+\]
+still belongs to $W$. It is constant near both endpoints. Choose a finite
+compact-open subbasic neighborhood of this reparametrized path inside $W$.
+Intersecting the target sets that contain $\gamma(0)$ gives an open set
+$U$ around $\gamma(0)$; do the same at $\gamma(1)$ to obtain $V$.
+Any paths $\alpha:a'\to\gamma(0)$ and
+$\beta:\gamma(1)\to b'$ whose ranges lie in $U$ and $V$ can be inserted
+into the two constant tails. The resulting path remains in $W$ and is
+homotopic relative to its endpoints to $\alpha\gamma\beta$. The latter
+claim follows by a piecewise linear change of speed.
+
+Now suppose $\delta$ represents the same path class as $\gamma$.
+The finite null-homotopy ladder, using local path-connectedness and
+semilocal simple connectivity, gives a compact-open neighborhood $N$ of
+$\delta$. Each $\zeta\in N$ is homotopic to
+$\alpha\delta\beta$ for endpoint connectors with ranges in $U$ and $V$.
+Replacing $\delta$ by $\gamma$ preserves that homotopy class, and the
+absorption construction gives a representative in $W$. Thus $N$ lies in
+the saturation of $W$. The saturation is open, so the quotient map $q_I$
+is open.
+
 The arrow-space homeomorphism of
 Theorem~\ref{thm:universal-completion} identifies $q_I$ with
 $q_I^{\mathcal U}$.  Proposition~\ref{prop:universal-path-projection}
@@ -2365,8 +2392,9 @@ of both projections from the final composable domain.  The present Lean
 source also checks the general open-arrow criterion and
 Proposition~\ref{prop:universal-path-projection}: the path-class projection
 is quotient, and its openness implies ordinary multiplication for the
-universal presentation.  The published openness theorem used in
-Theorem~\ref{thm:universal-open-groupoid} has not been formalized here.
+universal presentation. A direct Lean proof now supplies openness under
+the hypotheses of Theorem~\ref{thm:universal-open-groupoid}. The theorem
+itself remains credited to Holkar, Hossain, and Kulkarni.
 
 On fixed endpoint quotients, Lean now identifies the universal based fiber
 with the ordinary based-loop quotient.  It proves discreteness, a quotient
@@ -2374,20 +2402,23 @@ pair map, and continuous ordinary multiplication under the semilocal
 hypothesis. It also identifies based paths with the endpoint-defined
 subspace of the compact-open path space and checks that an open global
 projection restricts to an open quotient onto the based-arrow subspace.
-Under this open-map hypothesis, Lean identifies that subspace fiber with
-the ordinary based-loop quotient and proves it discrete under local
-path-connectedness and semilocal simple connectivity. The open-map
-hypothesis itself is supplied by the cited theorem, not by a Lean proof.
+For locally path-connected, semilocally simply connected spaces, the checked
+open-map theorem removes the remaining hypothesis from that comparison.
+The resulting global based-arrow subspace is homeomorphic to the ordinary
+based-loop quotient and is discrete.
 The module \LeanName{UniversalTotallyDisconnected} proves the unconditional
 case of Corollary~\ref{cor:totally-disconnected-universal}. Its projection is
-a homeomorphism, and ordinary composition is continuous. The general
-locally path-connected open-map theorem still lacks a Lean proof here.
-\LeanName{EndpointVaryingLadder} establishes its local ladder step: every
+a homeomorphism, and ordinary composition is continuous.
+\LeanName{EndpointVaryingLadder} establishes the local ladder step: every
 path has a compact-open neighborhood whose members differ by short endpoint
-connectors. \LeanName{EndpointAbsorption} checks that an arbitrary compact-open
-neighborhood contains a reparametrized path with positive constant tails.
-Insertion of the connectors into those tails and the final open-map proof
-have not yet been formalized.
+connectors. \LeanName{EndpointAbsorption} first gives the center path positive
+constant tails. It then inserts connectors confined to suitable endpoint
+neighborhoods and proves, by an explicit reparametrization, that the new
+path has the required concatenation homotopy class. The module
+\LeanName{UniversalSemilocallySimplyConnected} uses both lemmas to show that
+the saturation of any compact-open set is open. It also records ordinary
+pair compatibility, continuous composition, and the global based-fiber
+homeomorphism as consequences.
 The integer-indexed scoped circle presentation has a checked normal form;
 its fixed endpoint quotient is homeomorphic to $\mathbb Z$, and a continuous
 winding-based trace choice identifies its trace-sensitive and observable
@@ -2411,8 +2442,8 @@ subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
 None of these working-source additions has been registered as a new Palomar
 version. The internal \LeanName{comparator-roadmap.json} bundle selects a
-18-field certificate containing the checked conditional universal and totally
-disconnected cases, product results, finite global fibers, and trace-topology
+22-field certificate containing the checked semilocal and totally disconnected
+universal cases, product results, finite global fibers, and trace-topology
 comparisons. Its Challenge imports the
 substantive development, and its Solution assembles the proved declarations.
 Comparator, NanoDa, and Lean's kernel replayed this bundle in CI. Palomar's
@@ -2454,9 +2485,10 @@ multiplication continuous?  The quotient of composable representatives always
 works.  Its topology need not agree with the ordinary subspace topology on
 pairs of quotient arrows, and product-quotient compatibility is exactly the
 condition under which the two agree.  An open arrow quotient guarantees this
-compatibility.  Applied to the universal presentation, the published
-open-map theorem for locally path-connected, semilocally simply connected
-spaces yields an ordinary topological groupoid and discrete based fibers.
+compatibility. For the universal presentation, the open-map theorem for
+locally path-connected, semilocally simply connected spaces is now checked
+directly in Lean. It yields an ordinary topological groupoid and discrete
+based fibers.
 For totally disconnected spaces the path-class projection itself is a
 homeomorphism, which gives the same composition conclusion directly.
 The Hawaiian earring shows that this conclusion does not extend to every

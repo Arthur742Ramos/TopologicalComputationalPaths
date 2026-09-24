@@ -5,13 +5,13 @@ project:
   name: "Topological semantics of scoped computational paths"
   description: >-
     A selected Lean certificate for the revised topological-semantics paper:
-    open-arrow product compatibility, the totally disconnected universal
-    open-map case, conditional universal based-fiber topology, product closure
+    open-arrow product compatibility, the semilocal and totally disconnected
+    universal open-map cases, universal based-fiber topology, product closure
     of based completeness, finite circle and torus
     global based-fiber homeomorphisms, and trace-sensitive quotient comparisons.
     General openness of the universal endpoint-varying path-class projection
-    under local path-connectedness is cited from classical work; only the
-    totally disconnected special case is selected as a Lean proof.
+    under local path-connectedness and semilocal simple connectivity is
+    selected as a Lean proof and credited to the prior literature.
   authors:
     - "Arthur Freitas Ramos"
     - "Ruy J. G. B. de Queiroz"
@@ -53,7 +53,7 @@ sources:
     note: >-
       Supplies the compact-open path-class openness and ordinary topological
       groupoid theorem under local path-connectedness and semilocal simple
-      connectivity. The selected Lean result treats openness as a hypothesis.
+      connectivity. The selected Lean result also proves openness directly.
   - title: "On fundamental groups with the quotient topology"
     authors: ["Jeremy Brazas", "Paul Fabel"]
     type: "paper"
@@ -87,8 +87,8 @@ status:
     roadmap results. The challenge imports the substantive development, and
     the solution assembles its independently checked declarations. It is an
     aggregation selection, not a claim that the imported proofs are new to
-    the bundle. The general locally path-connected universal open-map theorem
-    remains excluded; the totally disconnected case is selected.
+    the bundle. Both the general locally path-connected semilocal theorem and
+    the totally disconnected case are selected.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -100,6 +100,10 @@ status:
       comparator_config: "comparator-roadmap.json"
       selected_fields:
         - "RoadmapCertificate.universal_projection_quotient"
+        - "RoadmapCertificate.universal_projection_open"
+        - "RoadmapCertificate.universal_product_unconditional"
+        - "RoadmapCertificate.universal_composition_unconditional"
+        - "RoadmapCertificate.universal_based_fiber_unconditional"
         - "RoadmapCertificate.universal_totally_disconnected_homeomorph"
         - "RoadmapCertificate.open_arrow_product"
         - "RoadmapCertificate.final_projections"
@@ -123,8 +127,6 @@ status:
         - statement: "Circle and torus winding background"
           source: "Algebraic Topology"
       excluded_repository_results:
-        - "direct Lean proof of endpoint-varying path-class openness"
-        - "unconditional universal global groupoid theorem"
         - "Hawaiian-earring discontinuity, which uses an external assumption"
         - "longer-term edge-path and Seifert-van Kampen projects"
 
@@ -134,8 +136,8 @@ research_interest:
     computational-path semantics, and formalized mathematics.
   selected_contribution: >-
     The selected certificate connects an open-arrow criterion for ordinary
-    multiplication to a totally disconnected universal homeomorphism, a
-    conditional universal based-fiber theorem, a general
+    multiplication to the semilocal universal open-map theorem, a totally
+    disconnected universal homeomorphism, a global based-fiber theorem, and a general
     product-closure result for based trace completeness, and unconditional
     finite circle and torus global based-fiber homeomorphisms. It also proves
     when trace-sensitive and observable quotient topologies agree and gives a
@@ -152,18 +154,20 @@ research_interest:
     The revised manuscript offers a clearer formal and mathematical boundary,
     with one positive geometric class, a genuine quotient-topology separation,
     product closure, and finite global based-fiber results. Its global
-    topological-groupoid theorem is an application of published work rather
-    than a new proof. Independent review remains necessary to judge novelty,
+    topological-groupoid theorem is a direct formal proof of published work.
+    Independent review remains necessary to judge novelty,
     priority, and publication suitability.
   literature_boundary: >-
     Holkar--Hossain--Kulkarni supply the classical global openness theorem;
     Hatcher supplies standard winding background. The selected Lean result
-    proves conditional transfer and finite presentation statements. No
+    proves the global open-map theorem, conditional transfer, and finite
+    presentation statements. No
     priority claim is made for the classical ingredients.
   evidence:
     - "RoadmapChallenge.lean: RoadmapCertificate"
     - "RoadmapSolution.lean: TopologicalComputationalPathsRoadmap.roadmap_result"
     - "UniversalTotallyDisconnected.lean: universalPathClassProjection_isHomeomorph_of_totallyDisconnected"
+    - "UniversalSemilocallySimplyConnected.lean: universalPathClassProjection_isOpenMap_of_semilocallySimplyConnected"
     - "FiniteCircleGlobalBasedFiber.lean: circleGlobalBasedGeometricHomeomorph"
     - "FiniteTorusGlobalBasedFiber.lean: torusGlobalBasedGeometricHomeomorph"
     - "ProductScopedSorting.lean: productBasedTraceCompleteness"
@@ -181,7 +185,7 @@ automation:
         wall_time: "multi-session local development"
         spend_usd: "not tracked"
         hardware: "local machine"
-      prompting_notes: "Keep conditional results and the cited classical theorem distinct."
+      prompting_notes: "Credit the cited classical theorem while reporting the direct Lean proof."
   spend_usd: "not tracked"
   notes: "Lean and Comparator replay results are recorded with the selected commit."
 
@@ -190,7 +194,8 @@ fidelity:
     The challenge imports the source development and selects a bundle of
     already checked declarations. Its deliberate statement placeholder is
     not an unfinished proof in the solution. The positive universal global
-    based-fiber field requires the open projection hypothesis. The product
+    based-fiber field records both the conditional transfer and its semilocal
+    unconditional consequence. The product
     presentation includes whole-trace interchange as a named rule; no
     derivation of that rule from primitive squares is claimed. The finite
     circle and torus results use their exact structural presentations.
@@ -202,7 +207,12 @@ alignment:
       lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.open_arrow_product; RoadmapCertificate.universal_projection_quotient"
       module: "RoadmapSolution.lean"
       status: "proved"
-      note: "Global universal openness remains a hypothesis."
+      note: "The general projection-open field supplies openness under local path-connectedness and semilocal simple connectivity."
+    - source: "Global universal path-class openness"
+      lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.universal_projection_open; RoadmapCertificate.universal_product_unconditional; RoadmapCertificate.universal_composition_unconditional; RoadmapCertificate.universal_based_fiber_unconditional"
+      module: "RoadmapSolution.lean"
+      status: "proved"
+      note: "Uses the local ladder, endpoint absorption, and saturation of compact-open sets."
     - source: "Conditional global universal based fiber"
       lean: "TopologicalComputationalPathsRoadmap.roadmap_result; RoadmapCertificate.universal_based_fiber; RoadmapCertificate.universal_based_discrete"
       module: "RoadmapSolution.lean"

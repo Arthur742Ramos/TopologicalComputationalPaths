@@ -2,7 +2,7 @@ import ComputationalPaths
 
 /-! A selection of the checked roadmap results. The substantive proofs live in
 the imported development; this declaration pins their joint statement for
-Comparator replay. The global open-map theorem remains outside the selection. -/
+Comparator replay. -/
 
 namespace TopologicalComputationalPathsRoadmap
 
@@ -17,6 +17,25 @@ structure RoadmapCertificate : Prop where
   universal_projection_quotient :
     ∀ {A : Type u} [TopologicalSpace A],
       Topology.IsQuotientMap (universalPathClassProjection (A := A))
+  universal_projection_open :
+    ∀ {A : Type u} [TopologicalSpace A] [LocallyPathConnectedSpace A],
+      QuotientFundamentalGroup.SemilocallySimplyConnected A →
+        IsOpenMap (universalPathClassProjection (A := A))
+  universal_product_unconditional :
+    ∀ {A : Type u} [TopologicalSpace A] [LocallyPathConnectedSpace A],
+      QuotientFundamentalGroup.SemilocallySimplyConnected A →
+        ProductQuotientCompatibility (universalPresentation (A := A))
+  universal_composition_unconditional :
+    ∀ {A : Type u} [TopologicalSpace A] [LocallyPathConnectedSpace A],
+      QuotientFundamentalGroup.SemilocallySimplyConnected A →
+        Continuous (scopedCompositionOnProduct (universalPresentation (A := A)) :
+          ScopedComposablePair (universalPresentation (A := A)) →
+            ScopedClass (universalPresentation (A := A)))
+  universal_based_fiber_unconditional :
+    ∀ {A : Type u} [TopologicalSpace A] [LocallyPathConnectedSpace A]
+      (hsemi : QuotientFundamentalGroup.SemilocallySimplyConnected A) (x : A),
+      Nonempty (QuotientFundamentalGroup.LoopQuot A x ≃ₜ
+        universalBasedArrowSet x)
   universal_totally_disconnected_homeomorph :
     ∀ {A : Type u} [TopologicalSpace A] [TotallyDisconnectedSpace A],
       IsHomeomorph (universalPathClassProjection (A := A))
@@ -143,6 +162,10 @@ structure RoadmapCertificate : Prop where
 theorem roadmap_result : RoadmapCertificate := by
   refine {
     universal_projection_quotient := ?_
+    universal_projection_open := ?_
+    universal_product_unconditional := ?_
+    universal_composition_unconditional := ?_
+    universal_based_fiber_unconditional := ?_
     universal_totally_disconnected_homeomorph := ?_
     open_arrow_product := ?_
     final_projections := ?_
@@ -163,6 +186,14 @@ theorem roadmap_result : RoadmapCertificate := by
       TraceSensitiveSeparation.duplicateQuotientComparison_not_continuous
     discrete_arrow_product := ?_ }
   · exact universalPathClassProjection_isQuotient
+  · intro A _ _ hsemi
+    exact universalPathClassProjection_isOpenMap_of_semilocallySimplyConnected hsemi
+  · intro A _ _ hsemi
+    exact universalProductCompatibility_of_semilocallySimplyConnected hsemi
+  · intro A _ _ hsemi
+    exact continuous_universalComposition_of_semilocallySimplyConnected hsemi
+  · intro A _ _ hsemi x
+    exact ⟨universalBasedFiberHomeomorph_of_semilocallySimplyConnected hsemi x⟩
   · intro A _ _
     exact universalPathClassProjection_isHomeomorph_of_totallyDisconnected
   · exact scopedProductCompatibility_of_open_arrow

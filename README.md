@@ -23,9 +23,10 @@ and the immutable registered result.
 The general open-arrow compatibility criterion is checked in
 `ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
 checks that the universal compact-open path projection is quotient and that
-its openness gives continuous ordinary multiplication. The published theorem
-that supplies openness for locally path-connected, semilocally simply
-connected spaces is used in the paper and is still outside the Lean proof.
+its openness gives continuous ordinary multiplication.
+`UniversalSemilocallySimplyConnected.lean` now proves that openness directly
+under local path-connectedness and semilocal simple connectivity. The paper
+credits the earlier published theorem and explains the checked proof.
 `UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
 discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
 with the compact-open subspace and, when the global projection is open,
@@ -50,16 +51,17 @@ path-class projection is a homeomorphism for every totally disconnected
 space, giving unconditional ordinary composition continuity in this class.
 `EndpointVaryingLadder.lean` now proves the local endpoint-varying ladder
 under local path-connectedness and semilocal simple connectivity. The
-`EndpointAbsorption.lean` squeeze lemma shows that every compact-open
-neighborhood contains a positive-tail reparametrization of its center path.
-The connector-insertion and saturation steps needed for global path-class
-openness remain to be formalized.
+`EndpointAbsorption.lean` squeeze and connector lemmas place a representative
+of each short-endpoint concatenation inside a given compact-open set.
+Together they prove openness of the global path-class projection, ordinary
+pair compatibility, continuous composition, and the global based-fiber
+homeomorphism in `UniversalSemilocallySimplyConnected.lean`.
 
 ## Roadmap verification
 
 `comparator-roadmap.json` selects
-`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 18 fields name the
-checked open-arrow, conditional universal, product, finite global-fiber,
+`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 22 fields name the
+checked open-arrow, general universal, product, finite global-fiber,
 and trace-topology results. `RoadmapChallenge.lean` imports the substantive
 development, and `RoadmapSolution.lean` assembles its proved declarations;
 the selection is an explicit aggregation of those proofs. CI has replayed this
@@ -76,9 +78,9 @@ ordinary circle and torus based-loop quotients are homeomorphic to discrete
 `palomar-roadmap/formalization.yaml` records this narrower scope for a
 possible new Palomar record. Its different Comparator path prevents it from
 becoming version 2 of the existing ID under Palomar's current policy. No new
-record is registered. The direct Lean proof of global
-universal path-class openness is still missing, so the universal global
-results in the internal bundle retain that hypothesis.
+record is registered. The direct Lean proof of global universal path-class
+openness is now in `UniversalSemilocallySimplyConnected.lean` and the internal
+bundle records it alongside the earlier conditional statement.
 
 ## Certified preimage solver (new research prototype)
 
