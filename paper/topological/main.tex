@@ -2382,6 +2382,12 @@ The module \LeanName{UniversalTotallyDisconnected} proves the unconditional
 case of Corollary~\ref{cor:totally-disconnected-universal}. Its projection is
 a homeomorphism, and ordinary composition is continuous. The general
 locally path-connected open-map theorem still lacks a Lean proof here.
+\LeanName{EndpointVaryingLadder} establishes its local ladder step: every
+path has a compact-open neighborhood whose members differ by short endpoint
+connectors. \LeanName{EndpointAbsorption} checks that an arbitrary compact-open
+neighborhood contains a reparametrized path with positive constant tails.
+Insertion of the connectors into those tails and the final open-map proof
+have not yet been formalized.
 The integer-indexed scoped circle presentation has a checked normal form;
 its fixed endpoint quotient is homeomorphic to $\mathbb Z$, and a continuous
 winding-based trace choice identifies its trace-sensitive and observable

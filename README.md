@@ -48,6 +48,12 @@ both primitive and whole-trace interchange.
 `UniversalTotallyDisconnected.lean` proves that the global universal
 path-class projection is a homeomorphism for every totally disconnected
 space, giving unconditional ordinary composition continuity in this class.
+`EndpointVaryingLadder.lean` now proves the local endpoint-varying ladder
+under local path-connectedness and semilocal simple connectivity. The
+`EndpointAbsorption.lean` squeeze lemma shows that every compact-open
+neighborhood contains a positive-tail reparametrization of its center path.
+The connector-insertion and saturation steps needed for global path-class
+openness remain to be formalized.
 
 ## Roadmap verification
 

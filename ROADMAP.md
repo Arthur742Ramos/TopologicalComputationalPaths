@@ -13,7 +13,7 @@ repository remains the source for its broader Lean artifact.
 | --- | --- |
 | 1. Based fibers | The paper proves the positive subspace-fiber result using a published open-quotient theorem. Lean identifies the universal fixed-endpoint quotient with the ordinary based-loop quotient and proves its discreteness, pair-quotient property, and ordinary multiplication continuity. It identifies based paths with the compact-open based-path subspace and, assuming an open global quotient, proves a homeomorphism from the ordinary loop quotient to the global based-arrow subspace and its discreteness under the semilocal hypothesis. A Lean proof of the global open-map theorem remains. |
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
-| 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This general classical theorem is not newly proved in Lean. Lean now proves an unconditional global special case: for a totally disconnected space, the universal path-class projection is a homeomorphism and ordinary composition is continuous. |
+| 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. The general open-map theorem is not yet proved in Lean. Lean proves the endpoint-varying local ladder, a positive-tail compact-open reparametrization, and an unconditional global special case: for a totally disconnected space, the universal path-class projection is a homeomorphism and ordinary composition is continuous. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
 | 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 18 fields and includes the totally disconnected universal case. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
@@ -142,15 +142,18 @@ The manuscript credits this theorem and uses it to explain where the
 Hawaiian-earring obstruction disappears. The global statement is not a new
 result of this project.
 
-**Lean work: substantial.** Useful assets in
-`SemilocallySimplyConnected.lean`: `exists_finite_null_subdivision`,
-`homotopic_concat_of_homotopic_ladder`, `isOpen_loops_mapsTo`, and
-`isOpen_homotopyClass_of_semilocallySimplyConnected`. The last one covers
-fixed endpoints only. Still missing:
-- an endpoint-varying ladder
-- a subdivision basis for the compact-open topology on `C(I, X)`; check
-  Mathlib first
-- the reparametrization estimate
+**Lean work: substantial.** `EndpointVaryingLadder.lean` now proves an
+endpoint-varying local ladder from the finite null-homotopy subdivision in
+`SemilocallySimplyConnected.lean`. For any open neighborhoods of a path's
+endpoints, it produces a compact-open neighborhood of that path and shows
+that every nearby path differs by endpoint connectors confined to those
+neighborhoods. `EndpointAbsorption.lean` also proves that every compact-open
+neighborhood contains a positive-tail reparametrization of its center path.
+Still missing:
+- the rest of absorption: insert small endpoint connectors into that
+  reparametrization within the given open set and prove the resulting path
+  retains the required endpoint-fixed homotopy class;
+- the final saturation and quotient-map argument applying both lemmas.
 
 `UniversalTotallyDisconnected.lean` settles a different global case without
 these lemmas. Every interval path into a totally disconnected space is
