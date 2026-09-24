@@ -2383,11 +2383,17 @@ restriction to the actual based-arrow subspace injective. The resulting
 subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
 None of these working-source additions has been registered as a new Palomar
-version. A separate Comparator candidate, \LeanName{comparator-roadmap.json},
-selects a certificate containing the checked conditional universal,
-product, finite global-fiber, and trace-topology results. Its statement
-imports the substantive development, and its solution assembles those
-proved declarations. It is awaiting Comparator replay and external review.
+version. The internal \LeanName{comparator-roadmap.json} bundle selects a
+17-field certificate containing the checked conditional universal, product,
+finite global-fiber, and trace-topology results. Its Challenge imports the
+substantive development, and its Solution assembles the proved declarations.
+Comparator, NanoDa, and Lean's kernel replayed this bundle in CI. Palomar's
+current Challenge provenance rule excludes local imports, so the bundle is
+not a candidate for registration. A separate Mathlib-only Challenge in
+\LeanName{comparator-registry-roadmap.json} selects the open-arrow
+ordinary-pair quotient and continuity transfer for multiplication. These
+two statements have not undergone Palomar's mechanical preflight or external
+review. The broader working-source results remain outside that selection.
 
 To reproduce the registered version~1 result, check out its pinned commit and run
 \texttt{lake build}.  The selection file \LeanName{comparator.json} pairs

@@ -39,21 +39,27 @@ followup = File.basename(path) == "formalization-followup.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsFollowup.topological_smith_exactness"
 roadmap = File.basename(path) == "formalization-roadmap.yaml" ||
   main_result&.dig("declaration") == "TopologicalComputationalPathsRoadmap.roadmap_result"
+registry_roadmap = File.basename(path) == "formalization-registry-roadmap.yaml" ||
+  main_result&.dig("declaration") == "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient"
 unless followup
   source = sources.first
   abort "the source must be adapted" unless source["relationship"] == "adapts"
   abort "the source must be pinned to a full commit" unless source["id"].to_s.match?(%r{/\b[0-9a-f]{40}\b/})
   abort "the source must identify the topological manuscript" unless source["id"].to_s.end_with?("/paper/topological/main.tex")
 end
-expected_declaration = if roadmap
+expected_declaration = if registry_roadmap
+  "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient"
+elsif roadmap
   "TopologicalComputationalPathsRoadmap.roadmap_result"
 elsif followup
   "TopologicalComputationalPathsFollowup.topological_smith_exactness"
 else
   "TopologicalComputationalPaths.main_result"
 end
-expected_file = roadmap ? "RoadmapSolution.lean" : (followup ? "FollowupSolution.lean" : "Solution.lean")
-expected_comparator = roadmap ? "comparator-roadmap.json" : (followup ? "comparator-followup.json" : "comparator.json")
+expected_file = registry_roadmap ? "RoadmapRegistrySolution.lean" :
+  (roadmap ? "RoadmapSolution.lean" : (followup ? "FollowupSolution.lean" : "Solution.lean"))
+expected_comparator = registry_roadmap ? "comparator-registry-roadmap.json" :
+  (roadmap ? "comparator-roadmap.json" : (followup ? "comparator-followup.json" : "comparator.json"))
   abort "status.main_results must identify the follow-up declaration" unless main_result.is_a?(Hash) &&
   main_result["declaration"] == expected_declaration &&
   main_result["file"] == expected_file &&
@@ -129,6 +135,18 @@ if roadmap
       interest["why_nontrivial"].to_s.length >= 80
   abort "roadmap metadata must state the global open-map limit" unless
     document.dig("status", "scope").to_s.include?("open-map theorem")
+end
+
+if registry_roadmap
+  names = document.fetch("status").fetch("main_results").map { |result| result["declaration"] }
+  expected = [
+    "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient",
+    "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous"
+  ]
+  abort "registry roadmap selection must name both open-arrow conclusions" unless names == expected
+  challenge = File.binread("RoadmapRegistryChallenge.lean")
+  abort "registry challenge must import only Mathlib" unless
+    challenge.lines.grep(/^import /).all? { |line| line.start_with?("import Mathlib.") }
 end
 
 methods = document.dig("automation", "methods")

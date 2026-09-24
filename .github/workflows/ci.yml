@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [comparator.json, comparator-followup.json, comparator-preimage.json, comparator-roadmap.json]
+        config: [comparator.json, comparator-followup.json, comparator-preimage.json, comparator-roadmap.json, comparator-registry-roadmap.json]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:

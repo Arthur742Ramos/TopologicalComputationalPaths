@@ -1,0 +1,15 @@
+{
+  "challenge_module": "RoadmapRegistryChallenge",
+  "solution_module": "RoadmapRegistrySolution",
+  "theorem_names": [
+    "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient",
+    "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous"
+  ],
+  "definition_names": [
+    "TopologicalComputationalPathsRoadmapRegistry.Composable",
+    "TopologicalComputationalPathsRoadmapRegistry.RawComposable",
+    "TopologicalComputationalPathsRoadmapRegistry.pairProjection"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

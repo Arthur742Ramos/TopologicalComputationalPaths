@@ -4,8 +4,8 @@ set -euo pipefail
 repository_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 config_name=${1:-comparator.json}
 case "$config_name" in
-  comparator.json|comparator-followup.json|comparator-preimage.json|comparator-roadmap.json) ;;
-  *) echo "usage: $0 [comparator.json|comparator-followup.json|comparator-preimage.json|comparator-roadmap.json]" >&2; exit 2 ;;
+  comparator.json|comparator-followup.json|comparator-preimage.json|comparator-roadmap.json|comparator-registry-roadmap.json) ;;
+  *) echo "usage: $0 [comparator.json|comparator-followup.json|comparator-preimage.json|comparator-roadmap.json|comparator-registry-roadmap.json]" >&2; exit 2 ;;
 esac
 config_path="$repository_root/$config_name"
 cache_root=${PALOMAR_COMPARATOR_CACHE:-"$repository_root/.cache/palomar-comparator"}
@@ -43,6 +43,10 @@ expected = {
     "comparator-followup.json": ["TopologicalComputationalPathsFollowup.topological_smith_exactness"],
     "comparator-preimage.json": ["TorusPreimageSubmission.main_result"],
     "comparator-roadmap.json": ["TopologicalComputationalPathsRoadmap.roadmap_result"],
+    "comparator-registry-roadmap.json": [
+        "TopologicalComputationalPathsRoadmapRegistry.open_arrow_pair_quotient",
+        "TopologicalComputationalPathsRoadmapRegistry.ordinary_composition_continuous",
+    ],
 }[path.name]
 if config.get("theorem_names") != expected:
     raise SystemExit(f"error: {path.name} names an unexpected theorem target")

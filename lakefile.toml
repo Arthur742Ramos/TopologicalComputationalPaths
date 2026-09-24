@@ -1,6 +1,6 @@
 name = "TopologicalComputationalPaths"
 version = "0.1.0"
-defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution", "PreimageChallenge", "PreimageSolution", "PreimageTests", "PreimageAdversarial", "PreimageBenchmarks", "RoadmapChallenge", "RoadmapSolution"]
+defaultTargets = ["ComputationalPaths", "Challenge", "Solution", "FollowupChallenge", "FollowupSolution", "PreimageChallenge", "PreimageSolution", "PreimageTests", "PreimageAdversarial", "PreimageBenchmarks", "RoadmapChallenge", "RoadmapSolution", "RoadmapRegistryChallenge", "RoadmapRegistrySolution"]
 
 [[require]]
 name = "mathlib"
@@ -62,3 +62,11 @@ roots = ["RoadmapChallenge"]
 [[lean_lib]]
 name = "RoadmapSolution"
 roots = ["RoadmapSolution"]
+
+[[lean_lib]]
+name = "RoadmapRegistryChallenge"
+roots = ["RoadmapRegistryChallenge"]
+
+[[lean_lib]]
+name = "RoadmapRegistrySolution"
+roots = ["RoadmapRegistrySolution"]

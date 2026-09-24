@@ -16,7 +16,7 @@ repository remains the source for its broader Lean artifact.
 | 3. Global theorem | The paper applies Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. This classical theorem is not newly proved in Lean. |
 | 4. Products | The paper and Lean now define a sound product presentation with lifted factor rules and both primitive and whole-trace interchange. Lean proves sorting and based trace completeness from completeness of the factors. Deriving whole-trace interchange from primitive squares alone remains open. |
 | 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
-| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. A separate 17-field roadmap Comparator candidate and metadata now select the completed results. Its replay, external review, and registration remain. |
+| 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. CI replayed a 17-field internal roadmap bundle with Comparator, NanoDa, and Lean's kernel. A separate Mathlib-only selection states the open-arrow pair quotient and composition transfer for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
 working-tree improvements must not be attributed to that registration.
@@ -257,16 +257,21 @@ d. **Discrete field.** The working source now assumes discreteness of
    $G_{\mathcal P}$ alone in `discrete_recovers_ordinary` and proves the
    supporting compatibility theorem.
 
-e. **New selection.** `comparator-roadmap.json` now selects a 17-field
+e. **New selection.** `comparator-roadmap.json` selects a 17-field
    `RoadmapCertificate` covering the checked conditional universal results,
    open-arrow and projection results, product closure, finite based
    completeness and global subspace homeomorphisms, trace-section criterion,
    and quotient-topology separation. `formalization-roadmap.yaml` records the
    exact boundary. The challenge imports the substantive Lean development,
-   and the solution assembles its declarations. Comparator replay, external
-   review, registration as a new Palomar version, and the corresponding
-   Section 10/Table 2 manuscript update remain. The direct Lean proof of
-   Goal 3 is absent and is excluded from the selection.
+   and the solution assembles its declarations. CI has replayed this bundle
+   with Comparator, NanoDa, and Lean's kernel. Palomar's current Challenge
+   provenance rule does not permit that local import, so the bundle is an
+   internal check rather than a registration candidate.
+   `comparator-registry-roadmap.json` separately selects two standalone
+   Mathlib-only statements: the open-arrow ordinary-pair quotient and the
+   continuity transfer for multiplication. Its preflight, external review,
+   registration as a new Palomar version, and the corresponding Section 10
+   manuscript update remain. The direct Lean proof of Goal 3 is absent.
 
 ## Longer-term goals (not planned yet)
 
@@ -293,6 +298,7 @@ classical inputs.
    global subspace based-fiber comparison are already checked (Goals 1--3).
 2. Derive whole-trace interchange from primitive squares if a presentation
    with only primitive interchange is needed (Goal 4).
-3. Select the completed results in a new comparator artifact, seek review,
-   and register a new Palomar version before changing any claim about its
-   coverage (Goal 6e). Treat the longer-term goals as separate projects.
+3. Run Palomar's full mechanical preflight on a final commit and the
+   Mathlib-only Comparator selection. Seek review and register a new version
+   only after the required maintainer authorization and registration decision
+   (Goal 6e). Treat the longer-term goals as separate projects.
