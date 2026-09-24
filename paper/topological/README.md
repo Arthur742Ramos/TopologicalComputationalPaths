@@ -7,15 +7,18 @@ branch `feat/full-omega-groupoid`, commit `b6f47117`. The bibliography is
 artifact and the immutable Palomar version 1; those are distinct from the
 working-tree changes in this focused repository.
 
-The revision in this repository adds an open-quotient compatibility criterion, a positive
-universal-groupoid result based on the published theorem of Holkar, Hossain,
-and Kulkarni, and a continuous-section criterion for collapse of the
-trace-sensitive quotient topology. It also proves a general product theorem
-for based completeness. Lean now checks the product sorting and based
-completeness theorem for the presentation with whole-trace interchange. It
-also checks finite-generator circle and torus trace choices, with their
-quotient comparison conditional on scoped completeness. The remaining work is tracked in
-[`../../ROADMAP.md`](../../ROADMAP.md).
+The revision proves an open-arrow compatibility criterion and gives a
+proof of the published universal path-class open-map theorem of Holkar,
+Hossain, and Kulkarni. It derives product-trace interchange from primitive
+rectangle swaps and proves based completeness for the finite circle and
+torus presentations. A continuous trace section identifies the two scoped
+quotient topologies when the presentation is complete. A complete
+discrete-label presentation over the harmonic archipelago shows that
+completeness alone does not suffice. Lean checks the global open-map theorem,
+primitive product closure, and the finite based completeness results. The
+mathematical harmonic-archipelago counterexample is outside the Lean
+selection. The external Palomar preflight and registration boundary is
+tracked in [`../../ROADMAP.md`](../../ROADMAP.md).
 
 To build the manuscript from this directory, use either `latexmk` with a
 LaTeX distribution or Tectonic:

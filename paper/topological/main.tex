@@ -88,6 +88,9 @@ trace with a path homotopic to its realization.  We study both the topology
 that retains the full trace and the topology that observes its endpoints,
 length, realization, and geometric path. Two labels for the same nonconstant
 circle loop show that their quotient topologies can differ.
+Completeness alone does not remove this difference: over the harmonic
+archipelago, a complete presentation with discrete path labels has a
+discrete trace-sensitive based quotient and an indiscrete observable one.
 
 The scoped quotient is a groupoid with continuous multiplication on the
 quotient of composable representatives.  The ordinary pullback of quotient
@@ -234,6 +237,8 @@ The main results address three questions.
   identity from the former to the latter is continuous.  Their scoped
   quotients can have different topologies on the same arrow set.  A
   continuous trace section and geometric completeness make them agree.
+  A complete presentation over the harmonic archipelago shows why the
+  section hypothesis matters.
 \item \emph{When is composition continuous?}
   We construct the groupoid with continuous multiplication on the final
   composable-pair domain.  We give four equivalent conditions for this
@@ -627,6 +632,52 @@ presentations, a standard word selected by winding also gives a section:
 winding is locally constant in the compact-open based-loop space, and the
 geometric-path coordinate varies continuously.  Thus the two quotient
 topologies agree on those based-loop examples.
+
+\begin{proposition}[completeness without trace-topology collapse]
+\label{prop:complete-trace-separation}
+There is a geometrically complete presentation for which the comparison
+$J:G_{\mathcal P}^{\mathrm{tr}}\to G_{\mathcal P}^{\mathrm{obs}}$ is not a
+homeomorphism.  On the quotient formed from its fixed-endpoint coherent
+carrier at one base point, the trace-sensitive topology is discrete and the
+observable topology is indiscrete.
+\end{proposition}
+
+\begin{proof}
+Let $X$ be the harmonic archipelago, with base point $a$.  Take $E$ to be the
+set $X^I$ with the discrete topology, and let each step realize the path it
+labels.  The endpoint and realization maps are continuous because $E$ is
+discrete.  Declare a rewrite between every pair of parallel traces whose
+realizations are endpoint-fixed homotopic.  Soundness and the declared rules
+make this presentation geometrically complete.
+
+In the fixed-endpoint trace carrier, each trace is an isolated point: this
+holds for positive-length words because $E$ is discrete, and for the empty
+trace because its endpoint is fixed at $a$.  For a scoped class $C$, its
+inverse image in $T_{\mathrm{tr}}(a,a)$ is the union of the full coherent
+fibers over traces realizing $C$.  Each such fiber is open in the
+trace-sensitive carrier.  Thus every singleton is open in the based
+trace-sensitive quotient.
+
+The projection $(p,\gamma)\mapsto\gamma$ from the observable based carrier
+to $X^I(a,a)$ is continuous.  It has the continuous section
+$\gamma\mapsto(\langle\gamma\rangle,\gamma)$, whose observable code is
+$(a,a,1,\gamma,\gamma)$.  It is therefore a quotient map.  Completeness
+identifies the scoped relation with endpoint-fixed homotopy, so the based
+observable quotient is homeomorphic to $\pi_1^q(X,a)$.  Fabel proved that
+this group is uncountable and indiscrete
+\cite[Corollaries~9--10]{Fabel05Archipelago}; the
+uniform loop topology used there agrees with the compact-open topology for
+his metric model.  The based comparison is a continuous bijection from a discrete
+space to a non-singleton indiscrete space.
+
+The global comparison fails as well.  Choose a nonidentity class $C$ in
+$\pi_1^q(X,a)$.  Its inverse image under the global trace-sensitive quotient
+contains no empty traces and is a union of full coherent fibers over
+positive-length words, hence is open.  If $\{C\}$ were open in the global
+observable quotient, its pullback along the continuous one-letter section
+$X^I(a,a)\to T_{\mathrm{obs}}$ would make the homotopy class $C$ open in
+$X^I(a,a)$, contrary to the indiscrete quotient topology.
+\end{proof}
 
 \begin{example}[Same geometry, different computation]
 Suppose $p,q\in W_n$ have the same endpoints and the same equal-slot
@@ -2267,6 +2318,9 @@ continuous, but its inverse is not. Thus the topological separation in
 Example~\ref{ex:quotient-topology-separation} is checked in Lean. The module
 \LeanName{TraceSensitiveUniversalCollapse} checks the continuous one-letter
 section and the homeomorphism between the two universal quotient topologies.
+Proposition~\ref{prop:complete-trace-separation}, which uses a discrete
+topology on the path-label space of the harmonic archipelago, is a
+mathematical counterexample and is not part of the Lean selection.
 
 \paragraph{Circle and torus examples.}
 The module \LeanName{FiniteCircleTorusPresentation} uses one circle generator
@@ -2511,7 +2565,9 @@ fundamental groupoid with the quotient topology on arrows.  For a complete
 presentation, a continuous choice of trace for each represented path also
 identifies the trace-sensitive and observable quotient topologies.  This
 applies to the universal presentation and the based-loop circle and torus
-examples.  Section~\ref{sec:formalization} distinguishes the Lean checks
+examples.  The complete discrete-label example over the harmonic
+archipelago shows that the trace choice cannot be dropped from this
+criterion.  Section~\ref{sec:formalization} distinguishes the Lean checks
 from the mathematical arguments and the immutable registered result.
 
 \section*{Funding}

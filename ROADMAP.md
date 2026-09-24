@@ -15,7 +15,7 @@ repository remains the source for its broader Lean artifact.
 | 2. Open quotient | The paper and Lean prove the general open-arrow criterion. Lean identifies `TotalComposable` with the raw endpoint pullback, proves that the universal path-class projection is quotient, and proves that its openness implies product-quotient compatibility and continuous ordinary multiplication. |
 | 3. Global theorem | The paper credits Holkar, Hossain, and Kulkarni, Corollary 3.7 and Theorem 3.9. Lean now proves the general open-map theorem directly from an endpoint-varying ladder and a compact-open endpoint absorption lemma. It derives ordinary composable-pair compatibility, continuous composition, and the global based-fiber homeomorphism under local path-connectedness and semilocal simple connectivity. A separate totally disconnected case gives a homeomorphic projection without those hypotheses. |
 | 4. Products | The paper and Lean define a sound product presentation with lifted factor rules and primitive rectangle interchange. Lean derives whole-trace interchange by induction, proves equivalence with the earlier presentation that named it, and transfers based trace completeness from complete factors. |
-| 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
+| 5. Trace sensitivity | The paper proves the continuous-section criterion, based circle/torus corollaries, and a nonconstant circle example where the quotient topologies differ. A complete discrete-path-label presentation over the harmonic archipelago now answers the completeness-alone question negatively. Lean proves the general criterion and universal collapse. It checks signed-count invariance for the duplicate-circle presentation and proves that the trace-to-observable scoped quotient comparison is continuous but its inverse is not. The exact finite-generator circle and torus presentations are now based-complete in Lean, so their continuous trace choices give unconditional based quotient comparisons. |
 | 6. Paper and Lean | Projection continuity, the observable Hawaiian based-fiber topology, and the weaker discrete field are proved in this working tree. Lean builds the realized fundamental-groupoid comparison, an integer-indexed circle certificate, and the exact finite circle/torus based winding homeomorphisms, including their global subspace fibers. The internal roadmap bundle now has 24 fields and includes the general semilocal universal theorem and primitive-only product closure. A separate Mathlib-only selection states the open-arrow pair quotient, composition transfer, and ordinary circle/torus loop-quotient homeomorphisms for possible Palomar review. Its full mechanical preflight, external review, and registration remain. |
 
 The registered Palomar version 1 is an immutable earlier snapshot. Current
@@ -224,14 +224,19 @@ so $J^{-1}\circ q_{\mathrm{obs}}$ is continuous.
   $\gamma\mapsto(c_{w(\gamma)},\gamma)$, which is continuous because winding
   is locally constant.
 
-So the two topologies can differ only where completeness or the section
-fails. Example 2.5 is incomplete.
+The two topologies can differ only where completeness or the section
+fails. The duplicate-label circle example is incomplete; the complete
+example below lacks a continuous trace section.
 
-**Open questions.** Does completeness alone force $J$ to be a homeomorphism?
-The revised paper answers the geometric separation question: two distinct
-labels for the same nonconstant circle loop yield a non-homeomorphic quotient
-comparison. Whether completeness alone forces $J$ to be a homeomorphism
-remains open.
+**Completeness alone.** The answer is no. The revised paper gives every path
+in the harmonic archipelago a discrete step label and declares all
+endpoint-fixed homotopies as rewrites. This is geometrically complete. Its
+trace-sensitive based quotient is discrete, while its observable based
+quotient is the indiscrete $\pi_1^q$ computed by
+[Fabel](https://arxiv.org/abs/math/0501426). The global comparison also
+fails to be a homeomorphism. This example is proved in the manuscript; the
+Lean trace-separation example below instead uses two distinct labels for a
+nonconstant circle loop and does not assert completeness.
 
 **Lean work.** `TraceSensitiveTopologicalCompPath.lean` supplies the two
 representative topologies, `TraceSensitiveUniversalCollapse.lean` now states
