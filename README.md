@@ -17,7 +17,11 @@ The revised manuscript source from `ComputationalPathsLean` commit
 It now contains an open-quotient compatibility theorem, a positive universal
 example with explicit credit to prior work, and a criterion for when the
 trace-sensitive and observable quotient topologies agree. It also proves
-closure of based completeness under product presentations. The progress table
+closure of based completeness under product presentations. A complete
+discrete-label presentation over the harmonic archipelago shows that
+geometric completeness alone does not force those quotient topologies to
+agree; this counterexample is proved in the manuscript and is outside the
+Lean selection. The progress table
 in the roadmap distinguishes these mathematical results from the Lean proofs
 and the immutable registered result.
 The general open-arrow compatibility criterion is checked in
