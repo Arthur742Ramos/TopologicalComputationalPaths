@@ -1,8 +1,9 @@
 # Topological semantics manuscript
 
-This directory mirrors the revised LaTeX source from
+This directory began with revised LaTeX source from
 [`ComputationalPathsLean`](https://github.com/Arthur742Ramos/ComputationalPathsLean),
-branch `feat/full-omega-groupoid`, commit `b6f47117`. The bibliography is
+branch `feat/full-omega-groupoid`, commit `b6f47117`, and has since been edited
+in this repository. The bibliography is
 [`../refs.bib`](../refs.bib). The manuscript cites the broader parent Lean
 artifact and the immutable Palomar version 1; those are distinct from the
 working-tree changes in this focused repository.
@@ -20,6 +21,13 @@ mathematical harmonic-archipelago counterexample is outside the Lean
 selection. The external Palomar preflight and registration boundary is
 tracked in [`../../ROADMAP.md`](../../ROADMAP.md).
 
+The paper's current working-source Lean claims are reproducible from focused
+repository commit [`09b20abe0a4f69b361846c2466bff8528044fa93`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93)
+with the checked-in Lean 4.32.0 toolchain and dependency manifest. Subsequent
+edits here concern the manuscript and its submission package.
+From the repository root, run `lake build` to check every configured target.
+The prior Palomar version 1 is pinned separately in Section 10 of the paper.
+
 To build the manuscript from this directory, use either `latexmk` with a
 LaTeX distribution or Tectonic:
 
@@ -33,6 +41,7 @@ The figures live under [`figures/`](figures/). The Lean extraction in this
 repository can be checked from its root with `lake build ComputationalPaths Solution Challenge`; the
 broader parent artifact must be built in `ComputationalPathsLean`.
 
-`igpl-cover-letter.txt` is the parent snapshot's August 2026 submission
-letter. Its page count and author-approval statements do not describe this
-revision.
+`igpl-cover-letter.txt` is a draft covering message for this revision. Before
+sending it, the corresponding author must confirm every coauthor's approval
+of the final manuscript and the paper's current journal-submission status.
+The draft makes no claim about either unverified fact.

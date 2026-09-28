@@ -257,12 +257,13 @@ The main results address three questions.
 \end{enumerate}
 
 The quotient-space inputs and the circle and torus calculations are
-classical.  The contribution is their assembly for scoped rewrite
-presentations, including the product construction.  It separates three
-choices: the available rewrites, the topology on representatives, and
-the topology on composable quotient pairs.  This separation makes clear which
-conclusions follow from soundness, which require completeness, and which
-require an additional topological hypothesis.  Section~\ref{sec:formalization} says which parts
+classical.  For scoped rewrite presentations, we give the final-domain
+composition construction, an exact criterion for ordinary-pullback
+composition, and a completeness interface for comparing rewrite classes
+with homotopy classes.  The examples show that geometric completeness
+alone does not settle the quotient topology: a continuous trace section
+collapses the two topologies, while the complete harmonic-archipelago
+presentation separates them.  Section~\ref{sec:formalization} says which parts
 are checked in Lean, including the result registered in Palomar
 \cite{PalomarScoped2026}.
 The compact-open path-class openness and ordinary-groupoid theorems used in
@@ -1536,8 +1537,8 @@ are open}: it compares the final and ordinary domain topologies and permits
 continuity of multiplication to pass to the ordinary pullback.
 The former does not imply the latter.  The universal presentation is
 geometrically complete for every $X$, yet in the Hawaiian-earring example of
-Proposition~\ref{prop:hawaiian-earring} ordinary multiplication fails to be
-continuous.
+Proposition~\ref{prop:hawaiian-earring} multiplication on its observable
+based-fiber quotient is discontinuous for the ordinary product topology.
 \end{remark}
 
 \begin{definition}[normal-form certificate]
@@ -2505,6 +2506,14 @@ map on each global scoped quotient, and finite based completeness makes its
 restriction to the actual based-arrow subspace injective. The resulting
 subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
+The Lean source for these working results is available at
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93}
+{\LeanName{TopologicalComputationalPaths} commit \texttt{09b20abe0a4f69b361846c2466bff8528044fa93}}.
+With the repository's Lean~4.32.0 toolchain and checked-in Mathlib manifest,
+\texttt{lake build} checks the development and all configured targets.  The
+manuscript source, bibliography, and figures are in
+\LeanName{paper/topological} and \LeanName{paper/refs.bib}; the manuscript is
+not itself a theorem selected by Comparator.
 None of these working-source additions has been registered as a new Palomar
 version. The internal \LeanName{comparator-roadmap.json} bundle selects a
 24-field certificate containing the checked semilocal and totally disconnected
@@ -2542,8 +2551,9 @@ declared rewrites and the groupoid laws.  Soundness guarantees that equal
 traces realize homotopic paths, and the converse needs a completeness proof,
 which the normal-form criterion supplies for the based-loop circle and torus
 presentations.  The product theorem extends based completeness from two
-presentations to their product, yielding finite-generator presentations for
-all finite tori.
+presentations to their product, giving complete based-loop presentations
+for all finite tori.  Their step spaces need not be finite; the
+finite-generator circle and two-torus presentations are separate examples.
 
 The second question is topological: on which space of composable classes is
 multiplication continuous?  The quotient of composable representatives always
@@ -2556,8 +2566,9 @@ directly in Lean. It yields an ordinary topological groupoid and discrete
 based fibers.
 For totally disconnected spaces the path-class projection itself is a
 homeomorphism, which gives the same composition conclusion directly.
-The Hawaiian earring shows that this conclusion does not extend to every
-locally path-connected space.
+The Hawaiian earring shows that ordinary-product continuity on the
+observable based-fiber quotient does not extend to every locally
+path-connected space.
 
 In the universal presentation every path is a primitive step and every
 endpoint-fixed homotopy is a rewrite, so its scoped quotient is the usual
@@ -2582,7 +2593,6 @@ The figures are mathematical schematics with explicitly stated maps and
 boundary conditions.  They illustrate the arguments and are not offered as
 evidence for the theorems.
 
-\clearpage
 \appendix
 \section{Declaration index for the parent artifact}\label{app:declarations}
 This index records the representative declarations discussed in Section~\ref{sec:parent-artifact}.
@@ -2590,7 +2600,6 @@ It describes the parent Lean artifact, not the independently registered
 Palomar selection of Section~\ref{sec:palomar}.  Fully qualified names are retained for
 source lookup.
 \input{declaration-index}
-\clearpage
 \bibliographystyle{amsplain}
 \begingroup
 \small
