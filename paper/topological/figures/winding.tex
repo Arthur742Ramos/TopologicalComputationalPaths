@@ -1,0 +1,36 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node[font=\small\bfseries] at (1.7,3.9) {(a) Circle: lift endpoint $2$};
+\draw[->] (0,0) -- (3.5,0) node[right] {$t$};
+\draw[->] (0,0) -- (0,2.9) node[above] {$\widetilde\gamma(t)$};
+\draw[pathblue,thick] (0,0) .. controls (0.55,1.6) and (1.15,0.25) .. (1.65,1.4)
+ .. controls (2.25,2.8) and (2.7,1.65) .. (3.15,2.4);
+\draw[pathorange,thick,dashed] (0,0) -- (3.15,2.4);
+\fill (3.15,2.4) circle (1.6pt);
+\node[left] at (0,2.4) {$2$};
+\node[below] at (3.15,0) {$1$};
+\node[pathorange,rotate=35] at (1.55,0.77) {$t\mapsto 2t$};
+\node[font=\small\bfseries] at (6.75,3.9) {(b) Torus: lift endpoint $(2,1)$};
+\begin{scope}[xshift=5.1cm,x=1.5cm,y=2.4cm]
+\draw[step=1,gray!25,very thin] (0,0) grid (2,1);
+\draw[->] (-0.1,0) -- (2.25,0);
+\draw[->] (0,-0.08) -- (0,1.15);
+\draw[pathblue,very thick,->] (0,0) -- (2,0);
+\draw[pathblue,very thick,->] (2,0) -- (2,1);
+\draw[pathorange,thick,dashed,->] (0,0) -- (2,1);
+\fill (0,0) circle(1.1pt) node[below left] {$(0,0)$};
+\fill (2,1) circle(1.1pt) node[above right] {$(2,1)$};
+\node[pathblue,below] at (1,0) {$a^2$};
+\node[pathblue,right] at (2,0.5) {$b$};
+\node[pathorange,rotate=37] at (0.8,0.58) {$(2t,t)$};
+\end{scope}
+\end{tikzpicture}
+\caption{Winding separates normal forms because lifts remember endpoints.
+Left: a lift beginning at $0$ and ending at $2$ is straightened to $2t$.
+Right: the sequential word $a^2;b$ and the simultaneous loop have lifts
+with common endpoints $(0,0)$ and $(2,1)$; straight-line interpolation in
+$\mathbb R^2$ gives a homotopy after projection to the torus.
+Both plots are drawn in the covering spaces $\mathbb R$ and $\mathbb R^2$.}
+\label{fig:winding}
+\end{figure}

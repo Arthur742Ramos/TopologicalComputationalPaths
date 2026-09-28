@@ -1,0 +1,24 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node (geo) at (0,2) {$h(u)=h(v)$};
+\node (code) at (0,0.9) {$N(u)=N(v)$};
+\draw[->,pathteal,thick] (geo) -- (code)
+ node[midway,right] {\quad(b) semantic separation};
+\node (common) at (0,-0.25) {$\nu(N(u))=\nu(N(v))$};
+\draw[->] (code) -- (common) node[midway,right] {\quad apply $\nu$};
+\node (u) at (-3.8,-0.25) {$u$};
+\node (v) at (3.8,-0.25) {$v$};
+\draw[pathblue,thick] (u) -- (common)
+ node[midway,above] {$\approx$} node[midway,below] {(a)};
+\draw[pathblue,thick] (common) -- (v)
+ node[midway,above] {$\approx$} node[midway,below] {(a), symmetry};
+\end{tikzpicture}
+\caption{A normal-form certificate proves completeness by two different
+means: syntactic normalization (a) connects each trace to its chosen normal
+representative; semantic separation (b) forces the two codes to agree.
+The bottom row is then scoped transitivity, yielding $u\approx v$.
+The arrows are logical steps and assume nothing about continuity of $N$ or
+$\nu$.}
+\label{fig:normal-form}
+\end{figure}

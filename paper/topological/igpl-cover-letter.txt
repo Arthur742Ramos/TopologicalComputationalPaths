@@ -1,0 +1,53 @@
+27 September 2026
+
+Jane Spurr
+Editorial Office
+Logic Journal of the IGPL
+
+Re: Topological Semantics for Scoped Computational Paths
+
+Dear Ms. Spurr,
+
+Please consider the enclosed manuscript, “Topological Semantics for Scoped
+Computational Paths,” for publication in the Logic Journal of the IGPL. It
+studies continuous geometric realizations of finite computational paths while
+retaining the rewrite rules declared by each presentation.
+
+The paper constructs a quotient groupoid whose multiplication is continuous
+on the quotient of composable representatives. It then gives an exact
+criterion for that topology to agree with the ordinary pullback topology on
+composable quotient arrows. A separate completeness criterion identifies
+when the scoped rewrite classes capture all represented homotopy classes.
+The paper applies these results to the universal presentation, to based
+circle and torus presentations, and to products. A complete presentation
+over the harmonic archipelago shows that completeness alone does not make
+the trace-sensitive and observable quotient topologies agree.
+
+The topological inputs and winding calculations are classical. The paper's
+contribution is the scoped presentation framework, its quotient-topology
+comparison, and the completeness and trace-section criteria. The manuscript
+distinguishes the mathematical arguments from the Lean checks and from the
+earlier, narrower result registered in Palomar. The current Lean source is
+available at
+https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93
+and builds with Lean 4.32.0 using the repository's checked-in dependency
+manifest. An earlier version of the paper is available as the preprint
+https://arxiv.org/abs/2608.04228.
+
+AI-assisted tools were used for editorial support and assistance with
+software, documentation, and figure preparation, as disclosed in the
+manuscript's Acknowledgements. The authors remain responsible for the
+mathematical claims and final text.
+
+Coauthor Ruy J. G. B. de Queiroz is listed among the journal's Editors-in-Chief.
+We ask that he be recused from editorial handling and decisions on this paper.
+
+Arthur Freitas Ramos is the corresponding author and can be reached at
+arfreita@microsoft.com.
+
+Thank you for considering the manuscript.
+
+Sincerely,
+
+Arthur Freitas Ramos
+Corresponding author

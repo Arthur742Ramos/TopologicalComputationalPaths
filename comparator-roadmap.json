@@ -1,0 +1,8 @@
+{
+  "challenge_module": "RoadmapChallenge",
+  "solution_module": "RoadmapSolution",
+  "theorem_names": ["TopologicalComputationalPathsRoadmap.roadmap_result"],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

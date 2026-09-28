@@ -1,0 +1,28 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzcd}[column sep=5em,row sep=4em,
+ every label/.append style={font=\normalsize},
+ every cell/.append style={font=\large}]
+ X^I \arrow[r,shift left=1ex,"\sigma"] \arrow[d,"q_I"']
+ & T_{\mathcal U_X}^{*} \arrow[l,shift left=1ex,"\pi"] \arrow[d,"q_*"] \\
+ \Pi_1^q(X) \arrow[r,shift left=1ex,"\overline\sigma"]
+ & G_{\mathcal U_X}^{*} \arrow[l,shift left=1ex,"\overline\pi"]
+\end{tikzcd}
+
+\smallskip
+\(\displaystyle
+ \pi\sigma=\mathrm{id}_{X^I},\qquad
+ G_{\mathcal U_X}^{\mathrm{tr}}\cong\Pi_1^q(X)
+ \cong G_{\mathcal U_X}^{\mathrm{obs}}.
+\)
+\caption{The universal one-letter section supplies the topology, and the
+universal rules supply the equivalence relation.  Here
+$*\in\{\mathrm{tr},\mathrm{obs}\}$ and
+$\sigma(\gamma)=(\langle\gamma\rangle,\gamma)$; $q_I$ is the homotopy
+quotient map.  The lower maps are induced by $\sigma$ and $\pi$.
+The upper maps are continuous, with $\pi\sigma=\mathrm{id}$, so $\pi$ is
+quotient.  Agreement of scoped and homotopy relations makes the lower maps
+mutually inverse homeomorphisms.  Under these identifications, $J_{\mathcal U_X}$
+is the identity on path classes.}
+\label{fig:universal-section}
+\end{figure}

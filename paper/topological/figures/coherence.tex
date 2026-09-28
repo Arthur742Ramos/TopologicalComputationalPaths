@@ -1,0 +1,37 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth,scale=1.12]
+\foreach \x/\lab in {0/{(a) In the plane},4.6/{(b) In the punctured plane}} {
+ \begin{scope}[xshift=\x cm]
+ \node[font=\small\bfseries] at (1.6,2.75) {\lab};
+ \fill[pathteal!7] (0,0) -- (1.6,1.8) -- (3.2,0) -- cycle;
+ \draw[->,pathblue,thick] (0,0) -- (1.6,1.8);
+ \draw[->,pathblue,thick] (1.6,1.8) -- (3.2,0);
+ \draw[->,pathorange,thick] (0,0) -- (3.2,0);
+ \fill (0,0) circle(1.5pt) node[below left] {$A$};
+ \fill (1.6,1.8) circle(1.5pt) node[above] {$B$};
+ \fill (3.2,0) circle(1.5pt) node[below right] {$C$};
+ \node[pathblue] at (0.55,1.1) {$\alpha$};
+ \node[pathorange] at (1.6,-0.28) {$\beta$};
+ \end{scope}
+}
+\foreach \h in {0.45,0.9,1.35} {
+ \draw[pathteal,dashed] (0,0) -- (1.6,\h) -- (3.2,0);
+}
+\draw[->,pathteal] (1.6,1.6) -- (1.6,0.2);
+\draw[fill=white,thick] (6.2,0.6) circle(0.085);
+\node[anchor=south,inner sep=1pt] at (6.2,0.77) {$O\notin X$};
+\node[align=center] at (1.6,-0.95) {$H(u,t)=(1-u)\alpha(t)+u\beta(t)$\\
+ $\alpha\simeq_{\partial I}\beta$};
+\node[align=center] at (6.2,-0.95) {$\left|\operatorname{wind}_{O}
+ (\alpha\star\beta^{-1})\right|=1$\\
+ $\alpha\not\simeq_{\partial I}\beta$};
+\end{tikzpicture}
+\caption{Coherence requires a homotopy inside the chosen ambient space.
+Left: intermediate broken paths move $B$ to the segment $AC$, keeping $A,C$
+fixed.  Right: deleting the interior point $O=(0,\tfrac13)$ prevents any
+such homotopy, although both boundary paths remain continuous.
+For $|p|=\alpha$, $(p,\beta)$ is coherent only in the left-hand example.
+The shaded triangle is available in (a), but is not a filling in (b).}
+\label{fig:coherence}
+\end{figure}
