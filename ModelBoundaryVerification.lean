@@ -6,7 +6,7 @@ import ComputationalPaths.Path.Topology.ScopedWordInterpretation
 import ComputationalPaths.Path.Topology.ContinuousWordInterpretation
 import ComputationalPaths.Path.Topology.RedundantGeneratorObservable
 
-/-! Kernel and axiom inspection for the first model-boundary milestone.
+/-! Kernel and axiom inspection for the model-boundary and presentation-change milestones.
 This file has no statement placeholders. Equal-slot observation on the tree
 carrier is checked separately from literal composable-word correspondence.
 The direct selected-declaration NanoDa replay has its own manifest; the five

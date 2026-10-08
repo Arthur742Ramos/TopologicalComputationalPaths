@@ -87,12 +87,18 @@ word-stratum continuity, and global/pair elimination remain pending.
 The source snapshot is [404ac01](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/404ac0103e48be805f14a0865c128bc2dbfdcac5),
 using Lean 4.32.0 and Mathlib `81a5d257`. The local kernel/axiom output is in
 [evidence/flat-model-kernel.log](evidence/flat-model-kernel.log). The new
-[selection manifest](model-boundary-replay.json) names 19 actual declarations
+[selection manifest](model-boundary-replay.json) initially named 19 actual declarations
 (12 theorems and 7 definitions); direct replay exports their dependency closure
 and checks it with NanoDa. It has no synthetic Challenge statement. The export
 auditor verifies selected names/kinds, exact exporter/kernel metadata, safety,
 and the three standard permitted axioms before proof replay. Its 30 adversarial
-tests do not substitute for NanoDa acceptance.
+tests do not substitute for NanoDa acceptance. All exact-head checks for
+`131e4bf714f1693dc1353bc6164687c1d8b2f1e2` passed in
+[Quality run 37726628135](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37726628135).
+The direct replay checked 11,849 declarations with no typechecker errors;
+[retained evidence](evidence/flat-model-hosted-131e4bf/README.txt) preserves its
+export digest, coverage audit, three standard axioms, and a pretty-printer
+diagnostic about displaying axioms.
 
 ```sh
 python3 scripts/test_model_boundary_audit.py
@@ -108,6 +114,42 @@ The [compiled 42-page manuscript](paper/topological/verified/equal-slot-model-bo
 is committed for download outside the local workspace. Its SHA256 is
 `d127c29f385fbf02570d3a01b574172ba885cd6dae4411abeeb62ce4c31d8dc0`;
 [PDF validation](evidence/flat-model-pdf.txt) records rendering and scope checks.
+
+### Word interpretation and a conservative abbreviation
+
+`ScopedWordInterpretation.lean` interprets primitives as finite endpoint-typed
+traces. Preservation of named-rule images implies preservation of all scoped
+rewrites; primitive roundtrip witnesses yield an algebraic fixed-endpoint
+quotient equivalence. `ContinuousWordInterpretation.lean` descends continuity
+of the actual recursive substitutions and derives a quotient homeomorphism.
+For the binary observable topology it derives carrier continuity from uniform
+primitive expansion lengths and exact binary realization compatibility. These
+are restrictive sufficient conditions, not a general presentation-invariance
+claim for variable-length flat or trace-sensitive substitutions.
+
+`RedundantGeneratorObservable.lean` checks a concrete failure in the flat-tree
+observable topology: start with `e,f` realizing `α,α.trans α`, add an abbreviation
+`a` with the defining rule `a ≃ e;e`, and eliminate it by substitution. The
+algebraic equivalence follows from primitive roundtrip rewrites. Old length
+parity is continuous, but new distinct classes `a,f` are inseparable; the
+canonical equivalence's inverse is discontinuous. This works for any based
+path, including a constant path, and assumes no geometric completeness. It
+does not assert nonhomeomorphism under every possible unrelated bijection.
+
+The source snapshot is [d604b75](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/d604b75c2f689e57955302475275064167a4116d).
+[Kernel/axiom evidence](evidence/presentation-change-kernel.log) records the
+standard-axiom boundary. The expanded replay manifest selects 37 declarations
+(26 theorems and 11 definitions); hosted acceptance for this extension must be
+checked on its own published head. Variable-length flat/full-word continuity,
+literal-word quotient correspondence, global carriers, and composable-pair
+transport remain pending. No novelty or priority claim is made.
+
+The [updated 44-page manuscript](paper/topological/verified/presentation-change-model-boundary.pdf)
+contains the substitution criterion and abbreviation failure with their exact
+model and verification boundaries. SHA256:
+`596a34f6ba1ab2207e1c399d879a0e188358d73e3706505a156c7271d50e2685`.
+[Rendering evidence](evidence/presentation-change-pdf.txt) records all-page
+visual inspection and final source/bibliography digests.
 
 `comparator-roadmap.json` selects
 `TopologicalComputationalPathsRoadmap.roadmap_result`. Its 24 fields name the

@@ -85,10 +85,11 @@ Which computational distinctions survive a quotient topology? We study
 geometric computational paths modulo the rewrites declared by a
 presentation, comparing a trace-sensitive topology with one that observes
 endpoints, length, exact realization, and a coherent geometric representative.
-Duplicate circle labels separate these topologies. A complete discrete-label
+Duplicate labels separate these topologies. Conservative abbreviations can
+erase observable distinctions. A complete discrete-label
 presentation over the harmonic archipelago shows that geometric completeness
-alone does not make them agree. Equal-slot and recursive binary timing can
-also give nonhomeomorphic observable based quotients.
+alone does not make them agree. Equal-slot and binary timing can also give
+nonhomeomorphic observable based quotients.
 
 The scoped quotient has continuous multiplication on the final quotient of
 composable representatives. We characterize agreement of this domain with
@@ -99,12 +100,10 @@ condition under local path-connectedness and semilocal simple connectivity.
 Normal forms prove completeness for finite circle and torus presentations,
 and primitive interchange supports a product construction.
 
-Lean checks selected quotient, completeness, and separation results in the
-binary realization model. A separate equal-slot implementation proves the
-exact slot formula, independence from parentheses, a homotopy bridge, and
-fixed-endpoint elimination of coherent representatives. Literal-word
-correspondence remains to be proved. A verification map records the checked
-models, assumptions, declarations, and remaining mathematical arguments.
+Lean checks selected results in the binary model. A separate equal-slot implementation proves
+exact slots, independence from parentheses, a homotopy bridge, and
+fixed-endpoint coherent elimination. Literal-word correspondence remains
+to be proved. A verification map records models, assumptions, and proof coverage.
 
 \end{abstract}
 
@@ -1399,6 +1398,97 @@ word component of $\widetilde F$ is continuous on each coproduct stratum and
 the path component is the same postcomposition map, so the proof carries
 over.
 
+\subsection{Finite-word interpretations and a conservative abbreviation}
+\label{sec:word-interpretations}
+
+A primitive may instead be interpreted as a finite trace with the same
+endpoints. Extend such a substitution $M$ through identities, composition,
+and reversal. If images of every named source rule are target scoped
+rewrites, induction proves preservation of the entire scoped relation.
+Primitive roundtrip rewrites for $M,N$ then extend to every trace. This is
+the algebraic part of a presentation change. It does not by itself establish
+continuity when length and exact realization are observable.
+
+The next two propositions use endpoint-indexed \emph{tree} trace carriers
+$\mathcal T_{\mathcal P}(a,b)$ and their fixed-endpoint scoped quotients
+$\mathcal Q_{\mathcal P}(a,b)$, with the stated trace topologies. Their Lean
+claims therefore do not assume the literal-word correspondence discussed in
+Section~\ref{sec:formalization}.
+
+\begin{proposition}[fixed-endpoint substitution criterion]
+\label{prop:word-substitution-criterion}
+Let $M,N$ be endpoint-preserving finite-trace substitutions in opposite
+directions, preserving named rules. Suppose their primitive roundtrips are
+scoped rewrites to the corresponding primitive and their recursively
+extended trace maps are continuous for the supplied trace topologies.
+They induce mutually inverse homeomorphisms of the fixed-endpoint scoped
+trace quotients.
+For binary observable trace topologies, continuity of either substitution
+follows if all substituted primitives have the same length $k$ and their
+binary realizations equal the corresponding source primitive paths exactly.
+\end{proposition}
+\begin{proof}
+Induction proves preservation of scoped rewrites and extends the primitive
+roundtrip witnesses to all traces. Quotient descent gives inverse maps and
+the quotient criterion gives their continuity. For the binary specialization,
+induction gives
+\[
+  \ell(Mp)=k\ell(p),\qquad |Mp|_{\mathrm{bin}}=|p|_{\mathrm{bin}}.
+\]
+The output observation is thus the continuous function
+$(n,\delta)\mapsto(kn,\delta)$ of the input observation. Apply this argument
+in both directions, with their respective expansion lengths.
+\end{proof}
+
+The hypotheses concern the actual substitutions; no quotient homeomorphism
+is an input. The general criterion is quotient-topology infrastructure. The
+binary specialization derives continuity from primitive data, but its
+uniform-length and exact-timing conditions are restrictive. Variable-length
+flat or trace-sensitive substitutions and transport of final composable-pair
+domains still require separate continuity proofs. A homotopy witness alone
+does not supply these proofs.
+
+\begin{proposition}[a redundant generator erases an observable distinction]
+\label{prop:redundant-generator-observable}
+There is an algebraically conservative abbreviation move whose canonical
+fixed-endpoint quotient equivalence has a discontinuous inverse for the
+equal-slot observable trace topologies.
+\end{proposition}
+\begin{proof}
+Choose any based path $\alpha$. The old discrete-label presentation has
+primitives $e,f$, realizing $\alpha,\alpha\star\alpha$, and no named rules.
+Length parity $\ell(p)\bmod2$ is invariant under structural scoped rewrites:
+cancellation removes an even number of letters. It is continuous because
+length is an observed discrete coordinate, and therefore descends to a
+continuous quotient invariant with values $1$ on $[f]$ and $0$ on $[e;e]$.
+
+Add a primitive $a$ realizing $\alpha\star\alpha$ and the sole defining
+rule $a\RwEq e;e$. Inclusion and substitution $a\mapsto e;e$ preserve all
+named rules and have primitive roundtrips equal up to scoped rewriting.
+They consequently induce inverse algebraic quotient maps. In the expanded
+presentation, the one-letter traces $a,f$ have identical flat observable
+coordinates. Their quotient classes are inseparable. They are distinct:
+signed count of $f$ is preserved by all structural rules and by the defining
+rule, and takes values $0,1$. Elimination sends these inseparable classes to
+$[e;e],[f]$, whose old continuous parity values differ. If elimination were
+continuous, its composite with parity would send inseparable points to
+distinct points of a discrete space, a contradiction.
+\end{proof}
+
+This checked statement concerns the canonical presentation equivalence; it
+does not claim nonhomeomorphism under every unrelated bijection. It needs
+neither a nontrivial geometric loop nor geometric completeness. Matching
+coherent-representative elimination transports this fixed-endpoint result
+to the corresponding coherent quotients. Algebraic presentation changes
+already have an extensive theory; Henry and Mimram, for example, study
+Tietze equivalence for monoid presentations~\cite{HenryMimram21}. The issue
+here is preservation of a topology that observes computational length and
+exact parametrized paths. Brazas instead uses free topological groups to
+obtain a topological-group topology on the fundamental
+group~\cite{Brazas13Tau}. Our final composable domain retains the declared
+arrow quotient topology. No priority claim is made for the abbreviation
+example or substitution criterion.
+
 \section{Geometric comparison and complete presentations}
 \label{sec:comparison}
 
@@ -2408,12 +2498,38 @@ Lean~4.32.0 kernel checks at source commit
 \protect\LeanName{propext}, \protect\LeanName{Classical.choice}, and
 \protect\LeanName{Quot.sound} occur in their axiom closures.
 Flat discreteness is not formalized. The manifest
-\protect\LeanName{model-boundary-replay.json} selects 19 actual declarations
-for a separate direct NanoDa replay; the five earlier Comparator selections
-retain their own scopes. Hosted replay evidence must be checked for the
-exact source revision.}
+\protect\LeanName{model-boundary-replay.json} at commit \texttt{131e4bf}
+selected 19 actual declarations for direct NanoDa replay, accepted in
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37726628135}
+{the exact-head Quality run}. The five earlier Comparator selections
+retain their own scopes. Later selections extend this coverage as described
+below.}
 \label{tab:model-boundary-verification}
 \end{table}
+
+The presentation-change milestone adds
+\LeanName{ScopedWordInterpretation} and \LeanName{ContinuousWordInterpretation}.
+The former checks primitive finite-trace substitutions, named-rule-to-scoped
+preservation, primitive roundtrip extension, and the algebraic
+\LeanName{quotientEquiv}. The latter checks
+\LeanName{WordSubstitution.mapTrace_length},
+\LeanName{mapTrace_realize}, and \LeanName{continuous_binary}, and derives
+\LeanName{ScopedWordInterpretation.quotientHomeomorph} for supplied trace
+topologies and \LeanName{binaryQuotientHomeomorph} under the primitive
+conditions of Proposition~\ref{prop:word-substitution-criterion}.
+\LeanName{RedundantGeneratorObservable.quotientEquiv} checks the conservative
+move of Proposition~\ref{prop:redundant-generator-observable};
+\LeanName{continuous_oldParity}, \LeanName{new_classes_ne},
+\LeanName{new_inseparable}, and \LeanName{not_continuous_inverse} check its
+topological failure for the fixed-endpoint flat-tree observable quotients.
+All these declarations passed the Lean~4.32.0 kernel at source commit
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/d604b75c2f689e57955302475275064167a4116d}
+{\texttt{d604b75}}, with the same pinned Mathlib and only the three standard
+axioms listed in Table~\ref{tab:model-boundary-verification}.
+The expanded direct-replay manifest selects 37 actual declarations;
+its hosted acceptance must be checked on the exact published head.
+No general variable-length flat or trace-sensitive invariance, global
+presentation equivalence, or final-pair transport theorem is included.
 
 Two Lean developments accompany the paper.  The parent artifact
 (Section~\ref{sec:parent-artifact}) uses Lean 4.24.0 and Mathlib 4.24.0 and covers the constructions
