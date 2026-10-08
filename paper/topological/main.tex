@@ -100,7 +100,9 @@ multiplication is continuous. An open arrow projection is sufficient.
 For the universal presentation, a published open-map theorem supplies this
 condition under local path-connectedness and semilocal simple connectivity.
 Normal forms prove completeness for finite circle and torus presentations,
-and primitive interchange supports a product construction.
+and primitive interchange supports a product construction. An actual
+two-circle rose and its Cayley-edge covering extend represented-loop
+completeness to a nonabelian example.
 
 Lean retains selected results in the binary model and separately checks the
 equal-slot model. Structural normalization and continuous reconstruction on
@@ -232,6 +234,11 @@ The main results address three questions.
   continuous trace section and geometric completeness make them agree.
   A complete presentation over the harmonic archipelago shows why the
   section hypothesis matters.
+  Continuous substitutions of finite words for primitive steps preserve
+  the trace-sensitive quotient when inverse substitutions are witnessed
+  by scoped rewrites.  Adding a redundant generator can nevertheless
+  change the observable topology.  Exact parametrization also matters:
+  equal-slot and binary realization can give different observable quotients.
 \item \emph{When is composition continuous?}
   We construct the groupoid with continuous multiplication on the final
   composable-pair domain.  We give four equivalent conditions for this
@@ -245,6 +252,8 @@ The main results address three questions.
   universal presentation with the quotient-topologized fundamental groupoid.
   The finite-generator circle and torus examples illustrate the criterion;
   a product theorem extends their based completeness to finite tori.
+  For the two-circle rose, a genuine geometric covering detects reduced
+  word order and proves completeness between represented loops.
   Maps of presentations also induce continuous maps of their quotient
   groupoids.
 \end{enumerate}
@@ -259,6 +268,10 @@ collapses the two topologies, while the complete harmonic-archipelago
 presentation separates them.  Section~\ref{sec:formalization} says which parts
 are checked in Lean, including the result registered in Palomar
 \cite{PalomarScoped2026}.
+The presentation-change theorem and its redundant-generator counterexample
+give a further boundary: algebraically inverse interpretations preserve the
+full-word topology under explicit continuity conditions, while algebraic
+conservativity alone does not preserve the observable topology.
 The compact-open path-class openness and ordinary-groupoid theorems used in
 the positive case are due to Holkar, Hossain, and Kulkarni
 \cite{HolkarHossainKulkarni24}.
@@ -2374,6 +2387,136 @@ such rule from primitive squares, proves equivalence of the two scoped
 rewrite relations, and transfers completeness to the primitive-only
 presentation.
 
+\subsection{A geometric nonabelian example: the two-circle rose}
+\label{sec:rose}
+
+Let $R$ be the quotient of two copies of $\mathbb R/\mathbb Z$ identifying
+their zero points, with basepoint $o$.  It is homeomorphic to the two
+coordinate circles inside $(\mathbb R/\mathbb Z)^2$.  Let $a$ and $b$ be
+their standard once-around based loops.  Give the two primitive labels the
+discrete topology and declare no named rewrites.  Thus cancellation and the
+structural groupoid rules are the entire scoped presentation.
+
+Write $F(a,b)$ for the free group on the two labels.  Reading a signed trace
+as a group word gives $\operatorname{ev}(p)\in F(a,b)$.  Its reduced word is
+an actual normal form: structural scoped rewriting derives $p$ equivalent
+to the trace reconstructed from that word.  This algebraic normalization
+works for any two based primitive loops.  The following geometric bridge
+uses the particular space $R$.
+
+\begin{theorem}[represented-loop completeness for the rose]
+\label{thm:rose-completeness}
+For based traces $p,q$ in this presentation,
+\[
+  p\simeq_{\mathcal P}q
+  \quad\Longleftrightarrow\quad
+  \operatorname{ev}(p)=\operatorname{ev}(q)
+  \quad\Longleftrightarrow\quad
+  |p|\simeq_{\partial I}|q|.
+\]
+Both the trace-sensitive and equal-slot observable fixed-endpoint based
+scoped quotients are discrete.  In particular, $a;b$ and $b;a$ are
+geometrically nonhomotopic.
+\end{theorem}
+
+\begin{proof}
+The normal-form argument gives the first equivalence, and soundness gives
+the forward geometric implication.  For the converse, construct a space
+$E$ with vertices $g\in F(a,b)$ and one closed interval from $g$ to $gs$
+for each $s\in\{a,b\}$.  Its topology is the final topology of these
+closed intervals, with precisely the specified endpoint identifications.
+Map each interval to the corresponding primitive circle loop and each
+vertex to $o$.
+
+Left multiplication acts continuously on $E$.  The map to $R$ is a
+quotient map: the finite union of the two unit intervals maps continuously
+and surjectively from a compact space to the Hausdorff rose, and the
+projection forgetting the free-group coordinate is open and surjective.
+Descent through the interval-gluing quotient preserves this conclusion.
+The fibers are exactly the left-multiplication orbits.  This follows from
+the injective open-interval parametrization of each punctured circle and
+the fact that the two circles meet only at $o$.
+
+The action has disjoint local translates.  Interior points have open
+neighborhoods contained in a single edge.  At a vertex $v$, extend the
+word distance $\|v^{-1}g\|$ affinely along each edge.  This is a continuous
+function $d_v$ on $E$.  The triangle inequality for reduced-word length
+gives
+\[
+  \|v^{-1}w\|\le d_v(z)+d_w(z).
+\]
+Consequently the open sets $d_v<1/3$ and $d_w<1/3$ are disjoint when
+$v\ne w$, and translation carries one such neighborhood to the
+corresponding translated vertex neighborhood.  The orbit map is therefore
+a covering map.
+
+A finite signed word has an explicit lift starting at the identity
+vertex, obtained by traversing the corresponding oriented edges.  Its
+endpoint is the vertex given by its free-group evaluation.  The
+equal-slot realization is homotopic to the recursively concatenated
+realization, so homotopic trace realizations have lifts with the same
+endpoint.  Vertex injectivity now gives
+$\operatorname{ev}(p)=\operatorname{ev}(q)$ and hence scoped equality.
+The two reduced words $ab$ and $ba$ differ.
+
+The full-word based quotient is discrete because the primitive alphabet
+is discrete.  For the observable quotient, the four signed primitive
+paths are distinct: the two circle retractions and their winding numbers
+distinguish them.  Equal-slot restriction recovers each signed letter.
+Each fixed-length observation stratum is finite inside a Hausdorff path
+space, hence discrete, and the discrete length coordinate separates the
+strata.  Coherent-representative elimination identifies the coherent scoped
+quotients homeomorphically with these trace-only quotients, so they too are
+discrete.
+\end{proof}
+
+This proof is a formalized instance of the classical graph-covering
+method~\cite[Section~1.A]{Hatcher02}.  Represented-loop completeness
+identifies the subgroup generated by the two primitive loops.  A
+classification of every loop in $R$ additionally needs a proof that the
+covering realization is simply connected; it is a separate obligation.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[scale=.88, every node/.style={font=\small}]
+  \draw (-4.8,0) circle (.65);
+  \draw (-3.5,0) circle (.65);
+  \fill (-4.15,0) circle (2pt);
+  \node[below] at (-4.15,0) {$o$};
+  \node[above] at (-4.8,.65) {$a$};
+  \node[above] at (-3.5,.65) {$b$};
+  \node[below] at (-4.15,-1.45) {$R$};
+  \draw[->,thick] (-.8,0) -- (-2.5,0) node[midway,above] {$p$};
+  \coordinate (one) at (1,0);
+  \coordinate (a) at (0,1);
+  \coordinate (b) at (2,1);
+  \coordinate (ai) at (0,-1);
+  \coordinate (bi) at (2,-1);
+  \coordinate (ab) at (-.55,2);
+  \coordinate (ba) at (2.55,2);
+  \draw[->] (one) -- (a) node[midway,above right] {$a$};
+  \draw[->] (one) -- (b) node[midway,above left] {$b$};
+  \draw[->] (ai) -- (one) node[midway,above left] {$a$};
+  \draw[->] (bi) -- (one) node[midway,above right] {$b$};
+  \draw[->] (a) -- (ab) node[midway,right] {$b$};
+  \draw[->] (b) -- (ba) node[midway,left] {$a$};
+  \foreach \v in {one,a,b,ai,bi,ab,ba} \fill (\v) circle (2pt);
+  \node[below] at (one) {$1$};
+  \node[left] at (a) {$a$};
+  \node[right] at (b) {$b$};
+  \node[below left] at (ai) {$a^{-1}$};
+  \node[below right] at (bi) {$b^{-1}$};
+  \node[above] at (ab) {$ab$};
+  \node[above] at (ba) {$ba$};
+  \node[below] at (1,-1.45) {part of $E$};
+\end{tikzpicture}
+\caption{The geometric covering records word order in lifted endpoints.
+The two words $ab$ and $ba$ end at different vertices above the same
+basepoint.  The pictured finite part belongs to the full interval-glued
+Cayley realization.}
+\label{fig:rose-covering}
+\end{figure}
+
 \section{Relation to logic and rewriting}
 \label{sec:logic}
 
@@ -2414,9 +2557,9 @@ a proof-relevant identity type or a higher groupoid of homotopy witnesses.
 
 \paragraph{Realization model boundary.}
 The manuscript's trace carrier in Section~\ref{sec:traces} uses flat signed
-words with equal-duration slots. The current Lean carrier instead uses
-parenthesized traces and recursively applies Mathlib's half-and-half
-\LeanName{Path.trans}. Its observable code retains the exact parametrized
+words with equal-duration slots. The earlier Lean modules use parenthesized
+traces and recursively apply Mathlib's half-and-half
+\LeanName{Path.trans}. Their observable code retains the exact parametrized
 realization. Adding the flattened signed word to that code does not remove
 the binary timing coordinate. Consequently, the existing Lean topology
 theorems concern the binary model. They must not be read as certificates of
@@ -2704,15 +2847,63 @@ Ordinary based quotient explicitly assumed nondiscrete & Flat\\
 \end{longtable}
 \endgroup
 
-The current direct-replay manifest selects 99 actual declarations (67 theorems
-and 32 definitions), extending the earlier 37-declaration selection. Its
+The current direct-replay manifest selects 141 actual declarations (99 theorems
+and 42 definitions), extending the 99-declaration literal-word selection. Its
 source and dependency closure are audited against the manifest before NanoDa
 replay. Only \LeanName{propext}, \LeanName{Classical.choice}, and
 \LeanName{Quot.sound} are permitted. The exact published-head Quality run
 checks these declarations separately from the five retained Comparator
-selections. The mathematical nonabelian graph example remains future work:
-the required geometric realization, covering charts, and simply connected
-tree have not been supplied by a reduced-word algebra calculation.
+selections. The rose development adds an actual geometric carrier and a
+checked Cayley-edge covering to the reduced-word calculation. It proves
+completeness between represented traces, geometric noncommutation, and
+discreteness of the two fixed-endpoint flat computational quotients.
+Classifying arbitrary rose loops remains a separate obligation: the covering
+realization still needs a checked simple-connectivity proof.
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.16\linewidth}
+                 >{\raggedright\arraybackslash}p{0.32\linewidth}
+                 >{\raggedright\arraybackslash}p{0.29\linewidth}
+                 >{\raggedright\arraybackslash}p{0.15\linewidth}}
+\caption{Geometric rose verification map. Every name has prefix
+\protect\LeanName{ComputationalPaths.Path.GeometricTopology}.
+The source snapshot is
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/dbfe65efd2deec99cf42df2999f6a20d63c63c23}
+{\texttt{dbfe65e}}, with Lean~4.32.0 and Mathlib \texttt{81a5d257}.
+The listed results use only the three permitted standard axioms.}
+\label{tab:rose-verification}\\
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endfirsthead
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endhead
+Actual rose & \LeanName{GeometricRose.axesHomeomorph} &
+Two additive circles, exactly their zero points glued & Geometric\\
+Reduced normal form & \LeanName{RoseReducedWords.normalization},
+\LeanName{RoseReducedWords.scoped_iff_encode_eq} &
+Any two based primitive loops; no named rewrites & Scoped algebra\\
+Geometric covering & \LeanName{CayleyRoseCovering.covering} &
+Actual interval-glued free-group edges; proved quotient and orbit fibers & Geometric\\
+Computed endpoint & \LeanName{RoseLiftedWords.liftPath_trace_one} &
+Actual rose primitives and covering; identity starting vertex & Binary path\\
+Trace completeness & \LeanName{RoseLiftedWords.trace_complete},
+\LeanName{RoseLiftedWords.flat_trace_complete} &
+Based finite traces; actual endpoint-fixed homotopy & Binary and flat\\
+Order separation & \LeanName{RoseLiftedWords.ab_not_homotopic_ba} &
+Actual once-around primitive loops & Geometric\\
+Signed observation & \LeanName{RoseBasedTopology.signedPrimitive_injective} &
+The four actual oriented paths; winding pairs through retractions & Parametrized\\
+Based quotients & \LeanName{RoseBasedTopology.flatObservableHomeomorph},
+\LeanName{RoseBasedTopology.flatSensitiveHomeomorph} &
+Fixed endpoints; respective proved discrete quotient topologies & Flat\\
+Tree prefix step & \LeanName{CayleyReducedPrefix.outward_word_cases} &
+Actual reduced free-group words; no geometric assumptions & Algebraic\\
+\bottomrule
+\end{longtable}
+\endgroup
 
 Two Lean developments accompany the paper.  The parent artifact
 (Section~\ref{sec:parent-artifact}) uses Lean 4.24.0 and Mathlib 4.24.0 and covers the constructions
@@ -3005,6 +3196,10 @@ presentations.  The product theorem extends based completeness from two
 presentations to their product, giving complete based-loop presentations
 for all finite tori.  Their step spaces need not be finite; the
 finite-generator circle and two-torus presentations are separate examples.
+For the two-circle rose, the Cayley-edge covering supplies the geometric
+bridge: homotopic represented loops have equal lifted endpoints and hence
+equal reduced words.  Its fixed-endpoint flat scoped quotients are discrete;
+the words $ab$ and $ba$ remain distinct even geometrically.
 
 The second question is topological: on which space of composable classes is
 multiplication continuous?  The quotient of composable representatives always
@@ -3031,6 +3226,15 @@ examples.  The complete discrete-label example over the harmonic
 archipelago shows that the trace choice cannot be dropped from this
 criterion.  Section~\ref{sec:formalization} distinguishes the Lean checks
 from the mathematical arguments and the immutable registered result.
+
+The substitution theorem explains how this semantics behaves under changes
+of presentation.  Primitive word codes supply the continuity conditions;
+scoped round trips supply the inverse maps on quotient classes.  The resulting
+homeomorphisms cover the trace-sensitive arrow quotients and their final
+composable-pair domains.  A conservative redundant-generator move can change
+the observable topology, and the checked timing example separates equal-slot
+from binary observation.  These examples make the retained computational
+and parametrization data part of the mathematical question.
 
 \section*{Funding}
 No external funding was received for this work.

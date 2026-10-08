@@ -31,7 +31,14 @@
     "ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation",
     "ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive",
     "ComputationalPaths.Path.Topology.FlatObservableDiscreteness",
-    "ComputationalPaths.Path.Topology.CompleteDiscreteSeparation"
+    "ComputationalPaths.Path.Topology.CompleteDiscreteSeparation",
+    "ComputationalPaths.Path.Topology.GeometricRose",
+    "ComputationalPaths.Path.Topology.RoseReducedWords",
+    "ComputationalPaths.Path.Topology.CayleyTreeGeometry",
+    "ComputationalPaths.Path.Topology.CayleyRoseCovering",
+    "ComputationalPaths.Path.Topology.RoseLiftedWords",
+    "ComputationalPaths.Path.Topology.RoseBasedTopology",
+    "ComputationalPaths.Path.Topology.CayleyReducedPrefix"
   ],
   "targets": [
     {
@@ -428,6 +435,174 @@
     },
     {
       "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.axesHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.leftInclude_isEmbedding",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.rightInclude_isEmbedding",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.puncturedCircleHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_nullHomotopic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB_not_nullHomotopic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_homotopic_loopB",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseReducedWords.normalization",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseReducedWords.scoped_iff_encode_eq",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseReducedWords.quotientMulEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseReducedWords.primitive_roundtrip",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseReducedWords.ab_not_scoped_ba",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.key_isQuotientMap",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.edge",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.continuous_distanceFrom",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.distanceFrom_triangle",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.vertexNeighborhood_disjoint",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.isOpen_edgeInterior",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.disjoint_translates",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_isQuotientMap",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_eq_iff_mem_orbit",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.covering",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_edge",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftWord",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftPath_trace_one",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.trace_complete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.homotopic_iff_scoped",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.ab_not_homotopic_ba",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_trace_complete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_homotopic_iff_scoped",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.windingPair_signedLoop",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.signedPrimitive_injective",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservable_discrete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitive_discrete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservableHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitiveHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_mul_signed_cases",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.outward_word_cases",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_prefix_cases",
       "kind": "thm"
     }
   ],

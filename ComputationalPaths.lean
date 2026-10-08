@@ -57,3 +57,10 @@ import ComputationalPaths.Path.Topology.LiteralWordPairs
 import ComputationalPaths.Path.Topology.LiteralWordStrata
 import ComputationalPaths.Path.Topology.LiteralWordTopologyBridge
 import ComputationalPaths.Path.Topology.LiteralWordDiscrete
+import ComputationalPaths.Path.Topology.GeometricRose
+import ComputationalPaths.Path.Topology.RoseReducedWords
+import ComputationalPaths.Path.Topology.CayleyTreeGeometry
+import ComputationalPaths.Path.Topology.CayleyRoseCovering
+import ComputationalPaths.Path.Topology.RoseLiftedWords
+import ComputationalPaths.Path.Topology.RoseBasedTopology
+import ComputationalPaths.Path.Topology.CayleyReducedPrefix

@@ -1,107 +1,145 @@
-import ComputationalPaths.Path.Topology.CompleteDiscreteSeparation
-import ComputationalPaths.Path.Topology.FlatObservableDiscreteness
-import ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive
-import ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation
-import ComputationalPaths.Path.Topology.VariableFlatWordInterpretation
-import ComputationalPaths.Path.Topology.FlatWordSubstitution
-import ComputationalPaths.Path.Topology.LiteralWordDiscrete
-import ComputationalPaths.Path.Topology.LiteralWordTopologyBridge
-import ComputationalPaths.Path.Topology.LiteralWordStrata
-import ComputationalPaths.Path.Topology.LiteralWordPairs
-import ComputationalPaths.Path.Topology.LiteralWordGlobal
-import ComputationalPaths.Path.Topology.LiteralWordQuotient
-import ComputationalPaths.Path.Topology.LiteralWordRewrite
-import ComputationalPaths.Path.Topology.LiteralWord
-import ComputationalPaths.Path.Topology.FlatWordContinuity
-import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
-import ComputationalPaths.Path.Topology.BinaryTimingCollision
-import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
-import ComputationalPaths.Path.Topology.FlatObservableTopology
 import ComputationalPaths.Path.Topology.ScopedWordInterpretation
 import ComputationalPaths.Path.Topology.ContinuousWordInterpretation
 import ComputationalPaths.Path.Topology.RedundantGeneratorObservable
+import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
+import ComputationalPaths.Path.Topology.FlatObservableTopology
+import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
+import ComputationalPaths.Path.Topology.BinaryTimingCollision
+import ComputationalPaths.Path.Topology.FlatWordContinuity
+import ComputationalPaths.Path.Topology.LiteralWord
+import ComputationalPaths.Path.Topology.LiteralWordRewrite
+import ComputationalPaths.Path.Topology.LiteralWordQuotient
+import ComputationalPaths.Path.Topology.LiteralWordGlobal
+import ComputationalPaths.Path.Topology.LiteralWordPairs
+import ComputationalPaths.Path.Topology.LiteralWordStrata
+import ComputationalPaths.Path.Topology.LiteralWordTopologyBridge
+import ComputationalPaths.Path.Topology.LiteralWordDiscrete
+import ComputationalPaths.Path.Topology.FlatWordSubstitution
+import ComputationalPaths.Path.Topology.VariableFlatWordInterpretation
+import ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation
+import ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive
+import ComputationalPaths.Path.Topology.FlatObservableDiscreteness
+import ComputationalPaths.Path.Topology.CompleteDiscreteSeparation
+import ComputationalPaths.Path.Topology.GeometricRose
+import ComputationalPaths.Path.Topology.RoseReducedWords
+import ComputationalPaths.Path.Topology.CayleyTreeGeometry
+import ComputationalPaths.Path.Topology.CayleyRoseCovering
+import ComputationalPaths.Path.Topology.RoseLiftedWords
+import ComputationalPaths.Path.Topology.RoseBasedTopology
+import ComputationalPaths.Path.Topology.CayleyReducedPrefix
 
-/-! Kernel and axiom inspection for the model-boundary and presentation-change milestones.
-This file has no statement placeholders. Equal-slot tree observation and literal composable-word correspondence
-are both checked, with binary timing kept explicitly separate.
-The direct selected-declaration NanoDa replay has its own manifest; the five
-earlier Comparator/NanoDa selections are checked separately in CI.
--/
-
-#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
-#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
-#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
-#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
-#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
-
-#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
-#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
-#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
-#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
-#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
-
-#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
-#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
-#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
-
-#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
-#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
-#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
+/-! Direct kernel inspection of the selected actual declarations. -/
 
 #check ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic
 #print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv
+
 #check ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length
 #print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length
+
 #check ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize
 #print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize
+
 #check ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary
 #print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph
+
 #check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph
 #print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable
+
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
+
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
+
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
+
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
+
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
+
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
 
 #check ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family
 #print axioms ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family
@@ -289,8 +327,128 @@ earlier Comparator/NanoDa selections are checked separately in CI.
 #check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete
 #print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete
 
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.axesHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.axesHomeomorph
 
-#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation
-#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.leftInclude_isEmbedding
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.leftInclude_isEmbedding
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.rightInclude_isEmbedding
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.rightInclude_isEmbedding
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.puncturedCircleHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.puncturedCircleHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_nullHomotopic
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_nullHomotopic
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB_not_nullHomotopic
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.loopB_not_nullHomotopic
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_homotopic_loopB
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricRose.loopA_not_homotopic_loopB
+
+#check ComputationalPaths.Path.GeometricTopology.RoseReducedWords.normalization
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseReducedWords.normalization
+
+#check ComputationalPaths.Path.GeometricTopology.RoseReducedWords.scoped_iff_encode_eq
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseReducedWords.scoped_iff_encode_eq
+
+#check ComputationalPaths.Path.GeometricTopology.RoseReducedWords.quotientMulEquiv
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseReducedWords.quotientMulEquiv
+
+#check ComputationalPaths.Path.GeometricTopology.RoseReducedWords.primitive_roundtrip
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseReducedWords.primitive_roundtrip
+
+#check ComputationalPaths.Path.GeometricTopology.RoseReducedWords.ab_not_scoped_ba
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseReducedWords.ab_not_scoped_ba
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.key_isQuotientMap
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.key_isQuotientMap
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.edge
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.edge
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.continuous_distanceFrom
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.continuous_distanceFrom
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.distanceFrom_triangle
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.distanceFrom_triangle
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.vertexNeighborhood_disjoint
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.vertexNeighborhood_disjoint
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.isOpen_edgeInterior
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.isOpen_edgeInterior
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.disjoint_translates
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyTreeGeometry.disjoint_translates
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_isQuotientMap
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_isQuotientMap
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_eq_iff_mem_orbit
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_eq_iff_mem_orbit
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.covering
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.covering
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_edge
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyRoseCovering.project_edge
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftWord
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftWord
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftPath_trace_one
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.liftPath_trace_one
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.trace_complete
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.trace_complete
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.homotopic_iff_scoped
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.homotopic_iff_scoped
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.ab_not_homotopic_ba
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.ab_not_homotopic_ba
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_trace_complete
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_trace_complete
+
+#check ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_homotopic_iff_scoped
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseLiftedWords.flat_homotopic_iff_scoped
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.windingPair_signedLoop
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.windingPair_signedLoop
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.signedPrimitive_injective
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.signedPrimitive_injective
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservable_discrete
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservable_discrete
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitive_discrete
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitive_discrete
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservableHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatObservableHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitiveHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.RoseBasedTopology.flatSensitiveHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_mul_signed_cases
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_mul_signed_cases
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.outward_word_cases
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.outward_word_cases
+
+#check ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_prefix_cases
+#print axioms ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_prefix_cases
