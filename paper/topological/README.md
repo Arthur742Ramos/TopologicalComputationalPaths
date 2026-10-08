@@ -73,3 +73,6 @@ Palomar snapshots, are in supplement Section S4 and its declaration appendix.
 
 `igpl-cover-letter.txt` remains a draft. Before sending it, the corresponding
 author must confirm coauthor approval and the current submission status.
+
+The expanded computational-path introduction and related-work source checks
+are recorded in [introduction review evidence](../../evidence/intro-background/README.md).

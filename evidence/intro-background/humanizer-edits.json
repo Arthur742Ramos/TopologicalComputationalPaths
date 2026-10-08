@@ -1,0 +1,8 @@
+[
+  {
+    "file": "paper/topological/main.tex",
+    "before": "Endpoint equality and equality of witnesses\ntherefore occur at different levels of the calculus.",
+    "after": "The endpoint judgement establishes that $a$ equals $c$; a rewrite between\n$r;s$ and $u$ establishes equality of their witnesses.",
+    "reason": "Replace abstract closing summary with the concrete endpoint and witness judgements; preserve the requested distinction."
+  }
+]
