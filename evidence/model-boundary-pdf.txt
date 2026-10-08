@@ -1,0 +1,20 @@
+Model-boundary manuscript validation, 2026-10-08 UTC
+
+Compiler: Tectonic 0.17.0, minimal chatter, keep logs.
+Source: paper/topological/main.tex
+Source SHA256: 3c28cc5b93923554d3e4edb4df3f83ca0e19ad90b9cbbf201f34ce53459fb7d4
+Output: output/pdf/main.pdf (local ignored artifact)
+PDF SHA256: 0fa1506ddc6be8d4b5fc7f793f1f420337eb0bc9c6e814a8767970473647e530
+Pages: 41 (pypdf inspection).
+Compilation: exit 0. No undefined citations/references or overfull boxes in final log.
+Underfull paragraph warnings remain; inspected output is readable.
+
+Visual inspection: all 41 pages rendered with Poppler at 72 dpi and reviewed
+in contact sheets; pages 1, 32, 33 and 34 additionally inspected at 144 dpi.
+Figures, proofs, mathematical notation and the new verification table fit
+without clipping or overlap. Table caption identifies the verified source
+commit and explicitly excludes new declarations from existing NanoDa selectors.
+
+This validates manuscript compilation/layout, not unformalized flat-model
+claims or future presentation-change results. Kernel proof evidence is in
+model-boundary-kernel.log; hosted CI must be checked separately on the PR head.

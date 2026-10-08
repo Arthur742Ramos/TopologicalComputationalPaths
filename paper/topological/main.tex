@@ -81,39 +81,30 @@
 \raggedbottom
 
 \begin{abstract}
-We give computational paths a topological semantics that retains the rewrites
-declared by a presentation.  Two traces may realize homotopic paths without
-becoming equal in the presented quotient.  Coherent representatives pair a
-trace with a path homotopic to its realization.  We study both the topology
-that retains the full trace and the topology that observes its endpoints,
-length, realization, and geometric path. Two labels for the same nonconstant
-circle loop show that their quotient topologies can differ.
-Completeness alone does not remove this difference: over the harmonic
-archipelago, a complete presentation with discrete path labels has a
-discrete trace-sensitive based quotient and an indiscrete observable one.
+Which computational distinctions survive a quotient topology? We study
+geometric computational paths modulo the rewrites declared by a
+presentation, comparing a trace-sensitive topology with one that observes
+endpoints, length, exact realization, and a coherent geometric representative.
+Duplicate circle labels separate these topologies. A complete discrete-label
+presentation over the harmonic archipelago shows that geometric completeness
+alone does not make them agree. Equal-slot and recursive binary timing can
+also give nonhomeomorphic observable based quotients.
 
-The scoped quotient is a groupoid with continuous multiplication on the
-quotient of composable representatives.  The ordinary pullback of quotient
-arrows can carry a coarser topology.  We characterize agreement of the two
-pair topologies and prove it when the arrow quotient is open, as well as
-under compact-Hausdorff or discrete hypotheses.  The universal presentation
-is the quotient-topologized fundamental groupoid.  A published open-map
-theorem gives ordinary-pullback multiplication and discrete based fibers
-when the space is locally path-connected and semilocally simply connected;
-the Hawaiian earring supplies an obstruction outside those hypotheses.
+The scoped quotient has continuous multiplication on the final quotient of
+composable representatives. We characterize agreement of this domain with
+the ordinary pullback of quotient arrows; the conditions imply ordinary
+multiplication is continuous. An open arrow projection is sufficient.
+For the universal presentation, a published open-map theorem supplies this
+condition under local path-connectedness and semilocal simple connectivity.
+Normal forms prove completeness for finite circle and torus presentations,
+and primitive interchange supports a product construction.
 
-Geometric completeness is equivalent to injectivity of the map from scoped
-classes to homotopy classes.  Normal forms prove completeness for based
-circle and torus presentations, and a product argument extends it to
-finite tori.  A continuous trace choice makes the trace-sensitive and
-observable quotients homeomorphic when the presentation is complete.
-Lean checks the quotient comparison, the open-map theorem for locally
-path-connected, semilocally simply connected spaces, the universal
-fixed-endpoint result, product sorting, finite circle and torus
-based completeness and homeomorphisms from their global based-arrow
-subspaces to discrete winding groups, and nonconstant circle separation.
-The registered Palomar selection is an earlier, narrower snapshot; the
-manuscript distinguishes its claims from the current source.
+Lean checks selected quotient, completeness, and separation results in the
+binary realization model, including the timing collision and fixed-endpoint
+elimination of coherent representatives. The manuscript uses equal-slot flat words and states the
+remaining correspondence boundary explicitly. Its verification map separates
+kernel-checked declarations, earlier Comparator/NanoDa selections, and
+mathematical arguments awaiting formalization.
 
 \end{abstract}
 
@@ -2275,6 +2266,118 @@ a proof-relevant identity type or a higher groupoid of homotopy witnesses.
 \section{What the Lean developments check}
 \label{sec:formalization}
 
+\paragraph{Realization model boundary.}
+The manuscript's trace carrier in Section~\ref{sec:traces} uses flat signed
+words with equal-duration slots. The current Lean carrier instead uses
+parenthesized traces and recursively applies Mathlib's half-and-half
+\LeanName{Path.trans}. Its observable code retains the exact parametrized
+realization. Adding the flattened signed word to that code does not remove
+the binary timing coordinate. Consequently, the existing Lean topology
+theorems concern the binary model. They must not be read as certificates of
+the equal-slot observable topology without a separate comparison theorem.
+Endpoint-fixed homotopy of the two realizations is sufficient for semantic
+soundness, but does not establish such a topological comparison.
+The binary development and its verified results are retained while the
+equal-slot formalization is developed separately.
+
+\begin{proposition}[binary timing can identify observable codes]
+\label{prop:binary-timing-collision}
+There is a three-generator based circle presentation with no named rewrite
+rules for which the observable quotients of the fixed-base carriers differ:
+the binary quotient is not $T_0$, and the equal-slot flat quotient is discrete.
+\end{proposition}
+\begin{proof}
+Let $\alpha(t)=[t]$ in $\Circle$, and let the primitive labels $a,b,c$
+realize $\alpha$, $\beta=\alpha\star\alpha$, and
+$\chi=\alpha\star\beta$, respectively, with $\star$ denoting ordinary
+half-and-half concatenation. The binary traces
+$p=(a;b);b$ and $q=c;(a;a)$ both realize $\chi\star\beta$.
+They have length three and can choose this same path as coherent
+representative, so their binary observable codes agree. Signed occurrence
+count of $c$ is invariant under structural scoped rewrites and has values
+zero and one on these two traces. Their scoped classes are distinct.
+Every open set in the induced raw observable topology contains both chosen
+representatives or neither; the same holds for their classes by the
+definition of quotient topology. Hence that quotient is not $T_0$.
+
+For the flat construction, the six oriented primitive paths have distinct
+winding numbers $1,2,3,-1,-2,-3$. Restriction to each prescribed equal slot
+therefore recovers the signed letter. At each fixed length there are finitely
+many words, with distinct realizations in the Hausdorff compact-open path
+space. This finite image is discrete, so the fiber of each observed word is
+open. The discrete length coordinate separates the strata. A scoped-class
+preimage is a union of word fibers, even when the coherent path varies;
+thus the fixed-base flat quotient is discrete. This last assertion concerns
+the quotient of the based carrier, not an unproved subspace comparison with
+the global quotient.
+\end{proof}
+
+The exact binary collision is implemented in \LeanName{BinaryTimingCollision},
+which proves failure of $T_0$ for both the fixed-base trace quotient and the
+global binary scoped quotient. Coherent-representative elimination transfers
+the fixed-base trace result to the matching coherent quotient. The fixed-base
+flat discreteness argument is mathematical; it is not currently a
+Lean-certified flat-model theorem.
+
+\begin{proposition}[fixed-endpoint coherent-representative elimination]
+\label{prop:coherent-elimination}
+For a fixed realization model and endpoints, give traces a topology making
+realization continuous and coherent representatives the topology induced by
+$(p,\gamma)$. If scoped equivalence depends only on the trace, forgetting
+$\gamma$ induces a homeomorphism between the coherent quotient and the
+trace-only scoped quotient.
+\end{proposition}
+\begin{proof}
+The projection $r(p,\gamma)=p$ is continuous, and
+$s(p)=(p,|p|)$ is a continuous section. Both maps preserve the quotient
+relations. We have $r s=\mathrm{id}$, while $s r(p,\gamma)$ is scoped
+equivalent to $(p,\gamma)$ because the trace is unchanged. Quotient descent
+therefore gives continuous mutually inverse maps. No geometric completeness
+hypothesis is needed. Apply the statement separately to each realization
+model and each chosen trace topology.
+\end{proof}
+
+\LeanName{CoherentRepresentativeElimination} implements this result for
+fixed endpoints with the binary observable trace topology and its full-word
+refinement. Its general declaration accepts any trace topology for which
+the same binary realization is continuous. It does not certify a global
+based-subspace comparison, a final composable-pair comparison, or agreement
+with the flat realization model.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}
+                >{\raggedright\arraybackslash}p{0.27\linewidth}
+                >{\raggedright\arraybackslash}p{0.30\linewidth}
+                >{\raggedright\arraybackslash}p{0.12\linewidth}}
+\toprule
+Result & Exact local declaration & Assumptions & Model\\
+\midrule
+Coherent elimination & \LeanName{quotientHomeomorph} &
+Fixed endpoints; realization continuous for supplied trace topology;
+trace-only scoped relation & Binary\\
+Timing collision & \LeanName{realize_eq} &
+Any based path; three discrete labels with the stated realizations & Binary\\
+Based failure of $T_0$ & \LeanName{fixed_not_t0} &
+Same three-label system; no named rewrite rules & Binary\\
+Global failure of $T_0$ & \LeanName{not_t0} &
+Same three-label system; no named rewrite rules & Binary\\
+Flat discreteness & Proposition~\ref{prop:binary-timing-collision} &
+Circle paths with six distinct oriented realizations; fixed-base carrier & Flat\\
+\bottomrule
+\end{tabular}
+\caption{First model-boundary milestone. The first row's declaration is in
+\protect\LeanName{CoherentRepresentativeElimination}; the next three are in
+\protect\LeanName{BinaryTimingCollision}, all under
+\protect\LeanName{ComputationalPaths.Path.GeometricTopology}.
+The four binary rows passed Lean~4.32.0 kernel checks at source commit
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/9d9679908e09b1ed0c42e4898f11d797c6a979af}
+{\texttt{9d96799}}, with Mathlib commit \texttt{81a5d257}.
+The flat row is not formalized. The new declarations are outside the existing
+Comparator/NanoDa selections.}
+\label{tab:model-boundary-verification}
+\end{table}
+
 Two Lean developments accompany the paper.  The parent artifact
 (Section~\ref{sec:parent-artifact}) uses Lean 4.24.0 and Mathlib 4.24.0 and covers the constructions
 listed in Table~\ref{tab:declarations}.  A smaller extraction, built with
@@ -2291,8 +2394,9 @@ The implementation represents traces by the parenthesized inductive type
 \LeanName{GeometricTrace}, where Section~\ref{sec:traces} uses flat signed words.  The
 declarations \LeanName{WeightedSlotReparam},
 \LeanName{balancedSlotReparam}, and
-\LeanName{weightedConcatenationInvariant} relate the two parametrizations,
-including the null-homotopy assumptions needed when a factor has zero weight.
+\LeanName{weightedConcatenationInvariant} relate the parametrizations up to
+endpoint-fixed homotopy, including the null-homotopy assumptions needed when
+a factor has zero weight. They do not identify observable topologies.
 The scoped-rewrite modules check soundness and the quotient operations.  The
 comparison with Mathlib's fundamental groupoid identifies the represented
 homotopy classes, checks preservation of identities, inverses, and
@@ -2301,9 +2405,10 @@ is continuous.
 
 \paragraph{Representative topologies.}
 The module \LeanName{TraceSensitiveTopologicalCompPath} flattens internal
-traces to signed words.  It checks continuity of the full-word realization,
-of the map to observable coordinates, and of the identity, reversal, and
-weighted composition operations.  The earlier quotient modules still use the
+traces to signed words while retaining binary realization in its observable
+coordinate. It checks continuity of that binary realization, of the map to
+observable coordinates, and of the identity, reversal, and binary composition
+operations. The earlier quotient modules still use the
 observable topology by default.
 
 The module \LeanName{TraceSensitiveSeparation} checks the two-label

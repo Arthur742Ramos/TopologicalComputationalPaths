@@ -21,6 +21,8 @@ import ComputationalPaths.Path.Topology.ProductScopedSorting
 import ComputationalPaths.Path.Topology.TraceSensitiveTopologicalCompPath
 import ComputationalPaths.Path.Topology.TraceSensitiveUniversalCollapse
 import ComputationalPaths.Path.Topology.TraceSensitiveSeparation
+import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
+import ComputationalPaths.Path.Topology.BinaryTimingCollision
 import ComputationalPaths.Path.Topology.ConcreteCircleWinding
 import ComputationalPaths.Path.Topology.ConcreteTorusWinding
 import ComputationalPaths.Path.Topology.ContinuousCompleteInvariant

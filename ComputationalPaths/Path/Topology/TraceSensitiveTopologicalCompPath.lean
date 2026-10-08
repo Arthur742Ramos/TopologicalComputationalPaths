@@ -30,9 +30,11 @@ reversal are proved continuous for the new topology as well, and the
 computation carries explicit Path/RwEq certificates for the length and
 unit coherences.
 
-Parenthesization is not made topological data: flattening identifies the
-structural unit/associativity presentation with the flat-word strictification,
-while signed leaves retain the actual primitive-step word and its orientation.
+The signed-word coordinate forgets parenthesization. The retained observable
+coordinate still uses recursive binary `Path.trans`, so its exact timing can
+depend on parenthesization. This refinement is not the manuscript's equal-slot
+flat-word topology. Homotopy invariance of reparametrization alone does not
+identify the two observable quotient topologies.
 -/
 
 namespace ComputationalPaths
