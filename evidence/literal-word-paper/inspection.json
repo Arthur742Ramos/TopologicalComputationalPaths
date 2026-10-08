@@ -1,0 +1,20 @@
+{
+  "source_commit": "0346c8e8d87cfca2e41314ed7efa5fe67316acd9",
+  "pdf_path": "paper/topological/verified/literal-word-presentation-separation.pdf",
+  "pdf_sha256": "3a493d48ea87daec626e5333124c69c5aa00d8a5bb1e98e29e74bf34bd1fbbe7",
+  "page_count": 47,
+  "compiler": "Tectonic 0.17.0",
+  "render_tool": "pdftoppm",
+  "all_pages_rendered_and_contact_sheet_inspected": true,
+  "detail_pages_inspected": [
+    21,
+    38,
+    39
+  ],
+  "overfull_warnings": 0,
+  "undefined_references_or_citations": 0,
+  "remaining_warnings": "Underfull hbox; nonfatal Fontconfig default-config diagnostic (Tectonic exit 0, embedded TeX fonts rendered successfully)",
+  "input_hash_scope": "UTF-8 bytes normalized to LF, matching Git text storage",
+  "main_tex_sha256": "598162a68098436e0f3a4ce9ed1e48c86988181d742980a02ec705c51c6d9400",
+  "refs_bib_sha256": "65a9b07a4a67f1637f4e8709cfa74ccbc1aa82083e8d24f3dd3fd66ee382d92c"
+}

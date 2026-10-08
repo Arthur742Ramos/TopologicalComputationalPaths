@@ -1,3 +1,18 @@
+import ComputationalPaths.Path.Topology.CompleteDiscreteSeparation
+import ComputationalPaths.Path.Topology.FlatObservableDiscreteness
+import ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive
+import ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation
+import ComputationalPaths.Path.Topology.VariableFlatWordInterpretation
+import ComputationalPaths.Path.Topology.FlatWordSubstitution
+import ComputationalPaths.Path.Topology.LiteralWordDiscrete
+import ComputationalPaths.Path.Topology.LiteralWordTopologyBridge
+import ComputationalPaths.Path.Topology.LiteralWordStrata
+import ComputationalPaths.Path.Topology.LiteralWordPairs
+import ComputationalPaths.Path.Topology.LiteralWordGlobal
+import ComputationalPaths.Path.Topology.LiteralWordQuotient
+import ComputationalPaths.Path.Topology.LiteralWordRewrite
+import ComputationalPaths.Path.Topology.LiteralWord
+import ComputationalPaths.Path.Topology.FlatWordContinuity
 import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
 import ComputationalPaths.Path.Topology.BinaryTimingCollision
 import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
@@ -7,8 +22,8 @@ import ComputationalPaths.Path.Topology.ContinuousWordInterpretation
 import ComputationalPaths.Path.Topology.RedundantGeneratorObservable
 
 /-! Kernel and axiom inspection for the model-boundary and presentation-change milestones.
-This file has no statement placeholders. Equal-slot observation on the tree
-carrier is checked separately from literal composable-word correspondence.
+This file has no statement placeholders. Equal-slot tree observation and literal composable-word correspondence
+are both checked, with binary timing kept explicitly separate.
 The direct selected-declaration NanoDa replay has its own manifest; the five
 earlier Comparator/NanoDa selections are checked separately in CI.
 -/
@@ -87,3 +102,195 @@ earlier Comparator/NanoDa selections are checked separately in CI.
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable
 #check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse
 #print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse
+
+#check ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family
+#print axioms ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace_toTrace
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace_toTrace
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.toFlatWord_ofTrace
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.toFlatWord_ofTrace
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.normalization
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.normalization
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.scopedEq_of_flatWord
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.scopedEq_of_flatWord
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.cancel_word
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.cancel_word
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.ofTrace_iff
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.ofTrace_iff
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.quotientEquiv
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.quotientEquiv
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.observableQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.sensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.sensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_family
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_family
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.inducing_totalCode
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.inducing_totalCode
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology_eq_induced_code
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology_eq_induced_code
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_of_flatWord
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_of_flatWord
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.observableQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.observableQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.sensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.sensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology_eq_tupleTopology
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology_eq_tupleTopology
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology_eq_coproductTopology
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology_eq_coproductTopology
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.tupleQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.tupleQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.coproductQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.coproductQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_wordQuotient
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_wordQuotient
+
+#check ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_traceSensitiveQuotient
+#print axioms ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_traceSensitiveQuotient
+
+#check ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_bindTuple
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_bindTuple
+
+#check ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_flatWordBind
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_flatWordBind
+
+#check ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_signedImage
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_signedImage
+
+#check ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_substitution
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_substitution
+
+#check ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.mapTrace_flatWord
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.mapTrace_flatWord
+
+#check ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_flat_sensitive
+#print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_flat_sensitive
+
+#check ComputationalPaths.Path.GeometricTopology.WordSubstitution.map_flat_homotopic
+#print axioms ComputationalPaths.Path.GeometricTopology.WordSubstitution.map_flat_homotopic
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.discreteFlatSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.discreteFlatSensitiveQuotientHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.mapRaw_equivalent
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.mapRaw_equivalent
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRaw
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRaw
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_globalQuotientMap
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_globalQuotientMap
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveGlobalHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveGlobalHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRawPair
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRawPair
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_left
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_left
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_right
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_right
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_finalPairMap
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_finalPairMap
+
+#check ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.flatWord_eq_of_observation
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.flatWord_eq_of_observation
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_words
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_words
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_traceQuotient
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_traceQuotient
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.signedPrimitive_injective
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.signedPrimitive_injective
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.flat_traceQuotient_discrete
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.flat_traceQuotient_discrete
+
+#check ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic
+#print axioms ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.complete
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.complete
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.continuous_sectionTrace
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.continuous_sectionTrace
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.observableHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.observableHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sensitive_discrete
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sensitive_discrete
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.inverse_not_continuous
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.inverse_not_continuous
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.not_homeomorphic
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.not_homeomorphic
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherentObservableHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherentObservableHomeomorph
+
+#check ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete
+#print axioms ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology
+
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation

@@ -725,3 +725,26 @@ to reproduce the build.  The proved `Solution.lean` declaration uses only
 hole appears in `FollowupChallenge.lean`.  Neither solution nor the substantive
 development contains a proof hole.  The same contract gate runs in
 GitHub Actions with the Lean toolchain pinned to an immutable action revision.
+
+### Literal-word correspondence and presentation invariance
+
+The equal-slot model now has a checked correspondence to literal composable
+words with an independently generated rewrite relation. Compatible finite
+product strata (including the empty basepoint stratum) give the actual
+coproduct topology. The correspondence holds at fixed endpoints, for global
+arrows, and for the final quotient of composable representatives.
+
+Variable-length substitutions derive continuity from continuous primitive
+word codes and induce flat trace-sensitive homeomorphisms when primitive
+roundtrips rewrite to the original primitives. The conservative abbreviation
+example satisfies this criterion while its observable comparison fails.
+`FlatObservableDiscreteness` proves the actual circle timing nonhomeomorphism.
+`CompleteDiscreteSeparation` checks the all-path discrete-label mechanism;
+nondiscreteness of the ordinary based quotient is an explicit hypothesis,
+and harmonic-archipelago geometry remains external.
+
+`ModelBoundaryVerification.lean` inspects all 99 selected declarations and
+their axiom closures. `model-boundary-replay.json` pins their independent
+export/NanoDa replay to Lean 4.32.0 and the actual source head. The five earlier
+Comparator selections retain their original scopes. No claim of binary/flat
+topological equivalence or completed geometric free-group example is made.

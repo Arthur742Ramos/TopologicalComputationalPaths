@@ -4,7 +4,11 @@
   "lean_githash": "8c9756b28d64dab099da31a4c09229a9e6a2ef35",
   "lean4export_commit": "4e7915201d3f9f04470d9eae002fa695f7cdc589",
   "nanoda_commit": "68d5ca9db226849b41a6fff59d796ff19d0a8840",
-  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
   "modules": [
     "ComputationalPaths.Path.Topology.ScopedWordInterpretation",
     "ComputationalPaths.Path.Topology.ContinuousWordInterpretation",
@@ -12,52 +16,449 @@
     "ComputationalPaths.Path.Topology.FlatEqualSlotRealization",
     "ComputationalPaths.Path.Topology.FlatObservableTopology",
     "ComputationalPaths.Path.Topology.CoherentRepresentativeElimination",
-    "ComputationalPaths.Path.Topology.BinaryTimingCollision"
+    "ComputationalPaths.Path.Topology.BinaryTimingCollision",
+    "ComputationalPaths.Path.Topology.FlatWordContinuity",
+    "ComputationalPaths.Path.Topology.LiteralWord",
+    "ComputationalPaths.Path.Topology.LiteralWordRewrite",
+    "ComputationalPaths.Path.Topology.LiteralWordQuotient",
+    "ComputationalPaths.Path.Topology.LiteralWordGlobal",
+    "ComputationalPaths.Path.Topology.LiteralWordPairs",
+    "ComputationalPaths.Path.Topology.LiteralWordStrata",
+    "ComputationalPaths.Path.Topology.LiteralWordTopologyBridge",
+    "ComputationalPaths.Path.Topology.LiteralWordDiscrete",
+    "ComputationalPaths.Path.Topology.FlatWordSubstitution",
+    "ComputationalPaths.Path.Topology.VariableFlatWordInterpretation",
+    "ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation",
+    "ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive",
+    "ComputationalPaths.Path.Topology.FlatObservableDiscreteness",
+    "ComputationalPaths.Path.Topology.CompleteDiscreteSeparation"
   ],
   "targets": [
-    {"name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph", "kind": "def"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0", "kind": "thm"},
-    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0", "kind": "thm"}
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace_toTrace",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.toFlatWord_ofTrace",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.normalization",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.scopedEq_of_flatWord",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.cancel_word",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.ofTrace_iff",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.quotientEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.sensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_family",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.inducing_totalCode",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology_eq_induced_code",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_of_flatWord",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.sensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology_eq_tupleTopology",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology_eq_coproductTopology",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.tupleQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.coproductQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_wordQuotient",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_traceSensitiveQuotient",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_bindTuple",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_flatWordBind",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_signedImage",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_substitution",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.mapTrace_flatWord",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_flat_sensitive",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.WordSubstitution.map_flat_homotopic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.discreteFlatSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.mapRaw_equivalent",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRaw",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_globalQuotientMap",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveGlobalHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRawPair",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_left",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_right",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_finalPairMap",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.flatWord_eq_of_observation",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_words",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_traceQuotient",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.signedPrimitive_injective",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.flat_traceQuotient_discrete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.complete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.continuous_sectionTrace",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.observableHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sensitive_discrete",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.inverse_not_continuous",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.not_homeomorphic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherentObservableHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete",
+      "kind": "thm"
+    }
   ],
   "supplemental_declarations": [
-    "Nat", "String", "String.mk", "Char", "Char.ofNat", "List",
-    "Quot", "Quot.mk", "Quot.lift", "Quot.ind",
-    "Nat.add", "Nat.sub", "Nat.mul", "Nat.pow", "Nat.gcd", "Nat.div", "Nat.mod",
-    "Nat.beq", "Nat.ble", "Nat.land", "Nat.lor", "Nat.xor", "Nat.shiftLeft", "Nat.shiftRight",
-    "String.ofList", "propext", "Classical.choice", "Quot.sound"
+    "Nat",
+    "String",
+    "String.mk",
+    "Char",
+    "Char.ofNat",
+    "List",
+    "Quot",
+    "Quot.mk",
+    "Quot.lift",
+    "Quot.ind",
+    "Nat.add",
+    "Nat.sub",
+    "Nat.mul",
+    "Nat.pow",
+    "Nat.gcd",
+    "Nat.div",
+    "Nat.mod",
+    "Nat.beq",
+    "Nat.ble",
+    "Nat.land",
+    "Nat.lor",
+    "Nat.xor",
+    "Nat.shiftLeft",
+    "Nat.shiftRight",
+    "String.ofList",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
   ]
 }

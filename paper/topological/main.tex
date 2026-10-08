@@ -89,7 +89,9 @@ Duplicate labels separate these topologies. Conservative abbreviations can
 erase observable distinctions. A complete discrete-label
 presentation over the harmonic archipelago shows that geometric completeness
 alone does not make them agree. Equal-slot and binary timing can also give
-nonhomeomorphic observable based quotients.
+nonhomeomorphic observable based quotients. Continuous primitive word substitutions that
+are inverse up to scoped rewriting preserve the flat full-word global
+quotients and their final composable-pair domains.
 
 The scoped quotient has continuous multiplication on the final quotient of
 composable representatives. We characterize agreement of this domain with
@@ -100,10 +102,11 @@ condition under local path-connectedness and semilocal simple connectivity.
 Normal forms prove completeness for finite circle and torus presentations,
 and primitive interchange supports a product construction.
 
-Lean checks selected results in the binary model. A separate equal-slot implementation proves
-exact slots, independence from parentheses, a homotopy bridge, and
-fixed-endpoint coherent elimination. Literal-word correspondence remains
-to be proved. A verification map records models, assumptions, and proof coverage.
+Lean retains selected results in the binary model and separately checks the
+equal-slot model. Structural normalization and continuous reconstruction on
+composable word strata identify its literal-word and tree quotients, including
+global arrows and final composable-pair domains. A verification map records
+the models, assumptions, and proof coverage.
 
 \end{abstract}
 
@@ -1335,11 +1338,17 @@ on $\pi_1^q(\mathbb H,x_0)$, again contradicting Fabel's theorem.
 \end{proof}
 
 Proposition~\ref{prop:hawaiian-earring} is stated for the observable quotient
-used in Theorem~\ref{thm:ordinary-final}.  The trace-sensitive refinement maps
-continuously to that quotient by
-Proposition~\ref{prop:trace-sensitive-refinement}.  That map does not reverse
-the comparison, and an ordinary-pair obstruction for the finer topology would
-need its own product-quotient argument.
+used in Theorem~\ref{thm:ordinary-final}. For this universal presentation,
+Corollary~\ref{cor:universal-topology-collapse} also applies on the based
+carrier: the one-letter path section is continuous for the trace-sensitive
+topology and recovers the same homotopy class. Its product with itself is a
+continuous section on based composable representatives. Repeating the
+product-quotient argument above with that section transfers the strict
+final/ordinary pair distinction and the discontinuity of ordinary
+multiplication to the trace-sensitive based quotient. The general refinement
+map alone would not establish that conclusion. The pair-section argument
+here is mathematical; the formal selection of the universal-collapse module
+checks the arrow comparison.
 
 The discontinuity result is Fabel's.  We use it to show that the two
 composable-pair topologies do differ, and that the failure sits at the inverse
@@ -1398,6 +1407,7 @@ word component of $\widetilde F$ is continuous on each coproduct stratum and
 the path component is the same postcomposition map, so the proof carries
 over.
 
+
 \subsection{Finite-word interpretations and a conservative abbreviation}
 \label{sec:word-interpretations}
 
@@ -1409,7 +1419,7 @@ Primitive roundtrip rewrites for $M,N$ then extend to every trace. This is
 the algebraic part of a presentation change. It does not by itself establish
 continuity when length and exact realization are observable.
 
-The next two propositions use endpoint-indexed \emph{tree} trace carriers
+The fixed-endpoint criterion and the observable counterexample use endpoint-indexed \emph{tree} trace carriers
 $\mathcal T_{\mathcal P}(a,b)$ and their fixed-endpoint scoped quotients
 $\mathcal Q_{\mathcal P}(a,b)$, with the stated trace topologies. Their Lean
 claims therefore do not assume the literal-word correspondence discussed in
@@ -1443,10 +1453,44 @@ in both directions, with their respective expansion lengths.
 The hypotheses concern the actual substitutions; no quotient homeomorphism
 is an input. The general criterion is quotient-topology infrastructure. The
 binary specialization derives continuity from primitive data, but its
-uniform-length and exact-timing conditions are restrictive. Variable-length
-flat or trace-sensitive substitutions and transport of final composable-pair
-domains still require separate continuity proofs. A homotopy witness alone
-does not supply these proofs.
+uniform-length and exact-timing conditions are restrictive. For the flat
+full-word topology, the following criterion instead permits variable-length
+substitutions, including empty words.
+
+\begin{theorem}[presentation invariance from primitive word codes]
+\label{thm:flat-word-invariance}
+Let $M,N$ be endpoint-preserving finite-trace substitutions between
+presentations over the same space $X$. Suppose they preserve named rules and
+their primitive roundtrips are scoped rewrites to the original primitives.
+Suppose also that the two maps sending a primitive to the full signed word
+of its substituted trace are continuous into the coproduct of finite word
+spaces. Then they induce homeomorphisms of the flat trace-sensitive scoped
+quotients at fixed endpoints, of global arrow quotients, and of the final
+composable-pair domains. The pair maps commute with the two arrow projections.
+For discrete primitive alphabets the continuity hypotheses hold automatically.
+\end{theorem}
+\begin{proof}
+On each finite input stratum, substitution concatenates finitely many output
+words. Continuity of the primitive word codes makes this operation continuous;
+the discrete length coordinate isolates each output-length stratum. Equal-slot
+execution is continuous on the compatible finite-product strata, including
+the empty stratum $X$. Thus the output full word, endpoints, and realized path
+are continuous functions of the input source and full word. Choosing that
+realized path as the coherent representative gives a continuous map of the
+global carriers. Restricting its product to matching endpoints gives the
+continuous map of actual composable representative subspaces.
+Induction extends the primitive roundtrip rewrites to arbitrary traces.
+Quotient descent therefore gives inverse continuous maps in all three cases.
+The pair projection equations already hold on representatives.
+\end{proof}
+
+The continuity conclusion is derived from primitive data; continuity of the
+whole substitution or a quotient homeomorphism is not assumed. These
+homeomorphisms preserve endpoints and scoped computation. Compatibility with
+the geometric homotopy comparison requires the additional condition that
+each substituted primitive realization is homotopic to the original path;
+\LeanName{WordSubstitution.map_flat_homotopic} verifies its extension to all
+traces. Neither statement identifies final and ordinary composable topologies.
 
 \begin{proposition}[a redundant generator erases an observable distinction]
 \label{prop:redundant-generator-observable}
@@ -1488,6 +1532,18 @@ obtain a topological-group topology on the fundamental
 group~\cite{Brazas13Tau}. Our final composable domain retains the declared
 arrow quotient topology. No priority claim is made for the abbreviation
 example or substitution criterion.
+
+Hardy and Morris characterize free topological groupoids by extension of
+continuous graph morphisms, with composition continuous on the ordinary
+composable subspace~\cite{HardyMorris77}. Our construction adds declared
+rewrites and exact geometric observations and initially gives composable
+classes a final topology. Identifying it with their universal construction
+would require a separate argument. Michael's biquotient maps include open
+surjections and are stable under products and restriction over codomain
+subspaces~\cite{Michael68}. They suggest a broader sufficient condition for
+ordinary/final agreement than the open-arrow criterion. That generalization
+is not proved here; product closure should not be confused with stronger
+characterizations that require additional hypotheses on the range.
 
 \section{Geometric comparison and complete presentations}
 \label{sec:comparison}
@@ -2384,10 +2440,25 @@ observation topologies using this exact flat realization, without retaining
 a binary realization coordinate. The coherent carrier can be reused:
 \LeanName{coherent_iff} proves that coherence with the binary and flat paths
 are equivalent propositions, and \LeanName{scoped_sound} transfers rewrite
-soundness. Identification with the manuscript's literal composable-word
-carrier still requires structural equivalence of trees with the same word
-and continuity on word strata. Neither that identification nor a binary/flat
-quotient homeomorphism is asserted by these declarations.
+soundness. The literal-word bridge now closes the two additional obligations.
+\LeanName{LiteralWord.Word.normalization} reconstructs each tree from its
+composable signed word using only units, associativity, and reversal laws.
+An independently generated word relation uses adjacent-letter cancellation
+and the flattened named rules; \LeanName{WordRwEq.ofTrace_iff} proves that it
+agrees with tree rewriting. Equality of geometric paths is never introduced
+as a rewrite rule.
+
+The literal finite strata have $W_0=X$ and the compatible positive signed
+tuples with their product-subspace topologies. Harmless Lean universe lifts
+are removed by explicit homeomorphisms. Canonical equal-slot reconstruction
+is continuous on every stratum. The coproduct topology is induced by
+$(s(p),p)$, where the second coordinate is the complete signed word: the
+source retains the basepoint of an empty word. The source coordinate is
+redundant on every positive stratum. The theorems
+\LeanName{Word.sensitiveTopology_eq_tupleTopology} and
+\LeanName{TotalWord.sensitiveTopology_eq_coproductTopology} then identify
+the full-word refinements with these genuine literal-word topologies.
+Neither result identifies a binary observable topology with a flat one.
 
 \begin{proposition}[binary timing can identify observable codes]
 \label{prop:binary-timing-collision}
@@ -2424,9 +2495,10 @@ the global quotient.
 The exact binary collision is implemented in \LeanName{BinaryTimingCollision},
 which proves failure of $T_0$ for both the fixed-base trace quotient and the
 global binary scoped quotient. Coherent-representative elimination transfers
-the fixed-base trace result to the matching coherent quotient. The fixed-base
-flat discreteness argument is mathematical; it is not currently a
-Lean-certified flat-model theorem.
+the fixed-base trace result to the matching coherent quotient. The actual
+circle winding computation, flat discreteness, and exclusion of every
+binary/flat observable homeomorphism are checked in
+\LeanName{FlatObservableDiscreteness.BinaryCircle}.
 
 \begin{proposition}[fixed-endpoint coherent-representative elimination]
 \label{prop:coherent-elimination}
@@ -2452,9 +2524,14 @@ refinement. Its general declaration accepts any trace topology for which
 the same binary realization is continuous. \LeanName{EqualSlotTopology}
 proves the matching result with the equal-slot canonical section, including
 the observable trace topology and its full-word refinement. These are
-separate fixed-endpoint homeomorphisms. They do not certify a global
-based-subspace comparison, a final composable-pair comparison, or agreement
-of the binary and flat quotient topologies.
+separate fixed-endpoint homeomorphisms. \LeanName{LiteralWord.TotalWord}
+extends matching equal-slot elimination and structural reconstruction to
+global arrows, and \LeanName{LiteralWord.WordPair} extends them to the quotient
+of the actual endpoint-matched representative subspace. Both the observable
+and full-word versions are checked; the full-word version is also identified
+with the genuine literal-word coproduct. These results do not identify the
+ordinary pullback topology, a based subspace inside a global quotient, or a
+binary observable topology with a flat one.
 
 \begin{table}[htbp]
 \centering\footnotesize
@@ -2482,7 +2559,7 @@ Homotopy bridge & \LeanName{flatRealize_homotopic_binary} &
 Any endpoint-indexed trace & Both\\
 Flat elimination & \LeanName{quotientHomeomorph} &
 Fixed endpoints; flat realization continuous for supplied trace topology & Flat tree\\
-Flat discreteness & Proposition~\ref{prop:binary-timing-collision} &
+Flat discreteness & \LeanName{BinaryCircle.flat_traceQuotient_discrete} &
 Circle paths with six distinct oriented realizations; fixed-base carrier & Flat\\
 \bottomrule
 \end{tabular}
@@ -2491,13 +2568,16 @@ Circle paths with six distinct oriented realizations; fixed-base carrier & Flat\
 \protect\LeanName{BinaryTimingCollision}, all under
 \protect\LeanName{ComputationalPaths.Path.GeometricTopology}.
 The next three are in \protect\LeanName{GeometricTrace}, and flat elimination
-is in \protect\LeanName{EqualSlotTopology}. The eight formal rows passed
+is in \protect\LeanName{EqualSlotTopology}. The flat-discreteness row is in
+\protect\LeanName{FlatObservableDiscreteness}. The earlier eight formal rows passed
 Lean~4.32.0 kernel checks at source commit
 \href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/404ac0103e48be805f14a0865c128bc2dbfdcac5}
 {\texttt{404ac01}}, with Mathlib commit \texttt{81a5d257}; only
 \protect\LeanName{propext}, \protect\LeanName{Classical.choice}, and
 \protect\LeanName{Quot.sound} occur in their axiom closures.
-Flat discreteness is not formalized. The manifest
+Flat discreteness and the nonhomeomorphism conclusion are now formalized in
+\protect\LeanName{FlatObservableDiscreteness.BinaryCircle}, using winding numbers
+of the six actual oriented primitive paths. The earlier manifest
 \protect\LeanName{model-boundary-replay.json} at commit \texttt{131e4bf}
 selected 19 actual declarations for direct NanoDa replay, accepted in
 \href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37726628135}
@@ -2528,8 +2608,111 @@ All these declarations passed the Lean~4.32.0 kernel at source commit
 axioms listed in Table~\ref{tab:model-boundary-verification}.
 The expanded direct-replay manifest selects 37 actual declarations;
 its hosted acceptance must be checked on the exact published head.
-No general variable-length flat or trace-sensitive invariance, global
-presentation equivalence, or final-pair transport theorem is included.
+That earlier 37-declaration milestone included no general variable-length
+flat invariance, global presentation equivalence, or final-pair transport.
+The current milestone adds those results under the primitive-word continuity
+hypotheses of Theorem~\ref{thm:flat-word-invariance}.
+
+
+The literal-word milestone adds the checked results in
+Table~\ref{tab:literal-word-verification}. All use Lean~4.32.0 with
+Mathlib~\texttt{81a5d257}; their axiom closures contain only
+\LeanName{propext}, \LeanName{Classical.choice}, and \LeanName{Quot.sound}.
+The source snapshot is
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/0346c8e8d87cfca2e41314ed7efa5fe67316acd9}
+{\texttt{0346c8e}}. The direct replay manifest selects the
+actual declarations; exact-head hosted acceptance is recorded with the
+published artifact, separately from local kernel checking.
+
+\begingroup\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.17\linewidth}
+                  >{\raggedright\arraybackslash}p{0.37\linewidth}
+                  >{\raggedright\arraybackslash}p{0.28\linewidth}
+                  >{\raggedright\arraybackslash}p{0.11\linewidth}}
+\caption{Literal-word verification map. Names are in
+\protect\LeanName{ComputationalPaths.Path.GeometricTopology.LiteralWord}.
+Every row has source commit \texttt{0346c8e}.}
+\label{tab:literal-word-verification}\\
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endfirsthead
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endhead
+Structural normalization & \LeanName{Word.normalization} &
+Any continuous scoped presentation; no named rule used & Both\\
+Same-word rewriting & \LeanName{Word.scopedEq_of_flatWord} &
+Parallel trees with equal signed words & Both\\
+Independent relation & \LeanName{WordRwEq.ofTrace_iff} &
+Adjacent-letter cancellation and flattened named rules & Literal/\newline tree\\
+Stratum execution & \LeanName{Strata.continuous_flatRealize_family} &
+Continuous primitive realization; genuinely composable tuples & Flat\\
+Initial coproduct code & \LeanName{Strata.totalWordTopology_eq_induced_code} &
+Empty basepoint retained; compatible finite tuple strata & Flat\\
+Variable-length family & \LeanName{Strata.continuous_flatRealize_of_flatWord} &
+Continuous endpoints and full signed word; typed compatibility & Flat\\
+Fixed tuple comparison & \LeanName{WordRwEq.tupleQuotientHomeomorph} &
+Matching full-word topology and scoped relation & Flat\\
+Global comparison & \LeanName{TotalWord.coproductQuotientHomeomorph} &
+Matching equal-slot coherent carrier and literal coproduct & Flat\\
+Final-pair comparison & \LeanName{WordPair.coproductQuotientHomeomorph} &
+Quotient of actual composable representative subspace & Flat\\
+Discrete full-word quotient & \LeanName{discrete_traceSensitiveQuotient} &
+Fixed endpoints and discrete labels; alphabet need not be finite & Flat\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\begingroup\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth}
+                  >{\raggedright\arraybackslash}p{0.39\linewidth}
+                  >{\raggedright\arraybackslash}p{0.29\linewidth}
+                  >{\raggedright\arraybackslash}p{0.09\linewidth}}
+\caption{Presentation invariance and separation verification map.
+Names are under \protect\LeanName{ComputationalPaths.Path.GeometricTopology}.
+Every row has source commit \texttt{0346c8e}.}
+\label{tab:invariance-separation-verification}\\
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endfirsthead
+\toprule Result & Exact declaration & Assumptions & Model\\
+\midrule
+\endhead
+Word substitution & \LeanName{FlatWordSubstitution.continuous_substitution} &
+Continuous primitive word codes; arbitrary finite output lengths & Flat\\
+Fixed invariance & \LeanName{ScopedWordInterpretation.flatSensitiveQuotientHomeomorph} &
+Rule preservation; primitive roundtrip rewrites; continuous word codes & Flat\\
+Global invariance & \LeanName{ScopedWordInterpretation.flatSensitiveGlobalHomeomorph} &
+Same hypotheses; common ambient space & Flat\\
+Final-pair invariance & \LeanName{ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph} &
+Same hypotheses; actual matching-endpoint representative subspace & Flat\\
+Projection compatibility & \LeanName{ScopedWordInterpretation.finalPairMap_left},
+\LeanName{ScopedWordInterpretation.finalPairMap_right} & No ordinary product-quotient hypothesis & Flat\\
+Abbreviation invariance & \LeanName{RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph},
+\LeanName{RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph} & Discrete old and new alphabets; the actual defining rule & Flat\\
+Timing nonhomeomorphism & \LeanName{FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic} &
+Actual three-label circle paths; fixed endpoints; no named rules & Both\\
+Complete presentation & \LeanName{CompleteDiscreteSeparation.complete} &
+All continuous paths as discrete labels; homotopy named rules & Both\\
+Ordinary quotient recovery & \LeanName{CompleteDiscreteSeparation.observableHomeomorph} &
+Any based topological space; compact-open path topology & Flat\\
+Complete separation & \LeanName{CompleteDiscreteSeparation.not_homeomorphic} &
+Ordinary based quotient explicitly assumed nondiscrete & Flat\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+The current direct-replay manifest selects 99 actual declarations (67 theorems
+and 32 definitions), extending the earlier 37-declaration selection. Its
+source and dependency closure are audited against the manifest before NanoDa
+replay. Only \LeanName{propext}, \LeanName{Classical.choice}, and
+\LeanName{Quot.sound} are permitted. The exact published-head Quality run
+checks these declarations separately from the five retained Comparator
+selections. The mathematical nonabelian graph example remains future work:
+the required geometric realization, covering charts, and simply connected
+tree have not been supplied by a reduced-word algebra calculation.
 
 Two Lean developments accompany the paper.  The parent artifact
 (Section~\ref{sec:parent-artifact}) uses Lean 4.24.0 and Mathlib 4.24.0 and covers the constructions
@@ -2577,9 +2760,19 @@ continuous, but its inverse is not. Thus the topological separation in
 Example~\ref{ex:quotient-topology-separation} is checked in Lean. The module
 \LeanName{TraceSensitiveUniversalCollapse} checks the continuous one-letter
 section and the homeomorphism between the two universal quotient topologies.
-Proposition~\ref{prop:complete-trace-separation}, which uses a discrete
-topology on the path-label space of the harmonic archipelago, is a
-mathematical counterexample and is not part of the Lean selection.
+The abstract mechanism of Proposition~\ref{prop:complete-trace-separation}
+is checked in \LeanName{CompleteDiscreteSeparation}. Its labels are all
+continuous interval paths, with a separate discrete label topology, and its
+named rules are exactly homotopies of parallel realized traces. The global
+geometric-completeness criterion is proved directly. For based loops at a fixed $x$,
+\LeanName{observableHomeomorph} identifies the flat observable quotient with
+the ordinary quotient fundamental group, while \LeanName{sensitive_discrete}
+proves discreteness of the full-word quotient for the possibly infinite
+alphabet. With nondiscreteness of the ordinary based quotient as an explicit
+hypothesis, \LeanName{not_homeomorphic} excludes every homeomorphism between
+the two topologies. Matching coherent-representative versions are checked too.
+The harmonic archipelago and Fabel's facts about its based quotient remain
+external mathematical inputs; no such facts are introduced as Lean axioms.
 
 \paragraph{Circle and torus examples.}
 The module \LeanName{FiniteCircleTorusPresentation} uses one circle generator
