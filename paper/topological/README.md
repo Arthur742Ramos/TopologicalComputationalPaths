@@ -21,10 +21,40 @@ mathematical harmonic-archipelago counterexample is outside the Lean
 selection. The external Palomar preflight and registration boundary is
 tracked in [`../../ROADMAP.md`](../../ROADMAP.md).
 
-The paper's current working-source Lean claims are reproducible from focused
+The manuscript uses equal-slot flat signed words. Existing Lean topology
+results use recursive binary `Path.trans`, and the trace-sensitive refinement
+retains that binary realization coordinate. Homotopy invariance of weighted
+concatenation does not identify these observable topologies. Section 10 now
+states this boundary explicitly. The binary results remain unchanged.
+
+The first model-boundary milestone is pinned at source commit
+[`9d9679908e09b1ed0c42e4898f11d797c6a979af`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/9d9679908e09b1ed0c42e4898f11d797c6a979af).
+`BinaryTimingCollision` proves an exact realization collision, distinct
+scoped classes, and failure of T0 for both fixed-base and global binary
+quotients. `CoherentRepresentativeElimination` proves fixed-endpoint
+quotient homeomorphisms for matching binary observable and full-word trace
+topologies. The general result needs continuity of realization and no
+completeness assumption. The flat discreteness argument in the manuscript
+remains mathematical exposition pending formalization. Global elimination
+and final composable-pair elimination are also pending.
+
+With the pinned dependencies available, run:
+
+```text
+lake build ComputationalPaths
+lake env lean ModelBoundaryVerification.lean
+```
+
+The axiom-inspection output is recorded in
+[`../../evidence/model-boundary-kernel.log`](../../evidence/model-boundary-kernel.log).
+It contains only `propext`, `Classical.choice`, and `Quot.sound` for the new
+declarations. Existing Comparator/NanoDa configurations select earlier
+results and do not replay these new declarations.
+
+The paper's earlier working-source Lean claims are reproducible from focused
 repository commit [`09b20abe0a4f69b361846c2466bff8528044fa93`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93)
-with the checked-in Lean 4.32.0 toolchain and dependency manifest. Subsequent
-edits here concern the manuscript and its submission package.
+with the checked-in Lean 4.32.0 toolchain and dependency manifest. The new
+model-boundary declarations are pinned separately above.
 From the repository root, run `lake build` to check every configured target.
 The prior Palomar version 1 is pinned separately in Section 10 of the paper.
 
