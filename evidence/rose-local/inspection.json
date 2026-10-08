@@ -1,0 +1,14 @@
+{
+  "lean_version": "4.32.0",
+  "lean_githash": "8c9756b28d64dab099da31a4c09229a9e6a2ef35",
+  "mathlib_commit": "81a5d257c8e410db227a6665ed08f64fea08e997",
+  "selected_declaration_count": 141,
+  "permitted_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "kernel_log_sha256": "ab8ab2f0ef29c1e64f88c30e199634d319afcb5782c9f6ecd419c29663b7196f",
+  "scope": "Seven new source modules checked serially with lean -j1 -M1536; combined ModelBoundaryVerification checks all 141 selected declarations. Hosted full build and NanoDa replay are separate.",
+  "hash_scope": "Git-normalized LF bytes of the tracked kernel inspection log"
+}
