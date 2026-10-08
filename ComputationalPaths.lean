@@ -64,3 +64,6 @@ import ComputationalPaths.Path.Topology.CayleyRoseCovering
 import ComputationalPaths.Path.Topology.RoseLiftedWords
 import ComputationalPaths.Path.Topology.RoseBasedTopology
 import ComputationalPaths.Path.Topology.CayleyReducedPrefix
+import ComputationalPaths.Path.Topology.CayleyFlatWalk
+import ComputationalPaths.Path.Topology.CayleyContraction
+import ComputationalPaths.Path.Topology.RoseFundamentalGroup

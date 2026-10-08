@@ -1,0 +1,23 @@
+{
+  "source_commit": "3fd21d0ab730b80efc26002084b52bd430a919d4",
+  "pdf_path": "paper/topological/verified/geometric-rose-all-loops.pdf",
+  "pdf_sha256": "e3da433ff781ea1d3dc80c15c147a3cf812e2052fd5806b319f8575b71045f4a",
+  "page_count": 51,
+  "compiler": "Tectonic 0.17.0",
+  "render_tool": "pdftoppm",
+  "all_pages_rendered_and_contact_sheet_inspected": true,
+  "detail_pages_inspected": [
+    35,
+    36,
+    42,
+    43
+  ],
+  "embedded_font_count": 39,
+  "unembedded_fonts": [],
+  "overfull_warnings": 0,
+  "undefined_references_or_citations": 0,
+  "remaining_warnings": "Underfull hbox; nonfatal Fontconfig default-config diagnostic (Tectonic exit0; all39 fonts embedded and all51 pages rendered)",
+  "input_hash_scope": "Git-normalized UTF-8 LF bytes",
+  "main_tex_sha256": "370d6e1b1178f60e977acda8cd48fa0bda58462c86e7087049bdbbc2fc8d0ba6",
+  "refs_bib_sha256": "65a9b07a4a67f1637f4e8709cfa74ccbc1aa82083e8d24f3dd3fd66ee382d92c"
+}
