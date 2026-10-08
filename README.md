@@ -66,6 +66,49 @@ homeomorphism in `UniversalSemilocallySimplyConnected.lean`.
 
 ## Roadmap verification
 
+### Realization models and new replay scope
+
+The existing topology development observes recursively parenthesized binary
+`Path.trans`. Its checked results remain intact. The manuscript uses equal-slot
+signed words, whose observable topology can differ: `BinaryTimingCollision`
+checks an exact three-letter timing collision and distinct scoped classes,
+including failure of `T0` for the binary based and global quotients.
+
+`FlatEqualSlotRealization.lean` implements equal-slot timing on endpoint-indexed
+trees. `flatRealize_slot` proves the exact closed-slot formula;
+`flatRealize_eq_of_flatWord` proves exact equality for equal signed words;
+`flatRealize_homotopic_binary` proves the homotopy bridge. These do not assert
+agreement of binary and flat observable topologies. `FlatObservableTopology.lean`
+defines separate observations without a binary coordinate and proves scoped
+soundness and fixed-endpoint coherent-representative elimination with the flat
+canonical section. Identification with a literal composable-word quotient,
+word-stratum continuity, and global/pair elimination remain pending.
+
+The source snapshot is [404ac01](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/404ac0103e48be805f14a0865c128bc2dbfdcac5),
+using Lean 4.32.0 and Mathlib `81a5d257`. The local kernel/axiom output is in
+[evidence/flat-model-kernel.log](evidence/flat-model-kernel.log). The new
+[selection manifest](model-boundary-replay.json) names 19 actual declarations
+(12 theorems and 7 definitions); direct replay exports their dependency closure
+and checks it with NanoDa. It has no synthetic Challenge statement. The export
+auditor verifies selected names/kinds, exact exporter/kernel metadata, safety,
+and the three standard permitted axioms before proof replay. Its 30 adversarial
+tests do not substitute for NanoDa acceptance.
+
+```sh
+python3 scripts/test_model_boundary_audit.py
+bash scripts/verify-model-boundary.sh
+```
+
+CI retains the selected export, its digest and coverage audit, replay log,
+configuration, and source SHA as an artifact. Consult the exact-head CI result
+before claiming hosted acceptance. The five existing Comparator/NanoDa
+configurations continue to check their previous theorem selections.
+
+The [compiled 42-page manuscript](paper/topological/verified/equal-slot-model-boundary.pdf)
+is committed for download outside the local workspace. Its SHA256 is
+`d127c29f385fbf02570d3a01b574172ba885cd6dae4411abeeb62ce4c31d8dc0`;
+[PDF validation](evidence/flat-model-pdf.txt) records rendering and scope checks.
+
 `comparator-roadmap.json` selects
 `TopologicalComputationalPathsRoadmap.roadmap_result`. Its 24 fields name the
 checked open-arrow, general universal, product, finite global-fiber,

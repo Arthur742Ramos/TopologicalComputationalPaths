@@ -100,11 +100,11 @@ Normal forms prove completeness for finite circle and torus presentations,
 and primitive interchange supports a product construction.
 
 Lean checks selected quotient, completeness, and separation results in the
-binary realization model, including the timing collision and fixed-endpoint
-elimination of coherent representatives. The manuscript uses equal-slot flat words and states the
-remaining correspondence boundary explicitly. Its verification map separates
-kernel-checked declarations, earlier Comparator/NanoDa selections, and
-mathematical arguments awaiting formalization.
+binary realization model. A separate equal-slot implementation proves the
+exact slot formula, independence from parentheses, a homotopy bridge, and
+fixed-endpoint elimination of coherent representatives. Literal-word
+correspondence remains to be proved. A verification map records the checked
+models, assumptions, declarations, and remaining mathematical arguments.
 
 \end{abstract}
 
@@ -2277,8 +2277,27 @@ theorems concern the binary model. They must not be read as certificates of
 the equal-slot observable topology without a separate comparison theorem.
 Endpoint-fixed homotopy of the two realizations is sufficient for semantic
 soundness, but does not establish such a topological comparison.
-The binary development and its verified results are retained while the
-equal-slot formalization is developed separately.
+The binary development and its verified results are retained. A separate
+implementation now defines \LeanName{GeometricTrace.flatRealize} on the same
+endpoint-indexed tree carrier. Each positive factor in a concatenation
+receives time proportional to its primitive length; zero-length factors are
+omitted. The theorem \LeanName{flatRealize_slot} proves, including slot
+boundaries and reversal, that letter $i$ occupies exactly
+$[i/n,(i+1)/n]$. The theorem \LeanName{flatRealize_eq_of_flatWord} proves
+equality of parametrized realizations for trees with the same signed word.
+Thus parentheses are invisible to this realization. The theorem
+\LeanName{flatRealize_homotopic_binary} supplies the endpoint-fixed homotopy
+bridge; it does not compare the two observable quotient topologies.
+
+\LeanName{EqualSlotTopology} defines separate fixed-endpoint and global
+observation topologies using this exact flat realization, without retaining
+a binary realization coordinate. The coherent carrier can be reused:
+\LeanName{coherent_iff} proves that coherence with the binary and flat paths
+are equivalent propositions, and \LeanName{scoped_sound} transfers rewrite
+soundness. Identification with the manuscript's literal composable-word
+carrier still requires structural equivalence of trees with the same word
+and continuity on word strata. Neither that identification nor a binary/flat
+quotient homeomorphism is asserted by these declarations.
 
 \begin{proposition}[binary timing can identify observable codes]
 \label{prop:binary-timing-collision}
@@ -2340,9 +2359,12 @@ model and each chosen trace topology.
 \LeanName{CoherentRepresentativeElimination} implements this result for
 fixed endpoints with the binary observable trace topology and its full-word
 refinement. Its general declaration accepts any trace topology for which
-the same binary realization is continuous. It does not certify a global
+the same binary realization is continuous. \LeanName{EqualSlotTopology}
+proves the matching result with the equal-slot canonical section, including
+the observable trace topology and its full-word refinement. These are
+separate fixed-endpoint homeomorphisms. They do not certify a global
 based-subspace comparison, a final composable-pair comparison, or agreement
-with the flat realization model.
+of the binary and flat quotient topologies.
 
 \begin{table}[htbp]
 \centering\footnotesize
@@ -2353,7 +2375,7 @@ with the flat realization model.
 \toprule
 Result & Exact local declaration & Assumptions & Model\\
 \midrule
-Coherent elimination & \LeanName{quotientHomeomorph} &
+Binary elimination & \LeanName{quotientHomeomorph} &
 Fixed endpoints; realization continuous for supplied trace topology;
 trace-only scoped relation & Binary\\
 Timing collision & \LeanName{realize_eq} &
@@ -2362,19 +2384,34 @@ Based failure of $T_0$ & \LeanName{fixed_not_t0} &
 Same three-label system; no named rewrite rules & Binary\\
 Global failure of $T_0$ & \LeanName{not_t0} &
 Same three-label system; no named rewrite rules & Binary\\
+Exact slot formula & \LeanName{flatRealize_slot} &
+Endpoint-indexed trace; index $i<n$ and $t\in I$ & Flat tree\\
+Word independence & \LeanName{flatRealize_eq_of_flatWord} &
+Fixed endpoints; equal signed words & Flat tree\\
+Homotopy bridge & \LeanName{flatRealize_homotopic_binary} &
+Any endpoint-indexed trace & Both\\
+Flat elimination & \LeanName{quotientHomeomorph} &
+Fixed endpoints; flat realization continuous for supplied trace topology & Flat tree\\
 Flat discreteness & Proposition~\ref{prop:binary-timing-collision} &
 Circle paths with six distinct oriented realizations; fixed-base carrier & Flat\\
 \bottomrule
 \end{tabular}
-\caption{First model-boundary milestone. The first row's declaration is in
+\caption{Model-boundary verification map. The first row is in
 \protect\LeanName{CoherentRepresentativeElimination}; the next three are in
 \protect\LeanName{BinaryTimingCollision}, all under
 \protect\LeanName{ComputationalPaths.Path.GeometricTopology}.
-The four binary rows passed Lean~4.32.0 kernel checks at source commit
-\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/9d9679908e09b1ed0c42e4898f11d797c6a979af}
-{\texttt{9d96799}}, with Mathlib commit \texttt{81a5d257}.
-The flat row is not formalized. The new declarations are outside the existing
-Comparator/NanoDa selections.}
+The next three are in \protect\LeanName{GeometricTrace}, and flat elimination
+is in \protect\LeanName{EqualSlotTopology}. The eight formal rows passed
+Lean~4.32.0 kernel checks at source commit
+\href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/404ac0103e48be805f14a0865c128bc2dbfdcac5}
+{\texttt{404ac01}}, with Mathlib commit \texttt{81a5d257}; only
+\protect\LeanName{propext}, \protect\LeanName{Classical.choice}, and
+\protect\LeanName{Quot.sound} occur in their axiom closures.
+Flat discreteness is not formalized. The manifest
+\protect\LeanName{model-boundary-replay.json} selects 19 actual declarations
+for a separate direct NanoDa replay; the five earlier Comparator selections
+retain their own scopes. Hosted replay evidence must be checked for the
+exact source revision.}
 \label{tab:model-boundary-verification}
 \end{table}
 

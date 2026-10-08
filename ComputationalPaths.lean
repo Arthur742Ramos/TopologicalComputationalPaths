@@ -23,6 +23,8 @@ import ComputationalPaths.Path.Topology.TraceSensitiveUniversalCollapse
 import ComputationalPaths.Path.Topology.TraceSensitiveSeparation
 import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
 import ComputationalPaths.Path.Topology.BinaryTimingCollision
+import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
+import ComputationalPaths.Path.Topology.FlatObservableTopology
 import ComputationalPaths.Path.Topology.ConcreteCircleWinding
 import ComputationalPaths.Path.Topology.ConcreteTorusWinding
 import ComputationalPaths.Path.Topology.ContinuousCompleteInvariant

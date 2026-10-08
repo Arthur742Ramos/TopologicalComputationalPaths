@@ -1,9 +1,13 @@
 import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
 import ComputationalPaths.Path.Topology.BinaryTimingCollision
+import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
+import ComputationalPaths.Path.Topology.FlatObservableTopology
 
 /-! Kernel and axiom inspection for the first model-boundary milestone.
-This file has no statement placeholders and makes no flat-topology claim.
-Comparator/NanoDa's existing selections are checked separately in CI.
+This file has no statement placeholders. Equal-slot observation on the tree
+carrier is checked separately from literal composable-word correspondence.
+The direct selected-declaration NanoDa replay has its own manifest; the five
+earlier Comparator/NanoDa selections are checked separately in CI.
 -/
 
 #check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
@@ -23,3 +27,23 @@ Comparator/NanoDa's existing selections are checked separately in CI.
 #print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
 #print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
 #print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
+
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
+#check ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
+
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord
+#print axioms ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk
