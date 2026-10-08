@@ -75,6 +75,31 @@ jobs:
       - name: Run pinned Comparator and NanoDa
         run: ./scripts/verify-comparator.sh "${{ matrix.config }}"
 
+  model-boundary-replay:
+    name: Selected model-boundary declarations and NanoDa
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: github.event_name != 'workflow_dispatch' || inputs.preflight_commit == ''
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+      - name: Test export coverage and axiom audit
+        run: python3 scripts/test_model_boundary_audit.py
+      - name: Replay selected actual declarations
+        run: bash scripts/verify-model-boundary.sh
+      - name: Retain selected replay evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: model-boundary-replay-${{ github.event.pull_request.head.sha || github.sha }}
+          path: .cache/model-boundary-replay/evidence/
+          include-hidden-files: true
+
   palomar-roadmap-preflight:
     name: Full Palomar mechanical preflight
     if: github.event_name == 'workflow_dispatch' && inputs.preflight_commit != ''

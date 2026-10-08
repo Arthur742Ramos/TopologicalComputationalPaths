@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "lean_version": "4.32.0",
+  "lean_githash": "8c9756b28d64dab099da31a4c09229a9e6a2ef35",
+  "lean4export_commit": "4e7915201d3f9f04470d9eae002fa695f7cdc589",
+  "nanoda_commit": "68d5ca9db226849b41a6fff59d796ff19d0a8840",
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "modules": [
+    "ComputationalPaths.Path.Topology.FlatEqualSlotRealization",
+    "ComputationalPaths.Path.Topology.FlatObservableTopology",
+    "ComputationalPaths.Path.Topology.CoherentRepresentativeElimination",
+    "ComputationalPaths.Path.Topology.BinaryTimingCollision"
+  ],
+  "targets": [
+    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph", "kind": "def"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0", "kind": "thm"},
+    {"name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0", "kind": "thm"}
+  ],
+  "supplemental_declarations": [
+    "Nat", "String", "String.mk", "Char", "Char.ofNat", "List",
+    "Quot", "Quot.mk", "Quot.lift", "Quot.ind",
+    "Nat.add", "Nat.sub", "Nat.mul", "Nat.pow", "Nat.gcd", "Nat.div", "Nat.mod",
+    "Nat.beq", "Nat.ble", "Nat.land", "Nat.lor", "Nat.xor", "Nat.shiftLeft", "Nat.shiftRight",
+    "String.ofList", "propext", "Classical.choice", "Quot.sound"
+  ]
+}
