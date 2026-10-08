@@ -1,0 +1,17 @@
+[
+  {
+    "file": "paper\\topological\\supplement.tex",
+    "before": "\\LeanName{mapTrace_realize}, and \\LeanName{continuous_binary}, and derived\n\\LeanName{ScopedWordInterpretation.quotientHomeomorph}",
+    "after": "\\LeanName{mapTrace_realize}, and \\LeanName{continuous_binary}.\nIt derived \\LeanName{ScopedWordInterpretation.quotientHomeomorph}"
+  },
+  {
+    "file": "paper\\topological\\supplement.tex",
+    "before": "The abstract mechanism of Proposition~\\ref{main-prop:complete-trace-separation}\nis checked in \\LeanName{CompleteDiscreteSeparation}.",
+    "after": "Proposition~\\ref{main-prop:complete-trace-separation} is checked in\n\\LeanName{CompleteDiscreteSeparation}."
+  },
+  {
+    "file": "paper/topological/supplement.tex",
+    "before": "\\LeanName{continuous_binary}.\nIt derived",
+    "after": "\\LeanName{continuous_binary}.\n\nIt derived"
+  }
+]

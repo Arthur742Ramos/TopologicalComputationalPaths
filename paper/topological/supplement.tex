@@ -510,7 +510,7 @@ The corresponding illustration is Figure~\ref{main-fig:winding} in the main pape
 \section{What the Lean developments check}
 \label{sec:formalization}
 
-\paragraph{Realization model boundary.}
+\paragraph{Current model boundary: 8 October 2026.}
 The manuscript's trace carrier in Section~\ref{main-sec:traces} uses flat signed
 words with equal-duration slots. The earlier Lean modules use parenthesized
 traces and recursively apply Mathlib's half-and-half
@@ -685,14 +685,16 @@ below.}
 \label{tab:model-boundary-verification}
 \end{table}
 
-The presentation-change milestone adds
+\paragraph{8 October 2026: first substitution selection.}
+The presentation-change milestone added
 \LeanName{ScopedWordInterpretation} and \LeanName{ContinuousWordInterpretation}.
-The former checks primitive finite-trace substitutions, named-rule-to-scoped
+The former checked primitive finite-trace substitutions, named-rule-to-scoped
 preservation, primitive roundtrip extension, and the algebraic
-\LeanName{quotientEquiv}. The latter checks
+\LeanName{quotientEquiv}. The latter checked
 \LeanName{WordSubstitution.mapTrace_length},
-\LeanName{mapTrace_realize}, and \LeanName{continuous_binary}, and derives
-\LeanName{ScopedWordInterpretation.quotientHomeomorph} for supplied trace
+\LeanName{mapTrace_realize}, and \LeanName{continuous_binary}.
+
+It derived \LeanName{ScopedWordInterpretation.quotientHomeomorph} for supplied trace
 topologies and \LeanName{binaryQuotientHomeomorph} under the primitive
 conditions of Proposition~\ref{main-prop:word-substitution-criterion}.
 \LeanName{RedundantGeneratorObservable.quotientEquiv} checks the conservative
@@ -704,15 +706,16 @@ All these declarations passed the Lean~4.32.0 kernel at source commit
 \href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/d604b75c2f689e57955302475275064167a4116d}
 {\texttt{d604b75}}, with the same pinned Mathlib and only the three standard
 axioms listed in Table~\ref{tab:model-boundary-verification}.
-The expanded direct-replay manifest selects 37 actual declarations;
-its hosted acceptance must be checked on the exact published head.
+The direct-replay manifest at that milestone selected 37 actual declarations.
+Its evidence applied to that exact published head.
 That earlier 37-declaration milestone included no general variable-length
 flat invariance, global presentation equivalence, or final-pair transport.
 The current milestone adds those results under the primitive-word continuity
 hypotheses of Theorem~\ref{main-thm:flat-word-invariance}.
 
 
-The literal-word milestone adds the checked results in
+\paragraph{8 October 2026: literal words and variable-length transport.}
+The literal-word milestone added the checked results in
 Table~\ref{tab:literal-word-verification}. All use Lean~4.32.0 with
 Mathlib~\texttt{81a5d257}; their axiom closures contain only
 \LeanName{propext}, \LeanName{Classical.choice}, and \LeanName{Quot.sound}.
@@ -802,6 +805,7 @@ Ordinary based quotient explicitly assumed nondiscrete & Flat\\
 \end{longtable}
 \endgroup
 
+\paragraph{8 October 2026: all-loop coverage.}
 The current direct-replay manifest selects 178 actual declarations (127 theorems
 and 51 definitions), extending the 141-declaration represented-rose selection. Its
 source and dependency closure are audited against the manifest before NanoDa
@@ -862,6 +866,20 @@ Actual reduced free-group words; no geometric assumptions & Algebraic\\
 \end{longtable}
 \endgroup
 
+Proposition~\ref{main-prop:complete-trace-separation} is checked in
+\LeanName{CompleteDiscreteSeparation}. Its labels are all
+continuous interval paths, with a separate discrete label topology, and its
+named rules are exactly homotopies of parallel realized traces. The global
+geometric-completeness criterion is proved directly. For based loops at a fixed $x$,
+\LeanName{observableHomeomorph} identifies the flat observable quotient with
+the ordinary quotient fundamental group, while \LeanName{sensitive_discrete}
+proves discreteness of the full-word quotient for the possibly infinite
+alphabet. With nondiscreteness of the ordinary based quotient as an explicit
+hypothesis, \LeanName{not_homeomorphic} excludes every homeomorphism between
+the two topologies. Matching coherent-representative versions are checked too.
+The harmonic archipelago and Fabel's facts about its based quotient remain
+external mathematical inputs; no such facts are introduced as Lean axioms.
+
 Two Lean developments accompany the paper.  The parent artifact
 (Section~\ref{sec:parent-artifact}) uses Lean 4.24.0 and Mathlib 4.24.0 and covers the constructions
 listed in Table~\ref{tab:declarations}.  A smaller extraction, built with
@@ -909,7 +927,7 @@ explicit opposite multiplication & Flat; algebraic quotient\\
 \end{longtable}
 \endgroup
 
-\subsection{The parent artifact}
+\subsection{2026 parent archive: Lean 4.24.0}
 \label{sec:parent-artifact}
 
 \paragraph{Traces, soundness, and quotient operations.}
@@ -947,20 +965,6 @@ continuous, but its inverse is not. Thus the topological separation in
 Example~\ref{main-ex:quotient-topology-separation} is checked in Lean. The module
 \LeanName{TraceSensitiveUniversalCollapse} checks the continuous one-letter
 section and the homeomorphism between the two universal quotient topologies.
-The abstract mechanism of Proposition~\ref{main-prop:complete-trace-separation}
-is checked in \LeanName{CompleteDiscreteSeparation}. Its labels are all
-continuous interval paths, with a separate discrete label topology, and its
-named rules are exactly homotopies of parallel realized traces. The global
-geometric-completeness criterion is proved directly. For based loops at a fixed $x$,
-\LeanName{observableHomeomorph} identifies the flat observable quotient with
-the ordinary quotient fundamental group, while \LeanName{sensitive_discrete}
-proves discreteness of the full-word quotient for the possibly infinite
-alphabet. With nondiscreteness of the ordinary based quotient as an explicit
-hypothesis, \LeanName{not_homeomorphic} excludes every homeomorphism between
-the two topologies. Matching coherent-representative versions are checked too.
-The harmonic archipelago and Fabel's facts about its based quotient remain
-external mathematical inputs; no such facts are introduced as Lean axioms.
-
 \paragraph{Circle and torus examples.}
 The module \LeanName{FiniteCircleTorusPresentation} uses one circle generator
 and two torus generators.  It checks integer and integer-pair codes for
@@ -1010,7 +1014,7 @@ choice, and quotient soundness.  The development complements earlier work on
 computational paths and the Lean theorem prover
 \cite{deMoura2021,RamosEtAl2025LeanPreprint,RamosEtAl2025OmegaPreprint}.
 
-\subsection{The registered result}
+\subsection{29 August 2026: registered version 1}
 \label{sec:palomar}
 The extraction
 \href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths}
@@ -1082,21 +1086,22 @@ hypotheses there, and the extraction does not reprove them.  In the
 mathematical account, Proposition~\ref{main-prop:hawaiian-earring} takes them
 from Fabel's published result \cite{Fabel11}.
 
-The current working source after that immutable version equips the Hawaiian
+\paragraph{24 September 2026: working-source extensions.}
+The later working-source milestone equipped the Hawaiian
 observable based carrier with the topology induced by its full observable
-code.  The revised one-letter section and geometric projection are
-continuous, and the based quotient remains homeomorphic to the usual loop
-quotient.  It also weakens the discrete sufficient condition in the selected
-certificate to discreteness of the arrow space alone, and checks continuity
-of both projections from the final composable domain.  The present Lean
-source also checks the general open-arrow criterion and
+code.  The revised one-letter section and geometric projection were checked
+continuous, with the based quotient homeomorphic to the usual loop quotient.
+That milestone also weakened the discrete sufficient condition in the
+selected certificate to discreteness of the arrow space alone, and checked
+continuity of both projections from the final composable domain. It checked
+the general open-arrow criterion and
 Proposition~\ref{main-prop:universal-path-projection}: the path-class projection
 is quotient, and its openness implies ordinary multiplication for the
-universal presentation. A direct Lean proof now supplies openness under
+universal presentation. A direct Lean proof supplied openness under
 the hypotheses of Theorem~\ref{main-thm:universal-open-groupoid}. The theorem
 itself remains credited to Holkar, Hossain, and Kulkarni.
 
-On fixed endpoint quotients, Lean now identifies the universal based fiber
+On fixed endpoint quotients, Lean identified the universal based fiber
 with the ordinary based-loop quotient.  It proves discreteness, a quotient
 pair map, and continuous ordinary multiplication under the semilocal
 hypothesis. It also identifies based paths with the endpoint-defined
@@ -1124,7 +1129,7 @@ its fixed endpoint quotient is homeomorphic to $\mathbb Z$, and a continuous
 winding-based trace choice identifies its trace-sensitive and observable
 quotient topologies.  This integer-indexed certificate is distinct from the
 finite-generator circle presentation in Section~\ref{main-sec:circle-torus}.
-The current source also checks the general trace-section criterion, the
+That working source also checked the general trace-section criterion, the
 universal trace collapse, a finite separation model, and the realized
 fundamental-groupoid arrow comparison.  For products it defines the
 horizontal and vertical continuous step system, checks geometric soundness
@@ -1144,7 +1149,7 @@ map on each global scoped quotient, and finite based completeness makes its
 restriction to the actual based-arrow subspace injective. The resulting
 subspaces are homeomorphic to $\mathbb Z$ and $\mathbb Z^2$, respectively,
 and thus to the ordinary geometric loop quotients.
-The Lean source for these working results is available at
+The immutable source for that milestone is
 \href{https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93}
 {\LeanName{TopologicalComputationalPaths} commit \texttt{09b20abe0a4f69b361846c2466bff8528044fa93}}.
 With the repository's Lean~4.32.0 toolchain and checked-in Mathlib manifest,
@@ -1152,20 +1157,20 @@ With the repository's Lean~4.32.0 toolchain and checked-in Mathlib manifest,
 manuscript source, bibliography, and figures are in
 \LeanName{paper/topological} and \LeanName{paper/refs.bib}; the manuscript is
 not itself a theorem selected by Comparator.
-None of these working-source additions has been registered as a new Palomar
+Those working-source additions had not been registered as a new Palomar
 version. The internal \LeanName{comparator-roadmap.json} bundle selects a
 24-field certificate containing the checked semilocal and totally disconnected
 universal cases, product results, finite global fibers, and trace-topology
 comparisons. Its Challenge imports the
 substantive development, and its Solution assembles the proved declarations.
-Comparator, NanoDa, and Lean's kernel replayed this bundle in CI. Palomar's
-current Challenge provenance rule excludes local imports, so the bundle is
-not a candidate for registration. A separate Mathlib-only Challenge in
+Comparator, NanoDa, and Lean's kernel replayed this bundle in CI. The Challenge
+provenance rule at that milestone excluded local imports, so the bundle was
+not a registration candidate. A separate Mathlib-only Challenge in
 \LeanName{comparator-registry-roadmap.json} selects the open-arrow
 ordinary-pair quotient, continuity transfer for multiplication, and the
-ordinary geometric circle and torus loop-quotient homeomorphisms. These four
-statements have not undergone Palomar's mechanical preflight or external
-review. The finite scoped global-fiber results remain outside that selection.
+ordinary geometric circle and torus loop-quotient homeomorphisms. At that milestone, these four
+statements had not undergone Palomar's mechanical preflight or external
+review. The finite scoped global-fiber results were outside that selection.
 
 To reproduce the registered version~1 result, check out its pinned commit and run
 \texttt{lake build}.  The selection file \LeanName{comparator.json} pairs

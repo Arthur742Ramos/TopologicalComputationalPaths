@@ -135,16 +135,32 @@ Rural de Pernambuco, Brazil; \texttt{tiago.veras@ufrpe.br}\\[2pt]
 
 \section{Introduction}
 \label{sec:introduction}
-A computational presentation records more than geometric homotopy classes.
-Its labels, declared rewrites, and parametrized realizations can retain
-distinctions that geometry forgets. We ask which distinctions survive a
-quotient topology, and which changes of presentation preserve that topology.
+Computational paths describe an equality witness by a finite sequence of
+rewrites and substitutions. Primitive labels record the steps of a derivation;
+reversal and composition build new witnesses from existing ones. The
+computational-path account of propositional equality studies these labelled
+witnesses and reductions expressing their groupoid laws
+\cite{RamosDeQueirozDeOliveira2016propositional}. Its identity-type account
+relates computational paths to identity-type terms and the groupoid structure
+induced by their operations \cite{Ramos2017identity}.
+
+This syntax motivates the distinction between declared rewrites and geometric
+homotopies. A presentation specifies which primitive steps are available and
+which parallel traces its rules identify. Its scoped quotient retains
+distinctions between equality witnesses that those rules do not erase, even
+when their geometric realizations are homotopic. A coherent geometric
+representative is additional path data; the existence of an endpoint-fixed
+homotopy is a proof-irrelevant condition, and the carrier does not store a
+chosen homotopy.
+
+We give this scoped geometric fragment a topological semantics using continuous
+interval paths. Soundness sends scoped rewrites to homotopies; the converse
+requires geometric completeness. We study which computational distinctions survive
+quotienting and when changes of presentation preserve the topology. It assumes no identification of
+type-theoretic identity proofs with topological paths.
 
 Traces are composable signed words, realized with equal time for each letter;
-an empty word retains its basepoint. A coherent representative pairs a trace
-with an endpoint-fixed homotopic path. Scoped rewriting uses the structural
-groupoid laws and declared rules, so geometric homotopy implies scoped
-equality only under a separate completeness theorem.
+an empty word retains its basepoint.
 The observable topology retains endpoints, length, exact realization and
 coherent path; the trace-sensitive topology also retains the signed word.
 Duplicate labels, conservative generator abbreviations, and a complete

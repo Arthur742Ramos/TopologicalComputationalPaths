@@ -1,750 +1,139 @@
 # Topological Computational Paths
 
-This repository is the focused development home for the topological-semantics
-part of the Calculus of Computational Paths.  It is being extracted from the
-broader [ComputationalPathsLean](https://github.com/Arthur742Ramos/ComputationalPathsLean)
-development so that the mathematical claim, dependencies, and publication
-artifact have a small and auditable boundary.
+This repository develops topological semantics for the Calculus of
+Computational Paths. A presentation gives primitive equality witnesses,
+declared rewrites and continuous geometric realizations. The scoped quotient
+retains the computational distinctions left by those rules. We study which
+quotient topologies preserve them, and when changes of presentation preserve
+the resulting semantics.
 
-## Roadmap
+## Paper and verified artifacts
 
-[ROADMAP.md](ROADMAP.md) lists results that would strengthen the
-topological semantics paper (arXiv:2608.04228), with the Lean work each
-one needs and the existing modules it can build on.
+- [Main paper](paper/topological/verified/main-35-pages.pdf), 35 pages with eleven
+  explanatory figures; [LaTeX source](paper/topological/main.tex).
+- [Technical supplement](paper/topological/verified/technical-supplement.pdf),
+  18 pages; [source](paper/topological/supplement.tex). It contains longer
+  calculations and declaration/assumption/model/commit verification maps.
+- [Manuscript overview and compilation commands](paper/topological/README.md).
+- [Preserved full manuscript](paper/topological/full-manuscript.tex) and
+  [51-page archival PDF](paper/topological/verified/geometric-rose-all-loops.pdf).
 
-The revised manuscript source from `ComputationalPathsLean` commit
-`b6f47117` is mirrored at [paper/topological/main.tex](paper/topological/main.tex).
-It now contains an open-quotient compatibility theorem, a positive universal
-example with explicit credit to prior work, and a criterion for when the
-trace-sensitive and observable quotient topologies agree. It also proves
-closure of based completeness under product presentations. A complete
-discrete-label presentation over the harmonic archipelago shows that
-geometric completeness alone does not force those quotient topologies to
-agree; this counterexample is proved in the manuscript and is outside the
-Lean selection. The progress table
-in the roadmap distinguishes these mathematical results from the Lean proofs
-and the immutable registered result.
-The general open-arrow compatibility criterion is checked in
-`ScopedGeometricRewriteGroupoid.lean`. `UniversalQuotientTransfer.lean`
-checks that the universal compact-open path projection is quotient and that
-its openness gives continuous ordinary multiplication.
-`UniversalSemilocallySimplyConnected.lean` now proves that openness directly
-under local path-connectedness and semilocal simple connectivity. The paper
-credits the earlier published theorem and explains the checked proof.
-`UniversalBasedFiber.lean` checks the fixed-endpoint quotient and its
-discrete positive case. `UniversalGlobalBasedFiber.lean` compares based paths
-with the compact-open subspace and, when the global projection is open,
-identifies the global based-arrow subspace with the ordinary loop quotient
-and proves its discreteness under the semilocal hypothesis. The trace-sensitive
-carrier, general section criterion, universal collapse, and duplicate-circle
-example with non-homeomorphic scoped quotient topologies are checked. The
-integer-indexed circle and the exact finite-generator circle and torus
-presentations have checked based normal forms; the finite based scoped
-quotients are homeomorphic to discrete `ℤ` and `ℤ × ℤ`, and their two trace
-topologies agree. `FiniteCircleGlobalBasedFiber.lean` and
-`FiniteTorusGlobalBasedFiber.lean` also identify the actual based subspaces
-of the global scoped arrow quotients with these discrete winding groups and
-with the ordinary geometric loop quotients.
-`ProductGeometricStepSystem.lean` defines
-the continuous horizontal/vertical step system and proves interchange sound.
-`ProductScopedPresentation.lean` and `ProductScopedSorting.lean` check lifted
-rules, trace sorting, and based completeness for a presentation that names
-whole-trace interchange. `ProductPrimitiveInterchange.lean` derives that
-rule from primitive rectangles, proves that the two scoped rewrite
-relations agree, and transfers based completeness to the primitive-only
-presentation.
-`UniversalTotallyDisconnected.lean` proves that the global universal
-path-class projection is a homeomorphism for every totally disconnected
-space, giving unconditional ordinary composition continuity in this class.
-`EndpointVaryingLadder.lean` now proves the local endpoint-varying ladder
-under local path-connectedness and semilocal simple connectivity. The
-`EndpointAbsorption.lean` squeeze and connector lemmas place a representative
-of each short-endpoint concatenation inside a given compact-open set.
-Together they prove openness of the global path-class projection, ordinary
-pair compatibility, continuous composition, and the global based-fiber
-homeomorphism in `UniversalSemilocallySimplyConnected.lean`.
+The 35-page count is the working manuscript target, including references and
+visible review-copy alt text. IGPL asks for about 30 printed pages; the current
+amsart count is not a verified journal production count. See the
+[official-guidance record](evidence/paper35/igpl-guidance.md).
 
-## Roadmap verification
+## Proved results and scope
 
-### Realization models and new replay scope
+| Result | Checked construction and boundary |
+| --- | --- |
+| Equal-slot realization | Each primitive occupies its prescribed equal slot. Equal signed words give equal parametrized flat realizations. Binary `Path.trans` is a separate model; homotopy does not identify its observable topology with the flat one. |
+| Literal-word correspondence | An independent adjacent-cancellation/named-rule relation corresponds to tree rewriting. Compatible finite tuple strata retain the empty word's basepoint. Fixed-endpoint, global-arrow and final-composable-pair quotient comparisons are checked. |
+| Coherent-representative elimination | The extra geometric representative can be eliminated homeomorphically in matching models, with fixed/global/final-pair comparisons. |
+| Presentation invariance | Variable-length primitive word codes, named-rule preservation and scoped primitive roundtrips yield flat full-word quotient homeomorphisms at fixed endpoints, globally and on final composable-pair domains. Geometric compatibility has its explicit primitive homotopy hypothesis. |
+| Timing dependence | A three-label circle has a non-T0 binary observable based quotient and a discrete flat one, excluding any homeomorphism between them. |
+| Conservative abbreviation failure | Adding a generator defined by a word preserves the algebraic presentation. The canonical observable inverse is discontinuous; the flat full-word comparison is a homeomorphism under its proved conditions. This does not exclude every unrelated bijection. |
+| Complete discrete-label separation | The all-path presentation is geometrically complete. Its flat observable based quotient recovers the ordinary loop quotient, while the full-word quotient is discrete. Nonhomeomorphism assumes the ordinary quotient is nondiscrete; harmonic-archipelago geometry remains external. |
+| Composition topology | The generic certificates use the earlier binary package. Composition is continuous on the final quotient of explicitly composable representatives. Four equivalent conditions characterize agreement with the ordinary pair topology and imply ordinary continuity. Ordinary continuity alone is not asserted to force that agreement. An open arrow quotient is sufficient. |
+| Universal positive case | In the earlier binary universal package, local path-connectedness and semilocal simple connectivity give openness of the path-class projection, ordinary-pair compatibility and continuous composition. The published open-map theorem is credited to Holkar, Hossain and Kulkarni. |
+| Finite circle, torus and products | Exact scoped normal forms give circle/torus completeness. Named winding homeomorphisms and based-subspace comparisons use the earlier binary quotient package; primitive-interchange product completeness is checked. |
+| Geometric nonabelian rose | An actual two-circle rose, interval-glued Cayley covering and jointly continuous contraction classify all continuous based loops by reduced words. Computational fixed-endpoint quotients are discrete. The ordinary fundamental-group identification is algebraic, with Mathlib's multiplication reversal handled through the opposite group and inversion. |
 
-The existing topology development observes recursively parenthesized binary
-`Path.trans`. Its checked results remain intact. The manuscript uses equal-slot
-signed words, whose observable topology can differ: `BinaryTimingCollision`
-checks an exact three-letter timing collision and distinct scoped classes,
-including failure of `T0` for the binary based and global quotients.
+The ordinary quotient-topological fundamental group of the rose has no checked
+homeomorphism to discrete F2 in this development. A flat operations package
+parallel to the older binary generic groupoid interface is also further work.
+These are extensions of the stated results; the
+[optional-extension assessment](evidence/review-cleanup/optional-extensions.md)
+gives their proof steps, costs and completion criteria. The Hawaiian-earring failures of
+product quotientness and ordinary multiplication remain explicit external
+hypotheses in their checked transfer.
 
-`FlatEqualSlotRealization.lean` implements equal-slot timing on endpoint-indexed
-trees. `flatRealize_slot` proves the exact closed-slot formula;
-`flatRealize_eq_of_flatWord` proves exact equality for equal signed words;
-`flatRealize_homotopic_binary` proves the homotopy bridge. These do not assert
-agreement of binary and flat observable topologies. `FlatObservableTopology.lean`
-defines separate observations without a binary coordinate and proves scoped
-soundness and fixed-endpoint coherent-representative elimination with the flat
-canonical section. Identification with a literal composable-word quotient,
-word-stratum continuity, and global/pair elimination remain pending.
+Principal modules are under [ComputationalPaths/Path/Topology](ComputationalPaths/Path/Topology).
+The supplement provides exact declaration maps instead of treating the paper
+as a single formalized theorem. The separate
+[Smith/preimage research prototype](PREIMAGE-RESEARCH-NOTE.md)
+and [follow-up certificate](FOLLOWUP.md) retain their own scope.
 
-The source snapshot is [404ac01](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/404ac0103e48be805f14a0865c128bc2dbfdcac5),
-using Lean 4.32.0 and Mathlib `81a5d257`. The local kernel/axiom output is in
-[evidence/flat-model-kernel.log](evidence/flat-model-kernel.log). The new
-[selection manifest](model-boundary-replay.json) initially named 19 actual declarations
-(12 theorems and 7 definitions); direct replay exports their dependency closure
-and checks it with NanoDa. It has no synthetic Challenge statement. The export
-auditor verifies selected names/kinds, exact exporter/kernel metadata, safety,
-and the three standard permitted axioms before proof replay. Its 30 adversarial
-tests do not substitute for NanoDa acceptance. All exact-head checks for
-`131e4bf714f1693dc1353bc6164687c1d8b2f1e2` passed in
-[Quality run 37726628135](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37726628135).
-The direct replay checked 11,849 declarations with no typechecker errors;
-[retained evidence](evidence/flat-model-hosted-131e4bf/README.txt) preserves its
-export digest, coverage audit, three standard axioms, and a pretty-printer
-diagnostic about displaying axioms.
+## Current verification
+
+The integrated source at
+[`1922376`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/1922376592442324448b474de068db6a09af18f8) passed
+[all seven required CI jobs](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37777395615):
+the Lean build and contract checks, five retained Comparator/NanoDa
+configurations, and the direct model-boundary replay. The latter selects
+**178 declarations: 127 theorems and 51 definitions** in
+[model-boundary-replay.json](model-boundary-replay.json). Pinned NanoDa checked
+the **20,013-declaration dependency closure** with zero typechecker errors.
+Only `propext`, `Classical.choice` and `Quot.sound` occur as axioms.
+NanoDa also emits a nonfatal axiom pretty-printer diagnostic.
+
+Lean is pinned to **4.32.0**, kernel commit
+`8c9756b28d64dab099da31a4c09229a9e6a2ef35`; Mathlib is pinned to
+`81a5d257c8e410db227a6665ed08f64fea08e997` in
+[lake-manifest.json](lake-manifest.json). CI retains the exact source SHA,
+selection, export digest, coverage/axiom audit and NanoDa log. Hosted proof
+checking covers those declarations and their closure; it is not a proof of the
+manuscript's prose or an endorsement of novelty.
+
+## Reproduce
+
+With the pinned Lean toolchain and dependencies, from the repository root:
 
 ```sh
+lake build
+lake env lean ModelBoundaryVerification.lean
+bash scripts/check-palomar.sh --skip-build
+bash scripts/check-followup.sh --skip-build
+bash scripts/check-roadmap.sh --skip-build
 python3 scripts/test_model_boundary_audit.py
 bash scripts/verify-model-boundary.sh
 ```
 
-CI retains the selected export, its digest and coverage audit, replay log,
-configuration, and source SHA as an artifact. Consult the exact-head CI result
-before claiming hosted acceptance. The five existing Comparator/NanoDa
-configurations continue to check their previous theorem selections.
+The direct replay requires Python, Cargo, Git and Lake; it fetches the pinned
+exporter and NanoDa revisions into ignored `.cache/` and checks the toolchain.
+For each retained Comparator selection, also install Go and run:
 
-The [compiled 42-page manuscript](paper/topological/verified/equal-slot-model-boundary.pdf)
-is committed for download outside the local workspace. Its SHA256 is
-`d127c29f385fbf02570d3a01b574172ba885cd6dae4411abeeb62ce4c31d8dc0`;
-[PDF validation](evidence/flat-model-pdf.txt) records rendering and scope checks.
-
-### Word interpretation and a conservative abbreviation
-
-`ScopedWordInterpretation.lean` interprets primitives as finite endpoint-typed
-traces. Preservation of named-rule images implies preservation of all scoped
-rewrites; primitive roundtrip witnesses yield an algebraic fixed-endpoint
-quotient equivalence. `ContinuousWordInterpretation.lean` descends continuity
-of the actual recursive substitutions and derives a quotient homeomorphism.
-For the binary observable topology it derives carrier continuity from uniform
-primitive expansion lengths and exact binary realization compatibility. These
-are restrictive sufficient conditions, not a general presentation-invariance
-claim for variable-length flat or trace-sensitive substitutions.
-
-`RedundantGeneratorObservable.lean` checks a concrete failure in the flat-tree
-observable topology: start with `e,f` realizing `α,α.trans α`, add an abbreviation
-`a` with the defining rule `a ≃ e;e`, and eliminate it by substitution. The
-algebraic equivalence follows from primitive roundtrip rewrites. Old length
-parity is continuous, but new distinct classes `a,f` are inseparable; the
-canonical equivalence's inverse is discontinuous. This works for any based
-path, including a constant path, and assumes no geometric completeness. It
-does not assert nonhomeomorphism under every possible unrelated bijection.
-
-The source snapshot is [d604b75](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/d604b75c2f689e57955302475275064167a4116d).
-[Kernel/axiom evidence](evidence/presentation-change-kernel.log) records the
-standard-axiom boundary. The expanded replay manifest selects 37 declarations
-(26 theorems and 11 definitions); hosted acceptance for this extension must be
-checked on its own published head. Variable-length flat/full-word continuity,
-literal-word quotient correspondence, global carriers, and composable-pair
-transport remain pending. No novelty or priority claim is made.
-
-The [updated 44-page manuscript](paper/topological/verified/presentation-change-model-boundary.pdf)
-contains the substitution criterion and abbreviation failure with their exact
-model and verification boundaries. SHA256:
-`596a34f6ba1ab2207e1c399d879a0e188358d73e3706505a156c7271d50e2685`.
-[Rendering evidence](evidence/presentation-change-pdf.txt) records all-page
-visual inspection and final source/bibliography digests.
-
-`comparator-roadmap.json` selects
-`TopologicalComputationalPathsRoadmap.roadmap_result`. Its 24 fields name the
-checked open-arrow, general universal, product, finite global-fiber,
-and trace-topology results. `RoadmapChallenge.lean` imports the substantive
-development, and `RoadmapSolution.lean` assembles its proved declarations;
-the selection is an explicit aggregation of those proofs. CI has replayed this
-bundle with Comparator, NanoDa, and Lean's kernel. It is an internal check:
-Palomar's current provenance rule does not allow a Challenge to import this
-local development.
-
-`comparator-registry-roadmap.json` selects four standalone theorems: an open
-quotient on arrows induces a quotient on ordinary composable pairs,
-continuity of raw composition descends to ordinary composition, and the
-ordinary circle and torus based-loop quotients are homeomorphic to discrete
-`ℤ` and `ℤ × ℤ`. `RoadmapRegistryChallenge.lean` imports only Mathlib;
-`RoadmapRegistrySolution.lean` proves all four statements. The corresponding
-`palomar-roadmap/formalization.yaml` records this narrower scope for a
-possible new Palomar record. Its different Comparator path prevents it from
-becoming version 2 of the existing ID under Palomar's current policy. No new
-record is registered. The direct Lean proof of global universal path-class
-openness is now in `UniversalSemilocallySimplyConnected.lean` and the internal
-bundle records it alongside the earlier conditional statement.
-
-## Certified preimage solver (new research prototype)
-
-The new `comparator-preimage.json` selects a focused executable witness-and-
-obstruction interface for arbitrary rectangular integer torus maps. It proves
-certificate existence, checks each certificate, returns concrete preimages or
-arithmetic obstructions, and parameterizes every solution class by a computed
-integer-kernel projection. It includes generated kernel-checked examples and
-a parameterized simultaneous-constraint application.
-
-See [the research note](PREIMAGE-RESEARCH-NOTE.md) for exact statements,
-reproduction commands, prior work, and the untrusted-producer boundary.
-This prototype is not submitted; research significance and independent expert
-review remain open. The older artifact and its metadata remain separate below.
-
-## Existing follow-up submission scope
-
-The earlier follow-up Comparator artifact is `comparator-followup.json`, selecting
-`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`.  The selected declaration is a nonempty
-`TopologicalSmithExactnessCertificate` whose core is a compatibility
-theorem, not an unstructured existence witness.
-
-Its topology-to-arithmetic part identifies covering-map images with
-monodromy stabilizers, records the sharp product-quotient boundary, and
-classifies the quotient fundamental group of every finite torus by its
-integer winding lattice.  For every rectangular integer matrix, the actual
-continuous torus map and its induced quotient map are natural for that
-classifier.  The certificate gives the exact image criterion, injectivity and
-surjectivity transfer, quotient-level composition, rectangular cokernel
-short exactness, arbitrary-rank Smith factors (including free `ZMod 0`
-directions), finite-cokernel cardinality/support laws, determinant index, and
-the full-rank prime-power refinement.  Infinite/free cases are not silently
-called finite: the cardinality and prime-support conclusions carry explicit
-finite-cokernel hypotheses.
-
-The trace component is now concrete.  `WindingWord n` is definitionally
-`List (Fin n -> Int)`; `traceLength` is definitionally `List.length`,
-`trans` is list append, and `standard` is the empty word for zero and a
-one-letter word otherwise.  `realize` recursively concatenates the actual
-standard torus loops.  The selected bridge proves the representation theorem,
-homotopy iff winding equality, exact zero/one minimality, matrix naturality,
-normal-form composition/unit laws, and the Smith realizability iff for the
-actual induced quotient map.  Thus the shortest-trace statement is derived
-from an independent syntax and its topological realization; no certificate
-field supplies an arbitrary raw carrier or cost observable.  The repository's
-endpoint-varying `ComputationalPaths.Path` APIs remain supporting material and
-are not attributed to this selected declaration.
-
-The selected bundle is documented as an `original-proof` provenance record
-for this exact synthesis, with novelty and priority explicitly unknown.
-Hatcher, Norman, Brazas--Fabel, Calcut--McCarthy, and the parent manuscript
-supply literature context and classical ingredients only.  The accepted
-baseline and the repository-wide extensions below remain context, not
-additional Comparator claims.
-
-## Baseline package (repository context)
-
-The following section describes the accepted first-submission package:
-
-The first result package concerns a scoped geometric rewrite presentation:
-
-1. rewrite traces have a sound quotient relation;
-2. the quotient carries a canonical final composable-domain topology on which
-   composition is continuous and the groupoid laws hold; and
-3. the ordinary pullback topology agrees with that final topology exactly when
-   the relevant pair map is a quotient map, with compact-Hausdorff and discrete
-   sufficient conditions.
-4. the selected certificate classifies based continuous loops in the genuine
-   additive circle `AddCircle (1 : ℝ)` by their integer winding number.  The
-   proof constructs the covering charts, lifts loops to `ℝ`, proves winding
-   invariance and additivity, and straightens every loop to an explicit
-   standard representative.
-5. the same genuine topological argument, coordinatewise on the product
-   torus, classifies based torus loops by `ℤ × ℤ` and proves the corresponding
-   standard representatives are complete.
-6. the Hawaiian-earring application uses an explicit based fiber of the
-   universal continuous-path presentation: its observable geometric fiber,
-   endpoint-fixed homotopy quotient, quotient square, and final/ordinary pair
-   comparison are all named in the formalization.
-7. the selected certificate transfers the source-backed obstruction: if the
-   standard based loop quotient has a non-quotient square and discontinuous
-   multiplication, then the corresponding based-fiber and scoped ordinary
-   failures follow under the stated comparison maps.
-
-At the statement boundary, items 4--5 are full additive-classification
-certificates rather than bare equivalence witnesses: each exposes the
-invariant, its value on the identity, additivity under quotient composition,
-an explicit standard-representative map, and both inverse/completeness laws.
-
-The baseline mathematical point is the exact separation between the canonical
-topology forced by explicitly composable representatives and the ordinary
-pullback topology on quotient arrows.  The follow-up instead selects the
-topological Smith certificate described below: it identifies the quotient loop
-group with the winding lattice and records the lattice-cokernel composition,
-Smith, determinant-index, and prime-power profiles.  The centrality and
-product results, the observable based fiber, and the strict Hawaiian-earring
-comparison remain useful repository context but are not selected by the
-follow-up Comparator.  Winding and Smith calculations are classical
-ingredients; the follow-up account distinguishes that mathematics from its
-formal packaging and makes no priority claim for the individual results.
-
-The baseline Palomar declaration (the accepted first submission) is the
-comparison in item 3, the genuine
-circle and torus classifications in items 4--5, and the concrete based-fiber
-construction in items 6--7.  Items 1 and 2 supply the spaces and continuous
-final-domain operation needed to formulate and prove that comparison; their
-largely structural laws are not presented as the research contribution.  The
-external Hawaiian-earring non-quotient and discontinuity theorems are explicit
-inputs, not claims reproved by this repository.
-
-The package will keep the final-domain statement distinct from the stronger
-ordinary-topological-groupoid statement.  That distinction is part of the
-mathematical result, not merely an implementation detail.
-
-The concrete circle and torus winding modules are included in this focused
-boundary as the unconditional mathematical validation cases.  Geometric
-comparison and functoriality remain supporting modules.  The Hawaiian-earring
-based fiber and its transfer are a conditional, independently checked
-application of the comparison theorem.
-
-## Follow-up theorem package
-
-The follow-up has its own non-destructive Comparator and metadata surface.
-`comparator-followup.json` selects
-`TopologicalComputationalPathsFollowup.topological_smith_exactness` in
-`FollowupSolution.lean`; it does not select the baseline `main_result`.
-The declaration is a kernel-checked, all-dimensional compatibility
-certificate with three connected layers:
-
-1. quotient-topological facts: covering images are exactly monodromy
-   stabilizers, and failure of joint quotient multiplication rules out the
-   product quotient map;
-2. lattice exactness: composable rectangular integer actions yield an exact
-   cokernel sequence, with finite/free Smith semantics and the determinant
-   specialization stated under their proper hypotheses; and
-3. a concrete finite-torus bridge: actual loop quotient classes, winding
-   vectors, the induced continuous matrix maps, and `WindingWord` syntax
-   commute in one diagram.
-
-For the third layer, a word is a finite list of winding generators.  Its
-length, concatenation, reversal, winding sum, standard form, and matrix action
-are definitions or recursive list operations.  Its realization is an actual
-concatenation of the standard loops in the finite torus.  The proof then
-derives representation by the winding standard loop, homotopy completeness,
-the exact zero/one shortest normal form, matrix naturality and composition,
-and a Smith-coordinate iff for realizability by an induced quotient map.
-The same classifier proves that target classes of the actual topological map
-are exactly the integer-lattice image, so the Smith equations are not
-detached arithmetic.
-
-The selected formalization provides a reusable compatibility diagram
-from quotient topology through concrete winding-word normalization to
-rectangular Smith image decision.  It is an all-dimensional, rank-aware
-certificate for induced maps, with explicit free directions and finite
-invariant gates.  It is presented as a formalization/methods contribution,
-not as a discovery claim for winding or Smith normal form; the bounded
-provenance audit records priority as unknown.  Supporting centrality,
-indexed-product, endpoint-varying path, CRT, and broader matrix results are
-outside this Comparator selection unless a field is named in the declaration.
-
-The word alphabet contains **every integer vector**, not just signed coordinate
-generators. Consequently the zero/one minimum is elementary: any nonzero vector
-is already one letter. It measures neither geometric length, rewrite steps,
-bit complexity, nor the repository's separate `ComputationalPaths.Path` traces.
-No nonroutine mathematical novelty or research-interest threshold is established
-by bundling these classical results. See [REVIEW-AUDIT.md](REVIEW-AUDIT.md) for
-the remaining submission blocker and the exact theorem boundary.
-
-### Repository-wide finite-torus extensions (not selected by Comparator)
-
-The core winding theorem is natural under every coordinate-selection map
-`Fin m → Fin n`: mapping a loop and then taking winding reindexes its lattice
-vector, and the corresponding quotient classifier commutes with that map.
-The explicit standard-loop representatives and quotient decoder satisfy the
-same reindexing equation.
-These coordinate maps satisfy explicit identity and composition laws, making
-the reindexing statement functorial rather than a collection of unrelated
-equalities.  The continuous multiplicative lattice classifier satisfies the
-same equation, including coordinate selections between different dimensions.
-The path-based classifier satisfies the corresponding naturality square at
-arbitrary torus basepoints: transporting along a chosen path and then
-selecting coordinates agrees with reindexing the transported lattice vector,
-using the mapped path at the target.
-Since the target quotient is abelian, the path choice can be eliminated: the
-canonical arbitrary-basepoint classifier satisfies this naturality square
-without exposing any auxiliary path.
-The lattice reindexing maps are also continuous additive morphisms, with
-identity and composition coherence; the classifier equation is restated
-through that continuous morphism.
-For a finite index equivalence, the coordinate map is a torus homeomorphism
-and the lattice map is a continuous additive equivalence, with matching
-identity and composition laws.
-The arbitrary-basepoint classifier naturality squares are likewise restated
-directly through the continuous additive reindexing morphism.
-The exact image behavior is also formalized: surjective index maps induce
-injective torus, lattice, and quotient maps, while injective index maps induce
-surjective maps by zero extension.
-For an arbitrary index map, the image is characterized exactly as the
-fiber-constant part of the target winding lattice, equivalently at the typed
-quotient level.
-The converse criteria are exact: these reindexing maps are injective exactly
-for surjective index maps and surjective exactly for injective index maps.
-This holds simultaneously for the raw finite-torus maps, their integer
-lattice classifiers, and the typed quotient loop maps.
-Typed quotient coordinate selection is also exposed as a contravariant
-additive functor, continuous for the discrete quotient topologies, with
-explicit identity/composition laws and a kernel description by vanishing on
-the coordinates hit by the index map.  At arbitrary torus basepoints, the
-same operation is additionally packaged as a continuous multiplicative
-homomorphism between the corresponding quotient fundamental groups, with its
-own identity/composition coherence and a classifier-naturality corollary.  The
-same classifier transports the exact fiber-constant image criterion,
-injectivity/surjectivity converses, and vanishing-on-the-image kernel result
-to every torus basepoint.  It also commutes with explicit basepoint transport,
-giving a naturality square before any classifier is chosen.
-The finite-torus API is now extended from coordinate selections to arbitrary
-integer matrices: matrix maps are continuous, their winding actions and
-standard representatives are natural, and the typed quotient maps satisfy
-matrix identity/composition coherence.  Exact image, kernel, injectivity, and
-surjectivity criteria transfer through the winding equivalence, and the
-resulting lattice and quotient additive maps are continuous for the discrete
-topologies.  At arbitrary basepoints, each matrix map is also exposed as a
-continuous multiplicative quotient homomorphism commuting with explicit
-basepoint transport; the path-based winding classifier satisfies the matching
-matrix naturality square with its endpoint cast made explicit.  Abelian-target
-path independence then gives the same square for the canonical classifier,
-without exposing a path choice.  The canonical classifier also transfers the
-matrix image, kernel, injectivity, and surjectivity iff criteria to every
-chosen basepoint, with explicit iff statements for image membership, the
-identity fiber, injectivity, and surjectivity.  The arbitrary-basepoint
-homomorphisms also satisfy typed contravariant composition and identity laws,
-with their endpoint casts induced explicitly by matrix-map coherence.
-With an explicit two-sided integer-matrix inverse, these maps upgrade to a
-continuous additive lattice equivalence, a torus homeomorphism, and a quotient
-homeomorphism and continuous additive equivalence for the transported loop
-groups.  At every arbitrary torus basepoint, the same inverse gives a
-continuous multiplicative equivalence of quotient fundamental groups, with
-explicit injectivity and surjectivity corollaries for the induced homomorphism.
-For square matrices, the lattice and canonical quotient actions satisfy sharp
-determinant criteria: injectivity is equivalent to a nonzero determinant,
-surjectivity to a unit determinant, and the canonical nonsingular inverse of a
-unimodular matrix instantiates every equivalence layer without an extra inverse
-witness, including at arbitrary basepoints.
-For every nonzero determinant, the lattice cokernel is also proved finite with
-cardinality exactly `Int.natAbs (Matrix.det A)`, so the determinant controls the
-quantitative finite index as well as the injectivity and surjectivity boundary.
-At the canonical finite-torus basepoint, the induced quotient image has the
-same exact index and cokernel cardinality, with finiteness exposed directly.
-For composable non-singular square matrices, the determinant index is proved
-multiplicative under matrix composition both on the winding lattice and on the
-canonical topological quotient obstruction.
-This multiplicativity is witnessed structurally: composition by `B` induces a
-canonical additive map from the cokernel of `A` into the cokernel of `B ∘ A`,
-and that map is proved injective whenever `det B ≠ 0`, on both the winding
-lattice and the actual topological loop-class quotient.
-The complementary projection from the cokernel of `B ∘ A` onto the cokernel
-of `B` is surjective with exactly that image as its kernel, so the result is an
-explicit short exact sequence of finite abelian groups rather than only a
-numerical identity.
-The associated first-isomorphism quotient is also made explicit: quotienting
-the composition cokernel by the projection kernel yields an additive
-equivalence with the cokernel of `B`, and a proved representative formula
-identifies this equivalence with the canonical projection.
-The construction is factored through a reusable first-isomorphism theorem for
-arbitrary composable additive homomorphisms.  Therefore rectangular integer
-matrices in any composable dimensions inherit the same short-exact sequence
-under the exact hypothesis that the second matrix action is injective; the
-finite-torus quotient maps satisfy the corresponding transported theorem.
-At the abstract level, injectivity is characterized exactly by the equality
-between the preimage of the composite image and the first map's image, so the
-matrix-action hypothesis is a transparent sufficient specialization rather
-than a hidden strengthening.
-The composite-image subgroups are also identified explicitly with the ranges
-of the canonical row-by-column `matrixCompose` maps, and both the lattice and
-finite-torus exact-sequence APIs expose this notation directly.
-For every rectangular matrix, the winding equivalence is lifted to an explicit
-additive equivalence between the finite-torus cokernel and the lattice
-cokernel, with a representative formula.  The composite cokernel embedding is
-proved natural under these equivalences, and the complementary projection
-commutes as well, giving a checked commutative diagram between the topological
-and lattice exact sequences.  The named square-matrix `matrixCompose` maps
-reuse that result directly, with canonical embedding and projection naturality
-theorems so the diagram can be consumed without range-rewrite boilerplate.  A
-single rectangular short-exactness certificate packages both sequences and
-both commuting squares under the same injectivity hypothesis.
-The abstract induced map and projection also expose simp-normalized formulas
-on quotient representatives, making the certificate directly usable in
-downstream calculations.
-The rectangular winding equivalence additionally transports `Nat.card` and
-`Finite` exactly, for individual matrices and explicit composites.  The
-selected cardinality conclusions use the finite-cokernel hypotheses below;
-outside that regime `Nat.card` is the totalized value zero rather than an
-ordinary finite cardinality.
-The lattice cokernel is also exposed through its Smith-normal-form
-decomposition into cyclic `ZMod` factors: nonzero moduli are finite cyclic
-factors and a zero modulus is the free `ZMod 0` factor.  The canonical quotient
-cokernel of the induced torus homomorphism is transported through the winding
-equivalence to that same explicit product as an additive equivalence of finite
-abelian groups, identifying the obstruction structurally at the topological
-level rather than only by cardinality.  The Smith-normal-form construction is
-now generalized to arbitrary-rank rectangular maps: zero `ZMod 0` factors
-record the free part while nonzero factors record torsion.  Under full target
-rank, the same cyclic product is finite and its ordinary cardinality is the
-product of the Smith moduli; both the lattice and finite-torus cokernels carry
-this decomposition, and lattice finiteness is exactly the full-rank condition.
-More precisely, finiteness on either side is equivalent to every Smith modulus
-being nonzero, so the criterion detects exactly when no `ZMod 0` free factor
-survives (and is equivalent to full target rank).
-For square nonsingular matrices, a checked arithmetic bridge identifies the
-Smith-modulus product on both sides with `Int.natAbs (Matrix.det A)`.
-The supporting arbitrary-rank `Nat.card` formula is a totalized identity: an
-infinite cokernel with a surviving `ZMod 0` factor contributes `Nat.card = 0`.
-The selected statement does not call that zero an ordinary cardinality.
-The same arbitrary-rank presentation identifies the additive exponent with the
-lcm of the Smith-factor moduli, so a zero factor forces exponent zero and
-records the free summand both elementwise and globally.
-Equivalently, exponent zero is characterized by a zero Smith factor; for both
-rectangular lattice and finite-torus cokernels this is exactly failure of full
-target rank.
-More generally, a proposed global annihilator `k` is divisible by the Smith
-exponent exactly when every Smith-factor modulus divides `k`; a zero factor
-forces `k = 0`.
-The sharp trivial-cokernel boundary is the exponent-one case: the exponent is
-one exactly when every Smith factor has unit absolute value.
-Consequently, a rectangular lattice or finite-torus matrix action is
-surjective exactly when all of its Smith factors have unit absolute value.
-For square matrices, the adjugate annihilator also gives the global bound
-`AddMonoid.exponent (cokernel) ∣ Int.natAbs (Matrix.det A)`, including the
-singular case.
-The finite/infinite dichotomy is equivalently global: each Smith cokernel is
-finite exactly when its exponent is nonzero, so the zero-exponent criterion is
-also a complete finiteness test.
-For any composable additive cokernel sequence, the composite cokernel
-exponent divides the product of the exponents of the two successive
-cokernels, without an injectivity hypothesis.  Rectangular lattice and
-finite-torus matrix sequences inherit this bound, both for explicit homomorphism
-composition and for canonical `matrixCompose` ranges.
-Under the injectivity hypothesis needed for exactness, the selected `Nat.card`
-identity is asserted after both successive cokernels are known to be finite:
-the ordinary composite cardinality is the product of the two successive
-cardinalities, on both rectangular interfaces.  The supporting development
-also proves the totalized equation outside that regime; there it is only zero
-arithmetic.  On the finite-torus side the finite identity is exposed from
-injectivity of the underlying lattice action, via the proved quotient-
-injectivity transport.
-Under the same hypothesis, finiteness is equivalent across the exact
-sequence: the composite cokernel is finite exactly when both successive
-cokernels are finite, including the canonical `matrixCompose` forms.
-Under injectivity of the second map, the least common multiple of the two
-successive cokernel exponents divides the composite exponent.  Combined with
-the product upper bound, this gives a sharp lcm-to-product interval for every
-such exact sequence.
-If the two successive cokernel exponents are coprime, injectivity of the
-second map sharpens the exponent divisibility bound to an exact product
-identity.  The theorem is proved abstractly and transported to rectangular
-lattice and finite-torus matrix cokernels, with explicit and canonical
-`matrixCompose` forms; finite-torus clients can also use lattice-action
-injectivity via the quotient-injectivity equivalence.
-For square matrices, the adjugate exponent bounds let coprime determinant
-absolute values certify coprime successive exponents.  Thus, when the second
-determinant is nonzero, the exact product theorem applies directly to both
-lattice and finite-torus cokernels, including canonical `matrixCompose` forms.
-For every prime `p`, the selected exact-sequence prime-support law is stated
-when both successive cokernels are finite: `p` divides the composite exponent
-iff it divides one of the two successive exponents.  Rectangular lattice and
-finite-torus wrappers expose this finite torsion-support law in explicit and
-canonical `matrixCompose` forms, connecting the sequence bounds to the
-prime-power Smith decomposition.  In a free `ZMod 0` case the totalized
-exponent is zero, so divisibility by every prime is not interpreted as
-torsion-prime support.
-For square matrices, a nonzero determinant of the second factor discharges
-injectivity automatically, so the same law is directly available from
-determinant hypotheses on both lattice and finite-torus cokernels.
-The Smith presentation gives the corresponding factor-level finite test: after
-the cokernel is finite, a prime divides its exponent exactly when it divides
-at least one Smith modulus, on both lattice and finite-torus sides.  A zero
-modulus is instead the explicitly recorded free case.
-The Smith coordinates also expose exact coordinatewise divisibility tests for
-membership in the lattice and finite-torus matrix images.
-The topological Smith equivalence includes a quotient-representative formula,
-so the decoded coordinates can be evaluated directly on loop classes.
-Whenever the Smith factors are nonzero, the cyclic factors are further
-decomposed by the Chinese remainder theorem into an explicit product of
-prime-power cyclic groups, on both lattice and finite-torus cokernels, with
-a representative formula for the refined decoder.
-The refined finite product also carries an exact ordinary-cardinality
- certificate: the prime-power orders multiply back to each Smith modulus, so
- both finite cokernel cardinalities are identified with the resulting full
- double product.
-The additive exponent of the finite cokernel is likewise proved to be the
-least common multiple of the Smith moduli, giving its precise annihilator.
-Under the explicit all-factors-nonzero hypothesis, the full `Nat.factorization`
-valuation of the exponent at each prime is the `Finset.sup` of the valuations
-of the Smith moduli; the same p-adic profile is transported to rectangular
-lattice and finite-torus matrix cokernels.  The hypothesis is deliberate:
-zero factors represent `ZMod 0` free components.
-The same supremum law is now available elementwise for every finite-order
-cokernel class: the factorization of its additive order is the supremum of the
-factorizations of its decoded Smith-coordinate orders, on both presentations.
-The same Smith coordinates give an elementwise annihilation criterion: a
-multiple of a lattice or finite-torus cokernel class vanishes exactly when
-each transformed coordinate is divisible by the corresponding multiple of
-its Smith factor, including the zero-factor equations.
-More precisely, the additive order of each class is the lcm of the additive
-orders of its decoded Smith coordinates; a nonzero free `ZMod 0` coordinate
-therefore records infinite class order.
-When all factors are nonzero, each coordinate order is computed explicitly as
-its Smith modulus divided by the gcd with the transformed integer coordinate.
-For arbitrary rank, infinite order is characterized elementwise: it occurs
-exactly when a zero Smith factor carries a nonzero transformed coordinate, and
-the same free-coordinate criterion is exposed on lattice and finite-torus
-matrix representatives.
-Equivalently, a natural number is a multiple of a class's additive order
-exactly when it satisfies the corresponding coordinatewise Smith divisibility
-equations, including the free-coordinate vanishing constraints.
-Conversely, a class has finite additive order exactly when every zero Smith
-factor carries a zero transformed coordinate; this torsion test is exposed on
-the lattice and finite-torus matrix representatives as well.
-For every square matrix, the adjugate gives an explicit preimage of a
-determinant multiple.  Hence the determinant annihilates every class in both
-the winding-lattice and finite-torus cokernels, including singular matrices;
-the theorem is independent of the nonzero-determinant cardinality result.
-See the detailed certificate and source lineage in
-[`FOLLOWUP.md`](FOLLOWUP.md), `FollowupChallenge.lean`,
-`FollowupSolution.lean`, `formalization-followup.yaml`, and
-`comparator-followup.json`.  This follow-up does not alter the already
-accepted `Challenge.lean` / `Solution.lean` comparison surface.
-
-## Source lineage
-
-The starting implementation is the topological layer at the immutable source
-snapshot `topological-paper-v12` of the parent repository, commit
-`2a2baa1f31c68f0e696021db91f8381dd2854652`.  The direct source manuscript is
-[`paper/topological/main.tex`](https://github.com/Arthur742Ramos/ComputationalPathsLean/blob/2a2baa1f31c68f0e696021db91f8381dd2854652/paper/topological/main.tex).
-This focused repo is the publication-oriented extraction of that layer.  The
-parent repository remains the canonical broad development tree for the other
-topological and geometric constructions.
-
-For the follow-up, the parent setting is recorded as a `background` source and
-as an `adapts` related formalization.  The selected three-layer theorem (two
-general quotient-topology criteria plus the nine-field Topological Smith
-synthesis, including the quotient-map Smith-coordinate image obstruction) is
-recorded as an `original-proof` source with relationship `other`; the bounded
-provenance record for this exact certificate is documented in
-[`FIRST-PRESENTATION-AUDIT.md`](FIRST-PRESENTATION-AUDIT.md).
-Hatcher and Norman are ingredient-only background, while Brazas--Fabel and
-Calcut--McCarthy provide quotient-topological context.  The claim does not
-extend to the classical ingredients or to the repository's separate concrete
-endpoint-varying path APIs.  The local Lean files implement this checked
-certificate and are not cited as an external mathematical source.
-
-## Publication boundary
-
-This repository now contains one pinned Lean project with a focused
-`Challenge.lean`, a matching `Solution.lean`, and an explicit `comparator.json`.
-The compared `main_result` states the exact final-versus-ordinary topology
-comparison.  The canonical map from the final composable quotient to the
-ordinary pullback is always a continuous bijection.  The theorem identifies
-when it is quotient, when it upgrades to a homeomorphism, when the final
-topology is induced from the ordinary domain, and when multiplication is
-continuous on the ordinary pullback.  It also formalizes discontinuity of
-ordinary multiplication as an obstruction and proves compact--Hausdorff and
-discrete sufficient cases.  Its Hawaiian-earring portion now includes the
-observable based universal fiber, its homeomorphism to the standard
-endpoint-fixed loop quotient, the final-versus-ordinary pair comparison, and
-the source-backed obstruction transfer.  The concrete circle and torus modules
-additionally prove the actual loop-quotient classifications described above by
-an explicit covering/lifting argument.  These are the publication-facing
-claims; the automatic final-domain groupoid laws remain supporting
-infrastructure.
-The selected circle and torus fields are full additive-classification
-certificates, instantiated by
-`ConcreteCircleWinding.topologicalWinding`/`decodeTopologicalWinding` and
-`TopologicalTorus.encode`/`decode`.  Their checked laws include identity,
-composition additivity, standard-representative completeness, and both
-directions of the classification, so the result names actual quotient loop
-spaces rather than an abstract placeholder for a classification.
-
-`ChallengePrelude.lean` and `ChallengeCertificate.lean` contain the independent
-statement-facing definitions using Lean core and Mathlib. `Challenge.lean`
-imports them and states the selected theorem. These files do not import the
-extracted project implementation. `Solution.lean` imports the extracted, checked comparison
-theory and supplies the complete certificate, including the additive
-classification and based-fiber proofs.
-
-Before submission, the solution and substantive development must pass the
-current Palomar toolchain and dependency checks, contain no `sorry`, `admit`,
-custom axioms, or `native_decide`, and have a research-interest statement that
-accurately separates the formalized theorem from the surrounding mathematical
-program.  Palomar permits the single deliberate statement-side `sorry` in the
-Challenge file.
-
-## Status
-
-The focused core, the accepted Palomar statement boundary, and the Lean 4.32.0
-port are complete.  `lake build` succeeds for the core, Challenge, and
-Solution targets.  Within that accepted package, the only `sorry` is the
-deliberate statement-side hole in `Challenge.lean`; `Solution.lean` and the
-extracted development contain no
-`sorry`, `admit`, custom axioms, or `native_decide`.  The selected solution
-packages the exact quotient-map/homeomorphism/topology-agreement comparison,
-its ordinary-composition consequence and obstruction, both positive
-sufficient-condition theorems, and the concrete observable based-fiber
-formalization with its transferred Hawaiian-earring obstruction, including
-transferred discontinuity of ordinary multiplication.  It does not claim to
-reprove the external Hawaiian-earring theorems.  The circle and torus portions
-are selected through full additive-classification certificates: identity,
-composition additivity, explicit standard representatives, and inverse laws.
-
-The repository has been checked against Palomar's current metadata, layout,
-toolchain, and pinned-manifest rules.  Registration still requires a hosted
-Comparator/NanoDa run and an automated editorial review identifying no blocking
-problem.  That review is a gate, not approval or endorsement of the
-mathematics; registration remains a separate request.
-
-## Reproduce the checked artifacts
-
-From the repository root:
-
-```text
-lake build
-./scripts/check-palomar.sh
-./scripts/check-followup.sh
+```sh
+bash scripts/verify-comparator.sh comparator.json
+bash scripts/verify-comparator.sh comparator-followup.json
+bash scripts/verify-comparator.sh comparator-preimage.json
+bash scripts/verify-comparator.sh comparator-roadmap.json
+bash scripts/verify-comparator.sh comparator-registry-roadmap.json
 ```
 
-For the independent proof replay, run `./scripts/verify-comparator.sh`.  Use
-`./scripts/verify-comparator.sh comparator-followup.json` for the follow-up. It
-fetches the exact pinned Comparator, Lean exporter, Landrun, and NanoDa
-revisions into the ignored `.cache/` directory, checks the toolchain match, and
-replays the selected theorem.  This local replay and CI do not replace
-Palomar's hosted verification or automated editorial review; neither is
-mathematical approval or endorsement.
+Build the paper first and retain its auxiliary file for supplement references:
 
-Useful local contract checks are:
-
-```text
-test "$(wc -l < Challenge.lean)" -le 1000
-test "$(wc -c < Challenge.lean)" -le 102400
-rg "\\bsorry\\b|\\badmit\\b|^axiom |native_decide" \
-  Solution.lean FollowupSolution.lean ComputationalPaths -g "*.lean"
-git diff --check
+```sh
+mkdir -p output/paper35
+tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/main.tex
+tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/supplement.tex
 ```
 
-The checked-in `lake-manifest.json` records the complete dependency closure;
-the `lakefile.toml` and `lean-toolchain` are the only project controls needed
-to reproduce the build.  The proved `Solution.lean` declaration uses only
-`propext`, `Classical.choice`, and `Quot.sound`; the accepted statement-side
-`sorry` appears in `Challenge.lean`, while the separate follow-up statement
-hole appears in `FollowupChallenge.lean`.  Neither solution nor the substantive
-development contains a proof hole.  The same contract gate runs in
-GitHub Actions with the Lean toolchain pinned to an immutable action revision.
+Challenge-side statement placeholders are deliberate comparison interfaces.
+Solution proofs and the substantive development contain no `sorry`, `admit`,
+custom axioms or `native_decide`. The named selections have distinct scopes;
+local or CI replay does not create a new Palomar registration.
 
-### Literal-word correspondence and presentation invariance
+## Dated milestones and source lineage
 
-The equal-slot model now has a checked correspondence to literal composable
-words with an independently generated rewrite relation. Compatible finite
-product strata (including the empty basepoint stratum) give the actual
-coproduct topology. The correspondence holds at fixed endpoints, for global
-arrows, and for the final quotient of composable representatives.
+| Date | Milestone and preserved evidence |
+| --- | --- |
+| 29 August 2026 | [Palomar version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-08-29-000005&version=1), pinned to `8254c40d0de03ff469c7c9c05087b8bc154e9a87`; its narrower registered certificate remains distinct from later work. |
+| 24 September 2026 | Working-source snapshot `09b20abe0a4f69b361846c2466bff8528044fa93`, including universal/finite-fiber and trace-topology extensions. |
+| 8 October 2026 | Equal-slot milestone `404ac01`; the [42-page milestone PDF](paper/topological/verified/equal-slot-model-boundary.pdf), [kernel evidence](evidence/flat-model-kernel.log) and [19-declaration hosted evidence](evidence/flat-model-hosted-131e4bf/README.txt) are historical. |
+| 8 October 2026 | Binary substitution/observable abbreviation milestone `d604b75`; [44-page milestone PDF](paper/topological/verified/presentation-change-model-boundary.pdf) and [kernel evidence](evidence/presentation-change-kernel.log). Its 37-declaration scope preceded general variable-length flat transport. |
+| 8 October 2026 | Literal-word/variable-length milestone `0346c8e`, followed by geometric rose completeness `dbfe65e` and all-loop classification `3fd21d0`. The earlier 99- and 141-declaration selections were extended to 178. |
+| 8 October 2026 | Integrated and independently reviewed paper revision `1922376`: 35-page main, eleven figures, 18-page supplement and exact-main CI success. |
 
-Variable-length substitutions derive continuity from continuous primitive
-word codes and induce flat trace-sensitive homeomorphisms when primitive
-roundtrips rewrite to the original primitives. The conservative abbreviation
-example satisfies this criterion while its observable comparison fails.
-`FlatObservableDiscreteness` proves the actual circle timing nonhomeomorphism.
-`CompleteDiscreteSeparation` checks the all-path discrete-label mechanism;
-nondiscreteness of the ordinary based quotient is an explicit hypothesis,
-and harmonic-archipelago geometry remains external.
+The [historical README snapshot](README-HISTORY.md) preserves the prior progress
+narrative, source lineage, baseline/follow-up certificate details and older
+verification commands. Pending-work language there belongs to its recorded
+milestone. [ROADMAP.md](ROADMAP.md) records the broader research program.
+The parent [ComputationalPathsLean](https://github.com/Arthur742Ramos/ComputationalPathsLean)
+repository remains the broader development; this repository is its focused
+topological extraction. The supplement separates the parent Lean 4.24.0
+archive, registered version 1 and later Lean 4.32.0 selections.
 
-`ModelBoundaryVerification.lean` inspects all 99 selected declarations and
-their axiom closures. `model-boundary-replay.json` pins their independent
-export/NanoDa replay to Lean 4.32.0 and the actual source head. The five earlier
-Comparator selections retain their original scopes. No claim of binary/flat
-topological equivalence or completed geometric free-group example is made.
+The [IGPL cover letter](paper/topological/igpl-cover-letter.txt) is a draft.
+Submission status and coauthor approval require the corresponding author's
+confirmation before it is sent.

@@ -23,7 +23,9 @@ The unabridged manuscript is preserved as [full-manuscript.tex](full-manuscript.
 and the previously inspected [51-page PDF](verified/geometric-rose-all-loops.pdf).
 Its source is the manuscript at integrated main commit
 [`4f48603a9309e4273438052d387cd967ffa695ca`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/4f48603a9309e4273438052d387cd967ffa695ca).
-The editorial revision does not change the Lean development.
+The editorial revision does not change the Lean development. The
+[latest editorial review](../../evidence/review-cleanup/README.md) records the
+README cleanup, restored logical motivation and dated verification history.
 
 The paper treats equal-slot flat signed words and distinguishes them from
 recursive binary `Path.trans`. Both models have checked developments; weighted
