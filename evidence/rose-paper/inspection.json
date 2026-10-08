@@ -1,0 +1,23 @@
+{
+  "source_commit": "dbfe65efd2deec99cf42df2999f6a20d63c63c23",
+  "pdf_path": "paper/topological/verified/geometric-rose-completeness.pdf",
+  "pdf_sha256": "2a46206bdcb61dee4ba26ae3cc610d7cf8879a9beea0304df9d234b1472c9b5b",
+  "page_count": 50,
+  "compiler": "Tectonic 0.17.0",
+  "render_tool": "pdftoppm",
+  "all_pages_rendered_and_contact_sheet_inspected": true,
+  "detail_pages_inspected": [
+    35,
+    36,
+    41,
+    42
+  ],
+  "embedded_font_count": 39,
+  "unembedded_fonts": [],
+  "overfull_warnings": 0,
+  "undefined_references_or_citations": 0,
+  "remaining_warnings": "Underfull hbox; nonfatal Fontconfig default-config diagnostic (Tectonic exit 0; all 39 fonts embedded and every page rendered)",
+  "input_hash_scope": "Git-normalized UTF-8 LF bytes",
+  "main_tex_sha256": "b2dc45a1311d796c89c2383ce262a5f478a9d1bdf76467b413b7b39c89500fce",
+  "refs_bib_sha256": "65a9b07a4a67f1637f4e8709cfa74ccbc1aa82083e8d24f3dd3fd66ee382d92c"
+}
