@@ -40,7 +40,9 @@ The Humanizer skill at
 was applied to all new prose. Three bounded final wording edits are recorded
 in humanizer-edits.json. Two surrounding-prose line edits and a paragraph
 boundary removed overfull declaration lines; those edits are separately
-recorded in layout-edits.json. No statement, proof, mathematical formula,
+recorded in layout-edits.json. Final independent review restored the explicit
+abstract-mechanism qualification for the separation proposition; the
+harmonic-archipelago facts remain external. No statement, proof, mathematical formula,
 Lean declaration, citation target or link target changed during that pass.
 
 Independent model_review verified motivation/citations, current scopes,

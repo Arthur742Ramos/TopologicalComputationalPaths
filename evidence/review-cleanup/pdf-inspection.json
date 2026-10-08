@@ -133,8 +133,8 @@
   },
   "supplement": {
     "pages": 18,
-    "sha256": "e48cd20af21b3585ec2eaa5c9eb72c44d64da726d6b027fadccb643422e79c1d",
-    "bytes": 161205,
+    "sha256": "79153277aee44414039747d260b2f196dff0b0a32cb491a760e7976be2e240bc",
+    "bytes": 161209,
     "fonts": 30,
     "all_fonts_embedded": true,
     "actions": {
@@ -279,7 +279,7 @@
     "README.md": "b80c4b6abd852d2ce0639991abbab2127dcc69faa34fee135a90fd637b46b30f",
     "README-HISTORY.md": "274fea092d67bc5bcabcaeb7d8c632e5b469e52ca948093761cc4d4b410db6e0",
     "paper/topological/main.tex": "53f7a3533eedcbef051ef93c7b533ba36fd85e9232907a3c0d1d2bfa310c7c3c",
-    "paper/topological/supplement.tex": "28e366266e51b154f639385ddbc16da365e7a847f3a90b8e282ba9b2c04f5d06",
+    "paper/topological/supplement.tex": "378edd7233703dc4847fdba545eb3b4400157e94f61454ab1f021cda4c824404",
     "paper/topological/igpl-cover-letter.txt": "b2af32441ae3252f21d4c37bfdf65a7f8c60d55483edaffc6cff46f98a437811"
   }
 }

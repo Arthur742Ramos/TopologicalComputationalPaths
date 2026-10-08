@@ -13,5 +13,11 @@
     "file": "paper/topological/supplement.tex",
     "before": "\\LeanName{continuous_binary}.\nIt derived",
     "after": "\\LeanName{continuous_binary}.\n\nIt derived"
+  },
+  {
+    "file": "paper/topological/supplement.tex",
+    "before": "Proposition~\\ref{main-prop:complete-trace-separation} is checked in\n\\LeanName{CompleteDiscreteSeparation}.",
+    "after": "\\LeanName{CompleteDiscreteSeparation} checks the abstract mechanism of\nProposition~\\ref{main-prop:complete-trace-separation}.",
+    "reason": "Independent review: retain abstract-mechanism qualification; harmonic-archipelago facts remain external."
   }
 ]
