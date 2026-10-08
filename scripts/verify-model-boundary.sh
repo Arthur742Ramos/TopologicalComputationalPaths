@@ -30,6 +30,11 @@ nanoda_dir="$cache_root/nanoda"
 evidence_dir="$cache_root/evidence"
 mkdir -p "$evidence_dir"
 cd "$repository_root"
+if [ -n "$(git status --porcelain --untracked-files=normal)" ]; then
+  echo "error: replay requires a clean project checkout for source attribution" >&2
+  exit 1
+fi
+source_commit=$(git rev-parse HEAD)
 # Write files first so a failed validator cannot be hidden by process substitution.
 "$python_command" scripts/audit_model_boundary.py "$manifest_path" \
   --nanoda-config "$nanoda_config" --list modules > "$evidence_dir/modules.txt"
@@ -93,7 +98,15 @@ lake env "$lean4export_dir/.lake/build/bin/lean4export" \
 cat "$evidence_dir/export-audit.json"
 "$nanoda_dir/target/release/nanoda_bin" "$nanoda_config" \
   < "$evidence_dir/model-boundary.ndjson" 2>&1 | tee "$evidence_dir/nanoda.log"
-git rev-parse HEAD > "$evidence_dir/source-commit.txt"
+[ "$(git rev-parse HEAD)" = "$source_commit" ] || {
+  echo "error: source revision changed during replay" >&2
+  exit 1
+}
+[ -z "$(git status --porcelain --untracked-files=normal)" ] || {
+  echo "error: project source changed during replay" >&2
+  exit 1
+}
+printf '%s\n' "$source_commit" > "$evidence_dir/source-commit.txt"
 cp "$manifest_path" "$evidence_dir/selection.json"
 cp "$nanoda_config" "$evidence_dir/nanoda-config.json"
 echo "Selected-declaration export audit and independent NanoDa replay passed"
