@@ -38,7 +38,10 @@
     "ComputationalPaths.Path.Topology.CayleyRoseCovering",
     "ComputationalPaths.Path.Topology.RoseLiftedWords",
     "ComputationalPaths.Path.Topology.RoseBasedTopology",
-    "ComputationalPaths.Path.Topology.CayleyReducedPrefix"
+    "ComputationalPaths.Path.Topology.CayleyReducedPrefix",
+    "ComputationalPaths.Path.Topology.CayleyFlatWalk",
+    "ComputationalPaths.Path.Topology.CayleyContraction",
+    "ComputationalPaths.Path.Topology.RoseFundamentalGroup"
   ],
   "targets": [
     {
@@ -603,6 +606,154 @@
     },
     {
       "name": "ComputationalPaths.Path.GeometricTopology.CayleyReducedPrefix.toWord_prefix_cases",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.walkPath",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.rootPath",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.walkPath_append",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.walkPath_last_slot",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.walkPath_prefix",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.outward_prefix",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.inward_prefix",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.outward_last_edge",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyFlatWalk.inward_last_edge",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contract",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.homotopy",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.edgeFormula_zero",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.edgeFormula_one",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contract_key",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.continuous_contract",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contract_zero",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contract_one",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contract_root",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.contractible",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CayleyContraction.simplyConnected",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.fundamentalGroupEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.freeGroupEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loopWord",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.coherentRepresentative",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.traceQuotientEquiv",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.fundamentalGroupEquiv_realize",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.freeGroupEquiv_realize",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loopWord_reduced",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loopWord_realize",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loopWord_eq_iff_homotopic",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loop_homotopic_decode",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.loop_homotopic_flat_decode",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.every_loop_represented",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.coherentRepresentative_geometric",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.traceQuotientEquiv_mk",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.traceQuotientEquiv_flat_mk",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.RoseFundamentalGroup.traceQuotientEquiv_mul",
       "kind": "thm"
     }
   ],
