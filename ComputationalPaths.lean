@@ -25,6 +25,9 @@ import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
 import ComputationalPaths.Path.Topology.BinaryTimingCollision
 import ComputationalPaths.Path.Topology.FlatEqualSlotRealization
 import ComputationalPaths.Path.Topology.FlatObservableTopology
+import ComputationalPaths.Path.Topology.ScopedWordInterpretation
+import ComputationalPaths.Path.Topology.ContinuousWordInterpretation
+import ComputationalPaths.Path.Topology.RedundantGeneratorObservable
 import ComputationalPaths.Path.Topology.ConcreteCircleWinding
 import ComputationalPaths.Path.Topology.ConcreteTorusWinding
 import ComputationalPaths.Path.Topology.ContinuousCompleteInvariant
