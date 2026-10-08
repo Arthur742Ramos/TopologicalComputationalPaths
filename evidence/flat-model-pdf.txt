@@ -1,0 +1,22 @@
+Equal-slot model manuscript validation, 2026-10-08 UTC
+
+Compiler: Tectonic 0.17.0, minimal chatter, keep logs.
+Source: paper/topological/main.tex
+Proof source snapshot: 404ac0103e48be805f14a0865c128bc2dbfdcac5
+PDF: paper/topological/verified/equal-slot-model-boundary.pdf
+PDF SHA256: d127c29f385fbf02570d3a01b574172ba885cd6dae4411abeeb62ce4c31d8dc0
+Pages: 42 (pypdf inspection).
+Compilation: exit 0; no overfull boxes or undefined references/citations in final log.
+Underfull paragraph warnings remain; inspected output is readable.
+
+Visual inspection: all 42 pages rendered with Poppler at 72 dpi and reviewed
+in contact sheets; pages 1, 33 and 35 inspected at 144 dpi. The abstract,
+realization-model boundary, counterexample, and verification table fit without
+clipping or overlap. The verification map separates eight formal result rows
+from the mathematical flat-discreteness argument and records remaining
+literal-word correspondence and global/pair comparison obligations.
+
+The PDF is a committed artifact for access outside the Windows workspace.
+This validates compilation/layout; it does not verify unformalized statements.
+Exact kernel/axiom evidence is in flat-model-kernel.log. Hosted direct NanoDa
+acceptance must be established separately for the published PR head.
