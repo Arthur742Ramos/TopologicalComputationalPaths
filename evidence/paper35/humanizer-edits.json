@@ -1,0 +1,58 @@
+[
+  {
+    "before": "Which computational distinctions survive a quotient topology? We study\ngeometric computational paths modulo the rewrites declared by a\npresentation, comparing a trace-sensitive topology with one that observes",
+    "after": "We study how quotient topologies distinguish geometric computational paths\nmodulo the rewrites declared by a presentation. We compare a\ntrace-sensitive topology with one that observes"
+  },
+  {
+    "before": "For the universal presentation, a published open-map theorem supplies this\ncondition under local path-connectedness and semilocal simple connectivity.",
+    "after": "For the universal presentation, a published theorem proves that the path-class\nprojection is open under local path-connectedness and semilocal simple\nconnectivity; this gives agreement of the pair topologies and ordinary\ncomposition continuity."
+  },
+  {
+    "before": "An actual\ntwo-circle rose, a constructed contraction of its Cayley tree, and its\ncovering classify all continuous based loops by reduced words.",
+    "after": "For the two-circle rose, the constructed Cayley covering and tree contraction\nclassify all continuous based loops by reduced words."
+  },
+  {
+    "before": "Lean retains selected results in the binary model and separately checks the\nequal-slot model.",
+    "after": "Lean checks selected results in the binary model and separately checks the\nequal-slot model."
+  },
+  {
+    "before": "Our positive theorem interprets primitives by finite words of variable\nlength.",
+    "after": "The presentation-invariance theorem interprets primitives by finite words of\nvariable length."
+  },
+  {
+    "before": "the Hawaiian earring marks a boundary.\nCircle and torus normal forms and primitive product interchange test\ncompleteness.",
+    "after": "the Hawaiian earring gives a discontinuous based-multiplication example.\nCircle and torus normal forms prove completeness, and primitive interchange\nconstructs product presentations."
+  },
+  {
+    "before": "The weights record word-slot lengths and nothing else: no choice of\nparenthesization and no geometric homotopy witness is involved.",
+    "after": "The weights are word-slot lengths; parentheses and homotopy witnesses are\nnot inputs."
+  },
+  {
+    "before": "We now put two canonical topologies on this same coherent carrier.  First,\nlet",
+    "after": "On this coherent carrier, define two canonical topologies. First, let"
+  },
+  {
+    "before": "The homotopy stays entirely in $\\alpha(I)$: no disk in $X$ is needed.",
+    "after": "Because the homotopy stays entirely in $\\alpha(I)$, it requires no disk in $X$."
+  },
+  {
+    "before": "Because the implication runs in only one\ndirection, the presentation can retain computational information.",
+    "after": "The presentation can therefore retain computational information."
+  },
+  {
+    "before": "The earlier Lean carrier consists of endpoint-indexed parenthesized trees.",
+    "after": "The binary Lean carrier consists of endpoint-indexed parenthesized trees."
+  },
+  {
+    "before": "These examples show how the ordinary-pullback obstruction behaves in geometric\npresentations. The positive groupoid theorem above is an application of the\npublished compact-open quotient result; the presentation-level comparison is\nthe contribution here.",
+    "after": "These examples locate the ordinary-pullback obstruction in geometric\npresentations. The groupoid theorem applies the published compact-open quotient\nresult; our construction supplies the presentation-level comparison."
+  },
+  {
+    "before": "All main-paper proof reductions point\nto the retained detailed arguments in the Supplement.",
+    "after": "Detailed construction and classical-example proofs are supplied in the\nSupplement."
+  },
+  {
+    "before": "Declared rewriting, exact parametrization, and the composable-domain topology\njointly determine this semantics. Primitive word-code continuity and scoped\nroundtrips preserve the trace-sensitive quotient under presentation changes;\nconservative abbreviations and binary timing collisions show why the\nobservable topology has a sharper boundary. The literal-word correspondence\nconnects that distinction to the implemented flat model. Geometric circle,\ntorus, product, and rose results establish completeness in concrete\npresentations, while the ordinary/final comparison identifies the additional\nquotient condition needed for ordinary composition.",
+    "after": "The semantics depends on the declared rewrites, exact parametrization and\ncomposable-domain topology. Continuous primitive word codes and scoped\nroundtrips preserve the trace-sensitive quotient. Conservative abbreviations\nand binary timing collisions can change the observable topology. Literal-word\ncorrespondence connects the manuscript to the implemented flat model.\nThe circle, torus, product and geometric rose developments prove completeness\nfor concrete presentations. The ordinary/final criterion specifies the quotient\ncondition that yields ordinary composition continuity."
+  }
+]

@@ -2,11 +2,22 @@
 
 The main paper is [main.tex](main.tex), with a compiled version at
 [verified/main-35-pages.pdf](verified/main-35-pages.pdf). It uses the existing
-10-point `amsart` layout and includes references within the 35-page limit.
+10-point `amsart` layout and compiles to **35 pages including references**.
+All nine original explanatory figures remain in the main paper, together with
+new timing-model and conservative-generator diagrams (eleven figures total).
+Figure captions are followed by authored alt text in the source and review PDF.
 The [technical supplement](supplement.tex)
-([PDF](verified/technical-supplement.pdf)) holds the longer construction,
-circle, torus and product calculations, additional diagrams, and complete
+([PDF](verified/technical-supplement.pdf), 18 pages) holds the longer construction,
+circle, torus and product calculations, and complete
 maps of declarations, assumptions, models and verified source commits.
+
+The 35-page working target is the user's editorial goal. The
+[official IGPL instructions](https://academic.oup.com/jigpal/pages/General_Instructions)
+ask for **about 30 printed pages**, an approximate target rather than an explicit
+hard maximum. Our `amsart` PDF count is not a verified journal-typesetting count.
+No mandatory IGPL LaTeX class or journal-specific supplement allowance was
+verified. The main is therefore a reviewed working manuscript, not a claim of
+submission-format approval; see [the guidance record](../../evidence/paper35/igpl-guidance.md).
 
 The unabridged manuscript is preserved as [full-manuscript.tex](full-manuscript.tex)
 and the previously inspected [51-page PDF](verified/geometric-rose-all-loops.pdf).

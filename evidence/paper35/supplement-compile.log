@@ -752,31 +752,46 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [1] [2]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 266.
- [3] [4]
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 261.
+
+[3]
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 342.
+
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 348.
+
+[4]
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 451.
+
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 461.
+
 [5]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 499.
- [6] [7]
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 629.
+(hyperref)                Using page 1 on input line 506.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 639.
+(hyperref)                Using page 1 on input line 514.
 
-[8]
-
-Package hyperref Warning: Invalid page number (0)
-(hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 726.
-
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 7
-29.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+17.
 (t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -784,8 +799,8 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [9] [10]
-Underfull \hbox (badness 1264) in paragraph at lines 896--896
+ [6] [7]
+Underfull \hbox (badness 1264) in paragraph at lines 684--684
 \T1/lmr/m/n/10 row is in $\T1/lmtt/m/n/10 FlatObservableDiscreteness$\T1/lmr/m/
 n/10 . The ear-lier eight
  []
@@ -793,238 +808,238 @@ n/10 . The ear-lier eight
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 909.
+(hyperref)                Using page 1 on input line 697.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 911.
+(hyperref)                Using page 1 on input line 699.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 924.
+(hyperref)                Using page 1 on input line 712.
 
 
-Underfull \hbox (badness 2393) in paragraph at lines 900--925
+Underfull \hbox (badness 2393) in paragraph at lines 688--713
 []\T1/lmr/m/n/10 The presentation-change mile-stone adds $\T1/lmtt/m/n/10 Scope
 dWordInterpretation$ \T1/lmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 900--925
+Underfull \hbox (badness 2111) in paragraph at lines 688--713
 \T1/lmtt/m/n/10 ContinuousWordInterpretation$\T1/lmr/m/n/10 . The for-mer check
 s prim-i-tive finite-trace
  []
 
 
-Underfull \hbox (badness 2894) in paragraph at lines 900--925
+Underfull \hbox (badness 2894) in paragraph at lines 688--713
 \T1/lmr/m/n/10 sub-sti-tu-tions, named-rule-to-scoped preser-va-tion, prim-i-ti
 ve roundtrip ex-ten-
  []
 
 
-Underfull \hbox (badness 1005) in paragraph at lines 900--925
+Underfull \hbox (badness 1005) in paragraph at lines 688--713
 \T1/lmtt/m/n/10 mapTrace _ length$\T1/lmr/m/n/10 , $\T1/lmtt/m/n/10 mapTrace _
 realize$\T1/lmr/m/n/10 , and $\T1/lmtt/m/n/10 continuous _ binary$\T1/lmr/m/n/1
 0 , and de-rives
  []
 
-
-Underfull \hbox (badness 2469) in paragraph at lines 945--945
+[8] [9]
+Underfull \hbox (badness 2469) in paragraph at lines 733--733
 \T1/lmtt/m/n/8 Path . GeometricTopology . LiteralWord$\T1/lmr/m/n/8 . Ev-ery ro
 w has source com-mit
  []
 
-[11] [12]
-Underfull \hbox (badness 2213) in paragraph at lines 1044--1044
+[10]
+Underfull \hbox (badness 2213) in paragraph at lines 832--832
 []\T1/lmr/m/n/8 Table 4: Geo-met-ric rose ver-i-fi-ca-tion map. Ev-ery name has
  pre-fix
  []
 
 
-Underfull \hbox (badness 2237) in paragraph at lines 1044--1044
+Underfull \hbox (badness 2237) in paragraph at lines 832--832
 \T1/lmtt/m/n/8 ComputationalPaths . Path . GeometricTopology$\T1/lmr/m/n/8 . Th
 e source snap-shot is
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 1093--1093
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 881--881
 []\T1/lmr/m/n/8 Table 5: All-loop rose ver-i-fi-ca-tion map. Names have pre-fix
 
  []
 
 
-Underfull \hbox (badness 2237) in paragraph at lines 1093--1093
+Underfull \hbox (badness 2237) in paragraph at lines 881--881
 \T1/lmtt/m/n/8 ComputationalPaths . Path . GeometricTopology$\T1/lmr/m/n/8 . Th
 e source snap-shot is
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1103
+Underfull \hbox (badness 10000) in paragraph at lines 889--891
 []|$\T1/lmtt/m/n/8 CayleyFlatWalk . walkPath _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1103
+Underfull \hbox (badness 10000) in paragraph at lines 889--891
 \T1/lmtt/m/n/8 prefix$\T1/lmr/m/n/8 , $\T1/lmtt/m/n/8 CayleyFlatWalk .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1103
+Underfull \hbox (badness 10000) in paragraph at lines 889--891
 \T1/lmtt/m/n/8 outward _ last _ edge$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1103
+Underfull \hbox (badness 10000) in paragraph at lines 889--891
 \T1/lmtt/m/n/8 CayleyFlatWalk . inward _ last _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1105--1106
+Underfull \hbox (badness 10000) in paragraph at lines 893--894
 []|$\T1/lmtt/m/n/8 CayleyContraction .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1105--1106
+Underfull \hbox (badness 10000) in paragraph at lines 893--894
 \T1/lmtt/m/n/8 continuous _ contract$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 3260) in paragraph at lines 1106--1107
+Underfull \hbox (badness 3260) in paragraph at lines 894--895
 \T1/lmr/m/n/8 tient; lo-cal com-pact-
  []
 
 
-Underfull \hbox (badness 2922) in paragraph at lines 1106--1107
+Underfull \hbox (badness 2922) in paragraph at lines 894--895
 \T1/lmr/m/n/8 ness of the com-pact
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1108--1108
+Underfull \hbox (badness 10000) in paragraph at lines 896--896
 []|\T1/lmr/m/n/8 Simple con-nec-tiv-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1108--1109
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
 []|$\T1/lmtt/m/n/8 CayleyContraction .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1108--1109
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
 \T1/lmtt/m/n/8 contractible$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1108--1109
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
 \T1/lmtt/m/n/8 CayleyContraction .
  []
 
 
-Underfull \hbox (badness 1286) in paragraph at lines 1109--1110
+Underfull \hbox (badness 1286) in paragraph at lines 897--898
 \T1/lmr/m/n/8 no simple-connectivity
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1111--1111
+Underfull \hbox (badness 10000) in paragraph at lines 899--899
 []|\T1/lmr/m/n/8 Full fun-da-men-tal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1111--1112
+Underfull \hbox (badness 10000) in paragraph at lines 899--900
 []|$\T1/lmtt/m/n/8 RoseFundamentalGroup .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1111--1112
+Underfull \hbox (badness 10000) in paragraph at lines 899--900
 \T1/lmtt/m/n/8 fundamentalGroupEquiv$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1111--1112
+Underfull \hbox (badness 10000) in paragraph at lines 899--900
 \T1/lmtt/m/n/8 RoseFundamentalGroup .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1112--1113
+Underfull \hbox (badness 10000) in paragraph at lines 900--901
 []|\T1/lmr/m/n/8 Concrete cov-er-ing;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1113--1114
+Underfull \hbox (badness 10000) in paragraph at lines 901--902
 []|\T1/lmr/m/n/8 Opposite $\OML/lmm/m/it/8 F[]$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1114--1114
+Underfull \hbox (badness 10000) in paragraph at lines 902--902
 []|\T1/lmr/m/n/8 Every con-tin-u-ous
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1114--1115
+Underfull \hbox (badness 10000) in paragraph at lines 902--903
 []|$\T1/lmtt/m/n/8 RoseFundamentalGroup . loop _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1114--1115
+Underfull \hbox (badness 10000) in paragraph at lines 902--903
 \T1/lmtt/m/n/8 homotopic _ flat _ decode$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1114--1115
+Underfull \hbox (badness 10000) in paragraph at lines 902--903
 \T1/lmtt/m/n/8 RoseFundamentalGroup .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1117--1117
+Underfull \hbox (badness 10000) in paragraph at lines 905--905
 []|\T1/lmr/m/n/8 Realization com-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1117--1118
+Underfull \hbox (badness 10000) in paragraph at lines 905--906
 []|$\T1/lmtt/m/n/8 RoseFundamentalGroup .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1117--1118
+Underfull \hbox (badness 10000) in paragraph at lines 905--906
 \T1/lmtt/m/n/8 traceQuotientEquiv _ flat _ mk$\T1/lmr/m/n/8 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1117--1118
+Underfull \hbox (badness 10000) in paragraph at lines 905--906
 \T1/lmtt/m/n/8 RoseFundamentalGroup .
  []
 
+[12]
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1129.
+(hyperref)                Using page 1 on input line 917.
 
 
-Underfull \hbox (badness 4132) in paragraph at lines 1128--1140
+Underfull \hbox (badness 4132) in paragraph at lines 916--928
 \T1/lmr/m/n/10 and $\T1/lmtt/m/n/10 weightedConcatenationInvariant$ \T1/lmr/m/n
 /10 re-late the parametriza-tions up to
  []
 
-[14]
-Underfull \hbox (badness 1924) in paragraph at lines 1142--1148
+
+Underfull \hbox (badness 1924) in paragraph at lines 930--936
  []\T1/lmr/m/n/10 Representative topolo-gies.[] The mod-ule $\T1/lmtt/m/n/10 Tr
 aceSensitiveTopologicalCompPath$
  []
 
-[15]
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1159.
+(hyperref)                Using page 1 on input line 947.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1162.
+(hyperref)                Using page 1 on input line 950.
 
-[16]
-Underfull \hbox (badness 3250) in paragraph at lines 1227--1235
+[13]
+Underfull \hbox (badness 3250) in paragraph at lines 1015--1023
 \T1/lmr/m/n/10 has a reg-is-tered Palo-mar re-sult, []\T1/lmtt/m/n/10 PALOMAR-2
 026-08-29-000005[]\T1/lmr/m/n/10 , ver-sion 1,
  []
@@ -1032,45 +1047,48 @@ Underfull \hbox (badness 3250) in paragraph at lines 1227--1235
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1248.
+(hyperref)                Using page 1 on input line 1036.
+
+[14]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 1047.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1290.
+(hyperref)                Using page 1 on input line 1078.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1294.
-
-[17]
-
-Package hyperref Warning: Invalid page number (0)
-(hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1305.
+(hyperref)                Using page 1 on input line 1082.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1308.
+(hyperref)                Using page 1 on input line 1093.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1322.
+(hyperref)                Using page 1 on input line 1096.
 
 
 Package hyperref Warning: Invalid page number (0)
 (hyperref)                for remote PDF file.
-(hyperref)                Using page 1 on input line 1338.
+(hyperref)                Using page 1 on input line 1110.
 
-[18] (declaration-index [19]) (supplement.bbl
+
+Package hyperref Warning: Invalid page number (0)
+(hyperref)                for remote PDF file.
+(hyperref)                Using page 1 on input line 1126.
+
+[15] [16] (declaration-index [17]) (supplement.bbl
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/9'.
 (microtype)             Ignoring protrusion settings for this character.
- [20]) [21] (supplement.aux)
+) [18] (supplement.aux)
 Package rerunfilecheck Info: File `supplement.out' has not changed.
-(rerunfilecheck)             Checksum: F81FEA36C39E0EF5B81C7D8CAAFC2F6B;2030.
+(rerunfilecheck)             Checksum: F7F39D046B6758843D44BAC525C9F7C2;1649.
  )
-Output written on supplement.xdv (21 pages, 170404 bytes).
+Output written on supplement.xdv (18 pages, 102948 bytes).

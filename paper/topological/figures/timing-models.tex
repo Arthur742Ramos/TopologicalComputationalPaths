@@ -1,0 +1,32 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Stealth]
+\node[anchor=east] at (-0.25,1.8) {Binary $(a;b);c$};
+\node[anchor=east] at (-0.25,0.65) {Binary $a;(b;c)$};
+\node[anchor=east] at (-0.25,-0.5) {Flat $a;b;c$};
+\foreach \left/\right/\letter/\shade in {0/1.5/a/pathblue,1.5/3/b/pathteal,3/6/c/pathorange}{
+  \draw[fill=\shade!12,draw=\shade] (\left,1.55) rectangle (\right,2.05);
+  \node at ({(\left+\right)/2},1.8) {$\letter$};}
+\foreach \left/\right/\letter/\shade in {0/3/a/pathblue,3/4.5/b/pathteal,4.5/6/c/pathorange}{
+  \draw[fill=\shade!12,draw=\shade] (\left,0.4) rectangle (\right,0.9);
+  \node at ({(\left+\right)/2},0.65) {$\letter$};}
+\foreach \left/\right/\letter/\shade in {0/2/a/pathblue,2/4/b/pathteal,4/6/c/pathorange}{
+  \draw[fill=\shade!12,draw=\shade] (\left,-0.75) rectangle (\right,-0.25);
+  \node at ({(\left+\right)/2},-0.5) {$\letter$};}
+\foreach \y in {1.35,0.2}{
+  \node at (0,\y) {$0$}; \node at (1.5,\y) {$\frac14$};
+  \node at (3,\y) {$\frac12$}; \node at (4.5,\y) {$\frac34$};
+  \node at (6,\y) {$1$};}
+\node at (0,-0.95) {$0$}; \node at (2,-0.95) {$\frac13$};
+\node at (4,-0.95) {$\frac23$}; \node at (6,-0.95) {$1$};
+\end{tikzpicture}
+\caption{Exact timing depends on the trace model. Recursive binary
+concatenation halves each concatenation interval;
+equal-slot realization assigns one third to each letter of this word,
+independently of parentheses. Homotopy between these paths does not identify
+topologies that observe their exact parametrizations.}
+\FigureAltText{Two parenthesizations of three letters have binary durations
+one quarter, one quarter, one half and one half, one quarter, one quarter.
+The flat model gives every letter one third.}
+\label{fig:timing-models}
+\end{figure}

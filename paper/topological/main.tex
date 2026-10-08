@@ -76,14 +76,20 @@
 \subjclass[2020]{Primary 22A22, 54B15; Secondary 03B38, 55Q05, 68V20, 54B30}
 \keywords{computational paths, rewriting, fundamental groupoid, quotient topology, topological groupoid}
 
+\newcommand{\FigureAltText}[1]{\par\smallskip{\small\textbf{Alt text:} #1\par}}
+\newcommand{\MainFigure}[2]{%
+  \begingroup\let\SavedFigureCaption\caption
+  \renewcommand{\caption}[1]{\SavedFigureCaption{##1}\FigureAltText{#2}}%
+  \input{figures/#1}\endgroup}
+
 \begin{document}
 
 \raggedbottom
 
 \begin{abstract}
-Which computational distinctions survive a quotient topology? We study
-geometric computational paths modulo the rewrites declared by a
-presentation, comparing a trace-sensitive topology with one that observes
+We study how quotient topologies distinguish geometric computational paths
+modulo the rewrites declared by a presentation. We compare a
+trace-sensitive topology with one that observes
 endpoints, length, exact realization, and a coherent geometric representative.
 Duplicate labels separate these topologies. Conservative abbreviations can
 erase observable distinctions. A complete discrete-label
@@ -97,14 +103,15 @@ The scoped quotient has continuous multiplication on the final quotient of
 composable representatives. We characterize agreement of this domain with
 the ordinary pullback of quotient arrows; the conditions imply ordinary
 multiplication is continuous. An open arrow projection is sufficient.
-For the universal presentation, a published open-map theorem supplies this
-condition under local path-connectedness and semilocal simple connectivity.
+For the universal presentation, a published theorem proves that the path-class
+projection is open under local path-connectedness and semilocal simple
+connectivity; this gives agreement of the pair topologies and ordinary
+composition continuity.
 Normal forms prove completeness for finite circle and torus presentations,
-and primitive interchange supports a product construction. An actual
-two-circle rose, a constructed contraction of its Cayley tree, and its
-covering classify all continuous based loops by reduced words.
+and primitive interchange supports a product construction. For the two-circle rose, the constructed Cayley covering and tree contraction
+classify all continuous based loops by reduced words.
 
-Lean retains selected results in the binary model and separately checks the
+Lean checks selected results in the binary model and separately checks the
 equal-slot model. Structural normalization and continuous reconstruction on
 composable word strata identify its literal-word and tree quotients, including
 global arrows and final composable-pair domains. A verification map records
@@ -129,77 +136,48 @@ Rural de Pernambuco, Brazil; \texttt{tiago.veras@ufrpe.br}\\[2pt]
 \section{Introduction}
 \label{sec:introduction}
 A computational presentation records more than geometric homotopy classes.
-Its primitive labels, declared rewrites, and parametrized realizations can
-retain distinctions that geometry forgets. We study how those distinctions
-survive a quotient topology, and when a change of presentation preserves
-the resulting topological semantics.
+Its labels, declared rewrites, and parametrized realizations can retain
+distinctions that geometry forgets. We ask which distinctions survive a
+quotient topology, and which changes of presentation preserve that topology.
 
-A trace is a composable signed word. Its realization assigns equal time to
-each letter; an empty word retains its basepoint. A coherent representative
-pairs the trace with an endpoint-fixed homotopic geometric path. Scoped
-rewriting uses the structural groupoid rules and the named rules of the
-presentation. It does not identify two traces merely because their
-realizations happen to be homotopic. This discipline isolates the
-completeness question: does the declared system capture the geometric
-homotopies between represented paths?
+Traces are composable signed words, realized with equal time for each letter;
+an empty word retains its basepoint. A coherent representative pairs a trace
+with an endpoint-fixed homotopic path. Scoped rewriting uses the structural
+groupoid laws and declared rules, so geometric homotopy implies scoped
+equality only under a separate completeness theorem.
+The observable topology retains endpoints, length, exact realization and
+coherent path; the trace-sensitive topology also retains the signed word.
+Duplicate labels, conservative generator abbreviations, and a complete
+discrete-label presentation separate these topologies.
 
-We give the coherent carrier two topologies. The observable topology sees
-endpoints, length, exact realization, and the coherent path. The
-trace-sensitive topology also retains the full signed word. Duplicate
-labels can produce distinct but topologically indistinguishable observable
-classes. More strongly, adding a generator as an abbreviation for a word
-can preserve the presented algebra while changing the observable topology.
-A complete discrete-label presentation over a space with nondiscrete
-quotient fundamental group separates completeness from agreement of these
-topologies.
+The presentation-invariance theorem interprets primitives by finite words of
+variable length. Continuity of primitive word codes, preservation of named rules,
+and primitive roundtrip rewrites yield homeomorphisms of trace-sensitive
+fixed-endpoint and global quotients and their final composable-pair domains.
+Binary half-and-half timing has a separate boundary: a three-label circle
+has nonhomeomorphic binary and equal-slot observable quotients. The Lean
+development preserves both models and connects the flat implementation to
+an independent literal-word relation and tuple-stratum topology. Homotopy
+of realizations supplies soundness, not topological identification.
 
-Our positive presentation-change theorem interprets primitive steps by
-finite words of variable length. Continuity is required of the actual
-primitive word codes; named rules must be preserved and inverse
-interpretations must have primitive roundtrip rewrites. These conditions
-induce homeomorphisms of trace-sensitive fixed-endpoint and global arrow
-quotients and of their final composable-pair domains. The conservative
-abbreviation example gives a sharp limitation for observable semantics.
+Composition is continuous on the final quotient of composable
+representatives. Four equivalent quotient conditions characterize its
+agreement with the ordinary pair topology. An open arrow projection
+suffices. The published path-class open-map theorem of Holkar, Hossain,
+and Kulkarni~\cite{HolkarHossainKulkarni24} gives the universal positive
+case under local path-connectedness and semilocal simple connectivity;
+the Hawaiian earring gives a discontinuous based-multiplication example.
+Circle and torus normal forms prove completeness, and primitive interchange
+constructs product presentations. An interval-glued Cayley covering and contraction classify
+all continuous based loops of the two-circle rose.
 
-Parametrization is another boundary. Parenthesized traces realized by
-recursive half-and-half concatenation can have a different observable
-quotient from equal-slot words, even on a three-label circle. The Lean
-development therefore retains the binary construction and implements a
-separate flat realization. An independently generated literal-word rewrite
-relation and explicit topology comparisons connect the flat implementation
-to the manuscript. Homotopy of the two realizations supplies soundness,
-without asserting equality of their observable topologies.
-
-Composition introduces a distinct quotient issue. Quotienting composable
-representatives gives a final domain on which multiplication is continuous.
-Agreement with the ordinary subspace of pairs of arrows is characterized by
-four equivalent quotient/homeomorphism conditions. An open arrow projection
-is sufficient. For the universal presentation, ordinary composition follows under
-local path-connectedness and semilocal simple connectivity from the
-published path-class open-map theorem of Holkar, Hossain, and
-Kulkarni~\cite{HolkarHossainKulkarni24}. The Hawaiian-earring obstruction
-marks the limit of this positive class.
-
-Finite circle and torus presentations test scoped completeness; primitive
-interchange gives a product construction. For the two-circle rose we build
-an actual interval-glued Cayley covering and a continuous contraction of
-its tree. This connects reduced words to every continuous based loop and
-provides a geometric nonabelian example.
-
-The relationship with free topological groupoids, Brazas's fundamental-group
-$\tau$-topology, and Michael's biquotient maps is discussed in
-Section~\ref{sec:functoriality}. Our composition domain and retained
-computational data require explicit comparisons with those constructions.
-We make no priority claim for the substitution criterion or abbreviation
-example. The proof and implementation follow the scoped computational-path
-tradition~\cite{PalomarScoped2026}; the registered result and later checked
-extensions have distinct verification scopes.
-
-The \href{technical-supplement.pdf}{technical supplement} contains the full
-construction calculations, classical example proofs, declaration maps,
-external-hypothesis records, and artifact history. The preserved
-\href{geometric-rose-all-loops.pdf}{full manuscript} supplies the earlier
-unabridged exposition. Both accompany this paper's source and verified PDFs.
+Section~\ref{sec:functoriality} discusses free topological groupoids,
+Brazas's $\tau$-topology and biquotient maps; no priority claim is made for
+our substitution criterion or abbreviation example.
+The \href{technical-supplement.pdf}{supplement} retains detailed
+calculations, verification maps and external-input records; the
+\href{geometric-rose-all-loops.pdf}{full manuscript} preserves the earlier
+exposition and distinct artifact scopes~\cite{PalomarScoped2026}.
 
 \section{Geometric traces and scoped presentations}
 \label{sec:traces}
@@ -226,10 +204,14 @@ whose restrictions to $E^+$ are $s,t,\rho$ and whose restrictions to the
 inverse copy (under $E^-\cong E$) are $t,s,e\mapsto\rho(e)^{-1}$,
 respectively.
 
-\href{technical-supplement.pdf}{The supplementary step-label diagram} separates the space of step labels from the
+Figure~\ref{fig:oriented-steps} separates the space of step labels from the
 space in which their paths run.  The inverse copy does not require an
 orientation on the topological space $E$: only the source, target, and
 direction of the represented path are reversed.
+
+\MainFigure{oriented-steps}{Positive and inverse copies of a step map to the same geometric route with opposite traversal directions and exchanged endpoints.}
+
+
 For composable interval paths $\alpha$ and $\beta$ and $m,n\in\N$, write
 $\alpha\star_{m,n}\beta$ for the length-weighted concatenation.  When
 $m,n>0$, it is given by
@@ -267,8 +249,8 @@ occupies one slot, strict reassociation is visible in the concrete identity
   (\alpha\star_{2,1}\beta)\star_{3,1}\gamma
   =\alpha\star_{2,2}(\beta\star_{1,1}\gamma).
 \]
-The weights record word-slot lengths and nothing else: no choice of
-parenthesization and no geometric homotopy witness is involved.
+The weights are word-slot lengths; parentheses and homotopy witnesses are
+not inputs.
 \end{example}
 
 \begin{definition}[geometric trace]
@@ -337,14 +319,10 @@ not an entry of the pair.  The coherent carrier is the set
   T=\{(p,\gamma)\in\mathsf{Tr}_{\mathcal P}\times X^I:
       \gamma(0)=s(p),\ \gamma(1)=t(p),\ \mathsf{Coh}_{\mathcal P}(p,\gamma)\}.
 \]
-The two entries have different jobs.  The trace $p$ retains the finite
-sequence of primitive steps to which the scoped rewrite relation applies,
-while $\gamma$ is an independently chosen geometric representative observed
-by the topology.  The coherence condition connects them without turning every
-ambient homotopy into a syntactic rewrite.  The scoped quotient identifies all
-coherent representatives of the same scoped trace class.  Thus $\gamma$
-affects the representative topologies and defines the raw realization map,
-but no particular choice of $\gamma$ survives in a quotient arrow.
+The trace $p$ carries the scoped computation; $\gamma$ is a chosen geometric
+representative observed by the topology. Coherence does not turn an ambient
+homotopy into a declared rewrite. The scoped quotient forgets $\gamma$ within
+each scoped trace class, although it contributes to the raw topology.
 
 \subsection*{Geometric meaning of coherence}
 Having the same endpoints is necessary but not sufficient for coherence.
@@ -360,9 +338,13 @@ Thus, if $|p|=\alpha$, the pair $(p,\beta)$ is coherent.
 If instead $X=\mathbb R^2\setminus\{(0,\tfrac13)\}$, both paths still
 exist, but the loop $\alpha\star_{1,1}\beta^{-1}$ surrounds the missing
 point once.  Its winding is nonzero, so no endpoint-fixed homotopy exists
-in $X$ \cite{Hatcher02}.  \href{technical-supplement.pdf}{The supplementary coherence diagram} depicts this change.
+in $X$ \cite{Hatcher02}.  Figure~\ref{fig:coherence} depicts this change.
 Both paths remain continuous; what fails is that the loop between them cannot
 be filled inside the specified space.
+
+\MainFigure{coherence}{A triangle contracts to its base segment in the plane; puncturing the triangle leaves a loop that cannot contract while avoiding the puncture.}
+
+
 
 More generally, for parallel paths $\alpha,\beta$,
 \[
@@ -371,13 +353,10 @@ More generally, for parallel paths $\alpha,\beta$,
  \alpha\star_{1,1}\beta^{-1}\simeq_{\partial I}c_{\alpha(0)}.
 \]
 This follows from the groupoid laws of endpoint-fixed homotopy classes.
-A homotopy may be regarded as a path in $X^I(A,C)$, but the computational
-trace remains a finite word.  A simple or discrete step space $E$ does not
-remove obstructions in $X$ either.  Every named rewrite still needs a semantic
-homotopy, and the existence of a homotopy does not by itself declare a scoped
-rewrite.
-We now put two canonical topologies on this same coherent carrier.  First,
-let
+Coherence is a path-space condition. Every named rewrite requires a
+semantic homotopy, while a homotopy alone supplies no scoped rewrite.
+
+On this coherent carrier, define two canonical topologies. First, let
 \[
   \kappa_{\mathrm{tr}}:T\longrightarrow
     \mathsf{Tr}_{\mathcal P}\times X^I,
@@ -405,24 +384,16 @@ $\kappa_{\mathrm{tr}}$.  Consequently the identity
 is continuous; that is, the trace-sensitive topology is finer than the
 observable one.
 
-Unless a superscript says otherwise, Sections~\ref{sec:quotient}--\ref{sec:circle-torus} use $T_{\mathrm{obs}}$ and
-its quotient, and we write $T:=T_{\mathrm{obs}}$ and
-$T^{(2)}:=T_{\mathrm{obs}}^{(2)}$.  The results of Sections~\ref{sec:quotient}, \ref{sec:functoriality}, \ref{sec:comparison}, and~\ref{sec:universal}
-hold verbatim for $T_{\mathrm{tr}}$.  Their proofs use continuity of raw maps
-on the carrier, which Lemma~\ref{lem:coherent-operations-continuous} and the
-coordinate arguments of Sections~\ref{sec:functoriality} and~\ref{sec:universal} give for both topologies, and
-quotient criteria that do not care which topology the carrier has.  Geometric
-completeness is a property of equivalence relations, so it does not depend on
-the choice at all.  Section~\ref{sec:final-ordinary} is the exception, since compatibility of the
-final and ordinary topologies has to be checked for each representative
-topology separately.  Proposition~\ref{prop:trace-sensitive-refinement}
-compares the two resulting quotients.
+Unless indicated otherwise, Sections~\ref{sec:quotient}--\ref{sec:circle-torus}
+use $T=T_{\mathrm{obs}}$ and $T^{(2)}=T_{\mathrm{obs}}^{(2)}$.
+Sections~\ref{sec:quotient}, \ref{sec:functoriality}, \ref{sec:comparison},
+and~\ref{sec:universal} apply to both carrier topologies: their raw maps
+are continuous in both, and their descent arguments use the quotient criterion.
+Completeness concerns the relation alone. Section~\ref{sec:final-ordinary}
+checks product-quotient compatibility separately for each topology.
 
-For the observable choice, write $\kappa=\kappa_{\mathrm{obs}}$.
-Its five coordinates record the source, target, word length, realized trace,
-and chosen geometric path.  They determine the topology, but not the
-equivalence relation used in the scoped quotient.  Two distinct traces can
-have the same five coordinates without being related by the allowed rewrites.
+Write $\kappa=\kappa_{\mathrm{obs}}$. Equal observed coordinates need not
+imply scoped rewrite equality.
 
 For $*=\mathrm{tr},\mathrm{obs}$, define the common composable set with its
 chosen subspace topology by
@@ -570,17 +541,17 @@ $\mathbb Z^2$.  It descends to a continuous map on
 $G_{\mathcal P}^{\mathrm{tr}}$, whose inverse image of $\{(1,0)\}$ is open,
 contains $q_{\mathrm{tr}}(u_e)$, and excludes $q_{\mathrm{tr}}(u_f)$.
 
-The observable codes of $u_e$ and $u_f$ are identical: both have the same
-endpoints, length, realization, and coherent representative.  They are
-therefore topologically indistinguishable in $T_{\mathrm{obs}}$.  An open
-subset of $G_{\mathcal P}^{\mathrm{obs}}$ containing $q_{\mathrm{obs}}(u_e)$
-would pull back to an observable-open set containing $u_e$, hence also $u_f$.
-Thus it must contain $q_{\mathrm{obs}}(u_f)$.  The continuous bijection
-$J:G_{\mathcal P}^{\mathrm{tr}}\to G_{\mathcal P}^{\mathrm{obs}}$ from
-Proposition~\ref{prop:trace-sensitive-refinement} is therefore not a
-homeomorphism.  The difference comes from two labels for one nonconstant loop.
-\href{technical-supplement.pdf}{The supplementary duplicate-label diagram} summarizes the separation mechanism.
+Their observable codes agree. Every observable-open set containing $u_e$
+therefore contains $u_f$, and the same holds for their quotient classes by
+pullback along $q_{\mathrm{obs}}$. Thus $J$ is not a homeomorphism:
+Figure~\ref{fig:same-geometry} displays the distinction that only the
+trace-sensitive topology retains.
+
 \end{example}
+
+\MainFigure{same-geometry}{Two distinct scoped classes have separating neighborhoods in the trace-sensitive quotient but identical neighborhoods in the observable quotient.}
+
+
 
 \begin{example}[One trace, two coherent representatives]
 Let $p$ be a trace and let $\gamma$ and $\delta$ be endpoint-fixed homotopic
@@ -710,17 +681,18 @@ $\alpha\star_{1,1}\alpha^{-1}$ to $c_{\alpha(0)}$.
 The displayed minimum is continuous; its boundary values are the backtracking path, the constant path, and the fixed endpoints. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S1}.
 \end{proof}
 
-The homotopy stays entirely in $\alpha(I)$: no disk in $X$ is needed.
+Because the homotopy stays entirely in $\alpha(I)$, it requires no disk in $X$.
 For a nonempty trace $p$, the two factors in $p;p^{-1}$ have equal length,
 so its weighted realization is exactly the half-interval concatenation
 in Lemma~\ref{lem:backtracking}; the empty case is constant.
-The supplementary figures on backtracking and coherence illustrate this distinction.
+Figures~\ref{fig:backtracking} and~\ref{fig:coherence} distinguish these two homotopy mechanisms.
 \begin{remark}
 The soundness theorem is one-way.  Equality of realized geometric homotopy
 classes does not imply scoped rewrite equality unless a separate geometric
-completeness theorem is proved.  Because the implication runs in only one
-direction, the presentation can retain computational information.
+completeness theorem is proved.  The presentation can therefore retain computational information.
 \end{remark}
+
+\MainFigure{backtracking}{The triangular parameter for an out-and-back path is capped at decreasing heights, ending at the constant path while endpoints stay fixed.}
 
 \section{The quotient groupoid and its universal property}
 \label{sec:quotient}
@@ -771,11 +743,10 @@ $C_{\mathrm{fin}}$ is part of the structure.  It is at least as fine as the
 subspace topology from $G\times G$, and it may be strictly finer.
 \end{definition}
 
-Taken alone, the definition is weak: the discrete topology on
-$C_{\mathrm{fin}}$ always qualifies.  What matters below is that
-$G_{\mathcal P}$ comes with a canonical choice, the quotient topology from
-explicitly composable representatives.  Section~\ref{sec:final-ordinary} compares that choice with
-the subspace topology.
+A discrete composable domain would satisfy this definition trivially.
+Our canonical domain instead has the quotient topology from explicitly
+composable representatives; Section~\ref{sec:final-ordinary} compares it with
+the ordinary subspace topology.
 
 \begin{theorem}[canonical final-domain groupoid]
 \label{thm:final-groupoid}
@@ -792,36 +763,26 @@ Thus $G_{\mathcal P}$ is a final-domain topological groupoid.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:coherent-operations-continuous}, the raw identity,
-reversal, and concatenation maps are continuous for the stated topology.
-Continuity of the endpoint maps and identities follows from the quotient
-criterion, because the corresponding raw maps are continuous.  The same
-argument applies to reversal.  The raw concatenation map
-$T^{(2)}\to T$ is continuous and respects the componentwise quotient
-relation, so it descends to $m_{\Fin}$; continuity follows from the defining
-quotient topology on $G_{\mathcal P}^{(2),\Fin}$.  The $i$th projection
-satisfies $\mathrm{pr}_i\circ q_{\Fin}^{(2)}=q\circ\mathrm{pr}_i$, so it is
-continuous by the same criterion.
+Lemma~\ref{lem:coherent-operations-continuous} makes the raw operations
+continuous. They respect scoped equivalence, so the quotient criterion
+gives continuity of endpoints, identity, reversal, and $m_{\Fin}$.
+The projections are continuous because
+$\mathrm{pr}_i\circ q_{\Fin}^{(2)}=q\circ\mathrm{pr}_i$.
 
-For the algebraic laws, choose representatives.  In the flat word model,
-left and right units, associativity, double reversal, and reversal of a
-composite are literal equalities of traces and of the weighted realizations;
-their scoped witnesses are therefore reflexive structural coherences.  The
-two inverse laws are not literal equalities.  They need endpoint-fixed
-contraction homotopies and are represented by the constructors $p^{-1};p\RwEq 1_b$ and
-$p;p^{-1}\RwEq 1_a$.  The quotient soundness criterion then turns each
-scoped derivation into equality of quotient arrows.
-The result is independent of representative choice because concatenation was
-defined through the componentwise quotient.
+Choose representatives for the algebraic laws. Flat-word units,
+associativity, double reversal, and reversal of a composite are literal
+trace and realization equalities. The inverse laws instead use the scoped
+constructors $p^{-1};p\RwEq 1_b$ and $p;p^{-1}\RwEq 1_a$, sound by the
+endpoint-fixed backtracking contractions. Quotient soundness turns these
+witnesses into arrow equalities. Descent through the componentwise quotient
+makes the operations independent of representatives.
 \end{proof}
 
 
 
-The next theorem describes which interpretations of coherent traces pass
-through $G_{\mathcal P}$.  Such an interpretation must respect the rewrites
-and the groupoid operations.  It must also give the same value to
-$(p,\gamma)$ and $(p,\delta)$ whenever both are coherent: the scoped quotient
-does not retain the choice of geometric representative.
+A semantic interpretation must respect the rewrites and groupoid
+operations and forget the choice of coherent representative, as the scoped
+quotient does.
 
 \begin{theorem}[semantic factorization]\label{thm:semantic-factorization}
 Let $\mathcal H\rightrightarrows X$ be a topological groupoid, and let
@@ -864,7 +825,7 @@ needed.
 
 
 \subsection{Literal words and the realization boundary}
-The earlier Lean carrier consists of endpoint-indexed parenthesized trees.
+The binary Lean carrier consists of endpoint-indexed parenthesized trees.
 Its binary realization recursively applies half-and-half \LeanName{Path.trans}.
 The separate flat realization assigns each primitive letter exactly one
 $1/n$ slot and omits zero-length factors. Trees with the same signed word
@@ -954,20 +915,9 @@ $q_{\Ord}^{(2)}=j\circ q_{\Fin}^{(2)}$ and $q_{\Fin}^{(2)}$ is quotient, this
 is equivalent to $j$ being a quotient map.
 \end{definition}
 
-The two domains have the same elements: composable pairs of scoped classes.
-They differ only in their open sets.  For the final topology, a set $U$ is
-open exactly when
-\[
-  \bigl(q_{\Fin}^{(2)}\bigr)^{-1}(U)
-  \quad\text{is open in }T^{(2)}.
-\]
-For the ordinary topology, openness is inherited from
-$G_{\mathcal P}\times G_{\mathcal P}$.
-The final topology is always at least as fine as the ordinary one, since
-$j$ is continuous.  Product-quotient compatibility says that there are no
-additional open sets in the final topology.
-
-
+The domains have the same composable classes. Final openness is tested by
+pullback to $T^{(2)}$; ordinary openness comes from $G_{\mathcal P}\times G_{\mathcal P}$.
+Compatibility identifies these topologies (Figure~\ref{fig:final-ordinary}).
 
 \begin{theorem}[ordinary/final comparison]
 \label{thm:ordinary-final}
@@ -1040,6 +990,7 @@ always a continuous bijection, and is a homeomorphism exactly under
 Theorem~\ref{thm:ordinary-final}'s equivalent quotient conditions.
 These conditions imply continuity of $m_{\Ord}$.  The paper does not prove
 the converse, that continuity of $m_{\Ord}$ alone implies them.}
+\FigureAltText{The same composable arrows carry a final and an ordinary topology. Their continuous bijection is a homeomorphism exactly under product-quotient compatibility.}
 \label{fig:final-ordinary}
 \end{figure}
 \FloatBarrier
@@ -1255,6 +1206,7 @@ over.
 
 
 \subsection{Parametrization dependence}
+Figure~\ref{fig:timing-models} compares the two execution schedules.
 \begin{proposition}[binary timing can identify observable codes]
 \label{prop:binary-timing-collision}
 There is a three-generator based circle presentation with no named rewrite
@@ -1286,6 +1238,9 @@ thus the fixed-base flat quotient is discrete. This last assertion concerns
 the quotient of the based carrier, not an unproved subspace comparison with
 the global quotient.
 \end{proof}
+
+\input{figures/timing-models}
+
 
 \subsection{Finite-word interpretations and a conservative abbreviation}
 \label{sec:word-interpretations}
@@ -1371,6 +1326,8 @@ each substituted primitive realization is homotopic to the original path;
 \LeanName{WordSubstitution.map_flat_homotopic} verifies its extension to all
 traces. Neither statement identifies final and ordinary composable topologies.
 
+Figure~\ref{fig:redundant-generator} illustrates the following conservative move.
+
 \begin{proposition}[a redundant generator erases an observable distinction]
 \label{prop:redundant-generator-observable}
 There is an algebraically conservative abbreviation move whose canonical
@@ -1397,6 +1354,9 @@ $[e;e],[f]$, whose old continuous parity values differ. If elimination were
 continuous, its composite with parity would send inseparable points to
 distinct points of a discrete space, a contradiction.
 \end{proof}
+
+\input{figures/redundant-generator}
+
 
 This checked statement concerns the canonical presentation equivalence; it
 does not claim nonhomeomorphism under every unrelated bijection. It needs
@@ -1441,14 +1401,11 @@ for the quotient map.  Define the final composable geometric domain by
   (u,v)\sim_{\mathrm{geo}}^{(2)}(u',v')
   \Longleftrightarrow h(u)=h(u')\ \text{and}\ h(v)=h(v').
 \]
-The weighted concatenation invariance lemma makes representative-level
-concatenation descend to a well-defined composition on
-$H_{\mathrm{geo}}^{(2),\Fin}$, and the quotient topology makes it continuous.
-The zero-weight hypotheses of the lemma hold because a coherent
-representative of an empty trace is null-homotopic.  Composing the coherent identity map with $h$ gives a continuous
-identity map into $H_{\mathrm{geo}}$, while coherent reversal preserves
-geometric equivalence and therefore descends continuously.  Together, these
-operations equip $H_{\mathrm{geo}}$ with its final-domain groupoid structure.
+Weighted concatenation descends continuously to this final domain.
+Its zero-weight hypotheses hold because a coherent representative of an
+empty trace is null-homotopic. Identity and reversal likewise descend,
+giving $H_{\mathrm{geo}}$ its final-domain groupoid structure.
+
 The realization comparison and its composable-domain map are
 \[
   R_{\mathcal P}:G_{\mathcal P}\longrightarrow H_{\mathrm{geo}}
@@ -1459,24 +1416,14 @@ and
   H_{\mathrm{geo}}^{(2),\Fin},
   \qquad ([u],[v])\longmapsto([u]_{\mathrm{geo}},[v]_{\mathrm{geo}}).
 \]
-The first map sends a scoped class to its geometric homotopy class.
-The second applies that map to each member of a composable pair.
-
-Here $H_{\mathrm{geo}}$ contains only \emph{represented} geometric classes:
-it is a quotient of $T$, and not of the whole ambient path space $X^I$.
-Surjectivity of $R_{\mathcal P}$ is therefore built into its target.  It does
-not say that the presentation represents every ambient homotopy class.
+The target contains represented geometric classes, not every ambient
+path class: its surjectivity is built into the quotient of $T$.
 The induced map $H_{\mathrm{geo}}\to\Pi_1^q(X)$ is a continuous injection,
-since representative projection is continuous and $h$ is quotient.  We do not
-assert that this injection is a topological embedding.  The universal
-presentation supplies all ambient paths through its one-letter section;
-the finite-generator circle and torus examples instead establish coverage of
-all based-loop homotopy classes at their chosen base points.
-
-Soundness makes $R_{\mathcal P}$ well-defined.  Geometric completeness makes
-it injective: ambient homotopy introduces no extra equalities among represented
-traces.  Because both quotients here come from the same carrier $T$, equality
-of their equivalence relations then makes the comparison a homeomorphism.
+not asserted to be an embedding. The universal presentation represents
+all paths; the finite circle and torus presentations cover all based-loop
+classes at their chosen basepoints. Soundness makes $R_{\mathcal P}$
+well-defined; completeness identifies the two relations on $T$, hence
+their quotient topologies.
 
 \begin{theorem}[comparison morphism]
 The map $R_{\mathcal P}$ is continuous, surjective on the geometric quotient,
@@ -1488,20 +1435,13 @@ structures.
 \end{theorem}
 
 \begin{proof}
-Realization soundness makes the map well-defined.  By construction
-$h=R_{\mathcal P}\circ q$, and $h$ is continuous for the quotient topology on
-$H_{\mathrm{geo}}$.  Since $q:T\to G_{\mathcal P}$ is quotient, the quotient
-criterion makes $R_{\mathcal P}$ continuous.  Every geometric class has a
-coherent raw representative by definition, proving surjectivity.  The
-operation equations follow from the recursive realization of reflexivity,
-concatenation, and reversal.  The map $R_{\mathcal P}^{(2)}$ sends a
-final-domain composable pair to the corresponding final-domain geometric pair,
-and the weighted concatenation invariance lemma gives preservation of the
-induced compositions.  The raw quotient map
-$T^{(2)}\to H_{\mathrm{geo}}^{(2),\Fin}$ is continuous and, by realization
-soundness, constant on componentwise scoped equivalence.  It therefore
-factors through $q_{\mathrm{fin}}^{(2)}$, and the quotient criterion makes
-$R_{\mathcal P}^{(2)}$ continuous.
+Soundness makes the comparison well-defined; $h=R_{\mathcal P}\circ q$
+and the quotient criterion give continuity. Surjectivity follows from the
+definition of $H_{\mathrm{geo}}$. Raw identity and reversal give their
+preservation equations. Weighted concatenation invariance gives composition
+preservation. The continuous raw pair quotient is constant on componentwise
+scoped equivalence, so descent through $q_{\Fin}^{(2)}$ gives the continuous
+pair comparison.
 \end{proof}
 
 \begin{definition}[geometric completeness]
@@ -1591,11 +1531,13 @@ of clause (a) for $v$ yields
   u\approx\nu(N(u))=\nu(N(v))\approx v.
 \]
 This is geometric completeness, and the faithfulness and homeomorphism
-claims follow from the comparison theorem.  \href{technical-supplement.pdf}{The supplementary normal-form diagram}
+claims follow from the comparison theorem.  Figure~\ref{fig:normal-form}
 shows the two obligations separately.  Neither $N$ nor $\nu$ needs to be
 continuous.  The certificate is a set-level object, and the topological
 conclusion comes from quotient factorization.
 \end{proof}
+
+\MainFigure{normal-form}{Syntactic normalization connects a trace to its normal form; geometric separation says homotopic normal forms have the same index.}
 
 \begin{corollary}[fiberwise normal-form completeness]\label{cor:fiberwise-normal-form}
 For fixed endpoints $a,b\in X$, the same definitions and proof apply to
@@ -1673,12 +1615,11 @@ to the endpoint-fixed homotopy quotient of $X^I(a,b)$.
 Restrict the continuous projection and one-letter section to the fixed endpoint fibers. Their composites agree with the identity after the specified geometric quotient. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S2}.
 \end{proof}
 
-Two ingredients are needed for the universal identification
-(\href{technical-supplement.pdf}{the supplementary one-letter section diagram}).  The continuous
-one-letter section makes representative projection a quotient map.  The
-universal rewrite rules then identify scoped equivalence with endpoint-fixed
-homotopy.  A section alone would not identify an arbitrary scoped quotient
-with the ambient path-class space; the two relations must agree as well.
+Figure~\ref{fig:universal-section} records both requirements: a continuous
+section makes representative projection quotient, and agreement of the
+scoped and homotopy relations identifies the quotient spaces.
+
+\MainFigure{universal-section}{A continuous one-letter section splits representative projection; matching scoped and homotopy relations then identify their quotient spaces.}
 
 \begin{theorem}[universal completion]\label{thm:universal-completion}
 For the universal presentation $\mathcal U_X$, scoped rewrite equality of
@@ -1829,10 +1770,9 @@ $q_I^{\mathcal U}$ and the open-projection criterion.
 
 The Hawaiian earring in Proposition~\ref{prop:hawaiian-earring} is locally
 path-connected and fails the semilocal hypothesis at its common base point.
-These examples show how the ordinary-pullback obstruction behaves in geometric
-presentations. The positive groupoid theorem above is an application of the
-published compact-open quotient result; the presentation-level comparison is
-the contribution here.
+These examples locate the ordinary-pullback obstruction in geometric
+presentations. The groupoid theorem applies the published compact-open quotient
+result; our construction supplies the presentation-level comparison.
 
 \section{Finite presentations and their products}
 \label{sec:circle-torus}
@@ -2059,7 +1999,9 @@ is a homeomorphism.
 Apply circle lifting in each coordinate. The commuting-square rule sorts the two generators, and cancellation gives the integer-pair normal form. Coordinate winding is locally constant and the discrete normal-form section is continuous. The variable-base winding pair gives the separate global-fiber comparison. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S3}.
 \end{proof}
 
-\href{technical-supplement.pdf}{The supplementary winding diagram} illustrates the lifted paths used in both proofs.
+Figure~\ref{fig:winding} illustrates the lifted paths used in both proofs.
+\MainFigure{winding}{A lifted circle loop ends at an integer; coordinate lifts of a torus loop end at an integer pair, determining their normal forms.}
+
 \subsection{Products of complete based presentations}
 
 The torus sorting argument extends to a product without requiring normal
@@ -2119,6 +2061,8 @@ rewrite relations, and transfers completeness to the primitive-only
 presentation.
 
 \subsection{A geometric nonabelian example: the two-circle rose}
+Figure~\ref{fig:rose-covering} shows how the covering retains word order.
+
 \label{sec:rose}
 
 Let $R$ be the quotient of two copies of $\mathbb R/\mathbb Z$ identifying
@@ -2293,6 +2237,7 @@ claim about the compact-open topology on the ordinary loop quotient.
 The two words $ab$ and $ba$ end at different vertices above the same
 basepoint.  The pictured finite part belongs to the full interval-glued
 Cayley realization.}
+\FigureAltText{The two-circle rose is covered by an interval-glued Cayley graph. Lifts of ab and ba end at distinct vertices above its basepoint.}
 \label{fig:rose-covering}
 \end{figure}
 
@@ -2325,19 +2270,18 @@ maps of results, declarations, assumptions, models, and commits and distinguishe
 kernel and independent replay checks from the earlier immutable registered
 selection. Repository manifests and exact-source logs supply reproducible
 verification boundaries. Challenge-side statement placeholders are distinct
-from the substantive checked proofs. All main-paper proof reductions point
-to the retained detailed arguments in the Supplement.
+from the substantive checked proofs. Detailed construction and classical-example proofs are supplied in the
+Supplement.
 
 \section{Conclusion}
-Declared rewriting, exact parametrization, and the composable-domain topology
-jointly determine this semantics. Primitive word-code continuity and scoped
-roundtrips preserve the trace-sensitive quotient under presentation changes;
-conservative abbreviations and binary timing collisions show why the
-observable topology has a sharper boundary. The literal-word correspondence
-connects that distinction to the implemented flat model. Geometric circle,
-torus, product, and rose results establish completeness in concrete
-presentations, while the ordinary/final comparison identifies the additional
-quotient condition needed for ordinary composition.
+The semantics depends on the declared rewrites, exact parametrization and
+composable-domain topology. Continuous primitive word codes and scoped
+roundtrips preserve the trace-sensitive quotient. Conservative abbreviations
+and binary timing collisions can change the observable topology. Literal-word
+correspondence connects the manuscript to the implemented flat model.
+The circle, torus, product and geometric rose developments prove completeness
+for concrete presentations. The ordinary/final criterion specifies the quotient
+condition that yields ordinary composition continuity.
 
 \section*{Funding}
 No external funding was received for this work.

@@ -93,10 +93,10 @@ is preserved separately.
 \end{abstract}
 \maketitle
 
-\section{Construction calculations and geometric illustrations}
+\section{Construction calculations}
 Use the signed-word, endpoint and topology conventions of the main paper.
 The following are the complete proofs of its shortened construction lemmas.
-The diagrams retain the accompanying geometric explanations.
+The main paper retains the explanatory figures.
 
 \begin{lemma}[continuity of trace realization]
 \label{lem:trace-realization-continuous}
@@ -256,161 +256,9 @@ $t=0,1$ are zero.  These are the required boundary conditions.
 Applying the same construction to $\alpha^{-1}$ proves the other inverse law.
 \end{proof}
 
-\subsection*{Supplementary construction diagrams}
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth]
-\node[anchor=west,font=\small\bfseries] at (0,2.4) {(a) Step labels};
-\draw[rounded corners,fill=pathblue!5,draw=pathblue] (0,0.95) rectangle (2.25,1.95);
-\draw[rounded corners,fill=pathorange!5,draw=pathorange] (0,-0.55) rectangle (2.25,0.45);
-\node at (1.12,1.45) {$e^+\in E^+\cong E$};
-\node at (1.12,-0.05) {$e^-\in E^-\cong E$};
-\draw[->,pathblue,thick] (2.4,1.45) -- node[above] {$\widetilde\rho$} (4.05,1.45);
-\draw[->,pathorange,thick] (2.4,-0.05) -- node[above] {$\widetilde\rho$} (4.05,-0.05);
-\node[anchor=west,font=\small\bfseries] at (4.25,2.4) {(b) Paths in $X$};
-\draw[->,pathblue,thick] (4.5,1.45) .. controls (5.1,2.05) and (6.45,2.05) .. (7.1,1.45);
-\fill (4.5,1.45) circle (1.5pt) node[below] {$s(e)$};
-\fill (7.1,1.45) circle (1.5pt) node[below] {$t(e)$};
-\node at (5.8,2.03) {$\rho(e)$};
-\draw[<-,pathorange,thick] (4.5,-0.05) .. controls (5.1,0.55) and (6.45,0.55) .. (7.1,-0.05);
-\fill (4.5,-0.05) circle (1.5pt) node[below] {$s(e)$};
-\fill (7.1,-0.05) circle (1.5pt) node[below] {$t(e)$};
-\node at (5.8,0.53) {$\rho(e)^{-1}$};
-\node[align=center] at (3.6,-1.15) {$\widetilde s(e^-)=t(e),\quad
- \widetilde t(e^-)=s(e),\qquad
- \widetilde\rho(e^-)(t)=\rho(e)(1-t)$};
-\end{tikzpicture}
-\caption{Formal reversal changes the direction of a represented path and
-leaves the topology of the step space unchanged.  The two curves depict the same geometric
-route traversed in opposite directions.  Endpoint maps take values in $X$;
-the realization map takes values in $X^I$.}
-\label{fig:oriented-steps}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth,scale=1.12]
-\foreach \x/\lab in {0/{(a) In the plane},4.6/{(b) In the punctured plane}} {
- \begin{scope}[xshift=\x cm]
- \node[font=\small\bfseries] at (1.6,2.75) {\lab};
- \fill[pathteal!7] (0,0) -- (1.6,1.8) -- (3.2,0) -- cycle;
- \draw[->,pathblue,thick] (0,0) -- (1.6,1.8);
- \draw[->,pathblue,thick] (1.6,1.8) -- (3.2,0);
- \draw[->,pathorange,thick] (0,0) -- (3.2,0);
- \fill (0,0) circle(1.5pt) node[below left] {$A$};
- \fill (1.6,1.8) circle(1.5pt) node[above] {$B$};
- \fill (3.2,0) circle(1.5pt) node[below right] {$C$};
- \node[pathblue] at (0.55,1.1) {$\alpha$};
- \node[pathorange] at (1.6,-0.28) {$\beta$};
- \end{scope}
-}
-\foreach \h in {0.45,0.9,1.35} {
- \draw[pathteal,dashed] (0,0) -- (1.6,\h) -- (3.2,0);
-}
-\draw[->,pathteal] (1.6,1.6) -- (1.6,0.2);
-\draw[fill=white,thick] (6.2,0.6) circle(0.085);
-\node[anchor=south,inner sep=1pt] at (6.2,0.77) {$O\notin X$};
-\node[align=center] at (1.6,-0.95) {$H(u,t)=(1-u)\alpha(t)+u\beta(t)$\\
- $\alpha\simeq_{\partial I}\beta$};
-\node[align=center] at (6.2,-0.95) {$\left|\operatorname{wind}_{O}
- (\alpha\star\beta^{-1})\right|=1$\\
- $\alpha\not\simeq_{\partial I}\beta$};
-\end{tikzpicture}
-\caption{Coherence requires a homotopy inside the chosen ambient space.
-Left: intermediate broken paths move $B$ to the segment $AC$, keeping $A,C$
-fixed.  Right: deleting the interior point $O=(0,\tfrac13)$ prevents any
-such homotopy, although both boundary paths remain continuous.
-For $|p|=\alpha$, $(p,\beta)$ is coherent only in the left-hand example.
-The shaded triangle is available in (a), but is not a filling in (b).}
-\label{fig:coherence}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth]
-\node[font=\small\bfseries] at (0,1.6) {Trace-sensitive quotient};
-\node[font=\small\bfseries] at (5.4,1.6) {Observable quotient};
-\draw[pathblue,thick,rounded corners] (-1.65,-0.45) rectangle (-0.35,0.75);
-\draw[pathblue,thick,rounded corners] (0.35,-0.45) rectangle (1.65,0.75);
-\fill[pathblue] (-1,0.3) circle (2pt);
-\fill[pathblue] (1,0.3) circle (2pt);
-\node[below] at (-1,0.15) {$[u_e]$};
-\node[below] at (1,0.15) {$[u_f]$};
-\draw[pathorange,thick,rounded corners] (3.7,-0.45) rectangle (7.1,0.75);
-\fill[pathorange] (4.4,0.3) circle (2pt);
-\fill[pathorange] (6.4,0.3) circle (2pt);
-\node[below] at (4.4,0.15) {$[u_e]$};
-\node[below] at (6.4,0.15) {$[u_f]$};
-\draw[->,thick] (1.95,0.3) -- (3.35,0.3) node[midway,above] {$J$};
-\node[align=center] at (0,-1) {Distinct classes;\\separated by an open set};
-\node[align=center] at (5.4,-1) {Distinct classes;\\identical open neighborhoods};
-\end{tikzpicture}
-\caption{The two quotients identify the same arrows and differ only in
-their topology.
-In Example~\ref{main-ex:quotient-topology-separation}, both steps realize the
-same nonconstant circle loop, but their signed-count values differ. The map $J$
-preserves both scoped classes.  In the observable quotient every open set
-containing either class contains both.  Boxes illustrate separation properties
-only; the shared box is not asserted to be an open two-point subset.}
-\label{fig:same-geometry}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth,x=4.7cm,y=2.8cm]
-\draw[->] (0,0) -- (1.12,0) node[right] {$t$};
-\draw[->] (0,0) -- (0,1.18) node[above] {parameter of $\alpha$};
-\draw[pathblue,very thick] (0,0) -- (0.5,1) -- (1,0);
-\draw[pathorange,thick,dashed] (0,0) -- (0.25,0.5) -- (0.75,0.5) -- (1,0);
-\draw[pathteal,thick,dash dot] (0,0) -- (0.125,0.25) -- (0.875,0.25) -- (1,0);
-\draw[black,very thick] (0,0) -- (1,0);
-\node[below left] at (0,0) {$0$};
-\node[below] at (0.5,0) {$\tfrac12$};
-\node[below] at (1,0) {$1$};
-\node[left] at (0,1) {$1$};
-\node[pathblue,anchor=west] at (1.22,0.95) {$u=0$: full out-and-back};
-\node[pathorange,anchor=west] at (1.22,0.65) {$u=\tfrac12$: turn halfway};
-\node[pathteal,anchor=west] at (1.22,0.35) {$u=\tfrac34$: turn at one quarter};
-\node[anchor=west] at (1.22,0.05) {$u=1$: constant at $\alpha(0)$};
-\end{tikzpicture}
-\caption{Backtracking cancellation as an explicit homotopy.
-The plotted function is $r_u(t)=\min\{2t,2(1-t),1-u\}$;
-the actual path is $H(u,t)=\alpha(r_u(t))$.
-As $u$ increases, the turning point retreats along $\alpha$ and the path
-waits there before returning.  All intermediate paths stay in $\alpha(I)$,
-so even a hole surrounded by $\alpha$ cannot obstruct this cancellation.}
-\label{fig:backtracking}
-\end{figure}
-
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth]
-\node (geo) at (0,2) {$h(u)=h(v)$};
-\node (code) at (0,0.9) {$N(u)=N(v)$};
-\draw[->,pathteal,thick] (geo) -- (code)
- node[midway,right] {\quad(b) semantic separation};
-\node (common) at (0,-0.25) {$\nu(N(u))=\nu(N(v))$};
-\draw[->] (code) -- (common) node[midway,right] {\quad apply $\nu$};
-\node (u) at (-3.8,-0.25) {$u$};
-\node (v) at (3.8,-0.25) {$v$};
-\draw[pathblue,thick] (u) -- (common)
- node[midway,above] {$\approx$} node[midway,below] {(a)};
-\draw[pathblue,thick] (common) -- (v)
- node[midway,above] {$\approx$} node[midway,below] {(a), symmetry};
-\end{tikzpicture}
-\caption{A normal-form certificate proves completeness by two different
-means: syntactic normalization (a) connects each trace to its chosen normal
-representative; semantic separation (b) forces the two codes to agree.
-The bottom row is then scoped transitivity, yielding $u\approx v$.
-The arrows are logical steps and assume nothing about continuity of $N$ or
-$\nu$.}
-\label{fig:normal-form}
-\end{figure}
-
+The geometry of reversal, coherence, observational separation and
+backtracking is illustrated in the main paper's
+Figures~\ref{main-fig:oriented-steps}--\ref{main-fig:backtracking}.
 
 \section{Universal projection lemmas}
 The universal presentation and its scoped relation are those of the main
@@ -491,34 +339,8 @@ fiber is exactly endpoint-fixed homotopy, so quotient factorization gives the
 claimed homeomorphism.
 \end{proof}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzcd}[column sep=5em,row sep=4em,
- every label/.append style={font=\normalsize},
- every cell/.append style={font=\large}]
- X^I \arrow[r,shift left=1ex,"\sigma"] \arrow[d,"q_I"']
- & T_{\mathcal U_X}^{*} \arrow[l,shift left=1ex,"\pi"] \arrow[d,"q_*"] \\
- \Pi_1^q(X) \arrow[r,shift left=1ex,"\overline\sigma"]
- & G_{\mathcal U_X}^{*} \arrow[l,shift left=1ex,"\overline\pi"]
-\end{tikzcd}
+The corresponding illustration is Figure~\ref{main-fig:universal-section} in the main paper.
 
-\smallskip
-\(\displaystyle
- \pi\sigma=\mathrm{id}_{X^I},\qquad
- G_{\mathcal U_X}^{\mathrm{tr}}\cong\Pi_1^q(X)
- \cong G_{\mathcal U_X}^{\mathrm{obs}}.
-\)
-\caption{The universal one-letter section supplies the topology, and the
-universal rules supply the equivalence relation.  Here
-$*\in\{\mathrm{tr},\mathrm{obs}\}$ and
-$\sigma(\gamma)=(\langle\gamma\rangle,\gamma)$; $q_I$ is the homotopy
-quotient map.  The lower maps are induced by $\sigma$ and $\pi$.
-The upper maps are continuous, with $\pi\sigma=\mathrm{id}$, so $\pi$ is
-quotient.  Agreement of scoped and homotopy relations makes the lower maps
-mutually inverse homeomorphisms.  Under these identifications, $J_{\mathcal U_X}$
-is the identity on path classes.}
-\label{fig:universal-section}
-\end{figure}
 
 
 \section{Circle, torus and product proofs}
@@ -681,42 +503,8 @@ them with the two sorting derivations.  This is a scoped derivation between
 the original product words, as required.
 \end{proof}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[font=\small,>=Stealth]
-\node[font=\small\bfseries] at (1.7,3.9) {(a) Circle: lift endpoint $2$};
-\draw[->] (0,0) -- (3.5,0) node[right] {$t$};
-\draw[->] (0,0) -- (0,2.9) node[above] {$\widetilde\gamma(t)$};
-\draw[pathblue,thick] (0,0) .. controls (0.55,1.6) and (1.15,0.25) .. (1.65,1.4)
- .. controls (2.25,2.8) and (2.7,1.65) .. (3.15,2.4);
-\draw[pathorange,thick,dashed] (0,0) -- (3.15,2.4);
-\fill (3.15,2.4) circle (1.6pt);
-\node[left] at (0,2.4) {$2$};
-\node[below] at (3.15,0) {$1$};
-\node[pathorange,rotate=35] at (1.55,0.77) {$t\mapsto 2t$};
-\node[font=\small\bfseries] at (6.75,3.9) {(b) Torus: lift endpoint $(2,1)$};
-\begin{scope}[xshift=5.1cm,x=1.5cm,y=2.4cm]
-\draw[step=1,gray!25,very thin] (0,0) grid (2,1);
-\draw[->] (-0.1,0) -- (2.25,0);
-\draw[->] (0,-0.08) -- (0,1.15);
-\draw[pathblue,very thick,->] (0,0) -- (2,0);
-\draw[pathblue,very thick,->] (2,0) -- (2,1);
-\draw[pathorange,thick,dashed,->] (0,0) -- (2,1);
-\fill (0,0) circle(1.1pt) node[below left] {$(0,0)$};
-\fill (2,1) circle(1.1pt) node[above right] {$(2,1)$};
-\node[pathblue,below] at (1,0) {$a^2$};
-\node[pathblue,right] at (2,0.5) {$b$};
-\node[pathorange,rotate=37] at (0.8,0.58) {$(2t,t)$};
-\end{scope}
-\end{tikzpicture}
-\caption{Winding separates normal forms because lifts remember endpoints.
-Left: a lift beginning at $0$ and ending at $2$ is straightened to $2t$.
-Right: the sequential word $a^2;b$ and the simultaneous loop have lifts
-with common endpoints $(0,0)$ and $(2,1)$; straight-line interpolation in
-$\mathbb R^2$ gives a homotopy after projection to the torus.
-Both plots are drawn in the covering spaces $\mathbb R$ and $\mathbb R^2$.}
-\label{fig:winding}
-\end{figure}
+The corresponding illustration is Figure~\ref{main-fig:winding} in the main paper.
+
 
 
 \section{What the Lean developments check}
