@@ -1,0 +1,252 @@
+{
+  "main": {
+    "pages": 32,
+    "sha256": "d2d577b1b8f7f6436185095e9429916d629dcd62444bb8f9562b1875ac06730d",
+    "bytes": 231417,
+    "font_count": 31,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoTo": 59,
+      "/GoToR": 20,
+      "/URI": 2
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [
+      [
+        3,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        3,
+        "geometric-rose-all-loops.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        3,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        4,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        5,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        8,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        8,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        9,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        9,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        22,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        22,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        23,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        23,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        23,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        26,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        28,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        28,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        29,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        29,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        31,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ]
+    ],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined": 0,
+    "unresolved_question_marks": 0,
+    "all_pages_rendered_and_visually_inspected": true
+  },
+  "supplement": {
+    "pages": 21,
+    "sha256": "737f5988ee64859df1bc375da805bf27c52c63af037006b058fc9a5789a2e1dc",
+    "bytes": 188189,
+    "font_count": 36,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoToR": 20,
+      "/GoTo": 21,
+      "/URI": 15
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [
+      [
+        1,
+        "main-35-pages.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        1,
+        "geometric-rose-all-loops.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        4,
+        "main-35-pages.pdf",
+        "definition.2.8"
+      ],
+      [
+        6,
+        "main-35-pages.pdf",
+        "section.8"
+      ],
+      [
+        8,
+        "main-35-pages.pdf",
+        "definition.8.3"
+      ],
+      [
+        8,
+        "main-35-pages.pdf",
+        "definition.8.3"
+      ],
+      [
+        9,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        11,
+        "main-35-pages.pdf",
+        "definition.5.3"
+      ],
+      [
+        11,
+        "main-35-pages.pdf",
+        "definition.5.5"
+      ],
+      [
+        11,
+        "main-35-pages.pdf",
+        "definition.5.4"
+      ],
+      [
+        14,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "definition.2.8"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "definition.2.6"
+      ],
+      [
+        17,
+        "main-35-pages.pdf",
+        "definition.4.8"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "definition.4.9"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "definition.7.5"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "definition.7.6"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "definition.7.7"
+      ],
+      [
+        18,
+        "main-35-pages.pdf",
+        "section.8"
+      ]
+    ],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined": 0,
+    "unresolved_question_marks": 0,
+    "all_pages_rendered_and_visually_inspected": true
+  },
+  "archive_sha256": "e3da433ff781ea1d3dc80c15c147a3cf812e2052fd5806b319f8575b71045f4a",
+  "full_source_exact_copy": true,
+  "main_typography_and_preamble_unchanged": true,
+  "source_commit": "4f48603a9309e4273438052d387cd967ffa695ca",
+  "compiler": "Tectonic 0.17.0",
+  "source_hashes": {
+    "main.tex": "045ac8afaf1f8e3813f8a053183af16e7f7c4011eb86e158484243d7b6c8549d",
+    "supplement.tex": "e5f71d83baf4e4fa356febb10342948158440458a685c37bb57349a27e3d80d7",
+    "full-manuscript.tex": "370d6e1b1178f60e977acda8cd48fa0bda58462c86e7087049bdbbc2fc8d0ba6"
+  }
+}
