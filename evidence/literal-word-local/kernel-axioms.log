@@ -1,0 +1,1046 @@
+ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) (a b : A)
+  (╧ä : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b))
+  (hrealize : Continuous ComputationalPaths.Path.GeometricTopology.GeometricTrace.realize) :
+  have ╧äcoh := TopologicalSpace.induced (fun p => (p.trace, p.geometric)) instTopologicalSpaceProd;
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph.{u, v}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) (a b : A) :
+  have ╧äcoh := TopologicalSpace.induced (fun p => (p.trace, p.geometric)) instTopologicalSpaceProd;
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph.{u, v}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) (a b : A) :
+  have ╧äcoh := TopologicalSpace.induced (fun p => (p.trace, p.geometric)) instTopologicalSpaceProd;
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq.{u_1} {X : Type u_1} [TopologicalSpace X]
+  {x : X} (╬▒ : Path x x) :
+  (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.leftTrace ╬▒).realize =
+    (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.rightTrace ╬▒).realize
+ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) {a b : X}
+  {p q :
+    ComputationalPaths.Path.GeometricTopology.GeometricTrace
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.system ╬▒).toGeometricStepSystem a b}
+  (h :
+    ComputationalPaths.Path.GeometricTopology.ScopedRwEq
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation ╬▒) p q) :
+  ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC ╬▒ p =
+    ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC ╬▒ q
+ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne.{u_1} {X : Type u_1} [TopologicalSpace X]
+  {x : X} (╬▒ : Path x x) :
+  ComputationalPaths.Path.GeometricTopology.scopedQuotientMk
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation ╬▒)
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.leftRaw ╬▒) Γëá
+    ComputationalPaths.Path.GeometricTopology.scopedQuotientMk
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation ╬▒)
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.rightRaw ╬▒)
+ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0.{u_1} {X : Type u_1} [TopologicalSpace X] {x : X}
+  (╬▒ : Path x x) :
+  ┬¼T0Space
+      (ComputationalPaths.Path.GeometricTopology.ScopedClass
+        (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation ╬▒))
+ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0.{u_1} {X : Type u_1} [TopologicalSpace X]
+  {x : X} (╬▒ : Path x x) :
+  ┬¼T0Space
+      (Quotient
+        (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+          (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation ╬▒) x x))
+'ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step} {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) (i : Fin p.traceLength) (t : ΓåæunitInterval) :
+  p.flatRealize.extend ((ΓåæΓåæi + Γåæt) / Γåæp.traceLength) =
+    ComputationalPaths.Path.GeometricTopology.GeometricTrace.signedRealization (p.letters i) Γåæt
+ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {a b : A} (p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) (h : p.flatWord = q.flatWord) :
+  p.flatRealize = q.flatRealize
+ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {a b : A} (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) : p.flatRealize.Homotopic p.realize
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step} {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) (╬│ : Path a b) :
+  ╬│.Homotopic p.realize Γåö ╬│.Homotopic p.flatRealize
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step} {a b : A}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C}
+  {p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace C.toGeometricStepSystem a b}
+  (h : ComputationalPaths.Path.GeometricTopology.ScopedRwEq P p q) : p.flatRealize.Homotopic q.flatRealize
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A)
+  (╧ä : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace C.toGeometricStepSystem a b))
+  (hflat : Continuous ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b)
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) :
+  Continuous (ComputationalPaths.Path.GeometricTopology.scopedQuotientMk P)
+'ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic.{u, v, w} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {Step' : Type w} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T)
+  (hstep : ΓêÇ (s : Step), (M.step s).realize.Homotopic (S.realize s)) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) : (M.mapTrace p).realize.Homotopic p.realize
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.realize_homotopic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q) {a b : A}
+  {p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b}
+  (h : ComputationalPaths.Path.GeometricTopology.ScopedRwEq P p q) :
+  ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace p) (M.substitution.mapTrace q)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.map_scoped' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip.{u, v, w} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hstep :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  {a b : A} (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b) :
+  ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.mapTrace p)) p
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.roundtrip' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) Γëâ
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid Q a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length.{u, v, w} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {Step' : Type w} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T) (k : Γäò)
+  (hstep : ΓêÇ (s : Step), (M.step s).traceLength = k) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) : (M.mapTrace p).traceLength = k * p.traceLength
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_length' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize.{u, v, w} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {Step' : Type w} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T)
+  (hstep : ΓêÇ (s : Step), (M.step s).realize = S.realize s) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) : (M.mapTrace p).realize = p.realize
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.mapTrace_realize' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary.{u, v, w} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {Step' : Type w} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T) (k : Γäò)
+  (hlength : ΓêÇ (s : Step), (M.step s).traceLength = k) (hrealize : ΓêÇ (s : Step), (M.step s).realize = S.realize s)
+  {a b : A} : Continuous M.mapTrace
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_binary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q) (a b : A)
+  (╧äS : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b))
+  (╧äT : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace T.toGeometricStepSystem a b))
+  (hM : Continuous M.substitution.mapTrace) : Continuous (M.quotientMap a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_quotientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (a b : A)
+  (╧äS : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b))
+  (╧äT : TopologicalSpace (ComputationalPaths.Path.GeometricTopology.GeometricTrace T.toGeometricStepSystem a b))
+  (hM : Continuous M.substitution.mapTrace) (hN : Continuous N.substitution.mapTrace) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid Q a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.quotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (k l : Γäò) (hMLength : ΓêÇ (s : Step), (M.substitution.step s).traceLength = k)
+  (hNLength : ΓêÇ (t : Step'), (N.substitution.step t).traceLength = l)
+  (hMRealize : ΓêÇ (s : Step), (M.substitution.step s).realize = S.realize s)
+  (hNRealize : ΓêÇ (t : Step'), (N.substitution.step t).realize = T.realize t) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid Q a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.binaryQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) (a b : X) :
+  Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldPresentation ╬▒) a b) Γëâ
+    Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newPresentation ╬▒) a b)
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) {a b : X}
+  {p q :
+    ComputationalPaths.Path.GeometricTopology.GeometricTrace
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldSystem ╬▒).toGeometricStepSystem a b}
+  (h :
+    ComputationalPaths.Path.GeometricTopology.ScopedRwEq
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldPresentation ╬▒) p q) :
+  p.traceLength % 2 = q.traceLength % 2
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) (a b : X) :
+  Continuous (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldParity ╬▒ a b)
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.continuous_oldParity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldParity ╬▒ x x
+        ΓƒªComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+            ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.OldLabel.fΓƒº =
+      1 Γêº
+    ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldParity ╬▒ x x
+        Γƒª(ComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+                ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.OldLabel.e).trans
+            (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+              ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.OldLabel.e)Γƒº =
+      0
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.old_parity_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) {a b : X}
+  {p q :
+    ComputationalPaths.Path.GeometricTopology.GeometricTrace
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newSystem ╬▒).toGeometricStepSystem a b}
+  (h :
+    ComputationalPaths.Path.GeometricTopology.ScopedRwEq
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newPresentation ╬▒) p q) :
+  ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF ╬▒ p =
+    ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF ╬▒ q
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.countF_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  ΓƒªComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+        ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.NewLabel.aΓƒº Γëá
+    ΓƒªComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+        ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.NewLabel.fΓƒº
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_classes_ne' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  Inseparable
+    ΓƒªComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+        ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.NewLabel.aΓƒº
+    ΓƒªComputationalPaths.Path.GeometricTopology.GeometricTrace.single
+        ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.NewLabel.fΓƒº
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.new_inseparable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse.{u_1} {X : Type u_1}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  ┬¼Continuous Γçæ(ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.quotientEquiv ╬▒ x x).symm
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.not_continuous_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family.{u, v} {X : Type u}
+  [TopologicalSpace X] {Z : Type v} [TopologicalSpace Z] {a b c : Z ΓåÆ X} {m n : Γäò}
+  (w : ComputationalPaths.Path.GeometricTopology.WeightedSlotReparam m n) (hm : ΓêÇ (z : Z), m = 0 ΓåÆ a z = b z)
+  (hn : ΓêÇ (z : Z), n = 0 ΓåÆ b z = c z) (p : (z : Z) ΓåÆ Path (a z) (b z)) (q : (z : Z) ΓåÆ Path (b z) (c z))
+  (hp : Continuous fun zt => (p zt.1) zt.2) (hq : Continuous fun zt => (q zt.1) zt.2) :
+  Continuous fun zt => (ComputationalPaths.Path.GeometricTopology.weightedConcatenation w Γï» Γï» (p zt.1) (q zt.1)) zt.2
+'ComputationalPaths.Path.GeometricTopology.weightedConcatenation_continuous_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace_toTrace.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step} {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.LiteralWord.Word S a b) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace p.toTrace = p
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace_toTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.toFlatWord_ofTrace.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step} {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) :
+  (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace p).toFlatWord = p.flatWord
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.toFlatWord_ofTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.normalization.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace C.toGeometricStepSystem a b) :
+  ComputationalPaths.Path.GeometricTopology.ScopedRwEq P p
+    (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace p).toTrace
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.normalization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.scopedEq_of_flatWord.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) {a b : A}
+  {p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace C.toGeometricStepSystem a b}
+  (h : p.flatWord = q.flatWord) : ComputationalPaths.Path.GeometricTopology.ScopedRwEq P p q
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.scopedEq_of_flatWord' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.cancel_word.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) {a b : A}
+  (w : ComputationalPaths.Path.GeometricTopology.LiteralWord.Word S.toGeometricStepSystem a b) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq P (w.append w.reverse)
+    (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.nil a)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.cancel_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.ofTrace_iff.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) {a b : A}
+  (p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq P
+      (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace p)
+      (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.ofTrace q) Γåö
+    ComputationalPaths.Path.GeometricTopology.ScopedRwEq P p q
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.ofTrace_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.quotientEquiv.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) Γëâ
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.setoid P a b)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.quotientEquiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.observableQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.setoid P a b)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.observableQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.sensitiveQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.setoid P a b)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.sensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_family.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) (n : Γäò) :
+  Continuous fun xt =>
+    (ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.toWord S n xt.1).toTrace.flatRealize xt.2
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.Total S ΓëâΓé£
+    ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.TotalWord S
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.inducing_totalCode.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step]
+  (S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) :
+  Topology.IsInducing (ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalCode S)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.inducing_totalCode' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology_eq_induced_code.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology S =
+    TopologicalSpace.induced (ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordCode S)
+      inferInstance
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.totalWordTopology_eq_induced_code' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_of_flatWord.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) {Z : Type w} [TopologicalSpace Z]
+  (a b : Z ΓåÆ A)
+  (p : (z : Z) ΓåÆ ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem (a z) (b z))
+  (ha : Continuous a) (_hb : Continuous b) (hf : Continuous fun z => (p z).flatWord) :
+  Continuous fun z => (p z).flatRealize.toContinuousMap
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.continuous_flatRealize_of_flatWord' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.observableQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  ComputationalPaths.Path.GeometricTopology.ScopedClass P ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.setoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.observableQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  ComputationalPaths.Path.GeometricTopology.ScopedClass P ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.setoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.observableQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.wordSetoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.observableQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.sensitiveQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.wordSetoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.sensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology_eq_tupleTopology.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step} (a b : A) :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology a b =
+    ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.tupleTopology a b
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.Word.sensitiveTopology_eq_tupleTopology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology_eq_coproductTopology.{u, v}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step} :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology =
+    ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductTopology
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.sensitiveTopology_eq_coproductTopology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step} :
+  ComputationalPaths.Path.GeometricTopology.LiteralWord.Strata.Total S ΓëâΓé£
+    ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord S
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.tupleQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.setoid P a b)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.tupleQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  ComputationalPaths.Path.GeometricTopology.ScopedClass P ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.setoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.TotalWord.coproductQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.coproductQuotientHomeomorph.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.wordSetoid P)
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.coproductQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_wordQuotient.{u, v} {A : Type u} [TopologicalSpace A]
+  {Step : Type v} [TopologicalSpace Step] [DiscreteTopology Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  DiscreteTopology (Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordRwEq.setoid P a b))
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_wordQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_traceSensitiveQuotient.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] [DiscreteTopology Step]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C) (a b : A) :
+  DiscreteTopology
+    (Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b))
+'ComputationalPaths.Path.GeometricTopology.LiteralWord.discrete_traceSensitiveQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_bindTuple.{v, w} {Step : Type v}
+  {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  (f :
+    ComputationalPaths.Path.GeometricTopology.SignedStep Step ΓåÆ
+      ComputationalPaths.Path.GeometricTopology.FlatWord Step')
+  (hf : Continuous f) (n : Γäò) :
+  Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.bindTuple f n)
+'ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_bindTuple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_flatWordBind.{v, w} {Step : Type v}
+  {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step']
+  (f :
+    ComputationalPaths.Path.GeometricTopology.SignedStep Step ΓåÆ
+      ComputationalPaths.Path.GeometricTopology.FlatWord Step')
+  (hf : Continuous f) : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.flatWordBind f)
+'ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_flatWordBind' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_signedImage.{u, v, w} {Step : Type v}
+  {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step'] {A : Type u} [TopologicalSpace A]
+  {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T)
+  (hprimitive : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M)) :
+  Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.signedImage M)
+'ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_signedImage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_substitution.{u, v, w} {Step : Type v}
+  {Step' : Type w} [TopologicalSpace Step] [TopologicalSpace Step'] {A : Type u} [TopologicalSpace A]
+  {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T)
+  (hprimitive : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M)) :
+  Continuous
+    (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.flatWordBind
+      (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.signedImage M))
+'ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.continuous_substitution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.mapTrace_flatWord.{u, v, w} {Step : Type v}
+  {Step' : Type w} {A : Type u} [TopologicalSpace A]
+  {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S T) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b) :
+  (M.mapTrace p).flatWord =
+    ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.flatWordBind
+      (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.signedImage M) p.flatWord
+'ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.mapTrace_flatWord' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_flat_sensitive.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S.toGeometricStepSystem T.toGeometricStepSystem)
+  (hprimitive : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M)) (a b : A) :
+  Continuous M.mapTrace
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.continuous_flat_sensitive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.WordSubstitution.map_flat_homotopic.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  (M : ComputationalPaths.Path.GeometricTopology.WordSubstitution S.toGeometricStepSystem T.toGeometricStepSystem)
+  (hstep : ΓêÇ (s : Step), (M.step s).flatRealize.Homotopic (S.realize s)) {a b : A}
+  (p : ComputationalPaths.Path.GeometricTopology.GeometricTrace S.toGeometricStepSystem a b) :
+  (M.mapTrace p).flatRealize.Homotopic p.flatRealize
+'ComputationalPaths.Path.GeometricTopology.WordSubstitution.map_flat_homotopic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveQuotientHomeomorph.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (hM : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution))
+  (hN : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord N.substitution))
+  (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid Q a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.discreteFlatSensitiveQuotientHomeomorph.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T} [DiscreteTopology Step]
+  [DiscreteTopology Step'] (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (a b : A) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid Q a b)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.discreteFlatSensitiveQuotientHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.mapRaw_equivalent.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  {p q : ComputationalPaths.Path.GeometricTopology.ScopedRawPath}
+  (h : ComputationalPaths.Path.GeometricTopology.scopedEquivalent P p q) :
+  ComputationalPaths.Path.GeometricTopology.scopedEquivalent Q (M.mapRaw p) (M.mapRaw q)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.mapRaw_equivalent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRaw.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (hprimitive :
+    Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution)) :
+  Continuous M.mapRaw
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRaw' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_globalQuotientMap.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (hprimitive :
+    Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution)) :
+  Continuous M.globalQuotientMap
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_globalQuotientMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveGlobalHomeomorph.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (hM : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution))
+  (hN : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord N.substitution)) :
+  ComputationalPaths.Path.GeometricTopology.ScopedClass P ΓëâΓé£ ComputationalPaths.Path.GeometricTopology.ScopedClass Q
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveGlobalHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRawPair.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (hprimitive :
+    Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution)) :
+  Continuous M.mapRawPair
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_mapRawPair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_left.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (p : Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P)) :
+  ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalLeft Q (M.finalPairMap p) =
+    M.globalQuotientMap (ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalLeft P p)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_left' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_right.{u, v, w} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (p : Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P)) :
+  ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalRight Q (M.finalPairMap p) =
+    M.globalQuotientMap (ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalRight P p)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.finalPairMap_right' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_finalPairMap.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (hprimitive :
+    Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution)) :
+  Continuous M.finalPairMap
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.continuous_flatSensitive_finalPairMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph.{u, v, w}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] {Step' : Type w} [TopologicalSpace Step']
+  {S : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  {T : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step'}
+  {P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation S}
+  {Q : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation T}
+  (M : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation P Q)
+  (N : ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation Q P)
+  (hS :
+    ΓêÇ (s : Step),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq P (N.substitution.mapTrace (M.substitution.step s))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single s))
+  (hT :
+    ΓêÇ (t : Step'),
+      ComputationalPaths.Path.GeometricTopology.ScopedRwEq Q (M.substitution.mapTrace (N.substitution.step t))
+        (ComputationalPaths.Path.GeometricTopology.GeometricTrace.single t))
+  (hM : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord M.substitution))
+  (hN : Continuous (ComputationalPaths.Path.GeometricTopology.FlatWordSubstitution.primitiveWord N.substitution)) :
+  Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid P) ΓëâΓé£
+    Quotient (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid Q)
+'ComputationalPaths.Path.GeometricTopology.ScopedWordInterpretation.flatSensitiveFinalPairHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveHomeomorph.{u} {X : Type u}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) (a b : X) :
+  Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldPresentation ╬▒) a b) ΓëâΓé£
+    Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newPresentation ╬▒) a b)
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph.{u} {X : Type u}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  ComputationalPaths.Path.GeometricTopology.ScopedClass
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldPresentation ╬▒) ΓëâΓé£
+    ComputationalPaths.Path.GeometricTopology.ScopedClass
+      (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newPresentation ╬▒)
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveGlobalHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph.{u} {X : Type u}
+  [TopologicalSpace X] {x : X} (╬▒ : Path x x) :
+  Quotient
+      (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.oldPresentation ╬▒)) ΓëâΓé£
+    Quotient
+      (ComputationalPaths.Path.GeometricTopology.LiteralWord.WordPair.rawSetoid
+        (ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.newPresentation ╬▒))
+'ComputationalPaths.Path.GeometricTopology.RedundantGeneratorObservable.flatSensitiveFinalPairHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.flatWord_eq_of_observation.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  (hsign : Function.Injective (ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.signedPrimitive S))
+  {a b : A} (p q : ComputationalPaths.Path.GeometricTopology.GeometricTrace S a b)
+  (hlen : p.traceLength = q.traceLength) (hpath : p.flatRealize = q.flatRealize) : p.flatWord = q.flatWord
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.flatWord_eq_of_observation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_words.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} {S : ComputationalPaths.Path.GeometricTopology.GeometricStepSystem A Step}
+  [Finite Step] [T1Space A]
+  (hsign : Function.Injective (ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.signedPrimitive S))
+  (a b : A) : DiscreteTopology (ComputationalPaths.Path.GeometricTopology.LiteralWord.Word S a b)
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_traceQuotient.{u, v}
+  {A : Type u} [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step] [Finite Step] [T1Space A]
+  {C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step}
+  (P : ComputationalPaths.Path.GeometricTopology.ScopedGeometricRewritePresentation C)
+  (hsign :
+    Function.Injective
+      (ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.signedPrimitive C.toGeometricStepSystem))
+  (a b : A) :
+  DiscreteTopology
+    (Quotient (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid P a b))
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.discrete_observable_traceQuotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.signedPrimitive_injective :
+  Function.Injective
+    (ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.signedPrimitive
+      (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.system
+          (ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.standardLoop 1)).toGeometricStepSystem)
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.signedPrimitive_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.flat_traceQuotient_discrete :
+  DiscreteTopology
+    (Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+        (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation
+          (ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.standardLoop 1))
+        0 0))
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.flat_traceQuotient_discrete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic :
+  ┬¼Nonempty
+      (Quotient
+          (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+            (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation
+              (ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.standardLoop 1))
+            0 0) ΓëâΓé£
+        Quotient
+          (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSetoid
+            (ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.presentation
+              (ComputationalPaths.Path.GeometricTopology.ConcreteCircleWinding.standardLoop 1))
+            0 0))
+'ComputationalPaths.Path.GeometricTopology.FlatObservableDiscreteness.BinaryCircle.binary_flat_not_homeomorphic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.complete.{u} (A : Type u) [TopologicalSpace A]
+  {p q : ComputationalPaths.Path.GeometricTopology.ScopedRawPath} :
+  ComputationalPaths.Path.GeometricTopology.TotalOpenGeometricCompPath.totalEquivalent
+      (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.system A) p q ΓåÆ
+    ComputationalPaths.Path.GeometricTopology.scopedEquivalent
+      (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.presentation A) p q
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.complete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.continuous_sectionTrace.{u} (A : Type u)
+  [TopologicalSpace A] {a b : A} :
+  Continuous (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sectionTrace A)
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.continuous_sectionTrace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.observableHomeomorph.{u} (A : Type u)
+  [TopologicalSpace A] (x : A) :
+  ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.TraceClass A x ΓëâΓé£
+    ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot A x
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.observableHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sensitive_discrete.{u} (A : Type u)
+  [TopologicalSpace A] (x : A) :
+  DiscreteTopology (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.TraceClass A x)
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.sensitive_discrete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.inverse_not_continuous.{u} (A : Type u)
+  [TopologicalSpace A] (x : A)
+  (h : ┬¼DiscreteTopology (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot A x)) :
+  ┬¼Continuous id
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.inverse_not_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.not_homeomorphic.{u} (A : Type u)
+  [TopologicalSpace A] (x : A)
+  (h : ┬¼DiscreteTopology (ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot A x)) :
+  ┬¼Nonempty
+      (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.TraceClass A x ΓëâΓé£
+        ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.TraceClass A x)
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.not_homeomorphic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherentObservableHomeomorph.{u} (A : Type u)
+  [TopologicalSpace A] (x : A) :
+  Quotient
+      (ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.coherentSetoid
+        (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.presentation A) x x) ΓëâΓé£
+    ComputationalPaths.Path.GeometricTopology.QuotientFundamentalGroup.LoopQuot A x
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherentObservableHomeomorph' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete.{u} (A : Type u)
+  [TopologicalSpace A] (x : A) :
+  DiscreteTopology (ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.CoherentClass A x)
+'ComputationalPaths.Path.GeometricTopology.CompleteDiscreteSeparation.coherent_sensitive_discrete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) :
+  TopologicalSpace (ComputationalPaths.Path.GeometricTopology.TotalOpenGeometricCompPath A Step C)
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation.{u, v} {A : Type u}
+  [TopologicalSpace A] {Step : Type v} [TopologicalSpace Step]
+  (C : ComputationalPaths.Path.GeometricTopology.ContinuousGeometricStepSystem A Step) :
+  Continuous (ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalObservation C)
+'ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

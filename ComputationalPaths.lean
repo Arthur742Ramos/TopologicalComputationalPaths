@@ -1,3 +1,9 @@
+import ComputationalPaths.Path.Topology.CompleteDiscreteSeparation
+import ComputationalPaths.Path.Topology.FlatObservableDiscreteness
+import ComputationalPaths.Path.Topology.RedundantGeneratorFlatSensitive
+import ComputationalPaths.Path.Topology.VariableFlatGlobalInterpretation
+import ComputationalPaths.Path.Topology.VariableFlatWordInterpretation
+import ComputationalPaths.Path.Topology.FlatWordSubstitution
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteGroupoid
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteComparison
 import ComputationalPaths.Path.Topology.ScopedGeometricRewriteFunctor
@@ -41,3 +47,13 @@ import ComputationalPaths.Path.Topology.FiniteTorusWinding
 import ComputationalPaths.Path.Topology.TopologicalSmithExactness
 import ComputationalPaths.Path.Topology.CertifiedTorusPreimageExistence
 import ComputationalPaths.Path.Topology.TorusConstraintApplication
+
+import ComputationalPaths.Path.Topology.FlatWordContinuity
+import ComputationalPaths.Path.Topology.LiteralWord
+import ComputationalPaths.Path.Topology.LiteralWordRewrite
+import ComputationalPaths.Path.Topology.LiteralWordQuotient
+import ComputationalPaths.Path.Topology.LiteralWordGlobal
+import ComputationalPaths.Path.Topology.LiteralWordPairs
+import ComputationalPaths.Path.Topology.LiteralWordStrata
+import ComputationalPaths.Path.Topology.LiteralWordTopologyBridge
+import ComputationalPaths.Path.Topology.LiteralWordDiscrete
