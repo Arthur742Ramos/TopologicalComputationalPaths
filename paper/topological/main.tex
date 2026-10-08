@@ -150,8 +150,8 @@ The traces $r;r^{-1}$ and $1_a$ have the same endpoints; identifying their
 witnesses requires a structural cancellation rule. A different witness
 $a =_u c : A$ is not determined by $r;s$ merely because both establish the
 same endpoint equality. A declared rewrite between these parallel witnesses
-is additional information. The endpoint judgement establishes that $a$ equals $c$; a rewrite between
-$r;s$ and $u$ establishes equality of their witnesses.
+is additional information: the endpoint judgement establishes that $a$ equals $c$,
+whereas a rewrite between $r;s$ and $u$ establishes equality of their witnesses.
 
 Earlier work studies the resulting weak groupoid, whose structural laws hold
 through rewrites of computational paths
@@ -160,9 +160,9 @@ labelled natural deduction uses these operations to calculate fundamental
 groups of the circle, torus and real projective plane
 \cite{DeVerasRamosDeQueirozDeOliveira2025topological}. The book
 \emph{Computational Paths: The Calculus of Equality}, by Ramos, de Queiroz,
-de Oliveira and Gabbay, gives a broader account of the explicit-witness
-programme \cite{RamosDeQueirozDeOliveiraGabbay2026}. We use that programme as
-background for a geometric fragment with presentation-controlled rewriting.
+de Oliveira and Gabbay, develops the explicit-witness programme
+\cite{RamosDeQueirozDeOliveiraGabbay2026}. Here we study a geometric fragment
+whose presentation controls rewriting.
 Our hypotheses concern continuity and geometric soundness of the declared
 rules; they impose no general normalization or decision procedure on an
 arbitrary presentation.
@@ -239,12 +239,12 @@ whose restrictions to $E^+$ are $s,t,\rho$ and whose restrictions to the
 inverse copy (under $E^-\cong E$) are $t,s,e\mapsto\rho(e)^{-1}$,
 respectively.
 
-Figure~\ref{fig:oriented-steps} separates the space of step labels from the
-space in which their paths run.  The inverse copy does not require an
+Figure~\ref{fig:oriented-steps} shows composition of labelled witnesses and
+the soundness implication from scoped rewriting to geometric homotopy.  The inverse copy does not require an
 orientation on the topological space $E$: only the source, target, and
 direction of the represented path are reversed.
 
-\MainFigure{oriented-steps}{Positive and inverse copies of a step map to the same geometric route with opposite traversal directions and exchanged endpoints.}
+\MainFigure{oriented-steps}{Labelled steps from a through b to c compose to p=r;s. A parallel witness u is connected to p only when the scoped rules derive their equality, which implies endpoint-fixed homotopy of their realizations. Formal reversal exchanges endpoints and reverses time.}
 
 
 For composable interval paths $\alpha$ and $\beta$ and $m,n\in\N$, write
@@ -1878,8 +1878,8 @@ gives clause (b).  Thus the
 minimal circle presentation is geometrically complete on its based loop
 fiber.
 
-It is also useful to package the derived integer normal forms as a completed
-presentation with a primitive step $\lambda_n$ for each $n\in\Z$,
+The derived integer normal forms also give a completed presentation
+with a primitive step $\lambda_n$ for each $n\in\Z$,
 \[
   \lambda_n(t)=[tn].
 \]
@@ -2300,13 +2300,13 @@ The rose result classifies all continuous loops algebraically, with
 Mathlib's opposite multiplication convention explicit. Its topological
 statements concern the fixed-endpoint computational quotients.
 
-The \href{technical-supplement.pdf}{Supplement, Section~S4} gives the full
-maps of results, declarations, assumptions, models, and commits and distinguishes current
+The \href{technical-supplement.pdf}{Supplement, Section~S4} maps results to
+declarations, assumptions, models, and commits. It distinguishes current
 kernel and independent replay checks from the earlier immutable registered
 selection. Repository manifests and exact-source logs supply reproducible
 verification boundaries. Challenge-side statement placeholders are distinct
-from the substantive checked proofs. Detailed construction and classical-example proofs are supplied in the
-Supplement.
+from the substantive checked proofs. The Supplement supplies detailed
+construction and classical-example proofs.
 
 \section{Conclusion}
 The semantics depends on the declared rewrites, exact parametrization and
@@ -2327,8 +2327,8 @@ support and assistance with software, documentation, and figure preparation.
 The geometric exposition and figures were developed from Tiago M.~L.~de
 Veras's suggestions on reversal, coherence, and homotopy obstructions.
 The figures are mathematical schematics with explicitly stated maps and
-boundary conditions.  They illustrate the arguments and are not offered as
-evidence for the theorems.
+boundary conditions. They illustrate the arguments; the proofs establish
+the theorems.
 
 
 \bibliographystyle{amsplain}

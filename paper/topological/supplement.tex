@@ -95,7 +95,7 @@ is preserved separately.
 
 \section{Construction calculations}
 Use the signed-word, endpoint and topology conventions of the main paper.
-The following are the complete proofs of its shortened construction lemmas.
+The following proofs fill in its shortened construction lemmas.
 The main paper retains the explanatory figures.
 
 \begin{lemma}[continuity of trace realization]
@@ -590,8 +590,8 @@ the quotient of the based carrier, not an unproved subspace comparison with
 the global quotient.
 \end{proof}
 
-The exact binary collision is implemented in \LeanName{BinaryTimingCollision},
-which proves failure of $T_0$ for both the fixed-base trace quotient and the
+\LeanName{BinaryTimingCollision} implements the exact binary collision
+and proves failure of $T_0$ for both the fixed-base trace quotient and the
 global binary scoped quotient. Coherent-representative elimination transfers
 the fixed-base trace result to the matching coherent quotient. The actual
 circle winding computation, flat discreteness, and exclusion of every

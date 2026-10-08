@@ -1,29 +1,32 @@
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[font=\small,>=Stealth]
-\node[anchor=west,font=\small\bfseries] at (0,2.4) {(a) Step labels};
-\draw[rounded corners,fill=pathblue!5,draw=pathblue] (0,0.95) rectangle (2.25,1.95);
-\draw[rounded corners,fill=pathorange!5,draw=pathorange] (0,-0.55) rectangle (2.25,0.45);
-\node at (1.12,1.45) {$e^+\in E^+\cong E$};
-\node at (1.12,-0.05) {$e^-\in E^-\cong E$};
-\draw[->,pathblue,thick] (2.4,1.45) -- node[above] {$\widetilde\rho$} (4.05,1.45);
-\draw[->,pathorange,thick] (2.4,-0.05) -- node[above] {$\widetilde\rho$} (4.05,-0.05);
-\node[anchor=west,font=\small\bfseries] at (4.25,2.4) {(b) Paths in $X$};
-\draw[->,pathblue,thick] (4.5,1.45) .. controls (5.1,2.05) and (6.45,2.05) .. (7.1,1.45);
-\fill (4.5,1.45) circle (1.5pt) node[below] {$s(e)$};
-\fill (7.1,1.45) circle (1.5pt) node[below] {$t(e)$};
-\node at (5.8,2.03) {$\rho(e)$};
-\draw[<-,pathorange,thick] (4.5,-0.05) .. controls (5.1,0.55) and (6.45,0.55) .. (7.1,-0.05);
-\fill (4.5,-0.05) circle (1.5pt) node[below] {$s(e)$};
-\fill (7.1,-0.05) circle (1.5pt) node[below] {$t(e)$};
-\node at (5.8,0.53) {$\rho(e)^{-1}$};
-\node[align=center] at (3.6,-1.15) {$\widetilde s(e^-)=t(e),\quad
- \widetilde t(e^-)=s(e),\qquad
+\node[anchor=west,font=\small\bfseries] at (-0.2,2.6) {(a) Labelled computation};
+\node (a) at (0,1.55) {$a$};
+\node (b) at (2,1.55) {$b$};
+\node (c) at (4,1.55) {$c$};
+\draw[->,pathblue,thick] (a) -- node[above] {$r$} (b);
+\draw[->,pathblue,thick] (b) -- node[above] {$s$} (c);
+\draw[->,pathblue] (a) to[bend left=20] node[above] {$p=r;s$} (c);
+\draw[->,pathorange] (a) to[bend right=28] node[below] {$u$} (c);
+\node[align=center] at (2,0.25) {Parallel witnesses from $a$ to $c$};
+\node[anchor=west,font=\small\bfseries] at (5.25,2.6) {(b) Rewriting and realization};
+\node[draw=pathblue,rounded corners,fill=pathblue!5,align=center,
+  inner sep=5pt] (rewrite) at (7.9,1.95)
+  {$p\RwEq u$\\when the scoped rules derive it};
+\node (homotopy) at (7.9,0.45) {$|p|\simeq_{\partial I}|u|$};
+\draw[->,pathteal,thick] (rewrite) -- node[right] {soundness} (homotopy);
+\draw[gray!50] (-0.2,-0.15) -- (10.6,-0.15);
+\node[align=center,font=\footnotesize] at (5.2,-0.65)
+ {Formal reversal: $e^+\in E^+\cong E$, $e^-\in E^-\cong E$\\[2pt]
+ $\widetilde s(e^-)=t(e),\quad \widetilde t(e^-)=s(e),\qquad
  \widetilde\rho(e^-)(t)=\rho(e)(1-t)$};
 \end{tikzpicture}
-\caption{Formal reversal changes the direction of a represented path and
-leaves the topology of the step space unchanged.  The two curves depict the same geometric
-route traversed in opposite directions.  Endpoint maps take values in $X$;
-the realization map takes values in $X^I$.}
+\caption{Labels record a route and its composition. A scoped rewrite between
+parallel witnesses gives an endpoint-fixed homotopy of their realizations by
+soundness; the converse requires geometric completeness. Formal reversal
+traverses a represented path in the opposite direction and leaves the topology
+of the step space unchanged. Endpoint maps take values in $X$; the realization
+map takes values in $X^I$.}
 \label{fig:oriented-steps}
 \end{figure}

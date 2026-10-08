@@ -76,3 +76,6 @@ author must confirm coauthor approval and the current submission status.
 
 The expanded computational-path introduction and related-work source checks
 are recorded in [introduction review evidence](../../evidence/intro-background/README.md).
+
+The second Humanizer pass and expanded introductory computational-path diagram
+are recorded in [prose and diagram review evidence](../../evidence/humanizer-diagram/README.md).
