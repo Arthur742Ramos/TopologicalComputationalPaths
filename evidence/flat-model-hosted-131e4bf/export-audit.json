@@ -1,0 +1,101 @@
+{
+  "export_sha256": "0355c243497dda03f7d94956b1d8770da3bcf32a4ff52da31da5e0ce1c0e8ba4",
+  "metadata": {
+    "exporter": {
+      "name": "lean4export",
+      "version": "3.1.0"
+    },
+    "format": {
+      "version": "3.1.0"
+    },
+    "lean": {
+      "githash": "8c9756b28d64dab099da31a4c09229a9e6a2ef35",
+      "version": "4.32.0"
+    }
+  },
+  "selected_declarations": [
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_slot",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_eq_of_flatWord",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.GeometricTrace.flatRealize_homotopic_binary",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.quotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.traceSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.scoped_sound",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.coherent_iff",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.totalSensitiveTopology",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalObservation",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.EqualSlotTopology.continuous_totalQuotientMk",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph",
+      "kind": "def"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0",
+      "kind": "thm"
+    },
+    {
+      "name": "ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0",
+      "kind": "thm"
+    }
+  ],
+  "exported_declaration_count": 11849,
+  "exported_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "status": "export audit passed; NanoDa replay is required separately"
+}

@@ -1,0 +1,29 @@
+Presentation-change manuscript validation, 2026-10-08 UTC
+
+Compiler: Tectonic 0.17.0, minimal chatter, keep logs.
+Source: paper/topological/main.tex
+Source SHA256: 1195120d641e2c9ffc8f8d9ef97c1ad557d806b8312ab6c4b6bc4078aaf58591
+Bibliography SHA256: d239f044508a2ddd4d2aebf747252d32b89decf639f4defe61e22cfc71c5923f
+Proof source snapshot: d604b75c2f689e57955302475275064167a4116d
+PDF: paper/topological/verified/presentation-change-model-boundary.pdf
+PDF SHA256: 596a34f6ba1ab2207e1c399d879a0e188358d73e3706505a156c7271d50e2685
+Pages: 44 (pypdf inspection).
+Compilation: exit 0; no overfull boxes or undefined references/citations in final log.
+Underfull paragraph warnings remain; inspected output is readable.
+
+Visual inspection: all 44 pages rendered with Poppler at 72 dpi and reviewed
+in contact sheets; pages 1, 20, 21 and 36 inspected at 144 dpi. The abstract,
+fixed-endpoint substitution criterion, conservative abbreviation example,
+model boundary and verification map fit without clipping or overlap.
+
+Scope: the generic supplied-topology homeomorphism descends actual recursive
+substitution continuity; the concrete primitive continuity case is binary,
+uniform length and exact timing. The flat-tree counterexample concerns the
+canonical algebraic equivalence's inverse. No general variable-length flat
+or trace-sensitive invariance, literal-word quotient correspondence, global
+equivalence, final-pair transport or novelty claim is made.
+
+The committed PDF can be downloaded outside the Windows workspace.
+This is compilation/layout evidence, not proof of unformalized statements.
+Kernel/axiom evidence is in presentation-change-kernel.log; hosted direct
+NanoDa acceptance must be checked separately for the new published PR head.
