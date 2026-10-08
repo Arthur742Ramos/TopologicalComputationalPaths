@@ -44,6 +44,8 @@ jobs:
         run: ./scripts/check-followup.sh --skip-build
       - name: Check roadmap selection
         run: ./scripts/check-roadmap.sh --skip-build
+      - name: Inspect model-boundary declarations and axioms
+        run: lake env lean ModelBoundaryVerification.lean
       - name: Check certified preimage solver and generated fixtures
         run: |
           python3 -m venv .cache/preimage-venv

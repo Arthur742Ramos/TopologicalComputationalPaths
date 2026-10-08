@@ -1,0 +1,25 @@
+import ComputationalPaths.Path.Topology.CoherentRepresentativeElimination
+import ComputationalPaths.Path.Topology.BinaryTimingCollision
+
+/-! Kernel and axiom inspection for the first model-boundary milestone.
+This file has no statement placeholders and makes no flat-topology claim.
+Comparator/NanoDa's existing selections are checked separately in CI.
+-/
+
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
+#check ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0
+
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.quotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.observableQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.CoherentRepresentativeElimination.traceSensitiveQuotientHomeomorph
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.realize_eq
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.countC_invariant
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.classes_ne
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.not_t0
+#print axioms ComputationalPaths.Path.GeometricTopology.BinaryTimingCollision.fixed_not_t0

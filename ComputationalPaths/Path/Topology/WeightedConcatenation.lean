@@ -9,7 +9,8 @@ concatenation when the two word lengths change.  Mathlib's interval-path
 concatenation uses the fixed breakpoint `1 / 2`; the bridge between the two
 descriptions is endpoint-preserving reparametrization.
 
-This file formalizes that bridge.  A `WeightedSlotReparam m n` records the
+This file formalizes the homotopy bridge, not a homeomorphism between the
+observable topologies. A `WeightedSlotReparam m n` records the
 endpoint-preserving reparametrization associated with two slot counts.  The
 invariance theorem then proves that changing both the path representatives and
 the slot counts preserves endpoint-fixed homotopy.  Concrete piecewise-linear
