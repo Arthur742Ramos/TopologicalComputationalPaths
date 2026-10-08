@@ -1,0 +1,625 @@
+{
+  "integrated_main": "4f48603a9309e4273438052d387cd967ffa695ca",
+  "verified_tree": "18e8ed395ee043fe5e548f9ac323091aeec5893a",
+  "pull_requests": [
+    {
+      "baseRefName": "main",
+      "headRefOid": "72369f2c003aee688183a9360f08bd6780cf35ce",
+      "mergeCommit": {
+        "oid": "b44d99e1dfd1bae18855eb114965439ecf951384"
+      },
+      "number": 6,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/6"
+    },
+    {
+      "baseRefName": "main",
+      "headRefOid": "131e4bf714f1693dc1353bc6164687c1d8b2f1e2",
+      "mergeCommit": {
+        "oid": "23b2a3fbb8478fada1511c5a50db28363833f3f0"
+      },
+      "number": 7,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/7"
+    },
+    {
+      "baseRefName": "main",
+      "headRefOid": "d4d5db5a1a9eea7bb72d85858327a97e9d676249",
+      "mergeCommit": {
+        "oid": "8f0f13b51fa704129722e45ab5f73f071ccbc102"
+      },
+      "number": 8,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/8"
+    },
+    {
+      "baseRefName": "main",
+      "headRefOid": "ff2eb59b44237780a54f965519454a677cc98b77",
+      "mergeCommit": {
+        "oid": "43f1939eab9a3b4df6b23154c06b85479102ecb8"
+      },
+      "number": 9,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/9"
+    },
+    {
+      "baseRefName": "main",
+      "headRefOid": "04d736a8aeb639f9131141497494943f6db109d7",
+      "mergeCommit": {
+        "oid": "22a037c564d1ca1677c7daace241429415c08f63"
+      },
+      "number": 10,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/10"
+    },
+    {
+      "baseRefName": "main",
+      "headRefOid": "e1d63731a9313594d88b66e8e1c67b7a908e579d",
+      "mergeCommit": {
+        "oid": "4f48603a9309e4273438052d387cd967ffa695ca"
+      },
+      "number": 11,
+      "state": "MERGED",
+      "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/pull/11"
+    }
+  ],
+  "exact_head_ci": {
+    "conclusion": "success",
+    "headSha": "4f48603a9309e4273438052d387cd967ffa695ca",
+    "jobs": [
+      {
+        "completedAt": "2026-10-08T10:11:53Z",
+        "conclusion": "success",
+        "databaseId": 113258349092,
+        "name": "Lean and Palomar contract",
+        "startedAt": "2026-10-08T10:07:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:34Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:36Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:37Z",
+            "conclusion": "success",
+            "name": "Run repository-native Palomar quality gate",
+            "number": 4,
+            "startedAt": "2026-10-08T10:11:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:37Z",
+            "conclusion": "success",
+            "name": "Run follow-up theorem quality gate",
+            "number": 5,
+            "startedAt": "2026-10-08T10:11:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:37Z",
+            "conclusion": "success",
+            "name": "Check roadmap selection",
+            "number": 6,
+            "startedAt": "2026-10-08T10:11:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:40Z",
+            "conclusion": "success",
+            "name": "Inspect model-boundary declarations and axioms",
+            "number": 7,
+            "startedAt": "2026-10-08T10:11:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:50Z",
+            "conclusion": "success",
+            "name": "Check certified preimage solver and generated fixtures",
+            "number": 8,
+            "startedAt": "2026-10-08T10:11:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:51Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 16,
+            "startedAt": "2026-10-08T10:11:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:51Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-08T10:11:51Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349092"
+      },
+      {
+        "completedAt": "2026-10-08T10:13:26Z",
+        "conclusion": "success",
+        "databaseId": 113258349468,
+        "name": "Comparator and NanoDa (comparator-roadmap.json)",
+        "startedAt": "2026-10-08T10:07:32Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:35Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:36Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:14Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:22Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-08T10:09:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:13:22Z",
+            "conclusion": "success",
+            "name": "Run pinned Comparator and NanoDa",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:13:22Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 9,
+            "startedAt": "2026-10-08T10:13:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:13:22Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 10,
+            "startedAt": "2026-10-08T10:13:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:13:22Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-08T10:13:22Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349468"
+      },
+      {
+        "completedAt": "2026-10-08T10:11:05Z",
+        "conclusion": "success",
+        "databaseId": 113258349520,
+        "name": "Comparator and NanoDa (comparator-registry-roadmap.json)",
+        "startedAt": "2026-10-08T10:07:31Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:33Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:33Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:08:58Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:06Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-08T10:08:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:03Z",
+            "conclusion": "success",
+            "name": "Run pinned Comparator and NanoDa",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:03Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 9,
+            "startedAt": "2026-10-08T10:11:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:03Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 10,
+            "startedAt": "2026-10-08T10:11:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:03Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-08T10:11:03Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349520"
+      },
+      {
+        "completedAt": "2026-10-08T10:12:00Z",
+        "conclusion": "success",
+        "databaseId": 113258349525,
+        "name": "Selected model-boundary declarations and NanoDa",
+        "startedAt": "2026-10-08T10:07:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:33Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:15Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:15Z",
+            "conclusion": "success",
+            "name": "Test export coverage and axiom audit",
+            "number": 4,
+            "startedAt": "2026-10-08T10:09:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:55Z",
+            "conclusion": "success",
+            "name": "Replay selected actual declarations",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:58Z",
+            "conclusion": "success",
+            "name": "Retain selected replay evidence",
+            "number": 6,
+            "startedAt": "2026-10-08T10:11:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 12,
+            "startedAt": "2026-10-08T10:11:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:58Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-10-08T10:11:58Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349525"
+      },
+      {
+        "completedAt": "2026-10-08T10:14:13Z",
+        "conclusion": "success",
+        "databaseId": 113258349530,
+        "name": "Comparator and NanoDa (comparator-followup.json)",
+        "startedAt": "2026-10-08T10:07:32Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:35Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:36Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:19Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:28Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-08T10:09:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:14:09Z",
+            "conclusion": "success",
+            "name": "Run pinned Comparator and NanoDa",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:14:10Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 9,
+            "startedAt": "2026-10-08T10:14:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:14:10Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 10,
+            "startedAt": "2026-10-08T10:14:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:14:10Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-08T10:14:10Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349530"
+      },
+      {
+        "completedAt": "2026-10-08T10:11:39Z",
+        "conclusion": "success",
+        "databaseId": 113258349712,
+        "name": "Comparator and NanoDa (comparator-preimage.json)",
+        "startedAt": "2026-10-08T10:07:31Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:34Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:35Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:21Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:27Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-08T10:09:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:36Z",
+            "conclusion": "success",
+            "name": "Run pinned Comparator and NanoDa",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:36Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 9,
+            "startedAt": "2026-10-08T10:11:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:37Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 10,
+            "startedAt": "2026-10-08T10:11:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:11:37Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-08T10:11:37Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349712"
+      },
+      {
+        "completedAt": "2026-10-08T10:12:59Z",
+        "conclusion": "success",
+        "databaseId": 113258349723,
+        "name": "Comparator and NanoDa (comparator.json)",
+        "startedAt": "2026-10-08T10:07:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-08T10:07:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-08T10:07:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:07:33Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "startedAt": "2026-10-08T10:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:08:54Z",
+            "conclusion": "success",
+            "name": "Run leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9",
+            "number": 3,
+            "startedAt": "2026-10-08T10:07:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:09:03Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 4,
+            "startedAt": "2026-10-08T10:08:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:12:57Z",
+            "conclusion": "success",
+            "name": "Run pinned Comparator and NanoDa",
+            "number": 5,
+            "startedAt": "2026-10-08T10:09:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:12:57Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+            "number": 9,
+            "startedAt": "2026-10-08T10:12:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:12:57Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 10,
+            "startedAt": "2026-10-08T10:12:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-08T10:12:57Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-08T10:12:57Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258349723"
+      },
+      {
+        "completedAt": "2026-10-08T10:07:27Z",
+        "conclusion": "skipped",
+        "databaseId": 113258351713,
+        "name": "Full Palomar mechanical preflight",
+        "startedAt": "2026-10-08T10:07:28Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718/job/113258351713"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718"
+  }
+}

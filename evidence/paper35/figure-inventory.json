@@ -1,0 +1,70 @@
+{
+  "original_pages": 51,
+  "previous_main_pages": 32,
+  "current_main_pages": 35,
+  "current_supplement_pages": 18,
+  "original_figures": 9,
+  "previous_main_figures": 2,
+  "current_main_figures": 11,
+  "current_supplement_figures": 0,
+  "all_original_figures_restored": true,
+  "figure_names": [
+    "oriented steps",
+    "coherent representative",
+    "duplicate labels",
+    "backtracking",
+    "final and ordinary pair topologies",
+    "binary and equal-slot timing",
+    "conservative redundant generator",
+    "normal forms",
+    "universal section",
+    "winding classification",
+    "rose covering"
+  ],
+  "current_main_figure_pages": [
+    {
+      "number": 1,
+      "page": 3
+    },
+    {
+      "number": 2,
+      "page": 5
+    },
+    {
+      "number": 3,
+      "page": 8
+    },
+    {
+      "number": 4,
+      "page": 11
+    },
+    {
+      "number": 5,
+      "page": 15
+    },
+    {
+      "number": 6,
+      "page": 18
+    },
+    {
+      "number": 7,
+      "page": 21
+    },
+    {
+      "number": 8,
+      "page": 23
+    },
+    {
+      "number": 9,
+      "page": 25
+    },
+    {
+      "number": 10,
+      "page": 30
+    },
+    {
+      "number": 11,
+      "page": 34
+    }
+  ]
+}

@@ -1,77 +1,73 @@
 # Topological semantics manuscript
 
-This directory began with revised LaTeX source from
-[`ComputationalPathsLean`](https://github.com/Arthur742Ramos/ComputationalPathsLean),
-branch `feat/full-omega-groupoid`, commit `b6f47117`, and has since been edited
-in this repository. The bibliography is
-[`../refs.bib`](../refs.bib). The manuscript cites the broader parent Lean
-artifact and the immutable Palomar version 1; those are distinct from the
-working-tree changes in this focused repository.
+The main paper is [main.tex](main.tex), with a compiled version at
+[verified/main-35-pages.pdf](verified/main-35-pages.pdf). It uses the existing
+10-point `amsart` layout and compiles to **35 pages including references**.
+All nine original explanatory figures remain in the main paper, together with
+new timing-model and conservative-generator diagrams (eleven figures total).
+Figure captions are followed by authored alt text in the source and review PDF.
+The [technical supplement](supplement.tex)
+([PDF](verified/technical-supplement.pdf), 18 pages) holds the longer construction,
+circle, torus and product calculations, and complete
+maps of declarations, assumptions, models and verified source commits.
 
-The revision proves an open-arrow compatibility criterion and gives a
-proof of the published universal path-class open-map theorem of Holkar,
-Hossain, and Kulkarni. It derives product-trace interchange from primitive
-rectangle swaps and proves based completeness for the finite circle and
-torus presentations. A continuous trace section identifies the two scoped
-quotient topologies when the presentation is complete. A complete
-discrete-label presentation over the harmonic archipelago shows that
-completeness alone does not suffice. Lean checks the global open-map theorem,
-primitive product closure, and the finite based completeness results. The
-mathematical harmonic-archipelago counterexample is outside the Lean
-selection. The external Palomar preflight and registration boundary is
-tracked in [`../../ROADMAP.md`](../../ROADMAP.md).
+The 35-page working target is the user's editorial goal. The
+[official IGPL instructions](https://academic.oup.com/jigpal/pages/General_Instructions)
+ask for **about 30 printed pages**, an approximate target rather than an explicit
+hard maximum. Our `amsart` PDF count is not a verified journal-typesetting count.
+No mandatory IGPL LaTeX class or journal-specific supplement allowance was
+verified. The main is therefore a reviewed working manuscript, not a claim of
+submission-format approval; see [the guidance record](../../evidence/paper35/igpl-guidance.md).
 
-The manuscript uses equal-slot flat signed words. Existing Lean topology
-results use recursive binary `Path.trans`, and the trace-sensitive refinement
-retains that binary realization coordinate. Homotopy invariance of weighted
-concatenation does not identify these observable topologies. Section 10 now
-states this boundary explicitly. The binary results remain unchanged.
+The unabridged manuscript is preserved as [full-manuscript.tex](full-manuscript.tex)
+and the previously inspected [51-page PDF](verified/geometric-rose-all-loops.pdf).
+Its source is the manuscript at integrated main commit
+[`4f48603a9309e4273438052d387cd967ffa695ca`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/4f48603a9309e4273438052d387cd967ffa695ca).
+The editorial revision does not change the Lean development.
 
-The first model-boundary milestone is pinned at source commit
-[`9d9679908e09b1ed0c42e4898f11d797c6a979af`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/9d9679908e09b1ed0c42e4898f11d797c6a979af).
-`BinaryTimingCollision` proves an exact realization collision, distinct
-scoped classes, and failure of T0 for both fixed-base and global binary
-quotients. `CoherentRepresentativeElimination` proves fixed-endpoint
-quotient homeomorphisms for matching binary observable and full-word trace
-topologies. The general result needs continuity of realization and no
-completeness assumption. The flat discreteness argument in the manuscript
-remains mathematical exposition pending formalization. Global elimination
-and final composable-pair elimination are also pending.
+The paper treats equal-slot flat signed words and distinguishes them from
+recursive binary `Path.trans`. Both models have checked developments; weighted
+homotopy invariance does not identify their observable topologies. Literal-word
+correspondence, fixed and global coherent-representative elimination, final
+composable-pair comparisons, variable-length substitution invariance, timing
+collisions and the conservative abbreviation counterexample are checked.
+Each theorem retains its specific continuity and rewrite hypotheses.
 
-With the pinned dependencies available, run:
+The geometric rose development constructs its edge covering and contracts the
+Cayley graph, giving completeness and classification of all continuous based
+loops. Its fundamental-group identification is algebraic: direct realization
+is an antihomomorphism for Mathlib's multiplication convention, and inversion
+gives the ordinary free-group isomorphism. It does not assert an unproved
+topological fundamental-group comparison. The abstract complete-discrete-label
+separation mechanism is checked; harmonic-archipelago facts and the stated
+Hawaiian-earring inputs remain external hypotheses as explained in the paper.
+
+The integrated source passed [exact-head CI](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/actions/runs/37761277718):
+the repository build, all five Comparator/NanoDa configurations and the direct
+178-declaration model-boundary replay. The pinned toolchain is Lean 4.32.0 with
+Mathlib `81a5d257c8e410db227a6665ed08f64fea08e997`. Checked declarations use
+only `propext`, `Classical.choice` and `Quot.sound`.
+
+From the repository root, with pinned dependencies available:
 
 ```text
-lake build ComputationalPaths
+lake build
 lake env lean ModelBoundaryVerification.lean
 ```
 
-The axiom-inspection output is recorded in
-[`../../evidence/model-boundary-kernel.log`](../../evidence/model-boundary-kernel.log).
-It contains only `propext`, `Classical.choice`, and `Quot.sound` for the new
-declarations. Existing Comparator/NanoDa configurations select earlier
-results and do not replay these new declarations.
-
-The paper's earlier working-source Lean claims are reproducible from focused
-repository commit [`09b20abe0a4f69b361846c2466bff8528044fa93`](https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93)
-with the checked-in Lean 4.32.0 toolchain and dependency manifest. The new
-model-boundary declarations are pinned separately above.
-From the repository root, run `lake build` to check every configured target.
-The prior Palomar version 1 is pinned separately in Section 10 of the paper.
-
-To build the manuscript from this directory, use either `latexmk` with a
-LaTeX distribution or Tectonic:
+The bibliography is [../refs.bib](../refs.bib), and figures are in
+[figures/](figures/). Build the paper and supplement in order, from the repository
+root, preserving the main auxiliary file for the supplement's external references:
 
 ```text
-latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
-# or
-tectonic main.tex
+tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/main.tex
+tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/supplement.tex
 ```
 
-The figures live under [`figures/`](figures/). The Lean extraction in this
-repository can be checked from its root with `lake build ComputationalPaths Solution Challenge`; the
-broader parent artifact must be built in `ComputationalPathsLean`.
+The links between the PDFs use `main-35-pages.pdf` and
+`technical-supplement.pdf`; keep both published PDFs in the same directory.
+Full historical verification records, including the distinct parent and
+Palomar snapshots, are in supplement Section S4 and its declaration appendix.
 
-`igpl-cover-letter.txt` is a draft covering message for this revision. Before
-sending it, the corresponding author must confirm every coauthor's approval
-of the final manuscript and the paper's current journal-submission status.
-The draft makes no claim about either unverified fact.
+`igpl-cover-letter.txt` remains a draft. Before sending it, the corresponding
+author must confirm coauthor approval and the current submission status.
