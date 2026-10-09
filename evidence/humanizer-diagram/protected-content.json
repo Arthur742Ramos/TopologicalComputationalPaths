@@ -1,0 +1,65 @@
+{
+  "main.tex:formal_environments": {
+    "unchanged": true,
+    "count": 93
+  },
+  "main.tex:display_math": {
+    "unchanged": true,
+    "count": 88
+  },
+  "main.tex:inline_math": {
+    "unchanged": true,
+    "count": 712
+  },
+  "main.tex:citations": {
+    "unchanged": true,
+    "count": 17
+  },
+  "main.tex:declarations": {
+    "unchanged": true,
+    "count": 5
+  },
+  "main.tex:hyperlink_targets": {
+    "unchanged": true,
+    "count": 15
+  },
+  "main.tex:labels": {
+    "unchanged": true,
+    "count": 51
+  },
+  "main.tex:preamble": {
+    "unchanged": true
+  },
+  "supplement.tex:formal_environments": {
+    "unchanged": true,
+    "count": 22
+  },
+  "supplement.tex:display_math": {
+    "unchanged": true,
+    "count": 26
+  },
+  "supplement.tex:inline_math": {
+    "unchanged": true,
+    "count": 186
+  },
+  "supplement.tex:citations": {
+    "unchanged": true,
+    "count": 4
+  },
+  "supplement.tex:declarations": {
+    "unchanged": true,
+    "count": 146
+  },
+  "supplement.tex:hyperlink_targets": {
+    "unchanged": true,
+    "count": 15
+  },
+  "supplement.tex:labels": {
+    "unchanged": true,
+    "count": 21
+  },
+  "supplement.tex:preamble": {
+    "unchanged": true
+  },
+  "formal_sources_dependencies_manifests_bibliography_unchanged": true
+}

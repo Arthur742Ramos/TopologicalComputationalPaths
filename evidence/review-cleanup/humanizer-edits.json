@@ -1,0 +1,17 @@
+[
+  {
+    "file": "paper/topological/main.tex",
+    "before": "The topological analysis asks which\ncomputational distinctions survive quotienting and which changes of\npresentation preserve the topology.",
+    "after": "We study which computational distinctions survive\nquotienting and when changes of presentation preserve the topology."
+  },
+  {
+    "file": "paper/topological/supplement.tex",
+    "before": "Its verification boundary was that exact published head, rather than later\nselections.",
+    "after": "Its evidence applied to that exact published head."
+  },
+  {
+    "file": "README.md",
+    "before": "The existing nonfatal axiom pretty-printer diagnostic does not change that\nreported typechecking result.",
+    "after": "NanoDa also emits a nonfatal axiom pretty-printer diagnostic."
+  }
+]

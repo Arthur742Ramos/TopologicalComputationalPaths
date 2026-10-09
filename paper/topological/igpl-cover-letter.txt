@@ -1,51 +1,68 @@
-27 September 2026
+DRAFT. Not sent. Coauthor approval and submission status must be confirmed
+by the corresponding author before use.
 
-Jane Spurr
+8 October 2026
+
 Editorial Office
 Logic Journal of the IGPL
 
 Re: Topological Semantics for Scoped Computational Paths
 
-Dear Ms. Spurr,
+Dear Editors,
 
-Please consider the enclosed manuscript, “Topological Semantics for Scoped
-Computational Paths,” for publication in the Logic Journal of the IGPL. It
-studies continuous geometric realizations of finite computational paths while
-retaining the rewrite rules declared by each presentation.
+Please consider the manuscript, "Topological Semantics for Scoped Computational
+Paths," for publication in the Logic Journal of the IGPL. It studies how
+quotient topologies retain information in explicit equality witnesses after
+the rewrites declared by a computational presentation.
 
-The paper constructs a quotient groupoid whose multiplication is continuous
-on the quotient of composable representatives. It then gives an exact
-criterion for that topology to agree with the ordinary pullback topology on
-composable quotient arrows. A separate completeness criterion identifies
-when the scoped rewrite classes capture all represented homotopy classes.
-The paper applies these results to the universal presentation, to based
-circle and torus presentations, and to products. A complete presentation
-over the harmonic archipelago shows that completeness alone does not make
-the trace-sensitive and observable quotient topologies agree.
+The paper compares a topology that retains the full signed word with an
+observable topology that retains endpoints, length and exact geometric
+realization. A three-label circle proves that equal-slot and recursively timed
+binary realizations can yield nonhomeomorphic observable based quotients.
+Continuous variable-length word substitutions, preserving named rules and
+inverse primitive witnesses up to scoped rewriting, yield full-word quotient
+homeomorphisms at fixed endpoints, globally and on final composable-pair
+domains. A conservative generator abbreviation gives a complementary failure:
+the algebraic presentation equivalence survives, but its canonical observable
+inverse is discontinuous. The claim concerns that inverse, without excluding
+every unrelated bijection.
 
-The topological inputs and winding calculations are classical. The paper's
-contribution is the scoped presentation framework, its quotient-topology
-comparison, and the completeness and trace-section criteria. The manuscript
-distinguishes the mathematical arguments from the Lean checks and from the
-earlier, narrower result registered in Palomar. The current Lean source is
-available at
-https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/09b20abe0a4f69b361846c2466bff8528044fa93
-and builds with Lean 4.32.0 using the repository's checked-in dependency
-manifest. An earlier version of the paper is available as the preprint
+Composition is continuous on the final quotient of composable representatives.
+Four equivalent conditions characterize agreement with the ordinary pair
+topology and imply ordinary continuity. A published path-class open-map theorem
+gives the universal positive case under local path-connectedness and semilocal
+simple connectivity. Exact circle and torus presentations have checked normal
+forms and geometric completeness, with primitive interchange supporting
+products. For the two-circle rose, an interval-glued Cayley covering and a
+jointly continuous contraction classify all continuous based loops by reduced
+words. The ordinary fundamental-group comparison is algebraic; the paper
+separately proves discreteness of the computational based quotients.
+
+The abstract complete discrete-label separation mechanism is checked under an
+explicit nondiscreteness hypothesis. Harmonic-archipelago geometry and the
+stated Hawaiian-earring facts remain external inputs. Classical geometric
+results and the published universal theorem are credited, and the paper
+separates its present claims from the narrower Palomar registration.
+
+The working manuscript has 35 pages including references and review-copy alt
+text, with eleven explanatory figures; the technical supplement has 18 pages.
+The sources and reviewed PDFs are in the repository:
+https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/main/paper/topological
+
+The verified Lean source is pinned at:
+https://github.com/Arthur742Ramos/TopologicalComputationalPaths/tree/1922376592442324448b474de068db6a09af18f8
+It uses Lean 4.32.0 and the checked-in Mathlib manifest. Exact-commit CI passed
+the build, five Comparator/NanoDa configurations and a direct replay of 178
+selected declarations with a 20,013-declaration dependency closure. The checked
+axioms are propext, Classical.choice and Quot.sound. An earlier preprint is at
 https://arxiv.org/abs/2608.04228.
 
-AI-assisted tools were used for editorial support and assistance with
-software, documentation, and figure preparation, as disclosed in the
-manuscript's Acknowledgements. The authors remain responsible for the
-mathematical claims and final text.
-
-Coauthor Ruy J. G. B. de Queiroz is listed among the journal's Editors-in-Chief.
-We ask that he be recused from editorial handling and decisions on this paper.
-
-Arthur Freitas Ramos is the corresponding author and can be reached at
-arfreita@microsoft.com.
-
-Thank you for considering the manuscript.
+AI-assisted tools were used for editorial support and assistance with software,
+documentation and figure preparation, as disclosed in the Acknowledgements.
+The authors remain responsible for the mathematical claims and final text.
+Coauthor Ruy J. G. B. de Queiroz should be recused from any editorial handling
+or decisions on this paper. Arthur Freitas Ramos is the corresponding author
+and can be reached at arfreita@microsoft.com.
 
 Sincerely,
 
