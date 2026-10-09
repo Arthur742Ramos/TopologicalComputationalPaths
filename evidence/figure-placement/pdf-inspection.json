@@ -1,0 +1,302 @@
+{
+  "main": {
+    "pages": 35,
+    "bytes": 270870,
+    "sha256": "a5da69cccf82a6347d406f4bae1d444c334cef2c664bc303a9273923221ff630",
+    "fonts": 37,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoTo": 73,
+      "/GoToR": 13,
+      "/URI": 2
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [
+      [
+        3,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        3,
+        "geometric-rose-all-loops.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        5,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        9,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        10,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        10,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        25,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        25,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        29,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        30,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        31,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        31,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        34,
+        "technical-supplement.pdf",
+        "[0, '/Fit']"
+      ]
+    ],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined_labels": 0,
+    "unresolved_question_mark_references": 0,
+    "figures": [
+      {
+        "number": 1,
+        "page": 3
+      },
+      {
+        "number": 2,
+        "page": 6
+      },
+      {
+        "number": 3,
+        "page": 9
+      },
+      {
+        "number": 4,
+        "page": 11
+      },
+      {
+        "number": 5,
+        "page": 15
+      },
+      {
+        "number": 6,
+        "page": 19
+      },
+      {
+        "number": 7,
+        "page": 21
+      },
+      {
+        "number": 8,
+        "page": 24
+      },
+      {
+        "number": 9,
+        "page": 25
+      },
+      {
+        "number": 10,
+        "page": 31
+      },
+      {
+        "number": 11,
+        "page": 33
+      }
+    ],
+    "all_pages_rendered_and_visually_inspected": true,
+    "authored_alt_text_count": 11
+  },
+  "supplement": {
+    "pages": 18,
+    "bytes": 161182,
+    "sha256": "4f5be9c901085e8b2f9829ea4b07176714584641e642796a6c1a7f0f0d01d3c8",
+    "fonts": 30,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoToR": 23,
+      "/GoTo": 21,
+      "/URI": 15
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [
+      [
+        1,
+        "main-35-pages.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        1,
+        "geometric-rose-all-loops.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        3,
+        "main-35-pages.pdf",
+        "figure.1"
+      ],
+      [
+        3,
+        "main-35-pages.pdf",
+        "figure.4"
+      ],
+      [
+        4,
+        "main-35-pages.pdf",
+        "figure.9"
+      ],
+      [
+        4,
+        "main-35-pages.pdf",
+        "section.8"
+      ],
+      [
+        6,
+        "main-35-pages.pdf",
+        "definition.8.3"
+      ],
+      [
+        6,
+        "main-35-pages.pdf",
+        "definition.8.3"
+      ],
+      [
+        6,
+        "main-35-pages.pdf",
+        "figure.10"
+      ],
+      [
+        6,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        9,
+        "main-35-pages.pdf",
+        "definition.5.3"
+      ],
+      [
+        9,
+        "main-35-pages.pdf",
+        "definition.5.5"
+      ],
+      [
+        10,
+        "main-35-pages.pdf",
+        "definition.5.4"
+      ],
+      [
+        12,
+        "main-35-pages.pdf",
+        "definition.2.6"
+      ],
+      [
+        13,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        14,
+        "main-35-pages.pdf",
+        "definition.2.8"
+      ],
+      [
+        15,
+        "main-35-pages.pdf",
+        "definition.4.8"
+      ],
+      [
+        15,
+        "main-35-pages.pdf",
+        "section.2"
+      ],
+      [
+        15,
+        "main-35-pages.pdf",
+        "definition.4.9"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "definition.7.5"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "definition.7.6"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "definition.7.7"
+      ],
+      [
+        16,
+        "main-35-pages.pdf",
+        "section.8"
+      ]
+    ],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined_labels": 0,
+    "unresolved_question_mark_references": 0,
+    "figures": [],
+    "all_pages_rendered_and_visually_inspected": true
+  },
+  "editorial_base_commit": "ffb148df0c16bab42045b38b47d7d8fc704ad8ff",
+  "compiler": "Tectonic0.17.0",
+  "main_figure_sources_retained": 11,
+  "diagram_art_captions_and_alt_text_unchanged": true,
+  "figure_placement_moves": {
+    "1": [
+      4,
+      3
+    ],
+    "11": [
+      34,
+      33
+    ]
+  },
+  "protected_content_checks": {
+    "baseline_commit": "ffb148df0c16bab42045b38b47d7d8fc704ad8ff",
+    "main_text_unchanged_after_removing_exact_layout_commands_and_floats": true,
+    "inline_figures_and_captions_alt_text_unchanged": true,
+    "external_figure_art_unchanged": true,
+    "main_figure1_float_priority_only_changed": true,
+    "theorems_proofs_formulas_citations_declarations_and_preambles_unchanged": true,
+    "supplement_source_bibliography_lean_toolchain_dependencies_replay_manifests_unchanged": true,
+    "fonts_or_figure_scales_not_reduced": true
+  },
+  "archival_pdf_sha256": "e3da433ff781ea1d3dc80c15c147a3cf812e2052fd5806b319f8575b71045f4a",
+  "source_hashes": {
+    "paper/topological/main.tex": "59785e8492840ee21328f9e43b053f49abfb41fc426521c5eb795fd864870424",
+    "paper/topological/supplement.tex": "38089c7e9dc3efcda1b2a762a60e297f8e22fc066cd05f1c74f049130e3fc15c",
+    "paper/topological/figures/oriented-steps.tex": "cf50fa1420ff77306a71b97c69293ba9924522d8ac08bcd15d51f4fb208b823c",
+    "paper/topological/figures/same-geometry.tex": "f29fb43202a0358828699a28d647913f8c174b230455d04f83ebea49d0c1466a",
+    "paper/refs.bib": "3d86bc371ec6b4294b0ad8816aee8514e6a6429c3c69347ba1645367505c3670"
+  }
+}

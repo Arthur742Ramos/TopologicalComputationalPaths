@@ -79,3 +79,6 @@ are recorded in [introduction review evidence](../../evidence/intro-background/R
 
 The second Humanizer pass and expanded introductory computational-path diagram
 are recorded in [prose and diagram review evidence](../../evidence/humanizer-diagram/README.md).
+
+The page-by-page figure-placement audit and its two layout improvements are
+recorded in [figure-placement evidence](../../evidence/figure-placement/README.md).

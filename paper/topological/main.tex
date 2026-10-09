@@ -244,7 +244,12 @@ the soundness implication from scoped rewriting to geometric homotopy.  The inve
 orientation on the topological space $E$: only the source, target, and
 direction of the represented path are reversed.
 
+% Keep the introductory diagram after its notation and before weighted concatenation.
+\enlargethispage{16pt}
+\begingroup\captionindent=0pt
+\setlength{\intextsep}{6pt}
 \MainFigure{oriented-steps}{Labelled steps from a through b to c compose to p=r;s. A parallel witness u is connected to p only when the scoped rules derive their equality, which implies endpoint-fixed homotopy of their realizations. Formal reversal exchanges endpoints and reverses time.}
+\endgroup
 
 
 For composable interval paths $\alpha$ and $\beta$ and $m,n\in\N$, write
@@ -2138,6 +2143,48 @@ closed intervals, with precisely the specified endpoint identifications.
 Map each interval to the corresponding primitive circle loop and each
 vertex to $o$.
 
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[scale=.88, every node/.style={font=\small}]
+  \draw (-4.8,0) circle (.65);
+  \draw (-3.5,0) circle (.65);
+  \fill (-4.15,0) circle (2pt);
+  \node[below] at (-4.15,0) {$o$};
+  \node[above] at (-4.8,.65) {$a$};
+  \node[above] at (-3.5,.65) {$b$};
+  \node[below] at (-4.15,-1.45) {$R$};
+  \draw[->,thick] (-.8,0) -- (-2.5,0) node[midway,above] {$p$};
+  \coordinate (one) at (1,0);
+  \coordinate (a) at (0,1);
+  \coordinate (b) at (2,1);
+  \coordinate (ai) at (0,-1);
+  \coordinate (bi) at (2,-1);
+  \coordinate (ab) at (-.55,2);
+  \coordinate (ba) at (2.55,2);
+  \draw[->] (one) -- (a) node[midway,above right] {$a$};
+  \draw[->] (one) -- (b) node[midway,above left] {$b$};
+  \draw[->] (ai) -- (one) node[midway,above left] {$a$};
+  \draw[->] (bi) -- (one) node[midway,above right] {$b$};
+  \draw[->] (a) -- (ab) node[midway,right] {$b$};
+  \draw[->] (b) -- (ba) node[midway,left] {$a$};
+  \foreach \v in {one,a,b,ai,bi,ab,ba} \fill (\v) circle (2pt);
+  \node[below] at (one) {$1$};
+  \node[left] at (a) {$a$};
+  \node[right] at (b) {$b$};
+  \node[below left] at (ai) {$a^{-1}$};
+  \node[below right] at (bi) {$b^{-1}$};
+  \node[above] at (ab) {$ab$};
+  \node[above] at (ba) {$ba$};
+  \node[below] at (1,-1.45) {part of $E$};
+\end{tikzpicture}
+\caption{The geometric covering records word order in lifted endpoints.
+The two words $ab$ and $ba$ end at different vertices above the same
+basepoint.  The pictured finite part belongs to the full interval-glued
+Cayley realization.}
+\FigureAltText{The two-circle rose is covered by an interval-glued Cayley graph. Lifts of ab and ba end at distinct vertices above its basepoint.}
+\label{fig:rose-covering}
+\end{figure}
+
 Left multiplication acts continuously on $E$.  The map to $R$ is a
 quotient map: the finite union of the two unit intervals maps continuously
 and surjectively from a compact space to the Hausdorff rose, and the
@@ -2185,6 +2232,8 @@ method~\cite[Section~1.A]{Hatcher02}.  The following construction supplies
 the additional simple-connectivity step needed to classify every continuous
 based loop. Write $T=E$ for this Cayley realization.
 
+% Keep the contraction formula with its introductory paragraph after the covering diagram.
+\enlargethispage{40pt}
 \begin{samepage}
 \begin{theorem}[all continuous loops of the rose]
 \label{thm:rose-all-loops}
@@ -2234,47 +2283,7 @@ with $F(a,b)$. The direct realization comparison reverses multiplication
 under this convention. These algebraic declarations make no additional
 claim about the compact-open topology on the ordinary loop quotient.
 
-\begin{figure}[tbp]
-\centering
-\begin{tikzpicture}[scale=.88, every node/.style={font=\small}]
-  \draw (-4.8,0) circle (.65);
-  \draw (-3.5,0) circle (.65);
-  \fill (-4.15,0) circle (2pt);
-  \node[below] at (-4.15,0) {$o$};
-  \node[above] at (-4.8,.65) {$a$};
-  \node[above] at (-3.5,.65) {$b$};
-  \node[below] at (-4.15,-1.45) {$R$};
-  \draw[->,thick] (-.8,0) -- (-2.5,0) node[midway,above] {$p$};
-  \coordinate (one) at (1,0);
-  \coordinate (a) at (0,1);
-  \coordinate (b) at (2,1);
-  \coordinate (ai) at (0,-1);
-  \coordinate (bi) at (2,-1);
-  \coordinate (ab) at (-.55,2);
-  \coordinate (ba) at (2.55,2);
-  \draw[->] (one) -- (a) node[midway,above right] {$a$};
-  \draw[->] (one) -- (b) node[midway,above left] {$b$};
-  \draw[->] (ai) -- (one) node[midway,above left] {$a$};
-  \draw[->] (bi) -- (one) node[midway,above right] {$b$};
-  \draw[->] (a) -- (ab) node[midway,right] {$b$};
-  \draw[->] (b) -- (ba) node[midway,left] {$a$};
-  \foreach \v in {one,a,b,ai,bi,ab,ba} \fill (\v) circle (2pt);
-  \node[below] at (one) {$1$};
-  \node[left] at (a) {$a$};
-  \node[right] at (b) {$b$};
-  \node[below left] at (ai) {$a^{-1}$};
-  \node[below right] at (bi) {$b^{-1}$};
-  \node[above] at (ab) {$ab$};
-  \node[above] at (ba) {$ba$};
-  \node[below] at (1,-1.45) {part of $E$};
-\end{tikzpicture}
-\caption{The geometric covering records word order in lifted endpoints.
-The two words $ab$ and $ba$ end at different vertices above the same
-basepoint.  The pictured finite part belongs to the full interval-glued
-Cayley realization.}
-\FigureAltText{The two-circle rose is covered by an interval-glued Cayley graph. Lifts of ab and ba end at distinct vertices above its basepoint.}
-\label{fig:rose-covering}
-\end{figure}
+
 
 \section{Checked scope and reproducibility}
 \label{sec:formalization}

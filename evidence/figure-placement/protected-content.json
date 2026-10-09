@@ -1,0 +1,10 @@
+{
+  "baseline_commit": "ffb148df0c16bab42045b38b47d7d8fc704ad8ff",
+  "main_text_unchanged_after_removing_exact_layout_commands_and_floats": true,
+  "inline_figures_and_captions_alt_text_unchanged": true,
+  "external_figure_art_unchanged": true,
+  "main_figure1_float_priority_only_changed": true,
+  "theorems_proofs_formulas_citations_declarations_and_preambles_unchanged": true,
+  "supplement_source_bibliography_lean_toolchain_dependencies_replay_manifests_unchanged": true,
+  "fonts_or_figure_scales_not_reduced": true
+}
