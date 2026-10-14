@@ -1,0 +1,238 @@
+{
+  "main": {
+    "pages": 38,
+    "bytes": 285518,
+    "sha256": "63537def3ce5e54bf71c9f9cbe0fc953d0c7d5d6f5ee53d54a2fbc91406ad3fb",
+    "fonts": 37,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoTo": 76,
+      "/URI": 6
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined_labels": 0,
+    "unresolved_question_mark_references": 0,
+    "figures": [
+      {
+        "number": 1,
+        "page": 4
+      },
+      {
+        "number": 2,
+        "page": 6
+      },
+      {
+        "number": 3,
+        "page": 9
+      },
+      {
+        "number": 4,
+        "page": 12
+      },
+      {
+        "number": 5,
+        "page": 16
+      },
+      {
+        "number": 6,
+        "page": 20
+      },
+      {
+        "number": 7,
+        "page": 23
+      },
+      {
+        "number": 8,
+        "page": 25
+      },
+      {
+        "number": 9,
+        "page": 27
+      },
+      {
+        "number": 10,
+        "page": 33
+      },
+      {
+        "number": 11,
+        "page": 35
+      }
+    ],
+    "all_pages_rendered_and_visually_inspected": true,
+    "authored_alt_text_count": 11
+  },
+  "supplement": {
+    "pages": 18,
+    "bytes": 161761,
+    "sha256": "c792be63c15ef3292ec4907365d4db19fd51f2dc097be9db3ecd724d04458d75",
+    "fonts": 30,
+    "all_fonts_embedded": true,
+    "actions": {
+      "/GoToR": 26,
+      "/GoTo": 21,
+      "/URI": 15
+    },
+    "bad_destinations": [],
+    "external_pdf_links": [
+      [
+        1,
+        "main-reviewed.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        1,
+        "main-reviewed.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        1,
+        "geometric-rose-all-loops.pdf",
+        "[0, '/Fit']"
+      ],
+      [
+        3,
+        "main-reviewed.pdf",
+        "figure.1"
+      ],
+      [
+        3,
+        "main-reviewed.pdf",
+        "figure.4"
+      ],
+      [
+        4,
+        "main-reviewed.pdf",
+        "figure.9"
+      ],
+      [
+        4,
+        "main-reviewed.pdf",
+        "section.8"
+      ],
+      [
+        6,
+        "main-reviewed.pdf",
+        "definition.8.3"
+      ],
+      [
+        6,
+        "main-reviewed.pdf",
+        "definition.8.3"
+      ],
+      [
+        6,
+        "main-reviewed.pdf",
+        "figure.10"
+      ],
+      [
+        6,
+        "main-reviewed.pdf",
+        "section.2"
+      ],
+      [
+        9,
+        "main-reviewed.pdf",
+        "definition.2.10"
+      ],
+      [
+        9,
+        "main-reviewed.pdf",
+        "definition.3.2"
+      ],
+      [
+        10,
+        "main-reviewed.pdf",
+        "definition.5.3"
+      ],
+      [
+        10,
+        "main-reviewed.pdf",
+        "definition.5.5"
+      ],
+      [
+        10,
+        "main-reviewed.pdf",
+        "definition.5.4"
+      ],
+      [
+        12,
+        "main-reviewed.pdf",
+        "definition.2.6"
+      ],
+      [
+        13,
+        "main-reviewed.pdf",
+        "section.2"
+      ],
+      [
+        14,
+        "main-reviewed.pdf",
+        "definition.2.8"
+      ],
+      [
+        15,
+        "main-reviewed.pdf",
+        "definition.4.8"
+      ],
+      [
+        15,
+        "main-reviewed.pdf",
+        "section.2"
+      ],
+      [
+        15,
+        "main-reviewed.pdf",
+        "definition.4.9"
+      ],
+      [
+        16,
+        "main-reviewed.pdf",
+        "definition.7.5"
+      ],
+      [
+        16,
+        "main-reviewed.pdf",
+        "definition.7.6"
+      ],
+      [
+        16,
+        "main-reviewed.pdf",
+        "definition.7.7"
+      ],
+      [
+        16,
+        "main-reviewed.pdf",
+        "section.8"
+      ]
+    ],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "multiply_defined_labels": 0,
+    "unresolved_question_mark_references": 0,
+    "figures": [],
+    "all_pages_rendered_and_visually_inspected": true
+  },
+  "editorial_base_commit": "fb3da4d5772dc13c0d568c3a0844c8a86fe3bd35",
+  "compiler": "Tectonic0.17.0",
+  "main_figure_sources_retained": 11,
+  "diagram_art_captions_and_alt_text_unchanged": true,
+  "protected_content_checks": {
+    "base": "fb3da4d5772dc13c0d568c3a0844c8a86fe3bd35",
+    "unchanged_protected_files": 140,
+    "preamble_unchanged": true,
+    "theorem_lemma_proposition_corollary_statements_unchanged": true,
+    "figure_environments_unchanged": true,
+    "main_supplement_mentions": 0
+  },
+  "archival_pdf_sha256": "e3da433ff781ea1d3dc80c15c147a3cf812e2052fd5806b319f8575b71045f4a",
+  "source_hashes": {
+    "paper/topological/main.tex": "d07deb1d4df0b3bc7d43d3027c300f1c37cca14eac7164c9aa85e496a6e5de08",
+    "paper/topological/supplement.tex": "4b0ba17d0dd05ac3002453d93c261a6b5fd9a7abfd28ba1dd313aaf48be63d6f",
+    "paper/topological/figures/oriented-steps.tex": "cf50fa1420ff77306a71b97c69293ba9924522d8ac08bcd15d51f4fb208b823c",
+    "paper/topological/figures/same-geometry.tex": "f29fb43202a0358828699a28d647913f8c174b230455d04f83ebea49d0c1466a",
+    "paper/refs.bib": "12f6b0ef8ec2732545f3f6f559b3c0f5b0a028b622626cfba513478585ed1b9b"
+  }
+}

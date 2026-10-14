@@ -153,6 +153,38 @@ same endpoint equality. A declared rewrite between these parallel witnesses
 is additional information: the endpoint judgement establishes that $a$ equals $c$,
 whereas a rewrite between $r;s$ and $u$ establishes equality of their witnesses.
 
+For a concrete simply typed lambda-calculus instance, take types $A,B$ and
+context $\Gamma=(a:A,\,f:A\to B)$. Write
+\[
+\begin{aligned}
+ M&=(\lambda x:A.\,f\,x)\bigl((\lambda y:A.\,y)\,a\bigr),\\
+ N&=f\bigl((\lambda y:A.\,y)\,a\bigr),
+ \qquad P=(\lambda x:A.\,f\,x)\,a.
+\end{aligned}
+\]
+All of $M,N,P,f\,a$ have type $B$ in $\Gamma$. Two orders of
+$\beta$-reduction give the labelled judgements
+\[
+\begin{aligned}
+ \Gamma&\vdash M =_r N:B,
+ &\Gamma&\vdash N =_s f\,a:B,\\
+ \Gamma&\vdash M =_{r'} P:B,
+ &\Gamma&\vdash P =_{s'} f\,a:B.
+\end{aligned}
+\]
+Here $r$ and $s'$ contract the outer abstraction; $s$ and $r'$ contract
+$(\lambda y:A.\,y)\,a$ inside an application, using congruence.
+Composition yields $\Gamma\vdash M =_{r;s} f\,a:B$, and symmetry gives
+$\Gamma\vdash f\,a =_{s^{-1};r^{-1}} M:B$.
+The judgement records equality of terms; $r;s$ records this particular
+derivation. Structural witness rewrites cancel
+$(r;s);(s^{-1};r^{-1})$ to $1_M$. The parallel witness $r';s'$ uses
+the other reduction order. Identifying it with $r;s$ requires a witness
+rewrite in the chosen presentation; $\beta$-convertibility of the endpoints
+alone does not supply that identification. A topological realization further
+chooses points for terms, continuous interval paths for steps, and
+endpoint-fixed homotopies for declared witness rewrites.
+
 Earlier work studies the resulting weak groupoid, whose structural laws hold
 through rewrites of computational paths
 \cite{DeVerasRamosDeQueirozDeOliveira2025weak}. The topological application of
@@ -209,10 +241,6 @@ all continuous based loops of the two-circle rose.
 Section~\ref{sec:functoriality} discusses free topological groupoids,
 Brazas's $\tau$-topology and biquotient maps; no priority claim is made for
 our substitution criterion or abbreviation example.
-The \href{technical-supplement.pdf}{supplement} retains detailed
-calculations, verification maps and external-input records; the
-\href{geometric-rose-all-loops.pdf}{full manuscript} preserves the earlier
-exposition and distinct artifact scopes~\cite{PalomarScoped2026}.
 
 \section{Geometric traces and scoped presentations}
 \label{sec:traces}
@@ -336,7 +364,16 @@ is continuous for the coproduct trace topology.
 \end{lemma}
 
 \begin{proof}
-On each positive word stratum, evaluation is a finite pasting of continuous primitive-path evaluations. On $W_0=X$, use the continuous constant-path map. Compactness of $I$ transfers adjoint continuity to the compact-open path space. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S1}.
+On $W_0=X$, the constant-path map has continuous adjoint $(a,t)\mapsto a$.
+For $n\geq1$, the displayed slot formula is continuous on each closed set
+$W_n\times[(i-1)/n,i/n]$: the coordinate map to $\widetilde E$, the
+primitive realization, and compact-open evaluation are continuous.
+Adjacent formulas agree at $t=i/n$ because
+$\widetilde t(e_i)=\widetilde s(e_{i+1})$.
+Finite closed pasting gives a continuous adjoint $W_n\times I\to X$.
+Since $I$ is compact Hausdorff, the compact-open exponential law gives
+continuity into $X^I$ on every stratum. The coproduct property assembles
+these maps.
 \end{proof}
 
 The compact-open topology also gives continuous constant-path and reversal
@@ -623,7 +660,25 @@ maps are continuous.
 \end{lemma}
 
 \begin{proof}
-Endpoint, length, and path coordinates are continuous under the stated operations. Full-word coordinates use concatenation and reversal on the coproduct of composable tuple strata. The zero-length cases use the constant-path formulas. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S1}.
+For the observable topology, the identity and reversal codes are
+$(a,a,0,c_a,c_a)$ and
+$(t(p),s(p),\ell(p),|p|^{-1},\gamma^{-1})$.
+On the open-and-closed length component $(m,n)$, the multiplication code is
+\[
+ \bigl(s(p),t(q),m+n,
+       |p|\star_{m,n}|q|,\gamma\star_{m,n}\delta\bigr).
+\]
+All coordinates are continuous by the path operations established above;
+the zero-length cases use projections or the constant-path map.
+Discrete lengths let these formulas assemble continuously, so the
+initial-topology criterion applies. For the trace-sensitive topology, add
+the continuous word maps $a\mapsto1_a$, $p\mapsto p^{-1}$ and
+$(p,q)\mapsto p;q$ on the composable tuple strata.
+The operations preserve coherence: reverse a witnessing homotopy or
+concatenate two such homotopies with the fixed weights. When a weight is
+zero, both weighted expressions omit that factor; when both vanish, both
+are constant at the common endpoint. This does not require the chosen
+representative of a zero-length trace to be literally constant.
 \end{proof}
 
 \begin{definition}[scoped presentation]
@@ -682,7 +737,24 @@ $m,n,m',n'\in\N$, with the zero-length conventions above,
 \end{lemma}
 
 \begin{proof}
-For positive weights, the two piecewise-linear changes of parameter are joined by their convex interpolation, fixing endpoints. A zero-weight factor is first contracted using the corresponding null-homotopy hypothesis; when both weights vanish, contract both factors. Thus every degenerate case uses the stated geometric hypothesis. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S1}.
+For $m,n>0$, let $\lambda_{m,n}:I\to I$ be linear on either side of
+$m/(m+n)$, fixing $0,1$ and sending that breakpoint to $1/2$. Then
+\[
+ \alpha\star_{m,n}\beta
+   =(\alpha\star_{1,1}\beta)\circ\lambda_{m,n}.
+\]
+Interpolating $\lambda_{m,n}$ linearly with the identity gives an
+endpoint-fixed homotopy to $\alpha\star_{1,1}\beta$.
+If $m=0<n$, the hypothesis contracts $\alpha$ to its endpoint constant,
+so $\alpha\star_{1,1}\beta$ is homotopic to
+$\beta\circ(t\mapsto\max(0,2t-1))$, and then to $\beta$ by interpolating
+this parameter with $t$. The case $n=0<m$ uses
+$t\mapsto\min(2t,1)$ instead. If both weights vanish, contract both
+factors to the common endpoint constant. Thus every weighted expression
+is homotopic to its half-and-half concatenation, including all zero cases.
+Apply this to both sides, and horizontally concatenate the given
+homotopies from $\alpha$ to $\alpha'$ and from $\beta$ to $\beta'$ at
+the common breakpoint $1/2$.
 \end{proof}
 
 \begin{theorem}[realization soundness]
@@ -718,7 +790,11 @@ is an endpoint-fixed homotopy from
 $\alpha\star_{1,1}\alpha^{-1}$ to $c_{\alpha(0)}$.
 \end{lemma}
 \begin{proof}
-The displayed minimum is continuous; its boundary values are the backtracking path, the constant path, and the fixed endpoints. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S1}.
+The minimum is a continuous map $I^2\to I$, so $H$ is continuous.
+At $u=0$ its argument is $\min\{2t,2(1-t)\}$, traversing $\alpha$
+and then retracing it. At $u=1$ the argument is zero, and at $t=0,1$
+it is zero for every $u$. These are the required boundary conditions.
+Applying the same construction to $\alpha^{-1}$ gives the other inverse law.
 \end{proof}
 
 Because the homotopy stays entirely in $\alpha(I)$, it requires no disk in $X$.
@@ -865,13 +941,31 @@ needed.
 
 
 \subsection{Literal words and the realization boundary}
-The binary Lean carrier consists of endpoint-indexed parenthesized trees.
-Its binary realization recursively applies half-and-half \LeanName{Path.trans}.
+An endpoint-indexed tree is generated by $1_x$, primitive leaves
+$\langle e\rangle$, composable pairs $p;q$, and inverses $p^{-1}$.
+Flattening sends these to the empty word at $x$, one positive letter,
+word concatenation, and reversed signed word, respectively. Length is
+the length of the flattened word. Canonical reconstruction associates
+a nonempty word to the right, using inverses for negative letters;
+it sends the empty word at $x$ to $1_x$. Tree scoped rewriting uses the
+same structural constructors, with the named word rules imposed on
+their canonical reconstructions.
+The binary realization recursively sends $1_x$ to $c_x$, a primitive
+leaf to $\rho(e)$, a composite to half-and-half concatenation, and an
+inverse to path reversal; this is the Lean carrier using \LeanName{Path.trans}.
 The separate flat realization assigns each primitive letter exactly one
 $1/n$ slot and omits zero-length factors. Trees with the same signed word
 have equal flat parametrized realizations; flat and binary realizations
 are endpoint-fixed homotopic. The latter assertion supplies semantic
 soundness and does not compare observable quotient topologies.
+
+For either realization model, the tree observable trace topology is induced
+by $(s(p),t(p),\ell(p),|p|)$; its full-word refinement also records the
+flattened word in $\mathsf{Tr}_{\mathcal P}$. Coherent carriers additionally
+record $\gamma$. For flat realization the full-word trace topology is
+induced by flattening alone, since realization is continuous and
+word-determined. The binary refinement still retains exact binary
+realization, which can depend on the parentheses.
 
 \begin{proposition}[literal-word correspondence]
 \label{prop:literal-word-correspondence}
@@ -1656,7 +1750,18 @@ with the endpoint maps retained.
 \end{lemma}
 
 \begin{proof}
-The one-letter section is continuous for both topologies, because the primitive path coordinate has the compact-open topology. It is inverse after quotienting: universal scoped equivalence is exactly endpoint-fixed homotopy. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S2}.
+The map $\pi$ is a continuous coordinate projection for either topology.
+Its section $\sigma(\gamma)=(\langle\gamma\rangle,\gamma)$ is coherent
+by the constant homotopy and is continuous: its trace coordinate lies in
+the one-letter component $X^I$, and its observable code is
+$(\gamma(0),\gamma(1),1,\gamma,\gamma)$.
+Since $\pi\sigma=\mathrm{id}$, openness of $\pi^{-1}(U)$ implies
+openness of $U=\sigma^{-1}(\pi^{-1}(U))$. Thus $\pi$ is quotient.
+Both maps preserve endpoint-fixed homotopy of the chosen paths and
+induce continuous maps of the two quotients. Their composites are
+identities there: $\pi\sigma$ already is an identity, while
+$(p,\gamma)$ and $\sigma\pi(p,\gamma)$ have the same chosen path.
+This proves the claimed homeomorphism, preserving endpoints.
 \end{proof}
 
 \begin{lemma}[fiberwise coherent-path quotient]
@@ -1682,7 +1787,13 @@ to the endpoint-fixed homotopy quotient of $X^I(a,b)$.
 \end{lemma}
 
 \begin{proof}
-Restrict the continuous projection and one-letter section to the fixed endpoint fibers. Their composites agree with the identity after the specified geometric quotient. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S2}.
+The continuous maps $\pi$ and $\sigma$ restrict to the displayed endpoint
+fibers and still satisfy $\pi_{a,b}^{*}\sigma_{a,b}=\mathrm{id}$.
+Consequently, the same open-set argument proves directly that
+$\pi_{a,b}^{*}$ is quotient. Coherence and the universal named rules
+identify homotopy of the chosen paths with scoped equivalence on this
+fiber. The restricted maps therefore induce inverse continuous quotient
+maps as above. No restriction theorem for a global quotient map is used.
 \end{proof}
 
 Figure~\ref{fig:universal-section} records both requirements: a continuous
@@ -1918,6 +2029,7 @@ with a primitive step $\lambda_n$ for each $n\in\Z$,
 \[
   \lambda_n(t)=[tn].
 \]
+Give this integer-indexed primitive alphabet the discrete topology.
 Its named rules are the derived integer rules
 \[
   (n;m)\RwEq(n+m),\qquad 1_0\RwEq 0,
@@ -1955,7 +2067,37 @@ nondegenerate: the images of the zero and one winding loops are distinct.
 \end{theorem}
 
 \begin{proof}
-Lift a based loop to $\mathbb R$ starting at zero. Its integer endpoint is homotopy invariant; straight-line interpolation gives the standard representative. Scoped cancellation yields the same normal form. Uniformly close circle loops have homotopic lifts, so winding is locally constant. The discrete normal-form section gives the inverse homeomorphism. The variable-base winding map supplies the separate global-fiber comparison. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S3}.
+A based loop has a unique lift to $\mathbb R$ starting at zero.
+Its integer endpoint $n$ is invariant under endpoint-fixed homotopy.
+Straight-line interpolation of the lift with $t\mapsto tn$ gives a
+homotopy to $\lambda_n$. The lift of a concatenation follows the first
+lift and then a translate of the second, so winding is additive.
+Thus winding identifies $L$ with $\Z$ as groups. The reduction lemma
+normalizes each trace to $c_n$, with $|c_n|=\lambda_n$; soundness separates
+different integers. Hence the presentation is complete and
+$S_0([\gamma])=q(c_n,\lambda_n)$ is inverse to realization.
+
+For continuity, use the standard quotient metric on $\mathbb T$.
+If based loops $\gamma,\delta$ are uniformly less than $1/2$ apart,
+their difference $\delta-\gamma$ has a unique continuous lift
+$d:I\to(-1/2,1/2)$ with $d(0)=d(1)=0$.
+Then $(u,t)\mapsto\gamma(t)+[u d(t)]$ is an endpoint-fixed homotopy.
+The compact-open and uniform topologies agree for these paths, so winding
+is locally constant. It descends continuously to $L\to\Z$; the inverse
+$n\mapsto[\lambda_n]$ is continuous because $\Z$ is discrete.
+The same discreteness makes $n\mapsto q(c_n,\lambda_n)$ continuous.
+Projection to the chosen loop induces its continuous inverse, proving
+the asserted scoped homeomorphism for either representative topology.
+
+The topology inherited from the global arrow quotient can be checked
+separately. Every trace in this presentation has equal endpoints.
+On its full coherent carrier define
+$W(p,\gamma)=\operatorname{wind}(t\mapsto\gamma(t)-s(p))$.
+Translation and winding are continuous, and soundness makes $W$
+constant on scoped classes, so it descends continuously to the global
+quotient. Its restriction to the based subspace is bijective by the
+same normal forms and has continuous inverse from discrete $\Z$.
+Thus this actual subspace also has the claimed discrete topology.
 \end{proof}
 
 
@@ -1966,7 +2108,8 @@ Let
 \[
   \mathbb T^2=(\mathbb R/\mathbb Z)\times(\mathbb R/\mathbb Z)
 \]
-with base point $(0,0)$.  Use two finite oriented generators
+with base point $(0,0)$. Use the discrete primitive alphabet with two
+oriented generators
 \[
   a(t)=([t],[0]),
   \qquad b(t)=([0],[t]).
@@ -2066,7 +2209,27 @@ is a homeomorphism.
 \end{theorem}
 
 \begin{proof}
-Apply circle lifting in each coordinate. The commuting-square rule sorts the two generators, and cancellation gives the integer-pair normal form. Coordinate winding is locally constant and the discrete normal-form section is continuous. The variable-base winding pair gives the separate global-fiber comparison. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S3}.
+Lift a based loop coordinatewise to $\mathbb R^2$ starting at $(0,0)$.
+Its endpoint $(m,n)\in\Z^2$ is homotopy invariant, and interpolation
+with $t\mapsto(mt,nt)$ gives a homotopy to $d_{m,n}$.
+Coordinate winding is additive, so it identifies $L_{\mathbb T^2}$
+with $\Z^2$ as groups. The signed commuting rules and cancellation
+normalize every word to $a^m;b^n$; Lemma~\ref{lem:torus-sequential}
+makes $(a^m;b^n,d_{m,n})$ coherent. Equal geometric winding pairs
+therefore give a scoped derivation through this common normal form,
+proving completeness.
+
+Each coordinate winding is locally constant by the circle argument.
+The winding pair consequently descends continuously to
+$L_{\mathbb T^2}\to\Z^2$, whose inverse sends $(m,n)$ to $[d_{m,n}]$.
+Both this inverse and $(m,n)\mapsto q(a^m;b^n,d_{m,n})$ are continuous
+from discrete $\Z^2$. Projection to the chosen loop gives the continuous
+realization comparison, proving the stated homeomorphisms.
+For the actual based subspace of the global arrow quotient, take the
+two windings of $t\mapsto\gamma(t)-s(p)$ on the full coherent carrier.
+As for the circle, continuity and soundness give a continuous descended
+map to $\Z^2$. On the based subspace it is bijective by normalization,
+and its inverse is continuous from the discrete domain.
 \end{proof}
 
 Figure~\ref{fig:winding} illustrates the lifted paths used in both proofs.
@@ -2077,7 +2240,14 @@ Figure~\ref{fig:winding} illustrates the lifted paths used in both proofs.
 The torus sorting argument extends to a product without requiring normal
 forms for either factor.  Let $\mathcal P$ be a sound scoped presentation
 on $X$ with primitive steps $E$, and let $\mathcal Q$ be one on $Y$ with
-primitive steps $F$.  A product trace has horizontal letters $(e,y')$ and
+primitive steps $F$. Give the product primitive space
+$(E\times Y)\sqcup(X\times F)$ its product and coproduct topologies.
+Its horizontal step $(e,y')$ has endpoints $(s(e),y')$, $(t(e),y')$
+and realization $t\mapsto(\rho(e)(t),y')$; a vertical step $(x',f)$
+has endpoints $(x',s(f))$, $(x',t(f))$ and realization
+$t\mapsto(x',\rho(f)(t))$. These endpoint maps are continuous, and
+compact-open evaluation and the exponential law make both realization
+maps continuous. A product trace has horizontal letters $(e,y')$ and
 vertical letters $(x',f)$, where $e\in E$, $f\in F$, $x'\in X$, and
 $y'\in Y$.  Their realizations hold the other coordinate fixed.  Lift each
 named rule of $\mathcal P$ at every $y'$, and each rule of $\mathcal Q$ at
@@ -2115,7 +2285,25 @@ complete on the based-loop fiber at $(x,y)$.
 \end{theorem}
 
 \begin{proof}
-Primitive rectangle swaps move horizontal letters before vertical letters, including all signs. Induction sorts every product trace into factor traces. Completeness of the factors then identifies exactly the traces with homotopic geometric realizations; soundness gives the converse. Detailed calculations are in the \href{technical-supplement.pdf}{Supplement, Section~S3}.
+The derived interchange moves a vertical factor word past a horizontal
+one. Induction on concatenation and reversal therefore rewrites each
+product trace into its horizontal projection followed by its vertical
+projection. For a trace based at $(x,y)$ the result is
+$H_y(p);V_x(q)$, where $p$ is a loop at $x$ and $q$ a loop at $y$.
+
+Suppose two coherent product loops have homotopic chosen representatives.
+Coherence and soundness of sorting give a homotopy between their sorted
+realizations. Project it to $X$ and $Y$. In either projection the letters
+of the other factor contribute only constant pauses. Deleting these
+pauses gives the corresponding factor realization up to endpoint-fixed
+homotopy: interpolate its nondecreasing piecewise-linear time parameter
+with the identity; an empty factor is constant. Thus the two horizontal
+factor realizations are homotopic, as are the two vertical ones.
+Factor completeness supplies scoped derivations between the respective
+factor words. Lift the horizontal derivation at $y$ and the vertical
+derivation at $x$, then compose with the sorting derivations. This gives
+the required scoped equality of the original product traces; the converse
+is soundness.
 \end{proof}
 
 Iterating the theorem from the finite oriented circle presentation gives
@@ -2338,14 +2526,17 @@ facts remain external geometric inputs; no such facts are added as axioms.
 The rose result classifies all continuous loops algebraically, with
 Mathlib's opposite multiplication convention explicit. Its topological
 statements concern the fixed-endpoint computational quotients.
+The general operation-continuity and final-domain groupoid declarations
+use binary realization. The corresponding equal-slot results are proved
+mathematically here; the flat formal bridges certify the arrow and pair
+spaces without separately checking continuity of the canonical flat
+operations or their compatibility with those bridges.
 
-The \href{technical-supplement.pdf}{Supplement, Section~S4} maps results to
-declarations, assumptions, models, and commits. It distinguishes current
-kernel and independent replay checks from the earlier immutable registered
-selection. Repository manifests and exact-source logs supply reproducible
-verification boundaries. Challenge-side statement placeholders are distinct
-from the substantive checked proofs. The Supplement supplies detailed
-construction and classical-example proofs.
+Repository manifests and exact-source logs record the selected declarations,
+assumptions, models, and commits. They distinguish current kernel and
+independent replay checks from the earlier immutable registered selection.
+Challenge-side statement placeholders are distinct from the substantive
+checked proofs.
 
 \section{Conclusion}
 The semantics depends on the declared rewrites, exact parametrization and
