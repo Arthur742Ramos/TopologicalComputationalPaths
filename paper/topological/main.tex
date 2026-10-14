@@ -1281,11 +1281,8 @@ map alone would not establish that conclusion. The pair-section argument
 here is mathematical; the formal selection of the universal-collapse module
 checks the arrow comparison.
 
-The discontinuity result is Fabel's.  We use it to show that the two
-composable-pair topologies do differ, and that the failure sits at the inverse
-of the comparison map $j$.  With the final topology, multiplication is
-continuous here as it is for every presentation, while for the ordinary
-product topology it is not.
+Fabel's discontinuity theorem thus detects the failure of continuity of
+$j^{-1}$.
 
 \section{Functoriality}
 \label{sec:functoriality}
@@ -1452,13 +1449,11 @@ Quotient descent therefore gives inverse continuous maps in all three cases.
 The pair projection equations already hold on representatives.
 \end{proof}
 
-The continuity conclusion is derived from primitive data; continuity of the
-whole substitution or a quotient homeomorphism is not assumed. These
-homeomorphisms preserve endpoints and scoped computation. Compatibility with
-the geometric homotopy comparison requires the additional condition that
+Compatibility with the geometric homotopy comparison requires the additional
+condition that
 each substituted primitive realization is homotopic to the original path;
 \LeanName{WordSubstitution.map_flat_homotopic} verifies its extension to all
-traces. Neither statement identifies final and ordinary composable topologies.
+traces. These comparisons do not identify final and ordinary composable topologies.
 
 For a nondiscrete application, take $X=\mathbb R\times\Circle$ and the
 primitive family $E=\mathbb R$, with $e_x$ based at $(x,0)$ and realizing
@@ -1723,11 +1718,9 @@ For every topological space $X$, take the primitive step space to be the
 continuous interval path space $X^I$.  Its endpoint maps are evaluation at
 $0$ and $1$.  Declare two parallel traces to be named generators exactly when
 their realized paths are endpoint-fixed homotopic.
-Thus every continuous path $\gamma$ is itself available as a one-letter
-primitive trace.  If two realizations are endpoint-fixed homotopic, that
-homotopy is literally one of the declared universal rules.  The universal
-presentation is therefore complete in one step: the ambient homotopy relation
-is built into the presentation instead of being derived from a normalizer.
+Every continuous path is available as a one-letter primitive trace, and
+completeness is built into the declared rules rather than derived from a
+normalizer.
 
 The two lemmas below treat both representative topologies explicitly.
 Without a superscript, $T_{\mathcal U_X}$ and $G_{\mathcal U_X}$ refer to the
@@ -2018,11 +2011,8 @@ For example, the cancellation mechanism gives the concrete scoped reduction
 The first step cancels the initial $a;a^{-1}$ pair and the second cancels the
 remaining $a^{-1};a$ pair.
 
-The reduction lemma is the normal-form certificate from
-Section~\ref{sec:comparison}: the reduction derivation gives clause (a), and the lifted endpoint
-gives clause (b).  Thus the
-minimal circle presentation is geometrically complete on its based loop
-fiber.
+The reduction and lifted endpoint give clauses (a) and (b) of the
+normal-form certificate in Section~\ref{sec:comparison}.
 
 The derived integer normal forms also give a completed presentation
 with a primitive step $\lambda_n$ for each $n\in\Z$,
@@ -2039,15 +2029,9 @@ This integer-indexed presentation packages normal forms already derived
 from the single generator.  The proof of the finite-generator classification
 does not use it.
 
-Let $L$ be the endpoint-fixed homotopy quotient of the based circle loop space,
-with its quotient topology.  The map sending a loop class to its winding
-number and the map
-sending $n$ to the standard loop class are inverse maps.
-Under the completeness conclusion below, write
-\[
-  S_0:L\longrightarrow G_{\mathcal P}(0,0)
-\]
-for the inverse of the realization comparison on the based-loop fiber.
+Let $L$ be the endpoint-fixed homotopy quotient of the based circle loop
+space, with its quotient topology, and denote by $S_0$ the inverse
+realization comparison supplied by the following theorem.
 
 \begin{theorem}[circle winding classification]
 \label{thm:circle-winding}
@@ -2183,13 +2167,9 @@ $\mathbb R^2\to\mathbb T^2$ gives the required endpoint-fixed homotopy.
 \end{proof}
 
 Let $L_{\mathbb T^2}$ be the endpoint-fixed homotopy quotient of the based
-loop space of $\mathbb T^2$, with its quotient topology.  Under geometric
-completeness, write
-\[
-  S_{\mathbb T^2}:L_{\mathbb T^2}\longrightarrow
-  G_{\mathcal P}((0,0),(0,0))
-\]
-for the inverse of the realization comparison on the based-loop fiber.
+loop space of $\mathbb T^2$, with its quotient topology, and denote by
+$S_{\mathbb T^2}$ the inverse realization comparison supplied by the
+following theorem.
 
 \begin{theorem}[torus winding classification]
 \label{thm:torus-winding}
@@ -2247,9 +2227,7 @@ and realization $t\mapsto(\rho(e)(t),y')$; a vertical step $(x',f)$
 has endpoints $(x',s(f))$, $(x',t(f))$ and realization
 $t\mapsto(x',\rho(f)(t))$. These endpoint maps are continuous, and
 compact-open evaluation and the exponential law make both realization
-maps continuous. A product trace has horizontal letters $(e,y')$ and
-vertical letters $(x',f)$, where $e\in E$, $f\in F$, $x'\in X$, and
-$y'\in Y$.  Their realizations hold the other coordinate fixed.  Lift each
+maps continuous. Lift each
 named rule of $\mathcal P$ at every $y'$, and each rule of $\mathcal Q$ at
 every $x'$.  Add interchange around every primitive rectangle:
 \[
@@ -2361,7 +2339,7 @@ closed intervals, with precisely the specified endpoint identifications.
 Map each interval to the corresponding primitive circle loop and each
 vertex to $o$.
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=.88, every node/.style={font=\small}]
   \draw (-4.8,0) circle (.65);

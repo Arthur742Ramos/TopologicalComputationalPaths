@@ -1,8 +1,8 @@
 {
   "main": {
     "pages": 38,
-    "bytes": 285518,
-    "sha256": "63537def3ce5e54bf71c9f9cbe0fc953d0c7d5d6f5ee53d54a2fbc91406ad3fb",
+    "bytes": 284660,
+    "sha256": "3109740185e68cc361823ba5e3d340fa4f5abcb29ad0b977cdc3e6bbafdca13f",
     "fonts": 37,
     "all_fonts_embedded": true,
     "actions": {
@@ -42,7 +42,7 @@
       },
       {
         "number": 7,
-        "page": 23
+        "page": 22
       },
       {
         "number": 8,
@@ -67,7 +67,7 @@
   "supplement": {
     "pages": 18,
     "bytes": 161761,
-    "sha256": "c792be63c15ef3292ec4907365d4db19fd51f2dc097be9db3ecd724d04458d75",
+    "sha256": "b934131cef717b41755662325f8168b9b15a69397ddfdf7c3accd7c38a379179",
     "fonts": 30,
     "all_fonts_embedded": true,
     "actions": {
@@ -224,12 +224,12 @@
     "unchanged_protected_files": 140,
     "preamble_unchanged": true,
     "theorem_lemma_proposition_corollary_statements_unchanged": true,
-    "figure_environments_unchanged": true,
+    "figure_art_captions_alt_text_unchanged": true,
     "main_supplement_mentions": 0
   },
   "archival_pdf_sha256": "e3da433ff781ea1d3dc80c15c147a3cf812e2052fd5806b319f8575b71045f4a",
   "source_hashes": {
-    "paper/topological/main.tex": "d07deb1d4df0b3bc7d43d3027c300f1c37cca14eac7164c9aa85e496a6e5de08",
+    "paper/topological/main.tex": "43922e704eeb56798a7060089b42b372d2b13db9c89679a637ae7710682e2868",
     "paper/topological/supplement.tex": "4b0ba17d0dd05ac3002453d93c261a6b5fd9a7abfd28ba1dd313aaf48be63d6f",
     "paper/topological/figures/oriented-steps.tex": "cf50fa1420ff77306a71b97c69293ba9924522d8ac08bcd15d51f4fb208b823c",
     "paper/topological/figures/same-geometry.tex": "f29fb43202a0358828699a28d647913f8c174b230455d04f83ebea49d0c1466a",
