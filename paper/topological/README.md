@@ -2,14 +2,17 @@
 
 The main paper is [main.tex](main.tex), with a compiled version at
 [verified/main-reviewed.pdf](verified/main-reviewed.pdf). It uses the existing
-10-point `amsart` layout and compiles to **36 pages including references**.
+10-point `amsart` layout and compiles to **38 pages including references**.
 All nine original explanatory figures remain in the main paper, together with
 new timing-model and conservative-generator diagrams (eleven figures total).
 Figure captions are followed by authored alt text in the source and review PDF.
 The [technical supplement](supplement.tex)
-([PDF](verified/technical-supplement.pdf), 18 pages) holds the longer construction,
-circle, torus and product calculations, and complete
+([PDF](verified/technical-supplement.pdf), 18 pages) holds optional expanded
+construction, circle, torus and product calculations, and complete
 maps of declarations, assumptions, models and verified source commits.
+The main paper contains its own construction and example proofs and does not
+refer readers to the supplement. Its introduction includes a typed lambda-calculus
+example distinguishing equality of terms from rewrites between witnesses.
 
 The 35-page working target is the user's editorial goal. The
 [official IGPL instructions](https://academic.oup.com/jigpal/pages/General_Instructions)
@@ -66,8 +69,8 @@ tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topologi
 tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/supplement.tex
 ```
 
-The links between the PDFs use `main-reviewed.pdf` and
-`technical-supplement.pdf`; keep both published PDFs in the same directory.
+The supplement links to `main-reviewed.pdf` and the archived PDF;
+keep the published PDFs in the same directory to preserve those links.
 Full historical verification records, including the distinct parent and
 Palomar snapshots, are in supplement Section S4 and its declaration appendix.
 
@@ -85,3 +88,7 @@ recorded in [figure-placement evidence](../../evidence/figure-placement/README.m
 
 The subsequent Astra revision, mathematical review and 36/18-page PDF audit
 are recorded in [paper-review evidence](../../evidence/astra-paper-review/README.md).
+
+The self-contained 38-page revision, typed example, independent Astra review,
+and all-page figure audit are recorded in
+[self-contained paper evidence](../../evidence/self-contained-paper/README.md).
