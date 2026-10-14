@@ -1366,6 +1366,23 @@ each substituted primitive realization is homotopic to the original path;
 \LeanName{WordSubstitution.map_flat_homotopic} verifies its extension to all
 traces. Neither statement identifies final and ordinary composable topologies.
 
+For a nondiscrete application, take $X=\mathbb R\times\Circle$ and the
+primitive family $E=\mathbb R$, with $e_x$ based at $(x,0)$ and realizing
+$t\mapsto(x,[t])$. Declare no named rules. Enlarge the alphabet to
+$E'=\mathbb R\sqcup\mathbb R$ by adding $a_x$, realizing
+$t\mapsto(x,[2t])$, with the defining rule $a_x\RwEq e_x;e_x$.
+The realization families are continuous, and the defining rule is sound by
+exact equal-slot realization. Inclusion and elimination $a_x\mapsto e_x;e_x$
+preserve the rules; their primitive roundtrips are identities or instances
+of the defining rule. The elimination word code is the continuous map
+$x\mapsto(e_x)$ on one component and the diagonal map $x\mapsto(e_x,e_x)$
+on the other. Inclusion is continuous into the one-letter stratum.
+Theorem~\ref{thm:flat-word-invariance} therefore gives the global and
+final-pair homeomorphisms for these nondiscrete alphabets. Output length is
+one on the old component and two on the added component. In general,
+continuous word codes force output length to be locally constant, hence
+constant on a connected primitive alphabet.
+
 Figure~\ref{fig:redundant-generator} illustrates the following conservative move.
 
 \begin{proposition}[a redundant generator erases an observable distinction]
@@ -1402,11 +1419,15 @@ This checked statement concerns the canonical presentation equivalence; it
 does not claim nonhomeomorphism under every unrelated bijection. It needs
 neither a nontrivial geometric loop nor geometric completeness. Matching
 coherent-representative elimination transports this fixed-endpoint result
-to the corresponding coherent quotients. Algebraic presentation changes
-already have an extensive theory; Henry and Mimram, for example, study
-Tietze equivalence for monoid presentations~\cite{HenryMimram21}. The issue
-here is preservation of a topology that observes computational length and
-exact parametrized paths. Brazas instead uses free topological groups to
+to the corresponding coherent quotients. Henry and Mimram study Tietze
+equivalence for monoid presentations~\cite{HenryMimram21}. Mimram and Oleon
+characterize when $1$-polygraphs present equivalent sets in homotopy type
+theory and transfer coherence structures along their Tietze
+transformations~\cite{MimramOleon25}. Here the additional question is
+continuity for specified quotient topologies on geometric representatives:
+scoped roundtrips establish the algebraic equivalence, while primitive word
+codes control the full-word topology and exact observations can obstruct
+continuity. Brazas uses free topological groups to
 obtain a topological-group topology on the fundamental
 group~\cite{Brazas13Tau}. Our final composable domain retains the declared
 arrow quotient topology. No priority claim is made for the abbreviation
@@ -1535,6 +1556,15 @@ The former does not imply the latter.  The universal presentation is
 geometrically complete for every $X$, yet in the Hawaiian-earring example of
 Proposition~\ref{prop:hawaiian-earring} multiplication on its observable
 based-fiber quotient is discontinuous for the ordinary product topology.
+This also obstructs global compatibility. The base point is closed in the
+Hausdorff Hawaiian earring, so continuity of source and target makes its
+based arrow fiber closed. A quotient map restricted over a closed target
+subset remains quotient: a closed restricted preimage is closed in the
+whole domain, and the quotient criterion then gives closedness in the
+target. Thus the based quotient has the global fiber's subspace topology.
+If the global ordinary pair map were quotient, its restriction over the
+closed based-pair subset would be quotient as well, contradicting
+Proposition~\ref{prop:hawaiian-earring}.
 \end{remark}
 
 \begin{definition}[normal-form certificate]

@@ -9,7 +9,7 @@ the resulting semantics.
 
 ## Paper and verified artifacts
 
-- [Main paper](paper/topological/verified/main-35-pages.pdf), 35 pages with eleven
+- [Main paper](paper/topological/verified/main-reviewed.pdf), 36 pages with eleven
   explanatory figures; [LaTeX source](paper/topological/main.tex).
 - [Technical supplement](paper/topological/verified/technical-supplement.pdf),
   18 pages; [source](paper/topological/supplement.tex). It contains longer
@@ -18,7 +18,7 @@ the resulting semantics.
 - [Preserved full manuscript](paper/topological/full-manuscript.tex) and
   [51-page archival PDF](paper/topological/verified/geometric-rose-all-loops.pdf).
 
-The 35-page count is the working manuscript target, including references and
+Approximately 35 pages is the working manuscript target, including references and
 visible review-copy alt text. IGPL asks for about 30 printed pages; the current
 amsart count is not a verified journal production count. See the
 [official-guidance record](evidence/paper35/igpl-guidance.md).
