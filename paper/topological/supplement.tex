@@ -77,7 +77,7 @@
 \subjclass[2020]{Primary 22A22, 54B15; Secondary 03B38, 55Q05, 68V20, 54B30}
 \keywords{computational paths, rewriting, fundamental groupoid, quotient topology, topological groupoid}
 
-\externaldocument[main-]{../../output/paper35/main}[main-35-pages.pdf]
+\externaldocument[main-]{../../output/paper35/main}[main-reviewed.pdf]
 \begin{document}
 
 \raggedbottom
@@ -86,7 +86,7 @@
 \begin{abstract}
 This supplement retains the full construction proofs, classical examples,
 formalization maps, and artifact history accompanying the
-\href{main-35-pages.pdf}{main paper}. Its theorem numbering is local to the
+\href{main-reviewed.pdf}{main paper}. Its theorem numbering is local to the
 supplement. References to omitted main-paper sections and results link to
 that paper. The earlier \href{geometric-rose-all-loops.pdf}{full manuscript}
 is preserved separately.
@@ -659,6 +659,10 @@ Flat elimination & \LeanName{quotientHomeomorph} &
 Fixed endpoints; flat realization continuous for supplied trace topology & Flat tree\\
 Flat discreteness & \LeanName{BinaryCircle.flat_traceQuotient_discrete} &
 Circle paths with six distinct oriented realizations; fixed-base carrier & Flat\\
+General operations and final multiplication & Mathematical proof;
+no separate flat declaration & Continuous presentation;
+main Lemma~\ref{main-lem:coherent-operations-continuous} and
+Theorem~\ref{main-thm:final-groupoid} & Flat\\
 \bottomrule
 \end{tabular}
 \caption{Model-boundary verification map. The first row is in
@@ -684,6 +688,11 @@ retain their own scopes. Later selections extend this coverage as described
 below.}
 \label{tab:model-boundary-verification}
 \end{table}
+
+The last row records a remaining coverage boundary. The general binary
+operations and final-domain theorem are checked. The flat homeomorphisms
+certify arrow and pair spaces; they do not separately check continuity of
+the canonical flat operations or their compatibility with those homeomorphisms.
 
 \paragraph{8 October 2026: first substitution selection.}
 The presentation-change milestone added

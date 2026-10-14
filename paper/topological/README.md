@@ -1,8 +1,8 @@
 # Topological semantics manuscript
 
 The main paper is [main.tex](main.tex), with a compiled version at
-[verified/main-35-pages.pdf](verified/main-35-pages.pdf). It uses the existing
-10-point `amsart` layout and compiles to **35 pages including references**.
+[verified/main-reviewed.pdf](verified/main-reviewed.pdf). It uses the existing
+10-point `amsart` layout and compiles to **36 pages including references**.
 All nine original explanatory figures remain in the main paper, together with
 new timing-model and conservative-generator diagrams (eleven figures total).
 Figure captions are followed by authored alt text in the source and review PDF.
@@ -66,7 +66,7 @@ tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topologi
 tectonic --keep-logs --keep-intermediates --outdir output/paper35 paper/topological/supplement.tex
 ```
 
-The links between the PDFs use `main-35-pages.pdf` and
+The links between the PDFs use `main-reviewed.pdf` and
 `technical-supplement.pdf`; keep both published PDFs in the same directory.
 Full historical verification records, including the distinct parent and
 Palomar snapshots, are in supplement Section S4 and its declaration appendix.
@@ -82,3 +82,6 @@ are recorded in [prose and diagram review evidence](../../evidence/humanizer-dia
 
 The page-by-page figure-placement audit and its two layout improvements are
 recorded in [figure-placement evidence](../../evidence/figure-placement/README.md).
+
+The subsequent Astra revision, mathematical review and 36/18-page PDF audit
+are recorded in [paper-review evidence](../../evidence/astra-paper-review/README.md).
